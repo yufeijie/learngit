@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PV_analysis", "PV_analysis.csproj", "{059BB485-5F99-437B-ADFC-8BD52DFFAADA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{059BB485-5F99-437B-ADFC-8BD52DFFAADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{059BB485-5F99-437B-ADFC-8BD52DFFAADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{059BB485-5F99-437B-ADFC-8BD52DFFAADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{059BB485-5F99-437B-ADFC-8BD52DFFAADA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9CF6CB73-324C-4623-A2E2-13EE82657F42}
+	EndGlobalSection
+EndGlobal
