@@ -30,6 +30,7 @@
         {
             this.Home_Panel = new System.Windows.Forms.Panel();
             this.Home_Main_Panel = new System.Windows.Forms.Panel();
+            this.Home_PictureBox = new System.Windows.Forms.PictureBox();
             this.Home_Label = new System.Windows.Forms.Label();
             this.Tab_Home_Button = new System.Windows.Forms.Button();
             this.Tab_Estimate_Button = new System.Windows.Forms.Button();
@@ -46,8 +47,10 @@
             this.Estimate_Step1_Main_Right_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1_Item2_panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1_Item2_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step1_Item2_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step1_Item1_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1_Item1_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step1_Item1_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step1_Main_Left_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1_CheckedListBox = new System.Windows.Forms.CheckedListBox();
             this.Estimate_Step1_Title_Panel = new System.Windows.Forms.Panel();
@@ -60,16 +63,22 @@
             this.Estimate_Step2_Main_Right_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group3_Item1_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group3_Item1_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step2_Group3_Item1_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Group2_Item2_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group2_Item2_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step2_Group2_Item2_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Group2_Item1_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group2_Item1_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step2_Group2_Item1_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Group1_Item3_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group1_Item3_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step2_Group1_Item3_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Group1_Item2_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group1_Item2_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step2_Group1_Item2_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Group1_Item1_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group1_Item1_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step2_Group1_Item1_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Main_Left_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group3_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group3_CheckedListBox = new System.Windows.Forms.CheckedListBox();
@@ -133,206 +142,6 @@
             this.Estimate_Step3_Next_Button = new System.Windows.Forms.Button();
             this.Estimate_Step4_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step4_Main_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Step4_Title_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Step4_Title_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step4_Operation_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Step4_Prev_Button = new System.Windows.Forms.Button();
-            this.Estimate_Step4_Next_Button = new System.Windows.Forms.Button();
-            this.Estimate_Step5_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Step5_Title_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Step5_Title_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Operation_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Step5_Prev_Button = new System.Windows.Forms.Button();
-            this.Estimate_Step5_Next_button = new System.Windows.Forms.Button();
-            this.Estimate_Result_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Result_Main_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Result_Main_Label = new System.Windows.Forms.Label();
-            this.Estimate_Result_Title_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Result_Title_Label = new System.Windows.Forms.Label();
-            this.Estimate_Result_Operation_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Result_Restart_Button = new System.Windows.Forms.Button();
-            this.Estimate_Result_Save_Button = new System.Windows.Forms.Button();
-            this.Estimate_Result_Display_Button = new System.Windows.Forms.Button();
-            this.Display_Ready_Panel = new System.Windows.Forms.Panel();
-            this.Display_Ready_Main_Panel = new System.Windows.Forms.Panel();
-            this.Display_Ready_Label = new System.Windows.Forms.Label();
-            this.Display_Ready_Operation_Panel = new System.Windows.Forms.Panel();
-            this.Display_Ready_Load_Button = new System.Windows.Forms.Button();
-            this.Display_Show_Panel = new System.Windows.Forms.Panel();
-            this.Display_Show_Main_Panel = new System.Windows.Forms.Panel();
-            this.Display_Show_Operation_Panel = new System.Windows.Forms.Panel();
-            this.Display_Show_Restart_Button = new System.Windows.Forms.Button();
-            this.Display_Show_Detail_Button = new System.Windows.Forms.Button();
-            this.Display_Detail_Panel = new System.Windows.Forms.Panel();
-            this.Display_Detail_Main_Panel = new System.Windows.Forms.Panel();
-            this.Display_Detail_Label = new System.Windows.Forms.Label();
-            this.Display_Detail_Operation_Panel = new System.Windows.Forms.Panel();
-            this.Display_Detail_Back_Button = new System.Windows.Forms.Button();
-            this.Admin_Panel = new System.Windows.Forms.Panel();
-            this.Admin_Main_Panel = new System.Windows.Forms.Panel();
-            this.Admin_Label = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label26 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
-            this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.checkBox13 = new System.Windows.Forms.CheckBox();
-            this.checkBox14 = new System.Windows.Forms.CheckBox();
-            this.checkBox15 = new System.Windows.Forms.CheckBox();
-            this.checkBox16 = new System.Windows.Forms.CheckBox();
-            this.checkBox17 = new System.Windows.Forms.CheckBox();
-            this.checkBox18 = new System.Windows.Forms.CheckBox();
-            this.checkBox19 = new System.Windows.Forms.CheckBox();
-            this.checkBox20 = new System.Windows.Forms.CheckBox();
-            this.checkBox21 = new System.Windows.Forms.CheckBox();
-            this.checkBox22 = new System.Windows.Forms.CheckBox();
-            this.checkBox23 = new System.Windows.Forms.CheckBox();
-            this.checkBox24 = new System.Windows.Forms.CheckBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.checkBox25 = new System.Windows.Forms.CheckBox();
-            this.checkBox26 = new System.Windows.Forms.CheckBox();
-            this.checkBox27 = new System.Windows.Forms.CheckBox();
-            this.checkBox28 = new System.Windows.Forms.CheckBox();
-            this.checkBox29 = new System.Windows.Forms.CheckBox();
-            this.checkBox30 = new System.Windows.Forms.CheckBox();
-            this.checkBox31 = new System.Windows.Forms.CheckBox();
-            this.checkBox32 = new System.Windows.Forms.CheckBox();
-            this.checkBox33 = new System.Windows.Forms.CheckBox();
-            this.checkBox34 = new System.Windows.Forms.CheckBox();
-            this.checkBox35 = new System.Windows.Forms.CheckBox();
-            this.checkBox36 = new System.Windows.Forms.CheckBox();
-            this.checkBox37 = new System.Windows.Forms.CheckBox();
-            this.checkBox38 = new System.Windows.Forms.CheckBox();
-            this.checkBox39 = new System.Windows.Forms.CheckBox();
-            this.checkBox40 = new System.Windows.Forms.CheckBox();
-            this.checkBox41 = new System.Windows.Forms.CheckBox();
-            this.checkBox42 = new System.Windows.Forms.CheckBox();
-            this.checkBox43 = new System.Windows.Forms.CheckBox();
-            this.checkBox44 = new System.Windows.Forms.CheckBox();
-            this.checkBox45 = new System.Windows.Forms.CheckBox();
-            this.checkBox46 = new System.Windows.Forms.CheckBox();
-            this.checkBox47 = new System.Windows.Forms.CheckBox();
-            this.checkBox48 = new System.Windows.Forms.CheckBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
-            this.label40 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label28 = new System.Windows.Forms.Label();
-            this.checkBox49 = new System.Windows.Forms.CheckBox();
-            this.checkBox50 = new System.Windows.Forms.CheckBox();
-            this.checkBox51 = new System.Windows.Forms.CheckBox();
-            this.checkBox52 = new System.Windows.Forms.CheckBox();
-            this.checkBox53 = new System.Windows.Forms.CheckBox();
-            this.checkBox54 = new System.Windows.Forms.CheckBox();
-            this.checkBox55 = new System.Windows.Forms.CheckBox();
-            this.checkBox56 = new System.Windows.Forms.CheckBox();
-            this.checkBox57 = new System.Windows.Forms.CheckBox();
-            this.checkBox58 = new System.Windows.Forms.CheckBox();
-            this.checkBox59 = new System.Windows.Forms.CheckBox();
-            this.checkBox60 = new System.Windows.Forms.CheckBox();
-            this.checkBox61 = new System.Windows.Forms.CheckBox();
-            this.checkBox62 = new System.Windows.Forms.CheckBox();
-            this.checkBox63 = new System.Windows.Forms.CheckBox();
-            this.checkBox64 = new System.Windows.Forms.CheckBox();
-            this.checkBox65 = new System.Windows.Forms.CheckBox();
-            this.checkBox66 = new System.Windows.Forms.CheckBox();
-            this.checkBox67 = new System.Windows.Forms.CheckBox();
-            this.checkBox68 = new System.Windows.Forms.CheckBox();
-            this.checkBox69 = new System.Windows.Forms.CheckBox();
-            this.checkBox70 = new System.Windows.Forms.CheckBox();
-            this.checkBox71 = new System.Windows.Forms.CheckBox();
-            this.checkBox72 = new System.Windows.Forms.CheckBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.checkBox73 = new System.Windows.Forms.CheckBox();
-            this.checkBox74 = new System.Windows.Forms.CheckBox();
-            this.checkBox75 = new System.Windows.Forms.CheckBox();
-            this.checkBox76 = new System.Windows.Forms.CheckBox();
-            this.checkBox77 = new System.Windows.Forms.CheckBox();
-            this.checkBox78 = new System.Windows.Forms.CheckBox();
-            this.checkBox79 = new System.Windows.Forms.CheckBox();
-            this.checkBox80 = new System.Windows.Forms.CheckBox();
-            this.checkBox81 = new System.Windows.Forms.CheckBox();
-            this.checkBox82 = new System.Windows.Forms.CheckBox();
-            this.checkBox83 = new System.Windows.Forms.CheckBox();
-            this.checkBox84 = new System.Windows.Forms.CheckBox();
-            this.checkBox85 = new System.Windows.Forms.CheckBox();
-            this.checkBox86 = new System.Windows.Forms.CheckBox();
-            this.checkBox87 = new System.Windows.Forms.CheckBox();
-            this.checkBox88 = new System.Windows.Forms.CheckBox();
-            this.checkBox89 = new System.Windows.Forms.CheckBox();
-            this.checkBox90 = new System.Windows.Forms.CheckBox();
-            this.checkBox91 = new System.Windows.Forms.CheckBox();
-            this.checkBox92 = new System.Windows.Forms.CheckBox();
-            this.checkBox93 = new System.Windows.Forms.CheckBox();
-            this.checkBox94 = new System.Windows.Forms.CheckBox();
-            this.checkBox95 = new System.Windows.Forms.CheckBox();
-            this.checkBox96 = new System.Windows.Forms.CheckBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label32 = new System.Windows.Forms.Label();
-            this.checkBox97 = new System.Windows.Forms.CheckBox();
-            this.checkBox98 = new System.Windows.Forms.CheckBox();
-            this.checkBox99 = new System.Windows.Forms.CheckBox();
-            this.checkBox100 = new System.Windows.Forms.CheckBox();
-            this.checkBox101 = new System.Windows.Forms.CheckBox();
-            this.checkBox102 = new System.Windows.Forms.CheckBox();
-            this.checkBox103 = new System.Windows.Forms.CheckBox();
-            this.checkBox104 = new System.Windows.Forms.CheckBox();
-            this.checkBox105 = new System.Windows.Forms.CheckBox();
-            this.checkBox106 = new System.Windows.Forms.CheckBox();
-            this.checkBox107 = new System.Windows.Forms.CheckBox();
-            this.checkBox108 = new System.Windows.Forms.CheckBox();
-            this.checkBox109 = new System.Windows.Forms.CheckBox();
-            this.checkBox110 = new System.Windows.Forms.CheckBox();
-            this.checkBox111 = new System.Windows.Forms.CheckBox();
-            this.checkBox112 = new System.Windows.Forms.CheckBox();
-            this.checkBox113 = new System.Windows.Forms.CheckBox();
-            this.checkBox114 = new System.Windows.Forms.CheckBox();
-            this.checkBox115 = new System.Windows.Forms.CheckBox();
-            this.checkBox116 = new System.Windows.Forms.CheckBox();
-            this.checkBox117 = new System.Windows.Forms.CheckBox();
-            this.checkBox118 = new System.Windows.Forms.CheckBox();
-            this.checkBox119 = new System.Windows.Forms.CheckBox();
-            this.checkBox120 = new System.Windows.Forms.CheckBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.checkBox121 = new System.Windows.Forms.CheckBox();
-            this.checkBox122 = new System.Windows.Forms.CheckBox();
-            this.checkBox123 = new System.Windows.Forms.CheckBox();
-            this.checkBox124 = new System.Windows.Forms.CheckBox();
-            this.checkBox125 = new System.Windows.Forms.CheckBox();
-            this.checkBox126 = new System.Windows.Forms.CheckBox();
-            this.checkBox127 = new System.Windows.Forms.CheckBox();
-            this.checkBox128 = new System.Windows.Forms.CheckBox();
-            this.checkBox129 = new System.Windows.Forms.CheckBox();
-            this.checkBox130 = new System.Windows.Forms.CheckBox();
-            this.checkBox131 = new System.Windows.Forms.CheckBox();
-            this.checkBox132 = new System.Windows.Forms.CheckBox();
-            this.checkBox133 = new System.Windows.Forms.CheckBox();
-            this.checkBox134 = new System.Windows.Forms.CheckBox();
-            this.checkBox135 = new System.Windows.Forms.CheckBox();
-            this.checkBox136 = new System.Windows.Forms.CheckBox();
-            this.checkBox137 = new System.Windows.Forms.CheckBox();
-            this.checkBox138 = new System.Windows.Forms.CheckBox();
-            this.checkBox139 = new System.Windows.Forms.CheckBox();
-            this.checkBox140 = new System.Windows.Forms.CheckBox();
-            this.checkBox141 = new System.Windows.Forms.CheckBox();
-            this.checkBox142 = new System.Windows.Forms.CheckBox();
-            this.checkBox143 = new System.Windows.Forms.CheckBox();
-            this.checkBox144 = new System.Windows.Forms.CheckBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
@@ -387,56 +196,254 @@
             this.checkBox190 = new System.Windows.Forms.CheckBox();
             this.checkBox191 = new System.Windows.Forms.CheckBox();
             this.checkBox192 = new System.Windows.Forms.CheckBox();
-            this.label62 = new System.Windows.Forms.Label();
-            this.label61 = new System.Windows.Forms.Label();
-            this.label60 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
-            this.label58 = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
-            this.label54 = new System.Windows.Forms.Label();
-            this.label53 = new System.Windows.Forms.Label();
-            this.label52 = new System.Windows.Forms.Label();
-            this.label51 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
-            this.label49 = new System.Windows.Forms.Label();
-            this.label48 = new System.Windows.Forms.Label();
-            this.label47 = new System.Windows.Forms.Label();
-            this.label46 = new System.Windows.Forms.Label();
-            this.label45 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.label42 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label39 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label63 = new System.Windows.Forms.Label();
-            this.label64 = new System.Windows.Forms.Label();
-            this.label65 = new System.Windows.Forms.Label();
-            this.label66 = new System.Windows.Forms.Label();
-            this.label67 = new System.Windows.Forms.Label();
-            this.label68 = new System.Windows.Forms.Label();
-            this.label69 = new System.Windows.Forms.Label();
-            this.label70 = new System.Windows.Forms.Label();
-            this.label71 = new System.Windows.Forms.Label();
-            this.label72 = new System.Windows.Forms.Label();
-            this.label73 = new System.Windows.Forms.Label();
-            this.label74 = new System.Windows.Forms.Label();
-            this.label75 = new System.Windows.Forms.Label();
-            this.label76 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label32 = new System.Windows.Forms.Label();
+            this.checkBox97 = new System.Windows.Forms.CheckBox();
+            this.checkBox98 = new System.Windows.Forms.CheckBox();
+            this.checkBox99 = new System.Windows.Forms.CheckBox();
+            this.checkBox100 = new System.Windows.Forms.CheckBox();
+            this.checkBox101 = new System.Windows.Forms.CheckBox();
+            this.checkBox102 = new System.Windows.Forms.CheckBox();
+            this.checkBox103 = new System.Windows.Forms.CheckBox();
+            this.checkBox104 = new System.Windows.Forms.CheckBox();
+            this.checkBox105 = new System.Windows.Forms.CheckBox();
+            this.checkBox106 = new System.Windows.Forms.CheckBox();
+            this.checkBox107 = new System.Windows.Forms.CheckBox();
+            this.checkBox108 = new System.Windows.Forms.CheckBox();
+            this.checkBox109 = new System.Windows.Forms.CheckBox();
+            this.checkBox110 = new System.Windows.Forms.CheckBox();
+            this.checkBox111 = new System.Windows.Forms.CheckBox();
+            this.checkBox112 = new System.Windows.Forms.CheckBox();
+            this.checkBox113 = new System.Windows.Forms.CheckBox();
+            this.checkBox114 = new System.Windows.Forms.CheckBox();
+            this.checkBox115 = new System.Windows.Forms.CheckBox();
+            this.checkBox116 = new System.Windows.Forms.CheckBox();
+            this.checkBox117 = new System.Windows.Forms.CheckBox();
+            this.checkBox118 = new System.Windows.Forms.CheckBox();
+            this.checkBox119 = new System.Windows.Forms.CheckBox();
+            this.checkBox120 = new System.Windows.Forms.CheckBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.checkBox121 = new System.Windows.Forms.CheckBox();
+            this.checkBox122 = new System.Windows.Forms.CheckBox();
+            this.checkBox123 = new System.Windows.Forms.CheckBox();
+            this.checkBox124 = new System.Windows.Forms.CheckBox();
+            this.checkBox125 = new System.Windows.Forms.CheckBox();
+            this.checkBox126 = new System.Windows.Forms.CheckBox();
+            this.checkBox127 = new System.Windows.Forms.CheckBox();
+            this.checkBox128 = new System.Windows.Forms.CheckBox();
+            this.checkBox129 = new System.Windows.Forms.CheckBox();
+            this.checkBox130 = new System.Windows.Forms.CheckBox();
+            this.checkBox131 = new System.Windows.Forms.CheckBox();
+            this.checkBox132 = new System.Windows.Forms.CheckBox();
+            this.checkBox133 = new System.Windows.Forms.CheckBox();
+            this.checkBox134 = new System.Windows.Forms.CheckBox();
+            this.checkBox135 = new System.Windows.Forms.CheckBox();
+            this.checkBox136 = new System.Windows.Forms.CheckBox();
+            this.checkBox137 = new System.Windows.Forms.CheckBox();
+            this.checkBox138 = new System.Windows.Forms.CheckBox();
+            this.checkBox139 = new System.Windows.Forms.CheckBox();
+            this.checkBox140 = new System.Windows.Forms.CheckBox();
+            this.checkBox141 = new System.Windows.Forms.CheckBox();
+            this.checkBox142 = new System.Windows.Forms.CheckBox();
+            this.checkBox143 = new System.Windows.Forms.CheckBox();
+            this.checkBox144 = new System.Windows.Forms.CheckBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label28 = new System.Windows.Forms.Label();
+            this.checkBox49 = new System.Windows.Forms.CheckBox();
+            this.checkBox50 = new System.Windows.Forms.CheckBox();
+            this.checkBox51 = new System.Windows.Forms.CheckBox();
+            this.checkBox52 = new System.Windows.Forms.CheckBox();
+            this.checkBox53 = new System.Windows.Forms.CheckBox();
+            this.checkBox54 = new System.Windows.Forms.CheckBox();
+            this.checkBox55 = new System.Windows.Forms.CheckBox();
+            this.checkBox56 = new System.Windows.Forms.CheckBox();
+            this.checkBox57 = new System.Windows.Forms.CheckBox();
+            this.checkBox58 = new System.Windows.Forms.CheckBox();
+            this.checkBox59 = new System.Windows.Forms.CheckBox();
+            this.checkBox60 = new System.Windows.Forms.CheckBox();
+            this.checkBox61 = new System.Windows.Forms.CheckBox();
+            this.checkBox62 = new System.Windows.Forms.CheckBox();
+            this.checkBox63 = new System.Windows.Forms.CheckBox();
+            this.checkBox64 = new System.Windows.Forms.CheckBox();
+            this.checkBox65 = new System.Windows.Forms.CheckBox();
+            this.checkBox66 = new System.Windows.Forms.CheckBox();
+            this.checkBox67 = new System.Windows.Forms.CheckBox();
+            this.checkBox68 = new System.Windows.Forms.CheckBox();
+            this.checkBox69 = new System.Windows.Forms.CheckBox();
+            this.checkBox70 = new System.Windows.Forms.CheckBox();
+            this.checkBox71 = new System.Windows.Forms.CheckBox();
+            this.checkBox72 = new System.Windows.Forms.CheckBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.checkBox73 = new System.Windows.Forms.CheckBox();
+            this.checkBox74 = new System.Windows.Forms.CheckBox();
+            this.checkBox75 = new System.Windows.Forms.CheckBox();
+            this.checkBox76 = new System.Windows.Forms.CheckBox();
+            this.checkBox77 = new System.Windows.Forms.CheckBox();
+            this.checkBox78 = new System.Windows.Forms.CheckBox();
+            this.checkBox79 = new System.Windows.Forms.CheckBox();
+            this.checkBox80 = new System.Windows.Forms.CheckBox();
+            this.checkBox81 = new System.Windows.Forms.CheckBox();
+            this.checkBox82 = new System.Windows.Forms.CheckBox();
+            this.checkBox83 = new System.Windows.Forms.CheckBox();
+            this.checkBox84 = new System.Windows.Forms.CheckBox();
+            this.checkBox85 = new System.Windows.Forms.CheckBox();
+            this.checkBox86 = new System.Windows.Forms.CheckBox();
+            this.checkBox87 = new System.Windows.Forms.CheckBox();
+            this.checkBox88 = new System.Windows.Forms.CheckBox();
+            this.checkBox89 = new System.Windows.Forms.CheckBox();
+            this.checkBox90 = new System.Windows.Forms.CheckBox();
+            this.checkBox91 = new System.Windows.Forms.CheckBox();
+            this.checkBox92 = new System.Windows.Forms.CheckBox();
+            this.checkBox93 = new System.Windows.Forms.CheckBox();
+            this.checkBox94 = new System.Windows.Forms.CheckBox();
+            this.checkBox95 = new System.Windows.Forms.CheckBox();
+            this.checkBox96 = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label26 = new System.Windows.Forms.Label();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.checkBox9 = new System.Windows.Forms.CheckBox();
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
+            this.checkBox11 = new System.Windows.Forms.CheckBox();
+            this.checkBox12 = new System.Windows.Forms.CheckBox();
+            this.checkBox13 = new System.Windows.Forms.CheckBox();
+            this.checkBox14 = new System.Windows.Forms.CheckBox();
+            this.checkBox15 = new System.Windows.Forms.CheckBox();
+            this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.checkBox17 = new System.Windows.Forms.CheckBox();
+            this.checkBox18 = new System.Windows.Forms.CheckBox();
+            this.checkBox19 = new System.Windows.Forms.CheckBox();
+            this.checkBox20 = new System.Windows.Forms.CheckBox();
+            this.checkBox21 = new System.Windows.Forms.CheckBox();
+            this.checkBox22 = new System.Windows.Forms.CheckBox();
+            this.checkBox23 = new System.Windows.Forms.CheckBox();
+            this.checkBox24 = new System.Windows.Forms.CheckBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.checkBox25 = new System.Windows.Forms.CheckBox();
+            this.checkBox26 = new System.Windows.Forms.CheckBox();
+            this.checkBox27 = new System.Windows.Forms.CheckBox();
+            this.checkBox28 = new System.Windows.Forms.CheckBox();
+            this.checkBox29 = new System.Windows.Forms.CheckBox();
+            this.checkBox30 = new System.Windows.Forms.CheckBox();
+            this.checkBox31 = new System.Windows.Forms.CheckBox();
+            this.checkBox32 = new System.Windows.Forms.CheckBox();
+            this.checkBox33 = new System.Windows.Forms.CheckBox();
+            this.checkBox34 = new System.Windows.Forms.CheckBox();
+            this.checkBox35 = new System.Windows.Forms.CheckBox();
+            this.checkBox36 = new System.Windows.Forms.CheckBox();
+            this.checkBox37 = new System.Windows.Forms.CheckBox();
+            this.checkBox38 = new System.Windows.Forms.CheckBox();
+            this.checkBox39 = new System.Windows.Forms.CheckBox();
+            this.checkBox40 = new System.Windows.Forms.CheckBox();
+            this.checkBox41 = new System.Windows.Forms.CheckBox();
+            this.checkBox42 = new System.Windows.Forms.CheckBox();
+            this.checkBox43 = new System.Windows.Forms.CheckBox();
+            this.checkBox44 = new System.Windows.Forms.CheckBox();
+            this.checkBox45 = new System.Windows.Forms.CheckBox();
+            this.checkBox46 = new System.Windows.Forms.CheckBox();
+            this.checkBox47 = new System.Windows.Forms.CheckBox();
+            this.checkBox48 = new System.Windows.Forms.CheckBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.Estimate_Step4_Title_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step4_Title_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step4_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step4_Prev_Button = new System.Windows.Forms.Button();
+            this.Estimate_Step4_Next_Button = new System.Windows.Forms.Button();
+            this.Estimate_Step5_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step5_Main_Panel = new System.Windows.Forms.Panel();
-            this.label77 = new System.Windows.Forms.Label();
-            this.label78 = new System.Windows.Forms.Label();
-            this.label79 = new System.Windows.Forms.Label();
-            this.label80 = new System.Windows.Forms.Label();
+            this.label83 = new System.Windows.Forms.Label();
             this.label81 = new System.Windows.Forms.Label();
             this.label82 = new System.Windows.Forms.Label();
-            this.label83 = new System.Windows.Forms.Label();
             this.label84 = new System.Windows.Forms.Label();
+            this.label79 = new System.Windows.Forms.Label();
+            this.label80 = new System.Windows.Forms.Label();
+            this.label78 = new System.Windows.Forms.Label();
+            this.label77 = new System.Windows.Forms.Label();
+            this.label76 = new System.Windows.Forms.Label();
+            this.label75 = new System.Windows.Forms.Label();
+            this.label74 = new System.Windows.Forms.Label();
+            this.label73 = new System.Windows.Forms.Label();
+            this.label72 = new System.Windows.Forms.Label();
+            this.label71 = new System.Windows.Forms.Label();
+            this.label70 = new System.Windows.Forms.Label();
+            this.label69 = new System.Windows.Forms.Label();
+            this.label68 = new System.Windows.Forms.Label();
+            this.label67 = new System.Windows.Forms.Label();
+            this.label66 = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
+            this.label64 = new System.Windows.Forms.Label();
+            this.label63 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
+            this.label47 = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this.label51 = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.label55 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label60 = new System.Windows.Forms.Label();
+            this.label61 = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
+            this.Estimate_Step5_Title_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step5_Title_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step5_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step5_Prev_Button = new System.Windows.Forms.Button();
+            this.Estimate_Step5_Next_button = new System.Windows.Forms.Button();
+            this.Estimate_Result_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Result_Main_Panel = new System.Windows.Forms.Panel();
             this.label85 = new System.Windows.Forms.Label();
+            this.Estimate_Result_Main_Label = new System.Windows.Forms.Label();
+            this.Estimate_Result_Title_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Result_Title_Label = new System.Windows.Forms.Label();
+            this.Estimate_Result_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Result_Restart_Button = new System.Windows.Forms.Button();
+            this.Estimate_Result_Save_Button = new System.Windows.Forms.Button();
+            this.Estimate_Result_Display_Button = new System.Windows.Forms.Button();
+            this.Display_Ready_Panel = new System.Windows.Forms.Panel();
+            this.Display_Ready_Main_Panel = new System.Windows.Forms.Panel();
+            this.Display_Ready_Label = new System.Windows.Forms.Label();
+            this.Display_Ready_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Display_Ready_Load_Button = new System.Windows.Forms.Button();
+            this.Display_Show_Panel = new System.Windows.Forms.Panel();
+            this.Display_Show_Main_Panel = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.label93 = new System.Windows.Forms.Label();
+            this.label94 = new System.Windows.Forms.Label();
+            this.label95 = new System.Windows.Forms.Label();
+            this.label86 = new System.Windows.Forms.Label();
+            this.label87 = new System.Windows.Forms.Label();
+            this.label92 = new System.Windows.Forms.Label();
             this.label88 = new System.Windows.Forms.Label();
             this.label89 = new System.Windows.Forms.Label();
             this.label90 = new System.Windows.Forms.Label();
@@ -455,26 +462,20 @@
             this.label129 = new System.Windows.Forms.Label();
             this.label131 = new System.Windows.Forms.Label();
             this.label132 = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.Estimate_Step2_Group3_Item1_PictureBox = new System.Windows.Forms.PictureBox();
-            this.Estimate_Step2_Group2_Item2_PictureBox = new System.Windows.Forms.PictureBox();
-            this.Estimate_Step2_Group2_Item1_PictureBox = new System.Windows.Forms.PictureBox();
-            this.Estimate_Step2_Group1_Item3_PictureBox = new System.Windows.Forms.PictureBox();
-            this.Estimate_Step2_Group1_Item2_PictureBox = new System.Windows.Forms.PictureBox();
-            this.Estimate_Step2_Group1_Item1_PictureBox = new System.Windows.Forms.PictureBox();
-            this.Estimate_Step1_Item2_PictureBox = new System.Windows.Forms.PictureBox();
-            this.Estimate_Step1_Item1_PictureBox = new System.Windows.Forms.PictureBox();
-            this.Home_PictureBox = new System.Windows.Forms.PictureBox();
-            this.label86 = new System.Windows.Forms.Label();
-            this.label87 = new System.Windows.Forms.Label();
-            this.label92 = new System.Windows.Forms.Label();
-            this.label93 = new System.Windows.Forms.Label();
-            this.label94 = new System.Windows.Forms.Label();
-            this.label95 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Display_Show_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Display_Show_Restart_Button = new System.Windows.Forms.Button();
+            this.Display_Show_Detail_Button = new System.Windows.Forms.Button();
+            this.Display_Detail_Panel = new System.Windows.Forms.Panel();
+            this.Display_Detail_Main_Panel = new System.Windows.Forms.Panel();
+            this.Display_Detail_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Display_Detail_Back_Button = new System.Windows.Forms.Button();
+            this.Admin_Panel = new System.Windows.Forms.Panel();
+            this.Admin_Main_Panel = new System.Windows.Forms.Panel();
+            this.Admin_Label = new System.Windows.Forms.Label();
             this.Home_Panel.SuspendLayout();
             this.Home_Main_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).BeginInit();
             this.Tab_Panel.SuspendLayout();
             this.Estimate_Ready_Panel.SuspendLayout();
             this.Estimate_Ready_Main_Panel.SuspendLayout();
@@ -483,7 +484,9 @@
             this.Estimate_Step1_Main_Panel.SuspendLayout();
             this.Estimate_Step1_Main_Right_Panel.SuspendLayout();
             this.Estimate_Step1_Item2_panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item2_PictureBox)).BeginInit();
             this.Estimate_Step1_Item1_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item1_PictureBox)).BeginInit();
             this.Estimate_Step1_Main_Left_Panel.SuspendLayout();
             this.Estimate_Step1_Title_Panel.SuspendLayout();
             this.Estimate_Step1_Operation_Panel.SuspendLayout();
@@ -491,11 +494,17 @@
             this.Estimate_Step2_Main_Panel.SuspendLayout();
             this.Estimate_Step2_Main_Right_Panel.SuspendLayout();
             this.Estimate_Step2_Group3_Item1_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group3_Item1_PictureBox)).BeginInit();
             this.Estimate_Step2_Group2_Item2_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item2_PictureBox)).BeginInit();
             this.Estimate_Step2_Group2_Item1_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item1_PictureBox)).BeginInit();
             this.Estimate_Step2_Group1_Item3_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item3_PictureBox)).BeginInit();
             this.Estimate_Step2_Group1_Item2_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item2_PictureBox)).BeginInit();
             this.Estimate_Step2_Group1_Item1_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item1_PictureBox)).BeginInit();
             this.Estimate_Step2_Main_Left_Panel.SuspendLayout();
             this.Estimate_Step2_Group3_Panel.SuspendLayout();
             this.Estimate_Step2_Group2_Panel.SuspendLayout();
@@ -508,9 +517,18 @@
             this.Estimate_Step3_Operation_Panel.SuspendLayout();
             this.Estimate_Step4_Panel.SuspendLayout();
             this.Estimate_Step4_Main_Panel.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.flowLayoutPanel4.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.Estimate_Step4_Title_Panel.SuspendLayout();
             this.Estimate_Step4_Operation_Panel.SuspendLayout();
             this.Estimate_Step5_Panel.SuspendLayout();
+            this.Estimate_Step5_Main_Panel.SuspendLayout();
             this.Estimate_Step5_Title_Panel.SuspendLayout();
             this.Estimate_Step5_Operation_Panel.SuspendLayout();
             this.Estimate_Result_Panel.SuspendLayout();
@@ -522,33 +540,15 @@
             this.Display_Ready_Operation_Panel.SuspendLayout();
             this.Display_Show_Panel.SuspendLayout();
             this.Display_Show_Main_Panel.SuspendLayout();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel5.SuspendLayout();
             this.Display_Show_Operation_Panel.SuspendLayout();
             this.Display_Detail_Panel.SuspendLayout();
             this.Display_Detail_Main_Panel.SuspendLayout();
             this.Display_Detail_Operation_Panel.SuspendLayout();
             this.Admin_Panel.SuspendLayout();
             this.Admin_Main_Panel.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.flowLayoutPanel3.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.flowLayoutPanel4.SuspendLayout();
-            this.Estimate_Step5_Main_Panel.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group3_Item1_PictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item2_PictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item1_PictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item3_PictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item2_PictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item1_PictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item2_PictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item1_PictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // Home_Panel
@@ -571,6 +571,17 @@
             this.Home_Main_Panel.Name = "Home_Main_Panel";
             this.Home_Main_Panel.Size = new System.Drawing.Size(1432, 859);
             this.Home_Main_Panel.TabIndex = 3;
+            // 
+            // Home_PictureBox
+            // 
+            this.Home_PictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Home_PictureBox.Image = global::PV_analysis.Properties.Resources.SG3125HV_MV;
+            this.Home_PictureBox.Location = new System.Drawing.Point(0, 0);
+            this.Home_PictureBox.Name = "Home_PictureBox";
+            this.Home_PictureBox.Size = new System.Drawing.Size(1430, 597);
+            this.Home_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.Home_PictureBox.TabIndex = 3;
+            this.Home_PictureBox.TabStop = false;
             // 
             // Home_Label
             // 
@@ -770,6 +781,17 @@
             this.Estimate_Step1_Item2_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step1_Item2_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step1_Item2_CheckBox_CheckedChanged);
             // 
+            // Estimate_Step1_Item2_PictureBox
+            // 
+            this.Estimate_Step1_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step1_Item2_PictureBox.Image = global::PV_analysis.Properties.Resources.两级拓扑;
+            this.Estimate_Step1_Item2_PictureBox.Location = new System.Drawing.Point(376, 79);
+            this.Estimate_Step1_Item2_PictureBox.Name = "Estimate_Step1_Item2_PictureBox";
+            this.Estimate_Step1_Item2_PictureBox.Size = new System.Drawing.Size(360, 243);
+            this.Estimate_Step1_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step1_Item2_PictureBox.TabIndex = 0;
+            this.Estimate_Step1_Item2_PictureBox.TabStop = false;
+            // 
             // Estimate_Step1_Item1_Panel
             // 
             this.Estimate_Step1_Item1_Panel.Controls.Add(this.Estimate_Step1_Item1_CheckBox);
@@ -792,6 +814,17 @@
             this.Estimate_Step1_Item1_CheckBox.Text = "三级架构";
             this.Estimate_Step1_Item1_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step1_Item1_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step1_Item1_CheckBox_CheckedChanged);
+            // 
+            // Estimate_Step1_Item1_PictureBox
+            // 
+            this.Estimate_Step1_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step1_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.三级拓扑;
+            this.Estimate_Step1_Item1_PictureBox.Location = new System.Drawing.Point(342, 79);
+            this.Estimate_Step1_Item1_PictureBox.Name = "Estimate_Step1_Item1_PictureBox";
+            this.Estimate_Step1_Item1_PictureBox.Size = new System.Drawing.Size(428, 243);
+            this.Estimate_Step1_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step1_Item1_PictureBox.TabIndex = 0;
+            this.Estimate_Step1_Item1_PictureBox.TabStop = false;
             // 
             // Estimate_Step1_Main_Left_Panel
             // 
@@ -940,6 +973,17 @@
             this.Estimate_Step2_Group3_Item1_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group3_Item1_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group3_Item1_CheckBox_CheckedChanged);
             // 
+            // Estimate_Step2_Group3_Item1_PictureBox
+            // 
+            this.Estimate_Step2_Group3_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group3_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.CHB;
+            this.Estimate_Step2_Group3_Item1_PictureBox.Location = new System.Drawing.Point(404, 40);
+            this.Estimate_Step2_Group3_Item1_PictureBox.Name = "Estimate_Step2_Group3_Item1_PictureBox";
+            this.Estimate_Step2_Group3_Item1_PictureBox.Size = new System.Drawing.Size(304, 513);
+            this.Estimate_Step2_Group3_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group3_Item1_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group3_Item1_PictureBox.TabStop = false;
+            // 
             // Estimate_Step2_Group2_Item2_Panel
             // 
             this.Estimate_Step2_Group2_Item2_Panel.AutoSize = true;
@@ -963,6 +1007,17 @@
             this.Estimate_Step2_Group2_Item2_CheckBox.Text = "DTC-SRC";
             this.Estimate_Step2_Group2_Item2_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group2_Item2_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item2_CheckBox_CheckedChanged);
+            // 
+            // Estimate_Step2_Group2_Item2_PictureBox
+            // 
+            this.Estimate_Step2_Group2_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group2_Item2_PictureBox.Image = global::PV_analysis.Properties.Resources.DTC_SRC;
+            this.Estimate_Step2_Group2_Item2_PictureBox.Location = new System.Drawing.Point(247, 40);
+            this.Estimate_Step2_Group2_Item2_PictureBox.Name = "Estimate_Step2_Group2_Item2_PictureBox";
+            this.Estimate_Step2_Group2_Item2_PictureBox.Size = new System.Drawing.Size(620, 249);
+            this.Estimate_Step2_Group2_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group2_Item2_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group2_Item2_PictureBox.TabStop = false;
             // 
             // Estimate_Step2_Group2_Item1_Panel
             // 
@@ -988,6 +1043,17 @@
             this.Estimate_Step2_Group2_Item1_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group2_Item1_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item1_CheckBox_CheckedChanged);
             // 
+            // Estimate_Step2_Group2_Item1_PictureBox
+            // 
+            this.Estimate_Step2_Group2_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group2_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.SRC;
+            this.Estimate_Step2_Group2_Item1_PictureBox.Location = new System.Drawing.Point(247, 40);
+            this.Estimate_Step2_Group2_Item1_PictureBox.Name = "Estimate_Step2_Group2_Item1_PictureBox";
+            this.Estimate_Step2_Group2_Item1_PictureBox.Size = new System.Drawing.Size(619, 249);
+            this.Estimate_Step2_Group2_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group2_Item1_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group2_Item1_PictureBox.TabStop = false;
+            // 
             // Estimate_Step2_Group1_Item3_Panel
             // 
             this.Estimate_Step2_Group1_Item3_Panel.AutoSize = true;
@@ -1011,6 +1077,17 @@
             this.Estimate_Step2_Group1_Item3_CheckBox.Text = "交错并联Boost";
             this.Estimate_Step2_Group1_Item3_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group1_Item3_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group1_Item3_CheckBox_CheckedChanged);
+            // 
+            // Estimate_Step2_Group1_Item3_PictureBox
+            // 
+            this.Estimate_Step2_Group1_Item3_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group1_Item3_PictureBox.Image = global::PV_analysis.Properties.Resources.交错并联Boost;
+            this.Estimate_Step2_Group1_Item3_PictureBox.Location = new System.Drawing.Point(363, 40);
+            this.Estimate_Step2_Group1_Item3_PictureBox.Name = "Estimate_Step2_Group1_Item3_PictureBox";
+            this.Estimate_Step2_Group1_Item3_PictureBox.Size = new System.Drawing.Size(386, 199);
+            this.Estimate_Step2_Group1_Item3_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group1_Item3_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group1_Item3_PictureBox.TabStop = false;
             // 
             // Estimate_Step2_Group1_Item2_Panel
             // 
@@ -1036,6 +1113,17 @@
             this.Estimate_Step2_Group1_Item2_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group1_Item2_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group1_Item2_CheckBox_CheckedChanged);
             // 
+            // Estimate_Step2_Group1_Item2_PictureBox
+            // 
+            this.Estimate_Step2_Group1_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group1_Item2_PictureBox.Image = global::PV_analysis.Properties.Resources.两电平Boost;
+            this.Estimate_Step2_Group1_Item2_PictureBox.Location = new System.Drawing.Point(422, 40);
+            this.Estimate_Step2_Group1_Item2_PictureBox.Name = "Estimate_Step2_Group1_Item2_PictureBox";
+            this.Estimate_Step2_Group1_Item2_PictureBox.Size = new System.Drawing.Size(268, 199);
+            this.Estimate_Step2_Group1_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group1_Item2_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group1_Item2_PictureBox.TabStop = false;
+            // 
             // Estimate_Step2_Group1_Item1_Panel
             // 
             this.Estimate_Step2_Group1_Item1_Panel.AutoSize = true;
@@ -1059,6 +1147,17 @@
             this.Estimate_Step2_Group1_Item1_CheckBox.Text = "三电平Boost";
             this.Estimate_Step2_Group1_Item1_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group1_Item1_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group1_Item1_CheckBox_CheckedChanged);
+            // 
+            // Estimate_Step2_Group1_Item1_PictureBox
+            // 
+            this.Estimate_Step2_Group1_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group1_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.三电平Boost;
+            this.Estimate_Step2_Group1_Item1_PictureBox.Location = new System.Drawing.Point(422, 40);
+            this.Estimate_Step2_Group1_Item1_PictureBox.Name = "Estimate_Step2_Group1_Item1_PictureBox";
+            this.Estimate_Step2_Group1_Item1_PictureBox.Size = new System.Drawing.Size(268, 201);
+            this.Estimate_Step2_Group1_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group1_Item1_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group1_Item1_PictureBox.TabStop = false;
             // 
             // Estimate_Step2_Main_Left_Panel
             // 
@@ -1777,1063 +1876,22 @@
             this.Estimate_Step4_Main_Panel.Size = new System.Drawing.Size(1432, 759);
             this.Estimate_Step4_Main_Panel.TabIndex = 4;
             // 
-            // Estimate_Step4_Title_Panel
-            // 
-            this.Estimate_Step4_Title_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Estimate_Step4_Title_Panel.Controls.Add(this.Estimate_Step4_Title_Label);
-            this.Estimate_Step4_Title_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step4_Title_Panel.Location = new System.Drawing.Point(0, 0);
-            this.Estimate_Step4_Title_Panel.Name = "Estimate_Step4_Title_Panel";
-            this.Estimate_Step4_Title_Panel.Size = new System.Drawing.Size(1432, 50);
-            this.Estimate_Step4_Title_Panel.TabIndex = 3;
-            // 
-            // Estimate_Step4_Title_Label
-            // 
-            this.Estimate_Step4_Title_Label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Estimate_Step4_Title_Label.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step4_Title_Label.Location = new System.Drawing.Point(0, 0);
-            this.Estimate_Step4_Title_Label.Name = "Estimate_Step4_Title_Label";
-            this.Estimate_Step4_Title_Label.Size = new System.Drawing.Size(1430, 48);
-            this.Estimate_Step4_Title_Label.TabIndex = 0;
-            this.Estimate_Step4_Title_Label.Text = "4.选择器件库";
-            this.Estimate_Step4_Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Estimate_Step4_Operation_Panel
-            // 
-            this.Estimate_Step4_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Estimate_Step4_Operation_Panel.Controls.Add(this.Estimate_Step4_Prev_Button);
-            this.Estimate_Step4_Operation_Panel.Controls.Add(this.Estimate_Step4_Next_Button);
-            this.Estimate_Step4_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Estimate_Step4_Operation_Panel.Location = new System.Drawing.Point(0, 809);
-            this.Estimate_Step4_Operation_Panel.Name = "Estimate_Step4_Operation_Panel";
-            this.Estimate_Step4_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
-            this.Estimate_Step4_Operation_Panel.TabIndex = 1;
-            // 
-            // Estimate_Step4_Prev_Button
-            // 
-            this.Estimate_Step4_Prev_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Estimate_Step4_Prev_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step4_Prev_Button.Location = new System.Drawing.Point(1199, 8);
-            this.Estimate_Step4_Prev_Button.Name = "Estimate_Step4_Prev_Button";
-            this.Estimate_Step4_Prev_Button.Size = new System.Drawing.Size(100, 34);
-            this.Estimate_Step4_Prev_Button.TabIndex = 1;
-            this.Estimate_Step4_Prev_Button.Text = "上一步";
-            this.Estimate_Step4_Prev_Button.UseVisualStyleBackColor = true;
-            this.Estimate_Step4_Prev_Button.Click += new System.EventHandler(this.Estimate_Step4_Prev_Button_Click);
-            // 
-            // Estimate_Step4_Next_Button
-            // 
-            this.Estimate_Step4_Next_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Estimate_Step4_Next_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step4_Next_Button.Location = new System.Drawing.Point(1320, 8);
-            this.Estimate_Step4_Next_Button.Name = "Estimate_Step4_Next_Button";
-            this.Estimate_Step4_Next_Button.Size = new System.Drawing.Size(100, 34);
-            this.Estimate_Step4_Next_Button.TabIndex = 0;
-            this.Estimate_Step4_Next_Button.Text = "下一步";
-            this.Estimate_Step4_Next_Button.UseVisualStyleBackColor = true;
-            this.Estimate_Step4_Next_Button.Click += new System.EventHandler(this.Estimate_Step4_Next_Button_Click);
-            // 
-            // Estimate_Step5_Panel
-            // 
-            this.Estimate_Step5_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Estimate_Step5_Panel.Controls.Add(this.Estimate_Step5_Main_Panel);
-            this.Estimate_Step5_Panel.Controls.Add(this.Estimate_Step5_Title_Panel);
-            this.Estimate_Step5_Panel.Controls.Add(this.Estimate_Step5_Operation_Panel);
-            this.Estimate_Step5_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Estimate_Step5_Panel.Location = new System.Drawing.Point(150, 0);
-            this.Estimate_Step5_Panel.Name = "Estimate_Step5_Panel";
-            this.Estimate_Step5_Panel.Size = new System.Drawing.Size(1434, 861);
-            this.Estimate_Step5_Panel.TabIndex = 8;
-            this.Estimate_Step5_Panel.Visible = false;
-            // 
-            // Estimate_Step5_Title_Panel
-            // 
-            this.Estimate_Step5_Title_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Estimate_Step5_Title_Panel.Controls.Add(this.Estimate_Step5_Title_Label);
-            this.Estimate_Step5_Title_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step5_Title_Panel.Location = new System.Drawing.Point(0, 0);
-            this.Estimate_Step5_Title_Panel.Name = "Estimate_Step5_Title_Panel";
-            this.Estimate_Step5_Title_Panel.Size = new System.Drawing.Size(1432, 50);
-            this.Estimate_Step5_Title_Panel.TabIndex = 3;
-            // 
-            // Estimate_Step5_Title_Label
-            // 
-            this.Estimate_Step5_Title_Label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Estimate_Step5_Title_Label.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_Title_Label.Location = new System.Drawing.Point(0, 0);
-            this.Estimate_Step5_Title_Label.Name = "Estimate_Step5_Title_Label";
-            this.Estimate_Step5_Title_Label.Size = new System.Drawing.Size(1430, 48);
-            this.Estimate_Step5_Title_Label.TabIndex = 0;
-            this.Estimate_Step5_Title_Label.Text = "5.确认条件";
-            this.Estimate_Step5_Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Estimate_Step5_Operation_Panel
-            // 
-            this.Estimate_Step5_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Estimate_Step5_Operation_Panel.Controls.Add(this.Estimate_Step5_Prev_Button);
-            this.Estimate_Step5_Operation_Panel.Controls.Add(this.Estimate_Step5_Next_button);
-            this.Estimate_Step5_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Estimate_Step5_Operation_Panel.Location = new System.Drawing.Point(0, 809);
-            this.Estimate_Step5_Operation_Panel.Name = "Estimate_Step5_Operation_Panel";
-            this.Estimate_Step5_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
-            this.Estimate_Step5_Operation_Panel.TabIndex = 1;
-            // 
-            // Estimate_Step5_Prev_Button
-            // 
-            this.Estimate_Step5_Prev_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Estimate_Step5_Prev_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_Prev_Button.Location = new System.Drawing.Point(1199, 8);
-            this.Estimate_Step5_Prev_Button.Name = "Estimate_Step5_Prev_Button";
-            this.Estimate_Step5_Prev_Button.Size = new System.Drawing.Size(100, 34);
-            this.Estimate_Step5_Prev_Button.TabIndex = 1;
-            this.Estimate_Step5_Prev_Button.Text = "上一步";
-            this.Estimate_Step5_Prev_Button.UseVisualStyleBackColor = true;
-            this.Estimate_Step5_Prev_Button.Click += new System.EventHandler(this.Estimate_Step5_Prev_Button_Click);
-            // 
-            // Estimate_Step5_Next_button
-            // 
-            this.Estimate_Step5_Next_button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Estimate_Step5_Next_button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_Next_button.Location = new System.Drawing.Point(1320, 8);
-            this.Estimate_Step5_Next_button.Name = "Estimate_Step5_Next_button";
-            this.Estimate_Step5_Next_button.Size = new System.Drawing.Size(100, 34);
-            this.Estimate_Step5_Next_button.TabIndex = 0;
-            this.Estimate_Step5_Next_button.Text = "评估";
-            this.Estimate_Step5_Next_button.UseVisualStyleBackColor = true;
-            this.Estimate_Step5_Next_button.Click += new System.EventHandler(this.Estimate_Step5_Next_button_Click);
-            // 
-            // Estimate_Result_Panel
-            // 
-            this.Estimate_Result_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Estimate_Result_Panel.Controls.Add(this.Estimate_Result_Main_Panel);
-            this.Estimate_Result_Panel.Controls.Add(this.Estimate_Result_Title_Panel);
-            this.Estimate_Result_Panel.Controls.Add(this.Estimate_Result_Operation_Panel);
-            this.Estimate_Result_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Estimate_Result_Panel.Location = new System.Drawing.Point(150, 0);
-            this.Estimate_Result_Panel.Name = "Estimate_Result_Panel";
-            this.Estimate_Result_Panel.Size = new System.Drawing.Size(1434, 861);
-            this.Estimate_Result_Panel.TabIndex = 9;
-            this.Estimate_Result_Panel.Visible = false;
-            // 
-            // Estimate_Result_Main_Panel
-            // 
-            this.Estimate_Result_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Estimate_Result_Main_Panel.Controls.Add(this.label85);
-            this.Estimate_Result_Main_Panel.Controls.Add(this.Estimate_Result_Main_Label);
-            this.Estimate_Result_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Estimate_Result_Main_Panel.Location = new System.Drawing.Point(0, 50);
-            this.Estimate_Result_Main_Panel.Name = "Estimate_Result_Main_Panel";
-            this.Estimate_Result_Main_Panel.Size = new System.Drawing.Size(1432, 759);
-            this.Estimate_Result_Main_Panel.TabIndex = 4;
-            // 
-            // Estimate_Result_Main_Label
-            // 
-            this.Estimate_Result_Main_Label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Estimate_Result_Main_Label.Location = new System.Drawing.Point(0, 0);
-            this.Estimate_Result_Main_Label.Name = "Estimate_Result_Main_Label";
-            this.Estimate_Result_Main_Label.Size = new System.Drawing.Size(1430, 757);
-            this.Estimate_Result_Main_Label.TabIndex = 0;
-            // 
-            // Estimate_Result_Title_Panel
-            // 
-            this.Estimate_Result_Title_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Estimate_Result_Title_Panel.Controls.Add(this.Estimate_Result_Title_Label);
-            this.Estimate_Result_Title_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Result_Title_Panel.Location = new System.Drawing.Point(0, 0);
-            this.Estimate_Result_Title_Panel.Name = "Estimate_Result_Title_Panel";
-            this.Estimate_Result_Title_Panel.Size = new System.Drawing.Size(1432, 50);
-            this.Estimate_Result_Title_Panel.TabIndex = 3;
-            // 
-            // Estimate_Result_Title_Label
-            // 
-            this.Estimate_Result_Title_Label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Estimate_Result_Title_Label.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Result_Title_Label.Location = new System.Drawing.Point(0, 0);
-            this.Estimate_Result_Title_Label.Name = "Estimate_Result_Title_Label";
-            this.Estimate_Result_Title_Label.Size = new System.Drawing.Size(1430, 48);
-            this.Estimate_Result_Title_Label.TabIndex = 0;
-            this.Estimate_Result_Title_Label.Text = "评估结果";
-            this.Estimate_Result_Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Estimate_Result_Operation_Panel
-            // 
-            this.Estimate_Result_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_Restart_Button);
-            this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_Save_Button);
-            this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_Display_Button);
-            this.Estimate_Result_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Estimate_Result_Operation_Panel.Location = new System.Drawing.Point(0, 809);
-            this.Estimate_Result_Operation_Panel.Name = "Estimate_Result_Operation_Panel";
-            this.Estimate_Result_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
-            this.Estimate_Result_Operation_Panel.TabIndex = 1;
-            // 
-            // Estimate_Result_Restart_Button
-            // 
-            this.Estimate_Result_Restart_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.Estimate_Result_Restart_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Result_Restart_Button.Location = new System.Drawing.Point(8, 8);
-            this.Estimate_Result_Restart_Button.Name = "Estimate_Result_Restart_Button";
-            this.Estimate_Result_Restart_Button.Size = new System.Drawing.Size(100, 34);
-            this.Estimate_Result_Restart_Button.TabIndex = 2;
-            this.Estimate_Result_Restart_Button.Text = "新的评估";
-            this.Estimate_Result_Restart_Button.UseVisualStyleBackColor = true;
-            this.Estimate_Result_Restart_Button.Click += new System.EventHandler(this.Estimate_Result_Restart_Button_Click);
-            // 
-            // Estimate_Result_Save_Button
-            // 
-            this.Estimate_Result_Save_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Estimate_Result_Save_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Result_Save_Button.Location = new System.Drawing.Point(1199, 8);
-            this.Estimate_Result_Save_Button.Name = "Estimate_Result_Save_Button";
-            this.Estimate_Result_Save_Button.Size = new System.Drawing.Size(100, 34);
-            this.Estimate_Result_Save_Button.TabIndex = 1;
-            this.Estimate_Result_Save_Button.Text = "保存";
-            this.Estimate_Result_Save_Button.UseVisualStyleBackColor = true;
-            this.Estimate_Result_Save_Button.Click += new System.EventHandler(this.Estimate_Result_Save_Button_Click);
-            // 
-            // Estimate_Result_Display_Button
-            // 
-            this.Estimate_Result_Display_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Estimate_Result_Display_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Result_Display_Button.Location = new System.Drawing.Point(1320, 8);
-            this.Estimate_Result_Display_Button.Name = "Estimate_Result_Display_Button";
-            this.Estimate_Result_Display_Button.Size = new System.Drawing.Size(100, 34);
-            this.Estimate_Result_Display_Button.TabIndex = 0;
-            this.Estimate_Result_Display_Button.Text = "展示";
-            this.Estimate_Result_Display_Button.UseVisualStyleBackColor = true;
-            this.Estimate_Result_Display_Button.Click += new System.EventHandler(this.Estimate_Result_Display_Button_Click);
-            // 
-            // Display_Ready_Panel
-            // 
-            this.Display_Ready_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Display_Ready_Panel.Controls.Add(this.Display_Ready_Main_Panel);
-            this.Display_Ready_Panel.Controls.Add(this.Display_Ready_Operation_Panel);
-            this.Display_Ready_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Display_Ready_Panel.Location = new System.Drawing.Point(150, 0);
-            this.Display_Ready_Panel.Name = "Display_Ready_Panel";
-            this.Display_Ready_Panel.Size = new System.Drawing.Size(1434, 861);
-            this.Display_Ready_Panel.TabIndex = 10;
-            this.Display_Ready_Panel.Visible = false;
-            // 
-            // Display_Ready_Main_Panel
-            // 
-            this.Display_Ready_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Display_Ready_Main_Panel.Controls.Add(this.Display_Ready_Label);
-            this.Display_Ready_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Display_Ready_Main_Panel.Location = new System.Drawing.Point(0, 0);
-            this.Display_Ready_Main_Panel.Name = "Display_Ready_Main_Panel";
-            this.Display_Ready_Main_Panel.Size = new System.Drawing.Size(1432, 809);
-            this.Display_Ready_Main_Panel.TabIndex = 2;
-            // 
-            // Display_Ready_Label
-            // 
-            this.Display_Ready_Label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Display_Ready_Label.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Ready_Label.Location = new System.Drawing.Point(0, 0);
-            this.Display_Ready_Label.Name = "Display_Ready_Label";
-            this.Display_Ready_Label.Size = new System.Drawing.Size(1430, 807);
-            this.Display_Ready_Label.TabIndex = 0;
-            this.Display_Ready_Label.Text = "请按下“载入”按钮选择评估结果进行展示";
-            this.Display_Ready_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Display_Ready_Operation_Panel
-            // 
-            this.Display_Ready_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Display_Ready_Operation_Panel.Controls.Add(this.Display_Ready_Load_Button);
-            this.Display_Ready_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Display_Ready_Operation_Panel.Location = new System.Drawing.Point(0, 809);
-            this.Display_Ready_Operation_Panel.Name = "Display_Ready_Operation_Panel";
-            this.Display_Ready_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
-            this.Display_Ready_Operation_Panel.TabIndex = 1;
-            // 
-            // Display_Ready_Load_Button
-            // 
-            this.Display_Ready_Load_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Display_Ready_Load_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Ready_Load_Button.Location = new System.Drawing.Point(1320, 8);
-            this.Display_Ready_Load_Button.Name = "Display_Ready_Load_Button";
-            this.Display_Ready_Load_Button.Size = new System.Drawing.Size(100, 34);
-            this.Display_Ready_Load_Button.TabIndex = 0;
-            this.Display_Ready_Load_Button.Text = "载入";
-            this.Display_Ready_Load_Button.UseVisualStyleBackColor = true;
-            this.Display_Ready_Load_Button.Click += new System.EventHandler(this.Display_Ready_Load_Button_Click);
-            // 
-            // Display_Show_Panel
-            // 
-            this.Display_Show_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Display_Show_Panel.Controls.Add(this.Display_Show_Main_Panel);
-            this.Display_Show_Panel.Controls.Add(this.Display_Show_Operation_Panel);
-            this.Display_Show_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Display_Show_Panel.Location = new System.Drawing.Point(150, 0);
-            this.Display_Show_Panel.Name = "Display_Show_Panel";
-            this.Display_Show_Panel.Size = new System.Drawing.Size(1434, 861);
-            this.Display_Show_Panel.TabIndex = 11;
-            this.Display_Show_Panel.Visible = false;
-            // 
-            // Display_Show_Main_Panel
-            // 
-            this.Display_Show_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Display_Show_Main_Panel.Controls.Add(this.panel6);
-            this.Display_Show_Main_Panel.Controls.Add(this.panel5);
-            this.Display_Show_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Display_Show_Main_Panel.Location = new System.Drawing.Point(0, 0);
-            this.Display_Show_Main_Panel.Name = "Display_Show_Main_Panel";
-            this.Display_Show_Main_Panel.Size = new System.Drawing.Size(1432, 809);
-            this.Display_Show_Main_Panel.TabIndex = 2;
-            // 
-            // Display_Show_Operation_Panel
-            // 
-            this.Display_Show_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Restart_Button);
-            this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Detail_Button);
-            this.Display_Show_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Display_Show_Operation_Panel.Location = new System.Drawing.Point(0, 809);
-            this.Display_Show_Operation_Panel.Name = "Display_Show_Operation_Panel";
-            this.Display_Show_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
-            this.Display_Show_Operation_Panel.TabIndex = 1;
-            // 
-            // Display_Show_Restart_Button
-            // 
-            this.Display_Show_Restart_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.Display_Show_Restart_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Show_Restart_Button.Location = new System.Drawing.Point(8, 8);
-            this.Display_Show_Restart_Button.Name = "Display_Show_Restart_Button";
-            this.Display_Show_Restart_Button.Size = new System.Drawing.Size(100, 34);
-            this.Display_Show_Restart_Button.TabIndex = 1;
-            this.Display_Show_Restart_Button.Text = "新的展示";
-            this.Display_Show_Restart_Button.UseVisualStyleBackColor = true;
-            this.Display_Show_Restart_Button.Click += new System.EventHandler(this.Display_Show_Restart_Button_Click);
-            // 
-            // Display_Show_Detail_Button
-            // 
-            this.Display_Show_Detail_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Display_Show_Detail_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Show_Detail_Button.Location = new System.Drawing.Point(1320, 8);
-            this.Display_Show_Detail_Button.Name = "Display_Show_Detail_Button";
-            this.Display_Show_Detail_Button.Size = new System.Drawing.Size(100, 34);
-            this.Display_Show_Detail_Button.TabIndex = 0;
-            this.Display_Show_Detail_Button.Text = "详情";
-            this.Display_Show_Detail_Button.UseVisualStyleBackColor = true;
-            this.Display_Show_Detail_Button.Click += new System.EventHandler(this.Display_Show_Detail_Button_Click);
-            // 
-            // Display_Detail_Panel
-            // 
-            this.Display_Detail_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Display_Detail_Panel.Controls.Add(this.Display_Detail_Main_Panel);
-            this.Display_Detail_Panel.Controls.Add(this.Display_Detail_Operation_Panel);
-            this.Display_Detail_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Display_Detail_Panel.Location = new System.Drawing.Point(150, 0);
-            this.Display_Detail_Panel.Name = "Display_Detail_Panel";
-            this.Display_Detail_Panel.Size = new System.Drawing.Size(1434, 861);
-            this.Display_Detail_Panel.TabIndex = 12;
-            this.Display_Detail_Panel.Visible = false;
-            // 
-            // Display_Detail_Main_Panel
-            // 
-            this.Display_Detail_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Display_Detail_Main_Panel.Controls.Add(this.Display_Detail_Label);
-            this.Display_Detail_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Display_Detail_Main_Panel.Location = new System.Drawing.Point(0, 0);
-            this.Display_Detail_Main_Panel.Name = "Display_Detail_Main_Panel";
-            this.Display_Detail_Main_Panel.Size = new System.Drawing.Size(1432, 809);
-            this.Display_Detail_Main_Panel.TabIndex = 2;
-            // 
-            // Display_Detail_Label
-            // 
-            this.Display_Detail_Label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Display_Detail_Label.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Detail_Label.Location = new System.Drawing.Point(0, 0);
-            this.Display_Detail_Label.Name = "Display_Detail_Label";
-            this.Display_Detail_Label.Size = new System.Drawing.Size(1430, 807);
-            this.Display_Detail_Label.TabIndex = 0;
-            this.Display_Detail_Label.Text = "[详情区域]";
-            this.Display_Detail_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Display_Detail_Operation_Panel
-            // 
-            this.Display_Detail_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Display_Detail_Operation_Panel.Controls.Add(this.Display_Detail_Back_Button);
-            this.Display_Detail_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Display_Detail_Operation_Panel.Location = new System.Drawing.Point(0, 809);
-            this.Display_Detail_Operation_Panel.Name = "Display_Detail_Operation_Panel";
-            this.Display_Detail_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
-            this.Display_Detail_Operation_Panel.TabIndex = 1;
-            // 
-            // Display_Detail_Back_Button
-            // 
-            this.Display_Detail_Back_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Display_Detail_Back_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Detail_Back_Button.Location = new System.Drawing.Point(1320, 8);
-            this.Display_Detail_Back_Button.Name = "Display_Detail_Back_Button";
-            this.Display_Detail_Back_Button.Size = new System.Drawing.Size(100, 34);
-            this.Display_Detail_Back_Button.TabIndex = 0;
-            this.Display_Detail_Back_Button.Text = "返回";
-            this.Display_Detail_Back_Button.UseVisualStyleBackColor = true;
-            this.Display_Detail_Back_Button.Click += new System.EventHandler(this.Display_Detail_Back_Button_Click);
-            // 
-            // Admin_Panel
-            // 
-            this.Admin_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Admin_Panel.Controls.Add(this.Admin_Main_Panel);
-            this.Admin_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Admin_Panel.Location = new System.Drawing.Point(150, 0);
-            this.Admin_Panel.Name = "Admin_Panel";
-            this.Admin_Panel.Size = new System.Drawing.Size(1434, 861);
-            this.Admin_Panel.TabIndex = 13;
-            this.Admin_Panel.Visible = false;
-            // 
-            // Admin_Main_Panel
-            // 
-            this.Admin_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Admin_Main_Panel.Controls.Add(this.Admin_Label);
-            this.Admin_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Admin_Main_Panel.Location = new System.Drawing.Point(0, 0);
-            this.Admin_Main_Panel.Name = "Admin_Main_Panel";
-            this.Admin_Main_Panel.Size = new System.Drawing.Size(1432, 859);
-            this.Admin_Main_Panel.TabIndex = 2;
-            // 
-            // Admin_Label
-            // 
-            this.Admin_Label.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Admin_Label.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Admin_Label.Location = new System.Drawing.Point(0, 0);
-            this.Admin_Label.Name = "Admin_Label";
-            this.Admin_Label.Size = new System.Drawing.Size(1430, 857);
-            this.Admin_Label.TabIndex = 0;
-            this.Admin_Label.Text = "[管理页面]";
-            this.Admin_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Controls.Add(this.flowLayoutPanel1);
-            this.panel1.Controls.Add(this.label30);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1413, 300);
-            this.panel1.TabIndex = 51;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Infineon",
-            "--FF100R12RT4",
-            "--FF150R17KE4",
-            "--FF200R06KE3",
-            "Cree",
-            "--c2m0045170p",
-            "--c2m0080170p",
-            "--c2m1000170d"});
-            this.comboBox1.Location = new System.Drawing.Point(200, 29);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(800, 29);
-            this.comboBox1.TabIndex = 43;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.Window;
-            this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayoutPanel1.Controls.Add(this.label26);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox2);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox1);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox3);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox4);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox5);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox6);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox7);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox8);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox9);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox10);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox11);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox12);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox13);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox14);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox15);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox16);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox17);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox18);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox19);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox20);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox21);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox22);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox23);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox24);
-            this.flowLayoutPanel1.Controls.Add(this.label27);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox25);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox26);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox27);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox28);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox29);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox30);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox31);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox32);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox33);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox34);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox35);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox36);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox37);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox38);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox39);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox40);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox41);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox42);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox43);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox44);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox45);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox46);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox47);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox48);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(66, 80);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1280, 200);
-            this.flowLayoutPanel1.TabIndex = 44;
-            // 
-            // label26
-            // 
-            this.label26.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label26.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(3, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(1240, 30);
-            this.label26.TabIndex = 63;
-            this.label26.Text = "Infineon:";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(3, 33);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(150, 25);
-            this.checkBox2.TabIndex = 40;
-            this.checkBox2.Text = "FF100R12RT4";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(159, 33);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(150, 25);
-            this.checkBox1.TabIndex = 39;
-            this.checkBox1.Text = "FF150R17KE4";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox3.Location = new System.Drawing.Point(315, 33);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(150, 25);
-            this.checkBox3.TabIndex = 41;
-            this.checkBox3.Text = "FF200R06KE3";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox4.Location = new System.Drawing.Point(471, 33);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(150, 25);
-            this.checkBox4.TabIndex = 42;
-            this.checkBox4.Text = "...";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox5
-            // 
-            this.checkBox5.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox5.Location = new System.Drawing.Point(627, 33);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(150, 25);
-            this.checkBox5.TabIndex = 43;
-            this.checkBox5.Text = "...";
-            this.checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // checkBox6
-            // 
-            this.checkBox6.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox6.Location = new System.Drawing.Point(783, 33);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(150, 25);
-            this.checkBox6.TabIndex = 44;
-            this.checkBox6.Text = "...";
-            this.checkBox6.UseVisualStyleBackColor = true;
-            // 
-            // checkBox7
-            // 
-            this.checkBox7.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox7.Location = new System.Drawing.Point(939, 33);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(150, 25);
-            this.checkBox7.TabIndex = 45;
-            this.checkBox7.Text = "...";
-            this.checkBox7.UseVisualStyleBackColor = true;
-            // 
-            // checkBox8
-            // 
-            this.checkBox8.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox8.Location = new System.Drawing.Point(1095, 33);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(150, 25);
-            this.checkBox8.TabIndex = 46;
-            this.checkBox8.Text = "...";
-            this.checkBox8.UseVisualStyleBackColor = true;
-            // 
-            // checkBox9
-            // 
-            this.checkBox9.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox9.Location = new System.Drawing.Point(3, 64);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(150, 25);
-            this.checkBox9.TabIndex = 47;
-            this.checkBox9.Text = "...";
-            this.checkBox9.UseVisualStyleBackColor = true;
-            // 
-            // checkBox10
-            // 
-            this.checkBox10.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox10.Location = new System.Drawing.Point(159, 64);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(150, 25);
-            this.checkBox10.TabIndex = 48;
-            this.checkBox10.Text = "...";
-            this.checkBox10.UseVisualStyleBackColor = true;
-            // 
-            // checkBox11
-            // 
-            this.checkBox11.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox11.Location = new System.Drawing.Point(315, 64);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(150, 25);
-            this.checkBox11.TabIndex = 49;
-            this.checkBox11.Text = "...";
-            this.checkBox11.UseVisualStyleBackColor = true;
-            // 
-            // checkBox12
-            // 
-            this.checkBox12.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox12.Location = new System.Drawing.Point(471, 64);
-            this.checkBox12.Name = "checkBox12";
-            this.checkBox12.Size = new System.Drawing.Size(150, 25);
-            this.checkBox12.TabIndex = 50;
-            this.checkBox12.Text = "...";
-            this.checkBox12.UseVisualStyleBackColor = true;
-            // 
-            // checkBox13
-            // 
-            this.checkBox13.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox13.Location = new System.Drawing.Point(627, 64);
-            this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(150, 25);
-            this.checkBox13.TabIndex = 51;
-            this.checkBox13.Text = "...";
-            this.checkBox13.UseVisualStyleBackColor = true;
-            // 
-            // checkBox14
-            // 
-            this.checkBox14.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox14.Location = new System.Drawing.Point(783, 64);
-            this.checkBox14.Name = "checkBox14";
-            this.checkBox14.Size = new System.Drawing.Size(150, 25);
-            this.checkBox14.TabIndex = 52;
-            this.checkBox14.Text = "...";
-            this.checkBox14.UseVisualStyleBackColor = true;
-            // 
-            // checkBox15
-            // 
-            this.checkBox15.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox15.Location = new System.Drawing.Point(939, 64);
-            this.checkBox15.Name = "checkBox15";
-            this.checkBox15.Size = new System.Drawing.Size(150, 25);
-            this.checkBox15.TabIndex = 53;
-            this.checkBox15.Text = "...";
-            this.checkBox15.UseVisualStyleBackColor = true;
-            // 
-            // checkBox16
-            // 
-            this.checkBox16.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox16.Location = new System.Drawing.Point(1095, 64);
-            this.checkBox16.Name = "checkBox16";
-            this.checkBox16.Size = new System.Drawing.Size(150, 25);
-            this.checkBox16.TabIndex = 54;
-            this.checkBox16.Text = "...";
-            this.checkBox16.UseVisualStyleBackColor = true;
-            // 
-            // checkBox17
-            // 
-            this.checkBox17.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox17.Location = new System.Drawing.Point(3, 95);
-            this.checkBox17.Name = "checkBox17";
-            this.checkBox17.Size = new System.Drawing.Size(150, 25);
-            this.checkBox17.TabIndex = 55;
-            this.checkBox17.Text = "...";
-            this.checkBox17.UseVisualStyleBackColor = true;
-            // 
-            // checkBox18
-            // 
-            this.checkBox18.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox18.Location = new System.Drawing.Point(159, 95);
-            this.checkBox18.Name = "checkBox18";
-            this.checkBox18.Size = new System.Drawing.Size(150, 25);
-            this.checkBox18.TabIndex = 56;
-            this.checkBox18.Text = "...";
-            this.checkBox18.UseVisualStyleBackColor = true;
-            // 
-            // checkBox19
-            // 
-            this.checkBox19.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox19.Location = new System.Drawing.Point(315, 95);
-            this.checkBox19.Name = "checkBox19";
-            this.checkBox19.Size = new System.Drawing.Size(150, 25);
-            this.checkBox19.TabIndex = 57;
-            this.checkBox19.Text = "...";
-            this.checkBox19.UseVisualStyleBackColor = true;
-            // 
-            // checkBox20
-            // 
-            this.checkBox20.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox20.Location = new System.Drawing.Point(471, 95);
-            this.checkBox20.Name = "checkBox20";
-            this.checkBox20.Size = new System.Drawing.Size(150, 25);
-            this.checkBox20.TabIndex = 58;
-            this.checkBox20.Text = "...";
-            this.checkBox20.UseVisualStyleBackColor = true;
-            // 
-            // checkBox21
-            // 
-            this.checkBox21.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox21.Location = new System.Drawing.Point(627, 95);
-            this.checkBox21.Name = "checkBox21";
-            this.checkBox21.Size = new System.Drawing.Size(150, 25);
-            this.checkBox21.TabIndex = 59;
-            this.checkBox21.Text = "...";
-            this.checkBox21.UseVisualStyleBackColor = true;
-            // 
-            // checkBox22
-            // 
-            this.checkBox22.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox22.Location = new System.Drawing.Point(783, 95);
-            this.checkBox22.Name = "checkBox22";
-            this.checkBox22.Size = new System.Drawing.Size(150, 25);
-            this.checkBox22.TabIndex = 60;
-            this.checkBox22.Text = "...";
-            this.checkBox22.UseVisualStyleBackColor = true;
-            // 
-            // checkBox23
-            // 
-            this.checkBox23.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox23.Location = new System.Drawing.Point(939, 95);
-            this.checkBox23.Name = "checkBox23";
-            this.checkBox23.Size = new System.Drawing.Size(150, 25);
-            this.checkBox23.TabIndex = 61;
-            this.checkBox23.Text = "...";
-            this.checkBox23.UseVisualStyleBackColor = true;
-            // 
-            // checkBox24
-            // 
-            this.checkBox24.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox24.Location = new System.Drawing.Point(1095, 95);
-            this.checkBox24.Name = "checkBox24";
-            this.checkBox24.Size = new System.Drawing.Size(150, 25);
-            this.checkBox24.TabIndex = 62;
-            this.checkBox24.Text = "...";
-            this.checkBox24.UseVisualStyleBackColor = true;
-            // 
-            // label27
-            // 
-            this.label27.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label27.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(3, 123);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(1240, 30);
-            this.label27.TabIndex = 88;
-            this.label27.Text = "Cree:";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // checkBox25
-            // 
-            this.checkBox25.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox25.Location = new System.Drawing.Point(3, 156);
-            this.checkBox25.Name = "checkBox25";
-            this.checkBox25.Size = new System.Drawing.Size(150, 25);
-            this.checkBox25.TabIndex = 65;
-            this.checkBox25.Text = "c2m0045170p";
-            this.checkBox25.UseVisualStyleBackColor = true;
-            // 
-            // checkBox26
-            // 
-            this.checkBox26.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox26.Location = new System.Drawing.Point(159, 156);
-            this.checkBox26.Name = "checkBox26";
-            this.checkBox26.Size = new System.Drawing.Size(150, 25);
-            this.checkBox26.TabIndex = 64;
-            this.checkBox26.Text = "c2m0080170p";
-            this.checkBox26.UseVisualStyleBackColor = true;
-            // 
-            // checkBox27
-            // 
-            this.checkBox27.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox27.Location = new System.Drawing.Point(315, 156);
-            this.checkBox27.Name = "checkBox27";
-            this.checkBox27.Size = new System.Drawing.Size(150, 25);
-            this.checkBox27.TabIndex = 66;
-            this.checkBox27.Text = "c2m1000170d";
-            this.checkBox27.UseVisualStyleBackColor = true;
-            // 
-            // checkBox28
-            // 
-            this.checkBox28.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox28.Location = new System.Drawing.Point(471, 156);
-            this.checkBox28.Name = "checkBox28";
-            this.checkBox28.Size = new System.Drawing.Size(150, 25);
-            this.checkBox28.TabIndex = 67;
-            this.checkBox28.Text = "...";
-            this.checkBox28.UseVisualStyleBackColor = true;
-            // 
-            // checkBox29
-            // 
-            this.checkBox29.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox29.Location = new System.Drawing.Point(627, 156);
-            this.checkBox29.Name = "checkBox29";
-            this.checkBox29.Size = new System.Drawing.Size(150, 25);
-            this.checkBox29.TabIndex = 68;
-            this.checkBox29.Text = "...";
-            this.checkBox29.UseVisualStyleBackColor = true;
-            // 
-            // checkBox30
-            // 
-            this.checkBox30.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox30.Location = new System.Drawing.Point(783, 156);
-            this.checkBox30.Name = "checkBox30";
-            this.checkBox30.Size = new System.Drawing.Size(150, 25);
-            this.checkBox30.TabIndex = 69;
-            this.checkBox30.Text = "...";
-            this.checkBox30.UseVisualStyleBackColor = true;
-            // 
-            // checkBox31
-            // 
-            this.checkBox31.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox31.Location = new System.Drawing.Point(939, 156);
-            this.checkBox31.Name = "checkBox31";
-            this.checkBox31.Size = new System.Drawing.Size(150, 25);
-            this.checkBox31.TabIndex = 70;
-            this.checkBox31.Text = "...";
-            this.checkBox31.UseVisualStyleBackColor = true;
-            // 
-            // checkBox32
-            // 
-            this.checkBox32.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox32.Location = new System.Drawing.Point(1095, 156);
-            this.checkBox32.Name = "checkBox32";
-            this.checkBox32.Size = new System.Drawing.Size(150, 25);
-            this.checkBox32.TabIndex = 71;
-            this.checkBox32.Text = "...";
-            this.checkBox32.UseVisualStyleBackColor = true;
-            // 
-            // checkBox33
-            // 
-            this.checkBox33.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox33.Location = new System.Drawing.Point(3, 187);
-            this.checkBox33.Name = "checkBox33";
-            this.checkBox33.Size = new System.Drawing.Size(150, 25);
-            this.checkBox33.TabIndex = 72;
-            this.checkBox33.Text = "...";
-            this.checkBox33.UseVisualStyleBackColor = true;
-            // 
-            // checkBox34
-            // 
-            this.checkBox34.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox34.Location = new System.Drawing.Point(159, 187);
-            this.checkBox34.Name = "checkBox34";
-            this.checkBox34.Size = new System.Drawing.Size(150, 25);
-            this.checkBox34.TabIndex = 73;
-            this.checkBox34.Text = "...";
-            this.checkBox34.UseVisualStyleBackColor = true;
-            // 
-            // checkBox35
-            // 
-            this.checkBox35.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox35.Location = new System.Drawing.Point(315, 187);
-            this.checkBox35.Name = "checkBox35";
-            this.checkBox35.Size = new System.Drawing.Size(150, 25);
-            this.checkBox35.TabIndex = 74;
-            this.checkBox35.Text = "...";
-            this.checkBox35.UseVisualStyleBackColor = true;
-            // 
-            // checkBox36
-            // 
-            this.checkBox36.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox36.Location = new System.Drawing.Point(471, 187);
-            this.checkBox36.Name = "checkBox36";
-            this.checkBox36.Size = new System.Drawing.Size(150, 25);
-            this.checkBox36.TabIndex = 75;
-            this.checkBox36.Text = "...";
-            this.checkBox36.UseVisualStyleBackColor = true;
-            // 
-            // checkBox37
-            // 
-            this.checkBox37.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox37.Location = new System.Drawing.Point(627, 187);
-            this.checkBox37.Name = "checkBox37";
-            this.checkBox37.Size = new System.Drawing.Size(150, 25);
-            this.checkBox37.TabIndex = 76;
-            this.checkBox37.Text = "...";
-            this.checkBox37.UseVisualStyleBackColor = true;
-            // 
-            // checkBox38
-            // 
-            this.checkBox38.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox38.Location = new System.Drawing.Point(783, 187);
-            this.checkBox38.Name = "checkBox38";
-            this.checkBox38.Size = new System.Drawing.Size(150, 25);
-            this.checkBox38.TabIndex = 77;
-            this.checkBox38.Text = "...";
-            this.checkBox38.UseVisualStyleBackColor = true;
-            // 
-            // checkBox39
-            // 
-            this.checkBox39.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox39.Location = new System.Drawing.Point(939, 187);
-            this.checkBox39.Name = "checkBox39";
-            this.checkBox39.Size = new System.Drawing.Size(150, 25);
-            this.checkBox39.TabIndex = 78;
-            this.checkBox39.Text = "...";
-            this.checkBox39.UseVisualStyleBackColor = true;
-            // 
-            // checkBox40
-            // 
-            this.checkBox40.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox40.Location = new System.Drawing.Point(1095, 187);
-            this.checkBox40.Name = "checkBox40";
-            this.checkBox40.Size = new System.Drawing.Size(150, 25);
-            this.checkBox40.TabIndex = 79;
-            this.checkBox40.Text = "...";
-            this.checkBox40.UseVisualStyleBackColor = true;
-            // 
-            // checkBox41
-            // 
-            this.checkBox41.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox41.Location = new System.Drawing.Point(3, 218);
-            this.checkBox41.Name = "checkBox41";
-            this.checkBox41.Size = new System.Drawing.Size(150, 25);
-            this.checkBox41.TabIndex = 80;
-            this.checkBox41.Text = "...";
-            this.checkBox41.UseVisualStyleBackColor = true;
-            // 
-            // checkBox42
-            // 
-            this.checkBox42.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox42.Location = new System.Drawing.Point(159, 218);
-            this.checkBox42.Name = "checkBox42";
-            this.checkBox42.Size = new System.Drawing.Size(150, 25);
-            this.checkBox42.TabIndex = 81;
-            this.checkBox42.Text = "...";
-            this.checkBox42.UseVisualStyleBackColor = true;
-            // 
-            // checkBox43
-            // 
-            this.checkBox43.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox43.Location = new System.Drawing.Point(315, 218);
-            this.checkBox43.Name = "checkBox43";
-            this.checkBox43.Size = new System.Drawing.Size(150, 25);
-            this.checkBox43.TabIndex = 82;
-            this.checkBox43.Text = "...";
-            this.checkBox43.UseVisualStyleBackColor = true;
-            // 
-            // checkBox44
-            // 
-            this.checkBox44.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox44.Location = new System.Drawing.Point(471, 218);
-            this.checkBox44.Name = "checkBox44";
-            this.checkBox44.Size = new System.Drawing.Size(150, 25);
-            this.checkBox44.TabIndex = 83;
-            this.checkBox44.Text = "...";
-            this.checkBox44.UseVisualStyleBackColor = true;
-            // 
-            // checkBox45
-            // 
-            this.checkBox45.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox45.Location = new System.Drawing.Point(627, 218);
-            this.checkBox45.Name = "checkBox45";
-            this.checkBox45.Size = new System.Drawing.Size(150, 25);
-            this.checkBox45.TabIndex = 84;
-            this.checkBox45.Text = "...";
-            this.checkBox45.UseVisualStyleBackColor = true;
-            // 
-            // checkBox46
-            // 
-            this.checkBox46.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox46.Location = new System.Drawing.Point(783, 218);
-            this.checkBox46.Name = "checkBox46";
-            this.checkBox46.Size = new System.Drawing.Size(150, 25);
-            this.checkBox46.TabIndex = 85;
-            this.checkBox46.Text = "...";
-            this.checkBox46.UseVisualStyleBackColor = true;
-            // 
-            // checkBox47
-            // 
-            this.checkBox47.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox47.Location = new System.Drawing.Point(939, 218);
-            this.checkBox47.Name = "checkBox47";
-            this.checkBox47.Size = new System.Drawing.Size(150, 25);
-            this.checkBox47.TabIndex = 86;
-            this.checkBox47.Text = "...";
-            this.checkBox47.UseVisualStyleBackColor = true;
-            // 
-            // checkBox48
-            // 
-            this.checkBox48.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox48.Location = new System.Drawing.Point(1095, 218);
-            this.checkBox48.Name = "checkBox48";
-            this.checkBox48.Size = new System.Drawing.Size(150, 25);
-            this.checkBox48.TabIndex = 87;
-            this.checkBox48.Text = "...";
-            this.checkBox48.UseVisualStyleBackColor = true;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label30.Location = new System.Drawing.Point(60, 30);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(107, 26);
-            this.label30.TabIndex = 42;
-            this.label30.Text = "开关器件：";
-            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.comboBox5);
-            this.panel2.Controls.Add(this.label40);
-            this.panel2.Controls.Add(this.flowLayoutPanel2);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 300);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1413, 300);
-            this.panel2.TabIndex = 52;
-            // 
-            // comboBox5
-            // 
-            this.comboBox5.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Items.AddRange(new object[] {
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.comboBox3);
+            this.panel4.Controls.Add(this.label34);
+            this.panel4.Controls.Add(this.flowLayoutPanel4);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 900);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1413, 300);
+            this.panel4.TabIndex = 54;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
             "[manufacturer]",
             "--[type]",
             "--[type]",
@@ -2842,585 +1900,585 @@
             "--[type]",
             "--[type]",
             "--[type]"});
-            this.comboBox5.Location = new System.Drawing.Point(200, 29);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(800, 29);
-            this.comboBox5.TabIndex = 43;
+            this.comboBox3.Location = new System.Drawing.Point(200, 29);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(800, 29);
+            this.comboBox3.TabIndex = 43;
             // 
-            // label40
+            // label34
             // 
-            this.label40.AutoSize = true;
-            this.label40.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label40.Location = new System.Drawing.Point(60, 30);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(69, 26);
-            this.label40.TabIndex = 42;
-            this.label40.Text = "磁芯：";
-            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label34.Location = new System.Drawing.Point(60, 30);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(69, 26);
+            this.label34.TabIndex = 42;
+            this.label34.Text = "电容：";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // flowLayoutPanel2
+            // flowLayoutPanel4
             // 
-            this.flowLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.flowLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel2.AutoScroll = true;
-            this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.Window;
-            this.flowLayoutPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayoutPanel2.Controls.Add(this.label28);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox49);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox50);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox51);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox52);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox53);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox54);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox55);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox56);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox57);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox58);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox59);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox60);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox61);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox62);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox63);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox64);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox65);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox66);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox67);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox68);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox69);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox70);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox71);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox72);
-            this.flowLayoutPanel2.Controls.Add(this.label29);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox73);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox74);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox75);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox76);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox77);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox78);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox79);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox80);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox81);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox82);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox83);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox84);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox85);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox86);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox87);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox88);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox89);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox90);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox91);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox92);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox93);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox94);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox95);
-            this.flowLayoutPanel2.Controls.Add(this.checkBox96);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(66, 80);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1280, 200);
-            this.flowLayoutPanel2.TabIndex = 45;
-            // 
-            // label28
-            // 
-            this.label28.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label28.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(3, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(1242, 30);
-            this.label28.TabIndex = 63;
-            this.label28.Text = "[manufacturer]:";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // checkBox49
-            // 
-            this.checkBox49.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox49.Location = new System.Drawing.Point(3, 33);
-            this.checkBox49.Name = "checkBox49";
-            this.checkBox49.Size = new System.Drawing.Size(150, 25);
-            this.checkBox49.TabIndex = 40;
-            this.checkBox49.Text = "[type]";
-            this.checkBox49.UseVisualStyleBackColor = true;
-            // 
-            // checkBox50
-            // 
-            this.checkBox50.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox50.Location = new System.Drawing.Point(159, 33);
-            this.checkBox50.Name = "checkBox50";
-            this.checkBox50.Size = new System.Drawing.Size(150, 25);
-            this.checkBox50.TabIndex = 39;
-            this.checkBox50.Text = "[type]";
-            this.checkBox50.UseVisualStyleBackColor = true;
-            // 
-            // checkBox51
-            // 
-            this.checkBox51.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox51.Location = new System.Drawing.Point(315, 33);
-            this.checkBox51.Name = "checkBox51";
-            this.checkBox51.Size = new System.Drawing.Size(150, 25);
-            this.checkBox51.TabIndex = 41;
-            this.checkBox51.Text = "[type]";
-            this.checkBox51.UseVisualStyleBackColor = true;
-            // 
-            // checkBox52
-            // 
-            this.checkBox52.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox52.Location = new System.Drawing.Point(471, 33);
-            this.checkBox52.Name = "checkBox52";
-            this.checkBox52.Size = new System.Drawing.Size(150, 25);
-            this.checkBox52.TabIndex = 42;
-            this.checkBox52.Text = "...";
-            this.checkBox52.UseVisualStyleBackColor = true;
-            // 
-            // checkBox53
-            // 
-            this.checkBox53.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox53.Location = new System.Drawing.Point(627, 33);
-            this.checkBox53.Name = "checkBox53";
-            this.checkBox53.Size = new System.Drawing.Size(150, 25);
-            this.checkBox53.TabIndex = 43;
-            this.checkBox53.Text = "...";
-            this.checkBox53.UseVisualStyleBackColor = true;
-            // 
-            // checkBox54
-            // 
-            this.checkBox54.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox54.Location = new System.Drawing.Point(783, 33);
-            this.checkBox54.Name = "checkBox54";
-            this.checkBox54.Size = new System.Drawing.Size(150, 25);
-            this.checkBox54.TabIndex = 44;
-            this.checkBox54.Text = "...";
-            this.checkBox54.UseVisualStyleBackColor = true;
-            // 
-            // checkBox55
-            // 
-            this.checkBox55.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox55.Location = new System.Drawing.Point(939, 33);
-            this.checkBox55.Name = "checkBox55";
-            this.checkBox55.Size = new System.Drawing.Size(150, 25);
-            this.checkBox55.TabIndex = 45;
-            this.checkBox55.Text = "...";
-            this.checkBox55.UseVisualStyleBackColor = true;
-            // 
-            // checkBox56
-            // 
-            this.checkBox56.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox56.Location = new System.Drawing.Point(1095, 33);
-            this.checkBox56.Name = "checkBox56";
-            this.checkBox56.Size = new System.Drawing.Size(150, 25);
-            this.checkBox56.TabIndex = 46;
-            this.checkBox56.Text = "...";
-            this.checkBox56.UseVisualStyleBackColor = true;
-            // 
-            // checkBox57
-            // 
-            this.checkBox57.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox57.Location = new System.Drawing.Point(3, 64);
-            this.checkBox57.Name = "checkBox57";
-            this.checkBox57.Size = new System.Drawing.Size(150, 25);
-            this.checkBox57.TabIndex = 47;
-            this.checkBox57.Text = "...";
-            this.checkBox57.UseVisualStyleBackColor = true;
-            // 
-            // checkBox58
-            // 
-            this.checkBox58.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox58.Location = new System.Drawing.Point(159, 64);
-            this.checkBox58.Name = "checkBox58";
-            this.checkBox58.Size = new System.Drawing.Size(150, 25);
-            this.checkBox58.TabIndex = 48;
-            this.checkBox58.Text = "...";
-            this.checkBox58.UseVisualStyleBackColor = true;
-            // 
-            // checkBox59
-            // 
-            this.checkBox59.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox59.Location = new System.Drawing.Point(315, 64);
-            this.checkBox59.Name = "checkBox59";
-            this.checkBox59.Size = new System.Drawing.Size(150, 25);
-            this.checkBox59.TabIndex = 49;
-            this.checkBox59.Text = "...";
-            this.checkBox59.UseVisualStyleBackColor = true;
-            // 
-            // checkBox60
-            // 
-            this.checkBox60.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox60.Location = new System.Drawing.Point(471, 64);
-            this.checkBox60.Name = "checkBox60";
-            this.checkBox60.Size = new System.Drawing.Size(150, 25);
-            this.checkBox60.TabIndex = 50;
-            this.checkBox60.Text = "...";
-            this.checkBox60.UseVisualStyleBackColor = true;
-            // 
-            // checkBox61
-            // 
-            this.checkBox61.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox61.Location = new System.Drawing.Point(627, 64);
-            this.checkBox61.Name = "checkBox61";
-            this.checkBox61.Size = new System.Drawing.Size(150, 25);
-            this.checkBox61.TabIndex = 51;
-            this.checkBox61.Text = "...";
-            this.checkBox61.UseVisualStyleBackColor = true;
-            // 
-            // checkBox62
-            // 
-            this.checkBox62.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox62.Location = new System.Drawing.Point(783, 64);
-            this.checkBox62.Name = "checkBox62";
-            this.checkBox62.Size = new System.Drawing.Size(150, 25);
-            this.checkBox62.TabIndex = 52;
-            this.checkBox62.Text = "...";
-            this.checkBox62.UseVisualStyleBackColor = true;
-            // 
-            // checkBox63
-            // 
-            this.checkBox63.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox63.Location = new System.Drawing.Point(939, 64);
-            this.checkBox63.Name = "checkBox63";
-            this.checkBox63.Size = new System.Drawing.Size(150, 25);
-            this.checkBox63.TabIndex = 53;
-            this.checkBox63.Text = "...";
-            this.checkBox63.UseVisualStyleBackColor = true;
-            // 
-            // checkBox64
-            // 
-            this.checkBox64.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox64.Location = new System.Drawing.Point(1095, 64);
-            this.checkBox64.Name = "checkBox64";
-            this.checkBox64.Size = new System.Drawing.Size(150, 25);
-            this.checkBox64.TabIndex = 54;
-            this.checkBox64.Text = "...";
-            this.checkBox64.UseVisualStyleBackColor = true;
-            // 
-            // checkBox65
-            // 
-            this.checkBox65.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox65.Location = new System.Drawing.Point(3, 95);
-            this.checkBox65.Name = "checkBox65";
-            this.checkBox65.Size = new System.Drawing.Size(150, 25);
-            this.checkBox65.TabIndex = 55;
-            this.checkBox65.Text = "...";
-            this.checkBox65.UseVisualStyleBackColor = true;
-            // 
-            // checkBox66
-            // 
-            this.checkBox66.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox66.Location = new System.Drawing.Point(159, 95);
-            this.checkBox66.Name = "checkBox66";
-            this.checkBox66.Size = new System.Drawing.Size(150, 25);
-            this.checkBox66.TabIndex = 56;
-            this.checkBox66.Text = "...";
-            this.checkBox66.UseVisualStyleBackColor = true;
-            // 
-            // checkBox67
-            // 
-            this.checkBox67.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox67.Location = new System.Drawing.Point(315, 95);
-            this.checkBox67.Name = "checkBox67";
-            this.checkBox67.Size = new System.Drawing.Size(150, 25);
-            this.checkBox67.TabIndex = 57;
-            this.checkBox67.Text = "...";
-            this.checkBox67.UseVisualStyleBackColor = true;
-            // 
-            // checkBox68
-            // 
-            this.checkBox68.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox68.Location = new System.Drawing.Point(471, 95);
-            this.checkBox68.Name = "checkBox68";
-            this.checkBox68.Size = new System.Drawing.Size(150, 25);
-            this.checkBox68.TabIndex = 58;
-            this.checkBox68.Text = "...";
-            this.checkBox68.UseVisualStyleBackColor = true;
-            // 
-            // checkBox69
-            // 
-            this.checkBox69.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox69.Location = new System.Drawing.Point(627, 95);
-            this.checkBox69.Name = "checkBox69";
-            this.checkBox69.Size = new System.Drawing.Size(150, 25);
-            this.checkBox69.TabIndex = 59;
-            this.checkBox69.Text = "...";
-            this.checkBox69.UseVisualStyleBackColor = true;
-            // 
-            // checkBox70
-            // 
-            this.checkBox70.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox70.Location = new System.Drawing.Point(783, 95);
-            this.checkBox70.Name = "checkBox70";
-            this.checkBox70.Size = new System.Drawing.Size(150, 25);
-            this.checkBox70.TabIndex = 60;
-            this.checkBox70.Text = "...";
-            this.checkBox70.UseVisualStyleBackColor = true;
-            // 
-            // checkBox71
-            // 
-            this.checkBox71.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox71.Location = new System.Drawing.Point(939, 95);
-            this.checkBox71.Name = "checkBox71";
-            this.checkBox71.Size = new System.Drawing.Size(150, 25);
-            this.checkBox71.TabIndex = 61;
-            this.checkBox71.Text = "...";
-            this.checkBox71.UseVisualStyleBackColor = true;
-            // 
-            // checkBox72
-            // 
-            this.checkBox72.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox72.Location = new System.Drawing.Point(1095, 95);
-            this.checkBox72.Name = "checkBox72";
-            this.checkBox72.Size = new System.Drawing.Size(150, 25);
-            this.checkBox72.TabIndex = 62;
-            this.checkBox72.Text = "...";
-            this.checkBox72.UseVisualStyleBackColor = true;
-            // 
-            // label29
-            // 
-            this.label29.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label29.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(3, 123);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(1242, 30);
-            this.label29.TabIndex = 88;
-            this.label29.Text = "[manufacturer]:";
-            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // checkBox73
-            // 
-            this.checkBox73.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox73.Location = new System.Drawing.Point(3, 156);
-            this.checkBox73.Name = "checkBox73";
-            this.checkBox73.Size = new System.Drawing.Size(150, 25);
-            this.checkBox73.TabIndex = 65;
-            this.checkBox73.Text = "[type]";
-            this.checkBox73.UseVisualStyleBackColor = true;
-            // 
-            // checkBox74
-            // 
-            this.checkBox74.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox74.Location = new System.Drawing.Point(159, 156);
-            this.checkBox74.Name = "checkBox74";
-            this.checkBox74.Size = new System.Drawing.Size(150, 25);
-            this.checkBox74.TabIndex = 64;
-            this.checkBox74.Text = "[type]";
-            this.checkBox74.UseVisualStyleBackColor = true;
-            // 
-            // checkBox75
-            // 
-            this.checkBox75.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox75.Location = new System.Drawing.Point(315, 156);
-            this.checkBox75.Name = "checkBox75";
-            this.checkBox75.Size = new System.Drawing.Size(150, 25);
-            this.checkBox75.TabIndex = 66;
-            this.checkBox75.Text = "[type]";
-            this.checkBox75.UseVisualStyleBackColor = true;
-            // 
-            // checkBox76
-            // 
-            this.checkBox76.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox76.Location = new System.Drawing.Point(471, 156);
-            this.checkBox76.Name = "checkBox76";
-            this.checkBox76.Size = new System.Drawing.Size(150, 25);
-            this.checkBox76.TabIndex = 67;
-            this.checkBox76.Text = "...";
-            this.checkBox76.UseVisualStyleBackColor = true;
-            // 
-            // checkBox77
-            // 
-            this.checkBox77.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox77.Location = new System.Drawing.Point(627, 156);
-            this.checkBox77.Name = "checkBox77";
-            this.checkBox77.Size = new System.Drawing.Size(150, 25);
-            this.checkBox77.TabIndex = 68;
-            this.checkBox77.Text = "...";
-            this.checkBox77.UseVisualStyleBackColor = true;
-            // 
-            // checkBox78
-            // 
-            this.checkBox78.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox78.Location = new System.Drawing.Point(783, 156);
-            this.checkBox78.Name = "checkBox78";
-            this.checkBox78.Size = new System.Drawing.Size(150, 25);
-            this.checkBox78.TabIndex = 69;
-            this.checkBox78.Text = "...";
-            this.checkBox78.UseVisualStyleBackColor = true;
-            // 
-            // checkBox79
-            // 
-            this.checkBox79.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox79.Location = new System.Drawing.Point(939, 156);
-            this.checkBox79.Name = "checkBox79";
-            this.checkBox79.Size = new System.Drawing.Size(150, 25);
-            this.checkBox79.TabIndex = 70;
-            this.checkBox79.Text = "...";
-            this.checkBox79.UseVisualStyleBackColor = true;
-            // 
-            // checkBox80
-            // 
-            this.checkBox80.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox80.Location = new System.Drawing.Point(1095, 156);
-            this.checkBox80.Name = "checkBox80";
-            this.checkBox80.Size = new System.Drawing.Size(150, 25);
-            this.checkBox80.TabIndex = 71;
-            this.checkBox80.Text = "...";
-            this.checkBox80.UseVisualStyleBackColor = true;
-            // 
-            // checkBox81
-            // 
-            this.checkBox81.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox81.Location = new System.Drawing.Point(3, 187);
-            this.checkBox81.Name = "checkBox81";
-            this.checkBox81.Size = new System.Drawing.Size(150, 25);
-            this.checkBox81.TabIndex = 72;
-            this.checkBox81.Text = "...";
-            this.checkBox81.UseVisualStyleBackColor = true;
-            // 
-            // checkBox82
-            // 
-            this.checkBox82.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox82.Location = new System.Drawing.Point(159, 187);
-            this.checkBox82.Name = "checkBox82";
-            this.checkBox82.Size = new System.Drawing.Size(150, 25);
-            this.checkBox82.TabIndex = 73;
-            this.checkBox82.Text = "...";
-            this.checkBox82.UseVisualStyleBackColor = true;
-            // 
-            // checkBox83
-            // 
-            this.checkBox83.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox83.Location = new System.Drawing.Point(315, 187);
-            this.checkBox83.Name = "checkBox83";
-            this.checkBox83.Size = new System.Drawing.Size(150, 25);
-            this.checkBox83.TabIndex = 74;
-            this.checkBox83.Text = "...";
-            this.checkBox83.UseVisualStyleBackColor = true;
-            // 
-            // checkBox84
-            // 
-            this.checkBox84.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox84.Location = new System.Drawing.Point(471, 187);
-            this.checkBox84.Name = "checkBox84";
-            this.checkBox84.Size = new System.Drawing.Size(150, 25);
-            this.checkBox84.TabIndex = 75;
-            this.checkBox84.Text = "...";
-            this.checkBox84.UseVisualStyleBackColor = true;
-            // 
-            // checkBox85
-            // 
-            this.checkBox85.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox85.Location = new System.Drawing.Point(627, 187);
-            this.checkBox85.Name = "checkBox85";
-            this.checkBox85.Size = new System.Drawing.Size(150, 25);
-            this.checkBox85.TabIndex = 76;
-            this.checkBox85.Text = "...";
-            this.checkBox85.UseVisualStyleBackColor = true;
-            // 
-            // checkBox86
-            // 
-            this.checkBox86.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox86.Location = new System.Drawing.Point(783, 187);
-            this.checkBox86.Name = "checkBox86";
-            this.checkBox86.Size = new System.Drawing.Size(150, 25);
-            this.checkBox86.TabIndex = 77;
-            this.checkBox86.Text = "...";
-            this.checkBox86.UseVisualStyleBackColor = true;
-            // 
-            // checkBox87
-            // 
-            this.checkBox87.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox87.Location = new System.Drawing.Point(939, 187);
-            this.checkBox87.Name = "checkBox87";
-            this.checkBox87.Size = new System.Drawing.Size(150, 25);
-            this.checkBox87.TabIndex = 78;
-            this.checkBox87.Text = "...";
-            this.checkBox87.UseVisualStyleBackColor = true;
-            // 
-            // checkBox88
-            // 
-            this.checkBox88.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox88.Location = new System.Drawing.Point(1095, 187);
-            this.checkBox88.Name = "checkBox88";
-            this.checkBox88.Size = new System.Drawing.Size(150, 25);
-            this.checkBox88.TabIndex = 79;
-            this.checkBox88.Text = "...";
-            this.checkBox88.UseVisualStyleBackColor = true;
-            // 
-            // checkBox89
-            // 
-            this.checkBox89.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox89.Location = new System.Drawing.Point(3, 218);
-            this.checkBox89.Name = "checkBox89";
-            this.checkBox89.Size = new System.Drawing.Size(150, 25);
-            this.checkBox89.TabIndex = 80;
-            this.checkBox89.Text = "...";
-            this.checkBox89.UseVisualStyleBackColor = true;
-            // 
-            // checkBox90
-            // 
-            this.checkBox90.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox90.Location = new System.Drawing.Point(159, 218);
-            this.checkBox90.Name = "checkBox90";
-            this.checkBox90.Size = new System.Drawing.Size(150, 25);
-            this.checkBox90.TabIndex = 81;
-            this.checkBox90.Text = "...";
-            this.checkBox90.UseVisualStyleBackColor = true;
-            // 
-            // checkBox91
-            // 
-            this.checkBox91.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox91.Location = new System.Drawing.Point(315, 218);
-            this.checkBox91.Name = "checkBox91";
-            this.checkBox91.Size = new System.Drawing.Size(150, 25);
-            this.checkBox91.TabIndex = 82;
-            this.checkBox91.Text = "...";
-            this.checkBox91.UseVisualStyleBackColor = true;
-            // 
-            // checkBox92
-            // 
-            this.checkBox92.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox92.Location = new System.Drawing.Point(471, 218);
-            this.checkBox92.Name = "checkBox92";
-            this.checkBox92.Size = new System.Drawing.Size(150, 25);
-            this.checkBox92.TabIndex = 83;
-            this.checkBox92.Text = "...";
-            this.checkBox92.UseVisualStyleBackColor = true;
-            // 
-            // checkBox93
-            // 
-            this.checkBox93.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox93.Location = new System.Drawing.Point(627, 218);
-            this.checkBox93.Name = "checkBox93";
-            this.checkBox93.Size = new System.Drawing.Size(150, 25);
-            this.checkBox93.TabIndex = 84;
-            this.checkBox93.Text = "...";
-            this.checkBox93.UseVisualStyleBackColor = true;
-            // 
-            // checkBox94
-            // 
-            this.checkBox94.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox94.Location = new System.Drawing.Point(783, 218);
-            this.checkBox94.Name = "checkBox94";
-            this.checkBox94.Size = new System.Drawing.Size(150, 25);
-            this.checkBox94.TabIndex = 85;
-            this.checkBox94.Text = "...";
-            this.checkBox94.UseVisualStyleBackColor = true;
-            // 
-            // checkBox95
-            // 
-            this.checkBox95.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox95.Location = new System.Drawing.Point(939, 218);
-            this.checkBox95.Name = "checkBox95";
-            this.checkBox95.Size = new System.Drawing.Size(150, 25);
-            this.checkBox95.TabIndex = 86;
-            this.checkBox95.Text = "...";
-            this.checkBox95.UseVisualStyleBackColor = true;
-            // 
-            // checkBox96
-            // 
-            this.checkBox96.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox96.Location = new System.Drawing.Point(1095, 218);
-            this.checkBox96.Name = "checkBox96";
-            this.checkBox96.Size = new System.Drawing.Size(150, 25);
-            this.checkBox96.TabIndex = 87;
-            this.checkBox96.Text = "...";
-            this.checkBox96.UseVisualStyleBackColor = true;
+            this.flowLayoutPanel4.AutoScroll = true;
+            this.flowLayoutPanel4.BackColor = System.Drawing.SystemColors.Window;
+            this.flowLayoutPanel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flowLayoutPanel4.Controls.Add(this.label35);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox145);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox146);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox147);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox148);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox149);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox150);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox151);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox152);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox153);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox154);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox155);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox156);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox157);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox158);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox159);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox160);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox161);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox162);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox163);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox164);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox165);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox166);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox167);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox168);
+            this.flowLayoutPanel4.Controls.Add(this.label36);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox169);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox170);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox171);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox172);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox173);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox174);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox175);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox176);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox177);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox178);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox179);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox180);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox181);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox182);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox183);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox184);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox185);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox186);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox187);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox188);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox189);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox190);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox191);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox192);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(66, 80);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(1280, 200);
+            this.flowLayoutPanel4.TabIndex = 45;
+            // 
+            // label35
+            // 
+            this.label35.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label35.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.Location = new System.Drawing.Point(3, 0);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(1242, 30);
+            this.label35.TabIndex = 63;
+            this.label35.Text = "[manufacturer]:";
+            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // checkBox145
+            // 
+            this.checkBox145.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox145.Location = new System.Drawing.Point(3, 33);
+            this.checkBox145.Name = "checkBox145";
+            this.checkBox145.Size = new System.Drawing.Size(150, 25);
+            this.checkBox145.TabIndex = 40;
+            this.checkBox145.Text = "[type]";
+            this.checkBox145.UseVisualStyleBackColor = true;
+            // 
+            // checkBox146
+            // 
+            this.checkBox146.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox146.Location = new System.Drawing.Point(159, 33);
+            this.checkBox146.Name = "checkBox146";
+            this.checkBox146.Size = new System.Drawing.Size(150, 25);
+            this.checkBox146.TabIndex = 39;
+            this.checkBox146.Text = "[type]";
+            this.checkBox146.UseVisualStyleBackColor = true;
+            // 
+            // checkBox147
+            // 
+            this.checkBox147.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox147.Location = new System.Drawing.Point(315, 33);
+            this.checkBox147.Name = "checkBox147";
+            this.checkBox147.Size = new System.Drawing.Size(150, 25);
+            this.checkBox147.TabIndex = 41;
+            this.checkBox147.Text = "[type]";
+            this.checkBox147.UseVisualStyleBackColor = true;
+            // 
+            // checkBox148
+            // 
+            this.checkBox148.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox148.Location = new System.Drawing.Point(471, 33);
+            this.checkBox148.Name = "checkBox148";
+            this.checkBox148.Size = new System.Drawing.Size(150, 25);
+            this.checkBox148.TabIndex = 42;
+            this.checkBox148.Text = "...";
+            this.checkBox148.UseVisualStyleBackColor = true;
+            // 
+            // checkBox149
+            // 
+            this.checkBox149.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox149.Location = new System.Drawing.Point(627, 33);
+            this.checkBox149.Name = "checkBox149";
+            this.checkBox149.Size = new System.Drawing.Size(150, 25);
+            this.checkBox149.TabIndex = 43;
+            this.checkBox149.Text = "...";
+            this.checkBox149.UseVisualStyleBackColor = true;
+            // 
+            // checkBox150
+            // 
+            this.checkBox150.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox150.Location = new System.Drawing.Point(783, 33);
+            this.checkBox150.Name = "checkBox150";
+            this.checkBox150.Size = new System.Drawing.Size(150, 25);
+            this.checkBox150.TabIndex = 44;
+            this.checkBox150.Text = "...";
+            this.checkBox150.UseVisualStyleBackColor = true;
+            // 
+            // checkBox151
+            // 
+            this.checkBox151.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox151.Location = new System.Drawing.Point(939, 33);
+            this.checkBox151.Name = "checkBox151";
+            this.checkBox151.Size = new System.Drawing.Size(150, 25);
+            this.checkBox151.TabIndex = 45;
+            this.checkBox151.Text = "...";
+            this.checkBox151.UseVisualStyleBackColor = true;
+            // 
+            // checkBox152
+            // 
+            this.checkBox152.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox152.Location = new System.Drawing.Point(1095, 33);
+            this.checkBox152.Name = "checkBox152";
+            this.checkBox152.Size = new System.Drawing.Size(150, 25);
+            this.checkBox152.TabIndex = 46;
+            this.checkBox152.Text = "...";
+            this.checkBox152.UseVisualStyleBackColor = true;
+            // 
+            // checkBox153
+            // 
+            this.checkBox153.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox153.Location = new System.Drawing.Point(3, 64);
+            this.checkBox153.Name = "checkBox153";
+            this.checkBox153.Size = new System.Drawing.Size(150, 25);
+            this.checkBox153.TabIndex = 47;
+            this.checkBox153.Text = "...";
+            this.checkBox153.UseVisualStyleBackColor = true;
+            // 
+            // checkBox154
+            // 
+            this.checkBox154.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox154.Location = new System.Drawing.Point(159, 64);
+            this.checkBox154.Name = "checkBox154";
+            this.checkBox154.Size = new System.Drawing.Size(150, 25);
+            this.checkBox154.TabIndex = 48;
+            this.checkBox154.Text = "...";
+            this.checkBox154.UseVisualStyleBackColor = true;
+            // 
+            // checkBox155
+            // 
+            this.checkBox155.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox155.Location = new System.Drawing.Point(315, 64);
+            this.checkBox155.Name = "checkBox155";
+            this.checkBox155.Size = new System.Drawing.Size(150, 25);
+            this.checkBox155.TabIndex = 49;
+            this.checkBox155.Text = "...";
+            this.checkBox155.UseVisualStyleBackColor = true;
+            // 
+            // checkBox156
+            // 
+            this.checkBox156.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox156.Location = new System.Drawing.Point(471, 64);
+            this.checkBox156.Name = "checkBox156";
+            this.checkBox156.Size = new System.Drawing.Size(150, 25);
+            this.checkBox156.TabIndex = 50;
+            this.checkBox156.Text = "...";
+            this.checkBox156.UseVisualStyleBackColor = true;
+            // 
+            // checkBox157
+            // 
+            this.checkBox157.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox157.Location = new System.Drawing.Point(627, 64);
+            this.checkBox157.Name = "checkBox157";
+            this.checkBox157.Size = new System.Drawing.Size(150, 25);
+            this.checkBox157.TabIndex = 51;
+            this.checkBox157.Text = "...";
+            this.checkBox157.UseVisualStyleBackColor = true;
+            // 
+            // checkBox158
+            // 
+            this.checkBox158.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox158.Location = new System.Drawing.Point(783, 64);
+            this.checkBox158.Name = "checkBox158";
+            this.checkBox158.Size = new System.Drawing.Size(150, 25);
+            this.checkBox158.TabIndex = 52;
+            this.checkBox158.Text = "...";
+            this.checkBox158.UseVisualStyleBackColor = true;
+            // 
+            // checkBox159
+            // 
+            this.checkBox159.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox159.Location = new System.Drawing.Point(939, 64);
+            this.checkBox159.Name = "checkBox159";
+            this.checkBox159.Size = new System.Drawing.Size(150, 25);
+            this.checkBox159.TabIndex = 53;
+            this.checkBox159.Text = "...";
+            this.checkBox159.UseVisualStyleBackColor = true;
+            // 
+            // checkBox160
+            // 
+            this.checkBox160.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox160.Location = new System.Drawing.Point(1095, 64);
+            this.checkBox160.Name = "checkBox160";
+            this.checkBox160.Size = new System.Drawing.Size(150, 25);
+            this.checkBox160.TabIndex = 54;
+            this.checkBox160.Text = "...";
+            this.checkBox160.UseVisualStyleBackColor = true;
+            // 
+            // checkBox161
+            // 
+            this.checkBox161.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox161.Location = new System.Drawing.Point(3, 95);
+            this.checkBox161.Name = "checkBox161";
+            this.checkBox161.Size = new System.Drawing.Size(150, 25);
+            this.checkBox161.TabIndex = 55;
+            this.checkBox161.Text = "...";
+            this.checkBox161.UseVisualStyleBackColor = true;
+            // 
+            // checkBox162
+            // 
+            this.checkBox162.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox162.Location = new System.Drawing.Point(159, 95);
+            this.checkBox162.Name = "checkBox162";
+            this.checkBox162.Size = new System.Drawing.Size(150, 25);
+            this.checkBox162.TabIndex = 56;
+            this.checkBox162.Text = "...";
+            this.checkBox162.UseVisualStyleBackColor = true;
+            // 
+            // checkBox163
+            // 
+            this.checkBox163.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox163.Location = new System.Drawing.Point(315, 95);
+            this.checkBox163.Name = "checkBox163";
+            this.checkBox163.Size = new System.Drawing.Size(150, 25);
+            this.checkBox163.TabIndex = 57;
+            this.checkBox163.Text = "...";
+            this.checkBox163.UseVisualStyleBackColor = true;
+            // 
+            // checkBox164
+            // 
+            this.checkBox164.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox164.Location = new System.Drawing.Point(471, 95);
+            this.checkBox164.Name = "checkBox164";
+            this.checkBox164.Size = new System.Drawing.Size(150, 25);
+            this.checkBox164.TabIndex = 58;
+            this.checkBox164.Text = "...";
+            this.checkBox164.UseVisualStyleBackColor = true;
+            // 
+            // checkBox165
+            // 
+            this.checkBox165.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox165.Location = new System.Drawing.Point(627, 95);
+            this.checkBox165.Name = "checkBox165";
+            this.checkBox165.Size = new System.Drawing.Size(150, 25);
+            this.checkBox165.TabIndex = 59;
+            this.checkBox165.Text = "...";
+            this.checkBox165.UseVisualStyleBackColor = true;
+            // 
+            // checkBox166
+            // 
+            this.checkBox166.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox166.Location = new System.Drawing.Point(783, 95);
+            this.checkBox166.Name = "checkBox166";
+            this.checkBox166.Size = new System.Drawing.Size(150, 25);
+            this.checkBox166.TabIndex = 60;
+            this.checkBox166.Text = "...";
+            this.checkBox166.UseVisualStyleBackColor = true;
+            // 
+            // checkBox167
+            // 
+            this.checkBox167.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox167.Location = new System.Drawing.Point(939, 95);
+            this.checkBox167.Name = "checkBox167";
+            this.checkBox167.Size = new System.Drawing.Size(150, 25);
+            this.checkBox167.TabIndex = 61;
+            this.checkBox167.Text = "...";
+            this.checkBox167.UseVisualStyleBackColor = true;
+            // 
+            // checkBox168
+            // 
+            this.checkBox168.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox168.Location = new System.Drawing.Point(1095, 95);
+            this.checkBox168.Name = "checkBox168";
+            this.checkBox168.Size = new System.Drawing.Size(150, 25);
+            this.checkBox168.TabIndex = 62;
+            this.checkBox168.Text = "...";
+            this.checkBox168.UseVisualStyleBackColor = true;
+            // 
+            // label36
+            // 
+            this.label36.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label36.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label36.Location = new System.Drawing.Point(3, 123);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(1242, 30);
+            this.label36.TabIndex = 88;
+            this.label36.Text = "[manufacturer]:";
+            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // checkBox169
+            // 
+            this.checkBox169.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox169.Location = new System.Drawing.Point(3, 156);
+            this.checkBox169.Name = "checkBox169";
+            this.checkBox169.Size = new System.Drawing.Size(150, 25);
+            this.checkBox169.TabIndex = 65;
+            this.checkBox169.Text = "[type]";
+            this.checkBox169.UseVisualStyleBackColor = true;
+            // 
+            // checkBox170
+            // 
+            this.checkBox170.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox170.Location = new System.Drawing.Point(159, 156);
+            this.checkBox170.Name = "checkBox170";
+            this.checkBox170.Size = new System.Drawing.Size(150, 25);
+            this.checkBox170.TabIndex = 64;
+            this.checkBox170.Text = "[type]";
+            this.checkBox170.UseVisualStyleBackColor = true;
+            // 
+            // checkBox171
+            // 
+            this.checkBox171.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox171.Location = new System.Drawing.Point(315, 156);
+            this.checkBox171.Name = "checkBox171";
+            this.checkBox171.Size = new System.Drawing.Size(150, 25);
+            this.checkBox171.TabIndex = 66;
+            this.checkBox171.Text = "[type]";
+            this.checkBox171.UseVisualStyleBackColor = true;
+            // 
+            // checkBox172
+            // 
+            this.checkBox172.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox172.Location = new System.Drawing.Point(471, 156);
+            this.checkBox172.Name = "checkBox172";
+            this.checkBox172.Size = new System.Drawing.Size(150, 25);
+            this.checkBox172.TabIndex = 67;
+            this.checkBox172.Text = "...";
+            this.checkBox172.UseVisualStyleBackColor = true;
+            // 
+            // checkBox173
+            // 
+            this.checkBox173.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox173.Location = new System.Drawing.Point(627, 156);
+            this.checkBox173.Name = "checkBox173";
+            this.checkBox173.Size = new System.Drawing.Size(150, 25);
+            this.checkBox173.TabIndex = 68;
+            this.checkBox173.Text = "...";
+            this.checkBox173.UseVisualStyleBackColor = true;
+            // 
+            // checkBox174
+            // 
+            this.checkBox174.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox174.Location = new System.Drawing.Point(783, 156);
+            this.checkBox174.Name = "checkBox174";
+            this.checkBox174.Size = new System.Drawing.Size(150, 25);
+            this.checkBox174.TabIndex = 69;
+            this.checkBox174.Text = "...";
+            this.checkBox174.UseVisualStyleBackColor = true;
+            // 
+            // checkBox175
+            // 
+            this.checkBox175.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox175.Location = new System.Drawing.Point(939, 156);
+            this.checkBox175.Name = "checkBox175";
+            this.checkBox175.Size = new System.Drawing.Size(150, 25);
+            this.checkBox175.TabIndex = 70;
+            this.checkBox175.Text = "...";
+            this.checkBox175.UseVisualStyleBackColor = true;
+            // 
+            // checkBox176
+            // 
+            this.checkBox176.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox176.Location = new System.Drawing.Point(1095, 156);
+            this.checkBox176.Name = "checkBox176";
+            this.checkBox176.Size = new System.Drawing.Size(150, 25);
+            this.checkBox176.TabIndex = 71;
+            this.checkBox176.Text = "...";
+            this.checkBox176.UseVisualStyleBackColor = true;
+            // 
+            // checkBox177
+            // 
+            this.checkBox177.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox177.Location = new System.Drawing.Point(3, 187);
+            this.checkBox177.Name = "checkBox177";
+            this.checkBox177.Size = new System.Drawing.Size(150, 25);
+            this.checkBox177.TabIndex = 72;
+            this.checkBox177.Text = "...";
+            this.checkBox177.UseVisualStyleBackColor = true;
+            // 
+            // checkBox178
+            // 
+            this.checkBox178.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox178.Location = new System.Drawing.Point(159, 187);
+            this.checkBox178.Name = "checkBox178";
+            this.checkBox178.Size = new System.Drawing.Size(150, 25);
+            this.checkBox178.TabIndex = 73;
+            this.checkBox178.Text = "...";
+            this.checkBox178.UseVisualStyleBackColor = true;
+            // 
+            // checkBox179
+            // 
+            this.checkBox179.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox179.Location = new System.Drawing.Point(315, 187);
+            this.checkBox179.Name = "checkBox179";
+            this.checkBox179.Size = new System.Drawing.Size(150, 25);
+            this.checkBox179.TabIndex = 74;
+            this.checkBox179.Text = "...";
+            this.checkBox179.UseVisualStyleBackColor = true;
+            // 
+            // checkBox180
+            // 
+            this.checkBox180.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox180.Location = new System.Drawing.Point(471, 187);
+            this.checkBox180.Name = "checkBox180";
+            this.checkBox180.Size = new System.Drawing.Size(150, 25);
+            this.checkBox180.TabIndex = 75;
+            this.checkBox180.Text = "...";
+            this.checkBox180.UseVisualStyleBackColor = true;
+            // 
+            // checkBox181
+            // 
+            this.checkBox181.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox181.Location = new System.Drawing.Point(627, 187);
+            this.checkBox181.Name = "checkBox181";
+            this.checkBox181.Size = new System.Drawing.Size(150, 25);
+            this.checkBox181.TabIndex = 76;
+            this.checkBox181.Text = "...";
+            this.checkBox181.UseVisualStyleBackColor = true;
+            // 
+            // checkBox182
+            // 
+            this.checkBox182.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox182.Location = new System.Drawing.Point(783, 187);
+            this.checkBox182.Name = "checkBox182";
+            this.checkBox182.Size = new System.Drawing.Size(150, 25);
+            this.checkBox182.TabIndex = 77;
+            this.checkBox182.Text = "...";
+            this.checkBox182.UseVisualStyleBackColor = true;
+            // 
+            // checkBox183
+            // 
+            this.checkBox183.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox183.Location = new System.Drawing.Point(939, 187);
+            this.checkBox183.Name = "checkBox183";
+            this.checkBox183.Size = new System.Drawing.Size(150, 25);
+            this.checkBox183.TabIndex = 78;
+            this.checkBox183.Text = "...";
+            this.checkBox183.UseVisualStyleBackColor = true;
+            // 
+            // checkBox184
+            // 
+            this.checkBox184.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox184.Location = new System.Drawing.Point(1095, 187);
+            this.checkBox184.Name = "checkBox184";
+            this.checkBox184.Size = new System.Drawing.Size(150, 25);
+            this.checkBox184.TabIndex = 79;
+            this.checkBox184.Text = "...";
+            this.checkBox184.UseVisualStyleBackColor = true;
+            // 
+            // checkBox185
+            // 
+            this.checkBox185.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox185.Location = new System.Drawing.Point(3, 218);
+            this.checkBox185.Name = "checkBox185";
+            this.checkBox185.Size = new System.Drawing.Size(150, 25);
+            this.checkBox185.TabIndex = 80;
+            this.checkBox185.Text = "...";
+            this.checkBox185.UseVisualStyleBackColor = true;
+            // 
+            // checkBox186
+            // 
+            this.checkBox186.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox186.Location = new System.Drawing.Point(159, 218);
+            this.checkBox186.Name = "checkBox186";
+            this.checkBox186.Size = new System.Drawing.Size(150, 25);
+            this.checkBox186.TabIndex = 81;
+            this.checkBox186.Text = "...";
+            this.checkBox186.UseVisualStyleBackColor = true;
+            // 
+            // checkBox187
+            // 
+            this.checkBox187.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox187.Location = new System.Drawing.Point(315, 218);
+            this.checkBox187.Name = "checkBox187";
+            this.checkBox187.Size = new System.Drawing.Size(150, 25);
+            this.checkBox187.TabIndex = 82;
+            this.checkBox187.Text = "...";
+            this.checkBox187.UseVisualStyleBackColor = true;
+            // 
+            // checkBox188
+            // 
+            this.checkBox188.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox188.Location = new System.Drawing.Point(471, 218);
+            this.checkBox188.Name = "checkBox188";
+            this.checkBox188.Size = new System.Drawing.Size(150, 25);
+            this.checkBox188.TabIndex = 83;
+            this.checkBox188.Text = "...";
+            this.checkBox188.UseVisualStyleBackColor = true;
+            // 
+            // checkBox189
+            // 
+            this.checkBox189.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox189.Location = new System.Drawing.Point(627, 218);
+            this.checkBox189.Name = "checkBox189";
+            this.checkBox189.Size = new System.Drawing.Size(150, 25);
+            this.checkBox189.TabIndex = 84;
+            this.checkBox189.Text = "...";
+            this.checkBox189.UseVisualStyleBackColor = true;
+            // 
+            // checkBox190
+            // 
+            this.checkBox190.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox190.Location = new System.Drawing.Point(783, 218);
+            this.checkBox190.Name = "checkBox190";
+            this.checkBox190.Size = new System.Drawing.Size(150, 25);
+            this.checkBox190.TabIndex = 85;
+            this.checkBox190.Text = "...";
+            this.checkBox190.UseVisualStyleBackColor = true;
+            // 
+            // checkBox191
+            // 
+            this.checkBox191.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox191.Location = new System.Drawing.Point(939, 218);
+            this.checkBox191.Name = "checkBox191";
+            this.checkBox191.Size = new System.Drawing.Size(150, 25);
+            this.checkBox191.TabIndex = 86;
+            this.checkBox191.Text = "...";
+            this.checkBox191.UseVisualStyleBackColor = true;
+            // 
+            // checkBox192
+            // 
+            this.checkBox192.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox192.Location = new System.Drawing.Point(1095, 218);
+            this.checkBox192.Name = "checkBox192";
+            this.checkBox192.Size = new System.Drawing.Size(150, 25);
+            this.checkBox192.TabIndex = 87;
+            this.checkBox192.Text = "...";
+            this.checkBox192.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
@@ -4026,22 +3084,22 @@
             this.checkBox144.Text = "...";
             this.checkBox144.UseVisualStyleBackColor = true;
             // 
-            // panel4
+            // panel2
             // 
-            this.panel4.Controls.Add(this.comboBox3);
-            this.panel4.Controls.Add(this.label34);
-            this.panel4.Controls.Add(this.flowLayoutPanel4);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(0, 900);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1413, 300);
-            this.panel4.TabIndex = 54;
+            this.panel2.Controls.Add(this.comboBox5);
+            this.panel2.Controls.Add(this.label40);
+            this.panel2.Controls.Add(this.flowLayoutPanel2);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 300);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1413, 300);
+            this.panel2.TabIndex = 52;
             // 
-            // comboBox3
+            // comboBox5
             // 
-            this.comboBox3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.comboBox5.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Items.AddRange(new object[] {
             "[manufacturer]",
             "--[type]",
             "--[type]",
@@ -4050,1014 +3108,1260 @@
             "--[type]",
             "--[type]",
             "--[type]"});
-            this.comboBox3.Location = new System.Drawing.Point(200, 29);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(800, 29);
-            this.comboBox3.TabIndex = 43;
+            this.comboBox5.Location = new System.Drawing.Point(200, 29);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(800, 29);
+            this.comboBox5.TabIndex = 43;
             // 
-            // label34
+            // label40
             // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label34.Location = new System.Drawing.Point(60, 30);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(69, 26);
-            this.label34.TabIndex = 42;
-            this.label34.Text = "电容：";
-            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label40.Location = new System.Drawing.Point(60, 30);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(69, 26);
+            this.label40.TabIndex = 42;
+            this.label40.Text = "磁芯：";
+            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // flowLayoutPanel4
+            // flowLayoutPanel2
             // 
-            this.flowLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.flowLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel4.AutoScroll = true;
-            this.flowLayoutPanel4.BackColor = System.Drawing.SystemColors.Window;
-            this.flowLayoutPanel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayoutPanel4.Controls.Add(this.label35);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox145);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox146);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox147);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox148);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox149);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox150);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox151);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox152);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox153);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox154);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox155);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox156);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox157);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox158);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox159);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox160);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox161);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox162);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox163);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox164);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox165);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox166);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox167);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox168);
-            this.flowLayoutPanel4.Controls.Add(this.label36);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox169);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox170);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox171);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox172);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox173);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox174);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox175);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox176);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox177);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox178);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox179);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox180);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox181);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox182);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox183);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox184);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox185);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox186);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox187);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox188);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox189);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox190);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox191);
-            this.flowLayoutPanel4.Controls.Add(this.checkBox192);
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(66, 80);
-            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(1280, 200);
-            this.flowLayoutPanel4.TabIndex = 45;
-            // 
-            // label35
-            // 
-            this.label35.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label35.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.Location = new System.Drawing.Point(3, 0);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(1242, 30);
-            this.label35.TabIndex = 63;
-            this.label35.Text = "[manufacturer]:";
-            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // checkBox145
-            // 
-            this.checkBox145.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox145.Location = new System.Drawing.Point(3, 33);
-            this.checkBox145.Name = "checkBox145";
-            this.checkBox145.Size = new System.Drawing.Size(150, 25);
-            this.checkBox145.TabIndex = 40;
-            this.checkBox145.Text = "[type]";
-            this.checkBox145.UseVisualStyleBackColor = true;
-            // 
-            // checkBox146
-            // 
-            this.checkBox146.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox146.Location = new System.Drawing.Point(159, 33);
-            this.checkBox146.Name = "checkBox146";
-            this.checkBox146.Size = new System.Drawing.Size(150, 25);
-            this.checkBox146.TabIndex = 39;
-            this.checkBox146.Text = "[type]";
-            this.checkBox146.UseVisualStyleBackColor = true;
-            // 
-            // checkBox147
-            // 
-            this.checkBox147.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox147.Location = new System.Drawing.Point(315, 33);
-            this.checkBox147.Name = "checkBox147";
-            this.checkBox147.Size = new System.Drawing.Size(150, 25);
-            this.checkBox147.TabIndex = 41;
-            this.checkBox147.Text = "[type]";
-            this.checkBox147.UseVisualStyleBackColor = true;
-            // 
-            // checkBox148
-            // 
-            this.checkBox148.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox148.Location = new System.Drawing.Point(471, 33);
-            this.checkBox148.Name = "checkBox148";
-            this.checkBox148.Size = new System.Drawing.Size(150, 25);
-            this.checkBox148.TabIndex = 42;
-            this.checkBox148.Text = "...";
-            this.checkBox148.UseVisualStyleBackColor = true;
-            // 
-            // checkBox149
-            // 
-            this.checkBox149.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox149.Location = new System.Drawing.Point(627, 33);
-            this.checkBox149.Name = "checkBox149";
-            this.checkBox149.Size = new System.Drawing.Size(150, 25);
-            this.checkBox149.TabIndex = 43;
-            this.checkBox149.Text = "...";
-            this.checkBox149.UseVisualStyleBackColor = true;
-            // 
-            // checkBox150
-            // 
-            this.checkBox150.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox150.Location = new System.Drawing.Point(783, 33);
-            this.checkBox150.Name = "checkBox150";
-            this.checkBox150.Size = new System.Drawing.Size(150, 25);
-            this.checkBox150.TabIndex = 44;
-            this.checkBox150.Text = "...";
-            this.checkBox150.UseVisualStyleBackColor = true;
-            // 
-            // checkBox151
-            // 
-            this.checkBox151.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox151.Location = new System.Drawing.Point(939, 33);
-            this.checkBox151.Name = "checkBox151";
-            this.checkBox151.Size = new System.Drawing.Size(150, 25);
-            this.checkBox151.TabIndex = 45;
-            this.checkBox151.Text = "...";
-            this.checkBox151.UseVisualStyleBackColor = true;
-            // 
-            // checkBox152
-            // 
-            this.checkBox152.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox152.Location = new System.Drawing.Point(1095, 33);
-            this.checkBox152.Name = "checkBox152";
-            this.checkBox152.Size = new System.Drawing.Size(150, 25);
-            this.checkBox152.TabIndex = 46;
-            this.checkBox152.Text = "...";
-            this.checkBox152.UseVisualStyleBackColor = true;
-            // 
-            // checkBox153
-            // 
-            this.checkBox153.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox153.Location = new System.Drawing.Point(3, 64);
-            this.checkBox153.Name = "checkBox153";
-            this.checkBox153.Size = new System.Drawing.Size(150, 25);
-            this.checkBox153.TabIndex = 47;
-            this.checkBox153.Text = "...";
-            this.checkBox153.UseVisualStyleBackColor = true;
-            // 
-            // checkBox154
-            // 
-            this.checkBox154.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox154.Location = new System.Drawing.Point(159, 64);
-            this.checkBox154.Name = "checkBox154";
-            this.checkBox154.Size = new System.Drawing.Size(150, 25);
-            this.checkBox154.TabIndex = 48;
-            this.checkBox154.Text = "...";
-            this.checkBox154.UseVisualStyleBackColor = true;
-            // 
-            // checkBox155
-            // 
-            this.checkBox155.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox155.Location = new System.Drawing.Point(315, 64);
-            this.checkBox155.Name = "checkBox155";
-            this.checkBox155.Size = new System.Drawing.Size(150, 25);
-            this.checkBox155.TabIndex = 49;
-            this.checkBox155.Text = "...";
-            this.checkBox155.UseVisualStyleBackColor = true;
-            // 
-            // checkBox156
-            // 
-            this.checkBox156.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox156.Location = new System.Drawing.Point(471, 64);
-            this.checkBox156.Name = "checkBox156";
-            this.checkBox156.Size = new System.Drawing.Size(150, 25);
-            this.checkBox156.TabIndex = 50;
-            this.checkBox156.Text = "...";
-            this.checkBox156.UseVisualStyleBackColor = true;
-            // 
-            // checkBox157
-            // 
-            this.checkBox157.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox157.Location = new System.Drawing.Point(627, 64);
-            this.checkBox157.Name = "checkBox157";
-            this.checkBox157.Size = new System.Drawing.Size(150, 25);
-            this.checkBox157.TabIndex = 51;
-            this.checkBox157.Text = "...";
-            this.checkBox157.UseVisualStyleBackColor = true;
-            // 
-            // checkBox158
-            // 
-            this.checkBox158.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox158.Location = new System.Drawing.Point(783, 64);
-            this.checkBox158.Name = "checkBox158";
-            this.checkBox158.Size = new System.Drawing.Size(150, 25);
-            this.checkBox158.TabIndex = 52;
-            this.checkBox158.Text = "...";
-            this.checkBox158.UseVisualStyleBackColor = true;
-            // 
-            // checkBox159
-            // 
-            this.checkBox159.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox159.Location = new System.Drawing.Point(939, 64);
-            this.checkBox159.Name = "checkBox159";
-            this.checkBox159.Size = new System.Drawing.Size(150, 25);
-            this.checkBox159.TabIndex = 53;
-            this.checkBox159.Text = "...";
-            this.checkBox159.UseVisualStyleBackColor = true;
-            // 
-            // checkBox160
-            // 
-            this.checkBox160.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox160.Location = new System.Drawing.Point(1095, 64);
-            this.checkBox160.Name = "checkBox160";
-            this.checkBox160.Size = new System.Drawing.Size(150, 25);
-            this.checkBox160.TabIndex = 54;
-            this.checkBox160.Text = "...";
-            this.checkBox160.UseVisualStyleBackColor = true;
-            // 
-            // checkBox161
-            // 
-            this.checkBox161.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox161.Location = new System.Drawing.Point(3, 95);
-            this.checkBox161.Name = "checkBox161";
-            this.checkBox161.Size = new System.Drawing.Size(150, 25);
-            this.checkBox161.TabIndex = 55;
-            this.checkBox161.Text = "...";
-            this.checkBox161.UseVisualStyleBackColor = true;
-            // 
-            // checkBox162
-            // 
-            this.checkBox162.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox162.Location = new System.Drawing.Point(159, 95);
-            this.checkBox162.Name = "checkBox162";
-            this.checkBox162.Size = new System.Drawing.Size(150, 25);
-            this.checkBox162.TabIndex = 56;
-            this.checkBox162.Text = "...";
-            this.checkBox162.UseVisualStyleBackColor = true;
-            // 
-            // checkBox163
-            // 
-            this.checkBox163.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox163.Location = new System.Drawing.Point(315, 95);
-            this.checkBox163.Name = "checkBox163";
-            this.checkBox163.Size = new System.Drawing.Size(150, 25);
-            this.checkBox163.TabIndex = 57;
-            this.checkBox163.Text = "...";
-            this.checkBox163.UseVisualStyleBackColor = true;
-            // 
-            // checkBox164
-            // 
-            this.checkBox164.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox164.Location = new System.Drawing.Point(471, 95);
-            this.checkBox164.Name = "checkBox164";
-            this.checkBox164.Size = new System.Drawing.Size(150, 25);
-            this.checkBox164.TabIndex = 58;
-            this.checkBox164.Text = "...";
-            this.checkBox164.UseVisualStyleBackColor = true;
-            // 
-            // checkBox165
-            // 
-            this.checkBox165.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox165.Location = new System.Drawing.Point(627, 95);
-            this.checkBox165.Name = "checkBox165";
-            this.checkBox165.Size = new System.Drawing.Size(150, 25);
-            this.checkBox165.TabIndex = 59;
-            this.checkBox165.Text = "...";
-            this.checkBox165.UseVisualStyleBackColor = true;
-            // 
-            // checkBox166
-            // 
-            this.checkBox166.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox166.Location = new System.Drawing.Point(783, 95);
-            this.checkBox166.Name = "checkBox166";
-            this.checkBox166.Size = new System.Drawing.Size(150, 25);
-            this.checkBox166.TabIndex = 60;
-            this.checkBox166.Text = "...";
-            this.checkBox166.UseVisualStyleBackColor = true;
-            // 
-            // checkBox167
-            // 
-            this.checkBox167.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox167.Location = new System.Drawing.Point(939, 95);
-            this.checkBox167.Name = "checkBox167";
-            this.checkBox167.Size = new System.Drawing.Size(150, 25);
-            this.checkBox167.TabIndex = 61;
-            this.checkBox167.Text = "...";
-            this.checkBox167.UseVisualStyleBackColor = true;
-            // 
-            // checkBox168
-            // 
-            this.checkBox168.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox168.Location = new System.Drawing.Point(1095, 95);
-            this.checkBox168.Name = "checkBox168";
-            this.checkBox168.Size = new System.Drawing.Size(150, 25);
-            this.checkBox168.TabIndex = 62;
-            this.checkBox168.Text = "...";
-            this.checkBox168.UseVisualStyleBackColor = true;
-            // 
-            // label36
-            // 
-            this.label36.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label36.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label36.Location = new System.Drawing.Point(3, 123);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(1242, 30);
-            this.label36.TabIndex = 88;
-            this.label36.Text = "[manufacturer]:";
-            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // checkBox169
-            // 
-            this.checkBox169.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox169.Location = new System.Drawing.Point(3, 156);
-            this.checkBox169.Name = "checkBox169";
-            this.checkBox169.Size = new System.Drawing.Size(150, 25);
-            this.checkBox169.TabIndex = 65;
-            this.checkBox169.Text = "[type]";
-            this.checkBox169.UseVisualStyleBackColor = true;
-            // 
-            // checkBox170
-            // 
-            this.checkBox170.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox170.Location = new System.Drawing.Point(159, 156);
-            this.checkBox170.Name = "checkBox170";
-            this.checkBox170.Size = new System.Drawing.Size(150, 25);
-            this.checkBox170.TabIndex = 64;
-            this.checkBox170.Text = "[type]";
-            this.checkBox170.UseVisualStyleBackColor = true;
-            // 
-            // checkBox171
-            // 
-            this.checkBox171.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox171.Location = new System.Drawing.Point(315, 156);
-            this.checkBox171.Name = "checkBox171";
-            this.checkBox171.Size = new System.Drawing.Size(150, 25);
-            this.checkBox171.TabIndex = 66;
-            this.checkBox171.Text = "[type]";
-            this.checkBox171.UseVisualStyleBackColor = true;
-            // 
-            // checkBox172
-            // 
-            this.checkBox172.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox172.Location = new System.Drawing.Point(471, 156);
-            this.checkBox172.Name = "checkBox172";
-            this.checkBox172.Size = new System.Drawing.Size(150, 25);
-            this.checkBox172.TabIndex = 67;
-            this.checkBox172.Text = "...";
-            this.checkBox172.UseVisualStyleBackColor = true;
-            // 
-            // checkBox173
-            // 
-            this.checkBox173.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox173.Location = new System.Drawing.Point(627, 156);
-            this.checkBox173.Name = "checkBox173";
-            this.checkBox173.Size = new System.Drawing.Size(150, 25);
-            this.checkBox173.TabIndex = 68;
-            this.checkBox173.Text = "...";
-            this.checkBox173.UseVisualStyleBackColor = true;
-            // 
-            // checkBox174
-            // 
-            this.checkBox174.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox174.Location = new System.Drawing.Point(783, 156);
-            this.checkBox174.Name = "checkBox174";
-            this.checkBox174.Size = new System.Drawing.Size(150, 25);
-            this.checkBox174.TabIndex = 69;
-            this.checkBox174.Text = "...";
-            this.checkBox174.UseVisualStyleBackColor = true;
-            // 
-            // checkBox175
-            // 
-            this.checkBox175.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox175.Location = new System.Drawing.Point(939, 156);
-            this.checkBox175.Name = "checkBox175";
-            this.checkBox175.Size = new System.Drawing.Size(150, 25);
-            this.checkBox175.TabIndex = 70;
-            this.checkBox175.Text = "...";
-            this.checkBox175.UseVisualStyleBackColor = true;
-            // 
-            // checkBox176
-            // 
-            this.checkBox176.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox176.Location = new System.Drawing.Point(1095, 156);
-            this.checkBox176.Name = "checkBox176";
-            this.checkBox176.Size = new System.Drawing.Size(150, 25);
-            this.checkBox176.TabIndex = 71;
-            this.checkBox176.Text = "...";
-            this.checkBox176.UseVisualStyleBackColor = true;
-            // 
-            // checkBox177
-            // 
-            this.checkBox177.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox177.Location = new System.Drawing.Point(3, 187);
-            this.checkBox177.Name = "checkBox177";
-            this.checkBox177.Size = new System.Drawing.Size(150, 25);
-            this.checkBox177.TabIndex = 72;
-            this.checkBox177.Text = "...";
-            this.checkBox177.UseVisualStyleBackColor = true;
-            // 
-            // checkBox178
-            // 
-            this.checkBox178.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox178.Location = new System.Drawing.Point(159, 187);
-            this.checkBox178.Name = "checkBox178";
-            this.checkBox178.Size = new System.Drawing.Size(150, 25);
-            this.checkBox178.TabIndex = 73;
-            this.checkBox178.Text = "...";
-            this.checkBox178.UseVisualStyleBackColor = true;
-            // 
-            // checkBox179
-            // 
-            this.checkBox179.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox179.Location = new System.Drawing.Point(315, 187);
-            this.checkBox179.Name = "checkBox179";
-            this.checkBox179.Size = new System.Drawing.Size(150, 25);
-            this.checkBox179.TabIndex = 74;
-            this.checkBox179.Text = "...";
-            this.checkBox179.UseVisualStyleBackColor = true;
-            // 
-            // checkBox180
-            // 
-            this.checkBox180.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox180.Location = new System.Drawing.Point(471, 187);
-            this.checkBox180.Name = "checkBox180";
-            this.checkBox180.Size = new System.Drawing.Size(150, 25);
-            this.checkBox180.TabIndex = 75;
-            this.checkBox180.Text = "...";
-            this.checkBox180.UseVisualStyleBackColor = true;
-            // 
-            // checkBox181
-            // 
-            this.checkBox181.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox181.Location = new System.Drawing.Point(627, 187);
-            this.checkBox181.Name = "checkBox181";
-            this.checkBox181.Size = new System.Drawing.Size(150, 25);
-            this.checkBox181.TabIndex = 76;
-            this.checkBox181.Text = "...";
-            this.checkBox181.UseVisualStyleBackColor = true;
-            // 
-            // checkBox182
-            // 
-            this.checkBox182.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox182.Location = new System.Drawing.Point(783, 187);
-            this.checkBox182.Name = "checkBox182";
-            this.checkBox182.Size = new System.Drawing.Size(150, 25);
-            this.checkBox182.TabIndex = 77;
-            this.checkBox182.Text = "...";
-            this.checkBox182.UseVisualStyleBackColor = true;
-            // 
-            // checkBox183
-            // 
-            this.checkBox183.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox183.Location = new System.Drawing.Point(939, 187);
-            this.checkBox183.Name = "checkBox183";
-            this.checkBox183.Size = new System.Drawing.Size(150, 25);
-            this.checkBox183.TabIndex = 78;
-            this.checkBox183.Text = "...";
-            this.checkBox183.UseVisualStyleBackColor = true;
-            // 
-            // checkBox184
-            // 
-            this.checkBox184.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox184.Location = new System.Drawing.Point(1095, 187);
-            this.checkBox184.Name = "checkBox184";
-            this.checkBox184.Size = new System.Drawing.Size(150, 25);
-            this.checkBox184.TabIndex = 79;
-            this.checkBox184.Text = "...";
-            this.checkBox184.UseVisualStyleBackColor = true;
-            // 
-            // checkBox185
-            // 
-            this.checkBox185.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox185.Location = new System.Drawing.Point(3, 218);
-            this.checkBox185.Name = "checkBox185";
-            this.checkBox185.Size = new System.Drawing.Size(150, 25);
-            this.checkBox185.TabIndex = 80;
-            this.checkBox185.Text = "...";
-            this.checkBox185.UseVisualStyleBackColor = true;
-            // 
-            // checkBox186
-            // 
-            this.checkBox186.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox186.Location = new System.Drawing.Point(159, 218);
-            this.checkBox186.Name = "checkBox186";
-            this.checkBox186.Size = new System.Drawing.Size(150, 25);
-            this.checkBox186.TabIndex = 81;
-            this.checkBox186.Text = "...";
-            this.checkBox186.UseVisualStyleBackColor = true;
-            // 
-            // checkBox187
-            // 
-            this.checkBox187.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox187.Location = new System.Drawing.Point(315, 218);
-            this.checkBox187.Name = "checkBox187";
-            this.checkBox187.Size = new System.Drawing.Size(150, 25);
-            this.checkBox187.TabIndex = 82;
-            this.checkBox187.Text = "...";
-            this.checkBox187.UseVisualStyleBackColor = true;
-            // 
-            // checkBox188
-            // 
-            this.checkBox188.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox188.Location = new System.Drawing.Point(471, 218);
-            this.checkBox188.Name = "checkBox188";
-            this.checkBox188.Size = new System.Drawing.Size(150, 25);
-            this.checkBox188.TabIndex = 83;
-            this.checkBox188.Text = "...";
-            this.checkBox188.UseVisualStyleBackColor = true;
-            // 
-            // checkBox189
-            // 
-            this.checkBox189.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox189.Location = new System.Drawing.Point(627, 218);
-            this.checkBox189.Name = "checkBox189";
-            this.checkBox189.Size = new System.Drawing.Size(150, 25);
-            this.checkBox189.TabIndex = 84;
-            this.checkBox189.Text = "...";
-            this.checkBox189.UseVisualStyleBackColor = true;
-            // 
-            // checkBox190
-            // 
-            this.checkBox190.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox190.Location = new System.Drawing.Point(783, 218);
-            this.checkBox190.Name = "checkBox190";
-            this.checkBox190.Size = new System.Drawing.Size(150, 25);
-            this.checkBox190.TabIndex = 85;
-            this.checkBox190.Text = "...";
-            this.checkBox190.UseVisualStyleBackColor = true;
-            // 
-            // checkBox191
-            // 
-            this.checkBox191.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox191.Location = new System.Drawing.Point(939, 218);
-            this.checkBox191.Name = "checkBox191";
-            this.checkBox191.Size = new System.Drawing.Size(150, 25);
-            this.checkBox191.TabIndex = 86;
-            this.checkBox191.Text = "...";
-            this.checkBox191.UseVisualStyleBackColor = true;
-            // 
-            // checkBox192
-            // 
-            this.checkBox192.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox192.Location = new System.Drawing.Point(1095, 218);
-            this.checkBox192.Name = "checkBox192";
-            this.checkBox192.Size = new System.Drawing.Size(150, 25);
-            this.checkBox192.TabIndex = 87;
-            this.checkBox192.Text = "...";
-            this.checkBox192.UseVisualStyleBackColor = true;
-            // 
-            // label62
-            // 
-            this.label62.AutoSize = true;
-            this.label62.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label62.Location = new System.Drawing.Point(147, 217);
-            this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(107, 26);
-            this.label62.TabIndex = 44;
-            this.label62.Text = "整体系统：";
-            this.label62.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label61.Location = new System.Drawing.Point(147, 268);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(126, 25);
-            this.label61.TabIndex = 45;
-            this.label61.Text = "系统总功率：";
-            this.label61.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label60
-            // 
-            this.label60.AutoSize = true;
-            this.label60.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label60.Location = new System.Drawing.Point(523, 270);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(44, 21);
-            this.label60.TabIndex = 47;
-            this.label60.Text = "MW";
-            this.label60.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label59.Location = new System.Drawing.Point(147, 318);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(199, 25);
-            this.label59.TabIndex = 48;
-            this.label59.Text = "光伏MPPT电压范围：";
-            this.label59.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label58.Location = new System.Drawing.Point(523, 320);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(20, 21);
-            this.label58.TabIndex = 50;
-            this.label58.Text = "~";
-            this.label58.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label57.Location = new System.Drawing.Point(687, 320);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(23, 21);
-            this.label57.TabIndex = 52;
-            this.label57.Text = "V";
-            this.label57.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label56.Location = new System.Drawing.Point(147, 368);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(145, 25);
-            this.label56.TabIndex = 53;
-            this.label56.Text = "光伏最大电压：";
-            this.label56.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label55.Location = new System.Drawing.Point(523, 370);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(23, 21);
-            this.label55.TabIndex = 55;
-            this.label55.Text = "V";
-            this.label55.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label54.Location = new System.Drawing.Point(147, 418);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(107, 25);
-            this.label54.TabIndex = 56;
-            this.label54.Text = "并网电压：";
-            this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label53.Location = new System.Drawing.Point(523, 420);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(32, 21);
-            this.label53.TabIndex = 58;
-            this.label53.Text = "kV";
-            this.label53.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label52.Location = new System.Drawing.Point(147, 532);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(134, 26);
-            this.label52.TabIndex = 59;
-            this.label52.Text = "前级DC/DC：";
-            this.label52.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label51.Location = new System.Drawing.Point(147, 583);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(126, 25);
-            this.label51.TabIndex = 60;
-            this.label51.Text = "最大模块数：";
-            this.label51.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label50.Location = new System.Drawing.Point(147, 633);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(145, 25);
-            this.label50.TabIndex = 62;
-            this.label50.Text = "开关频率范围：";
-            this.label50.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label49.Location = new System.Drawing.Point(523, 635);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(20, 21);
-            this.label49.TabIndex = 64;
-            this.label49.Text = "~";
-            this.label49.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label48.Location = new System.Drawing.Point(687, 635);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(40, 21);
-            this.label48.TabIndex = 66;
-            this.label48.Text = "kHz";
-            this.label48.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label47.Location = new System.Drawing.Point(147, 742);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(134, 26);
-            this.label47.TabIndex = 67;
-            this.label47.Text = "隔离DC/DC：";
-            this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label46.Location = new System.Drawing.Point(147, 793);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(126, 25);
-            this.label46.TabIndex = 68;
-            this.label46.Text = "最大模块数：";
-            this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label45.Location = new System.Drawing.Point(147, 843);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(145, 25);
-            this.label45.TabIndex = 70;
-            this.label45.Text = "开关频率范围：";
-            this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label44.Location = new System.Drawing.Point(523, 845);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(20, 21);
-            this.label44.TabIndex = 72;
-            this.label44.Text = "~";
-            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label43.Location = new System.Drawing.Point(687, 845);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(40, 21);
-            this.label43.TabIndex = 74;
-            this.label43.Text = "kHz";
-            this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label42.Location = new System.Drawing.Point(147, 952);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(69, 26);
-            this.label42.TabIndex = 75;
-            this.label42.Text = "逆变：";
-            this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label41.Location = new System.Drawing.Point(147, 1003);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(126, 25);
-            this.label41.TabIndex = 76;
-            this.label41.Text = "最大模块数：";
-            this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label39.Location = new System.Drawing.Point(147, 1053);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(145, 25);
-            this.label39.TabIndex = 78;
-            this.label39.Text = "开关频率范围：";
-            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(523, 1055);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(20, 21);
-            this.label38.TabIndex = 80;
-            this.label38.Text = "~";
-            this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(687, 1055);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(40, 21);
-            this.label37.TabIndex = 82;
-            this.label37.Text = "kHz";
-            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label63
-            // 
-            this.label63.AutoSize = true;
-            this.label63.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label63.Location = new System.Drawing.Point(442, 270);
-            this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(19, 21);
-            this.label63.TabIndex = 83;
-            this.label63.Text = "6";
-            this.label63.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label64
-            // 
-            this.label64.AutoSize = true;
-            this.label64.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label64.Location = new System.Drawing.Point(433, 320);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(37, 21);
-            this.label64.TabIndex = 84;
-            this.label64.Text = "860";
-            this.label64.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label65
-            // 
-            this.label65.AutoSize = true;
-            this.label65.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label65.Location = new System.Drawing.Point(592, 320);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(46, 21);
-            this.label65.TabIndex = 85;
-            this.label65.Text = "1300";
-            this.label65.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label66
-            // 
-            this.label66.AutoSize = true;
-            this.label66.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label66.Location = new System.Drawing.Point(428, 370);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(46, 21);
-            this.label66.TabIndex = 86;
-            this.label66.Text = "1500";
-            this.label66.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label67
-            // 
-            this.label67.AutoSize = true;
-            this.label67.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label67.Location = new System.Drawing.Point(437, 420);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(28, 21);
-            this.label67.TabIndex = 87;
-            this.label67.Text = "35";
-            this.label67.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label68
-            // 
-            this.label68.AutoSize = true;
-            this.label68.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label68.Location = new System.Drawing.Point(433, 585);
-            this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(37, 21);
-            this.label68.TabIndex = 88;
-            this.label68.Text = "120";
-            this.label68.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label69
-            // 
-            this.label69.AutoSize = true;
-            this.label69.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label69.Location = new System.Drawing.Point(437, 795);
-            this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(28, 21);
-            this.label69.TabIndex = 89;
-            this.label69.Text = "40";
-            this.label69.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label70
-            // 
-            this.label70.AutoSize = true;
-            this.label70.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label70.Location = new System.Drawing.Point(437, 1005);
-            this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(28, 21);
-            this.label70.TabIndex = 90;
-            this.label70.Text = "40";
-            this.label70.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label71
-            // 
-            this.label71.AutoSize = true;
-            this.label71.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label71.Location = new System.Drawing.Point(437, 845);
-            this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(28, 21);
-            this.label71.TabIndex = 91;
-            this.label71.Text = "10";
-            this.label71.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label72
-            // 
-            this.label72.AutoSize = true;
-            this.label72.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label72.Location = new System.Drawing.Point(597, 635);
-            this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(37, 21);
-            this.label72.TabIndex = 92;
-            this.label72.Text = "100";
-            this.label72.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label73
-            // 
-            this.label73.AutoSize = true;
-            this.label73.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label73.Location = new System.Drawing.Point(437, 635);
-            this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(28, 21);
-            this.label73.TabIndex = 93;
-            this.label73.Text = "10";
-            this.label73.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label74
-            // 
-            this.label74.AutoSize = true;
-            this.label74.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label74.Location = new System.Drawing.Point(597, 845);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(37, 21);
-            this.label74.TabIndex = 94;
-            this.label74.Text = "100";
-            this.label74.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label75
-            // 
-            this.label75.AutoSize = true;
-            this.label75.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label75.Location = new System.Drawing.Point(437, 1055);
-            this.label75.Name = "label75";
-            this.label75.Size = new System.Drawing.Size(28, 21);
-            this.label75.TabIndex = 95;
-            this.label75.Text = "10";
-            this.label75.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label76
-            // 
-            this.label76.AutoSize = true;
-            this.label76.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label76.Location = new System.Drawing.Point(601, 1055);
-            this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(28, 21);
-            this.label76.TabIndex = 96;
-            this.label76.Text = "10";
-            this.label76.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.flowLayoutPanel2.AutoScroll = true;
+            this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.Window;
+            this.flowLayoutPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flowLayoutPanel2.Controls.Add(this.label28);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox49);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox50);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox51);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox52);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox53);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox54);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox55);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox56);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox57);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox58);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox59);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox60);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox61);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox62);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox63);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox64);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox65);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox66);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox67);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox68);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox69);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox70);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox71);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox72);
+            this.flowLayoutPanel2.Controls.Add(this.label29);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox73);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox74);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox75);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox76);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox77);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox78);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox79);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox80);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox81);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox82);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox83);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox84);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox85);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox86);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox87);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox88);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox89);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox90);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox91);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox92);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox93);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox94);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox95);
+            this.flowLayoutPanel2.Controls.Add(this.checkBox96);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(66, 80);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1280, 200);
+            this.flowLayoutPanel2.TabIndex = 45;
+            // 
+            // label28
+            // 
+            this.label28.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label28.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(3, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(1242, 30);
+            this.label28.TabIndex = 63;
+            this.label28.Text = "[manufacturer]:";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // checkBox49
+            // 
+            this.checkBox49.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox49.Location = new System.Drawing.Point(3, 33);
+            this.checkBox49.Name = "checkBox49";
+            this.checkBox49.Size = new System.Drawing.Size(150, 25);
+            this.checkBox49.TabIndex = 40;
+            this.checkBox49.Text = "[type]";
+            this.checkBox49.UseVisualStyleBackColor = true;
+            // 
+            // checkBox50
+            // 
+            this.checkBox50.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox50.Location = new System.Drawing.Point(159, 33);
+            this.checkBox50.Name = "checkBox50";
+            this.checkBox50.Size = new System.Drawing.Size(150, 25);
+            this.checkBox50.TabIndex = 39;
+            this.checkBox50.Text = "[type]";
+            this.checkBox50.UseVisualStyleBackColor = true;
+            // 
+            // checkBox51
+            // 
+            this.checkBox51.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox51.Location = new System.Drawing.Point(315, 33);
+            this.checkBox51.Name = "checkBox51";
+            this.checkBox51.Size = new System.Drawing.Size(150, 25);
+            this.checkBox51.TabIndex = 41;
+            this.checkBox51.Text = "[type]";
+            this.checkBox51.UseVisualStyleBackColor = true;
+            // 
+            // checkBox52
+            // 
+            this.checkBox52.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox52.Location = new System.Drawing.Point(471, 33);
+            this.checkBox52.Name = "checkBox52";
+            this.checkBox52.Size = new System.Drawing.Size(150, 25);
+            this.checkBox52.TabIndex = 42;
+            this.checkBox52.Text = "...";
+            this.checkBox52.UseVisualStyleBackColor = true;
+            // 
+            // checkBox53
+            // 
+            this.checkBox53.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox53.Location = new System.Drawing.Point(627, 33);
+            this.checkBox53.Name = "checkBox53";
+            this.checkBox53.Size = new System.Drawing.Size(150, 25);
+            this.checkBox53.TabIndex = 43;
+            this.checkBox53.Text = "...";
+            this.checkBox53.UseVisualStyleBackColor = true;
+            // 
+            // checkBox54
+            // 
+            this.checkBox54.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox54.Location = new System.Drawing.Point(783, 33);
+            this.checkBox54.Name = "checkBox54";
+            this.checkBox54.Size = new System.Drawing.Size(150, 25);
+            this.checkBox54.TabIndex = 44;
+            this.checkBox54.Text = "...";
+            this.checkBox54.UseVisualStyleBackColor = true;
+            // 
+            // checkBox55
+            // 
+            this.checkBox55.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox55.Location = new System.Drawing.Point(939, 33);
+            this.checkBox55.Name = "checkBox55";
+            this.checkBox55.Size = new System.Drawing.Size(150, 25);
+            this.checkBox55.TabIndex = 45;
+            this.checkBox55.Text = "...";
+            this.checkBox55.UseVisualStyleBackColor = true;
+            // 
+            // checkBox56
+            // 
+            this.checkBox56.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox56.Location = new System.Drawing.Point(1095, 33);
+            this.checkBox56.Name = "checkBox56";
+            this.checkBox56.Size = new System.Drawing.Size(150, 25);
+            this.checkBox56.TabIndex = 46;
+            this.checkBox56.Text = "...";
+            this.checkBox56.UseVisualStyleBackColor = true;
+            // 
+            // checkBox57
+            // 
+            this.checkBox57.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox57.Location = new System.Drawing.Point(3, 64);
+            this.checkBox57.Name = "checkBox57";
+            this.checkBox57.Size = new System.Drawing.Size(150, 25);
+            this.checkBox57.TabIndex = 47;
+            this.checkBox57.Text = "...";
+            this.checkBox57.UseVisualStyleBackColor = true;
+            // 
+            // checkBox58
+            // 
+            this.checkBox58.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox58.Location = new System.Drawing.Point(159, 64);
+            this.checkBox58.Name = "checkBox58";
+            this.checkBox58.Size = new System.Drawing.Size(150, 25);
+            this.checkBox58.TabIndex = 48;
+            this.checkBox58.Text = "...";
+            this.checkBox58.UseVisualStyleBackColor = true;
+            // 
+            // checkBox59
+            // 
+            this.checkBox59.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox59.Location = new System.Drawing.Point(315, 64);
+            this.checkBox59.Name = "checkBox59";
+            this.checkBox59.Size = new System.Drawing.Size(150, 25);
+            this.checkBox59.TabIndex = 49;
+            this.checkBox59.Text = "...";
+            this.checkBox59.UseVisualStyleBackColor = true;
+            // 
+            // checkBox60
+            // 
+            this.checkBox60.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox60.Location = new System.Drawing.Point(471, 64);
+            this.checkBox60.Name = "checkBox60";
+            this.checkBox60.Size = new System.Drawing.Size(150, 25);
+            this.checkBox60.TabIndex = 50;
+            this.checkBox60.Text = "...";
+            this.checkBox60.UseVisualStyleBackColor = true;
+            // 
+            // checkBox61
+            // 
+            this.checkBox61.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox61.Location = new System.Drawing.Point(627, 64);
+            this.checkBox61.Name = "checkBox61";
+            this.checkBox61.Size = new System.Drawing.Size(150, 25);
+            this.checkBox61.TabIndex = 51;
+            this.checkBox61.Text = "...";
+            this.checkBox61.UseVisualStyleBackColor = true;
+            // 
+            // checkBox62
+            // 
+            this.checkBox62.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox62.Location = new System.Drawing.Point(783, 64);
+            this.checkBox62.Name = "checkBox62";
+            this.checkBox62.Size = new System.Drawing.Size(150, 25);
+            this.checkBox62.TabIndex = 52;
+            this.checkBox62.Text = "...";
+            this.checkBox62.UseVisualStyleBackColor = true;
+            // 
+            // checkBox63
+            // 
+            this.checkBox63.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox63.Location = new System.Drawing.Point(939, 64);
+            this.checkBox63.Name = "checkBox63";
+            this.checkBox63.Size = new System.Drawing.Size(150, 25);
+            this.checkBox63.TabIndex = 53;
+            this.checkBox63.Text = "...";
+            this.checkBox63.UseVisualStyleBackColor = true;
+            // 
+            // checkBox64
+            // 
+            this.checkBox64.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox64.Location = new System.Drawing.Point(1095, 64);
+            this.checkBox64.Name = "checkBox64";
+            this.checkBox64.Size = new System.Drawing.Size(150, 25);
+            this.checkBox64.TabIndex = 54;
+            this.checkBox64.Text = "...";
+            this.checkBox64.UseVisualStyleBackColor = true;
+            // 
+            // checkBox65
+            // 
+            this.checkBox65.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox65.Location = new System.Drawing.Point(3, 95);
+            this.checkBox65.Name = "checkBox65";
+            this.checkBox65.Size = new System.Drawing.Size(150, 25);
+            this.checkBox65.TabIndex = 55;
+            this.checkBox65.Text = "...";
+            this.checkBox65.UseVisualStyleBackColor = true;
+            // 
+            // checkBox66
+            // 
+            this.checkBox66.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox66.Location = new System.Drawing.Point(159, 95);
+            this.checkBox66.Name = "checkBox66";
+            this.checkBox66.Size = new System.Drawing.Size(150, 25);
+            this.checkBox66.TabIndex = 56;
+            this.checkBox66.Text = "...";
+            this.checkBox66.UseVisualStyleBackColor = true;
+            // 
+            // checkBox67
+            // 
+            this.checkBox67.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox67.Location = new System.Drawing.Point(315, 95);
+            this.checkBox67.Name = "checkBox67";
+            this.checkBox67.Size = new System.Drawing.Size(150, 25);
+            this.checkBox67.TabIndex = 57;
+            this.checkBox67.Text = "...";
+            this.checkBox67.UseVisualStyleBackColor = true;
+            // 
+            // checkBox68
+            // 
+            this.checkBox68.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox68.Location = new System.Drawing.Point(471, 95);
+            this.checkBox68.Name = "checkBox68";
+            this.checkBox68.Size = new System.Drawing.Size(150, 25);
+            this.checkBox68.TabIndex = 58;
+            this.checkBox68.Text = "...";
+            this.checkBox68.UseVisualStyleBackColor = true;
+            // 
+            // checkBox69
+            // 
+            this.checkBox69.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox69.Location = new System.Drawing.Point(627, 95);
+            this.checkBox69.Name = "checkBox69";
+            this.checkBox69.Size = new System.Drawing.Size(150, 25);
+            this.checkBox69.TabIndex = 59;
+            this.checkBox69.Text = "...";
+            this.checkBox69.UseVisualStyleBackColor = true;
+            // 
+            // checkBox70
+            // 
+            this.checkBox70.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox70.Location = new System.Drawing.Point(783, 95);
+            this.checkBox70.Name = "checkBox70";
+            this.checkBox70.Size = new System.Drawing.Size(150, 25);
+            this.checkBox70.TabIndex = 60;
+            this.checkBox70.Text = "...";
+            this.checkBox70.UseVisualStyleBackColor = true;
+            // 
+            // checkBox71
+            // 
+            this.checkBox71.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox71.Location = new System.Drawing.Point(939, 95);
+            this.checkBox71.Name = "checkBox71";
+            this.checkBox71.Size = new System.Drawing.Size(150, 25);
+            this.checkBox71.TabIndex = 61;
+            this.checkBox71.Text = "...";
+            this.checkBox71.UseVisualStyleBackColor = true;
+            // 
+            // checkBox72
+            // 
+            this.checkBox72.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox72.Location = new System.Drawing.Point(1095, 95);
+            this.checkBox72.Name = "checkBox72";
+            this.checkBox72.Size = new System.Drawing.Size(150, 25);
+            this.checkBox72.TabIndex = 62;
+            this.checkBox72.Text = "...";
+            this.checkBox72.UseVisualStyleBackColor = true;
+            // 
+            // label29
+            // 
+            this.label29.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label29.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(3, 123);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(1242, 30);
+            this.label29.TabIndex = 88;
+            this.label29.Text = "[manufacturer]:";
+            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // checkBox73
+            // 
+            this.checkBox73.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox73.Location = new System.Drawing.Point(3, 156);
+            this.checkBox73.Name = "checkBox73";
+            this.checkBox73.Size = new System.Drawing.Size(150, 25);
+            this.checkBox73.TabIndex = 65;
+            this.checkBox73.Text = "[type]";
+            this.checkBox73.UseVisualStyleBackColor = true;
+            // 
+            // checkBox74
+            // 
+            this.checkBox74.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox74.Location = new System.Drawing.Point(159, 156);
+            this.checkBox74.Name = "checkBox74";
+            this.checkBox74.Size = new System.Drawing.Size(150, 25);
+            this.checkBox74.TabIndex = 64;
+            this.checkBox74.Text = "[type]";
+            this.checkBox74.UseVisualStyleBackColor = true;
+            // 
+            // checkBox75
+            // 
+            this.checkBox75.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox75.Location = new System.Drawing.Point(315, 156);
+            this.checkBox75.Name = "checkBox75";
+            this.checkBox75.Size = new System.Drawing.Size(150, 25);
+            this.checkBox75.TabIndex = 66;
+            this.checkBox75.Text = "[type]";
+            this.checkBox75.UseVisualStyleBackColor = true;
+            // 
+            // checkBox76
+            // 
+            this.checkBox76.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox76.Location = new System.Drawing.Point(471, 156);
+            this.checkBox76.Name = "checkBox76";
+            this.checkBox76.Size = new System.Drawing.Size(150, 25);
+            this.checkBox76.TabIndex = 67;
+            this.checkBox76.Text = "...";
+            this.checkBox76.UseVisualStyleBackColor = true;
+            // 
+            // checkBox77
+            // 
+            this.checkBox77.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox77.Location = new System.Drawing.Point(627, 156);
+            this.checkBox77.Name = "checkBox77";
+            this.checkBox77.Size = new System.Drawing.Size(150, 25);
+            this.checkBox77.TabIndex = 68;
+            this.checkBox77.Text = "...";
+            this.checkBox77.UseVisualStyleBackColor = true;
+            // 
+            // checkBox78
+            // 
+            this.checkBox78.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox78.Location = new System.Drawing.Point(783, 156);
+            this.checkBox78.Name = "checkBox78";
+            this.checkBox78.Size = new System.Drawing.Size(150, 25);
+            this.checkBox78.TabIndex = 69;
+            this.checkBox78.Text = "...";
+            this.checkBox78.UseVisualStyleBackColor = true;
+            // 
+            // checkBox79
+            // 
+            this.checkBox79.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox79.Location = new System.Drawing.Point(939, 156);
+            this.checkBox79.Name = "checkBox79";
+            this.checkBox79.Size = new System.Drawing.Size(150, 25);
+            this.checkBox79.TabIndex = 70;
+            this.checkBox79.Text = "...";
+            this.checkBox79.UseVisualStyleBackColor = true;
+            // 
+            // checkBox80
+            // 
+            this.checkBox80.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox80.Location = new System.Drawing.Point(1095, 156);
+            this.checkBox80.Name = "checkBox80";
+            this.checkBox80.Size = new System.Drawing.Size(150, 25);
+            this.checkBox80.TabIndex = 71;
+            this.checkBox80.Text = "...";
+            this.checkBox80.UseVisualStyleBackColor = true;
+            // 
+            // checkBox81
+            // 
+            this.checkBox81.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox81.Location = new System.Drawing.Point(3, 187);
+            this.checkBox81.Name = "checkBox81";
+            this.checkBox81.Size = new System.Drawing.Size(150, 25);
+            this.checkBox81.TabIndex = 72;
+            this.checkBox81.Text = "...";
+            this.checkBox81.UseVisualStyleBackColor = true;
+            // 
+            // checkBox82
+            // 
+            this.checkBox82.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox82.Location = new System.Drawing.Point(159, 187);
+            this.checkBox82.Name = "checkBox82";
+            this.checkBox82.Size = new System.Drawing.Size(150, 25);
+            this.checkBox82.TabIndex = 73;
+            this.checkBox82.Text = "...";
+            this.checkBox82.UseVisualStyleBackColor = true;
+            // 
+            // checkBox83
+            // 
+            this.checkBox83.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox83.Location = new System.Drawing.Point(315, 187);
+            this.checkBox83.Name = "checkBox83";
+            this.checkBox83.Size = new System.Drawing.Size(150, 25);
+            this.checkBox83.TabIndex = 74;
+            this.checkBox83.Text = "...";
+            this.checkBox83.UseVisualStyleBackColor = true;
+            // 
+            // checkBox84
+            // 
+            this.checkBox84.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox84.Location = new System.Drawing.Point(471, 187);
+            this.checkBox84.Name = "checkBox84";
+            this.checkBox84.Size = new System.Drawing.Size(150, 25);
+            this.checkBox84.TabIndex = 75;
+            this.checkBox84.Text = "...";
+            this.checkBox84.UseVisualStyleBackColor = true;
+            // 
+            // checkBox85
+            // 
+            this.checkBox85.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox85.Location = new System.Drawing.Point(627, 187);
+            this.checkBox85.Name = "checkBox85";
+            this.checkBox85.Size = new System.Drawing.Size(150, 25);
+            this.checkBox85.TabIndex = 76;
+            this.checkBox85.Text = "...";
+            this.checkBox85.UseVisualStyleBackColor = true;
+            // 
+            // checkBox86
+            // 
+            this.checkBox86.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox86.Location = new System.Drawing.Point(783, 187);
+            this.checkBox86.Name = "checkBox86";
+            this.checkBox86.Size = new System.Drawing.Size(150, 25);
+            this.checkBox86.TabIndex = 77;
+            this.checkBox86.Text = "...";
+            this.checkBox86.UseVisualStyleBackColor = true;
+            // 
+            // checkBox87
+            // 
+            this.checkBox87.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox87.Location = new System.Drawing.Point(939, 187);
+            this.checkBox87.Name = "checkBox87";
+            this.checkBox87.Size = new System.Drawing.Size(150, 25);
+            this.checkBox87.TabIndex = 78;
+            this.checkBox87.Text = "...";
+            this.checkBox87.UseVisualStyleBackColor = true;
+            // 
+            // checkBox88
+            // 
+            this.checkBox88.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox88.Location = new System.Drawing.Point(1095, 187);
+            this.checkBox88.Name = "checkBox88";
+            this.checkBox88.Size = new System.Drawing.Size(150, 25);
+            this.checkBox88.TabIndex = 79;
+            this.checkBox88.Text = "...";
+            this.checkBox88.UseVisualStyleBackColor = true;
+            // 
+            // checkBox89
+            // 
+            this.checkBox89.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox89.Location = new System.Drawing.Point(3, 218);
+            this.checkBox89.Name = "checkBox89";
+            this.checkBox89.Size = new System.Drawing.Size(150, 25);
+            this.checkBox89.TabIndex = 80;
+            this.checkBox89.Text = "...";
+            this.checkBox89.UseVisualStyleBackColor = true;
+            // 
+            // checkBox90
+            // 
+            this.checkBox90.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox90.Location = new System.Drawing.Point(159, 218);
+            this.checkBox90.Name = "checkBox90";
+            this.checkBox90.Size = new System.Drawing.Size(150, 25);
+            this.checkBox90.TabIndex = 81;
+            this.checkBox90.Text = "...";
+            this.checkBox90.UseVisualStyleBackColor = true;
+            // 
+            // checkBox91
+            // 
+            this.checkBox91.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox91.Location = new System.Drawing.Point(315, 218);
+            this.checkBox91.Name = "checkBox91";
+            this.checkBox91.Size = new System.Drawing.Size(150, 25);
+            this.checkBox91.TabIndex = 82;
+            this.checkBox91.Text = "...";
+            this.checkBox91.UseVisualStyleBackColor = true;
+            // 
+            // checkBox92
+            // 
+            this.checkBox92.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox92.Location = new System.Drawing.Point(471, 218);
+            this.checkBox92.Name = "checkBox92";
+            this.checkBox92.Size = new System.Drawing.Size(150, 25);
+            this.checkBox92.TabIndex = 83;
+            this.checkBox92.Text = "...";
+            this.checkBox92.UseVisualStyleBackColor = true;
+            // 
+            // checkBox93
+            // 
+            this.checkBox93.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox93.Location = new System.Drawing.Point(627, 218);
+            this.checkBox93.Name = "checkBox93";
+            this.checkBox93.Size = new System.Drawing.Size(150, 25);
+            this.checkBox93.TabIndex = 84;
+            this.checkBox93.Text = "...";
+            this.checkBox93.UseVisualStyleBackColor = true;
+            // 
+            // checkBox94
+            // 
+            this.checkBox94.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox94.Location = new System.Drawing.Point(783, 218);
+            this.checkBox94.Name = "checkBox94";
+            this.checkBox94.Size = new System.Drawing.Size(150, 25);
+            this.checkBox94.TabIndex = 85;
+            this.checkBox94.Text = "...";
+            this.checkBox94.UseVisualStyleBackColor = true;
+            // 
+            // checkBox95
+            // 
+            this.checkBox95.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox95.Location = new System.Drawing.Point(939, 218);
+            this.checkBox95.Name = "checkBox95";
+            this.checkBox95.Size = new System.Drawing.Size(150, 25);
+            this.checkBox95.TabIndex = 86;
+            this.checkBox95.Text = "...";
+            this.checkBox95.UseVisualStyleBackColor = true;
+            // 
+            // checkBox96
+            // 
+            this.checkBox96.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox96.Location = new System.Drawing.Point(1095, 218);
+            this.checkBox96.Name = "checkBox96";
+            this.checkBox96.Size = new System.Drawing.Size(150, 25);
+            this.checkBox96.TabIndex = 87;
+            this.checkBox96.Text = "...";
+            this.checkBox96.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.flowLayoutPanel1);
+            this.panel1.Controls.Add(this.label30);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1413, 300);
+            this.panel1.TabIndex = 51;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Infineon",
+            "--FF100R12RT4",
+            "--FF150R17KE4",
+            "--FF200R06KE3",
+            "Cree",
+            "--c2m0045170p",
+            "--c2m0080170p",
+            "--c2m1000170d"});
+            this.comboBox1.Location = new System.Drawing.Point(200, 29);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(800, 29);
+            this.comboBox1.TabIndex = 43;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.Window;
+            this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flowLayoutPanel1.Controls.Add(this.label26);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox2);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox1);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox3);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox4);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox5);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox6);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox7);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox8);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox9);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox10);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox11);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox12);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox13);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox14);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox15);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox16);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox17);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox18);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox19);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox20);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox21);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox22);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox23);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox24);
+            this.flowLayoutPanel1.Controls.Add(this.label27);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox25);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox26);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox27);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox28);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox29);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox30);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox31);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox32);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox33);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox34);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox35);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox36);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox37);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox38);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox39);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox40);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox41);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox42);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox43);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox44);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox45);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox46);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox47);
+            this.flowLayoutPanel1.Controls.Add(this.checkBox48);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(66, 80);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1280, 200);
+            this.flowLayoutPanel1.TabIndex = 44;
+            // 
+            // label26
+            // 
+            this.label26.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label26.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(3, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(1240, 30);
+            this.label26.TabIndex = 63;
+            this.label26.Text = "Infineon:";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox2.Location = new System.Drawing.Point(3, 33);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(150, 25);
+            this.checkBox2.TabIndex = 40;
+            this.checkBox2.Text = "FF100R12RT4";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(159, 33);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(150, 25);
+            this.checkBox1.TabIndex = 39;
+            this.checkBox1.Text = "FF150R17KE4";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox3.Location = new System.Drawing.Point(315, 33);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(150, 25);
+            this.checkBox3.TabIndex = 41;
+            this.checkBox3.Text = "FF200R06KE3";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox4.Location = new System.Drawing.Point(471, 33);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(150, 25);
+            this.checkBox4.TabIndex = 42;
+            this.checkBox4.Text = "...";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox5.Location = new System.Drawing.Point(627, 33);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(150, 25);
+            this.checkBox5.TabIndex = 43;
+            this.checkBox5.Text = "...";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox6.Location = new System.Drawing.Point(783, 33);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(150, 25);
+            this.checkBox6.TabIndex = 44;
+            this.checkBox6.Text = "...";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox7.Location = new System.Drawing.Point(939, 33);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(150, 25);
+            this.checkBox7.TabIndex = 45;
+            this.checkBox7.Text = "...";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox8.Location = new System.Drawing.Point(1095, 33);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(150, 25);
+            this.checkBox8.TabIndex = 46;
+            this.checkBox8.Text = "...";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
+            // checkBox9
+            // 
+            this.checkBox9.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox9.Location = new System.Drawing.Point(3, 64);
+            this.checkBox9.Name = "checkBox9";
+            this.checkBox9.Size = new System.Drawing.Size(150, 25);
+            this.checkBox9.TabIndex = 47;
+            this.checkBox9.Text = "...";
+            this.checkBox9.UseVisualStyleBackColor = true;
+            // 
+            // checkBox10
+            // 
+            this.checkBox10.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox10.Location = new System.Drawing.Point(159, 64);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.Size = new System.Drawing.Size(150, 25);
+            this.checkBox10.TabIndex = 48;
+            this.checkBox10.Text = "...";
+            this.checkBox10.UseVisualStyleBackColor = true;
+            // 
+            // checkBox11
+            // 
+            this.checkBox11.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox11.Location = new System.Drawing.Point(315, 64);
+            this.checkBox11.Name = "checkBox11";
+            this.checkBox11.Size = new System.Drawing.Size(150, 25);
+            this.checkBox11.TabIndex = 49;
+            this.checkBox11.Text = "...";
+            this.checkBox11.UseVisualStyleBackColor = true;
+            // 
+            // checkBox12
+            // 
+            this.checkBox12.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox12.Location = new System.Drawing.Point(471, 64);
+            this.checkBox12.Name = "checkBox12";
+            this.checkBox12.Size = new System.Drawing.Size(150, 25);
+            this.checkBox12.TabIndex = 50;
+            this.checkBox12.Text = "...";
+            this.checkBox12.UseVisualStyleBackColor = true;
+            // 
+            // checkBox13
+            // 
+            this.checkBox13.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox13.Location = new System.Drawing.Point(627, 64);
+            this.checkBox13.Name = "checkBox13";
+            this.checkBox13.Size = new System.Drawing.Size(150, 25);
+            this.checkBox13.TabIndex = 51;
+            this.checkBox13.Text = "...";
+            this.checkBox13.UseVisualStyleBackColor = true;
+            // 
+            // checkBox14
+            // 
+            this.checkBox14.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox14.Location = new System.Drawing.Point(783, 64);
+            this.checkBox14.Name = "checkBox14";
+            this.checkBox14.Size = new System.Drawing.Size(150, 25);
+            this.checkBox14.TabIndex = 52;
+            this.checkBox14.Text = "...";
+            this.checkBox14.UseVisualStyleBackColor = true;
+            // 
+            // checkBox15
+            // 
+            this.checkBox15.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox15.Location = new System.Drawing.Point(939, 64);
+            this.checkBox15.Name = "checkBox15";
+            this.checkBox15.Size = new System.Drawing.Size(150, 25);
+            this.checkBox15.TabIndex = 53;
+            this.checkBox15.Text = "...";
+            this.checkBox15.UseVisualStyleBackColor = true;
+            // 
+            // checkBox16
+            // 
+            this.checkBox16.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox16.Location = new System.Drawing.Point(1095, 64);
+            this.checkBox16.Name = "checkBox16";
+            this.checkBox16.Size = new System.Drawing.Size(150, 25);
+            this.checkBox16.TabIndex = 54;
+            this.checkBox16.Text = "...";
+            this.checkBox16.UseVisualStyleBackColor = true;
+            // 
+            // checkBox17
+            // 
+            this.checkBox17.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox17.Location = new System.Drawing.Point(3, 95);
+            this.checkBox17.Name = "checkBox17";
+            this.checkBox17.Size = new System.Drawing.Size(150, 25);
+            this.checkBox17.TabIndex = 55;
+            this.checkBox17.Text = "...";
+            this.checkBox17.UseVisualStyleBackColor = true;
+            // 
+            // checkBox18
+            // 
+            this.checkBox18.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox18.Location = new System.Drawing.Point(159, 95);
+            this.checkBox18.Name = "checkBox18";
+            this.checkBox18.Size = new System.Drawing.Size(150, 25);
+            this.checkBox18.TabIndex = 56;
+            this.checkBox18.Text = "...";
+            this.checkBox18.UseVisualStyleBackColor = true;
+            // 
+            // checkBox19
+            // 
+            this.checkBox19.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox19.Location = new System.Drawing.Point(315, 95);
+            this.checkBox19.Name = "checkBox19";
+            this.checkBox19.Size = new System.Drawing.Size(150, 25);
+            this.checkBox19.TabIndex = 57;
+            this.checkBox19.Text = "...";
+            this.checkBox19.UseVisualStyleBackColor = true;
+            // 
+            // checkBox20
+            // 
+            this.checkBox20.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox20.Location = new System.Drawing.Point(471, 95);
+            this.checkBox20.Name = "checkBox20";
+            this.checkBox20.Size = new System.Drawing.Size(150, 25);
+            this.checkBox20.TabIndex = 58;
+            this.checkBox20.Text = "...";
+            this.checkBox20.UseVisualStyleBackColor = true;
+            // 
+            // checkBox21
+            // 
+            this.checkBox21.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox21.Location = new System.Drawing.Point(627, 95);
+            this.checkBox21.Name = "checkBox21";
+            this.checkBox21.Size = new System.Drawing.Size(150, 25);
+            this.checkBox21.TabIndex = 59;
+            this.checkBox21.Text = "...";
+            this.checkBox21.UseVisualStyleBackColor = true;
+            // 
+            // checkBox22
+            // 
+            this.checkBox22.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox22.Location = new System.Drawing.Point(783, 95);
+            this.checkBox22.Name = "checkBox22";
+            this.checkBox22.Size = new System.Drawing.Size(150, 25);
+            this.checkBox22.TabIndex = 60;
+            this.checkBox22.Text = "...";
+            this.checkBox22.UseVisualStyleBackColor = true;
+            // 
+            // checkBox23
+            // 
+            this.checkBox23.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox23.Location = new System.Drawing.Point(939, 95);
+            this.checkBox23.Name = "checkBox23";
+            this.checkBox23.Size = new System.Drawing.Size(150, 25);
+            this.checkBox23.TabIndex = 61;
+            this.checkBox23.Text = "...";
+            this.checkBox23.UseVisualStyleBackColor = true;
+            // 
+            // checkBox24
+            // 
+            this.checkBox24.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox24.Location = new System.Drawing.Point(1095, 95);
+            this.checkBox24.Name = "checkBox24";
+            this.checkBox24.Size = new System.Drawing.Size(150, 25);
+            this.checkBox24.TabIndex = 62;
+            this.checkBox24.Text = "...";
+            this.checkBox24.UseVisualStyleBackColor = true;
+            // 
+            // label27
+            // 
+            this.label27.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label27.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(3, 123);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(1240, 30);
+            this.label27.TabIndex = 88;
+            this.label27.Text = "Cree:";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // checkBox25
+            // 
+            this.checkBox25.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox25.Location = new System.Drawing.Point(3, 156);
+            this.checkBox25.Name = "checkBox25";
+            this.checkBox25.Size = new System.Drawing.Size(150, 25);
+            this.checkBox25.TabIndex = 65;
+            this.checkBox25.Text = "c2m0045170p";
+            this.checkBox25.UseVisualStyleBackColor = true;
+            // 
+            // checkBox26
+            // 
+            this.checkBox26.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox26.Location = new System.Drawing.Point(159, 156);
+            this.checkBox26.Name = "checkBox26";
+            this.checkBox26.Size = new System.Drawing.Size(150, 25);
+            this.checkBox26.TabIndex = 64;
+            this.checkBox26.Text = "c2m0080170p";
+            this.checkBox26.UseVisualStyleBackColor = true;
+            // 
+            // checkBox27
+            // 
+            this.checkBox27.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox27.Location = new System.Drawing.Point(315, 156);
+            this.checkBox27.Name = "checkBox27";
+            this.checkBox27.Size = new System.Drawing.Size(150, 25);
+            this.checkBox27.TabIndex = 66;
+            this.checkBox27.Text = "c2m1000170d";
+            this.checkBox27.UseVisualStyleBackColor = true;
+            // 
+            // checkBox28
+            // 
+            this.checkBox28.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox28.Location = new System.Drawing.Point(471, 156);
+            this.checkBox28.Name = "checkBox28";
+            this.checkBox28.Size = new System.Drawing.Size(150, 25);
+            this.checkBox28.TabIndex = 67;
+            this.checkBox28.Text = "...";
+            this.checkBox28.UseVisualStyleBackColor = true;
+            // 
+            // checkBox29
+            // 
+            this.checkBox29.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox29.Location = new System.Drawing.Point(627, 156);
+            this.checkBox29.Name = "checkBox29";
+            this.checkBox29.Size = new System.Drawing.Size(150, 25);
+            this.checkBox29.TabIndex = 68;
+            this.checkBox29.Text = "...";
+            this.checkBox29.UseVisualStyleBackColor = true;
+            // 
+            // checkBox30
+            // 
+            this.checkBox30.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox30.Location = new System.Drawing.Point(783, 156);
+            this.checkBox30.Name = "checkBox30";
+            this.checkBox30.Size = new System.Drawing.Size(150, 25);
+            this.checkBox30.TabIndex = 69;
+            this.checkBox30.Text = "...";
+            this.checkBox30.UseVisualStyleBackColor = true;
+            // 
+            // checkBox31
+            // 
+            this.checkBox31.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox31.Location = new System.Drawing.Point(939, 156);
+            this.checkBox31.Name = "checkBox31";
+            this.checkBox31.Size = new System.Drawing.Size(150, 25);
+            this.checkBox31.TabIndex = 70;
+            this.checkBox31.Text = "...";
+            this.checkBox31.UseVisualStyleBackColor = true;
+            // 
+            // checkBox32
+            // 
+            this.checkBox32.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox32.Location = new System.Drawing.Point(1095, 156);
+            this.checkBox32.Name = "checkBox32";
+            this.checkBox32.Size = new System.Drawing.Size(150, 25);
+            this.checkBox32.TabIndex = 71;
+            this.checkBox32.Text = "...";
+            this.checkBox32.UseVisualStyleBackColor = true;
+            // 
+            // checkBox33
+            // 
+            this.checkBox33.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox33.Location = new System.Drawing.Point(3, 187);
+            this.checkBox33.Name = "checkBox33";
+            this.checkBox33.Size = new System.Drawing.Size(150, 25);
+            this.checkBox33.TabIndex = 72;
+            this.checkBox33.Text = "...";
+            this.checkBox33.UseVisualStyleBackColor = true;
+            // 
+            // checkBox34
+            // 
+            this.checkBox34.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox34.Location = new System.Drawing.Point(159, 187);
+            this.checkBox34.Name = "checkBox34";
+            this.checkBox34.Size = new System.Drawing.Size(150, 25);
+            this.checkBox34.TabIndex = 73;
+            this.checkBox34.Text = "...";
+            this.checkBox34.UseVisualStyleBackColor = true;
+            // 
+            // checkBox35
+            // 
+            this.checkBox35.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox35.Location = new System.Drawing.Point(315, 187);
+            this.checkBox35.Name = "checkBox35";
+            this.checkBox35.Size = new System.Drawing.Size(150, 25);
+            this.checkBox35.TabIndex = 74;
+            this.checkBox35.Text = "...";
+            this.checkBox35.UseVisualStyleBackColor = true;
+            // 
+            // checkBox36
+            // 
+            this.checkBox36.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox36.Location = new System.Drawing.Point(471, 187);
+            this.checkBox36.Name = "checkBox36";
+            this.checkBox36.Size = new System.Drawing.Size(150, 25);
+            this.checkBox36.TabIndex = 75;
+            this.checkBox36.Text = "...";
+            this.checkBox36.UseVisualStyleBackColor = true;
+            // 
+            // checkBox37
+            // 
+            this.checkBox37.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox37.Location = new System.Drawing.Point(627, 187);
+            this.checkBox37.Name = "checkBox37";
+            this.checkBox37.Size = new System.Drawing.Size(150, 25);
+            this.checkBox37.TabIndex = 76;
+            this.checkBox37.Text = "...";
+            this.checkBox37.UseVisualStyleBackColor = true;
+            // 
+            // checkBox38
+            // 
+            this.checkBox38.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox38.Location = new System.Drawing.Point(783, 187);
+            this.checkBox38.Name = "checkBox38";
+            this.checkBox38.Size = new System.Drawing.Size(150, 25);
+            this.checkBox38.TabIndex = 77;
+            this.checkBox38.Text = "...";
+            this.checkBox38.UseVisualStyleBackColor = true;
+            // 
+            // checkBox39
+            // 
+            this.checkBox39.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox39.Location = new System.Drawing.Point(939, 187);
+            this.checkBox39.Name = "checkBox39";
+            this.checkBox39.Size = new System.Drawing.Size(150, 25);
+            this.checkBox39.TabIndex = 78;
+            this.checkBox39.Text = "...";
+            this.checkBox39.UseVisualStyleBackColor = true;
+            // 
+            // checkBox40
+            // 
+            this.checkBox40.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox40.Location = new System.Drawing.Point(1095, 187);
+            this.checkBox40.Name = "checkBox40";
+            this.checkBox40.Size = new System.Drawing.Size(150, 25);
+            this.checkBox40.TabIndex = 79;
+            this.checkBox40.Text = "...";
+            this.checkBox40.UseVisualStyleBackColor = true;
+            // 
+            // checkBox41
+            // 
+            this.checkBox41.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox41.Location = new System.Drawing.Point(3, 218);
+            this.checkBox41.Name = "checkBox41";
+            this.checkBox41.Size = new System.Drawing.Size(150, 25);
+            this.checkBox41.TabIndex = 80;
+            this.checkBox41.Text = "...";
+            this.checkBox41.UseVisualStyleBackColor = true;
+            // 
+            // checkBox42
+            // 
+            this.checkBox42.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox42.Location = new System.Drawing.Point(159, 218);
+            this.checkBox42.Name = "checkBox42";
+            this.checkBox42.Size = new System.Drawing.Size(150, 25);
+            this.checkBox42.TabIndex = 81;
+            this.checkBox42.Text = "...";
+            this.checkBox42.UseVisualStyleBackColor = true;
+            // 
+            // checkBox43
+            // 
+            this.checkBox43.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox43.Location = new System.Drawing.Point(315, 218);
+            this.checkBox43.Name = "checkBox43";
+            this.checkBox43.Size = new System.Drawing.Size(150, 25);
+            this.checkBox43.TabIndex = 82;
+            this.checkBox43.Text = "...";
+            this.checkBox43.UseVisualStyleBackColor = true;
+            // 
+            // checkBox44
+            // 
+            this.checkBox44.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox44.Location = new System.Drawing.Point(471, 218);
+            this.checkBox44.Name = "checkBox44";
+            this.checkBox44.Size = new System.Drawing.Size(150, 25);
+            this.checkBox44.TabIndex = 83;
+            this.checkBox44.Text = "...";
+            this.checkBox44.UseVisualStyleBackColor = true;
+            // 
+            // checkBox45
+            // 
+            this.checkBox45.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox45.Location = new System.Drawing.Point(627, 218);
+            this.checkBox45.Name = "checkBox45";
+            this.checkBox45.Size = new System.Drawing.Size(150, 25);
+            this.checkBox45.TabIndex = 84;
+            this.checkBox45.Text = "...";
+            this.checkBox45.UseVisualStyleBackColor = true;
+            // 
+            // checkBox46
+            // 
+            this.checkBox46.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox46.Location = new System.Drawing.Point(783, 218);
+            this.checkBox46.Name = "checkBox46";
+            this.checkBox46.Size = new System.Drawing.Size(150, 25);
+            this.checkBox46.TabIndex = 85;
+            this.checkBox46.Text = "...";
+            this.checkBox46.UseVisualStyleBackColor = true;
+            // 
+            // checkBox47
+            // 
+            this.checkBox47.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox47.Location = new System.Drawing.Point(939, 218);
+            this.checkBox47.Name = "checkBox47";
+            this.checkBox47.Size = new System.Drawing.Size(150, 25);
+            this.checkBox47.TabIndex = 86;
+            this.checkBox47.Text = "...";
+            this.checkBox47.UseVisualStyleBackColor = true;
+            // 
+            // checkBox48
+            // 
+            this.checkBox48.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox48.Location = new System.Drawing.Point(1095, 218);
+            this.checkBox48.Name = "checkBox48";
+            this.checkBox48.Size = new System.Drawing.Size(150, 25);
+            this.checkBox48.TabIndex = 87;
+            this.checkBox48.Text = "...";
+            this.checkBox48.UseVisualStyleBackColor = true;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label30.Location = new System.Drawing.Point(60, 30);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(107, 26);
+            this.label30.TabIndex = 42;
+            this.label30.Text = "开关器件：";
+            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step4_Title_Panel
+            // 
+            this.Estimate_Step4_Title_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Step4_Title_Panel.Controls.Add(this.Estimate_Step4_Title_Label);
+            this.Estimate_Step4_Title_Panel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Estimate_Step4_Title_Panel.Location = new System.Drawing.Point(0, 0);
+            this.Estimate_Step4_Title_Panel.Name = "Estimate_Step4_Title_Panel";
+            this.Estimate_Step4_Title_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Estimate_Step4_Title_Panel.TabIndex = 3;
+            // 
+            // Estimate_Step4_Title_Label
+            // 
+            this.Estimate_Step4_Title_Label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Estimate_Step4_Title_Label.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step4_Title_Label.Location = new System.Drawing.Point(0, 0);
+            this.Estimate_Step4_Title_Label.Name = "Estimate_Step4_Title_Label";
+            this.Estimate_Step4_Title_Label.Size = new System.Drawing.Size(1430, 48);
+            this.Estimate_Step4_Title_Label.TabIndex = 0;
+            this.Estimate_Step4_Title_Label.Text = "4.选择器件库";
+            this.Estimate_Step4_Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Estimate_Step4_Operation_Panel
+            // 
+            this.Estimate_Step4_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Step4_Operation_Panel.Controls.Add(this.Estimate_Step4_Prev_Button);
+            this.Estimate_Step4_Operation_Panel.Controls.Add(this.Estimate_Step4_Next_Button);
+            this.Estimate_Step4_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Estimate_Step4_Operation_Panel.Location = new System.Drawing.Point(0, 809);
+            this.Estimate_Step4_Operation_Panel.Name = "Estimate_Step4_Operation_Panel";
+            this.Estimate_Step4_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Estimate_Step4_Operation_Panel.TabIndex = 1;
+            // 
+            // Estimate_Step4_Prev_Button
+            // 
+            this.Estimate_Step4_Prev_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Estimate_Step4_Prev_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step4_Prev_Button.Location = new System.Drawing.Point(1199, 8);
+            this.Estimate_Step4_Prev_Button.Name = "Estimate_Step4_Prev_Button";
+            this.Estimate_Step4_Prev_Button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Step4_Prev_Button.TabIndex = 1;
+            this.Estimate_Step4_Prev_Button.Text = "上一步";
+            this.Estimate_Step4_Prev_Button.UseVisualStyleBackColor = true;
+            this.Estimate_Step4_Prev_Button.Click += new System.EventHandler(this.Estimate_Step4_Prev_Button_Click);
+            // 
+            // Estimate_Step4_Next_Button
+            // 
+            this.Estimate_Step4_Next_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Estimate_Step4_Next_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step4_Next_Button.Location = new System.Drawing.Point(1320, 8);
+            this.Estimate_Step4_Next_Button.Name = "Estimate_Step4_Next_Button";
+            this.Estimate_Step4_Next_Button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Step4_Next_Button.TabIndex = 0;
+            this.Estimate_Step4_Next_Button.Text = "下一步";
+            this.Estimate_Step4_Next_Button.UseVisualStyleBackColor = true;
+            this.Estimate_Step4_Next_Button.Click += new System.EventHandler(this.Estimate_Step4_Next_Button_Click);
+            // 
+            // Estimate_Step5_Panel
+            // 
+            this.Estimate_Step5_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Step5_Panel.Controls.Add(this.Estimate_Step5_Main_Panel);
+            this.Estimate_Step5_Panel.Controls.Add(this.Estimate_Step5_Title_Panel);
+            this.Estimate_Step5_Panel.Controls.Add(this.Estimate_Step5_Operation_Panel);
+            this.Estimate_Step5_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Estimate_Step5_Panel.Location = new System.Drawing.Point(150, 0);
+            this.Estimate_Step5_Panel.Name = "Estimate_Step5_Panel";
+            this.Estimate_Step5_Panel.Size = new System.Drawing.Size(1434, 861);
+            this.Estimate_Step5_Panel.TabIndex = 8;
+            this.Estimate_Step5_Panel.Visible = false;
             // 
             // Estimate_Step5_Main_Panel
             // 
@@ -5116,49 +4420,16 @@
             this.Estimate_Step5_Main_Panel.Size = new System.Drawing.Size(1432, 759);
             this.Estimate_Step5_Main_Panel.TabIndex = 4;
             // 
-            // label77
+            // label83
             // 
-            this.label77.AutoSize = true;
-            this.label77.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label77.Location = new System.Drawing.Point(147, 468);
-            this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(107, 25);
-            this.label77.TabIndex = 97;
-            this.label77.Text = "选用架构：";
-            this.label77.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label78
-            // 
-            this.label78.AutoSize = true;
-            this.label78.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label78.Location = new System.Drawing.Point(377, 468);
-            this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(183, 25);
-            this.label78.TabIndex = 98;
-            this.label78.Text = "三级架构、两级架构";
-            this.label78.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label79
-            // 
-            this.label79.AutoSize = true;
-            this.label79.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label79.Location = new System.Drawing.Point(377, 682);
-            this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(396, 25);
-            this.label79.TabIndex = 100;
-            this.label79.Text = "三电平Boost、两电平Boost、交错并联Boost";
-            this.label79.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label80
-            // 
-            this.label80.AutoSize = true;
-            this.label80.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label80.Location = new System.Drawing.Point(147, 682);
-            this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(107, 25);
-            this.label80.TabIndex = 99;
-            this.label80.Text = "选用拓扑：";
-            this.label80.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label83.AutoSize = true;
+            this.label83.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label83.Location = new System.Drawing.Point(425, 1102);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(52, 25);
+            this.label83.TabIndex = 104;
+            this.label83.Text = "CHB";
+            this.label83.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label81
             // 
@@ -5182,17 +4453,6 @@
             this.label82.Text = "选用拓扑：";
             this.label82.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label83
-            // 
-            this.label83.AutoSize = true;
-            this.label83.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label83.Location = new System.Drawing.Point(425, 1102);
-            this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(52, 25);
-            this.label83.TabIndex = 104;
-            this.label83.Text = "CHB";
-            this.label83.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // label84
             // 
             this.label84.AutoSize = true;
@@ -5204,6 +4464,561 @@
             this.label84.Text = "选用拓扑：";
             this.label84.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label79.Location = new System.Drawing.Point(377, 682);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(396, 25);
+            this.label79.TabIndex = 100;
+            this.label79.Text = "三电平Boost、两电平Boost、交错并联Boost";
+            this.label79.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label80.Location = new System.Drawing.Point(147, 682);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(107, 25);
+            this.label80.TabIndex = 99;
+            this.label80.Text = "选用拓扑：";
+            this.label80.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label78.Location = new System.Drawing.Point(377, 468);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(183, 25);
+            this.label78.TabIndex = 98;
+            this.label78.Text = "三级架构、两级架构";
+            this.label78.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label77.Location = new System.Drawing.Point(147, 468);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(107, 25);
+            this.label77.TabIndex = 97;
+            this.label77.Text = "选用架构：";
+            this.label77.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label76.Location = new System.Drawing.Point(601, 1055);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(28, 21);
+            this.label76.TabIndex = 96;
+            this.label76.Text = "10";
+            this.label76.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label75.Location = new System.Drawing.Point(437, 1055);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(28, 21);
+            this.label75.TabIndex = 95;
+            this.label75.Text = "10";
+            this.label75.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label74.Location = new System.Drawing.Point(597, 845);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(37, 21);
+            this.label74.TabIndex = 94;
+            this.label74.Text = "100";
+            this.label74.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label73.Location = new System.Drawing.Point(437, 635);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(28, 21);
+            this.label73.TabIndex = 93;
+            this.label73.Text = "10";
+            this.label73.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label72.Location = new System.Drawing.Point(597, 635);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(37, 21);
+            this.label72.TabIndex = 92;
+            this.label72.Text = "100";
+            this.label72.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label71.Location = new System.Drawing.Point(437, 845);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(28, 21);
+            this.label71.TabIndex = 91;
+            this.label71.Text = "10";
+            this.label71.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label70.Location = new System.Drawing.Point(437, 1005);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(28, 21);
+            this.label70.TabIndex = 90;
+            this.label70.Text = "40";
+            this.label70.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label69.Location = new System.Drawing.Point(437, 795);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(28, 21);
+            this.label69.TabIndex = 89;
+            this.label69.Text = "40";
+            this.label69.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label68.Location = new System.Drawing.Point(433, 585);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(37, 21);
+            this.label68.TabIndex = 88;
+            this.label68.Text = "120";
+            this.label68.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label67.Location = new System.Drawing.Point(437, 420);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(28, 21);
+            this.label67.TabIndex = 87;
+            this.label67.Text = "35";
+            this.label67.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label66.Location = new System.Drawing.Point(428, 370);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(46, 21);
+            this.label66.TabIndex = 86;
+            this.label66.Text = "1500";
+            this.label66.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label65.Location = new System.Drawing.Point(592, 320);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(46, 21);
+            this.label65.TabIndex = 85;
+            this.label65.Text = "1300";
+            this.label65.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label64.Location = new System.Drawing.Point(433, 320);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(37, 21);
+            this.label64.TabIndex = 84;
+            this.label64.Text = "860";
+            this.label64.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label63.Location = new System.Drawing.Point(442, 270);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(19, 21);
+            this.label63.TabIndex = 83;
+            this.label63.Text = "6";
+            this.label63.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.Location = new System.Drawing.Point(687, 1055);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(40, 21);
+            this.label37.TabIndex = 82;
+            this.label37.Text = "kHz";
+            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label38.Location = new System.Drawing.Point(523, 1055);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(20, 21);
+            this.label38.TabIndex = 80;
+            this.label38.Text = "~";
+            this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label39.Location = new System.Drawing.Point(147, 1053);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(145, 25);
+            this.label39.TabIndex = 78;
+            this.label39.Text = "开关频率范围：";
+            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label41.Location = new System.Drawing.Point(147, 1003);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(126, 25);
+            this.label41.TabIndex = 76;
+            this.label41.Text = "最大模块数：";
+            this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label42.Location = new System.Drawing.Point(147, 952);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(69, 26);
+            this.label42.TabIndex = 75;
+            this.label42.Text = "逆变：";
+            this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label43.Location = new System.Drawing.Point(687, 845);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(40, 21);
+            this.label43.TabIndex = 74;
+            this.label43.Text = "kHz";
+            this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label44.Location = new System.Drawing.Point(523, 845);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(20, 21);
+            this.label44.TabIndex = 72;
+            this.label44.Text = "~";
+            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label45.Location = new System.Drawing.Point(147, 843);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(145, 25);
+            this.label45.TabIndex = 70;
+            this.label45.Text = "开关频率范围：";
+            this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label46.Location = new System.Drawing.Point(147, 793);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(126, 25);
+            this.label46.TabIndex = 68;
+            this.label46.Text = "最大模块数：";
+            this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label47.Location = new System.Drawing.Point(147, 742);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(134, 26);
+            this.label47.TabIndex = 67;
+            this.label47.Text = "隔离DC/DC：";
+            this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label48.Location = new System.Drawing.Point(687, 635);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(40, 21);
+            this.label48.TabIndex = 66;
+            this.label48.Text = "kHz";
+            this.label48.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.Location = new System.Drawing.Point(523, 635);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(20, 21);
+            this.label49.TabIndex = 64;
+            this.label49.Text = "~";
+            this.label49.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label50.Location = new System.Drawing.Point(147, 633);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(145, 25);
+            this.label50.TabIndex = 62;
+            this.label50.Text = "开关频率范围：";
+            this.label50.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label51.Location = new System.Drawing.Point(147, 583);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(126, 25);
+            this.label51.TabIndex = 60;
+            this.label51.Text = "最大模块数：";
+            this.label51.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label52.Location = new System.Drawing.Point(147, 532);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(134, 26);
+            this.label52.TabIndex = 59;
+            this.label52.Text = "前级DC/DC：";
+            this.label52.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label53.Location = new System.Drawing.Point(523, 420);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(32, 21);
+            this.label53.TabIndex = 58;
+            this.label53.Text = "kV";
+            this.label53.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label54.Location = new System.Drawing.Point(147, 418);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(107, 25);
+            this.label54.TabIndex = 56;
+            this.label54.Text = "并网电压：";
+            this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label55.Location = new System.Drawing.Point(523, 370);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(23, 21);
+            this.label55.TabIndex = 55;
+            this.label55.Text = "V";
+            this.label55.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label56.Location = new System.Drawing.Point(147, 368);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(145, 25);
+            this.label56.TabIndex = 53;
+            this.label56.Text = "光伏最大电压：";
+            this.label56.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label57.Location = new System.Drawing.Point(687, 320);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(23, 21);
+            this.label57.TabIndex = 52;
+            this.label57.Text = "V";
+            this.label57.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label58.Location = new System.Drawing.Point(523, 320);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(20, 21);
+            this.label58.TabIndex = 50;
+            this.label58.Text = "~";
+            this.label58.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label59.Location = new System.Drawing.Point(147, 318);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(199, 25);
+            this.label59.TabIndex = 48;
+            this.label59.Text = "光伏MPPT电压范围：";
+            this.label59.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label60.Location = new System.Drawing.Point(523, 270);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(44, 21);
+            this.label60.TabIndex = 47;
+            this.label60.Text = "MW";
+            this.label60.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label61.Location = new System.Drawing.Point(147, 268);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(126, 25);
+            this.label61.TabIndex = 45;
+            this.label61.Text = "系统总功率：";
+            this.label61.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label62.Location = new System.Drawing.Point(147, 217);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(107, 26);
+            this.label62.TabIndex = 44;
+            this.label62.Text = "整体系统：";
+            this.label62.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step5_Title_Panel
+            // 
+            this.Estimate_Step5_Title_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Step5_Title_Panel.Controls.Add(this.Estimate_Step5_Title_Label);
+            this.Estimate_Step5_Title_Panel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Estimate_Step5_Title_Panel.Location = new System.Drawing.Point(0, 0);
+            this.Estimate_Step5_Title_Panel.Name = "Estimate_Step5_Title_Panel";
+            this.Estimate_Step5_Title_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Estimate_Step5_Title_Panel.TabIndex = 3;
+            // 
+            // Estimate_Step5_Title_Label
+            // 
+            this.Estimate_Step5_Title_Label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Estimate_Step5_Title_Label.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step5_Title_Label.Location = new System.Drawing.Point(0, 0);
+            this.Estimate_Step5_Title_Label.Name = "Estimate_Step5_Title_Label";
+            this.Estimate_Step5_Title_Label.Size = new System.Drawing.Size(1430, 48);
+            this.Estimate_Step5_Title_Label.TabIndex = 0;
+            this.Estimate_Step5_Title_Label.Text = "5.确认条件";
+            this.Estimate_Step5_Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Estimate_Step5_Operation_Panel
+            // 
+            this.Estimate_Step5_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Step5_Operation_Panel.Controls.Add(this.Estimate_Step5_Prev_Button);
+            this.Estimate_Step5_Operation_Panel.Controls.Add(this.Estimate_Step5_Next_button);
+            this.Estimate_Step5_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Estimate_Step5_Operation_Panel.Location = new System.Drawing.Point(0, 809);
+            this.Estimate_Step5_Operation_Panel.Name = "Estimate_Step5_Operation_Panel";
+            this.Estimate_Step5_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Estimate_Step5_Operation_Panel.TabIndex = 1;
+            // 
+            // Estimate_Step5_Prev_Button
+            // 
+            this.Estimate_Step5_Prev_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Estimate_Step5_Prev_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step5_Prev_Button.Location = new System.Drawing.Point(1199, 8);
+            this.Estimate_Step5_Prev_Button.Name = "Estimate_Step5_Prev_Button";
+            this.Estimate_Step5_Prev_Button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Step5_Prev_Button.TabIndex = 1;
+            this.Estimate_Step5_Prev_Button.Text = "上一步";
+            this.Estimate_Step5_Prev_Button.UseVisualStyleBackColor = true;
+            this.Estimate_Step5_Prev_Button.Click += new System.EventHandler(this.Estimate_Step5_Prev_Button_Click);
+            // 
+            // Estimate_Step5_Next_button
+            // 
+            this.Estimate_Step5_Next_button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Estimate_Step5_Next_button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step5_Next_button.Location = new System.Drawing.Point(1320, 8);
+            this.Estimate_Step5_Next_button.Name = "Estimate_Step5_Next_button";
+            this.Estimate_Step5_Next_button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Step5_Next_button.TabIndex = 0;
+            this.Estimate_Step5_Next_button.Text = "评估";
+            this.Estimate_Step5_Next_button.UseVisualStyleBackColor = true;
+            this.Estimate_Step5_Next_button.Click += new System.EventHandler(this.Estimate_Step5_Next_button_Click);
+            // 
+            // Estimate_Result_Panel
+            // 
+            this.Estimate_Result_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Result_Panel.Controls.Add(this.Estimate_Result_Main_Panel);
+            this.Estimate_Result_Panel.Controls.Add(this.Estimate_Result_Title_Panel);
+            this.Estimate_Result_Panel.Controls.Add(this.Estimate_Result_Operation_Panel);
+            this.Estimate_Result_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Estimate_Result_Panel.Location = new System.Drawing.Point(150, 0);
+            this.Estimate_Result_Panel.Name = "Estimate_Result_Panel";
+            this.Estimate_Result_Panel.Size = new System.Drawing.Size(1434, 861);
+            this.Estimate_Result_Panel.TabIndex = 9;
+            this.Estimate_Result_Panel.Visible = false;
+            // 
+            // Estimate_Result_Main_Panel
+            // 
+            this.Estimate_Result_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Result_Main_Panel.Controls.Add(this.label85);
+            this.Estimate_Result_Main_Panel.Controls.Add(this.Estimate_Result_Main_Label);
+            this.Estimate_Result_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Estimate_Result_Main_Panel.Location = new System.Drawing.Point(0, 50);
+            this.Estimate_Result_Main_Panel.Name = "Estimate_Result_Main_Panel";
+            this.Estimate_Result_Main_Panel.Size = new System.Drawing.Size(1432, 759);
+            this.Estimate_Result_Main_Panel.TabIndex = 4;
+            // 
             // label85
             // 
             this.label85.BackColor = System.Drawing.SystemColors.Control;
@@ -5214,6 +5029,194 @@
             this.label85.TabIndex = 105;
             this.label85.Text = "初始化……\r\n\r\n正在进行三级架构评估……\r\n正在进行前级DC/DC变换单元评估……\r\n正在进行隔离DC/DC变换单元评估……\r\n正在进行逆变单元评估……\r\n三级" +
     "架构评估完成！\r\n\r\n正在进行两级架构评估……\r\n正在进行隔离DC/DC变换单元评估……\r\n正在进行逆变单元评估……\r\n两级架构评估完成！\r\n\r\n评估已完成！";
+            // 
+            // Estimate_Result_Main_Label
+            // 
+            this.Estimate_Result_Main_Label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Estimate_Result_Main_Label.Location = new System.Drawing.Point(0, 0);
+            this.Estimate_Result_Main_Label.Name = "Estimate_Result_Main_Label";
+            this.Estimate_Result_Main_Label.Size = new System.Drawing.Size(1430, 757);
+            this.Estimate_Result_Main_Label.TabIndex = 0;
+            // 
+            // Estimate_Result_Title_Panel
+            // 
+            this.Estimate_Result_Title_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Result_Title_Panel.Controls.Add(this.Estimate_Result_Title_Label);
+            this.Estimate_Result_Title_Panel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Estimate_Result_Title_Panel.Location = new System.Drawing.Point(0, 0);
+            this.Estimate_Result_Title_Panel.Name = "Estimate_Result_Title_Panel";
+            this.Estimate_Result_Title_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Estimate_Result_Title_Panel.TabIndex = 3;
+            // 
+            // Estimate_Result_Title_Label
+            // 
+            this.Estimate_Result_Title_Label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Estimate_Result_Title_Label.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Result_Title_Label.Location = new System.Drawing.Point(0, 0);
+            this.Estimate_Result_Title_Label.Name = "Estimate_Result_Title_Label";
+            this.Estimate_Result_Title_Label.Size = new System.Drawing.Size(1430, 48);
+            this.Estimate_Result_Title_Label.TabIndex = 0;
+            this.Estimate_Result_Title_Label.Text = "评估结果";
+            this.Estimate_Result_Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Estimate_Result_Operation_Panel
+            // 
+            this.Estimate_Result_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_Restart_Button);
+            this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_Save_Button);
+            this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_Display_Button);
+            this.Estimate_Result_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Estimate_Result_Operation_Panel.Location = new System.Drawing.Point(0, 809);
+            this.Estimate_Result_Operation_Panel.Name = "Estimate_Result_Operation_Panel";
+            this.Estimate_Result_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Estimate_Result_Operation_Panel.TabIndex = 1;
+            // 
+            // Estimate_Result_Restart_Button
+            // 
+            this.Estimate_Result_Restart_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.Estimate_Result_Restart_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Result_Restart_Button.Location = new System.Drawing.Point(8, 8);
+            this.Estimate_Result_Restart_Button.Name = "Estimate_Result_Restart_Button";
+            this.Estimate_Result_Restart_Button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Result_Restart_Button.TabIndex = 2;
+            this.Estimate_Result_Restart_Button.Text = "新的评估";
+            this.Estimate_Result_Restart_Button.UseVisualStyleBackColor = true;
+            this.Estimate_Result_Restart_Button.Click += new System.EventHandler(this.Estimate_Result_Restart_Button_Click);
+            // 
+            // Estimate_Result_Save_Button
+            // 
+            this.Estimate_Result_Save_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Estimate_Result_Save_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Result_Save_Button.Location = new System.Drawing.Point(1199, 8);
+            this.Estimate_Result_Save_Button.Name = "Estimate_Result_Save_Button";
+            this.Estimate_Result_Save_Button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Result_Save_Button.TabIndex = 1;
+            this.Estimate_Result_Save_Button.Text = "保存";
+            this.Estimate_Result_Save_Button.UseVisualStyleBackColor = true;
+            this.Estimate_Result_Save_Button.Click += new System.EventHandler(this.Estimate_Result_Save_Button_Click);
+            // 
+            // Estimate_Result_Display_Button
+            // 
+            this.Estimate_Result_Display_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Estimate_Result_Display_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Result_Display_Button.Location = new System.Drawing.Point(1320, 8);
+            this.Estimate_Result_Display_Button.Name = "Estimate_Result_Display_Button";
+            this.Estimate_Result_Display_Button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Result_Display_Button.TabIndex = 0;
+            this.Estimate_Result_Display_Button.Text = "展示";
+            this.Estimate_Result_Display_Button.UseVisualStyleBackColor = true;
+            this.Estimate_Result_Display_Button.Click += new System.EventHandler(this.Estimate_Result_Display_Button_Click);
+            // 
+            // Display_Ready_Panel
+            // 
+            this.Display_Ready_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Ready_Panel.Controls.Add(this.Display_Ready_Main_Panel);
+            this.Display_Ready_Panel.Controls.Add(this.Display_Ready_Operation_Panel);
+            this.Display_Ready_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Display_Ready_Panel.Location = new System.Drawing.Point(150, 0);
+            this.Display_Ready_Panel.Name = "Display_Ready_Panel";
+            this.Display_Ready_Panel.Size = new System.Drawing.Size(1434, 861);
+            this.Display_Ready_Panel.TabIndex = 10;
+            this.Display_Ready_Panel.Visible = false;
+            // 
+            // Display_Ready_Main_Panel
+            // 
+            this.Display_Ready_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Ready_Main_Panel.Controls.Add(this.Display_Ready_Label);
+            this.Display_Ready_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Display_Ready_Main_Panel.Location = new System.Drawing.Point(0, 0);
+            this.Display_Ready_Main_Panel.Name = "Display_Ready_Main_Panel";
+            this.Display_Ready_Main_Panel.Size = new System.Drawing.Size(1432, 809);
+            this.Display_Ready_Main_Panel.TabIndex = 2;
+            // 
+            // Display_Ready_Label
+            // 
+            this.Display_Ready_Label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Display_Ready_Label.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Ready_Label.Location = new System.Drawing.Point(0, 0);
+            this.Display_Ready_Label.Name = "Display_Ready_Label";
+            this.Display_Ready_Label.Size = new System.Drawing.Size(1430, 807);
+            this.Display_Ready_Label.TabIndex = 0;
+            this.Display_Ready_Label.Text = "请按下“载入”按钮选择评估结果进行展示";
+            this.Display_Ready_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Display_Ready_Operation_Panel
+            // 
+            this.Display_Ready_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Ready_Operation_Panel.Controls.Add(this.Display_Ready_Load_Button);
+            this.Display_Ready_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Display_Ready_Operation_Panel.Location = new System.Drawing.Point(0, 809);
+            this.Display_Ready_Operation_Panel.Name = "Display_Ready_Operation_Panel";
+            this.Display_Ready_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Display_Ready_Operation_Panel.TabIndex = 1;
+            // 
+            // Display_Ready_Load_Button
+            // 
+            this.Display_Ready_Load_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Display_Ready_Load_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Ready_Load_Button.Location = new System.Drawing.Point(1320, 8);
+            this.Display_Ready_Load_Button.Name = "Display_Ready_Load_Button";
+            this.Display_Ready_Load_Button.Size = new System.Drawing.Size(100, 34);
+            this.Display_Ready_Load_Button.TabIndex = 0;
+            this.Display_Ready_Load_Button.Text = "载入";
+            this.Display_Ready_Load_Button.UseVisualStyleBackColor = true;
+            this.Display_Ready_Load_Button.Click += new System.EventHandler(this.Display_Ready_Load_Button_Click);
+            // 
+            // Display_Show_Panel
+            // 
+            this.Display_Show_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Show_Panel.Controls.Add(this.Display_Show_Main_Panel);
+            this.Display_Show_Panel.Controls.Add(this.Display_Show_Operation_Panel);
+            this.Display_Show_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Display_Show_Panel.Location = new System.Drawing.Point(150, 0);
+            this.Display_Show_Panel.Name = "Display_Show_Panel";
+            this.Display_Show_Panel.Size = new System.Drawing.Size(1434, 861);
+            this.Display_Show_Panel.TabIndex = 11;
+            this.Display_Show_Panel.Visible = false;
+            // 
+            // Display_Show_Main_Panel
+            // 
+            this.Display_Show_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Show_Main_Panel.Controls.Add(this.panel6);
+            this.Display_Show_Main_Panel.Controls.Add(this.panel5);
+            this.Display_Show_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Display_Show_Main_Panel.Location = new System.Drawing.Point(0, 0);
+            this.Display_Show_Main_Panel.Name = "Display_Show_Main_Panel";
+            this.Display_Show_Main_Panel.Size = new System.Drawing.Size(1432, 809);
+            this.Display_Show_Main_Panel.TabIndex = 2;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.button1);
+            this.panel6.Controls.Add(this.pictureBox1);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(0, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(1080, 807);
+            this.panel6.TabIndex = 6;
+            // 
+            // button1
+            // 
+            this.button1.Image = global::PV_analysis.Properties.Resources.设置;
+            this.button1.Location = new System.Drawing.Point(977, 56);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::PV_analysis.Properties.Resources.评估结果;
+            this.pictureBox1.Location = new System.Drawing.Point(126, 163);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(828, 481);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // panel5
             // 
@@ -5248,6 +5251,72 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(350, 807);
             this.panel5.TabIndex = 5;
+            // 
+            // label93
+            // 
+            this.label93.AutoSize = true;
+            this.label93.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label93.Location = new System.Drawing.Point(221, 718);
+            this.label93.Name = "label93";
+            this.label93.Size = new System.Drawing.Size(48, 21);
+            this.label93.TabIndex = 109;
+            this.label93.Text = "CHB";
+            this.label93.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label94
+            // 
+            this.label94.AutoSize = true;
+            this.label94.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label94.Location = new System.Drawing.Point(221, 665);
+            this.label94.Name = "label94";
+            this.label94.Size = new System.Drawing.Size(58, 21);
+            this.label94.TabIndex = 108;
+            this.label94.Text = "10kHz";
+            this.label94.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label95
+            // 
+            this.label95.AutoSize = true;
+            this.label95.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label95.Location = new System.Drawing.Point(221, 612);
+            this.label95.Name = "label95";
+            this.label95.Size = new System.Drawing.Size(28, 21);
+            this.label95.TabIndex = 107;
+            this.label95.Text = "20";
+            this.label95.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label86.Location = new System.Drawing.Point(221, 505);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(91, 21);
+            this.label86.TabIndex = 106;
+            this.label86.Text = "DTC-SRC";
+            this.label86.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label87.Location = new System.Drawing.Point(221, 452);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(58, 21);
+            this.label87.TabIndex = 105;
+            this.label87.Text = "25kHz";
+            this.label87.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label92
+            // 
+            this.label92.AutoSize = true;
+            this.label92.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label92.Location = new System.Drawing.Point(221, 399);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(28, 21);
+            this.label92.TabIndex = 104;
+            this.label92.Text = "20";
+            this.label92.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label88
             // 
@@ -5447,199 +5516,130 @@
             this.label132.Text = "性能表现：";
             this.label132.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // panel6
+            // Display_Show_Operation_Panel
             // 
-            this.panel6.Controls.Add(this.button1);
-            this.panel6.Controls.Add(this.pictureBox1);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(0, 0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1080, 807);
-            this.panel6.TabIndex = 6;
+            this.Display_Show_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Restart_Button);
+            this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Detail_Button);
+            this.Display_Show_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Display_Show_Operation_Panel.Location = new System.Drawing.Point(0, 809);
+            this.Display_Show_Operation_Panel.Name = "Display_Show_Operation_Panel";
+            this.Display_Show_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Display_Show_Operation_Panel.TabIndex = 1;
             // 
-            // pictureBox1
+            // Display_Show_Restart_Button
             // 
-            this.pictureBox1.Image = global::PV_analysis.Properties.Resources.评估结果;
-            this.pictureBox1.Location = new System.Drawing.Point(126, 163);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(828, 481);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.Display_Show_Restart_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.Display_Show_Restart_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Show_Restart_Button.Location = new System.Drawing.Point(8, 8);
+            this.Display_Show_Restart_Button.Name = "Display_Show_Restart_Button";
+            this.Display_Show_Restart_Button.Size = new System.Drawing.Size(100, 34);
+            this.Display_Show_Restart_Button.TabIndex = 1;
+            this.Display_Show_Restart_Button.Text = "新的展示";
+            this.Display_Show_Restart_Button.UseVisualStyleBackColor = true;
+            this.Display_Show_Restart_Button.Click += new System.EventHandler(this.Display_Show_Restart_Button_Click);
             // 
-            // Estimate_Step2_Group3_Item1_PictureBox
+            // Display_Show_Detail_Button
             // 
-            this.Estimate_Step2_Group3_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group3_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.CHB;
-            this.Estimate_Step2_Group3_Item1_PictureBox.Location = new System.Drawing.Point(404, 40);
-            this.Estimate_Step2_Group3_Item1_PictureBox.Name = "Estimate_Step2_Group3_Item1_PictureBox";
-            this.Estimate_Step2_Group3_Item1_PictureBox.Size = new System.Drawing.Size(304, 513);
-            this.Estimate_Step2_Group3_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group3_Item1_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group3_Item1_PictureBox.TabStop = false;
+            this.Display_Show_Detail_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Display_Show_Detail_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Show_Detail_Button.Location = new System.Drawing.Point(1320, 8);
+            this.Display_Show_Detail_Button.Name = "Display_Show_Detail_Button";
+            this.Display_Show_Detail_Button.Size = new System.Drawing.Size(100, 34);
+            this.Display_Show_Detail_Button.TabIndex = 0;
+            this.Display_Show_Detail_Button.Text = "详情";
+            this.Display_Show_Detail_Button.UseVisualStyleBackColor = true;
+            this.Display_Show_Detail_Button.Click += new System.EventHandler(this.Display_Show_Detail_Button_Click);
             // 
-            // Estimate_Step2_Group2_Item2_PictureBox
+            // Display_Detail_Panel
             // 
-            this.Estimate_Step2_Group2_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group2_Item2_PictureBox.Image = global::PV_analysis.Properties.Resources.DTC_SRC;
-            this.Estimate_Step2_Group2_Item2_PictureBox.Location = new System.Drawing.Point(247, 40);
-            this.Estimate_Step2_Group2_Item2_PictureBox.Name = "Estimate_Step2_Group2_Item2_PictureBox";
-            this.Estimate_Step2_Group2_Item2_PictureBox.Size = new System.Drawing.Size(620, 249);
-            this.Estimate_Step2_Group2_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group2_Item2_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group2_Item2_PictureBox.TabStop = false;
+            this.Display_Detail_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Detail_Panel.Controls.Add(this.Display_Detail_Main_Panel);
+            this.Display_Detail_Panel.Controls.Add(this.Display_Detail_Operation_Panel);
+            this.Display_Detail_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Display_Detail_Panel.Location = new System.Drawing.Point(150, 0);
+            this.Display_Detail_Panel.Name = "Display_Detail_Panel";
+            this.Display_Detail_Panel.Size = new System.Drawing.Size(1434, 861);
+            this.Display_Detail_Panel.TabIndex = 12;
+            this.Display_Detail_Panel.Visible = false;
             // 
-            // Estimate_Step2_Group2_Item1_PictureBox
+            // Display_Detail_Main_Panel
             // 
-            this.Estimate_Step2_Group2_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group2_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.SRC;
-            this.Estimate_Step2_Group2_Item1_PictureBox.Location = new System.Drawing.Point(247, 40);
-            this.Estimate_Step2_Group2_Item1_PictureBox.Name = "Estimate_Step2_Group2_Item1_PictureBox";
-            this.Estimate_Step2_Group2_Item1_PictureBox.Size = new System.Drawing.Size(619, 249);
-            this.Estimate_Step2_Group2_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group2_Item1_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group2_Item1_PictureBox.TabStop = false;
+            this.Display_Detail_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Detail_Main_Panel.Controls.Add(this.Display_Detail_Label);
+            this.Display_Detail_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Display_Detail_Main_Panel.Location = new System.Drawing.Point(0, 0);
+            this.Display_Detail_Main_Panel.Name = "Display_Detail_Main_Panel";
+            this.Display_Detail_Main_Panel.Size = new System.Drawing.Size(1432, 809);
+            this.Display_Detail_Main_Panel.TabIndex = 2;
             // 
-            // Estimate_Step2_Group1_Item3_PictureBox
+            // Display_Detail_Label
             // 
-            this.Estimate_Step2_Group1_Item3_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group1_Item3_PictureBox.Image = global::PV_analysis.Properties.Resources.交错并联Boost;
-            this.Estimate_Step2_Group1_Item3_PictureBox.Location = new System.Drawing.Point(363, 40);
-            this.Estimate_Step2_Group1_Item3_PictureBox.Name = "Estimate_Step2_Group1_Item3_PictureBox";
-            this.Estimate_Step2_Group1_Item3_PictureBox.Size = new System.Drawing.Size(386, 199);
-            this.Estimate_Step2_Group1_Item3_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group1_Item3_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group1_Item3_PictureBox.TabStop = false;
+            this.Display_Detail_Label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Display_Detail_Label.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_Label.Location = new System.Drawing.Point(0, 0);
+            this.Display_Detail_Label.Name = "Display_Detail_Label";
+            this.Display_Detail_Label.Size = new System.Drawing.Size(1430, 807);
+            this.Display_Detail_Label.TabIndex = 0;
+            this.Display_Detail_Label.Text = "[详情区域]";
+            this.Display_Detail_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Estimate_Step2_Group1_Item2_PictureBox
+            // Display_Detail_Operation_Panel
             // 
-            this.Estimate_Step2_Group1_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group1_Item2_PictureBox.Image = global::PV_analysis.Properties.Resources.两电平Boost;
-            this.Estimate_Step2_Group1_Item2_PictureBox.Location = new System.Drawing.Point(422, 40);
-            this.Estimate_Step2_Group1_Item2_PictureBox.Name = "Estimate_Step2_Group1_Item2_PictureBox";
-            this.Estimate_Step2_Group1_Item2_PictureBox.Size = new System.Drawing.Size(268, 199);
-            this.Estimate_Step2_Group1_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group1_Item2_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group1_Item2_PictureBox.TabStop = false;
+            this.Display_Detail_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Detail_Operation_Panel.Controls.Add(this.Display_Detail_Back_Button);
+            this.Display_Detail_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Display_Detail_Operation_Panel.Location = new System.Drawing.Point(0, 809);
+            this.Display_Detail_Operation_Panel.Name = "Display_Detail_Operation_Panel";
+            this.Display_Detail_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Display_Detail_Operation_Panel.TabIndex = 1;
             // 
-            // Estimate_Step2_Group1_Item1_PictureBox
+            // Display_Detail_Back_Button
             // 
-            this.Estimate_Step2_Group1_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group1_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.三电平Boost;
-            this.Estimate_Step2_Group1_Item1_PictureBox.Location = new System.Drawing.Point(422, 40);
-            this.Estimate_Step2_Group1_Item1_PictureBox.Name = "Estimate_Step2_Group1_Item1_PictureBox";
-            this.Estimate_Step2_Group1_Item1_PictureBox.Size = new System.Drawing.Size(268, 201);
-            this.Estimate_Step2_Group1_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group1_Item1_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group1_Item1_PictureBox.TabStop = false;
+            this.Display_Detail_Back_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Display_Detail_Back_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_Back_Button.Location = new System.Drawing.Point(1320, 8);
+            this.Display_Detail_Back_Button.Name = "Display_Detail_Back_Button";
+            this.Display_Detail_Back_Button.Size = new System.Drawing.Size(100, 34);
+            this.Display_Detail_Back_Button.TabIndex = 0;
+            this.Display_Detail_Back_Button.Text = "返回";
+            this.Display_Detail_Back_Button.UseVisualStyleBackColor = true;
+            this.Display_Detail_Back_Button.Click += new System.EventHandler(this.Display_Detail_Back_Button_Click);
             // 
-            // Estimate_Step1_Item2_PictureBox
+            // Admin_Panel
             // 
-            this.Estimate_Step1_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step1_Item2_PictureBox.Image = global::PV_analysis.Properties.Resources.两级拓扑;
-            this.Estimate_Step1_Item2_PictureBox.Location = new System.Drawing.Point(376, 79);
-            this.Estimate_Step1_Item2_PictureBox.Name = "Estimate_Step1_Item2_PictureBox";
-            this.Estimate_Step1_Item2_PictureBox.Size = new System.Drawing.Size(360, 243);
-            this.Estimate_Step1_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step1_Item2_PictureBox.TabIndex = 0;
-            this.Estimate_Step1_Item2_PictureBox.TabStop = false;
+            this.Admin_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Admin_Panel.Controls.Add(this.Admin_Main_Panel);
+            this.Admin_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Admin_Panel.Location = new System.Drawing.Point(150, 0);
+            this.Admin_Panel.Name = "Admin_Panel";
+            this.Admin_Panel.Size = new System.Drawing.Size(1434, 861);
+            this.Admin_Panel.TabIndex = 13;
+            this.Admin_Panel.Visible = false;
             // 
-            // Estimate_Step1_Item1_PictureBox
+            // Admin_Main_Panel
             // 
-            this.Estimate_Step1_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step1_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.三级拓扑;
-            this.Estimate_Step1_Item1_PictureBox.Location = new System.Drawing.Point(342, 79);
-            this.Estimate_Step1_Item1_PictureBox.Name = "Estimate_Step1_Item1_PictureBox";
-            this.Estimate_Step1_Item1_PictureBox.Size = new System.Drawing.Size(428, 243);
-            this.Estimate_Step1_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step1_Item1_PictureBox.TabIndex = 0;
-            this.Estimate_Step1_Item1_PictureBox.TabStop = false;
+            this.Admin_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Admin_Main_Panel.Controls.Add(this.Admin_Label);
+            this.Admin_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Admin_Main_Panel.Location = new System.Drawing.Point(0, 0);
+            this.Admin_Main_Panel.Name = "Admin_Main_Panel";
+            this.Admin_Main_Panel.Size = new System.Drawing.Size(1432, 859);
+            this.Admin_Main_Panel.TabIndex = 2;
             // 
-            // Home_PictureBox
+            // Admin_Label
             // 
-            this.Home_PictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Home_PictureBox.Image = global::PV_analysis.Properties.Resources.SG3125HV_MV;
-            this.Home_PictureBox.Location = new System.Drawing.Point(0, 0);
-            this.Home_PictureBox.Name = "Home_PictureBox";
-            this.Home_PictureBox.Size = new System.Drawing.Size(1430, 597);
-            this.Home_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.Home_PictureBox.TabIndex = 3;
-            this.Home_PictureBox.TabStop = false;
-            // 
-            // label86
-            // 
-            this.label86.AutoSize = true;
-            this.label86.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label86.Location = new System.Drawing.Point(221, 505);
-            this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(91, 21);
-            this.label86.TabIndex = 106;
-            this.label86.Text = "DTC-SRC";
-            this.label86.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label87
-            // 
-            this.label87.AutoSize = true;
-            this.label87.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label87.Location = new System.Drawing.Point(221, 452);
-            this.label87.Name = "label87";
-            this.label87.Size = new System.Drawing.Size(58, 21);
-            this.label87.TabIndex = 105;
-            this.label87.Text = "25kHz";
-            this.label87.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label92
-            // 
-            this.label92.AutoSize = true;
-            this.label92.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label92.Location = new System.Drawing.Point(221, 399);
-            this.label92.Name = "label92";
-            this.label92.Size = new System.Drawing.Size(28, 21);
-            this.label92.TabIndex = 104;
-            this.label92.Text = "20";
-            this.label92.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label93
-            // 
-            this.label93.AutoSize = true;
-            this.label93.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label93.Location = new System.Drawing.Point(221, 718);
-            this.label93.Name = "label93";
-            this.label93.Size = new System.Drawing.Size(48, 21);
-            this.label93.TabIndex = 109;
-            this.label93.Text = "CHB";
-            this.label93.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label94
-            // 
-            this.label94.AutoSize = true;
-            this.label94.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label94.Location = new System.Drawing.Point(221, 665);
-            this.label94.Name = "label94";
-            this.label94.Size = new System.Drawing.Size(58, 21);
-            this.label94.TabIndex = 108;
-            this.label94.Text = "10kHz";
-            this.label94.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label95
-            // 
-            this.label95.AutoSize = true;
-            this.label95.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label95.Location = new System.Drawing.Point(221, 612);
-            this.label95.Name = "label95";
-            this.label95.Size = new System.Drawing.Size(28, 21);
-            this.label95.TabIndex = 107;
-            this.label95.Text = "20";
-            this.label95.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // button1
-            // 
-            this.button1.Image = global::PV_analysis.Properties.Resources.设置;
-            this.button1.Location = new System.Drawing.Point(977, 56);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.UseVisualStyleBackColor = true;
+            this.Admin_Label.Dock = System.Windows.Forms.DockStyle.Right;
+            this.Admin_Label.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Admin_Label.Location = new System.Drawing.Point(0, 0);
+            this.Admin_Label.Name = "Admin_Label";
+            this.Admin_Label.Size = new System.Drawing.Size(1430, 857);
+            this.Admin_Label.TabIndex = 0;
+            this.Admin_Label.Text = "[管理页面]";
+            this.Admin_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form
             // 
@@ -5647,6 +5647,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
             this.Controls.Add(this.Display_Show_Panel);
+            this.Controls.Add(this.Admin_Panel);
             this.Controls.Add(this.Estimate_Step5_Panel);
             this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Estimate_Result_Panel);
@@ -5655,7 +5656,6 @@
             this.Controls.Add(this.Estimate_Step1_Panel);
             this.Controls.Add(this.Display_Ready_Panel);
             this.Controls.Add(this.Home_Panel);
-            this.Controls.Add(this.Admin_Panel);
             this.Controls.Add(this.Display_Detail_Panel);
             this.Controls.Add(this.Estimate_Ready_Panel);
             this.Controls.Add(this.Tab_Panel);
@@ -5666,6 +5666,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Home_Panel.ResumeLayout(false);
             this.Home_Main_Panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).EndInit();
             this.Tab_Panel.ResumeLayout(false);
             this.Estimate_Ready_Panel.ResumeLayout(false);
             this.Estimate_Ready_Main_Panel.ResumeLayout(false);
@@ -5675,8 +5676,10 @@
             this.Estimate_Step1_Main_Right_Panel.ResumeLayout(false);
             this.Estimate_Step1_Item2_panel.ResumeLayout(false);
             this.Estimate_Step1_Item2_panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item2_PictureBox)).EndInit();
             this.Estimate_Step1_Item1_Panel.ResumeLayout(false);
             this.Estimate_Step1_Item1_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item1_PictureBox)).EndInit();
             this.Estimate_Step1_Main_Left_Panel.ResumeLayout(false);
             this.Estimate_Step1_Title_Panel.ResumeLayout(false);
             this.Estimate_Step1_Operation_Panel.ResumeLayout(false);
@@ -5686,16 +5689,22 @@
             this.Estimate_Step2_Main_Right_Panel.PerformLayout();
             this.Estimate_Step2_Group3_Item1_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group3_Item1_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group3_Item1_PictureBox)).EndInit();
             this.Estimate_Step2_Group2_Item2_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group2_Item2_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item2_PictureBox)).EndInit();
             this.Estimate_Step2_Group2_Item1_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group2_Item1_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item1_PictureBox)).EndInit();
             this.Estimate_Step2_Group1_Item3_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group1_Item3_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item3_PictureBox)).EndInit();
             this.Estimate_Step2_Group1_Item2_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group1_Item2_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item2_PictureBox)).EndInit();
             this.Estimate_Step2_Group1_Item1_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group1_Item1_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item1_PictureBox)).EndInit();
             this.Estimate_Step2_Main_Left_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group3_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group2_Panel.ResumeLayout(false);
@@ -5709,9 +5718,23 @@
             this.Estimate_Step3_Operation_Panel.ResumeLayout(false);
             this.Estimate_Step4_Panel.ResumeLayout(false);
             this.Estimate_Step4_Main_Panel.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.flowLayoutPanel4.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.Estimate_Step4_Title_Panel.ResumeLayout(false);
             this.Estimate_Step4_Operation_Panel.ResumeLayout(false);
             this.Estimate_Step5_Panel.ResumeLayout(false);
+            this.Estimate_Step5_Main_Panel.ResumeLayout(false);
+            this.Estimate_Step5_Main_Panel.PerformLayout();
             this.Estimate_Step5_Title_Panel.ResumeLayout(false);
             this.Estimate_Step5_Operation_Panel.ResumeLayout(false);
             this.Estimate_Result_Panel.ResumeLayout(false);
@@ -5723,40 +5746,17 @@
             this.Display_Ready_Operation_Panel.ResumeLayout(false);
             this.Display_Show_Panel.ResumeLayout(false);
             this.Display_Show_Main_Panel.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.Display_Show_Operation_Panel.ResumeLayout(false);
             this.Display_Detail_Panel.ResumeLayout(false);
             this.Display_Detail_Main_Panel.ResumeLayout(false);
             this.Display_Detail_Operation_Panel.ResumeLayout(false);
             this.Admin_Panel.ResumeLayout(false);
             this.Admin_Main_Panel.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.flowLayoutPanel2.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.flowLayoutPanel3.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            this.flowLayoutPanel4.ResumeLayout(false);
-            this.Estimate_Step5_Main_Panel.ResumeLayout(false);
-            this.Estimate_Step5_Main_Panel.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group3_Item1_PictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item2_PictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item1_PictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item3_PictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item2_PictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item1_PictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item2_PictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item1_PictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
