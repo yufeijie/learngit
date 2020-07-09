@@ -14,9 +14,6 @@ namespace PV_analysis
         [STAThread]
         static void Main()
         {
-            //初始化数据库
-            Data.Init();
-
             //生成窗体
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
