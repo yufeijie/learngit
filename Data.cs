@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using NPOI.SS.UserModel;
-using Org.BouncyCastle.Asn1.Mozilla;
 
 namespace PV_analysis
 {
@@ -238,11 +236,6 @@ namespace PV_analysis
                 M_ESR = row.GetCell(5).NumericCellValue;
             }
         }
-
-        //public static readonly String[,] Characteristic = new String[100, 10]; //开关器件特性数据
-        //public static readonly String[,] Wire = new String[120, 10]; //绕线数据
-        //public static readonly String[,] Core = new String[100, 25]; //磁芯数据
-        //public static readonly String[,] Capacitor = new String[100, 30]; //电容数据
 
         public static readonly IReadOnlyList<Semiconductor> Semiconductors; //开关器件数据
         public static readonly IReadOnlyList<Curve> Curves; //拟合曲线数据
