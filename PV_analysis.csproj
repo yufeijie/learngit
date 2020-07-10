@@ -84,6 +84,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Capacitance.cs" />
+    <Compile Include="Components\Component.cs" />
+    <Compile Include="Components\Heatsink.cs" />
+    <Compile Include="Components\Inductance.cs" />
+    <Compile Include="Components\Magnetics.cs" />
+    <Compile Include="Components\Semiconductor.cs" />
+    <Compile Include="Components\Transformer.cs" />
+    <Compile Include="Converters\Converter.cs" />
+    <Compile Include="Converters\DCACConverter.cs" />
+    <Compile Include="Converters\DCDCConverter.cs" />
+    <Compile Include="Converters\IsolatedDCDCConverter.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="Form.cs">
       <SubType>Form</SubType>
@@ -93,6 +104,10 @@
     </Compile>
     <Compile Include="Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Systems\Structure.cs" />
+    <Compile Include="Systems\ThreeLevelStructure.cs" />
+    <Compile Include="Systems\TwoLevelStructure.cs" />
+    <Compile Include="Topologys\Topology.cs" />
     <EmbeddedResource Include="Form.resx">
       <DependentUpon>Form.cs</DependentUpon>
     </EmbeddedResource>
@@ -179,5 +194,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

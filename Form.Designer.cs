@@ -1,6 +1,6 @@
 ﻿namespace PV_analysis
 {
-    partial class Form
+    internal partial class Form
     {
         /// <summary>
         /// 必需的设计器变量。

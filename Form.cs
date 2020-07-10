@@ -10,8 +10,7 @@ using System.Windows.Forms;
 
 namespace PV_analysis
 {
-
-    public partial class Form : System.Windows.Forms.Form
+    internal partial class Form : System.Windows.Forms.Form
     {
         private Panel[] panelNow = new Panel[5];
         private Color activeColor;
