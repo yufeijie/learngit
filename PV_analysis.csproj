@@ -84,10 +84,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Capacitance.cs" />
+    <Compile Include="Components\Capacitor.cs" />
     <Compile Include="Components\Component.cs" />
     <Compile Include="Components\Heatsink.cs" />
-    <Compile Include="Components\Inductance.cs" />
+    <Compile Include="Components\Inductor.cs" />
     <Compile Include="Components\Magnetics.cs" />
     <Compile Include="Components\Semiconductor.cs" />
     <Compile Include="Components\Transformer.cs" />
@@ -107,6 +107,8 @@
     <Compile Include="Systems\Structure.cs" />
     <Compile Include="Systems\ThreeLevelStructure.cs" />
     <Compile Include="Systems\TwoLevelStructure.cs" />
+    <Compile Include="Topologys\MultiInputSoftSwitchBoost.cs" />
+    <Compile Include="Topologys\ThreeLevelBoost.cs" />
     <Compile Include="Topologys\Topology.cs" />
     <EmbeddedResource Include="Form.resx">
       <DependentUpon>Form.cs</DependentUpon>

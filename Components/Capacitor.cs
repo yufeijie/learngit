@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PV_analysis.Components
 {
-    internal class Capacitance : Component
+    internal class Capacitor : Component
     {
     }
 }

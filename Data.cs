@@ -237,24 +237,24 @@ namespace PV_analysis
             }
         }
 
-        public static readonly IReadOnlyList<Semiconductor> Semiconductors; //开关器件数据
-        public static readonly IReadOnlyList<Curve> Curves; //拟合曲线数据
-        public static readonly IReadOnlyList<Wire> Wires; //绕线数据
-        public static readonly IReadOnlyList<Core> Cores; //磁芯数据
-        public static readonly IReadOnlyList<Capacitor> Capacitors; //电容数据
+        public static readonly IReadOnlyList<Semiconductor> SemiconductorList; //开关器件数据
+        public static readonly IReadOnlyList<Curve> CurveList; //拟合曲线数据
+        public static readonly IReadOnlyList<Wire> WireList; //绕线数据
+        public static readonly IReadOnlyList<Core> CoreList; //磁芯数据
+        public static readonly IReadOnlyList<Capacitor> CapacitorList; //电容数据
 
         static Data()
         {
             //因为IReadOnlyList没有Add方法，这里使用临时变量进行赋值
-            List<Semiconductor> semicondutors = new List<Semiconductor>();
-            List<Curve> curves = new List<Curve>();
-            List<Wire> wires = new List<Wire>();
-            List<Core> cores = new List<Core>();
-            List<Capacitor> capacitors = new List<Capacitor>();
+            List<Semiconductor> semicondutorList = new List<Semiconductor>();
+            List<Curve> curveList = new List<Curve>();
+            List<Wire> wireList = new List<Wire>();
+            List<Core> coreList = new List<Core>();
+            List<Capacitor> capacitorList = new List<Capacitor>();
 
             //打开Excel
             IWorkbook workbook = WorkbookFactory.Create(dataPath);
-
+            
             //读取开关器件数据
             ISheet sheet = workbook.GetSheetAt(0); //获取第一个工作薄，从0开始
             for (int i = 1; i <= sheet.LastRowNum; i++) //获取每一行的数据，0对应标题行
@@ -264,7 +264,7 @@ namespace PV_analysis
                 string status = row.GetCell(0).StringCellValue;
                 if (status.Equals("Y")) //判断器件可用状态
                 {
-                    semicondutors.Add(new Semiconductor(row)); //添加器件信息
+                    semicondutorList.Add(new Semiconductor(row)); //添加器件信息
                 }
             }
 
@@ -273,7 +273,7 @@ namespace PV_analysis
             for (int i = 1; i <= sheet.LastRowNum; i++)
             {
                 IRow row = sheet.GetRow(i);
-                curves.Add(new Curve(row));
+                curveList.Add(new Curve(row));
             }
 
             //读取绕线数据
@@ -285,7 +285,7 @@ namespace PV_analysis
                 string status = row.GetCell(0).StringCellValue;
                 if (status.Equals("Y"))
                 {
-                    wires.Add(new Wire(row));
+                    wireList.Add(new Wire(row));
                 }
             }
 
@@ -298,7 +298,7 @@ namespace PV_analysis
                 string status = row.GetCell(0).StringCellValue;
                 if (status.Equals("Y"))
                 {
-                    cores.Add(new Core(row));
+                    coreList.Add(new Core(row));
                 }
             }
 
@@ -311,16 +311,16 @@ namespace PV_analysis
                 string status = row.GetCell(0).StringCellValue;
                 if (status.Equals("Y"))
                 {
-                    capacitors.Add(new Capacitor(row));
+                    capacitorList.Add(new Capacitor(row));
                 }
             }
 
             //为只读字段赋值
-            Semiconductors = semicondutors;
-            Curves = curves;
-            Wires = wires;
-            Cores = cores;
-            Capacitors = capacitors;
+            SemiconductorList = semicondutorList;
+            CurveList = curveList;
+            WireList = wireList;
+            CoreList = coreList;
+            CapacitorList = capacitorList;
         }
     }
 }

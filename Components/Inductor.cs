@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PV_analysis.Components
 {
-    internal class Inductance : Magnetics
+    internal class Inductor : Magnetics
     {
     }
 }

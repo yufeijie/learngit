@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace PV_analysis.Topologys
 {
+    internal enum TopologyName
+    {
+        ThreeLevelBoost,
+        MultiInputSoftSwitchBoost
+    };
+
     internal abstract class Topology
     {
+        
     }
 }
