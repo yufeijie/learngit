@@ -9,25 +9,22 @@ namespace PV_analysis.Converters
 {
     internal abstract class Converter
     {
-		//基本参数
-		protected string name = null; //变换器名
-		protected short stage = 0; //第几级变换器
-		protected short phaseNum = 1; //相数(单相or三相)
-		protected int number; //模块数
-		protected double math_Psys; //系统功率
-		protected double math_Pmod; //模块功率
-
 		//优化与评估
 		protected bool isEvaluatedAtDiffInputVoltage; //是否对不同输入电压进行评估
 		protected static bool isRecordResult = true; //是否记录单级变换器评估结果
 
-		//设计信息
+		//---基本参数---
+		protected string name = null; //变换器名
+		protected short stage = 0; //第几级变换器
+		protected short phaseNum = 1; //相数(单相or三相)
+		protected double math_Psys; //系统功率
+		protected double math_fs; //开关频率
+		protected int number; //模块数
+
+		//---设计信息---
 		//protected ConverterDesignInfo designInfo;
 
-		//器件参数
-		public List<Component> Components;
-
-		//评估结果
+		//---评估结果---
 		protected double efficiency; //效率
 		protected double efficiencyCGC; //中国效率
 		//损耗(W)
@@ -75,22 +72,35 @@ namespace PV_analysis.Converters
 		//温度(℃)
 		protected double temperatureHeatsink; //散热器温度
 
-		//设计结果
+		//---设计结果---
 		//protected ParetoList design; //Pareto最优设计结果
 
 		/// <summary>
-		/// 模块数【注意：在设置时，模块功率会随之变化】
+		/// 系统功率
+		/// </summary>
+		public double Math_Psys
+		{
+			get { return math_Psys; }
+			set { math_Psys = value; }
+		}
+
+		/// <summary>
+		/// 开关频率
+		/// </summary>
+		public double Math_fs
+		{
+			get { return math_fs; }
+			set { math_fs = value; }
+		}
+
+		/// <summary>
+		/// 模块数
 		/// </summary>
 		public int Number
 		{
 			get { return number; }
-			set
-			{
-				number = value;
-				m_Pmod = m_Psys / number;
-			}
+			set { number = value; }
 		}
 
-		public double Math_fs { get; set; }
 	}
 }
