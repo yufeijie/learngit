@@ -12,6 +12,9 @@ namespace PV_analysis.Topologys
         MultiInputSoftSwitchBoost
     };
 
+    /// <summary>
+    /// 拓扑抽象类，用于描述拓扑的共有特征
+    /// </summary>
     internal abstract class Topology
     {
         

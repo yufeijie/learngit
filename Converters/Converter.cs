@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace PV_analysis.Converters
 {
+	/// <summary>
+	/// 变换器抽象类，用于描述变换器的共有特征
+	/// </summary>
     internal abstract class Converter
     {
 		//优化与评估

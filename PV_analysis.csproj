@@ -94,6 +94,7 @@
     <Compile Include="Converters\DCACConverter.cs" />
     <Compile Include="Converters\DCDCConverter.cs" />
     <Compile Include="Converters\IsolatedDCDCConverter.cs" />
+    <Compile Include="Curve.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="Form.cs">
       <SubType>Form</SubType>

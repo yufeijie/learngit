@@ -4,6 +4,9 @@ using PV_analysis.Topologys;
 
 namespace PV_analysis.Converters
 {
+	/// <summary>
+	/// DC/DC变换器类
+	/// </summary>
 	internal class DCDCConverter : Converter
 	{
 		//---可选参数---

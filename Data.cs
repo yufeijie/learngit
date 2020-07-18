@@ -4,10 +4,38 @@ using NPOI.SS.UserModel;
 
 namespace PV_analysis
 {
+    /// <summary>
+    /// 数据库类，用于访问数据库中各个元件的信息
+    /// </summary>
     internal static class Data
     {
         private static readonly string dataPath = Application.StartupPath + "/Resources/data.xlsx"; //数据库文件位置
         private static readonly string resultPath = "Result/"; //输出文件位置
+
+        /// <summary>
+        /// 开关器件数据
+        /// </summary>
+        public static IReadOnlyList<Semiconductor> SemiconductorList { get; }
+
+        /// <summary>
+        /// 拟合曲线数据
+        /// </summary>
+        public static IReadOnlyList<Curve> CurveList { get; }
+
+        /// <summary>
+        /// 绕线数据
+        /// </summary>
+        public static IReadOnlyList<Wire> WireList { get; }
+
+        /// <summary>
+        /// 磁芯数据
+        /// </summary>
+        public static IReadOnlyList<Core> CoreList { get; }
+
+        /// <summary>
+        /// 电容数据
+        /// </summary>
+        public static IReadOnlyList<Capacitor> CapacitorList { get; }
 
         //TODO 以下类改为接口
         public class Semiconductor //开关器件数据类
@@ -171,7 +199,7 @@ namespace PV_analysis
             public double Math_MLT { get; } //平均匝长
             public double Math_Ae { get; } //有效截面积
             //尺寸规格
-            public double Math_A { get; } 
+            public double Math_A { get; }
             public double Math_B { get; }
             public double Math_C { get; }
             public double Math_D { get; }
@@ -236,31 +264,6 @@ namespace PV_analysis
                 Math_ESR = row.GetCell(5).NumericCellValue;
             }
         }
-
-        /// <summary>
-        /// 开关器件数据
-        /// </summary>
-        public static IReadOnlyList<Semiconductor> SemiconductorList { get; }
-
-        /// <summary>
-        /// 拟合曲线数据
-        /// </summary>
-        public static IReadOnlyList<Curve> CurveList { get; }
-
-        /// <summary>
-        /// 绕线数据
-        /// </summary>
-        public static IReadOnlyList<Wire> WireList { get; }
-
-        /// <summary>
-        /// 磁芯数据
-        /// </summary>
-        public static IReadOnlyList<Core> CoreList { get; }
-
-        /// <summary>
-        /// 电容数据
-        /// </summary>
-        public static IReadOnlyList<Capacitor> CapacitorList { get; }
 
         static Data()
         {
