@@ -90,6 +90,7 @@
     <Compile Include="Components\Magnetics.cs" />
     <Compile Include="Components\Semiconductor.cs" />
     <Compile Include="Components\Transformer.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Converters\Converter.cs" />
     <Compile Include="Converters\DCACConverter.cs" />
     <Compile Include="Converters\DCDCConverter.cs" />
