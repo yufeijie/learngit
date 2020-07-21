@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PV_analysis
 {
@@ -11,20 +8,23 @@ namespace PV_analysis
 	/// </summary>
     internal class Curve
     {
-		private const double ERROR = 1e-12; //最小计算误差，用于equal方法判断double类型是否相等，小于该值则相等
+		private readonly List<Point> data = new List<Point>(); //曲线数据
 
-		private readonly List<double> dataX = new List<double>(); //曲线x坐标
-		private readonly List<double> dataY = new List<double>(); //曲线y坐标
+		public class Point
+		{
+			public double X { get; }
+			public double Y { get; }
+			public Point(double x, double y)
+			{
+				X = x;
+				Y = y;
+			}
+		}
 
 		/// <summary>
-		/// 曲线x坐标
+		/// 曲线数据
 		/// </summary>
-		public IReadOnlyList<double> X { get { return dataX; } }
-
-		/// <summary>
-		/// 曲线y坐标
-		/// </summary>
-		public IReadOnlyList<double> Y { get { return dataY; } }
+		public IReadOnlyList<Point> Data { get { return data; } }
 
 		/// <summary>
 		/// 添加一个点
@@ -33,8 +33,7 @@ namespace PV_analysis
 		/// <param name="y">点的y坐标</param>
 		public void Add(double x, double y)
 		{
-			dataX.Add(x);
-			dataY.Add(y);
+			data.Add(new Point(x, y));
 		}
 		
 		/// <summary>
@@ -44,11 +43,11 @@ namespace PV_analysis
 		public double CalcRMS()
 		{
 			double result = 0;
-			for (int i = 1; i < dataX.Count; i++)
+			for (int i = 1; i < data.Count; i++)
 			{
-				result += (dataY[i] * dataY[i] + dataY[i-1] * dataY[i-1]) * (dataX[i] - dataX[i-1]) / 2;
+				result += (data[i].Y * data[i].Y + data[i-1].Y * data[i-1].Y) * (data[i].X - data[i-1].X) / 2;
 			}
-			result = Math.Sqrt(result / (dataX[dataX.Count - 1] - dataX[0]));
+			result = Math.Sqrt(result / (data[data.Count - 1].X - data[0].X));
 			return result;
 		}
 		
@@ -61,9 +60,9 @@ namespace PV_analysis
 		public Curve Copy(double offsetX = 0, double offsetY = 0)
 		{
 			Curve curve = new Curve();
-			for (int i = 0; i < dataX.Count; i++)
+			for (int i = 0; i < data.Count; i++)
 			{
-				curve.Add(dataX[i] + offsetX, dataY[i] + offsetY);
+				curve.Add(data[i].X + offsetX, data[i].Y + offsetY);
 			}
 			return curve;
 		}
@@ -77,35 +76,15 @@ namespace PV_analysis
 		public Curve SubCurve(double start, double end)
 		{
 			Curve curve = new Curve();
-			for (int i = 0; i < dataX.Count; i++)
+			for (int i = 0; i < data.Count; i++)
 			{
 				//double运算时会丢失精度，因此等号不一定能判断相等。此外还需考虑特殊情况，如10与9.999999999999以及10.000000000001可以认为相等
-				if ((dataX[i] >= start || Equal(dataX[i], start)) && (dataX[i] <= end || Equal(dataX[i], end)))
+				if (Function.GE(data[i].X, start) && Function.LE(data[i].X, end))
 				{
-					curve.Add(dataX[i], dataY[i]);
+					curve.Add(data[i].X, data[i].Y);
 				}
 			}
 			return curve;
 		}
-
-		/// <summary>
-		/// 判断的两个double类型变量是否相等
-		/// </summary>
-		/// <param name="a">变量a</param>
-		/// <param name="b">变量b</param>
-		/// <returns>是否相等</returns>
-		private bool Equal(double a, double b)
-		{
-			double e = Math.Abs(a - b);
-			if (e < ERROR)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
 	}
 }

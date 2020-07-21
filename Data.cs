@@ -49,12 +49,11 @@ namespace PV_analysis
             public double Volume { get; } //体积
 
             //电气特性
-            public double Math_Vces { get; } //IGBT耐压
-            public double Math_Icnom { get; } //IGBT连续电流
-            public double Math_Vdsmax { get; } //MOSFET耐压
-            public double Math_Idcon { get; } //MOSFET连续电流
-            public double Math_Rdson { get; } //MOSFET导通电阻
+            public double Math_Vmax { get; } //IGBT耐压
+            public double Math_Imax { get; } //IGBT耐流
+
             //MOSFET特性
+            public double Math_Rdson { get; } //MOSFET导通电阻
             public double Math_Vth { get; } //开启电压
             public double Math_gfs { get; } //跨导
             public double Math_Ciss { get; } //输入电容
@@ -91,11 +90,11 @@ namespace PV_analysis
                 Configuration = row.GetCell(4).StringCellValue;
                 Price = row.GetCell(17).NumericCellValue;
                 Volume = row.GetCell(20).NumericCellValue;
+                Math_Vmax = row.GetCell(5).NumericCellValue;
+                Math_Imax = row.GetCell(6).NumericCellValue;
                 switch (Category)
                 {
                     case "IGBT-Module":
-                        Math_Vces = row.GetCell(5).NumericCellValue;
-                        Math_Icnom = row.GetCell(6).NumericCellValue;
                         Id_Vce = (int)row.GetCell(7).NumericCellValue;
                         Id_Vf = (int)row.GetCell(8).NumericCellValue;
                         Id_Eon = (int)row.GetCell(9).NumericCellValue;
@@ -108,8 +107,6 @@ namespace PV_analysis
                         Module_RthCH = row.GetCell(16).NumericCellValue;
                         break;
                     case "SiC-Module":
-                        Math_Vdsmax = row.GetCell(5).NumericCellValue;
-                        Math_Idcon = row.GetCell(6).NumericCellValue;
                         Id_Vds = (int)row.GetCell(7).NumericCellValue;
                         Id_Vf = (int)row.GetCell(8).NumericCellValue;
                         Id_Eon = (int)row.GetCell(9).NumericCellValue;
@@ -120,8 +117,6 @@ namespace PV_analysis
                         Module_RthCH = row.GetCell(16).NumericCellValue;
                         break;
                     case "SiC-MOSFET":
-                        Math_Vdsmax = row.GetCell(5).NumericCellValue;
-                        Math_Idcon = row.GetCell(6).NumericCellValue;
                         Math_Rdson = (int)row.GetCell(7).NumericCellValue;
                         Id_Vsd = (int)row.GetCell(8).NumericCellValue;
                         MOSFET_RthJC = row.GetCell(12).NumericCellValue;

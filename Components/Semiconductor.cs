@@ -9,5 +9,6 @@ namespace PV_analysis.Components
 {
     internal class Semiconductor : Component
     {
-    }
+
+	}
 }

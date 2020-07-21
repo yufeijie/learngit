@@ -14,7 +14,7 @@ namespace PV_analysis.Converters
     {
 		//优化与评估
 		protected bool isEvaluatedAtDiffInputVoltage; //是否对不同输入电压进行评估
-		protected static bool isRecordResult = true; //是否记录单级变换器评估结果
+		protected static readonly bool isRecordResult = true; //是否记录单级变换器评估结果
 
 		//---基本参数---
 		protected string name = null; //变换器名

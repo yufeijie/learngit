@@ -8,8 +8,5 @@ namespace PV_analysis.Components
 {
     internal abstract class Component
     {
-        public double PowerLoss { get; protected set; }
-        public double Cost { get; protected set; }
-        public double Volume { get; protected set; }
     }
 }

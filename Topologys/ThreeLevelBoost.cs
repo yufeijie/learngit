@@ -8,8 +8,8 @@ namespace PV_analysis.Topologys
     /// </summary>
     internal class ThreeLevelBoost : Topology
     {
-        private readonly double math_kIrip = 0.2; //电流纹波系数
-        private readonly double math_kVrip = 0.1; //电压纹波系数
+        private static readonly double math_kIrip = 0.2; //电流纹波系数
+        private static readonly double math_kVrip = 0.1; //电压纹波系数
 
         private readonly DCDCConverter converter; //所属变换器
         private readonly Component[][] allComponentGroups; //所有可行元器件组
@@ -41,19 +41,18 @@ namespace PV_analysis.Topologys
         private Curve curve_iD;
 
         //电压、电流波形（不同输入电压、负载点）
-        private Curve[,] curve_iS_weight;
-        private Curve[,] curve_iD_weight;
+        private Curve[,] curve_iS_eval;
+        private Curve[,] curve_iD_eval;
 
         public ThreeLevelBoost(DCDCConverter converter)
         {
             this.converter = converter;
-            Component main = new Semiconductor();
-            Component diode = new Semiconductor();
+            Component DualIGBT= new DualIGBT();
             Component inductor = new Inductor();
             Component capacitor = new Capacitor();
-            allComponents = new Component[] { main, diode, inductor, capacitor };
+            allComponents = new Component[] { DualIGBT, inductor, capacitor };
             allComponentGroups = new Component[1][];
-            allComponentGroups[0] = new Component[] { main, diode, inductor, capacitor };
+            allComponentGroups[0] = new Component[] { DualIGBT, inductor, capacitor };
 
             math_Pmax = converter.Math_Psys / converter.Number;
             math_fs = converter.Math_fs;
@@ -183,8 +182,8 @@ namespace PV_analysis.Topologys
             CircuitParamDesign();
             int m = Config.CGC_VOLTAGE_RATIO.Length;
             int n = Config.CGC_POWER_RATIO.Length;
-            curve_iD_CGC = new Curve[m, n];
-            curve_iS_CGC = new Curve[m, n];
+            curve_iD_eval = new Curve[m, n];
+            curve_iS_eval = new Curve[m, n];
             for (int i = 0; i < m; i++)
             {
                 math_Vin = math_Vin_min + (math_Vin_max - math_Vin_min) * Config.CGC_VOLTAGE_RATIO[i];
@@ -192,8 +191,8 @@ namespace PV_analysis.Topologys
                 {
                     math_P = math_Pmax * Config.CGC_POWER_RATIO[j]; //改变模块功率
                     Simulate();
-                    curve_iS_CGC[i, j] = curve_iS.Copy();
-                    curve_iD_CGC[i, j] = curve_iD.Copy();
+                    curve_iS_eval[i, j] = curve_iS.Copy();
+                    curve_iD_eval[i, j] = curve_iD.Copy();
                 }
             }
         }
