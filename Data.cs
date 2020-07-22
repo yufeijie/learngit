@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using NPOI.SS.UserModel;
 
@@ -128,7 +129,7 @@ namespace PV_analysis
 
         public class Curve //拟合曲线数据类
         {
-            public double Math_Vsw { get; } //开通/关断电压
+            public double Math_Vsw { get; } = double.NaN; //开通/关断电压
 
             //a0~a4为拟合曲线参数（四次函数拟合）
             public double Math_a0 { get; }
@@ -138,8 +139,31 @@ namespace PV_analysis
             public double Math_a4 { get; }
 
             //线性拟合点（x0，y0），若横坐标小于x0则采用线性拟合
-            public double Math_x0 { get; }
-            public double Math_y0 { get; }
+            public double Math_x0 { get; } = double.NaN;
+            public double Math_y0 { get; } = double.NaN;
+            
+            /// <summary>
+            /// 根据x坐标获取拟合曲线y坐标
+            /// </summary>
+            /// <param name="x">点的x坐标</param>
+            /// <returns>点的y坐标</returns>
+            public double GetValue(double x)
+            {
+                //获取曲线数据
+                double value = 0;
+                if (!double.IsNaN(Math_x0) && !double.IsNaN(Math_y0)) //在x坐标较小时，直接线性化
+                {
+                    if (Function.LE(x, Math_x0))
+                    {
+                        value = x / Math_x0 * Math_y0;
+                    }
+                }
+                else
+                {
+                    value = Math_a0 + Math_a1 * x + Math_a2 * Math.Pow(x, 2) + Math_a3 * Math.Pow(x, 3) + Math_a4 * Math.Pow(x, 4);
+                }
+                return value;
+            }
 
             public Curve(IRow row)
             {
