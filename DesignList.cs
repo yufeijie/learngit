@@ -44,7 +44,7 @@ namespace PV_analysis
             }
         }
 
-        public IDesignData[] Data { get { return data; } }
+        //public IDesignData[] Data { get { return data; } }
 
         /// <summary>
         /// 在双向链表尾部插入一个节点

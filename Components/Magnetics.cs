@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace PV_analysis.Components
 {
-    internal abstract class Magnetics : Component
+    internal abstract class Magnetics : IComponent
     {
+        public void Design()
+        {
+
+        }
     }
 }

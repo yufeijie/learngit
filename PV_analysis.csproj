@@ -85,8 +85,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Capacitor.cs" />
-    <Compile Include="Components\Component.cs" />
     <Compile Include="Components\DualModule.cs" />
+    <Compile Include="Components\IComponent.cs" />
     <Compile Include="Components\Inductor.cs" />
     <Compile Include="Components\Magnetics.cs" />
     <Compile Include="Components\Semiconductor.cs" />

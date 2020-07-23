@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace PV_analysis.Components
 {
-    internal class Semiconductor : Component
+    internal abstract class Semiconductor : IComponent
     {
-
-	}
+        public abstract void Design();
+    }
 }

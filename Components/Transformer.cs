@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace PV_analysis.Components
 {
-    internal class Transformer : Magnetics
+    internal class Transformer : IComponent
     {
+        public void Design()
+        {
+
+        }
     }
 }

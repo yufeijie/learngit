@@ -29,7 +29,7 @@ namespace PV_analysis.Topologys
 		private Curve[][][] currentCapacitor; //电容电流波形
 
 		//特殊参数
-		private solve solveMATLAB; //MATLAB求解器
+		//private solve solveMATLAB; //MATLAB求解器
 
 		//主电路元件相关电路参数
 		private double voltageSwitch; //开关器件电压

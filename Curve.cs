@@ -50,19 +50,20 @@ namespace PV_analysis
 			result = Math.Sqrt(result / (data[data.Count - 1].X - data[0].X));
 			return result;
 		}
-		
+
 		/// <summary>
-		/// 复制一条曲线并平移
+		/// 复制一条曲线，可根据附加参数进行变换
 		/// </summary>
+		/// <param name="ratio">缩放比</param>
 		/// <param name="offsetX">x轴平移量</param>
 		/// <param name="offsetY">y轴平移量</param>
 		/// <returns>复制的曲线</returns>
-		public Curve Copy(double offsetX = 0, double offsetY = 0)
+		public Curve Copy(double ratio = 1, double offsetX = 0, double offsetY = 0)
 		{
 			Curve curve = new Curve();
 			for (int i = 0; i < data.Count; i++)
 			{
-				curve.Add(data[i].X + offsetX, data[i].Y + offsetY);
+				curve.Add(data[i].X * ratio + offsetX, data[i].Y * ratio + offsetY);
 			}
 			return curve;
 		}

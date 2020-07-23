@@ -14,11 +14,11 @@ namespace PV_analysis
         public static void Main()
         {
             //生成窗体
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form());
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Form());
 
-			double Psys = 6e6;
+            double Psys = 6e6;
 			double Vin_min = 860;
 			double Vin_max = 1300;
 			double Vo = 1300;
@@ -37,7 +37,7 @@ namespace PV_analysis
 					foreach (double fs in frequencyRange)
 					{
 						converter.Math_fs = fs;
-						Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("%.1f", fs / 1e3) + "kHz");
+						Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
 						topology.Design();
 					}
 				}

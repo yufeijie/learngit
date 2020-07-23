@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace PV_analysis.Components
 {
-    internal abstract class Component
+    internal interface IComponent
     {
+        /// <summary>
+        /// 设计元件
+        /// </summary>
+        void Design();
     }
 }

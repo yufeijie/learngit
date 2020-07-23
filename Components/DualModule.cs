@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 
 namespace PV_analysis.Components
 {
@@ -52,16 +51,21 @@ namespace PV_analysis.Components
         private double volume; //单个体积(dm^3)
 
         //温度参数(℃)
-        private double math_Th_max = 60; //散热器允许最高温度
+        private static readonly double math_Th_max = 60; //散热器允许最高温度
         private double math_Tc; //壳温
         //	private double temperatureCaseIgbt; //IGBT壳温
         //	private double temperatureCaseDiode; //二极管壳温
-        private double math_Tj_max = 110;//最高结温
+        private static readonly double math_Tj_max = 110;//最高结温
         private double math_Tj_main; //主管结温
         private double math_Tj_diode; //反并二极管结温
 
         //设计结果
         private DesignList design = new DesignList();
+
+        /// <summary>
+        /// 损耗评估值
+        /// </summary>
+        public double Math_Peval { get { return number * math_Peval; } }
 
         /// <summary>
         /// 总损耗
@@ -85,6 +89,25 @@ namespace PV_analysis.Components
         public DualModule(int number)
         {
             this.number = number;
+        }
+
+        /// <summary>
+        /// 获取器件的型号
+        /// </summary>
+        /// <returns>型号</returns>
+        private string GetDeviceType()
+        {
+            return Data.SemiconductorList[device].Type;
+        }
+
+        /// <summary>
+        /// 获取器件的设计信息
+        /// </summary>
+        /// <returns>设计信息</returns>
+        private string[] GetInfo()
+        {
+            string[] info = { ToString(), GetDeviceType() };
+            return info;
         }
 
         /// <summary>
@@ -124,23 +147,18 @@ namespace PV_analysis.Components
         /// <summary>
         /// 自动设计
         /// </summary>
-        public void Design()
+        public override void Design()
         {
             for (int i = 0; i < Data.SemiconductorList.Count; i++) //搜寻库中所有开关器件型号
             {
-                this.device = i; //选用当前型号器件
+                device = i; //选用当前型号器件
                 if (Validate()) //验证该器件是否可用
                 {
                     if (Evaluate()) //损耗评估，并进行温度检查
                     {
                         CalcVolume(); //计算体积
                         CalcCost(); //计算成本
-                        double efficiency = 1 - this.getPowerLossEvaluation() / this.power;
-                        double volume = this.getVolume();
-                        double cost = this.getCost();
-                        String[] data = this.getDesignData();
-                        design.Data[1].
-                        design.add(efficiency, volume, cost, data); //记录设计
+                        design.Add(Math_Peval, Volume, Cost, GetInfo()); //记录设计
                     }
                 }
             }
@@ -230,7 +248,7 @@ namespace PV_analysis.Components
         /// <summary>
         /// 计算体积
         /// </summary>
-        public void CalcVolume()
+        private void CalcVolume()
         {
             volume = Data.SemiconductorList[device].Volume;
         }
@@ -238,7 +256,7 @@ namespace PV_analysis.Components
         /// <summary>
         /// 计算损耗 TODO 未考虑MOSFET反向导通
         /// </summary>
-        public void CalcPowerLoss()
+        private void CalcPowerLoss()
         {
             math_PTcon = new double[] { 0, 0 };
             math_Pon = new double[] { 0, 0 };
@@ -263,7 +281,7 @@ namespace PV_analysis.Components
         /// <param name="Poff">主管关断损耗</param>
         /// <param name="PDcon">反并二极管通态损耗</param>
         /// <param name="Prr">反并二极管反向恢复损耗</param>
-        public void CalcIGBTLoss(Curve curve, out double PTcon, out double Pon, out double Poff, out double PDcon, out double Prr)
+        private void CalcIGBTLoss(Curve curve, out double PTcon, out double Pon, out double Poff, out double PDcon, out double Prr)
         {
             PTcon = 0;
             Pon = 0;
@@ -413,7 +431,7 @@ namespace PV_analysis.Components
         /// 验证温度
         /// </summary>
         /// <returns>是否验证通过</returns>
-        public bool CheckTemperature()
+        private bool CheckTemperature()
         {
             //计算工作在最大结温时的散热器温度
             double Pmain = math_PTcon[0] + math_Pon[0] + math_Poff[0];

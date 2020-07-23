@@ -11,10 +11,10 @@ namespace PV_analysis.Topologys
         private static readonly double math_kIrip = 0.2; //电流纹波系数
         private static readonly double math_kVrip = 0.1; //电压纹波系数
 
-        private readonly DCDCConverter converter; //所属变换器
-        private readonly Component[][] allComponentGroups; //所有可行元器件组
-        private readonly Component[] allComponents; //可行元件组中出现的所有元器件（待设计的元器件）
-        private Component[] componentGroup; //当前选用的元器件组
+        private DCDCConverter converter; //所属变换器
+        private IComponent[][] allComponentGroups; //所有可行元器件组
+        private IComponent[] allComponents; //可行元件组中出现的所有元器件（待设计的元器件）
+        private IComponent[] componentGroup; //当前选用的元器件组
 
         //基本电路参数
         private double math_Pmax; //满载功率
@@ -32,7 +32,6 @@ namespace PV_analysis.Topologys
         private double math_ISmax; //开关器件电流应力
         private double math_ILrip_max; //电感电流纹波最大值
         private double math_ILpeak_max; //电感电流峰值最大值
-        private double math_
         private double math_VCmax; //电容电压应力
         private double math_ICrms; //电容电流有效值
 
@@ -43,17 +42,11 @@ namespace PV_analysis.Topologys
         //电压、电流波形（不同输入电压、负载点）
         private Curve[,] curve_iS_eval;
         private Curve[,] curve_iD_eval;
+        private Curve[,] curve_iS_dual_eval;
 
         public ThreeLevelBoost(DCDCConverter converter)
         {
             this.converter = converter;
-            Component DualIGBT= new DualIGBT();
-            Component inductor = new Inductor();
-            Component capacitor = new Capacitor();
-            allComponents = new Component[] { DualIGBT, inductor, capacitor };
-            allComponentGroups = new Component[1][];
-            allComponentGroups[0] = new Component[] { DualIGBT, inductor, capacitor };
-
             math_Pmax = converter.Math_Psys / converter.Number;
             math_fs = converter.Math_fs;
             math_Vin_min = converter.Math_Vin_min;
@@ -87,15 +80,15 @@ namespace PV_analysis.Topologys
                 L = D * (Vin - 0.5 * Vo) / (fs * ILrip);
             }
             double VSmax = Vo * 0.5; //开关器件电压应力
-            double VCmax = Vo * 0.5; //电容电压平均值
+            double VC = Vo * 0.5; //电容电压平均值
             double VCrip = VC * kVrip; //电压纹波
             double C = D * Io / (fs * VCrip); //容值
 
             //记录设计结果
             math_L = L;
             math_C = C;
-            math_VS = VS;
-            math_VC = VC;
+            math_VSmax = VSmax;
+            math_VCmax = VC + VCrip;
         }
 
         /// <summary>
@@ -151,6 +144,7 @@ namespace PV_analysis.Topologys
                 curve_iS.Add(t3, 0);
                 curve_iS.Add(Ts, 0);
             }
+
             //升压二极管电流波形
             curve_iD = new Curve();
             if (D > 0.5)
@@ -171,19 +165,30 @@ namespace PV_analysis.Topologys
                 curve_iD.Add(Ts, ILmin);
                 curve_iD.Add(Ts, 0);
             }
+
             //电容电流波形
-            Curve math_iC = curve_iD.Copy(0, -Io);
+            Curve math_iC = curve_iD.Copy(1, 0, -Io);
 
             double ICrms = math_iC.CalcRMS(); //电容电流有效值
         }
 
         public void Design()
         {
-            CircuitParamDesign();
+            //初始化
+            DualModule DualModule = new DualModule(2);
+            Inductor inductor = new Inductor();
+            Capacitor capacitor = new Capacitor();
+            allComponents = new IComponent[] { DualModule, inductor, capacitor };
+            allComponentGroups = new IComponent[1][];
+            allComponentGroups[0] = new IComponent[] { DualModule, inductor, capacitor };
+
+            //计算电路参数
+            DesignCircuitParam();
             int m = Config.CGC_VOLTAGE_RATIO.Length;
             int n = Config.CGC_POWER_RATIO.Length;
-            curve_iD_eval = new Curve[m, n];
             curve_iS_eval = new Curve[m, n];
+            curve_iD_eval = new Curve[m, n];
+            curve_iS_dual_eval = new Curve[m, n];
             for (int i = 0; i < m; i++)
             {
                 math_Vin = math_Vin_min + (math_Vin_max - math_Vin_min) * Config.CGC_VOLTAGE_RATIO[i];
@@ -193,7 +198,17 @@ namespace PV_analysis.Topologys
                     Simulate();
                     curve_iS_eval[i, j] = curve_iS.Copy();
                     curve_iD_eval[i, j] = curve_iD.Copy();
+                    curve_iS_dual_eval[i, j] = curve_iD.Copy(-1); //采用半桥模块时，第二个开关管波形为-iD
                 }
+            }
+
+            //设置元器件
+            DualModule.SetDesignCondition(math_VSmax, math_ISmax, math_fs);
+            DualModule.SetEvalCurve(curve_iS_dual_eval, curve_iS_eval);
+
+            foreach (IComponent com in allComponents)
+            {
+                com.Design();
             }
         }
     }
