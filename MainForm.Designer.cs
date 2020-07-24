@@ -1,6 +1,6 @@
 ﻿namespace PV_analysis
 {
-    internal partial class Form
+    internal partial class MainForm
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -435,8 +435,8 @@
             this.Display_Show_Panel = new System.Windows.Forms.Panel();
             this.Display_Show_Main_Panel = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
+            this.Display_Show_ChartControl_Button = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label93 = new System.Windows.Forms.Label();
             this.label94 = new System.Windows.Forms.Label();
@@ -473,6 +473,7 @@
             this.Admin_Panel = new System.Windows.Forms.Panel();
             this.Admin_Main_Panel = new System.Windows.Forms.Panel();
             this.Admin_Label = new System.Windows.Forms.Label();
+            this.Tab_Test_Button = new System.Windows.Forms.Button();
             this.Home_Panel.SuspendLayout();
             this.Home_Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).BeginInit();
@@ -541,7 +542,6 @@
             this.Display_Show_Panel.SuspendLayout();
             this.Display_Show_Main_Panel.SuspendLayout();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel5.SuspendLayout();
             this.Display_Show_Operation_Panel.SuspendLayout();
             this.Display_Detail_Panel.SuspendLayout();
@@ -657,6 +657,7 @@
             // Tab_Panel
             // 
             this.Tab_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Tab_Panel.Controls.Add(this.Tab_Test_Button);
             this.Tab_Panel.Controls.Add(this.Tab_Admin_Button);
             this.Tab_Panel.Controls.Add(this.Tab_Display_Button);
             this.Tab_Panel.Controls.Add(this.Tab_Estimate_Button);
@@ -5191,32 +5192,31 @@
             // 
             // panel6
             // 
-            this.panel6.Controls.Add(this.button1);
-            this.panel6.Controls.Add(this.pictureBox1);
+            this.panel6.Controls.Add(this.cartesianChart1);
+            this.panel6.Controls.Add(this.Display_Show_ChartControl_Button);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(1080, 807);
             this.panel6.TabIndex = 6;
             // 
-            // button1
+            // cartesianChart1
             // 
-            this.button1.Image = global::PV_analysis.Properties.Resources.设置;
-            this.button1.Location = new System.Drawing.Point(977, 56);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.UseVisualStyleBackColor = true;
+            this.cartesianChart1.Location = new System.Drawing.Point(67, 88);
+            this.cartesianChart1.Name = "cartesianChart1";
+            this.cartesianChart1.Size = new System.Drawing.Size(946, 665);
+            this.cartesianChart1.TabIndex = 2;
+            this.cartesianChart1.Text = "cartesianChart1";
             // 
-            // pictureBox1
+            // Display_Show_ChartControl_Button
             // 
-            this.pictureBox1.Image = global::PV_analysis.Properties.Resources.评估结果;
-            this.pictureBox1.Location = new System.Drawing.Point(126, 163);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(828, 481);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.Display_Show_ChartControl_Button.Image = global::PV_analysis.Properties.Resources.设置;
+            this.Display_Show_ChartControl_Button.Location = new System.Drawing.Point(974, 29);
+            this.Display_Show_ChartControl_Button.Name = "Display_Show_ChartControl_Button";
+            this.Display_Show_ChartControl_Button.Size = new System.Drawing.Size(75, 23);
+            this.Display_Show_ChartControl_Button.TabIndex = 1;
+            this.Display_Show_ChartControl_Button.UseVisualStyleBackColor = true;
+            this.Display_Show_ChartControl_Button.Click += new System.EventHandler(this.button1_Click);
             // 
             // panel5
             // 
@@ -5641,6 +5641,20 @@
             this.Admin_Label.Text = "[管理页面]";
             this.Admin_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // Tab_Test_Button
+            // 
+            this.Tab_Test_Button.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.Tab_Test_Button.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Tab_Test_Button.FlatAppearance.BorderSize = 0;
+            this.Tab_Test_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Tab_Test_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Tab_Test_Button.Location = new System.Drawing.Point(0, 320);
+            this.Tab_Test_Button.Name = "Tab_Test_Button";
+            this.Tab_Test_Button.Size = new System.Drawing.Size(148, 80);
+            this.Tab_Test_Button.TabIndex = 4;
+            this.Tab_Test_Button.Text = "测试";
+            this.Tab_Test_Button.UseVisualStyleBackColor = false;
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -5747,8 +5761,6 @@
             this.Display_Show_Panel.ResumeLayout(false);
             this.Display_Show_Main_Panel.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.Display_Show_Operation_Panel.ResumeLayout(false);
@@ -6181,7 +6193,6 @@
         private System.Windows.Forms.Label label77;
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label88;
         private System.Windows.Forms.Label label89;
@@ -6207,7 +6218,9 @@
         private System.Windows.Forms.Label label86;
         private System.Windows.Forms.Label label87;
         private System.Windows.Forms.Label label92;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Display_Show_ChartControl_Button;
+        private LiveCharts.WinForms.CartesianChart cartesianChart1;
+        private System.Windows.Forms.Button Tab_Test_Button;
     }
 }
 

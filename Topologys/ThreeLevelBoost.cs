@@ -1,5 +1,6 @@
 ﻿using PV_analysis.Components;
 using PV_analysis.Converters;
+using System;
 
 namespace PV_analysis.Topologys
 {
@@ -47,11 +48,6 @@ namespace PV_analysis.Topologys
         public ThreeLevelBoost(DCDCConverter converter)
         {
             this.converter = converter;
-            math_Pmax = converter.Math_Psys / converter.Number;
-            math_fs = converter.Math_fs;
-            math_Vin_min = converter.Math_Vin_min;
-            math_Vin_max = converter.Math_Vin_max;
-            math_Vo = converter.Math_Vo;
         }
 
         /// <summary>
@@ -59,8 +55,8 @@ namespace PV_analysis.Topologys
         /// </summary>
         public void DesignCircuitParam()
         {
-            double P = math_P;
-            double Vin = math_Vin;
+            double P = math_Pmax;
+            double Vin = math_Vin_min;
             double Vo = math_Vo;
             double fs = math_fs;
             double kIrip = math_kIrip;
@@ -103,73 +99,103 @@ namespace PV_analysis.Topologys
             double L = math_L;
 
             //计算电路参数
-            double D = 1 - (Vin / Vo); //占空比
             double Ts = 1 / fs; //开关周期
-            double t1 = (D - 0.5) * Ts; //特殊时刻
-            double t2 = 0.5 * Ts;
-            double t3 = D * Ts;
-            double t4 = (D + 0.5) * Ts;
             double Iin = P / Vin; //输入电流平均值
             double Io = P / Vo; //输出电流平均值
             double IL = Iin; //电感电流平均值
+            double D = 1 - (Vin / Vo); //占空比
             double ILrip; //电感电流纹波
             if (D > 0.5)
             {
-                ILrip = (D - 0.5) * Vin / (fs * L);
+                ILrip = (D - 0.5) * Ts * Vin / L;
             }
             else
             {
-                ILrip = D * (Vin - 0.5 * Vo) / (fs * L);
+                ILrip = D * Ts * (Vin - 0.5 * Vo) / L;
             }
             double ILmax = IL + ILrip * 0.5; //电感电流峰值
             double ILmin = IL - ILrip * 0.5; //电感电流谷值
 
-            //主开关管电流波形
-            curve_iS = new Curve();
-            if (D > 0.5)
+            Curve iL = new Curve();
+            if (Function.GE(ILmin, 0))
             {
-                curve_iS.Add(0, 0);
-                curve_iS.Add(0, ILmin);
-                curve_iS.Add(t1, ILmax);
-                curve_iS.Add(t2, ILmin);
-                curve_iS.Add(t3, ILmax);
-                curve_iS.Add(t3, 0);
-                curve_iS.Add(Ts, 0);
+                //CCM
+                if (D > 0.5)
+                {
+                    double t1 = (D - 0.5) * Ts;
+                    double t2 = 0.5 * Ts;
+                    double t3 = D * Ts;
+                    iL.Add(0, ILmin);
+                    iL.Add(t1, ILmax);
+                    iL.Add(t2, ILmin);
+                    iL.Add(t3, ILmax);
+                    iL.Add(Ts, ILmin);
+                }
+                else
+                {
+                    double t1 = D * Ts;
+                    double t2 = 0.5 * Ts;
+                    double t3 = (D + 0.5) * Ts;
+                    iL.Add(0, ILmin);
+                    iL.Add(t1, ILmax);
+                    iL.Add(t2, ILmin);
+                    iL.Add(t3, ILmax);
+                    iL.Add(Ts, ILmin);
+                }
             }
             else
             {
-                curve_iS.Add(0, 0);
-                curve_iS.Add(0, ILmin);
-                curve_iS.Add(t3, ILmax);
-                curve_iS.Add(t3, 0);
-                curve_iS.Add(Ts, 0);
+                //DCM
+                ILmin = 0;
+                if (D > 0.5)
+                {
+                    D = Math.Sqrt(2 * Iin * L * (0.5 * Vo - Vin) / (Ts * Vin * Vo)) + 0.5;
+                    double D1 = Vin * (D - 0.5) * (0.5 * Vo - Vin);
+                    ILmax = (2 * D - 1) * Ts * Vin / (2 * L);
+                    double t1 = (D - 0.5) * Ts;
+                    double t2 = (D + D1 - 0.5) * Ts;
+                    double t3 = 0.5 * Ts;
+                    double t4 = D * Ts;
+                    double t5 = (D + D1) * Ts;
+                    iL.Add(0, ILmin);
+                    iL.Add(t1, ILmax);
+                    iL.Add(t2, ILmin);
+                    iL.Add(t3, ILmin);
+                    iL.Add(t4, ILmax);
+                    iL.Add(t5, ILmin);
+                    iL.Add(Ts, ILmin);
+                }
+                else
+                {
+                    D = Math.Sqrt(2 * Iin * L * (Vo - Vin) / (Ts * Vo * (Vin - 0.5 * Vo)));
+                    double D1 = D * (Vin - 0.5 * Vo) / (Vo - Vin);
+                    ILmax = D * Ts * (Vin - 0.5 * Vo) / L;
+                    double t1 = D * Ts;
+                    double t2 = (D + D1) * Ts;
+                    double t3 = 0.5 * Ts;
+                    double t4 = (D + 0.5) * Ts;
+                    double t5 = (D + D1 + 0.5) * Ts;
+                    iL.Add(0, ILmin);
+                    iL.Add(t1, ILmax);
+                    iL.Add(t2, ILmin);
+                    iL.Add(t3, ILmin);
+                    iL.Add(t4, ILmax);
+                    iL.Add(t5, ILmin);
+                    iL.Add(Ts, ILmin);
+                }
+                ILrip = ILmax / 2;
             }
+
+            //主开关管电流波形
+            curve_iS = iL.Cut(0, D * Ts);
 
             //升压二极管电流波形
-            curve_iD = new Curve();
-            if (D > 0.5)
-            {
-                curve_iD.Add(0, 0);
-                curve_iD.Add(t3, 0);
-                curve_iD.Add(t3, ILmax);
-                curve_iD.Add(Ts, ILmin);
-                curve_iD.Add(Ts, 0);
-            }
-            else
-            {
-                curve_iD.Add(0, 0);
-                curve_iD.Add(t3, 0);
-                curve_iD.Add(t3, ILmax);
-                curve_iD.Add(t2, ILmin);
-                curve_iD.Add(t4, ILmax);
-                curve_iD.Add(Ts, ILmin);
-                curve_iD.Add(Ts, 0);
-            }
+            curve_iD = iL.Cut(D * Ts, Ts);
 
             //电容电流波形
-            Curve math_iC = curve_iD.Copy(1, 0, -Io);
+            Curve iC = curve_iD.Copy(1, 0, -Io);
 
-            double ICrms = math_iC.CalcRMS(); //电容电流有效值
+            double ICrms = iC.CalcRMS(); //电容电流有效值
         }
 
         public void Design()
@@ -181,6 +207,13 @@ namespace PV_analysis.Topologys
             allComponents = new IComponent[] { DualModule, inductor, capacitor };
             allComponentGroups = new IComponent[1][];
             allComponentGroups[0] = new IComponent[] { DualModule, inductor, capacitor };
+
+            //获取设计规格
+            math_Pmax = converter.Math_Psys / converter.Number;
+            math_fs = converter.Math_fs;
+            math_Vin_min = converter.Math_Vin_min;
+            math_Vin_max = converter.Math_Vin_max;
+            math_Vo = converter.Math_Vo;
 
             //计算电路参数
             DesignCircuitParam();
@@ -196,13 +229,17 @@ namespace PV_analysis.Topologys
                 {
                     math_P = math_Pmax * Config.CGC_POWER_RATIO[j]; //改变模块功率
                     Simulate();
+                    Graph graph = new Graph();
+                    graph.Add(curve_iS, "iS");
+                    graph.Add(curve_iD, "iD");
+                    graph.Draw();
                     curve_iS_eval[i, j] = curve_iS.Copy();
                     curve_iD_eval[i, j] = curve_iD.Copy();
                     curve_iS_dual_eval[i, j] = curve_iD.Copy(-1); //采用半桥模块时，第二个开关管波形为-iD
                 }
             }
 
-            //设置元器件
+            //设置元器件的设计条件
             DualModule.SetDesignCondition(math_VSmax, math_ISmax, math_fs);
             DualModule.SetEvalCurve(curve_iS_dual_eval, curve_iS_eval);
 

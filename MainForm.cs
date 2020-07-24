@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace PV_analysis
 {
-    internal partial class Form : System.Windows.Forms.Form
+    internal partial class MainForm : System.Windows.Forms.Form
     {
         private Panel[] panelNow = new Panel[5];
-        private Color activeColor;
-        private Color inactiveColor;
+        private System.Drawing.Color activeColor;
+        private System.Drawing.Color inactiveColor;
 
-        public Form()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -289,6 +285,10 @@ namespace PV_analysis
             this.Estimate_Step2_Group3_CheckedListBox.SetItemChecked(0, this.Estimate_Step2_Group3_Item1_CheckBox.Checked);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
