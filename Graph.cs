@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Xml.Serialization.Configuration;
@@ -57,14 +59,8 @@ namespace PV_analysis
                 Title = "Value"
             });
             chart.LegendLocation = LegendLocation.Right;
-            //chart.DataClick += ChartOnDataClick;
             form.Controls.Add(chart);
             form.ShowDialog();
         }
-
-        //private static void ChartOnDataClick(object sender, ChartPoint chartPoint)
-        //{
-        //    MessageBox.Show("You clicked (" + chartPoint.X + "," + chartPoint.Y + ")");
-        //}
     }
 }

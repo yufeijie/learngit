@@ -121,6 +121,7 @@
     <Compile Include="Function.cs" />
     <Compile Include="DesignList.cs" />
     <Compile Include="Graph.cs" />
+    <Compile Include="ResultList.cs" />
     <Compile Include="Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\Structure.cs" />

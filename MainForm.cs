@@ -2,7 +2,9 @@
 using System.Windows.Forms;
 using System.Windows.Media;
 using LiveCharts;
+using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using NPOI.SS.UserModel;
 
 namespace PV_analysis
 {
@@ -11,6 +13,7 @@ namespace PV_analysis
         private Panel[] panelNow = new Panel[5];
         private System.Drawing.Color activeColor;
         private System.Drawing.Color inactiveColor;
+        private ResultList resultList = new ResultList();
 
         public MainForm()
         {
@@ -191,10 +194,117 @@ namespace PV_analysis
 
         private void Display_Ready_Load_Button_Click(object sender, EventArgs e)
         {
-            panelNow[3] = this.Display_Show_Panel;
-            panelNow[0].Visible = false;
-            panelNow[0] = panelNow[3];
-            panelNow[0].Visible = true;
+            OpenFileDialog openFileDialog = new OpenFileDialog //打开文件窗口
+            {
+                Filter = "Files|*.xls;*.xlsx", //设定打开的文件类型
+            };
+            if (openFileDialog.ShowDialog() == DialogResult.OK) //如果选定了文件
+            {
+                string filePath = openFileDialog.FileName; //取得文件路径及文件名
+                
+                //读取数据
+                IWorkbook workbook = WorkbookFactory.Create(filePath); //打开Excel
+                ISheet sheet = workbook.GetSheetAt(1);
+                for (int i = 1; i <= sheet.LastRowNum; i++)
+                {
+                    IRow row = sheet.GetRow(i);
+                    string[] data = new string[row.LastCellNum + 1];
+                    for (int j = 0; j < row.LastCellNum; j++)
+                    {
+                        data[j] = row.GetCell(j).StringCellValue;
+                    }
+                    resultList.efficiency.Add(Double.Parse(row.GetCell(79).StringCellValue));
+                    resultList.cost.Add(Double.Parse(row.GetCell(80).StringCellValue));
+                    resultList.volume.Add(Double.Parse(row.GetCell(81).StringCellValue));
+                    resultList.data.Add(data);
+                }
+
+                //显示图像
+                ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
+                for (int i = 0; i < resultList.efficiency.Count; i++)
+                {
+                    values.Add(new ObservablePoint(resultList.cost[i], resultList.efficiency[i]));
+                }
+                cartesianChart1.Series.Add(new ScatterSeries
+                {
+                    Values = values
+                });
+
+                //Pareto前沿
+                //values = new ChartValues<ObservablePoint>();
+                //for (int i = 0; i < 20; i++)
+                //{
+                //    values.Add(new ObservablePoint(resultList.cost[i], resultList.efficiency[i]));
+                //}
+                //cartesianChart1.Series.Add(new LineSeries
+                //{
+                //    Values = values,
+                //    LineSmoothness = 0,
+                //    PointGeometry = null
+                //});
+
+                cartesianChart1.AxisX.Add(new Axis
+                {
+                    Title = "成本（万元）"
+                });
+
+                cartesianChart1.AxisY.Add(new Axis
+                {
+                    Title = "中国效率（%）"
+                });
+                cartesianChart1.LegendLocation = LegendLocation.Right;
+                cartesianChart1.DataClick += ChartOnDataClick; //添加点击图像点事件
+
+                //显示默认值
+                label107.Text = "";
+                label106.Text = "";
+                label104.Text = "";
+                label98.Text = "";
+                label97.Text = "";
+                label96.Text = "";
+                label90.Text = "";
+                label92.Text = "";
+                label87.Text = "";
+                label86.Text = "";
+                label95.Text = "";
+                label94.Text = "";
+                label93.Text = "";
+
+                //切换到显示页面
+                panelNow[3] = this.Display_Show_Panel;
+                panelNow[0].Visible = false;
+                panelNow[0] = panelNow[3];
+                panelNow[0].Visible = true;
+            }
+        }
+
+        private void ChartOnDataClick(object sender, ChartPoint chartPoint)
+        {
+            int n;
+            //目前采用循环比较法查找 TODO 能否直接将chartPoint与点的具体信息相联系
+            for (n = 0; n < resultList.data.Count; n++)
+            {
+                if (Function.EQ(chartPoint.X, resultList.cost[n]) && Function.EQ(chartPoint.Y, resultList.efficiency[n]))
+                {
+                    break;
+                }
+            }
+            if (n < resultList.data.Count)
+            {
+                label107.Text = resultList.data[n][0];
+                label106.Text = resultList.data[n][1];
+                label104.Text = resultList.data[n][2];
+                label90.Text = "三级架构";
+                label98.Text = resultList.data[n][8];
+                label97.Text = resultList.data[n][10] + "kHz";
+                label96.Text = resultList.data[n][9];
+                label92.Text = resultList.data[n][31];
+                label87.Text = resultList.data[n][33] + "kHz";
+                label86.Text = resultList.data[n][32];
+                label95.Text = resultList.data[n][64];
+                label94.Text = resultList.data[n][67] + "kHz";
+                label93.Text = resultList.data[n][66];
+            }
         }
 
         private void Display_Show_Detail_Button_Click(object sender, EventArgs e)
@@ -286,6 +396,11 @@ namespace PV_analysis
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label107_Click(object sender, EventArgs e)
         {
 
         }
