@@ -1,10 +1,10 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Windows.Media;
-using LiveCharts;
+﻿using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using NPOI.SS.UserModel;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace PV_analysis
 {
@@ -14,6 +14,8 @@ namespace PV_analysis
         private System.Drawing.Color activeColor;
         private System.Drawing.Color inactiveColor;
         private ResultList resultList = new ResultList();
+        private int nowResult = -1;
+        private List<Label> labelList = new List<Label>();
 
         public MainForm()
         {
@@ -201,7 +203,7 @@ namespace PV_analysis
             if (openFileDialog.ShowDialog() == DialogResult.OK) //如果选定了文件
             {
                 string filePath = openFileDialog.FileName; //取得文件路径及文件名
-                
+
                 //读取数据
                 IWorkbook workbook = WorkbookFactory.Create(filePath); //打开Excel
                 ISheet sheet = workbook.GetSheetAt(1);
@@ -291,9 +293,10 @@ namespace PV_analysis
             }
             if (n < resultList.data.Count)
             {
+                nowResult = n;
                 label107.Text = resultList.data[n][0];
-                label106.Text = resultList.data[n][1];
-                label104.Text = resultList.data[n][2];
+                label106.Text = resultList.data[n][1] + "万元";
+                label104.Text = resultList.data[n][2] + "dm^3";
                 label90.Text = "三级架构";
                 label98.Text = resultList.data[n][8];
                 label97.Text = resultList.data[n][10] + "kHz";
@@ -309,10 +312,142 @@ namespace PV_analysis
 
         private void Display_Show_Detail_Button_Click(object sender, EventArgs e)
         {
-            panelNow[3] = this.Display_Detail_Panel;
-            panelNow[0].Visible = false;
-            panelNow[0] = panelNow[3];
-            panelNow[0].Visible = true;
+            if (nowResult >= 0 && nowResult < resultList.data.Count)
+            {
+                //int x = 100;
+                //int y = 40;
+                //int dx = 50;
+                //int dy = 40;
+                //labelList.Add(newLabel(new System.Drawing.Point(x, y), "测试"));
+                //labelList.Add(newLabel(new System.Drawing.Point(x += dx, y), "测试"));
+                //labelList.Add(newLabel(new System.Drawing.Point(x += dx, y), "测试2"));
+
+                //for (int i = 0; i < labelList.Count; i++)
+                //{
+                //    Display_Detail_Main_Panel.Controls.Add(labelList[i]);
+                //}
+
+                int n = nowResult;
+                label136.Text = resultList.data[n][0];
+                label135.Text = resultList.data[n][1] + "万元";
+                label134.Text = resultList.data[n][2] + "dm^3";
+                label130.Text = "三级架构";
+                label108.Text = resultList.data[n][8];
+                label105.Text = resultList.data[n][10] + "kHz";
+                label103.Text = resultList.data[n][9];
+                label125.Text = resultList.data[n][31];
+                label124.Text = resultList.data[n][33] + "kHz";
+                label123.Text = resultList.data[n][32];
+                label121.Text = resultList.data[n][64];
+                label120.Text = resultList.data[n][67] + "kHz";
+                label119.Text = resultList.data[n][66];
+
+                //显示图像
+                Func<ChartPoint, string> labelPoint = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
+
+                double p1 = Math.Round(100 - double.Parse(resultList.data[n][3].Substring(0, 5)), 2);
+                double p2 = Math.Round(100 - double.Parse(resultList.data[n][26].Substring(0, 5)), 2);
+                double p3 = Math.Round(100 - double.Parse(resultList.data[n][59].Substring(0, 5)), 2);
+                pieChart1.Series = new SeriesCollection
+                {
+                    new PieSeries
+                    {
+                        Title = "前级DC/DC",
+                        Values = new ChartValues<double> {p1},
+                        DataLabels = true,
+                        LabelPoint = labelPoint
+                    },
+                    new PieSeries
+                    {
+                        Title = "隔离DC/DC",
+                        Values = new ChartValues<double> {p2},
+                        DataLabels = true,
+                        LabelPoint = labelPoint
+                    },
+                    new PieSeries
+                    {
+                        Title = "逆变",
+                        Values = new ChartValues<double> {p3},
+                        DataLabels = true,
+                        LabelPoint = labelPoint
+                    },
+                };
+                pieChart1.LegendLocation = LegendLocation.Bottom;
+
+                double c1 = Math.Round(double.Parse(resultList.data[n][4]) / 1e4, 2);
+                double c2 = Math.Round(double.Parse(resultList.data[n][27]) / 1e4, 2);
+                double c3 = Math.Round(double.Parse(resultList.data[n][60]) / 1e4, 2);
+                pieChart2.Series = new SeriesCollection
+                {
+                    new PieSeries
+                    {
+                        Title = "前级DC/DC",
+                        Values = new ChartValues<double> {c1},
+                        DataLabels = true,
+                        LabelPoint = labelPoint
+                    },
+                    new PieSeries
+                    {
+                        Title = "隔离DC/DC",
+                        Values = new ChartValues<double> {c2},
+                        DataLabels = true,
+                        LabelPoint = labelPoint
+                    },
+                    new PieSeries
+                    {
+                        Title = "逆变",
+                        Values = new ChartValues<double> {c3},
+                        DataLabels = true,
+                        LabelPoint = labelPoint
+                    },
+                };
+                pieChart2.LegendLocation = LegendLocation.Bottom;
+
+                double v1 = Math.Round(double.Parse(resultList.data[n][5]), 2);
+                double v2 = Math.Round(double.Parse(resultList.data[n][28]), 2);
+                double v3 = Math.Round(double.Parse(resultList.data[n][61]), 2);
+                pieChart3.Series = new SeriesCollection
+                {
+                    new PieSeries
+                    {
+                        Title = "前级DC/DC",
+                        Values = new ChartValues<double> {v1},
+                        DataLabels = true,
+                        LabelPoint = labelPoint
+                    },
+                    new PieSeries
+                    {
+                        Title = "隔离DC/DC",
+                        Values = new ChartValues<double> {v2},
+                        DataLabels = true,
+                        LabelPoint = labelPoint
+                    },
+                    new PieSeries
+                    {
+                        Title = "逆变",
+                        Values = new ChartValues<double> {v3},
+                        DataLabels = true,
+                        LabelPoint = labelPoint
+                    },
+                };
+                pieChart3.LegendLocation = LegendLocation.Bottom;
+
+                panelNow[3] = this.Display_Detail_Panel;
+                panelNow[0].Visible = false;
+                panelNow[0] = panelNow[3];
+                panelNow[0].Visible = true;
+            }
+        }
+
+        private Label newLabel(System.Drawing.Point point, string text)
+        {
+            Label label = new System.Windows.Forms.Label();
+            label.AutoSize = true;
+            label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label.Location = point;
+            label.Text = text;
+            label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            return label;
         }
 
         private void Display_Show_Restart_Button_Click(object sender, EventArgs e)
@@ -325,6 +460,9 @@ namespace PV_analysis
 
         private void Display_Detail_Back_Button_Click(object sender, EventArgs e)
         {
+            //Display_Detail_Main_Panel.Controls.Clear();
+            //labelList.Clear();
+
             panelNow[3] = this.Display_Show_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[3];
@@ -401,6 +539,11 @@ namespace PV_analysis
         }
 
         private void label107_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label148_Click(object sender, EventArgs e)
         {
 
         }
