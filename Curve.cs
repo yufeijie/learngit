@@ -59,16 +59,16 @@ namespace PV_analysis
 		/// <summary>
 		/// 复制一条曲线，可根据附加参数进行变换
 		/// </summary>
-		/// <param name="ratio">缩放比</param>
+		/// <param name="ratioY">y轴缩放比</param>
 		/// <param name="offsetX">x轴平移量</param>
 		/// <param name="offsetY">y轴平移量</param>
 		/// <returns>复制的曲线</returns>
-		public Curve Copy(double ratio = 1, double offsetX = 0, double offsetY = 0)
+		public Curve Copy(double ratioY = 1, double offsetX = 0, double offsetY = 0)
 		{
 			Curve curve = new Curve();
 			for (int i = 0; i < data.Count; i++)
 			{
-				curve.Add(data[i].X * ratio + offsetX, data[i].Y * ratio + offsetY);
+				curve.Add(data[i].X + offsetX, data[i].Y * ratioY + offsetY);
 			}
 			return curve;
 		}

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using NPOI.SS.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using NPOI.SS.UserModel;
 
 namespace PV_analysis
 {
@@ -139,9 +139,9 @@ namespace PV_analysis
             public double Math_a4 { get; }
 
             //线性拟合点（x0，y0），若横坐标小于x0则采用线性拟合
-            public double Math_x0 { get; } = double.NaN;
-            public double Math_y0 { get; } = double.NaN;
-            
+            public double Math_x0 { get; } = 0;
+            public double Math_y0 { get; } = 0;
+
             /// <summary>
             /// 根据x坐标获取拟合曲线y坐标
             /// </summary>
@@ -151,7 +151,7 @@ namespace PV_analysis
             {
                 //获取曲线数据
                 double value = 0;
-                if (!double.IsNaN(Math_x0) && !double.IsNaN(Math_y0)) //在x坐标较小时，直接线性化
+                if (Math_x0 > 0 && Math_y0 > 0) //在x坐标较小时，直接线性化
                 {
                     if (Function.LE(x, Math_x0))
                     {
@@ -295,7 +295,7 @@ namespace PV_analysis
 
             //打开Excel
             IWorkbook workbook = WorkbookFactory.Create(dataPath);
-            
+
             //读取开关器件数据
             ISheet sheet = workbook.GetSheetAt(0); //获取第一个工作薄，从0开始
             for (int i = 1; i <= sheet.LastRowNum; i++) //获取每一行的数据，0对应标题行
@@ -308,7 +308,7 @@ namespace PV_analysis
                     semicondutorList.Add(new Semiconductor(row)); //添加器件信息
                 }
             }
-            
+
             //读取拟合曲线数据
             sheet = workbook.GetSheetAt(1);
             for (int i = 1; i <= sheet.LastRowNum; i++)

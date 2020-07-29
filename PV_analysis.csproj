@@ -112,6 +112,7 @@
     <Compile Include="Converters\IsolatedDCDCConverter.cs" />
     <Compile Include="Curve.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="IComponentDesignData.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,7 +120,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Function.cs" />
-    <Compile Include="DesignList.cs" />
+    <Compile Include="ComponentDesignList.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="ResultList.cs" />
     <Compile Include="Start.cs" />

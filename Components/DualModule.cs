@@ -60,7 +60,7 @@ namespace PV_analysis.Components
         private double math_Tj_diode; //反并二极管结温
 
         //设计结果
-        private DesignList design = new DesignList();
+        private ComponentDesignList designList = new ComponentDesignList();
 
         /// <summary>
         /// 损耗评估值
@@ -82,6 +82,8 @@ namespace PV_analysis.Components
         /// </summary>
         public double Volume { get { return number * volume; } }
 
+        public ComponentDesignList DesignList { get { return designList; } }
+
         /// <summary>
         /// 初始化
         /// </summary>
@@ -101,12 +103,12 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
-        /// 获取器件的设计信息
+        /// 获取设计方案的配置信息
         /// </summary>
-        /// <returns>设计信息</returns>
-        private string[] GetInfo()
+        /// <returns>配置信息</returns>
+        private string[] GetConfigs()
         {
-            string[] info = { ToString(), GetDeviceType() };
+            string[] info = { "DualModule", GetDeviceType() };
             return info;
         }
 
@@ -116,19 +118,15 @@ namespace PV_analysis.Components
         /// <param name="Vmax">电压应力</param>
         /// <param name="Imax">电流应力</param>
         /// <param name="fs">开关频率</param>
-        public void SetDesignCondition(double Vmax, double Imax, double fs)
+        /// <param name="Vsw">开关电压</param>
+        /// <param name="iUp_eval">上管电流波形（用于评估）</param>
+        /// <param name="iDown_eval">下管电流波形（用于评估）</param>
+        public void SetDesignCondition(double Vmax, double Imax, double fs, double Vsw, Curve[,] iUp_eval, Curve[,] iDown_eval)
         {
             math_Vmax = Vmax;
             math_Imax = Imax;
             math_fs = fs;
-        }
-
-        /// <summary>
-        /// 设置用于评估的波形
-        /// </summary>
-        /// <param name="i_eval">电流波形</param>
-        public void SetEvalCurve(Curve[,] iUp_eval, Curve[,] iDown_eval)
-        {
+            math_Vsw = Vsw;
             curve_iUp_eval = iUp_eval;
             curve_iDown_eval = iDown_eval;
         }
@@ -138,7 +136,7 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        private void SelectEvalCurve(int m, int n)
+        private void SelectCurve(int m, int n)
         {
             curve_iUp = curve_iUp_eval[m, n];
             curve_iDown = curve_iDown_eval[m, n];
@@ -158,7 +156,7 @@ namespace PV_analysis.Components
                     {
                         CalcVolume(); //计算体积
                         CalcCost(); //计算成本
-                        design.Add(Math_Peval, Volume, Cost, GetInfo()); //记录设计
+                        designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
                     }
                 }
             }
@@ -177,9 +175,9 @@ namespace PV_analysis.Components
             {
                 for (int n = 0; n < Config.CGC_POWER_RATIO.Length; n++) //对不同功率点进行计算
                 {
-                    SelectEvalCurve(m, n); //设置对应条件下的电路参数
+                    SelectCurve(m, n); //设置对应条件下的电路参数
                     CalcPowerLoss(); //计算对应条件下的损耗
-                    if (isCheckTemperature && CheckTemperature()) //验证散热器温度
+                    if (isCheckTemperature && !CheckTemperature()) //验证散热器温度
                     {
                         return false;
                     }
@@ -203,7 +201,7 @@ namespace PV_analysis.Components
             }
 
             //验证器件类型是否符合
-            if (!Data.SemiconductorList[device].Category.Equals("IGBT-Module") || !Data.SemiconductorList[device].Category.Equals("SiC-Module"))
+            if (!Data.SemiconductorList[device].Category.Equals("IGBT-Module") && !Data.SemiconductorList[device].Category.Equals("SiC-Module"))
             {
                 return false;
             }
@@ -263,12 +261,13 @@ namespace PV_analysis.Components
             math_Poff = new double[] { 0, 0 };
             math_PDcon = new double[] { 0, 0 };
             math_Prr = new double[] { 0, 0 };
+            powerLoss = 0;
 
-            CalcIGBTLoss(curve_iDown, out math_PTcon[0], out math_Pon[0], out math_Poff[0], out math_PDcon[0], out math_Prr[0]);
-            CalcIGBTLoss(curve_iUp, out math_PTcon[1], out math_Pon[1], out math_Poff[1], out math_PDcon[1], out math_Prr[1]);
+            CalcIGBTLoss(curve_iUp, out math_PTcon[0], out math_Pon[0], out math_Poff[0], out math_PDcon[0], out math_Prr[0]);
+            CalcIGBTLoss(curve_iDown, out math_PTcon[1], out math_Pon[1], out math_Poff[1], out math_PDcon[1], out math_Prr[1]);
             for (int i = 0; i < 2; i++)
             {
-                powerLoss = math_PTcon[i] + math_Pon[i] + math_Poff[i] + math_PDcon[i] + math_Prr[i];
+                powerLoss += math_PTcon[i] + math_Pon[i] + math_Poff[i] + math_PDcon[i] + math_Prr[i];
             }
         }
 
@@ -418,6 +417,7 @@ namespace PV_analysis.Components
         /// <returns>计算结果</returns>
         private double CalcIGBT_Prr(double Ioff)
         {
+            Ioff = (Ioff >= 0 ? Ioff : -Ioff);
             //根据关断电流查表得到对应损耗
             if (Function.EQ(Ioff, 0))
             {

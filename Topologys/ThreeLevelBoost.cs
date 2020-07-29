@@ -53,7 +53,7 @@ namespace PV_analysis.Topologys
         /// <summary>
         /// 设计主电路元件参数
         /// </summary>
-        public void DesignCircuitParam()
+        private void DesignCircuitParam()
         {
             double P = math_Pmax;
             double Vin = math_Vin_min;
@@ -83,14 +83,16 @@ namespace PV_analysis.Topologys
             //记录设计结果
             math_L = L;
             math_C = C;
+
+            //主开关管电流应力
+            math_ISmax = Iin + ILrip * 0.5;
             math_VSmax = VSmax;
-            math_VCmax = VC + VCrip;
         }
 
         /// <summary>
         /// 计算电路参数，并模拟电压、电流波形
         /// </summary>
-        public void Simulate()
+        private void Simulate()
         {
             double P = math_P;
             double Vin = math_Vin;
@@ -229,10 +231,10 @@ namespace PV_analysis.Topologys
                 {
                     math_P = math_Pmax * Config.CGC_POWER_RATIO[j]; //改变模块功率
                     Simulate();
-                    Graph graph = new Graph();
-                    graph.Add(curve_iS, "iS");
-                    graph.Add(curve_iD, "iD");
-                    graph.Draw();
+                    //Graph graph = new Graph();
+                    //graph.Add(curve_iS, "iS");
+                    //graph.Add(curve_iD, "iD");
+                    //graph.Draw();
                     curve_iS_eval[i, j] = curve_iS.Copy();
                     curve_iD_eval[i, j] = curve_iD.Copy();
                     curve_iS_dual_eval[i, j] = curve_iD.Copy(-1); //采用半桥模块时，第二个开关管波形为-iD
@@ -240,8 +242,7 @@ namespace PV_analysis.Topologys
             }
 
             //设置元器件的设计条件
-            DualModule.SetDesignCondition(math_VSmax, math_ISmax, math_fs);
-            DualModule.SetEvalCurve(curve_iS_dual_eval, curve_iS_eval);
+            DualModule.SetDesignCondition(math_VSmax, math_ISmax, math_fs, math_VSmax, curve_iS_dual_eval, curve_iS_eval);
 
             foreach (IComponent com in allComponents)
             {
