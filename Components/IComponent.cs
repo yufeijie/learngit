@@ -9,7 +9,7 @@ namespace PV_analysis.Components
     internal interface IComponent
     {
         /// <summary>
-        /// 设计元件
+        /// 自动设计
         /// </summary>
         void Design();
     }

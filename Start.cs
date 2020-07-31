@@ -23,7 +23,7 @@ namespace PV_analysis
             double Vo = 1300;
             int[] numberRange = { 120 };
             int[] topologyRange = { 1 };
-            double[] frequencyRange = { 5e3, 10e3 };
+            double[] frequencyRange = { 50e3 };
 
             DCDCConverter converter = new DCDCConverter(Psys, Vin_min, Vin_max, Vo);
 

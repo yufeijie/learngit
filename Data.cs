@@ -46,24 +46,24 @@ namespace PV_analysis
             public string Manufacturer { get; } //厂商
             public string Category { get; } //类型（IGBT，SiC-MOSFET单管，SiC模块等）
             public string Configuration { get; } //结构（单管，半桥，全桥等）
-            public double Price { get; } //价格
-            public double Volume { get; } //体积
+            public double Price { get; } //价格(RMB)
+            public double Volume { get; } //体积(dm^3)
 
             //电气特性
-            public double Math_Vmax { get; } //IGBT耐压
-            public double Math_Imax { get; } //IGBT耐流
+            public double Math_Vmax { get; } //IGBT耐压(V)
+            public double Math_Imax { get; } //IGBT耐流(A)
 
             //MOSFET特性
-            public double Math_Rdson { get; } //MOSFET导通电阻
-            public double Math_Vth { get; } //开启电压
-            public double Math_gfs { get; } //跨导
-            public double Math_Ciss { get; } //输入电容
-            public double Math_Coss { get; } //输出电容
-            public double Math_Crss { get; } //反向传输电容
-            public double Math_Rg { get; } //内部门极电阻
-            public double Math_Vgs_h { get; } //正向驱动电压
-            public double Math_Vgs_l { get; } //反向驱动电压
-            public double Math_Rg_drive { get; } //驱动电压
+            public double Math_Rdson { get; } //MOSFET导通电阻(Ohm)
+            public double Math_Vth { get; } //开启电压(V)
+            public double Math_gfs { get; } //跨导(s)
+            public double Math_Ciss { get; } //输入电容(pF)
+            public double Math_Coss { get; } //输出电容(pF)
+            public double Math_Crss { get; } //反向传输电容(pF)
+            public double Math_Rg { get; } //内部门极电阻(Ohm)
+            public double Math_Vgs_h { get; } //正向驱动电压(V)
+            public double Math_Vgs_l { get; } //反向驱动电压(V)
+            public double Math_Rg_drive { get; } //驱动电阻(Ohm)
 
             //损耗曲线编号
             public int Id_Vce { get; } //IGBT导通压降曲线编号
@@ -75,13 +75,13 @@ namespace PV_analysis
             public int Id_Err { get; } //反向恢复能耗曲线编号
 
             //热特性
-            public double IGBT_RthJC { get; } //IGBT结-外壳热阻
-            public double IGBT_RthCH { get; } //IGBT外壳-散热器热阻
-            public double MOSFET_RthJC { get; } //MOSFET结-外壳热阻
-            public double MOSFET_RthCH { get; } //MOSFET外壳-散热器热阻
-            public double Diode_RthJC { get; } //Diode结-外壳热阻
-            public double Diode_RthCH { get; } //Diode外壳-散热器热阻
-            public double Module_RthCH { get; } //模块外壳-散热器热阻
+            public double IGBT_RthJC { get; } //IGBT结-外壳热阻(K/W)
+            public double IGBT_RthCH { get; } //IGBT外壳-散热器热阻(K/W)
+            public double MOSFET_RthJC { get; } //MOSFET结-外壳热阻(K/W)
+            public double MOSFET_RthCH { get; } //MOSFET外壳-散热器热阻(K/W)
+            public double Diode_RthJC { get; } //Diode结-外壳热阻(K/W)
+            public double Diode_RthCH { get; } //Diode外壳-散热器热阻(K/W)
+            public double Module_RthCH { get; } //模块外壳-散热器热阻(K/W)
 
             public Semiconductor(IRow row)
             {
@@ -129,7 +129,7 @@ namespace PV_analysis
 
         public class Curve //拟合曲线数据类
         {
-            public double Math_Vsw { get; } = double.NaN; //开通/关断电压
+            public double Math_Vsw { get; } = double.NaN; //开通/关断电压(V)
 
             //a0~a4为拟合曲线参数（四次函数拟合）
             public double Math_a0 { get; }
@@ -183,13 +183,14 @@ namespace PV_analysis
             //基本信息
             public string Type { get; } //型号
             public string Category { get; } //类型（利兹线，漆包线）
-            public double Price { get; } //单位价格
+            public double Price { get; } //单位价格(RMB/unit)
 
             //参数
-            public double Math_Ab { get; } //裸线面积
-            public double Math_A { get; } //截面积
-            public double Math_Rb { get; } //裸线半径
-            public double Math_Wn { get; } //并绕股数
+            public double Math_Ab { get; } //裸线面积(cm^2/10^3)
+            public double Math_A { get; } //截面积(cm^2/10^3)
+            public double Math_Db { get; } //裸线直径(mm)
+            public double Math_D { get; } //直径(mm)
+            public int Math_Wn { get; } //并绕股数
 
             public Wire(IRow row)
             {
@@ -198,8 +199,9 @@ namespace PV_analysis
                 Price = row.GetCell(6).NumericCellValue;
                 Math_Ab = row.GetCell(3).NumericCellValue;
                 Math_A = row.GetCell(4).NumericCellValue;
-                Math_Rb = row.GetCell(7).NumericCellValue;
-                Math_Wn = row.GetCell(10).NumericCellValue;
+                Math_Db = row.GetCell(7).NumericCellValue;
+                Math_D = row.GetCell(8).NumericCellValue;
+                Math_Wn = (int)row.GetCell(10).NumericCellValue;
             }
         }
 
@@ -209,21 +211,21 @@ namespace PV_analysis
             public string Type { get; } //型号
             public string Manufacturer { get; } //厂商
             public string Shape { get; } //磁性形状（EE，U等）
-            public double Price { get; } //价格
-            public double Volume { get; } //体积
+            public double Price { get; } //价格(RMB)
+            public double Volume { get; } //体积(dm^3) Datasheet中给出的即为一对磁芯的有效磁体积
 
             //参数
-            public double Math_AP { get; } //面积积
-            public double Math_Aw { get; } //窗口面积
-            public double Math_MLT { get; } //平均匝长
-            public double Math_Ae { get; } //有效截面积
+            public double Math_AP { get; } //面积积(mm^4)
+            public double Math_Aw { get; } //窗口面积(mm^2)
+            public double Math_MLT { get; } //平均匝长(mm)
+            public double Math_Ae { get; } //有效截面积(mm^2)
             //尺寸规格
-            public double Math_A { get; }
-            public double Math_B { get; }
-            public double Math_C { get; }
-            public double Math_D { get; }
-            public double Math_E { get; }
-            public double Math_F { get; }
+            public double Math_A { get; } //(mm)
+            public double Math_B { get; } //(mm)
+            public double Math_C { get; } //(mm)
+            public double Math_D { get; } //(mm)
+            public double Math_E { get; } //(mm)
+            public double Math_F { get; } //(mm)
 
             public Core(IRow row)
             {
@@ -261,15 +263,15 @@ namespace PV_analysis
         {
             //基本信息
             public string Type { get; } //型号
-            public double Price { get; } //价格
-            public double Volume { get; } //体积
+            public double Price { get; } //价格(RMB)
+            public double Volume { get; } //体积(dm^3)
 
             //参数
-            public double Math_Un { get; } //耐压
-            public double Math_C { get; } //容值
-            public double Math_Irms { get; } //最大电流有效值
-            public double Math_Ipeak { get; } //最大电流
-            public double Math_ESR { get; } //等效串联电阻
+            public double Math_Un { get; } //耐压(V)
+            public double Math_C { get; } //容值(uF)
+            public double Math_Irms { get; } //最大电流有效值(A)
+            public double Math_Ipeak { get; } //最大电流(A)
+            public double Math_ESR { get; } //等效串联电阻(mOhm)
 
             public Capacitor(IRow row)
             {
