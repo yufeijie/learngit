@@ -2,9 +2,9 @@
 
 namespace PV_analysis
 {
-    internal interface IComponentDesignData
+    internal interface IConverterDesignData
     {
-        double PowerLoss { get; }
+        double Efficiency { get; }
         double Volume { get; }
         double Cost { get; }
         string[] Configs { get; }

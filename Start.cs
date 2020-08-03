@@ -29,7 +29,7 @@ namespace PV_analysis
 
             foreach (int tp in topologyRange) //模块数变化
             {
-                ThreeLevelBoost topology = new ThreeLevelBoost(converter);
+                converter.Topology = new ThreeLevelBoost(converter);
                 foreach (int n in numberRange)
                 {
                     converter.Number = n;
@@ -37,7 +37,7 @@ namespace PV_analysis
                     {
                         converter.Math_fs = fs;
                         Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
-                        topology.Design();
+                        converter.Design();
                     }
                 }
             }

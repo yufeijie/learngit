@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PV_analysis.Components;
+using PV_analysis.Converters;
 
 namespace PV_analysis.Topologys
 {
@@ -17,6 +14,13 @@ namespace PV_analysis.Topologys
     /// </summary>
     internal abstract class Topology
     {
-        
+        protected DCDCConverter converter; //所属变换器
+        protected Component[][] componentGroups; //可行元器件组
+        protected Component[] components; //可行元件组中出现的所有元器件（待设计的元器件）
+
+
+        public Component[][] ComponentGroups { get { return componentGroups; } }
+
+        public abstract void Design();
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PV_analysis.Topologys
 {
-    class MultiInputSoftSwitchBoost : Topology
+    internal class MultiInputSoftSwitchBoost : Topology
     {
 		//基本电路参数
 		private double m_Vin; //输入电压
@@ -66,5 +66,10 @@ namespace PV_analysis.Topologys
 		private double currentCapacitorClampingRMSMax; //滤波电容电流有效值最大值
 		private double currentCapacitorFilterRMS; //滤波电容电流有效值
 		private double currentCapacitorFilterRMSMax; //滤波电容电流有效值最大值
+
+		public override void Design()
+		{
+
+		}
 	}
 }

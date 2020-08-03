@@ -100,7 +100,7 @@
   <ItemGroup>
     <Compile Include="Components\Capacitor.cs" />
     <Compile Include="Components\DualModule.cs" />
-    <Compile Include="Components\IComponent.cs" />
+    <Compile Include="Components\Component.cs" />
     <Compile Include="Components\Inductor.cs" />
     <Compile Include="Components\Magnetics.cs" />
     <Compile Include="Components\Semiconductor.cs" />
@@ -112,6 +112,8 @@
     <Compile Include="Converters\IsolatedDCDCConverter.cs" />
     <Compile Include="Curve.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="ConverterDesignList.cs" />
+    <Compile Include="IConverterDesignData.cs" />
     <Compile Include="IComponentDesignData.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

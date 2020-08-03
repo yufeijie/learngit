@@ -2,7 +2,7 @@
 
 namespace PV_analysis.Components
 {
-    internal class Inductor : IComponent
+    internal class Inductor : Magnetics
     {
         //限制条件
         protected bool isCheckBm = false; //在评估时是否进行交流磁通密度检查 TODO 目前仅在变压器设计时检查
@@ -15,9 +15,6 @@ namespace PV_analysis.Components
         protected const double lowCu = 1.724 * 1e-8; //铜电阻率
         protected const double miuCu = 1; //铜相对磁导率 0.9999912
 
-        //基本参数
-        protected int number; //同类电感数量
-
         //器件参数
         protected String material = "Ferrite"; //材料：铁氧体Ferrite，非晶Amorphous
         protected int core; //磁芯编号
@@ -26,9 +23,6 @@ namespace PV_analysis.Components
         protected int wire; //绕线编号
         protected int Wn; //并绕股数 TODO 用利兹线设计时，多余的参数
         protected int N; //匝数
-
-        //设计结果
-        private ComponentDesignList designList = new ComponentDesignList();
 
         //设计条件
         protected double frequency; //开关频率(Hz)
@@ -44,40 +38,14 @@ namespace PV_analysis.Components
         protected double[,] currentRippleForEvaluation; //电感电流纹波（用于评估）
         protected double[,] fluxLinkageForEvaluation; //磁链（用于评估）
 
-        //损耗参数（同类中一个开关器件的损耗）
-        protected double powerLoss; //单个电感损耗(W)
+        //损耗参数（同类器件中其中一个的损耗）
         protected double powerLossCu; //单个电感铜损(W)
         protected double powerLossFe; //单个电感铁损(W)
-        protected double powerLossEvaluation; //单个电感损耗评估值(W)
 
-        //成本参数（同类中一个开关器件的损耗）
-        protected double cost; //单个电感成本
+        //成本参数（同类器件中其中一个的损耗）
         protected double costCore; //单个磁芯成本
         protected double costWire; //单个绕线成本
 
-        //体积参数（同类中一个开关器件的损耗）
-        protected double volume; //单个电感体积(dm^3)
-
-        /// <summary>
-        /// 损耗评估值
-        /// </summary>
-        public double Math_Peval { get { return number * powerLossEvaluation; } }
-
-        /// <summary>
-        /// 总损耗
-        /// </summary>
-        public double PowerLoss { get { return number * powerLoss; } }
-
-        /// <summary>
-        /// 总成本
-        /// </summary>
-        public double Cost { get { return number * cost; } }
-
-        /// <summary>
-        /// 总体积
-        /// </summary>
-        public double Volume { get { return number * volume; } }
-        
         /// <summary>
         /// 初始化
         /// </summary>
@@ -152,7 +120,7 @@ namespace PV_analysis.Components
         /// <summary>
         /// 自动设计
         /// </summary>
-        public void Design()
+        public override void Design()
         {
             //若感值为0则退出设计
             if (inductanceMax == 0)

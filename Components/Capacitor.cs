@@ -2,22 +2,16 @@
 
 namespace PV_analysis.Components
 {
-    internal class Capacitor : IComponent
+    internal class Capacitor : Component
     {
         //限制条件
         private double margin = 0.1; //裕量
         private int numberMax = 20; //最大器件数
 
-        //基本参数
-        private int number; //同类电容数量
-
         //器件参数
         private int device; //电容编号
         private int numberSeriesConnected; //串联数量
         private int numberParallelConnected; //并联数量
-
-        //设计结果
-        private ComponentDesignList designList = new ComponentDesignList();
 
         //设计条件
         private double capacitor; //电容值
@@ -26,42 +20,7 @@ namespace PV_analysis.Components
 
         //电路参数
         private double currentRMS; //电容电流有效值
-        private double[,] currentRMSForEvaluation; //电容电流有效值（用于评估）	
-
-        //损耗参数（同类中一个开关器件的损耗）
-        private double powerLoss; //单个电容损耗
-        private double powerLossEvaluation; //单个电容损耗评估值
-
-        //成本参数（同类中一个开关器件的损耗）
-        private double cost; //单个电容成本
-
-        //体积参数（同类中一个开关器件的损耗）
-        private double volume; //单个电容体积(dm^3)
-
-        /// <summary>
-        /// 损耗评估值
-        /// </summary>
-        public double Math_Peval { get { return number * powerLossEvaluation; } }
-
-        /// <summary>
-        /// 总损耗
-        /// </summary>
-        public double PowerLoss { get { return number * powerLoss; } }
-
-        /// <summary>
-        /// 总成本
-        /// </summary>
-        public double Cost { get { return number * cost; } }
-
-        /// <summary>
-        /// 总体积
-        /// </summary>
-        public double Volume { get { return number * volume; } }
-
-        /// <summary>
-        /// 设计结果
-        /// </summary>
-        public ComponentDesignList DesignList { get { return designList; } }
+        private double[,] currentRMSForEvaluation; //电容电流有效值（用于评估）
 
         /// <summary>
         /// 初始化
@@ -126,7 +85,7 @@ namespace PV_analysis.Components
         /// <summary>
         /// 自动设计
         /// </summary>
-        public void Design()
+        public override void Design()
         {
             for (int i = 0; i < Data.CapacitorList.Count; i++) //搜寻库中所有电容型号
             {

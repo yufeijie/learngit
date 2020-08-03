@@ -12,15 +12,9 @@ namespace PV_analysis.Components
         private static readonly double margin = 0.2; //裕量
         private static readonly double numberMax = 10; //最大器件数
 
-        //基本参数
-        private int number; //同类开关器件数量
-
         //器件参数
         private int device; //开关器件编号
         private int paralleledNum; //并联数量
-
-        //设计结果
-        private ComponentDesignList designList = new ComponentDesignList();
 
         //设计条件
         private double math_Vmax; //电压应力
@@ -34,22 +28,16 @@ namespace PV_analysis.Components
         private Curve[,] curve_iUp_eval; //上管电流波形（用于评估）
         private Curve[,] curve_iDown_eval; //下管电流波形（用于评估）
 
-        //损耗参数（同类中一个开关器件的损耗）
-        private double powerLoss; //单个损耗
+        //损耗参数（同类器件中其中一个的损耗）
         private double[] math_PTcon; //主管通态损耗
         private double[] math_Pon; //主管开通损耗
         private double[] math_Poff; //主管关断损耗
         private double[] math_PDcon; //反并二极管通态损耗
         private double[] math_Prr; //反并二极管反向恢复损耗
-        private double math_Peval; //损耗评估值
 
-        //成本参数（同类中一个开关器件的成本）
-        private double cost; //单个成本
+        //成本参数（同类器件中其中一个的损耗）
         private double semiconductorCost; //开关器件成本
         private double driverCost; //驱动成本
-
-        //体积参数（同类中一个开关器件的体积）
-        private double volume; //单个体积(dm^3)
 
         //温度参数(℃)
         private static readonly double math_Th_max = 60; //散热器允许最高温度
@@ -59,31 +47,6 @@ namespace PV_analysis.Components
         private static readonly double math_Tj_max = 110;//最高结温
         private double math_Tj_main; //主管结温
         private double math_Tj_diode; //反并二极管结温
-
-        /// <summary>
-        /// 损耗评估值
-        /// </summary>
-        public double Math_Peval { get { return number * math_Peval; } }
-
-        /// <summary>
-        /// 总损耗
-        /// </summary>
-        public double PowerLoss { get { return number * powerLoss; } }
-
-        /// <summary>
-        /// 总成本
-        /// </summary>
-        public double Cost { get { return number * cost; } }
-
-        /// <summary>
-        /// 总体积
-        /// </summary>
-        public double Volume { get { return number * volume; } }
-
-        /// <summary>
-        /// 设计结果
-        /// </summary>
-        public ComponentDesignList DesignList { get { return designList; } }
 
         /// <summary>
         /// 初始化
@@ -177,7 +140,7 @@ namespace PV_analysis.Components
         /// <returns>评估结果，若温度检查不通过则返回false</returns>
         private bool Evaluate()
         {
-            math_Peval = 0;
+            powerLossEvaluation = 0;
             for (int m = 0; m < Config.CGC_VOLTAGE_RATIO.Length; m++) //对不同输入电压进行计算
             {
                 for (int n = 0; n < Config.CGC_POWER_RATIO.Length; n++) //对不同功率点进行计算
@@ -188,10 +151,10 @@ namespace PV_analysis.Components
                     {
                         return false;
                     }
-                    math_Peval += powerLoss * Config.CGC_POWER_WEIGHT[n] / Config.CGC_POWER_RATIO[n]; //计算损耗评估值
+                    powerLossEvaluation += powerLoss * Config.CGC_POWER_WEIGHT[n] / Config.CGC_POWER_RATIO[n]; //计算损耗评估值
                 }
             }
-            math_Peval /= Config.CGC_VOLTAGE_RATIO.Length;
+            powerLossEvaluation /= Config.CGC_VOLTAGE_RATIO.Length;
             return true;
         }
 

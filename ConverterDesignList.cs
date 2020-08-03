@@ -1,35 +1,35 @@
 ﻿namespace PV_analysis
 {
     /// <summary>
-    /// 器件设计方案集合
+    /// 变换器设计方案集合
     /// </summary>
-    internal class ComponentDesignList
+    internal class ConverterDesignList
     {
         //采用单向链表进行存储
-        private int size = 0; //方案数
-        private ComponentDesignData head = null; //头指针
+        private int size = 0; //设计方案数
+        private ConverterDesignData head = null; //头指针
 
         /// <summary>
-        /// 存储器件设计方案的评估结果与配置信息
+        /// 存储变换器设计方案的评估结果与配置信息
         /// </summary>
-        private class ComponentDesignData : IComponentDesignData
+        private class ConverterDesignData : IConverterDesignData
         {
-            public ComponentDesignData Prev { get; set; } = null; //上一个节点
-            public ComponentDesignData Next { get; set; } = null; //下一个节点
-            public double PowerLoss { get; set; } //损耗
+            public ConverterDesignData Prev { get; set; } = null; //上一个节点
+            public ConverterDesignData Next { get; set; } = null; //下一个节点
+            public double Efficiency { get; set; } //效率
             public double Volume { get; set; } //体积
             public double Cost { get; set; } //成本
             public string[] Configs { get; set; } //配置信息 
         }
 
         /// <summary>
-        /// 获取器件设计方案数据（数组形式）
+        /// 获取变换器设计方案数据（数组形式）
         /// </summary>
-        /// <returns>器件设计方案数据</returns>
-        public IComponentDesignData[] GetData()
+        /// <returns>变换器设计方案数据</returns>
+        public IConverterDesignData[] GetData()
         {
-            IComponentDesignData[] data = new IComponentDesignData[size];
-            ComponentDesignData now = head;
+            IConverterDesignData[] data = new IConverterDesignData[size];
+            ConverterDesignData now = head;
             for (int i = 0; i < size; i++)
             {
                 data[i] = now;
@@ -41,24 +41,24 @@
         /// <summary>
         /// 添加一个设计，并进行Pareto改进
         /// </summary>
-        /// <param name="powerLoss">损耗</param>
+        /// <param name="efficiency">效率</param>
         /// <param name="volume">体积</param>
         /// <param name="cost">成本</param>
         /// <param name="configs">配置信息</param>
-        public void Add(double powerLoss, double volume, double cost, string[] configs)
+        public void Add(double efficiency, double volume, double cost, string[] configs)
         {
             //Pareto改进
-            ComponentDesignData now = head;
+            ConverterDesignData now = head;
             while (now != null)
             {
                 //若当前Pareto集合中存在一个点，可以支配新添加的点，则新添加的点不为Pareto最优解
-                if (now.PowerLoss <= powerLoss && now.Volume <= volume && now.Cost <= cost)
+                if (now.Efficiency >= efficiency && now.Volume <= volume && now.Cost <= cost)
                 {
                     return;
                 }
 
                 //若新添加的点支配集合中存在的点，则将被支配的点剔除
-                if (now.PowerLoss >= powerLoss && now.Volume >= volume && now.Cost >= cost)
+                if (now.Efficiency <= efficiency && now.Volume >= volume && now.Cost >= cost)
                 {
                     Delete(now);
                 }
@@ -67,9 +67,9 @@
             }
 
             //若新添加的点未被支配，则将该点添加进集合中
-            Insert(new ComponentDesignData()
+            Insert(new ConverterDesignData()
             {
-                PowerLoss = powerLoss,
+                Efficiency = efficiency,
                 Volume = volume,
                 Cost = cost,
                 Configs = configs
@@ -80,25 +80,25 @@
         /// 将当前设计方案集合与另一设计方案集合组合成新的设计方案集合，并更新当前设计方案集合
         /// </summary>
         /// <param name="designList">另一个设计方案集合</param>
-        public void Combine(ComponentDesignList designList)
+        public void Combine(ConverterDesignList designList)
         {
-            ComponentDesignList newList = new ComponentDesignList();
+            ConverterDesignList newList = new ConverterDesignList();
             if (head == null)
             {
                 Copy(designList);
             }
             else
             {
-                ComponentDesignData p = head;
+                ConverterDesignData p = head;
                 while (p != null)
                 {
-                    ComponentDesignData q = designList.head;
+                    ConverterDesignData q = designList.head;
                     while (q != null)
                     {
                         string[] configs = new string[p.Configs.Length + q.Configs.Length];
                         p.Configs.CopyTo(configs, 0);
                         q.Configs.CopyTo(configs, p.Configs.Length);
-                        newList.Add(p.PowerLoss + q.PowerLoss, p.Volume + q.Volume, p.Cost + q.Cost, configs);
+                        newList.Add(p.Efficiency + q.Efficiency - 1, p.Volume + q.Volume, p.Cost + q.Cost, configs);
                         q = q.Next;
                     }
                     p = p.Next;
@@ -108,10 +108,46 @@
         }
 
         /// <summary>
+        /// 合并另一个设计方案集合
+        /// </summary>
+        /// <param name="designList">另一个设计方案集合</param>
+        public void Merge(ConverterDesignList designList)
+        {
+            if (head == null)
+            {
+                Copy(designList);
+            }
+            else
+            {
+                ConverterDesignData now = designList.head;
+                while (now != null)
+                {
+                    Add(now.Efficiency, now.Volume, now.Cost, now.Configs);
+                    now = now.Next;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 将器件设计方案集合转化为变换器设计方案集合，并合并到当前集合中
+        /// </summary>
+        /// <param name="componentDesignList">器件设计方案集合</param>
+        /// <param name="power">总功率</param>
+        /// <param name="number">模块数</param>
+        public void Transfer(ComponentDesignList componentDesignList, double power, double number)
+        {
+            IComponentDesignData[] designs = componentDesignList.GetData();
+            foreach(IComponentDesignData design in designs)
+            {
+                Add(1 - design.PowerLoss * number / power, design.Volume * number, design.Cost * number, design.Configs);
+            }
+        }
+
+        /// <summary>
         /// 复制另一个设计方案集合
         /// </summary>
         /// <param name="designList">另一个设计方案集合</param>
-        public void Copy(ComponentDesignList designList)
+        public void Copy(ConverterDesignList designList)
         {
             head = designList.head;
             size = designList.size;
@@ -121,7 +157,7 @@
         /// 在链表头部插入一个节点
         /// </summary>
         /// <param name="data"></param>
-        private void Insert(ComponentDesignData node)
+        private void Insert(ConverterDesignData node)
         {
             if (head != null)
             {
@@ -136,7 +172,7 @@
         /// 删除一个节点
         /// </summary>
         /// <param name="data"></param>
-        private void Delete(ComponentDesignData node)
+        private void Delete(ConverterDesignData node)
         {
             if (node.Prev != null)
             {

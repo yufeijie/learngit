@@ -12,10 +12,6 @@ namespace PV_analysis.Topologys
         private static readonly double math_kIrip = 0.2; //电流纹波系数
         private static readonly double math_kVrip = 0.1; //电压纹波系数
 
-        private DCDCConverter converter; //所属变换器
-        private IComponent[][] componentGroups; //可行元器件组
-        private IComponent[] components; //可行元件组中出现的所有元器件（待设计的元器件）
-
         //基本电路参数
         private double math_Pmax; //满载功率
         private double math_P; //功率
@@ -204,15 +200,15 @@ namespace PV_analysis.Topologys
             math_ICrms = iC.CalcRMS();
         }
 
-        public void Design()
+        public override void Design()
         {
             //初始化
             DualModule dualModule = new DualModule(2);
             Inductor inductor = new Inductor(1);
             Capacitor capacitor = new Capacitor(1);
-            components = new IComponent[] { dualModule, inductor, capacitor };
-            componentGroups = new IComponent[1][];
-            componentGroups[0] = new IComponent[] { dualModule, inductor, capacitor };
+            components = new Component[] { dualModule, inductor, capacitor };
+            componentGroups = new Component[1][];
+            componentGroups[0] = new Component[] { dualModule, inductor, capacitor };
 
             //获取设计规格
             math_Pmax = converter.Math_Psys / converter.Number;
@@ -261,7 +257,7 @@ namespace PV_analysis.Topologys
             capacitor.SetConditions(math_C, math_VCmax, math_ICrms_max);
             capacitor.SetEvalParameters(math_ICrms_eval);
 
-            foreach (IComponent component in components)
+            foreach (Component component in components)
             {
                 component.Design();
             }
