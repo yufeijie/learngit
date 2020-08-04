@@ -72,7 +72,7 @@ namespace PV_analysis.Components
         /// <returns>配置信息</returns>
         private string[] GetConfigs()
         {
-            return new string[] { "DualModule", GetDeviceType() };
+            return new string[] { "DualModule", number.ToString(), GetDeviceType() };
         }
 
         /// <summary>

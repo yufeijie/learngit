@@ -16,9 +16,9 @@ namespace PV_analysis.Converters
         private double math_Vin_max; //输入电压最大值
         private double math_Vo; //输出电压
 
-        //设计结果
-        private ConverterDesignList designList = new ConverterDesignList();
-
+        /// <summary>
+        /// 拓扑
+        /// </summary>
         public Topology Topology { get; set; }
 
         /// <summary>
@@ -36,7 +36,15 @@ namespace PV_analysis.Converters
         /// </summary>
         public double Math_Vo { get { return math_Vo; } }
 
-        public ConverterDesignList DesignList { get { return designList; } }
+        /// <summary>
+        /// Pareto最优设计方案
+        /// </summary>
+        public ConverterDesignList ParetoDesignList { get; } = new ConverterDesignList();
+
+        /// <summary>
+        /// 所有设计方案
+        /// </summary>
+        public ConverterDesignList AllDesignList { get; } = new ConverterDesignList() { IsAll = true };
 
         /// <summary>
         /// 初始化
@@ -57,6 +65,17 @@ namespace PV_analysis.Converters
         }
 
         /// <summary>
+        /// 获取设计方案的配置信息
+        /// </summary>
+        /// <returns>配置信息</returns>
+        public string[] GetConfigs()
+        {
+            double P = math_Psys / number;
+            string[] data = { number.ToString(), "ThreeLevelBoost", (math_fs / 1e3).ToString() };
+            return data;
+        }
+
+        /// <summary>
         /// 自动设计，整合设计结果（不会覆盖之前的设计结果）
         /// </summary>
         public void Design()
@@ -64,12 +83,28 @@ namespace PV_analysis.Converters
             Topology.Design();
             foreach (Component[] components in Topology.ComponentGroups)
             {
-                ComponentDesignList designCombinationList = new ComponentDesignList();
+                //检查该组器件是否都有设计结果
+                bool ok = true;
                 foreach (Component component in components)
+                {
+                    if (component.DesignList.Size == 0)
+                    {
+                        ok = false;
+                        break;
+                    }
+                }
+                if (!ok) { continue; }
+                
+                //如果所有器件都有设计方案，则组合并记录
+                ComponentDesignList designCombinationList = new ComponentDesignList();
+                foreach (Component component in components) //组合各个器件的设计方案
                 {
                     designCombinationList.Combine(component.DesignList);
                 }
-                designList.Transfer(designCombinationList, math_Psys, number);
+                ConverterDesignList newDesignList = new ConverterDesignList();
+                newDesignList.Transfer(designCombinationList, math_Psys, number, GetConfigs()); //转化为变换器设计
+                ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
+                AllDesignList.Merge(newDesignList); //记录所有设计
             }
         }
     }

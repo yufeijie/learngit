@@ -9,6 +9,8 @@
         private int size = 0; //方案数
         private ComponentDesignData head = null; //头指针
 
+        public int Size { get { return size; } }
+
         /// <summary>
         /// 存储器件设计方案的评估结果与配置信息
         /// </summary>

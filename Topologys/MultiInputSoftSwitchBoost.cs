@@ -67,9 +67,9 @@ namespace PV_analysis.Topologys
 		private double currentCapacitorFilterRMS; //滤波电容电流有效值
 		private double currentCapacitorFilterRMSMax; //滤波电容电流有效值最大值
 
-		public override void Design()
+        public override void Design()
 		{
-
+			throw new NotImplementedException();
 		}
 	}
 }

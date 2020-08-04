@@ -35,7 +35,7 @@ namespace PV_analysis.Components
         /// 获取电容型号
         /// </summary>
         /// <returns>型号</returns>
-        public String GetDeviceType()
+        public string GetDeviceType()
         {
             return Data.CapacitorList[device].Type;
         }
@@ -43,10 +43,10 @@ namespace PV_analysis.Components
         /// <summary>
         /// 获取设计方案的配置信息
         /// </summary>
-        /// <returns></returns>
-        public String[] GetConfigs()
+        /// <returns>配置信息</returns>
+        public string[] GetConfigs()
         {
-            String[] data = { "Filter", GetDeviceType(), numberSeriesConnected.ToString(), numberParallelConnected.ToString() };
+            string[] data = { "FilteringCapacitor", number.ToString(), GetDeviceType(), numberSeriesConnected.ToString(), numberParallelConnected.ToString() };
             return data;
         }
 

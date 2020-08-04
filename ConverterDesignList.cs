@@ -1,4 +1,6 @@
-﻿namespace PV_analysis
+﻿using System.Collections.Generic;
+
+namespace PV_analysis
 {
     /// <summary>
     /// 变换器设计方案集合
@@ -8,6 +10,12 @@
         //采用单向链表进行存储
         private int size = 0; //设计方案数
         private ConverterDesignData head = null; //头指针
+
+        /// <summary>
+        /// 是否记录全部设计，若为false则在执行Add方法时同时进行Pareto改进
+        /// 默认为false
+        /// </summary>
+        public bool IsAll { get; set; } = false;
 
         /// <summary>
         /// 存储变换器设计方案的评估结果与配置信息
@@ -47,26 +55,29 @@
         /// <param name="configs">配置信息</param>
         public void Add(double efficiency, double volume, double cost, string[] configs)
         {
-            //Pareto改进
-            ConverterDesignData now = head;
-            while (now != null)
+            if (!IsAll) //若不记录全部设计，则进行Pareto改进
             {
-                //若当前Pareto集合中存在一个点，可以支配新添加的点，则新添加的点不为Pareto最优解
-                if (now.Efficiency >= efficiency && now.Volume <= volume && now.Cost <= cost)
+                //Pareto改进
+                ConverterDesignData now = head;
+                while (now != null)
                 {
-                    return;
-                }
+                    //若当前Pareto集合中存在一个点，可以支配新添加的点，则新添加的点不为Pareto最优解，不需要添加进集合
+                    if (now.Efficiency >= efficiency && now.Volume <= volume && now.Cost <= cost)
+                    {
+                        return;
+                    }
 
-                //若新添加的点支配集合中存在的点，则将被支配的点剔除
-                if (now.Efficiency <= efficiency && now.Volume >= volume && now.Cost >= cost)
-                {
-                    Delete(now);
-                }
+                    //若新添加的点支配集合中存在的点，则将被支配的点剔除
+                    if (now.Efficiency <= efficiency && now.Volume >= volume && now.Cost >= cost)
+                    {
+                        Delete(now);
+                    }
 
-                now = now.Next;
+                    now = now.Next;
+                }
             }
 
-            //若新添加的点未被支配，则将该点添加进集合中
+            //将该点添加进集合中
             Insert(new ConverterDesignData()
             {
                 Efficiency = efficiency,
@@ -134,12 +145,28 @@
         /// <param name="componentDesignList">器件设计方案集合</param>
         /// <param name="power">总功率</param>
         /// <param name="number">模块数</param>
-        public void Transfer(ComponentDesignList componentDesignList, double power, double number)
+        public void Transfer(ComponentDesignList componentDesignList, double power, double number, string[] configs)
         {
             IComponentDesignData[] designs = componentDesignList.GetData();
-            foreach(IComponentDesignData design in designs)
+            foreach (IComponentDesignData design in designs)
             {
-                Add(1 - design.PowerLoss * number / power, design.Volume * number, design.Cost * number, design.Configs);
+                double efficiency = 1 - design.PowerLoss * number / power;
+                double volume = design.Volume * number;
+                double cost = design.Cost * number;
+                List<string> newConfigs = new List<string>();
+                newConfigs.Add((efficiency * 100).ToString());
+                newConfigs.Add(volume.ToString());
+                newConfigs.Add((cost / 1e4).ToString());
+                newConfigs.Add((power / number).ToString());
+                foreach (string config in configs)
+                {
+                    newConfigs.Add(config);
+                }
+                foreach (string config in design.Configs)
+                {
+                    newConfigs.Add(config);
+                }
+                Add(efficiency, volume, cost, newConfigs.ToArray());
             }
         }
 

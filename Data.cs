@@ -1,17 +1,20 @@
-﻿using NPOI.SS.UserModel;
+﻿using NPOI.HSSF.Record;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace PV_analysis
 {
     /// <summary>
-    /// 数据库类，用于访问数据库中各个元件的信息
+    /// 数据库类，用于访问数据库中各个元件的信息，存放评估结果
     /// </summary>
     internal static class Data
     {
         private static readonly string dataPath = Application.StartupPath + "/Resources/data.xlsx"; //数据库文件位置
-        private static readonly string resultPath = "Result/"; //输出文件位置
+        private static readonly string resultPath = Application.StartupPath + "/Results/"; //输出文件位置
 
         /// <summary>
         /// 开关器件数据
@@ -364,6 +367,46 @@ namespace PV_analysis
             WireList = wireList;
             CoreList = coreList;
             CapacitorList = capacitorList;
+        }
+
+        public static void Record(ConverterDesignList designList)
+        {
+            IWorkbook workbook = new XSSFWorkbook(); //新建Excel
+            ISheet sheet = workbook.CreateSheet("Result"); //新建一个工作薄
+
+            IConverterDesignData[] designs = designList.GetData();
+            for(int i = 0; i < designs.Length; i++)
+            {
+                IRow row = sheet.CreateRow(i);
+                for (int j = 0; j < designs[i].Configs.Length; j++)
+                {
+                    row.CreateCell(j).SetCellValue(designs[i].Configs[j]);
+                }
+            }
+            DateTime now = DateTime.Now;
+            FileStream file = new FileStream(resultPath + "DCDC_result_Pareto_" + now.ToString("yyyyMMdd_HHmmss_fff") + ".xlsx", FileMode.Create);
+            workbook.Write(file);
+            file.Close();
+        }
+
+        public static void RecordAll(ConverterDesignList designList)
+        {
+            IWorkbook workbook = new XSSFWorkbook(); //新建Excel
+            ISheet sheet = workbook.CreateSheet("Result"); //新建一个工作薄
+
+            IConverterDesignData[] designs = designList.GetData();
+            for (int i = 0; i < designs.Length; i++)
+            {
+                IRow row = sheet.CreateRow(i);
+                for (int j = 0; j < designs[i].Configs.Length; j++)
+                {
+                    row.CreateCell(j).SetCellValue(designs[i].Configs[j]);
+                }
+            }
+            DateTime now = DateTime.Now;
+            FileStream file = new FileStream(resultPath + "DCDC_result_all_" + now.ToString("yyyyMMdd_HHmmss_fff") + ".xlsx", FileMode.Create);
+            workbook.Write(file);
+            file.Close();
         }
     }
 }
