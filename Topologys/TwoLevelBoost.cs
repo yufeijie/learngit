@@ -5,9 +5,9 @@ using System;
 namespace PV_analysis.Topologys
 {
     /// <summary>
-    /// 三电平Boost类
+    /// 两电平Boost类
     /// </summary>
-    internal class ThreeLevelBoost : Topology
+    internal class TwoLevelBoost : Topology
     {
         private static readonly double math_kIrip = 0.2; //电流纹波系数
         private static readonly double math_kVrip = 0.1; //电压纹波系数
@@ -51,7 +51,7 @@ namespace PV_analysis.Topologys
         /// 初始化
         /// </summary>
         /// <param name="converter">所属变换器</param>
-        public ThreeLevelBoost(DCDCConverter converter)
+        public TwoLevelBoost(DCDCConverter converter)
         {
             this.converter = converter;
         }
@@ -72,16 +72,8 @@ namespace PV_analysis.Topologys
             double Iin = P / Vin; //输入电流平均值
             double Io = P / Vo; //输出电流平均值
             double ILrip = Iin * kIrip; ; //电感电流纹波
-            double L; //感值
-            if (D > 0.5)
-            {
-                L = (D - 0.5) * Vin / (fs * ILrip);
-            }
-            else
-            {
-                L = D * (Vin - 0.5 * Vo) / (fs * ILrip);
-            }
-            double VC = Vo * 0.5; //电容电压平均值
+            double L = D * Vin / (fs * ILrip); //感值
+            double VC = Vo; //电容电压平均值
             double VCrip = VC * kVrip; //电压纹波
             double C = D * Io / (fs * VCrip); //容值
 
@@ -92,7 +84,7 @@ namespace PV_analysis.Topologys
             //计算设计条件
             math_ILmax = Iin + ILrip * 0.5;
             math_ISmax = math_ILmax;
-            math_VSmax = Vo * 0.5;
+            math_VSmax = Vo;
             math_VCmax = VC + VCrip * 0.5;
         }
 
@@ -113,15 +105,7 @@ namespace PV_analysis.Topologys
             double Io = P / Vo; //输出电流平均值
             double IL = Iin; //电感电流平均值
             double D = 1 - (Vin / Vo); //占空比
-            double ILrip; //电感电流纹波
-            if (D > 0.5)
-            {
-                ILrip = (D - 0.5) * Ts * Vin / L;
-            }
-            else
-            {
-                ILrip = D * Ts * (Vin - 0.5 * Vo) / L;
-            }
+            double ILrip = D * Ts * Vin / L; //电感电流纹波
             double ILmax = IL + ILrip * 0.5; //电感电流峰值
             double ILmin = IL - ILrip * 0.5; //电感电流谷值
 
@@ -129,69 +113,21 @@ namespace PV_analysis.Topologys
             if (Function.GE(ILmin, 0))
             {
                 //CCM
-                if (D > 0.5)
-                {
-                    double t1 = (D - 0.5) * Ts;
-                    double t2 = 0.5 * Ts;
-                    double t3 = D * Ts;
-                    iL.Add(0, ILmin);
-                    iL.Add(t1, ILmax);
-                    iL.Add(t2, ILmin);
-                    iL.Add(t3, ILmax);
-                    iL.Add(Ts, ILmin);
-                }
-                else
-                {
-                    double t1 = D * Ts;
-                    double t2 = 0.5 * Ts;
-                    double t3 = (D + 0.5) * Ts;
-                    iL.Add(0, ILmin);
-                    iL.Add(t1, ILmax);
-                    iL.Add(t2, ILmin);
-                    iL.Add(t3, ILmax);
-                    iL.Add(Ts, ILmin);
-                }
+                iL.Add(0, ILmin);
+                iL.Add(D * Ts, ILmax);
+                iL.Add(Ts, ILmin);
             }
             else
             {
                 //DCM
                 ILmin = 0;
-                if (D > 0.5)
-                {
-                    D = Math.Sqrt(2 * Iin * L * (0.5 * Vo - Vin) / (Ts * Vin * Vo)) + 0.5;
-                    double D1 = Vin * (D - 0.5) / (0.5 * Vo - Vin);
-                    ILmax = (2 * D - 1) * Ts * Vin / (2 * L);
-                    double t1 = (D - 0.5) * Ts;
-                    double t2 = (D + D1 - 0.5) * Ts;
-                    double t3 = 0.5 * Ts;
-                    double t4 = D * Ts;
-                    double t5 = (D + D1) * Ts;
-                    iL.Add(0, ILmin);
-                    iL.Add(t1, ILmax);
-                    iL.Add(t2, ILmin);
-                    iL.Add(t3, ILmin);
-                    iL.Add(t4, ILmax);
-                    iL.Add(t5, ILmin);
-                    iL.Add(Ts, ILmin);
-                }
-                else
-                {
-                    D = Math.Sqrt(2 * Iin * L * (Vo - Vin) / (Ts * Vo * (Vin - 0.5 * Vo)));
-                    double D1 = D * (Vin - 0.5 * Vo) / (Vo - Vin);
-                    ILmax = D * Ts * (Vin - 0.5 * Vo) / L;
-                    double t1 = D * Ts;
-                    double t2 = (D + D1) * Ts;
-                    double t3 = 0.5 * Ts;
-                    double t4 = (D + 0.5) * Ts;
-                    double t5 = (D + D1 + 0.5) * Ts;
-                    iL.Add(0, ILmin);
-                    iL.Add(t1, ILmax);
-                    iL.Add(t2, ILmin);
-                    iL.Add(t3, ILmin);
-                    iL.Add(t4, ILmax);
-                    iL.Add(t5, ILmin);
-                    iL.Add(Ts, ILmin);
-                }
+                D = Math.Sqrt(2 * Iin * L * (Vo - Vin) / (Ts * Vin * Vo));
+                double D1 = D * Vin / (Vo - Vin);
+                ILmax = D * Ts * Vin / L;
+                iL.Add(0, ILmin);
+                iL.Add(D * Ts, ILmax);
+                iL.Add((D + D1) * Ts, ILmin);
+                iL.Add(Ts, ILmin);
                 ILrip = ILmax / 2;
             }
 
@@ -202,10 +138,6 @@ namespace PV_analysis.Topologys
             curve_iD = iL.Cut(D * Ts, Ts);
             Curve iC = curve_iD.Copy(1, 0, -Io); //电容电流波形
             math_ICrms = iC.CalcRMS();
-            Console.WriteLine(iC.Integrate());
-            Graph graph = new Graph();
-            graph.Add(iC, "iC");
-            graph.Draw();
         }
 
         /// <summary>
@@ -214,9 +146,9 @@ namespace PV_analysis.Topologys
         public override void Design()
         {
             //初始化
-            DualModule dualModule = new DualModule(2);
+            DualModule dualModule = new DualModule(1);
             Inductor inductor = new Inductor(1);
-            Capacitor capacitor = new Capacitor(2);
+            Capacitor capacitor = new Capacitor(1);
             components = new Component[] { dualModule, inductor, capacitor };
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { dualModule, inductor, capacitor };

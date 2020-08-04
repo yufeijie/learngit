@@ -22,7 +22,7 @@ namespace PV_analysis
             double Vin_min = 860;
             double Vin_max = 1300;
             double Vo = 1300;
-            int[] numberRange = generateNumberRange(1, 120);
+            int[] numberRange = generateNumberRange(60, 120);
             int[] topologyRange = { 1 };
             double[] frequencyRange = generateFrequencyRange(1e3, 50e3);
 

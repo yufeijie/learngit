@@ -14,15 +14,18 @@ namespace PV_analysis.Topologys
     /// </summary>
     internal abstract class Topology
     {
-        protected string name;
         protected DCDCConverter converter; //所属变换器
         protected Component[][] componentGroups; //可行元器件组
         protected Component[] components; //可行元件组中出现的所有元器件（待设计的元器件）
 
-
-
+        /// <summary>
+        /// 可行元器件组
+        /// </summary>
         public Component[][] ComponentGroups { get { return componentGroups; } }
 
+        /// <summary>
+        /// 自动设计，得到每个器件的设计方案
+        /// </summary>
         public abstract void Design();
     }
 }

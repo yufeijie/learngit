@@ -131,6 +131,8 @@
     <Compile Include="Systems\ThreeLevelStructure.cs" />
     <Compile Include="Systems\TwoLevelStructure.cs" />
     <Compile Include="Topologys\MultiInputSoftSwitchBoost.cs" />
+    <Compile Include="Topologys\InterleavedBoost.cs" />
+    <Compile Include="Topologys\TwoLevelBoost.cs" />
     <Compile Include="Topologys\ThreeLevelBoost.cs" />
     <Compile Include="Topologys\Topology.cs" />
     <EmbeddedResource Include="MainForm.resx">

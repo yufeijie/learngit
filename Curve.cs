@@ -57,6 +57,20 @@ namespace PV_analysis
 		}
 
 		/// <summary>
+		/// 积分整条曲线（仅检查用）
+		/// </summary>
+		/// <returns>积分结果</returns>
+		public double Integrate()
+		{
+			double result = 0;
+			for (int i = 1; i < data.Count; i++)
+			{
+				result += (data[i].Y + data[i - 1].Y) * (data[i].X - data[i - 1].X) / 2;
+			}
+			return result;
+		}
+
+		/// <summary>
 		/// 复制一条曲线，可根据附加参数进行变换
 		/// </summary>
 		/// <param name="ratioY">y轴缩放比</param>

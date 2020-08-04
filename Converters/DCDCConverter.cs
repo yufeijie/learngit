@@ -70,8 +70,7 @@ namespace PV_analysis.Converters
         /// <returns>配置信息</returns>
         public string[] GetConfigs()
         {
-            double P = math_Psys / number;
-            string[] data = { number.ToString(), "ThreeLevelBoost", (math_fs / 1e3).ToString() };
+            string[] data = { number.ToString(), (math_fs / 1e3).ToString(), Topology.GetType().Name };
             return data;
         }
 
