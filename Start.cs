@@ -22,15 +22,15 @@ namespace PV_analysis
             double Vin_min = 860;
             double Vin_max = 1300;
             double Vo = 1300;
-            int[] numberRange = generateNumberRange(60, 120);
-            int[] topologyRange = { 1 };
+            int[] numberRange = generateNumberRange(1, 120);
+            string[] topologyRange = { "ThreeLevelBoost", "TwoLevelBoost", "InterleavedBoost" };
             double[] frequencyRange = generateFrequencyRange(1e3, 50e3);
 
             DCDCConverter converter = new DCDCConverter(Psys, Vin_min, Vin_max, Vo);
 
-            foreach (int tp in topologyRange) //拓扑变化
+            foreach (string tp in topologyRange) //拓扑变化
             {
-                converter.Topology = new ThreeLevelBoost(converter);
+				converter.CreateTopology(tp);
                 foreach (int n in numberRange) //模块数变化
                 {
                     converter.Number = n;

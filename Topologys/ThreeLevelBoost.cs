@@ -160,7 +160,7 @@ namespace PV_analysis.Topologys
                 {
                     D = Math.Sqrt(2 * Iin * L * (0.5 * Vo - Vin) / (Ts * Vin * Vo)) + 0.5;
                     double D1 = Vin * (D - 0.5) / (0.5 * Vo - Vin);
-                    ILmax = (2 * D - 1) * Ts * Vin / (2 * L);
+                    ILmax = (D - 0.5) * Ts * Vin / L;
                     double t1 = (D - 0.5) * Ts;
                     double t2 = (D + D1 - 0.5) * Ts;
                     double t3 = 0.5 * Ts;
@@ -192,20 +192,16 @@ namespace PV_analysis.Topologys
                     iL.Add(t5, ILmin);
                     iL.Add(Ts, ILmin);
                 }
-                ILrip = ILmax / 2;
+                ILrip = ILmax;
             }
 
             //记录电路参数
             math_IL = IL;
             math_ILrip = ILrip;
-            curve_iS = iL.Cut(0, D * Ts);
-            curve_iD = iL.Cut(D * Ts, Ts);
+            curve_iS = iL.Filter(0, D * Ts);
+            curve_iD = iL.Filter(D * Ts, Ts);
             Curve iC = curve_iD.Copy(1, 0, -Io); //电容电流波形
             math_ICrms = iC.CalcRMS();
-            Console.WriteLine(iC.Integrate());
-            Graph graph = new Graph();
-            graph.Add(iC, "iC");
-            graph.Draw();
         }
 
         /// <summary>

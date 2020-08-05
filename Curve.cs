@@ -70,6 +70,7 @@ namespace PV_analysis
 			return result;
 		}
 
+		//TODO 是否拆分该函数？拆分为平移、翻转等
 		/// <summary>
 		/// 复制一条曲线，可根据附加参数进行变换
 		/// </summary>
@@ -87,6 +88,7 @@ namespace PV_analysis
 			return curve;
 		}
 
+		//TODO 只能处理端点处
 		/// <summary>
 		/// 截断曲线的某一部分，在截断点添加从0开始的跳变
 		/// </summary>
@@ -118,6 +120,51 @@ namespace PV_analysis
 				if (!Function.EQ(curve.data[curve.data.Count - 1].Y, 0))
 				{
 					curve.Add(curve.data[curve.data.Count - 1].X, 0);
+				}
+			}
+			return curve;
+		}
+
+		//TODO 只能处理端点处
+		/// <summary>
+		/// 过滤曲线的某一部分，剩余部分变为0，在边界点添加从0开始的跳变
+		/// </summary>
+		/// <param name="start">左边界</param>
+		/// <param name="end">右边界</param>
+		/// <returns>过滤后的曲线</returns>
+		public Curve Filter(double start, double end)
+		{
+			Curve curve = new Curve();
+			bool isFirst = true;
+			for (int i = 0; i < data.Count; i++)
+			{
+				//double运算时会丢失精度，因此等号不一定能判断相等。此外还需考虑特殊情况，如10与9.999999999999以及10.000000000001可以认为相等
+				if (Function.GE(data[i].X, start) && Function.LE(data[i].X, end))
+				{
+					if (isFirst)
+					{
+						isFirst = false;
+						if (!Function.EQ(data[i].X, 0))
+						{
+							curve.Add(0, 0);
+						}
+						if (!Function.EQ(data[i].Y, 0))
+						{
+							curve.Add(data[i].X, 0);
+						}
+					}
+					curve.Add(data[i].X, data[i].Y);
+				}
+			}
+			if (!isFirst)
+			{
+				if (!Function.EQ(curve.data[curve.data.Count - 1].Y, 0))
+				{
+					curve.Add(curve.data[curve.data.Count - 1].X, 0);
+				}
+				if (!Function.EQ(curve.data[curve.data.Count - 1].X, data[data.Count - 1].X))
+				{
+					curve.Add(data[data.Count - 1].X, 0);
 				}
 			}
 			return curve;

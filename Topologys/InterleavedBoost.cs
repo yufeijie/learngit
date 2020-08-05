@@ -119,52 +119,97 @@ namespace PV_analysis.Topologys
             double ILmin = IL - ILrip * 0.5; //电感电流谷值
 
             Curve iL = new Curve();
+            Curve iC = new Curve(); //TODO 优化这里的电容电流模拟
             if (Function.GE(ILmin, 0))
             {
                 //CCM
                 iL.Add(0, ILmin);
                 iL.Add(D * Ts, ILmax);
                 iL.Add(Ts, ILmin);
+
+                if (D > 0.5)
+                {
+                    iC.Add(0, -Io);
+                    iC.Add((D - 0.5) * Ts, -Io);
+                    iC.Add((D - 0.5) * Ts, ILmax - Io);
+                    iC.Add(0.5 * Ts, ILmin - Io);
+                    iC.Add(0.5 * Ts, -Io);
+                }
+                else
+                {
+                    double i1 = ILmax - ILrip / (Ts - D * Ts) * (0.5 * Ts - D * Ts);
+                    double i2 = ILmax - ILrip / (Ts - D * Ts) * (0.5 * Ts);
+                    iC.Add(0, i1 - Io);
+                    iC.Add(D * Ts, i2 - Io);
+                    iC.Add(D * Ts, ILmax + i2 - Io);
+                    iC.Add(0.5 * Ts, ILmin + i1 - Io);
+                    iC.Add(0.5 * Ts, i1 - Io);
+                }
             }
             else
             {
                 //DCM
                 ILmin = 0;
-                D = Math.Sqrt(2 * Iin * L * (Vo - Vin) / (Ts * Vin * Vo));
+                D = Math.Sqrt(2 * IL * L * (Vo - Vin) / (Ts * Vin * Vo));
                 double D1 = D * Vin / (Vo - Vin);
                 ILmax = D * Ts * Vin / L;
                 iL.Add(0, ILmin);
                 iL.Add(D * Ts, ILmax);
                 iL.Add((D + D1) * Ts, ILmin);
                 iL.Add(Ts, ILmin);
-                ILrip = ILmax / 2;
+                ILrip = ILmax;
+
+                if (D > 0.5)
+                {
+                    iC.Add(0, -Io);
+                    iC.Add((D - 0.5) * Ts, -Io);
+                    iC.Add((D - 0.5) * Ts, ILmax - Io);
+                    iC.Add((D + D1 - 0.5) * Ts, -Io);
+                    iC.Add(0.5 * Ts, -Io);
+                }
+                else
+                {
+                    if (D1 > 0.5)
+                    {
+                        double i1 = ILmax - ILrip / (D1 * Ts) * (0.5 * Ts - D * Ts);
+                        double i2 = ILmax - ILrip / (D1 * Ts) * (0.5 * Ts);
+                        iC.Add(0, i1 - Io);
+                        iC.Add(D * Ts, i2 - Io);
+                        iC.Add(D * Ts, ILmax + i2 - Io);
+                        iC.Add(0.5 * Ts, ILmin + i1 - Io);
+                        iC.Add(0.5 * Ts, i1 - Io);
+                    }
+                    else if (D1 > 0.5 - D)
+                    {
+                        double i1 = ILmax - ILrip / (D1 * Ts) * (0.5 * Ts - D * Ts);
+                        iC.Add(0, i1 - Io);
+                        iC.Add((D + D1 - 0.5) * Ts, -Io);
+                        iC.Add(D * Ts, -Io);
+                        iC.Add(D * Ts, ILmax - Io);
+                        iC.Add(0.5 * Ts, ILmin + i1 - Io);
+                        iC.Add(0.5 * Ts, i1 - Io);
+                    }
+                    else
+                    {
+                        iC.Add(0, -Io);
+                        iC.Add(D * Ts, -Io);
+                        iC.Add(D * Ts, ILmax - Io);
+                        iC.Add((D + D1) * Ts, -Io);
+                        iC.Add(0.5 * Ts, -Io);
+                    }
+                }
             }
 
             //记录电路参数
             math_IL = IL;
             math_ILrip = ILrip;
-            curve_iS = iL.Cut(0, D * Ts);
-            curve_iD = iL.Cut(D * Ts, Ts);
-
-            ////电容电流有效值
-            //double c, f1, f2;
-            //if (D > 0.5)
-            //{
-            //    f1 = ILmin - this.currentOutput;
-            //    f2 = this.currentInductorPeak - this.currentOutput;
-            //    c = (Math.pow(this.currentOutput, 2) * this.time1 + myIntegral(this.time1, f2, f2, this.time2, f1, f1)) * 2;
-            //}
-            //else
-            //{
-            //    double i1 = this.currentInductorPeak - this.currentInductorRipple / (this.timeCycle - this.time3) * (this.time2 - this.time3);
-            //    double i2 = this.currentInductorPeak - this.currentInductorRipple / (this.timeCycle - this.time3) * (this.time4 - this.time3);
-            //    f1 = i1 - this.currentOutput;
-            //    f2 = i2 - this.currentOutput;
-            //    double f3 = this.currentInductorPeak + i2 - this.currentOutput;
-            //    double f4 = this.currentInductorTrough + i1 - this.currentOutput;
-            //    c = (myIntegral(0, f2, f2, this.time3, f1, f1) + myIntegral(this.time3, f3, f3, this.time2, f4, f4)) * 2;
-            //}
-            //math_ICrms = Math.sqrt(this.frequency * c);
+            curve_iS = iL.Filter(0, D * Ts);
+            curve_iD = iL.Filter(D * Ts, Ts);
+            math_ICrms = iC.CalcRMS();
+            //Console.WriteLine(Function.EQ(iC.Integrate(), 0));
+            //Graph graph = new Graph();
+            //graph.Add(iC, "iC");
+            //graph.Draw();
         }
 
         /// <summary>
@@ -174,7 +219,7 @@ namespace PV_analysis.Topologys
         {
             //初始化
             DualModule dualModule = new DualModule(2);
-            Inductor inductor = new Inductor(1);
+            Inductor inductor = new Inductor(2);
             Capacitor capacitor = new Capacitor(1);
             components = new Component[] { dualModule, inductor, capacitor };
             componentGroups = new Component[1][];

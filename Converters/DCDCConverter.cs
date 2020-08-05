@@ -74,6 +74,25 @@ namespace PV_analysis.Converters
             return data;
         }
 
+        public void CreateTopology(string name)
+        {
+            switch (name)
+            {
+                case "ThreeLevelBoost":
+                    Topology = new ThreeLevelBoost(this);
+                    break;
+                case "TwoLevelBoost":
+                    Topology = new TwoLevelBoost(this);
+                    break;
+                case "InterleavedBoost":
+                    Topology = new InterleavedBoost(this);
+                    break;
+                default:
+                    Topology = null;
+                    break;
+            }
+        }
+
         /// <summary>
         /// 自动设计，整合设计结果（不会覆盖之前的设计结果）
         /// </summary>

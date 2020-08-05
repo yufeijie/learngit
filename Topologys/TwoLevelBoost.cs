@@ -128,16 +128,20 @@ namespace PV_analysis.Topologys
                 iL.Add(D * Ts, ILmax);
                 iL.Add((D + D1) * Ts, ILmin);
                 iL.Add(Ts, ILmin);
-                ILrip = ILmax / 2;
+                ILrip = ILmax;
             }
 
             //记录电路参数
             math_IL = IL;
             math_ILrip = ILrip;
-            curve_iS = iL.Cut(0, D * Ts);
-            curve_iD = iL.Cut(D * Ts, Ts);
+            curve_iS = iL.Filter(0, D * Ts);
+            curve_iD = iL.Filter(D * Ts, Ts);
             Curve iC = curve_iD.Copy(1, 0, -Io); //电容电流波形
             math_ICrms = iC.CalcRMS();
+            //Console.WriteLine(Function.EQ(iC.Integrate(), 0));
+            //Graph graph = new Graph();
+            //graph.Add(iC, "iC");
+            //graph.Draw();
         }
 
         /// <summary>
