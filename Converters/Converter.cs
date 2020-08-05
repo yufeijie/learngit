@@ -1,4 +1,5 @@
 ﻿using PV_analysis.Components;
+using PV_analysis.Topologys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,7 @@ namespace PV_analysis.Converters
 		//---基本参数---
 		protected string name = null; //变换器名
 		protected short stage = 0; //第几级变换器
-		protected short phaseNum = 1; //相数(单相or三相)
-		protected double math_Psys; //系统功率
-		protected double math_fs; //开关频率
-		protected int number; //模块数
-
+		
 		//---设计信息---
 		//protected ConverterDesignInfo designInfo;
 
@@ -81,29 +78,37 @@ namespace PV_analysis.Converters
 		/// <summary>
 		/// 系统功率
 		/// </summary>
-		public double Math_Psys
-		{
-			get { return math_Psys; }
-			set { math_Psys = value; }
-		}
+		public double Math_Psys { get; set; }
 
 		/// <summary>
 		/// 开关频率
 		/// </summary>
-		public double Math_fs
-		{
-			get { return math_fs; }
-			set { math_fs = value; }
-		}
+		public double Math_fs { get; set; }
 
 		/// <summary>
 		/// 模块数
 		/// </summary>
-		public int Number
-		{
-			get { return number; }
-			set { number = value; }
-		}
+		public int Number { get; set; }
+
+		/// <summary>
+		/// 相数(单相or三相)
+		/// </summary>
+		public int PhaseNum { get; set; } = 1;
+
+		/// <summary>
+		/// 拓扑
+		/// </summary>
+		public Topology Topology { get; set; }
+
+		/// <summary>
+		/// Pareto最优设计方案
+		/// </summary>
+		public ConverterDesignList ParetoDesignList { get; } = new ConverterDesignList();
+
+		/// <summary>
+		/// 所有设计方案
+		/// </summary>
+		public ConverterDesignList AllDesignList { get; } = new ConverterDesignList() { IsAll = true };
 
 	}
 }

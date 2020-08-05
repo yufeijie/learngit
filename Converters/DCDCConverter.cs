@@ -8,43 +8,20 @@ namespace PV_analysis.Converters
     /// </summary>
     internal class DCDCConverter : Converter
     {
-        //---可选参数---
-        private readonly double diodeCurrentDropRate = 125e6; //二极管电流下降速率(A/s)
-
-        //---给定参数---
-        private double math_Vin_min; //输入电压最小值
-        private double math_Vin_max; //输入电压最大值
-        private double math_Vo; //输出电压
-
-        /// <summary>
-        /// 拓扑
-        /// </summary>
-        public Topology Topology { get; set; }
-
         /// <summary>
         /// 输入电压最小值
         /// </summary>
-        public double Math_Vin_min { get { return math_Vin_min; } }
+        public double Math_Vin_min { get; }
 
         /// <summary>
         /// 输入电压最大值
         /// </summary>
-        public double Math_Vin_max { get { return math_Vin_max; } }
+        public double Math_Vin_max { get; }
 
         /// <summary>
         /// 输出电压
         /// </summary>
-        public double Math_Vo { get { return math_Vo; } }
-
-        /// <summary>
-        /// Pareto最优设计方案
-        /// </summary>
-        public ConverterDesignList ParetoDesignList { get; } = new ConverterDesignList();
-
-        /// <summary>
-        /// 所有设计方案
-        /// </summary>
-        public ConverterDesignList AllDesignList { get; } = new ConverterDesignList() { IsAll = true };
+        public double Math_Vo { get; }
 
         /// <summary>
         /// 初始化
@@ -53,15 +30,12 @@ namespace PV_analysis.Converters
         /// <param name="math_Vin_min">最小输入电压</param>
         /// <param name="math_Vin_max">最大输入电压</param>
         /// <param name="math_Vo">输出电压</param>
-        /// <param name="numberRange">可用模块数</param>
-        /// <param name="topologyRange">可用拓扑</param>
-        /// <param name="frequencyRange">可用开关频率</param>
         public DCDCConverter(double Psys, double Vin_min, double Vin_max, double Vo)
         {
-            math_Psys = Psys;
-            math_Vin_min = Vin_min;
-            math_Vin_max = Vin_max;
-            math_Vo = Vo;
+            Math_Psys = Psys;
+            Math_Vin_min = Vin_min;
+            Math_Vin_max = Vin_max;
+            Math_Vo = Vo;
         }
 
         /// <summary>
@@ -70,7 +44,7 @@ namespace PV_analysis.Converters
         /// <returns>配置信息</returns>
         public string[] GetConfigs()
         {
-            string[] data = { number.ToString(), (math_fs / 1e3).ToString(), Topology.GetType().Name };
+            string[] data = { Number.ToString(), (Math_fs / 1e3).ToString(), Topology.GetType().Name };
             return data;
         }
 
@@ -120,7 +94,7 @@ namespace PV_analysis.Converters
                     designCombinationList.Combine(component.DesignList);
                 }
                 ConverterDesignList newDesignList = new ConverterDesignList();
-                newDesignList.Transfer(designCombinationList, math_Psys, number, GetConfigs()); //转化为变换器设计
+                newDesignList.Transfer(designCombinationList, Math_Psys, Number, GetConfigs()); //转化为变换器设计
                 ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
                 AllDesignList.Merge(newDesignList); //记录所有设计
             }

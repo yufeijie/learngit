@@ -5,12 +5,14 @@ using System;
 namespace PV_analysis.Topologys
 {
     /// <summary>
-    /// 两电平Boost类
+    /// 两电平Boost拓扑
     /// </summary>
     internal class TwoLevelBoost : Topology
     {
         private static readonly double math_kIrip = 0.2; //电流纹波系数
         private static readonly double math_kVrip = 0.1; //电压纹波系数
+
+        private DCDCConverter converter; //所属变换器
 
         //基本电路参数
         private double math_Pmax; //满载功率
@@ -36,16 +38,6 @@ namespace PV_analysis.Topologys
         //电压、电流波形
         private Curve curve_iS; //主管电流
         private Curve curve_iD; //升压二极管电流
-
-        //电路参数（用于评估）
-        private double[,] math_IL_eval; //电感电流平均值（用于评估）
-        private double[,] math_ILrip_eval; //电感电流纹波（用于评估）
-        private double[,] math_ICrms_eval; //电容电流有效值（用于评估）
-
-        //电压、电流波形（用于评估）
-        private Curve[,] curve_iS_eval; //主管电流（用于评估）
-        private Curve[,] curve_iD_eval; //升压二极管电流（用于评估）
-        private Curve[,] curve_iS_dual_eval; //使用半桥模块进行设计时，上管电流（用于评估）
 
         /// <summary>
         /// 初始化
@@ -150,7 +142,7 @@ namespace PV_analysis.Topologys
         public override void Design()
         {
             //初始化
-            DualModule dualModule = new DualModule(1);
+            DualModule dualModule = new DualModule(1, false);
             Inductor inductor = new Inductor(1);
             Capacitor capacitor = new Capacitor(1);
             components = new Component[] { dualModule, inductor, capacitor };
@@ -169,12 +161,6 @@ namespace PV_analysis.Topologys
             math_ICrms_max = 0;
             int m = Config.CGC_VOLTAGE_RATIO.Length;
             int n = Config.CGC_POWER_RATIO.Length;
-            math_IL_eval = new double[m, n];
-            math_ILrip_eval = new double[m, n];
-            curve_iS_eval = new Curve[m, n];
-            curve_iD_eval = new Curve[m, n];
-            curve_iS_dual_eval = new Curve[m, n];
-            math_ICrms_eval = new double[m, n];
             for (int i = 0; i < m; i++)
             {
                 math_Vin = math_Vin_min + (math_Vin_max - math_Vin_min) * Config.CGC_VOLTAGE_RATIO[i];
@@ -187,12 +173,11 @@ namespace PV_analysis.Topologys
                     //graph.Add(curve_iD, "iD");
                     //graph.Draw();
                     math_ICrms_max = Math.Max(math_ICrms_max, math_ICrms);
-                    math_IL_eval[i, j] = math_IL;
-                    math_ILrip_eval[i, j] = math_ILrip;
-                    curve_iS_eval[i, j] = curve_iS.Copy(); //类对象需要进行复制
-                    curve_iD_eval[i, j] = curve_iD.Copy();
-                    curve_iS_dual_eval[i, j] = curve_iD.Copy(-1); //采用半桥模块时，第二个开关管波形为-iD
-                    math_ICrms_eval[i, j] = math_ICrms;
+
+                    //设置元器件的电路参数（用于评估）
+                    dualModule.AddEvalParameters(i, j, math_VSmax, curve_iS, curve_iD.Copy(-1)); //采用半桥模块时，第二个开关管波形为-iD
+                    inductor.AddEvalParameters(i, j, math_IL, math_ILrip);
+                    capacitor.AddEvalParameters(i, j, math_ICrms);
                 }
             }
 
@@ -200,11 +185,6 @@ namespace PV_analysis.Topologys
             dualModule.SetConditions(math_VSmax, math_ISmax, math_fs);
             inductor.SetConditions(math_L, math_fs, math_ILmax);
             capacitor.SetConditions(math_C, math_VCmax, math_ICrms_max);
-
-            //设置元器件的电路参数（用于评估）
-            dualModule.SetEvalParameters(math_VSmax, curve_iS_dual_eval, curve_iS_eval);
-            inductor.SetEvalParameters(math_IL_eval, math_ILrip_eval);
-            capacitor.SetEvalParameters(math_ICrms_eval);
 
             foreach (Component component in components)
             {

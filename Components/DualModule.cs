@@ -15,6 +15,7 @@ namespace PV_analysis.Components
         //器件参数
         private int device; //开关器件编号
         private int paralleledNum; //并联数量
+        private bool isPowerLossBalance; //损耗是否均衡，若均衡则只需计算上管的损耗，默认为均衡
 
         //设计条件
         private double math_Vmax; //电压应力
@@ -25,6 +26,7 @@ namespace PV_analysis.Components
         private double math_Vsw; //开通/关断电压
         private Curve curve_iUp; //上管电流波形
         private Curve curve_iDown; //下管电流波形
+        private double[,] math_Vsw_eval; //开通/关断电压（用于评估）
         private Curve[,] curve_iUp_eval; //上管电流波形（用于评估）
         private Curve[,] curve_iDown_eval; //下管电流波形（用于评估）
 
@@ -52,9 +54,11 @@ namespace PV_analysis.Components
         /// 初始化
         /// </summary>
         /// <param name="number">同类开关器件数量</param>
-        public DualModule(int number)
+        /// <param name="isPowerLossBalance">损耗是否均衡，默认均衡</param>
+        public DualModule(int number, bool isPowerLossBalance = true)
         {
             this.number = number;
+            this.isPowerLossBalance = isPowerLossBalance;
         }
 
         /// <summary>
@@ -89,16 +93,31 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
-        /// 设置电路参数（用于评估）
+        /// 添加电路参数（损耗不均衡）（用于评估）
         /// </summary>
+        /// <param name="m">输入电压对应编号</param>
+        /// <param name="n">负载点对应编号</param>
         /// <param name="Vsw">开关电压</param>
-        /// <param name="iUp_eval">上管电流波形（用于评估）</param>
-        /// <param name="iDown_eval">下管电流波形（用于评估）</param>
-        public void SetEvalParameters(double Vsw, Curve[,] iUp_eval, Curve[,] iDown_eval)
+        /// <param name="iUp">上管电流波形</param>
+        /// <param name="iDown">下管电流波形</param>
+        public void AddEvalParameters(int m, int n, double Vsw, Curve iUp, Curve iDown)
         {
-            math_Vsw = Vsw;
-            curve_iUp_eval = iUp_eval;
-            curve_iDown_eval = iDown_eval;
+            math_Vsw_eval[m, n] = Vsw;
+            curve_iUp_eval[m, n] = iUp;
+            curve_iDown_eval[m, n] = iDown;
+        }
+
+        /// <summary>
+        /// 添加电路参数（用于评估）
+        /// </summary>
+        /// <param name="m">输入电压对应编号</param>
+        /// <param name="n">负载点对应编号</param>
+        /// <param name="Vsw">开关电压</param>
+        /// <param name="iUp">上管电流波形</param>
+        public void AddEvalParameters(int m, int n, double Vsw, Curve iUp)
+        {
+            math_Vsw_eval[m, n] = Vsw;
+            curve_iUp_eval[m, n] = iUp;
         }
 
         /// <summary>
@@ -108,6 +127,7 @@ namespace PV_analysis.Components
         /// <param name="n">负载点对应编号</param>
         private void SelectParameters(int m, int n)
         {
+            math_Vsw = math_Vsw_eval[m, n];
             curve_iUp = curve_iUp_eval[m, n];
             curve_iDown = curve_iDown_eval[m, n];
         }
@@ -234,7 +254,18 @@ namespace PV_analysis.Components
             powerLoss = 0;
 
             CalcPowerLoss_Module(curve_iUp, out math_PTcon[0], out math_Pon[0], out math_Poff[0], out math_PDcon[0], out math_Prr[0]);
-            CalcPowerLoss_Module(curve_iDown, out math_PTcon[1], out math_Pon[1], out math_Poff[1], out math_PDcon[1], out math_Prr[1]);
+            if (isPowerLossBalance)
+            {
+                math_PTcon[1] = math_PTcon[0];
+                math_Pon[1] = math_PTcon[0];
+                math_Poff[1] = math_PTcon[0];
+                math_PDcon[1] = math_PTcon[0];
+                math_Prr[1] = math_PTcon[0];
+            }
+            else
+            {
+                CalcPowerLoss_Module(curve_iDown, out math_PTcon[1], out math_Pon[1], out math_Poff[1], out math_PDcon[1], out math_Prr[1]);
+            }
             for (int i = 0; i < 2; i++)
             {
                 powerLoss += math_PTcon[i] + math_Pon[i] + math_Poff[i] + math_PDcon[i] + math_Prr[i];

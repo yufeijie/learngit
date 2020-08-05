@@ -96,14 +96,16 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
-        /// 设置电路参数（用于评估）
+        /// 添加电路参数（用于评估）
         /// </summary>
-        /// <param name="currentAverage">电感平均电流（用于评估）</param>
-        /// <param name="currentRipple">电感电流纹波（用于评估）</param>
-        public void SetEvalParameters(double[,] currentAverage, double[,] currentRipple)
+        /// <param name="m">输入电压对应编号</param>
+        /// <param name="n">负载点对应编号</param>
+        /// <param name="currentAverage">电感平均电流</param>
+        /// <param name="currentRipple">电感电流纹波</param>
+        public void AddEvalParameters(int m, int n, double currentAverage, double currentRipple)
         {
-            currentAverageForEvaluation = currentAverage;
-            currentRippleForEvaluation = currentRipple;
+            currentAverageForEvaluation[m, n] = currentAverage;
+            currentRippleForEvaluation[m, n] = currentRipple;
         }
 
         /// <summary>

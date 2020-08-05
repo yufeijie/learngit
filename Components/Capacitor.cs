@@ -64,12 +64,14 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
-        /// 设置电路参数（用于评估）
+        /// 添加电路参数（用于评估）
         /// </summary>
+        /// <param name="m">输入电压对应编号</param>
+        /// <param name="n">负载点对应编号</param>
         /// <param name="currentRMS">电容电流有效值（用于评估）	</param>
-        public void SetEvalParameters(double[,] currentRMS)
+        public void AddEvalParameters(int m, int n, double currentRMS)
         {
-            currentRMSForEvaluation = currentRMS;
+            currentRMSForEvaluation[m, n] = currentRMS;
         }
 
         /// <summary>
