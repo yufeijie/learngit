@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using static PV_analysis.Curve;
 
 namespace PV_analysis.Components
 {
@@ -288,12 +290,13 @@ namespace PV_analysis.Components
             Poff = 0;
             PDcon = 0;
             Prr = 0;
-            for (int i = 1; i < curve.Data.Count; i++)
+            Point[] data = curve.GetData();
+            for (int i = 1; i < data.Length; i++)
             {
-                double t1 = curve.Data[i - 1].X;
-                double i1 = curve.Data[i - 1].Y;
-                double t2 = curve.Data[i].X;
-                double i2 = curve.Data[i].Y;
+                double t1 = data[i - 1].X;
+                double i1 = data[i - 1].Y;
+                double t2 = data[i].X;
+                double i2 = data[i].Y;
                 if (Function.EQ(i1, 0) && Function.EQ(i2, 0)) //两点电流都为0时无损耗
                 {
                     continue;

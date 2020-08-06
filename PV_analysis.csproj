@@ -117,7 +117,7 @@
     <Compile Include="Curve.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="ConverterDesignList.cs" />
-    <Compile Include="Fomula.cs" />
+    <Compile Include="Formula.cs" />
     <Compile Include="IConverterDesignData.cs" />
     <Compile Include="IComponentDesignData.cs" />
     <Compile Include="MainForm.cs">

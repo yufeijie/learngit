@@ -5,46 +5,27 @@ namespace PV_analysis.Components
     internal class Inductor : Magnetics
     {
         //限制条件
-        protected bool isCheckBm = false; //在评估时是否进行交流磁通密度检查 TODO 目前仅在变压器设计时检查
-        protected static readonly double lgDesignMax = 1; //气隙长度设计允许最大值(cm)
-        protected static readonly double lgDelta = 1e-4; //气隙长度精度(cm)
-        protected static readonly int numberCoreMax = 10; //磁芯数量最大值
-
-        //常量
-        protected const double miu0 = 4 * Math.PI * 1e-7; //绝对磁导率(H/m) [MKS] or 1(Gs/Oe) [CGS]
-        protected const double lowCu = 1.724 * 1e-8; //铜电阻率
-        protected const double miuCu = 1; //铜相对磁导率 0.9999912
+        private static readonly double lgDesignMax = 1; //气隙长度设计允许最大值(cm)
+        private static readonly double lgDelta = 1e-4; //气隙长度精度(cm)
 
         //器件参数
-        protected String material = "Ferrite"; //材料：铁氧体Ferrite，非晶Amorphous
-        protected int core; //磁芯编号
-        protected int numberCore; //磁芯数量(单位:对)
-        protected double lg; //气隙长度(cm)
-        protected int wire; //绕线编号
-        protected int Wn; //并绕股数 TODO 用利兹线设计时，多余的参数
-        protected int N; //匝数
+        private double lg; //气隙长度(cm)
+        private int Wn; //并绕股数 TODO 用利兹线设计时，多余的参数
+        private int N; //匝数
 
         //设计条件
-        protected double frequency; //开关频率(Hz)
-        protected double frequencyMax; //最高开关频率
-        protected double currentPeakMax; //电流最大值(A)（原边电流最大值）
-        protected double inductanceMax; //电感最大值(H)
+        private double frequency; //开关频率(Hz)
+        private double frequencyMax; //最高开关频率
+        private double currentPeakMax; //电流最大值(A)（原边电流最大值）
+        private double inductanceMax; //电感最大值(H)
 
         //电路参数
-        protected double currentAverage; //电感平均电流(A) （有效值）
-        protected double currentRipple; //电感电流纹波(A) （峰峰值）
-        protected double[,] frequencyForEvaluation; //开关频率（用于评估）
-        protected double[,] currentAverageForEvaluation; //电感平均电流（用于评估）
-        protected double[,] currentRippleForEvaluation; //电感电流纹波（用于评估）
-        protected double[,] fluxLinkageForEvaluation; //磁链（用于评估）
-
-        //损耗参数（同类器件中其中一个的损耗）
-        protected double powerLossCu; //单个电感铜损(W)
-        protected double powerLossFe; //单个电感铁损(W)
-
-        //成本参数（同类器件中其中一个的损耗）
-        protected double costCore; //单个磁芯成本
-        protected double costWire; //单个绕线成本
+        private double currentAverage; //电感平均电流(A) （有效值）
+        private double currentRipple; //电感电流纹波(A) （峰峰值）
+        private double[,] frequencyForEvaluation; //开关频率（用于评估）
+        private double[,] currentAverageForEvaluation; //电感平均电流（用于评估）
+        private double[,] currentRippleForEvaluation; //电感电流纹波（用于评估）
+        private double[,] fluxLinkageForEvaluation; //磁链（用于评估）
 
         /// <summary>
         /// 初始化
@@ -53,24 +34,6 @@ namespace PV_analysis.Components
         public Inductor(int number)
         {
             this.number = number;
-        }
-
-        /// <summary>
-        /// 获取磁芯的型号
-        /// </summary>
-        /// <returns>型号</returns>
-        private string GetCoreType()
-        {
-            return Data.CoreList[core].Type;
-        }
-
-        /// <summary>
-        /// 获取绕线的型号
-        /// </summary>
-        /// <returns>型号</returns>
-        private string GetWireType()
-        {
-            return Data.WireList[wire].Type;
         }
 
         /// <summary>
@@ -426,7 +389,7 @@ namespace PV_analysis.Components
         /// <summary>
         /// 计算铜损
         /// </summary>
-        protected void CalcPowerLossCu()
+        private void CalcPowerLossCu()
         {
             double AxpAWG = Data.WireList[wire].Math_Ab * 1e-3; //绕线裸线面积(cm^2)
             double C = Data.CoreList[core].Math_C * 0.1; //(cm)
@@ -438,32 +401,16 @@ namespace PV_analysis.Components
         /// <summary>
         /// 计算铁损（磁损）
         /// </summary>
-        protected void CalcPowerLossFe()
+        private void CalcPowerLossFe()
         {
             //TODO U型磁芯
             double length = Data.CoreList[core].Math_F * 2 * 0.1; //磁芯参数F(cm)
-            double volumn = numberCore * Data.CoreList[core].Volume * 1e-9; //磁芯体积(m^3)
             double Aecc = numberCore * Data.CoreList[core].Math_Ae * 1e-2; //等效磁芯面积(cm^2)
             double FF = 1 + lg / Math.Sqrt(Aecc) * Math.Log(2 * length / lg); //边缘磁通系数
             double magneticFluxDensityAC = 0.4 * Math.PI * N * FF * currentRipple * 0.5 / lg * 1e-4; //交流磁通密度(T)
             double prewV = GetInductanceFeLoss(frequency, magneticFluxDensityAC);// //单位体积铁损(W/m^3)
+            double volumn = numberCore * Data.CoreList[core].Volume * 1e-9; //磁芯体积(m^3)
             powerLossFe = prewV * volumn; //计算铁损
-        }
-
-        /// <summary>
-        /// 获取铁损（N27 20oC）
-        /// </summary>
-        /// <param name="f">开关频率(Hz)</param>
-        /// <param name="B">交流磁通密度(T)</param>
-        /// <returns>单位体积铁损(W/m^3)</returns>
-        protected double GetInductanceFeLoss(double f, double B)
-        {
-            //磁芯损耗曲线拟合参数
-            double k = 1.212;
-            double b = -1.308;
-            double d = 0.646;
-            double y = k * Math.Log10(f / 1e3) + b + d / Math.Log(2) * Math.Log(B * 1e3 / 25);
-            return Math.Pow(10, y) * 1e3;
         }
     }
 }

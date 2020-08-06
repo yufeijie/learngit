@@ -17,7 +17,6 @@ namespace PV_analysis
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new MainForm());
 
-            Fomula.Init();
             //EvaluateDCDCconverter();
             EvaluateIsolatedDCDCconverter();
         }
@@ -55,6 +54,7 @@ namespace PV_analysis
 
         public static void EvaluateIsolatedDCDCconverter()
         {
+            Formula.Init();
             double Psys = 6e6;
             //double Vin_min = 860;
             //double Vin_max = 1300;

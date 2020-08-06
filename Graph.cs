@@ -7,6 +7,7 @@ using System.Xml.Serialization.Configuration;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using static PV_analysis.Curve;
 
 namespace PV_analysis
 {
@@ -30,9 +31,10 @@ namespace PV_analysis
         public void Add(Curve curve, string name)
         {
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
-            for (int i = 0; i < curve.Data.Count; i++)
+            Point[] data = curve.GetData();
+            for (int i = 0; i < data.Length; i++)
             {
-                values.Add(new ObservablePoint(curve.Data[i].X, curve.Data[i].Y));
+                values.Add(new ObservablePoint(data[i].X, data[i].Y));
             }
             chart.Series.Add(new LineSeries {
                 Title = name,

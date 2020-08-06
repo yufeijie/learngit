@@ -7,14 +7,14 @@ namespace PV_analysis
     /// <summary>
     /// 计算公式
     /// </summary>
-    internal static class Fomula
+    internal static class Formula
     {
-        static private solve solveMATLAB; //MATLAB求解对象
+        static public solve solve; //MATLAB求解对象
 
         //初始化MATLAB求解对象（MATLAB对象初始化需要一定时间，采用统一对象节省运行时间）
         static public void Init()
         {
-            solveMATLAB = new solve();
+            solve = new solve();
         }
 
         static public double CAC_boost_t3(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
@@ -260,20 +260,13 @@ namespace PV_analysis
         static public double DTC_SRC_Mgain1(double Td, double fs, double Q)
         {
             double value = -1;
-            try
+            MWArray output = solve.solve_DTCSRC_Mgain1(Td, fs, Q);
+            MWNumericArray result = (MWNumericArray)output;
+            value = result.ToScalarDouble();
+            if (value < 0)
             {
-                Object[] output = solveMATLAB.solve_DTCSRC_Mgain1((MWArray)Td, fs, Q);
-                MWNumericArray result = (MWNumericArray)output[0];
-                value = result.getDouble(1);
-                if (value < 0)
-                {
-                    System.out.println("Wrong DTC_SRC_Mgain1!");
-                    System.exit(-1);
-                }
-            }
-            catch (Exception e)
-            {
-                System.out.println("Exception: " + e.toString());
+                Console.WriteLine("Wrong DTC_SRC_Mgain1!");
+                System.Environment.Exit(-1);
             }
             return value;
         }
@@ -281,21 +274,13 @@ namespace PV_analysis
         static public double DTC_SRC_Mgain2(double Td, double fs, double Q)
         {
             double value = -1;
-            try
+            MWArray output = solve.solve_DTCSRC_Mgain2(Td, fs, Q);
+            MWNumericArray result = (MWNumericArray)output;
+            value = result.ToScalarDouble();
+            if (value < 0)
             {
-                Object[] input = { Td, fs, Q };
-                Object[] output = solveMATLAB.solve_DTCSRC_Mgain2(1, input);
-                MWNumericArray result = (MWNumericArray)output[0];
-                value = result.getDouble(1);
-                if (value < 0)
-                {
-                    System.out.println("Wrong DTC_SRC_Mgain1!");
-                    System.exit(-1);
-                }
-            }
-            catch (Exception e)
-            {
-                System.out.println("Exception: " + e.toString());
+                Console.WriteLine("Wrong DTC_SRC_Mgain1!");
+                System.Environment.Exit(-1);
             }
             return value;
         }

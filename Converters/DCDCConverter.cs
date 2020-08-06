@@ -48,6 +48,10 @@ namespace PV_analysis.Converters
             return data;
         }
 
+        /// <summary>
+        /// 创建拓扑
+        /// </summary>
+        /// <param name="name">拓扑名</param>
         public void CreateTopology(string name)
         {
             switch (name)
