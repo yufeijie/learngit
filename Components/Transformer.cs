@@ -155,8 +155,8 @@ namespace PV_analysis.Components
                                 }
                                 Ns = (int)Math.Ceiling(Np / turnRatio);
                                 //窗口系数检查
-                                double Awp = Np * Wnp * Ax; //并绕后原边所占窗口面积(cm^2)
-                                double Aws = Ns * Wns * Ax; //并绕后副边所占窗口面积(cm^2)
+                                double Awp = Np * Ax; //并绕后原边所占窗口面积(cm^2)
+                                double Aws = Ns * Ax; //并绕后副边所占窗口面积(cm^2)
                                 double Ku = (Awp + Aws) / Aw;
                                 if (Ku > S2 * S3)
                                 {
@@ -299,9 +299,9 @@ namespace PV_analysis.Components
             double C = Data.CoreList[core].Math_C * 0.1; //(cm)
             double MLT = (numberCore - 1) * C * 2 + Data.CoreList[core].Math_MLT * 0.1; //一匝绕线长度(cm) 
             double Rwire = lowCu * MLT * 1e-2 * Np / (AxpAWG * 1e-4); //原边单根绕线电阻(ohm)
-            double Pp = Math.Pow(currentAverage, 2) * Rwire / Wnp; //原边铜损
+            double Pp = Math.Pow(currentAverage, 2) * Rwire; //原边铜损
             Rwire = lowCu * MLT * 1e-2 * Ns / (AxpAWG * 1e-4); //副边单根绕线电阻
-            double Ps = Math.Pow(currentAverage, 2) * Rwire / Wns; //副边铜损
+            double Ps = Math.Pow(currentAverage, 2) * Rwire; //副边铜损
             powerLossCu = Pp + Ps; //计算铜损
         }
 
@@ -313,8 +313,8 @@ namespace PV_analysis.Components
             double Aecc = numberCore * Data.CoreList[core].Math_Ae * 1e-2; //等效磁芯面积(cm^2)
             double Bm = 0.5 * fluxLinkage / (Np * Aecc * 1e-4); //交流磁通密度(cm^2)
             double prewV = GetInductanceFeLoss(frequency, Bm);// //单位体积铁损(W/m^3)
-            double volumn = numberCore * Data.CoreList[core].Volume * 1e-9; //磁芯体积(m^3) Datasheet中给出的即为一对磁芯的有效磁体积
-            powerLossFe = prewV * volumn; //计算铁损
+            double volume = numberCore * Data.CoreList[core].Math_Ve * 1e-9; //磁芯体积(m^3) Datasheet中给出的即为一对磁芯的有效磁体积
+            powerLossFe = prewV * volume; //计算铁损
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using PV_analysis.Components;
 using PV_analysis.Topologys;
+using System;
 
 namespace PV_analysis.Converters
 {
@@ -47,7 +48,7 @@ namespace PV_analysis.Converters
         /// <returns>配置信息</returns>
         public string[] GetConfigs()
         {
-            string[] data = { Number.ToString(), (Math_fs / 1e3).ToString(), Math_Q.ToString(), Topology.GetType().Name };
+            string[] data = { Number.ToString(), (Math_fr / 1e3).ToString(), Math_Q.ToString(), Topology.GetType().Name };
             return data;
         }
 
@@ -82,6 +83,7 @@ namespace PV_analysis.Converters
                 {
                     if (component.DesignList.Size == 0)
                     {
+                        Console.WriteLine(component.GetType().Name + " design Failed");
                         ok = false;
                         break;
                     }

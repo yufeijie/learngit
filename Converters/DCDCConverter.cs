@@ -1,5 +1,6 @@
 ﻿using PV_analysis.Components;
 using PV_analysis.Topologys;
+using System;
 
 namespace PV_analysis.Converters
 {
@@ -85,6 +86,7 @@ namespace PV_analysis.Converters
                 {
                     if (component.DesignList.Size == 0)
                     {
+                        Console.WriteLine(component.GetType().Name + " design Failed");
                         ok = false;
                         break;
                     }

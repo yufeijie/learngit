@@ -215,13 +215,14 @@ namespace PV_analysis
             public string Manufacturer { get; } //厂商
             public string Shape { get; } //磁性形状（EE，U等）
             public double Price { get; } //价格(RMB)
-            public double Volume { get; } //体积(dm^3) Datasheet中给出的即为一对磁芯的有效磁体积
-
+            
             //参数
             public double Math_AP { get; } //面积积(mm^4)
             public double Math_Aw { get; } //窗口面积(mm^2)
             public double Math_MLT { get; } //平均匝长(mm)
             public double Math_Ae { get; } //有效截面积(mm^2)
+            public double Math_Ve { get; } //有效磁体积(mm^3) Datasheet中给出的即为一对磁芯的有效磁体积
+
             //尺寸规格
             public double Math_A { get; } //(mm)
             public double Math_B { get; } //(mm)
@@ -236,11 +237,11 @@ namespace PV_analysis
                 Manufacturer = row.GetCell(3).StringCellValue;
                 Shape = row.GetCell(4).StringCellValue;
                 Price = row.GetCell(20).NumericCellValue;
-                Volume = row.GetCell(24).NumericCellValue;
                 Math_AP = row.GetCell(5).NumericCellValue;
                 Math_Aw = row.GetCell(6).NumericCellValue;
                 Math_MLT = row.GetCell(7).NumericCellValue;
                 Math_Ae = row.GetCell(9).NumericCellValue;
+                Math_Ve = row.GetCell(11).NumericCellValue;
                 switch (Shape)
                 {
                     case "EE":
@@ -369,42 +370,36 @@ namespace PV_analysis
             CapacitorList = capacitorList;
         }
 
-        public static void Record(ConverterDesignList designList)
+        public static void Record(string name, string[] conditionTitles, string[] conditions, ConverterDesignList designList)
         {
             IWorkbook workbook = new XSSFWorkbook(); //新建Excel
-            ISheet sheet = workbook.CreateSheet("Result"); //新建一个工作薄
 
+            //记录设计条件
+            ISheet sheet = workbook.CreateSheet("Conditions"); //新建一个工作薄
+            IRow row = sheet.CreateRow(0); //设计条件标题
+            for (int i = 0; i < conditionTitles.Length; i++)
+            {
+                row.CreateCell(i).SetCellValue(conditionTitles[i]);
+            }
+            row = sheet.CreateRow(1); //设计条件
+            for (int i = 0; i < conditions.Length; i++)
+            {
+                row.CreateCell(i).SetCellValue(conditions[i]);
+            }
+
+            //记录设计结果
+            sheet = workbook.CreateSheet("Results"); //新建一个工作薄
             IConverterDesignData[] designs = designList.GetData();
             for(int i = 0; i < designs.Length; i++)
             {
-                IRow row = sheet.CreateRow(i);
+                row = sheet.CreateRow(i);
                 for (int j = 0; j < designs[i].Configs.Length; j++)
                 {
                     row.CreateCell(j).SetCellValue(designs[i].Configs[j]);
                 }
             }
             DateTime now = DateTime.Now;
-            FileStream file = new FileStream(resultPath + "DCDC_result_Pareto_" + now.ToString("yyyyMMdd_HHmmss_fff") + ".xlsx", FileMode.Create);
-            workbook.Write(file);
-            file.Close();
-        }
-
-        public static void RecordAll(ConverterDesignList designList)
-        {
-            IWorkbook workbook = new XSSFWorkbook(); //新建Excel
-            ISheet sheet = workbook.CreateSheet("Result"); //新建一个工作薄
-
-            IConverterDesignData[] designs = designList.GetData();
-            for (int i = 0; i < designs.Length; i++)
-            {
-                IRow row = sheet.CreateRow(i);
-                for (int j = 0; j < designs[i].Configs.Length; j++)
-                {
-                    row.CreateCell(j).SetCellValue(designs[i].Configs[j]);
-                }
-            }
-            DateTime now = DateTime.Now;
-            FileStream file = new FileStream(resultPath + "DCDC_result_all_" + now.ToString("yyyyMMdd_HHmmss_fff") + ".xlsx", FileMode.Create);
+            FileStream file = new FileStream(resultPath + name + "_" + now.ToString("yyyyMMdd_HHmmss_fff") + ".xlsx", FileMode.Create);
             workbook.Write(file);
             file.Close();
         }

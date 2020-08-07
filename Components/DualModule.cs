@@ -276,10 +276,10 @@ namespace PV_analysis.Components
             if (isPowerLossBalance)
             {
                 math_PTcon[1] = math_PTcon[0];
-                math_Pon[1] = math_PTcon[0];
-                math_Poff[1] = math_PTcon[0];
-                math_PDcon[1] = math_PTcon[0];
-                math_Prr[1] = math_PTcon[0];
+                math_Pon[1] = math_Pon[0];
+                math_Poff[1] = math_Poff[0];
+                math_PDcon[1] = math_PDcon[0];
+                math_Prr[1] = math_Prr[0];
             }
             else
             {

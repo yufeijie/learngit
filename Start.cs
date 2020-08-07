@@ -17,8 +17,8 @@ namespace PV_analysis
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new MainForm());
 
-            //EvaluateDCDCconverter();
-            EvaluateIsolatedDCDCconverter();
+            EvaluateDCDCconverter();
+            //EvaluateIsolatedDCDCconverter();
         }
 
         public static void EvaluateDCDCconverter()
@@ -48,8 +48,26 @@ namespace PV_analysis
                 }
             }
 
-            Data.Record(converter.ParetoDesignList);
-            Data.RecordAll(converter.AllDesignList);
+            List<string> conditionTitles = new List<String>();
+            conditionTitles.Add("Total power");
+            conditionTitles.Add("Minimum input voltage");
+            conditionTitles.Add("Maximum input voltage");
+            conditionTitles.Add("Output voltage");
+            conditionTitles.Add("Number range");
+            conditionTitles.Add("Topology range");
+            conditionTitles.Add("Resonance frequency range(kHz)");
+
+            List<string> conditions = new List<String>();
+            conditions.Add(Psys.ToString());
+            conditions.Add(Vin_min.ToString());
+            conditions.Add(Vin_max.ToString());
+            conditions.Add(Vo.ToString());
+            conditions.Add(NumberRangeToString(numberRange));
+            conditions.Add(TopologyRangeToString(topologyRange));
+            conditions.Add(FrequencyRangeToString(frequencyRange));
+
+            Data.Record(converter.GetType().Name + "_Pareto", conditionTitles.ToArray(), conditions.ToArray(), converter.ParetoDesignList);
+            Data.Record(converter.GetType().Name + "_all", conditionTitles.ToArray(), conditions.ToArray(), converter.AllDesignList);
         }
 
         public static void EvaluateIsolatedDCDCconverter()
@@ -82,8 +100,26 @@ namespace PV_analysis
                 }
             }
 
-            Data.Record(converter.ParetoDesignList);
-            Data.RecordAll(converter.AllDesignList);
+            List<string> conditionTitles = new List<String>();
+            conditionTitles.Add("Total power");
+            conditionTitles.Add("Input voltage");
+            conditionTitles.Add("Output voltage");
+            conditionTitles.Add("Quality factor");
+            conditionTitles.Add("Number range");
+            conditionTitles.Add("Topology range");
+            conditionTitles.Add("Resonance frequency range(kHz)");
+
+            List<string> conditions = new List<String>();
+            conditions.Add(Psys.ToString());
+            conditions.Add(Vin.ToString());
+            conditions.Add(Vo.ToString());
+            conditions.Add(Q.ToString());
+            conditions.Add(NumberRangeToString(numberRange));
+            conditions.Add(TopologyRangeToString(topologyRange));
+            conditions.Add(FrequencyRangeToString(frequencyRange));
+
+            Data.Record(converter.GetType().Name + "_Pareto", conditionTitles.ToArray(), conditions.ToArray(), converter.ParetoDesignList);
+            Data.Record(converter.GetType().Name + "_all", conditionTitles.ToArray(), conditions.ToArray(), converter.AllDesignList);
         }
 
         /// <summary>
@@ -173,5 +209,70 @@ namespace PV_analysis
             }
             return frequencyRange.ToArray();
         }
+
+        /// <summary>
+        /// 可用模块数序列转化为字符串
+        /// </summary>
+        /// <param name="numberRange">可用模块数序列</param>
+        /// <returns>对应字符串</returns>
+        public static string NumberRangeToString(int[] numberRange)
+        {
+            String str = "";
+            foreach (int n in numberRange)
+            {
+                str = str + n.ToString() + ",";
+            }
+            str = str.Substring(0, str.Length - 1);
+            return str;
+        }
+
+        /// <summary>
+        /// 可用拓扑序列转化为字符串
+        /// </summary>
+        /// <param name="topologyRange">可用拓扑序列</param>
+        /// <returns>对应字符串</returns>
+        public static string TopologyRangeToString(string[] topologyRange)
+        {
+            String str = "";
+            foreach (string to in topologyRange)
+            {
+                str = str + to + ",";
+            }
+            str = str.Substring(0, str.Length - 1);
+            return str;
+        }
+        
+        /// <summary>
+        /// 可用调制方式序列转化为字符串
+        /// </summary>
+        /// <param name="modulationRange">可用调制方式序列</param>
+        /// <returns>对应字符串</returns>
+        public static string ModulationRangeToString(string[] modulationRange)
+        {
+            String str = "";
+            foreach (string mo in modulationRange)
+            {
+                str = str + mo + ",";
+            }
+            str = str.Substring(0, str.Length - 1);
+            return str;
+        }
+        
+        /// <summary>
+        /// 可用频率序列转化为字符串
+        /// </summary>
+        /// <param name="frequencyRange">可用频率序列</param>
+        /// <returns>对应字符串</returns>
+        public static string FrequencyRangeToString(double[] frequencyRange)
+        {
+            String str = "";
+            foreach (double f in frequencyRange)
+            {
+                str = str + (f / 1e3).ToString() + ",";
+            }
+            str = str.Substring(0, str.Length - 1);
+            return str;
+        }
+
     }
 }

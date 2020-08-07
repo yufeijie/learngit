@@ -423,8 +423,8 @@ namespace PV_analysis.Components
             double FF = 1 + lg / Math.Sqrt(Aecc) * Math.Log(2 * length / lg); //边缘磁通系数
             double magneticFluxDensityAC = 0.4 * Math.PI * N * FF * currentRipple * 0.5 / lg * 1e-4; //交流磁通密度(T)
             double prewV = GetInductanceFeLoss(frequency, magneticFluxDensityAC);// //单位体积铁损(W/m^3)
-            double volumn = numberCore * Data.CoreList[core].Volume * 1e-9; //磁芯体积(m^3)
-            powerLossFe = prewV * volumn; //计算铁损
+            double volume = numberCore * Data.CoreList[core].Math_Ve * 1e-9; //磁芯体积(m^3)
+            powerLossFe = prewV * volume; //计算铁损
         }
     }
 }

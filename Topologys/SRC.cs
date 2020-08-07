@@ -217,8 +217,8 @@ namespace PV_analysis.Topologys
                 power = powerFull * Config.CGC_POWER_RATIO[j]; //改变模块功率
                 Simulate();
                 //Graph graph = new Graph();
-                //graph.Add(curve_iS, "iS");
-                //graph.Add(curve_iD, "iD");
+                //graph.Add(currentSwitch_P, "iP");
+                //graph.Add(currentSwitch_S, "iS");
                 //graph.Draw();
                 currentInductorMax = Math.Max(currentInductorMax, currentInductorPeak);
                 currentInductorRMSMax = Math.Max(currentInductorRMSMax, currentInductorRMS);
@@ -227,7 +227,7 @@ namespace PV_analysis.Topologys
 
                 //设置元器件的电路参数（用于评估）
                 primaryDualModule.AddEvalParameters(0, j, voltageSwitch_P, currentSwitch_P);
-                secondaryDualModule.AddEvalParameters(0, j, voltageSwitch_S, currentSwitch_S);
+                secondaryDualModule.AddEvalParameters(0, j, voltageSwitch_S, currentSwitch_S.Copy(-1));
                 resonantInductor.AddEvalParameters(0, j, currentInductorRMS, currentInductorPeak * 2);
                 transformer.AddEvalParameters(0, j, currentInductorRMS, currentInductorPeak * 2);
                 resonantCapacitor.AddEvalParameters(0, j, currentInductorRMS);
