@@ -93,13 +93,14 @@ namespace PV_analysis
         /// <param name="designList">另一个设计方案集合</param>
         public void Combine(ConverterDesignList designList)
         {
-            ConverterDesignList newList = new ConverterDesignList();
             if (head == null)
             {
-                Copy(designList);
+                head = designList.head;
+                size = designList.size;
             }
             else
             {
+                ConverterDesignList newList = new ConverterDesignList();
                 ConverterDesignData p = head;
                 while (p != null)
                 {
@@ -114,7 +115,8 @@ namespace PV_analysis
                     }
                     p = p.Next;
                 }
-                Copy(newList);
+                head = newList.head;
+                size = newList.size;
             }
         }
 
@@ -124,18 +126,11 @@ namespace PV_analysis
         /// <param name="designList">另一个设计方案集合</param>
         public void Merge(ConverterDesignList designList)
         {
-            if (head == null)
+            ConverterDesignData now = designList.head;
+            while (now != null)
             {
-                Copy(designList);
-            }
-            else
-            {
-                ConverterDesignData now = designList.head;
-                while (now != null)
-                {
-                    Add(now.Efficiency, now.Volume, now.Cost, now.Configs);
-                    now = now.Next;
-                }
+                Add(now.Efficiency, now.Volume, now.Cost, now.Configs);
+                now = now.Next;
             }
         }
 
@@ -168,16 +163,6 @@ namespace PV_analysis
                 }
                 Add(efficiency, volume, cost, newConfigs.ToArray());
             }
-        }
-
-        /// <summary>
-        /// 复制另一个设计方案集合
-        /// </summary>
-        /// <param name="designList">另一个设计方案集合</param>
-        public void Copy(ConverterDesignList designList)
-        {
-            head = designList.head;
-            size = designList.size;
         }
 
         /// <summary>

@@ -9,15 +9,15 @@ namespace PV_analysis
     /// </summary>
     internal static class Formula
     {
-        static public solve solve; //MATLAB求解对象
+        public static solve solve; //MATLAB求解对象
 
         //初始化MATLAB求解对象（MATLAB对象初始化需要一定时间，采用统一对象节省运行时间）
-        static public void Init()
+        public static void Init()
         {
             solve = new solve();
         }
 
-        static public double CAC_boost_t3(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
+        public static double CAC_boost_t3(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
         {
             double Vcc = CAC_boost_Vcc(D0, Vo);
             double t2 = CAC_boost_t2(D0, Vo, fs, Lr, wr, ILmin, nI);
@@ -25,7 +25,7 @@ namespace PV_analysis
             return value;
         }
 
-        static public double CAC_boost_t2(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
+        public static double CAC_boost_t2(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
         {
             double ILr1 = CAC_boost_ILr1(D0, Vo, fs, Lr, wr, ILmin, nI);
             double t1 = CAC_boost_t1(D0, Vo, fs, Lr, wr, ILmin, nI);
@@ -33,7 +33,7 @@ namespace PV_analysis
             return value;
         }
 
-        static public double CAC_boost_ILr1(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
+        public static double CAC_boost_ILr1(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
         {
             double Zr = wr * Lr;
             double A0 = CAC_boost_A0(D0, Vo, fs, Lr, wr, ILmin, nI);
@@ -43,7 +43,7 @@ namespace PV_analysis
             return value;
         }
 
-        static public double CAC_boost_t1(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
+        public static double CAC_boost_t1(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
         {
             double A0 = CAC_boost_A0(D0, Vo, fs, Lr, wr, ILmin, nI);
             double φ0 = CAC_boost_φ0(D0, Vo, fs, Lr, wr, ILmin, nI);
@@ -51,7 +51,7 @@ namespace PV_analysis
             return value;
         }
 
-        static public double CAC_boost_φ0(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
+        public static double CAC_boost_φ0(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
         {
             double Zr = wr * Lr;
             double Vcc = CAC_boost_Vcc(D0, Vo);
@@ -64,7 +64,7 @@ namespace PV_analysis
             return value;
         }
 
-        static public double CAC_boost_A0(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
+        public static double CAC_boost_A0(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
         {
             double Zr = wr * Lr;
             double Vcc = CAC_boost_Vcc(D0, Vo);
@@ -73,7 +73,7 @@ namespace PV_analysis
             return value;
         }
 
-        static public double CAC_boost_ILr0(double D0, double Vo, double fs, double Lr, double wr)
+        public static double CAC_boost_ILr0(double D0, double Vo, double fs, double Lr, double wr)
         {
             double Zr = wr * Lr;
             double Vcc = CAC_boost_Vcc(D0, Vo);
@@ -82,20 +82,20 @@ namespace PV_analysis
             return value;
         }
 
-        static public double CAC_boost_ILr3(double D0, double Vo, double fs, double Zr)
+        public static double CAC_boost_ILr3(double D0, double Vo, double fs, double Zr)
         {
             double Vcc = CAC_boost_Vcc(D0, Vo);
             double value = -Math.Sqrt(Vo * Vo - Vcc * Vcc) / Zr;
             return value;
         }
 
-        static public double CAC_boost_Vcc(double D0, double Vo)
+        public static double CAC_boost_Vcc(double D0, double Vo)
         {
             double value = D0 / (1 - D0) * Vo;
             return value;
         }
 
-        static public double DTC_SRC_Ψm(double Vin, double Vp, double Vbase, double T, double Td, double fs, double Q, double M, double mode)
+        public static double DTC_SRC_Ψm(double Vin, double Vp, double Vbase, double T, double Td, double fs, double Q, double M, double mode)
         {
             double value;
             if (mode == 1)
@@ -113,7 +113,7 @@ namespace PV_analysis
             return value;
         }
 
-        static public double DTC_SRC_vcr(double t, double Td, double fs, double Q, double M, double mode)
+        public static double DTC_SRC_vcr(double t, double Td, double fs, double Q, double M, double mode)
         {
             double value;
             if (t >= 0.5)
@@ -154,7 +154,7 @@ namespace PV_analysis
             return value;
         }
 
-        static public double DTC_SRC_ilr(double t, double Td, double fs, double Q, double M, double mode)
+        public static double DTC_SRC_ilr(double t, double Td, double fs, double Q, double M, double mode)
         {
             double value;
             if (t >= 0.5)
@@ -193,14 +193,14 @@ namespace PV_analysis
             return value;
         }
 
-        static public double DTC_SRC_Te2(double Td, double fs, double Q, double M, double mode)
+        public static double DTC_SRC_Te2(double Td, double fs, double Q, double M, double mode)
         {
             double B = DTC_SRC_B(Td, fs, Q, M, mode);
             double value = Td + B * fs / (2 * Math.PI);
             return value;
         }
 
-        static public double DTC_SRC_B(double Td, double fs, double Q, double M, double mode)
+        public static double DTC_SRC_B(double Td, double fs, double Q, double M, double mode)
         {
             double BP = DTC_SRC_BP(Td, fs, Q, M);
             double R3 = DTC_SRC_R3(Td, fs, Q, M);
@@ -216,28 +216,28 @@ namespace PV_analysis
             return value;
         }
 
-        static public double DTC_SRC_R3(double Td, double fs, double Q, double M)
+        public static double DTC_SRC_R3(double Td, double fs, double Q, double M)
         {
             double Vcrpk = DTC_SRC_Vcrpk(Td, fs, Q, M);
             double value = Vcrpk + M + 1;
             return value;
         }
 
-        static public double DTC_SRC_R2(double Td, double fs, double Q, double M)
+        public static double DTC_SRC_R2(double Td, double fs, double Q, double M)
         {
             double Vcrpk = DTC_SRC_Vcrpk(Td, fs, Q, M);
             double value = Math.Sqrt(Math.Pow(Vcrpk + 1, 2) + M * M - 2 * M * (Vcrpk + 1) * Math.Cos(2 * Math.PI * Td / fs));
             return value;
         }
 
-        static public double DTC_SRC_R1(double Td, double fs, double Q, double M)
+        public static double DTC_SRC_R1(double Td, double fs, double Q, double M)
         {
             double Vcrpk = DTC_SRC_Vcrpk(Td, fs, Q, M);
             double value = Vcrpk + 1;
             return value;
         }
 
-        static public bool DTC_SRC_CCMflag(double Td, double fs, double Q, double M)
+        public static bool DTC_SRC_CCMflag(double Td, double fs, double Q, double M)
         {
             double BPccm = DTC_SRC_BP(Td, fs, Q, M);
             if (Math.Sin(Math.PI / fs - 2 * Math.PI * Td / fs + BPccm) >= 0)
@@ -250,14 +250,14 @@ namespace PV_analysis
             }
         }
 
-        static public double DTC_SRC_BP(double Td, double fs, double Q, double M)
+        public static double DTC_SRC_BP(double Td, double fs, double Q, double M)
         {
             double Vcrpk = DTC_SRC_Vcrpk(Td, fs, Q, M);
             double value = Atanx((Vcrpk + 1) * Math.Sin(2 * Math.PI * Td / fs) / ((Vcrpk + 1) * Math.Cos(2 * Math.PI * Td / fs) - M));
             return value;
         }
 
-        static public double DTC_SRC_Mgain1(double Td, double fs, double Q)
+        public static double DTC_SRC_Mgain1(double Td, double fs, double Q)
         {
             double value = -1;
             MWArray output = solve.solve_DTCSRC_Mgain1(Td, fs, Q);
@@ -271,7 +271,7 @@ namespace PV_analysis
             return value;
         }
 
-        static public double DTC_SRC_Mgain2(double Td, double fs, double Q)
+        public static double DTC_SRC_Mgain2(double Td, double fs, double Q)
         {
             double value = -1;
             MWArray output = solve.solve_DTCSRC_Mgain2(Td, fs, Q);
@@ -285,20 +285,20 @@ namespace PV_analysis
             return value;
         }
 
-        static public double DTC_SRC_Vcrpk(double Td, double fs, double Q, double M)
+        public static double DTC_SRC_Vcrpk(double Td, double fs, double Q, double M)
         {
             double value = (1 - Math.Cos(2 * Math.PI * Td / fs) + Math.PI / fs * Q * M) / (1 + Math.Cos(2 * Math.PI * Td / fs));
             return value;
         }
 
-        static public double DTC_SRC_Td(double Vref, double Pin)
+        public static double DTC_SRC_Td(double Vref, double Pin)
         {
             double value = 1.37625 - 0.00324648 * Vref + 3.03631e-6 * Vref * Vref - 1.04815e-9 * Math.Pow(Vref, 3) + 0.0004936151 * Pin - 3.61014e-6 * Pin * Pin + 1.05543e-8 * Math.Pow(Pin, 3);
             value = value > 0 ? value : 0;
             return value;
         }
 
-        static public double Atanx(double x)
+        public static double Atanx(double x)
         {
             double value = Math.Atan(x);
             if (value < 0)
@@ -308,14 +308,14 @@ namespace PV_analysis
             return value;
         }
 
-        static public double SRC_Ψm(double Vp, double T)
+        public static double SRC_Ψm(double Vp, double T)
         {
             double value;
             value = Vp * 0.5 * T;
             return value;
         }
 
-        static public double SRC_vab(double t, double Ts, double Vin)
+        public static double SRC_vab(double t, double Ts, double Vin)
         {
             double value;
             if (t <= Ts / 2)
@@ -329,7 +329,7 @@ namespace PV_analysis
             return value;
         }
 
-        static public double SRC_vTp(double t, double Ts, double t0, double n, double Vo)
+        public static double SRC_vTp(double t, double Ts, double t0, double n, double Vo)
         {
             double value;
             if (t0 < t && t <= t0 + Ts / 2)
@@ -343,13 +343,13 @@ namespace PV_analysis
             return value;
         }
 
-        static public double SRC_Vcrp(double n, double Q, double Vo, double fr, double fs)
+        public static double SRC_Vcrp(double n, double Q, double Vo, double fr, double fs)
         {
             double value = (n * Math.PI * Q * Vo / 2) * (fr / fs);
             return value;
         }
 
-        static public double SRC_ilrp(double t, double Ts, double Vcrp, double vab, double vTp, double Zr)
+        public static double SRC_ilrp(double t, double Ts, double Vcrp, double vab, double vTp, double Zr)
         {
             double value;
             if (t <= Ts / 2)
@@ -363,7 +363,7 @@ namespace PV_analysis
             return value;
         }
 
-        static public double SRC_ilr(double t, double Ts, double t0, double iLrp, double wr)
+        public static double SRC_ilr(double t, double Ts, double t0, double iLrp, double wr)
         {
             double value;
             if (t <= Ts / 2)
@@ -377,7 +377,7 @@ namespace PV_analysis
             return value;
         }
 
-        static public double SRC_vcr(double t, double Ts, double t0, double Vcrp, double vab, double vTp, double wr)
+        public static double SRC_vcr(double t, double Ts, double t0, double Vcrp, double vab, double vTp, double wr)
         {
             double value;
             if (t <= Ts / 2)

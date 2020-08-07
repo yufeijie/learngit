@@ -25,6 +25,16 @@ namespace PV_analysis.Components
         protected ComponentDesignList designList = new ComponentDesignList(); //TODO 封装
 
         /// <summary>
+        /// 评估时，输入电压是否变化
+        /// </summary>
+        public bool VoltageVariable { get; set; } = true;
+
+        /// <summary>
+        /// 评估时，负载是否变化
+        /// </summary>
+        public bool PowerVariable { get; set; } = true;
+
+        /// <summary>
         /// 损耗评估值
         /// </summary>
         public double Math_Peval { get { return number * powerLossEvaluation; } }

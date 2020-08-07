@@ -23,11 +23,9 @@ namespace PV_analysis.Topologys
 
         //电路参数
         //需优化参数
-        private int topology; //拓扑编号  0对应SRC
         private double frequencyResonance; //谐振频率
 
         //给定参数
-        private double powerPhase; //单相总功率
         private double voltageInputDef; //模块输入电压预设值
         private double voltageInputMinDef; //模块输入电压预设最小值
         private double voltageInputMaxDef; //模块输入电压预设最大值
@@ -102,7 +100,7 @@ namespace PV_analysis.Topologys
             timeCycleResonance = 1 / frequencyResonance;
             deadTime = timeCycleResonance / 50;
             angularVelocityResonance = 2 * Math.PI * frequencyResonance;
-            resistanceLoad = Math.Pow(voltageOutputDef, 2) / power;
+            resistanceLoad = Math.Pow(voltageOutputDef, 2) / powerFull;
             turnRatioTransformer = voltageInputDef / voltageOutputDef;
             impedanceResonance = qualityFactorDef * Math.Pow(turnRatioTransformer, 2) * resistanceLoad;
             inductanceResonance = impedanceResonance / angularVelocityResonance;
@@ -127,11 +125,10 @@ namespace PV_analysis.Topologys
             resistanceLoad = Math.Pow(voltageOutputDef, 2) / power;
             qualityFactor = impedanceResonance / (Math.Pow(turnRatioTransformer, 2) * resistanceLoad);
             //求解Vo和t0
-            MWArray[] output = Formula.solve.solveSRC(2, qualityFactor, voltageInput, turnRatioTransformer, frequencySwitch, frequencyResonance);
-            MWNumericArray result1 = (MWNumericArray)output[0];
-            MWNumericArray result2 = (MWNumericArray)output[1];
-            voltageOutput = result1.ToScalarDouble();
-            time0 = result2.ToScalarDouble();
+            MWArray output = Formula.solve.solveSRC(qualityFactor, voltageInput, turnRatioTransformer, frequencySwitch, frequencyResonance);
+            MWNumericArray result = (MWNumericArray)output;
+            voltageOutput = result[1].ToScalarDouble();
+            time0 = result[2].ToScalarDouble();
             if (voltageOutput < voltageOutputDef * 0.8)
             {
                 Console.WriteLine("Wrong Vo!");
@@ -152,7 +149,7 @@ namespace PV_analysis.Topologys
             double startTime = 0;
             double endTime = timeCycleSwitch;
             double dt = (endTime - startTime) / Config.DEGREE;
-            double t = 0;
+            double t;
             for (int i = 0; i <= Config.DEGREE; i++)
             {
                 t = startTime + dt * i;
@@ -188,12 +185,12 @@ namespace PV_analysis.Topologys
         public override void Design()
         {
             //初始化
-            DualModule primaryDualModule = new DualModule(2);
-            DualModule secondaryDualModule = new DualModule(2);
-            Inductor resonantInductor = new Inductor(1);
-            Transformer transformer = new Transformer(1);
-            Capacitor resonantCapacitor = new Capacitor(1);
-            Capacitor filteringCapacitor = new Capacitor(1);
+            DualModule primaryDualModule = new DualModule(2) { VoltageVariable = false};
+            DualModule secondaryDualModule = new DualModule(2) { VoltageVariable = false };
+            Inductor resonantInductor = new Inductor(1) { VoltageVariable = false };
+            Transformer transformer = new Transformer(1) { VoltageVariable = false };
+            Capacitor resonantCapacitor = new Capacitor(1) { VoltageVariable = false };
+            Capacitor filteringCapacitor = new Capacitor(1) { VoltageVariable = false };
             components = new Component[] { primaryDualModule, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { primaryDualModule, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
@@ -205,8 +202,14 @@ namespace PV_analysis.Topologys
             frequencyResonance = converter.Math_fr;
             qualityFactorDef = converter.Math_Q;
 
+            voltageInput = voltageInputDef;
+
             //计算电路参数
             DesignCircuitParam();
+            currentInductorMax = 0;
+            currentInductorRMSMax = 0;
+            voltageCapacitorMax = 0;
+            currentCapacitorFilterRMSMax = 0;
             int n = Config.CGC_POWER_RATIO.Length;
 
             for (int j = 0; j < n; j++)
@@ -217,6 +220,12 @@ namespace PV_analysis.Topologys
                 //graph.Add(curve_iS, "iS");
                 //graph.Add(curve_iD, "iD");
                 //graph.Draw();
+                currentInductorMax = Math.Max(currentInductorMax, currentInductorPeak);
+                currentInductorRMSMax = Math.Max(currentInductorRMSMax, currentInductorRMS);
+                voltageCapacitorMax = Math.Max(voltageCapacitorMax, voltageCapacitorPeak);
+                currentCapacitorFilterRMSMax = Math.Max(currentCapacitorFilterRMSMax, currentCapacitorFilterRMS);
+
+                //设置元器件的电路参数（用于评估）
                 primaryDualModule.AddEvalParameters(0, j, voltageSwitch_P, currentSwitch_P);
                 secondaryDualModule.AddEvalParameters(0, j, voltageSwitch_S, currentSwitch_S);
                 resonantInductor.AddEvalParameters(0, j, currentInductorRMS, currentInductorPeak * 2);
@@ -232,12 +241,12 @@ namespace PV_analysis.Topologys
             //}
 
             //设置元器件的设计条件
-            primaryDualModule.SetConditions(voltageInput, currentInductorPeak, frequencySwitch);
-            secondaryDualModule.SetConditions(voltageOutputDef, turnRatioTransformer * currentInductorPeak, frequencySwitch);
-            resonantInductor.SetConditions(inductanceResonance, frequencySwitch, currentInductorPeak);
-            transformer.SetDesignCondition(power, frequencySwitch, currentInductorPeak, turnRatioTransformer, fluxLinkage); //FIXME 磁链是否会变化？
-            resonantCapacitor.SetConditions(capacitanceResonance, voltageCapacitorPeak, currentInductorRMS);
-            filteringCapacitor.SetConditions(200 * 1e-6, voltageOutputDef, currentCapacitorFilterRMS);
+            primaryDualModule.SetConditions(voltageInput, currentInductorMax, frequencySwitch);
+            secondaryDualModule.SetConditions(voltageOutputDef, turnRatioTransformer * currentInductorMax, frequencySwitch);
+            resonantInductor.SetConditions(inductanceResonance, frequencySwitch, currentInductorMax);
+            transformer.SetDesignCondition(power, frequencySwitch, currentInductorMax, turnRatioTransformer, fluxLinkage); //FIXME 磁链是否会变化？
+            resonantCapacitor.SetConditions(capacitanceResonance, voltageCapacitorMax, currentInductorRMSMax);
+            filteringCapacitor.SetConditions(200 * 1e-6, voltageOutputDef, currentCapacitorFilterRMSMax);
 
             foreach (Component component in components)
             {

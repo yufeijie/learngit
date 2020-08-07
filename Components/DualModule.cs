@@ -10,6 +10,7 @@ namespace PV_analysis.Components
         private static readonly bool isCheckTemperature = true; //在评估时是否进行温度检查
         private bool isSoftOff = false; //是否以软关断的方式进行计算(仅在符合条件时为true)
         private static readonly bool isCheckExcess = false; //是否检查过剩容量
+        private static readonly double excess = 1; //允许过剩容量
         private static bool selectSiC = true; //SiC器件选用开关，true为可选用
         private static readonly double margin = 0.2; //裕量
         private static readonly double numberMax = 10; //最大器件数
@@ -28,9 +29,9 @@ namespace PV_analysis.Components
         private double math_Vsw; //开通/关断电压
         private Curve curve_iUp; //上管电流波形
         private Curve curve_iDown; //下管电流波形
-        private double[,] math_Vsw_eval; //开通/关断电压（用于评估）
-        private Curve[,] curve_iUp_eval; //上管电流波形（用于评估）
-        private Curve[,] curve_iDown_eval; //下管电流波形（用于评估）
+        private double[,] math_Vsw_eval = new double[5, 7]; //开通/关断电压（用于评估）
+        private Curve[,] curve_iUp_eval = new Curve[5, 7]; //上管电流波形（用于评估）
+        private Curve[,] curve_iDown_eval = new Curve[5, 7]; //下管电流波形（用于评估）
 
         //损耗参数（同类器件中其中一个的损耗）
         private double[] math_PTcon; //主管通态损耗
@@ -162,21 +163,37 @@ namespace PV_analysis.Components
         /// <returns>评估结果，若温度检查不通过则返回false</returns>
         private bool Evaluate()
         {
-            powerLossEvaluation = 0;
-            for (int m = 0; m < Config.CGC_VOLTAGE_RATIO.Length; m++) //对不同输入电压进行计算
+            int m = Config.CGC_VOLTAGE_RATIO.Length;
+            int n = Config.CGC_POWER_RATIO.Length;
+
+            if (!VoltageVariable) //输入电压不变
             {
-                for (int n = 0; n < Config.CGC_POWER_RATIO.Length; n++) //对不同功率点进行计算
+                m = 1;
+            }
+
+            powerLossEvaluation = 0;
+            for (int i = 0; i < m; i++) //对不同输入电压进行计算
+            {
+                for (int j = n - 1; j >= 0; j--) //对不同功率点进行计算
                 {
-                    SelectParameters(m, n); //设置对应条件下的电路参数
+                    SelectParameters(i, j); //设置对应条件下的电路参数
                     CalcPowerLoss(); //计算对应条件下的损耗
                     if (isCheckTemperature && !CheckTemperature()) //验证散热器温度
                     {
                         return false;
                     }
-                    powerLossEvaluation += powerLoss * Config.CGC_POWER_WEIGHT[n] / Config.CGC_POWER_RATIO[n]; //计算损耗评估值
+                    if (PowerVariable)
+                    {
+                        powerLossEvaluation += powerLoss * Config.CGC_POWER_WEIGHT[j] / Config.CGC_POWER_RATIO[j]; //计算损耗评估值
+                    }
+                    else //若负载不变，则只评估满载
+                    {
+                        powerLossEvaluation = powerLoss;
+                        break;
+                    }
                 }
             }
-            powerLossEvaluation /= Config.CGC_VOLTAGE_RATIO.Length;
+            powerLossEvaluation /= m;
             return true;
         }
 
@@ -217,7 +234,7 @@ namespace PV_analysis.Components
             }
 
             //容量过剩检查
-            if (isCheckExcess && (Data.SemiconductorList[device].Math_Vmax * (1 - margin) > math_Vmax * 2 || Data.SemiconductorList[device].Math_Imax * (1 - margin) > math_Imax * 2))
+            if (isCheckExcess && (Data.SemiconductorList[device].Math_Vmax * (1 - margin) > math_Vmax * (1 + excess) || Data.SemiconductorList[device].Math_Imax * (1 - margin) > math_Imax * (1 + excess)))
             {
                 return false;
             }

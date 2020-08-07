@@ -5,6 +5,8 @@ namespace PV_analysis.Components
     internal class Capacitor : Component
     {
         //限制条件
+        private static readonly bool isCheckExcess = false; //是否检查过剩容量
+        private static readonly double excess = 1; //允许过剩容量
         private double margin = 0.1; //裕量
         private int numberMax = 20; //最大器件数
 
@@ -20,7 +22,7 @@ namespace PV_analysis.Components
 
         //电路参数
         private double currentRMS; //电容电流有效值
-        private double[,] currentRMSForEvaluation; //电容电流有效值（用于评估）
+        private double[,] currentRMSForEvaluation = new double[5, 7]; //电容电流有效值（用于评估）
 
         /// <summary>
         /// 初始化
@@ -102,6 +104,8 @@ namespace PV_analysis.Components
                         numberParallelConnected = N;
                         if (Validate()) //验证该电容是否可用
                         {
+                            M = numberMax; //对于同种电容，只允许一个可行设计方案
+                            N = numberMax;
                             Evaluate();
                             CalcVolume();
                             CalcCost();
@@ -117,15 +121,32 @@ namespace PV_analysis.Components
         /// </summary>
         private void Evaluate()
         {
-            for (int m = 0; m < Config.CGC_VOLTAGE_RATIO.Length; m++) //对不同输入电压进行计算
+            int m = Config.CGC_VOLTAGE_RATIO.Length;
+            int n = Config.CGC_POWER_RATIO.Length;
+
+            if (!VoltageVariable) //输入电压不变
             {
-                for (int n = 0; n < Config.CGC_POWER_RATIO.Length; n++) //对不同功率点进行计算
+                m = 1;
+            }
+
+            for (int i = 0; i < m; i++) //对不同输入电压进行计算
+            {
+                for (int j = n - 1; j >= 0; j--) //对不同功率点进行计算
                 {
-                    SelectParameters(m, n);
-                    powerLossEvaluation += powerLoss * Config.CGC_POWER_WEIGHT[n] / Config.CGC_POWER_RATIO[n]; //计算损耗评估值
+                    SelectParameters(i, j); //设置对应条件下的电路参数
+                    CalcPowerLoss(); //计算对应条件下的损耗
+                    if (PowerVariable)
+                    {
+                        powerLossEvaluation += powerLoss * Config.CGC_POWER_WEIGHT[j] / Config.CGC_POWER_RATIO[j]; //计算损耗评估值
+                    }
+                    else //若负载不变，则只评估满载
+                    {
+                        powerLossEvaluation = powerLoss;
+                        break;
+                    }
                 }
             }
-            powerLossEvaluation /= Config.CGC_VOLTAGE_RATIO.Length;
+            powerLossEvaluation /= m;
         }
 
         /// <summary>
@@ -139,23 +160,28 @@ namespace PV_analysis.Components
             {
                 return false;
             }
-            else
+
+            //验证当前参数组的参数是否已经给定
+            if (voltageMax == 0 || capacitor == 0)
             {
-                //验证当前参数组的参数是否已经给定
-                if (voltageMax == 0 || capacitor == 0)
-                {
-                    return false;
-                }
-                else
-                {
-                    if (Data.CapacitorList[device].Math_Un * (1 - margin) * numberSeriesConnected < voltageMax
-                        || Data.CapacitorList[device].Math_C * numberParallelConnected / numberSeriesConnected < capacitor * 1e6
-                        || Data.CapacitorList[device].Math_Irms * (1 - margin) * numberParallelConnected < currentRMSMax)
-                    {
-                        return false;
-                    }
-                }
+                return false;
             }
+
+            //验证电压电流应力、容值是否满足
+            if (Data.CapacitorList[device].Math_Un * (1 - margin) * numberSeriesConnected < voltageMax
+                || Data.CapacitorList[device].Math_C * numberParallelConnected / numberSeriesConnected < capacitor * 1e6
+                || Data.CapacitorList[device].Math_Irms * (1 - margin) * numberParallelConnected < currentRMSMax)
+            {
+                return false;
+            }
+
+            //容量过剩检查
+            if (isCheckExcess && (Data.CapacitorList[device].Math_Un * (1 - margin) * numberSeriesConnected > voltageMax * (1 + excess)
+                || Data.CapacitorList[device].Math_Irms * (1 - margin) * numberParallelConnected > currentRMSMax * (1 + excess)))
+            {
+                return false;
+            }
+
             return true;
         }
 

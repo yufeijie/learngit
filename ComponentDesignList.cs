@@ -84,13 +84,14 @@
         /// <param name="designList">另一个设计方案集合</param>
         public void Combine(ComponentDesignList designList)
         {
-            ComponentDesignList newList = new ComponentDesignList();
             if (head == null)
             {
-                Copy(designList);
+                head = designList.head;
+                size = designList.size;
             }
             else
             {
+                ComponentDesignList newList = new ComponentDesignList();
                 ComponentDesignData p = head;
                 while (p != null)
                 {
@@ -105,18 +106,9 @@
                     }
                     p = p.Next;
                 }
-                Copy(newList);
+                head = newList.head;
+                size = newList.size;
             }
-        }
-
-        /// <summary>
-        /// 复制另一个设计方案集合
-        /// </summary>
-        /// <param name="designList">另一个设计方案集合</param>
-        public void Copy(ComponentDesignList designList)
-        {
-            head = designList.head;
-            size = designList.size;
         }
 
         /// <summary>

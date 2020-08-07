@@ -22,10 +22,10 @@ namespace PV_analysis.Components
         //电路参数
         private double currentAverage; //电感平均电流(A) （有效值）
         private double currentRipple; //电感电流纹波(A) （峰峰值）
-        private double[,] frequencyForEvaluation; //开关频率（用于评估）
-        private double[,] currentAverageForEvaluation; //电感平均电流（用于评估）
-        private double[,] currentRippleForEvaluation; //电感电流纹波（用于评估）
-        private double[,] fluxLinkageForEvaluation; //磁链（用于评估）
+        private double[,] frequencyForEvaluation = new double[5, 7]; //开关频率（用于评估）
+        private double[,] currentAverageForEvaluation = new double[5, 7]; //电感平均电流（用于评估）
+        private double[,] currentRippleForEvaluation = new double[5, 7]; //电感电流纹波（用于评估）
+        private double[,] fluxLinkageForEvaluation = new double[5, 7]; //磁链（用于评估）
 
         /// <summary>
         /// 初始化
@@ -93,11 +93,10 @@ namespace PV_analysis.Components
                 return;
             }
 
+            //参数初始化
             double ratioWindowUtilization = 0.4; //窗口利用系数
             double magneticFluxDensityMax = 0.4; //最大工作磁密(T)
             double currentDensity = 400; //电流密度(A/cm^2)
-
-            //选取磁芯，设计并绕股数、气隙长度和匝数
             double S3 = 0.75; //有效窗口系数
             double S2 = 0.6; //填充系数
             double energyMax = 0.5 * inductanceMax * Math.Pow(currentPeakMax, 2);
@@ -140,7 +139,6 @@ namespace PV_analysis.Components
                             {
                                 continue;
                             }
-
                             wire = w;
                             Wn = Data.WireList[w].Math_Wn;
                             double Ax = Data.WireList[w].Math_A * 1e-3; //绕线截面积(cm^2)
@@ -174,7 +172,7 @@ namespace PV_analysis.Components
                                 lg = FindLgBest(lgMax, length, Aecc, magneticFluxDensityMax);
                                 N = CalcN(lg, length, Aecc);
 
-                                //损耗评估
+                                //评估
                                 Evaluate();
                                 CalcVolume();
                                 CalcCost();
@@ -191,16 +189,32 @@ namespace PV_analysis.Components
         /// </summary>
         private void Evaluate()
         {
-            for (int m = 0; m < Config.CGC_VOLTAGE_RATIO.Length; m++) //对不同输入电压进行计算
+            int m = Config.CGC_VOLTAGE_RATIO.Length;
+            int n = Config.CGC_POWER_RATIO.Length;
+
+            if (!VoltageVariable) //输入电压不变
             {
-                for (int n = 0; n < Config.CGC_POWER_RATIO.Length; n++) //对不同功率点进行计算
+                m = 1;
+            }
+
+            for (int i = 0; i < m; i++) //对不同输入电压进行计算
+            {
+                for (int j = n - 1; j >= 0; j--) //对不同功率点进行计算
                 {
-                    SelectParameters(m, n); //设置对应条件下的电路参数
+                    SelectParameters(i, j); //设置对应条件下的电路参数
                     CalcPowerLoss(); //计算对应条件下的损耗
-                    powerLossEvaluation += powerLoss * Config.CGC_POWER_WEIGHT[n] / Config.CGC_POWER_RATIO[n]; //计算损耗评估值
+                    if (PowerVariable)
+                    {
+                        powerLossEvaluation += powerLoss * Config.CGC_POWER_WEIGHT[j] / Config.CGC_POWER_RATIO[j]; //计算损耗评估值
+                    }
+                    else //若负载不变，则只评估满载
+                    {
+                        powerLossEvaluation = powerLoss;
+                        break;
+                    }
                 }
             }
-            powerLossEvaluation /= Config.CGC_VOLTAGE_RATIO.Length;
+            powerLossEvaluation /= m;
         }
 
         /// <summary>
@@ -354,7 +368,8 @@ namespace PV_analysis.Components
             costWire = MLT * 1e-2 * N * Data.WireList[wire].Price;
             cost = costCore + costWire;
         }
-
+        
+        //TODO U型磁芯
         /// <summary>
         /// 计算体积
         /// </summary>
@@ -365,8 +380,7 @@ namespace PV_analysis.Components
             double height; //高(mm)
             double A = Data.CoreList[core].Math_A; //(mm)
             double B = Data.CoreList[core].Math_B; //(mm)
-            double C = Data.CoreList[core].Math_C; //(mm)
-                                                   //TODO U型磁芯
+            double C = Data.CoreList[core].Math_C; //(mm)                                     
             double F = Data.CoreList[core].Math_C; //(mm)
             length = A;
             width = B * 2 + lg * 10 / 2; //B+气隙长度修正（lg单位为cm）
