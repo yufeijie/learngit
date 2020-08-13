@@ -2,6 +2,7 @@
 using PV_analysis.Components;
 using PV_analysis.Converters;
 using System;
+using Single = PV_analysis.Components.Single;
 
 namespace PV_analysis.Topologys
 {
@@ -202,15 +203,15 @@ namespace PV_analysis.Topologys
         {
             //初始化
             DualModule primaryDualModule = new DualModule(2);
-            DualModule MOSFET = new DualModule(2);
+            Single single = new Single(2);
             DualModule secondaryDualModule = new DualModule(1); //TODO 此处应为二极管
             Inductor resonantInductor = new Inductor(1);
             Transformer transformer = new Transformer(1);
             Capacitor resonantCapacitor = new Capacitor(1);
             Capacitor filteringCapacitor = new Capacitor(1);
-            components = new Component[] { primaryDualModule, MOSFET, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
+            components = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
             componentGroups = new Component[1][];
-            componentGroups[0] = new Component[] { primaryDualModule, MOSFET, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
+            componentGroups[0] = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
 
             //获取设计规格
             powerFull = converter.Math_Psys / converter.PhaseNum / converter.Number;
@@ -247,6 +248,7 @@ namespace PV_analysis.Topologys
                     //Graph graph = new Graph();
                     //graph.Add(currentSwitch_P, "iP");
                     //graph.Add(currentSwitch_S, "iS");
+                    //graph.Add(currentSwitch_D, "iD");
                     //graph.Draw();
                     currentInductorMax = Math.Max(currentInductorMax, currentInductorPeak);
                     currentInductorRMSMax = Math.Max(currentInductorRMSMax, currentInductorRMS);
@@ -258,7 +260,7 @@ namespace PV_analysis.Topologys
 
                     //设置元器件的电路参数（用于评估）
                     primaryDualModule.AddEvalParameters(i, j, voltageSwitch_P, currentSwitch_P, frequencySwitch);
-                    MOSFET.AddEvalParameters(i, j, voltageSwitch_S, currentSwitch_S, frequencySwitch);
+                    single.AddEvalParameters(i, j, voltageSwitch_S, currentSwitch_S, frequencySwitch);
                     secondaryDualModule.AddEvalParameters(i, j, voltageSwitch_D, currentSwitch_D.Copy(-1), frequencySwitch);
                     resonantInductor.AddEvalParameters(i, j, currentInductorRMS, currentInductorPeak * 2, frequencySwitch);
                     transformer.AddEvalParameters(i, j, currentInductorRMS, currentInductorPeak * 2, frequencySwitch, fluxLinkage);
@@ -275,7 +277,7 @@ namespace PV_analysis.Topologys
 
             //设置元器件的设计条件
             primaryDualModule.SetConditions(voltageInputMaxDef, currentInductorMax, frequencySwitchMax); //TODO 电流取RMS最大值 or 最大值？
-            MOSFET.SetConditions(voltageOutputDef, turnRatioTransformer * currentInductorMax, frequencySwitchMax);
+            single.SetConditions(voltageOutputDef, turnRatioTransformer * currentInductorMax, frequencySwitchMax);
             secondaryDualModule.SetConditions(voltageOutputDef, turnRatioTransformer * currentInductorMax, frequencySwitchMax);
             resonantInductor.SetConditions(inductanceResonance, currentInductorMax, frequencySwitchMax);
             transformer.SetConditions(power, currentInductorMax, frequencySwitchMax, turnRatioTransformer, fluxLinkageMax); //FIXME 磁链是否会变化？

@@ -118,7 +118,7 @@ namespace PV_analysis
             return curve;
         }
 
-        //TODO 无法处理两个端点之间
+        //TODO 无法处理边界处于两个端点之间
         /// <summary>
         /// 截断曲线的某一部分，在左右边界添加纵坐标为0的边界点
         /// </summary>
@@ -139,9 +139,9 @@ namespace PV_analysis
                     if (isFirst)
                     {
                         isFirst = false;
-                        if (!Function.EQ(now.X, start) || !Function.EQ(now.Y, 0))
+                        if (!Function.EQ(now.Y, 0))
                         {
-                            curve.Add(start, 0);
+                            curve.Add(now.X, 0);
                         }
                     }
                     curve.Add(now.X, now.Y * ratioY);
@@ -150,15 +150,15 @@ namespace PV_analysis
             }
             if (!isFirst)
             {
-                if (!Function.EQ(curve.Tail.X, end) || !Function.EQ(curve.Tail.Y, 0))
+                if (!Function.EQ(curve.Tail.Y, 0))
                 {
-                    curve.Add(end, 0);
+                    curve.Add(curve.Tail.X, 0);
                 }
             }
             return curve;
         }
 
-        //TODO 无法处理两个端点之间
+        //TODO 无法处理边界处于两个端点之间
         /// <summary>
         /// 过滤曲线的某一部分，剩余部分变为0，在左右边界添加纵坐标为0的边界点
         /// </summary>
@@ -178,13 +178,13 @@ namespace PV_analysis
                     if (isFirst)
                     {
                         isFirst = false;
-                        if (!Function.EQ(now.X, 0) || !Function.EQ(now.Y, 0))
+                        if (!Function.EQ(now.X, Head.X))
                         {
                             curve.Add(0, 0);
                         }
-                        if (!Function.EQ(now.X, start) || !Function.EQ(now.Y, 0))
+                        if (!Function.EQ(now.Y, 0))
                         {
-                            curve.Add(start, 0);
+                            curve.Add(now.X, 0);
                         }
                     }
                     curve.Add(now.X, now.Y);
@@ -193,11 +193,11 @@ namespace PV_analysis
             }
             if (!isFirst)
             {
-                if (!Function.EQ(curve.Tail.X, end) || !Function.EQ(curve.Tail.Y, 0))
+                if (!Function.EQ(curve.Tail.Y, 0))
                 {
-                    curve.Add(end, 0);
+                    curve.Add(curve.Tail.X, 0);
                 }
-                if (!Function.EQ(curve.Tail.X, Tail.X) || !Function.EQ(curve.Tail.Y, 0))
+                if (!Function.EQ(curve.Tail.X, Tail.X))
                 {
                     curve.Add(Tail.X, 0);
                 }

@@ -125,6 +125,15 @@ namespace PV_analysis
                         Id_Vsd = (int)row.GetCell(8).NumericCellValue;
                         MOSFET_RthJC = row.GetCell(12).NumericCellValue;
                         MOSFET_RthCH = row.GetCell(16).NumericCellValue;
+                        Math_Vth = row.GetCell(24).NumericCellValue;
+                        Math_gfs = row.GetCell(25).NumericCellValue;
+                        Math_Ciss = row.GetCell(26).NumericCellValue;
+                        Math_Coss = row.GetCell(27).NumericCellValue;
+                        Math_Crss = row.GetCell(28).NumericCellValue;
+                        Math_Rg = row.GetCell(29).NumericCellValue;
+                        Math_Vgs_h = row.GetCell(30).NumericCellValue;
+                        Math_Vgs_l = row.GetCell(31).NumericCellValue;
+                        Math_Rg_drive = row.GetCell(32).NumericCellValue;
                         break;
                 }
             }
