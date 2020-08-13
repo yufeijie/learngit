@@ -135,6 +135,7 @@
     <Compile Include="Systems\Structure.cs" />
     <Compile Include="Systems\ThreeLevelStructure.cs" />
     <Compile Include="Systems\TwoLevelStructure.cs" />
+    <Compile Include="Topologys\DTCSRC.cs" />
     <Compile Include="Topologys\MultiInputSoftSwitchBoost.cs" />
     <Compile Include="Topologys\InterleavedBoost.cs" />
     <Compile Include="Topologys\SRC.cs" />

@@ -140,19 +140,21 @@ namespace PV_analysis
         /// <param name="componentDesignList">器件设计方案集合</param>
         /// <param name="power">总功率</param>
         /// <param name="number">模块数</param>
-        public void Transfer(ComponentDesignList componentDesignList, double power, double number, string[] configs)
+        /// <param name="phaseNum">相数</param>
+        /// <param name="configs">变换器设计信息</param>
+        public void Transfer(ComponentDesignList componentDesignList, double power, double number, double phaseNum, string[] configs)
         {
             IComponentDesignData[] designs = componentDesignList.GetData();
             foreach (IComponentDesignData design in designs)
             {
-                double efficiency = 1 - design.PowerLoss * number / power;
-                double volume = design.Volume * number;
-                double cost = design.Cost * number;
+                double efficiency = 1 - design.PowerLoss * number * phaseNum / power;
+                double volume = design.Volume * number * phaseNum;
+                double cost = design.Cost * number * phaseNum;
                 List<string> newConfigs = new List<string>();
                 newConfigs.Add((efficiency * 100).ToString());
                 newConfigs.Add(volume.ToString());
                 newConfigs.Add((cost / 1e4).ToString());
-                newConfigs.Add((power / number).ToString());
+                newConfigs.Add((power / number / phaseNum).ToString());
                 foreach (string config in configs)
                 {
                     newConfigs.Add(config);

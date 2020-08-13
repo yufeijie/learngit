@@ -243,7 +243,7 @@ namespace PV_analysis.Topologys
 
             //设置元器件的设计条件
             dualModule.SetConditions(math_VSmax, math_ISmax, math_fs);
-            inductor.SetConditions(math_L, math_fs, math_ILmax);
+            inductor.SetConditions(math_L, math_ILmax, math_fs);
             capacitor.SetConditions(math_C, math_VCmax, math_ICrms_max);
 
             foreach (Component component in components)

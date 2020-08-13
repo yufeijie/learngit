@@ -8,6 +8,9 @@ namespace PV_analysis.Components
 {
     internal abstract class Component
     {
+        //特殊参数
+        protected bool frequencyVariable = false; //开关频率是否变化（默认不变）
+
         //基本参数
         protected int number; //同类器件数量
 

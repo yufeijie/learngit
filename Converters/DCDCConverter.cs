@@ -27,10 +27,10 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 初始化
         /// </summary>
-        /// <param name="math_Psys">系统功率</param>
-        /// <param name="math_Vin_min">最小输入电压</param>
-        /// <param name="math_Vin_max">最大输入电压</param>
-        /// <param name="math_Vo">输出电压</param>
+        /// <param name="Psys">系统功率</param>
+        /// <param name="Vin_min">最小输入电压</param>
+        /// <param name="Vin_max">最大输入电压</param>
+        /// <param name="Vo">输出电压</param>
         public DCDCConverter(double Psys, double Vin_min, double Vin_max, double Vo)
         {
             Math_Psys = Psys;
@@ -43,7 +43,7 @@ namespace PV_analysis.Converters
         /// 获取设计方案的配置信息
         /// </summary>
         /// <returns>配置信息</returns>
-        public string[] GetConfigs()
+        public override string[] GetConfigs()
         {
             string[] data = { Number.ToString(), (Math_fs / 1e3).ToString(), Topology.GetType().Name };
             return data;
@@ -69,40 +69,6 @@ namespace PV_analysis.Converters
                 default:
                     Topology = null;
                     break;
-            }
-        }
-
-        /// <summary>
-        /// 自动设计，整合设计结果（不会覆盖之前的设计结果）
-        /// </summary>
-        public void Design()
-        {
-            Topology.Design();
-            foreach (Component[] components in Topology.ComponentGroups)
-            {
-                //检查该组器件是否都有设计结果
-                bool ok = true;
-                foreach (Component component in components)
-                {
-                    if (component.DesignList.Size == 0)
-                    {
-                        Console.WriteLine(component.GetType().Name + " design Failed");
-                        ok = false;
-                        break;
-                    }
-                }
-                if (!ok) { continue; }
-                
-                //如果所有器件都有设计方案，则组合并记录
-                ComponentDesignList designCombinationList = new ComponentDesignList();
-                foreach (Component component in components) //组合各个器件的设计方案
-                {
-                    designCombinationList.Combine(component.DesignList);
-                }
-                ConverterDesignList newDesignList = new ConverterDesignList();
-                newDesignList.Transfer(designCombinationList, Math_Psys, Number, GetConfigs()); //转化为变换器设计
-                ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
-                AllDesignList.Merge(newDesignList); //记录所有设计
             }
         }
     }

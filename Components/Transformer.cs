@@ -15,18 +15,19 @@ namespace PV_analysis.Components
 
         //设计条件
         private double power; //功率(W)
-        private double frequency; //开关频率(Hz)
         private double currentPeakMax; //电流最大值(A)（原边电流最大值）
+        private double frequencyMax; //开关频率(Hz)
         private double turnRatio; //变比
-        private double fluxLinkage; //磁链
         private double fluxLinkageMax = 0; //最大磁链
 
         //电路参数
         private double currentAverage; //电感平均电流(A) （有效值）
         private double currentRipple; //电感电流纹波(A) （峰峰值）
-        private double[,] frequencyForEvaluation = new double[5, 7]; //开关频率（用于评估）
+        private double frequency; //开关频率(Hz)
+        private double fluxLinkage; //磁链
         private double[,] currentAverageForEvaluation = new double[5, 7]; //电感平均电流（用于评估）
         private double[,] currentRippleForEvaluation = new double[5, 7]; //电感电流纹波（用于评估）
+        private double[,] frequencyForEvaluation = new double[5, 7]; //开关频率（用于评估）
         private double[,] fluxLinkageForEvaluation = new double[5, 7]; //磁链（用于评估）
 
         /// <summary>
@@ -51,17 +52,17 @@ namespace PV_analysis.Components
         /// 设置设计条件
         /// </summary>
         /// <param name="power">功率</param>
-        /// <param name="frequency">开关频率</param>
         /// <param name="currentPeakMax">电流最大值</param>
+        /// <param name="frequencyMax">最大开关频率</param>
         /// <param name="turnRatio">变比</param>
-        /// <param name="fluxLinkage">磁链</param>
-        public void SetDesignCondition(double power, double frequency, double currentPeakMax, double turnRatio, double fluxLinkage)
+        /// <param name="fluxLinkageMax">最大磁链</param>
+        public void SetConditions(double power, double currentPeakMax, double frequencyMax, double turnRatio, double fluxLinkageMax)
         {
             this.power = power;
-            this.frequency = frequency;
+            this.frequencyMax = frequencyMax;
             this.currentPeakMax = currentPeakMax;
             this.turnRatio = turnRatio;
-            this.fluxLinkage = fluxLinkage;
+            this.fluxLinkageMax = fluxLinkageMax;
         }
 
         /// <summary>
@@ -78,6 +79,24 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 添加电路参数（用于评估）
+        /// </summary>
+        /// <param name="m">输入电压对应编号</param>
+        /// <param name="n">负载点对应编号</param>
+        /// <param name="currentAverage">电感平均电流</param>
+        /// <param name="currentRipple">电感电流纹波</param>
+        /// <param name="frequency">开关频率</param>
+        /// <param name="fluxLinkage">磁链</param>
+        public void AddEvalParameters(int m, int n, double currentAverage, double currentRipple, double frequency, double fluxLinkage)
+        {
+            currentAverageForEvaluation[m, n] = currentAverage;
+            currentRippleForEvaluation[m, n] = currentRipple;
+            frequencyVariable = true;
+            frequencyForEvaluation[m, n] = frequency;
+            fluxLinkageForEvaluation[m, n] = fluxLinkage;
+        }
+
+        /// <summary>
         /// 选择电路参数用于当前计算
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
@@ -86,6 +105,16 @@ namespace PV_analysis.Components
         {
             currentAverage = currentAverageForEvaluation[m, n];
             currentRipple = currentRippleForEvaluation[m, n];
+            if (frequencyVariable)
+            {
+                frequency = frequencyForEvaluation[m, n];
+                fluxLinkage = fluxLinkageForEvaluation[m, n];
+            }
+            else
+            {
+                frequency = frequencyMax;
+                fluxLinkage = fluxLinkageMax;
+            }
         }
 
         /// <summary>
@@ -106,7 +135,7 @@ namespace PV_analysis.Components
             double S3 = 0.75; //有效窗口系数
             double S2 = 0.6; //填充系数
             double Axp = currentPeakMax / currentDensity; //原边满足电流密度所需裸线面积(cm^2)
-            double areaProduct = 2 * power * 1e4 / (ratioWaveform * ratioWindowUtilization * magneticFluxDensityMax * currentDensity * frequency); //所需磁芯面积积最小值(cm^4)
+            double areaProduct = 2 * power * 1e4 / (ratioWaveform * ratioWindowUtilization * magneticFluxDensityMax * currentDensity * frequencyMax); //所需磁芯面积积最小值(cm^4)
 
             //选取磁芯（视在功率需具体计算）
             for (int j = 1; j <= numberCoreMax; j++) //采用不同的磁芯数量
@@ -125,7 +154,7 @@ namespace PV_analysis.Components
 
                         //选取绕线
                         //System.out.println(AP+" "+areaProduct+" "+(int)Math.ceil(Axp/AxpAWG));
-                        double delta = Math.Sqrt(lowCu / (Math.PI * miu0 * miuCu * frequency)) * 1e2; //集肤深度(cm)
+                        double delta = Math.Sqrt(lowCu / (Math.PI * miu0 * miuCu * frequencyMax)) * 1e2; //集肤深度(cm)
                         for (int w = 0; w < Data.WireList.Count; w++)
                         {
                             //集肤深度验证
@@ -144,8 +173,8 @@ namespace PV_analysis.Components
                             Wns = Data.WireList[w].Math_Wn; //副边并绕股数
                             double Ax = Data.WireList[w].Math_A * 1e-3; //绕线截面积(cm^2)
                             //绕线设计 FIXME Np:Ns匝比可能不等于变比（变比不为整数时）
-                            Np = (int)Math.Ceiling(0.5 * fluxLinkage / (magneticFluxDensityMax * Aecc * 1e-4)); //原边绕组匝数
-                            //this.Np = (int)Math.ceil(this.voltageInput*1e4/(ratioWaveform*magneticFluxDensityMax*this.frequency*Aecc)); //原边绕组匝数
+                            Np = (int)Math.Ceiling(0.5 * fluxLinkageMax / (magneticFluxDensityMax * Aecc * 1e-4)); //原边绕组匝数
+                            //this.Np = (int)Math.ceil(this.voltageInput*1e4/(ratioWaveform*magneticFluxDensityMax*this.frequencyMax*Aecc)); //原边绕组匝数
                             for (; Np < 1e5; Np++)
                             {
                                 if (Np < 0)

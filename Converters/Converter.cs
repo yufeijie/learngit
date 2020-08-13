@@ -110,5 +110,45 @@ namespace PV_analysis.Converters
 		/// </summary>
 		public ConverterDesignList AllDesignList { get; } = new ConverterDesignList() { IsAll = true };
 
+		/// <summary>
+		/// 获取设计方案的配置信息
+		/// </summary>
+		/// <returns>配置信息</returns>
+		public abstract string[] GetConfigs();
+
+		/// <summary>
+		/// 自动设计，整合设计结果（不会覆盖之前的设计结果）
+		/// </summary>
+		public void Design()
+		{
+			Topology.Design();
+			foreach (Component[] components in Topology.ComponentGroups)
+			{
+				//检查该组器件是否都有设计结果
+				bool ok = true;
+				foreach (Component component in components)
+				{
+					if (component.DesignList.Size == 0)
+					{
+						Console.WriteLine(component.GetType().Name + " design Failed");
+						ok = false;
+						break;
+					}
+				}
+				if (!ok) { continue; }
+
+				//如果所有器件都有设计方案，则组合并记录
+				ComponentDesignList designCombinationList = new ComponentDesignList();
+				foreach (Component component in components) //组合各个器件的设计方案
+				{
+					designCombinationList.Combine(component.DesignList);
+				}
+				//TODO 散热器设计
+				ConverterDesignList newDesignList = new ConverterDesignList();
+				newDesignList.Transfer(designCombinationList, Math_Psys, Number, PhaseNum, GetConfigs()); //转化为变换器设计
+				ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
+				AllDesignList.Merge(newDesignList); //记录所有设计
+			}
+		}
 	}
 }

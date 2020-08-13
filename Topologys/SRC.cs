@@ -12,7 +12,7 @@ namespace PV_analysis.Topologys
     {
         //特殊参数
         private bool isLeakageInductanceIntegrated = true; //是否认为谐振电感集成在变压器中
-        
+
         //可选参数
         //private double ratioVoltageRipple; //电压纹波系数
 
@@ -27,8 +27,6 @@ namespace PV_analysis.Topologys
 
         //给定参数
         private double voltageInputDef; //模块输入电压预设值
-        private double voltageInputMinDef; //模块输入电压预设最小值
-        private double voltageInputMaxDef; //模块输入电压预设最大值
         private double voltageOutputDef; //模块输出电压预设值
         private double qualityFactorDef; //品质因数预设值
 
@@ -45,16 +43,7 @@ namespace PV_analysis.Topologys
         private double resistanceLoad; //负载等效电阻
         private double time0; //过零点
         private double currentOutput; //输出电流
-        private double conductionMode; //电流导通模式 0->DCM 1->CCM
-        private double gain; //变换器增益
-        private double timeDelay; //DTC-SRC第一阶段时间
         private double fluxLinkage; //磁链
-
-        //标幺值参数
-        private double voltageBase; //电压基值
-        private double currentBase; //电流基值
-        private double frequencyBase; //频率基值
-        private double timeCycleBase; //周期基值
 
         //需设计的电路参数
         private double turnRatioTransformer; //变压器匝比
@@ -73,8 +62,8 @@ namespace PV_analysis.Topologys
         private double voltageCapacitorMax; //电容电压最大值
         private double currentCapacitorFilterRMS; //滤波电容电流有效值
         private double currentCapacitorFilterRMSMax; //滤波电容电流有效值最大值
-        private double voltageSwitch_P; //开关器件电压
-        private double voltageSwitch_S; //开关器件电压
+        private double voltageSwitch_P; //原边开关器件电压
+        private double voltageSwitch_S; //副边开关器件电压
 
         //电压、电流波形
         private Curve currentSwitch_P; //原边开关器件电流波形
@@ -185,8 +174,8 @@ namespace PV_analysis.Topologys
         public override void Design()
         {
             //初始化
-            DualModule primaryDualModule = new DualModule(2) { VoltageVariable = false};
-            DualModule secondaryDualModule = new DualModule(2) { VoltageVariable = false };
+            DualModule primaryDualModule = new DualModule(2) { VoltageVariable = false };
+            DualModule secondaryDualModule = new DualModule(2) { VoltageVariable = false }; //TODO 此处应为二极管
             Inductor resonantInductor = new Inductor(1) { VoltageVariable = false };
             Transformer transformer = new Transformer(1) { VoltageVariable = false };
             Capacitor resonantCapacitor = new Capacitor(1) { VoltageVariable = false };
@@ -243,10 +232,10 @@ namespace PV_analysis.Topologys
             //设置元器件的设计条件
             primaryDualModule.SetConditions(voltageInput, currentInductorMax, frequencySwitch);
             secondaryDualModule.SetConditions(voltageOutputDef, turnRatioTransformer * currentInductorMax, frequencySwitch);
-            resonantInductor.SetConditions(inductanceResonance, frequencySwitch, currentInductorMax);
-            transformer.SetDesignCondition(power, frequencySwitch, currentInductorMax, turnRatioTransformer, fluxLinkage); //FIXME 磁链是否会变化？
+            resonantInductor.SetConditions(inductanceResonance, currentInductorMax, frequencySwitch);
+            transformer.SetConditions(power, currentInductorMax, frequencySwitch, turnRatioTransformer, fluxLinkage); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(capacitanceResonance, voltageCapacitorMax, currentInductorRMSMax);
-            filteringCapacitor.SetConditions(200 * 1e-6, voltageOutputDef, currentCapacitorFilterRMSMax);
+            filteringCapacitor.SetConditions(200 * 1e-6, voltageOutputDef, currentCapacitorFilterRMSMax); //TODO 滤波电容的设计
 
             foreach (Component component in components)
             {

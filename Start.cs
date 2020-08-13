@@ -19,6 +19,7 @@ namespace PV_analysis
 
             EvaluateDCDCconverter();
             //EvaluateIsolatedDCDCconverter();
+            //EvaluateIsolatedDCDCconverter_TwoLevel();
         }
 
         public static void EvaluateDCDCconverter()
@@ -112,6 +113,59 @@ namespace PV_analysis
             List<string> conditions = new List<String>();
             conditions.Add(Psys.ToString());
             conditions.Add(Vin.ToString());
+            conditions.Add(Vo.ToString());
+            conditions.Add(Q.ToString());
+            conditions.Add(NumberRangeToString(numberRange));
+            conditions.Add(TopologyRangeToString(topologyRange));
+            conditions.Add(FrequencyRangeToString(frequencyRange));
+
+            Data.Record(converter.GetType().Name + "_Pareto", conditionTitles.ToArray(), conditions.ToArray(), converter.ParetoDesignList);
+            Data.Record(converter.GetType().Name + "_all", conditionTitles.ToArray(), conditions.ToArray(), converter.AllDesignList);
+        }
+
+        public static void EvaluateIsolatedDCDCconverter_TwoLevel()
+        {
+            Formula.Init();
+            double Psys = 6e6;
+            double Vin_min = 860;
+            double Vin_max = 1300;
+            double Vo = 1300;
+            double Q = 1;
+            int[] numberRange = GenerateNumberRange(20, 20);
+            string[] topologyRange = { "DTCSRC" };
+            double[] frequencyRange = GenerateFrequencyRange(25e3, 25e3);
+
+            IsolatedDCDCConverter converter = new IsolatedDCDCConverter(Psys, Vin_min, Vin_max, Vo, Q);
+
+            foreach (string tp in topologyRange) //拓扑变化
+            {
+                converter.CreateTopology(tp);
+                foreach (int n in numberRange) //模块数变化
+                {
+                    converter.Number = n;
+                    foreach (double fr in frequencyRange) //谐振频率变化
+                    {
+                        converter.Math_fr = fr;
+                        Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
+                        converter.Design();
+                    }
+                }
+            }
+
+            List<string> conditionTitles = new List<String>();
+            conditionTitles.Add("Total power");
+            conditionTitles.Add("Minimum input voltage");
+            conditionTitles.Add("Maximum input voltage");
+            conditionTitles.Add("Output voltage");
+            conditionTitles.Add("Quality factor");
+            conditionTitles.Add("Number range");
+            conditionTitles.Add("Topology range");
+            conditionTitles.Add("Resonance frequency range(kHz)");
+
+            List<string> conditions = new List<String>();
+            conditions.Add(Psys.ToString());
+            conditions.Add(Vin_min.ToString());
+            conditions.Add(Vin_max.ToString());
             conditions.Add(Vo.ToString());
             conditions.Add(Q.ToString());
             conditions.Add(NumberRangeToString(numberRange));

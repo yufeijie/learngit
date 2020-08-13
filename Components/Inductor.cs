@@ -14,18 +14,17 @@ namespace PV_analysis.Components
         private int N; //匝数
 
         //设计条件
-        private double frequency; //开关频率(Hz)
-        private double frequencyMax; //最高开关频率
+        private double inductance; //感值(H)
         private double currentPeakMax; //电流最大值(A)（原边电流最大值）
-        private double inductanceMax; //电感最大值(H)
+        private double frequencyMax; //最高开关频率
 
         //电路参数
         private double currentAverage; //电感平均电流(A) （有效值）
         private double currentRipple; //电感电流纹波(A) （峰峰值）
-        private double[,] frequencyForEvaluation = new double[5, 7]; //开关频率（用于评估）
+        private double frequency; //开关频率(Hz)
         private double[,] currentAverageForEvaluation = new double[5, 7]; //电感平均电流（用于评估）
         private double[,] currentRippleForEvaluation = new double[5, 7]; //电感电流纹波（用于评估）
-        private double[,] fluxLinkageForEvaluation = new double[5, 7]; //磁链（用于评估）
+        private double[,] frequencyForEvaluation = new double[5, 7]; //开关频率（用于评估）
 
         /// <summary>
         /// 初始化
@@ -48,14 +47,14 @@ namespace PV_analysis.Components
         /// <summary>
         /// 设置设计条件
         /// </summary>
-        /// <param name="inductanceMax">电感最大值</param>
-        /// <param name="frequency">开关频率</param>
+        /// <param name="inductance">感值</param>
         /// <param name="currentPeakMax">电流最大值</param>
-        public void SetConditions(double inductanceMax, double frequency, double currentPeakMax)
+        /// <param name="frequencyMax">最大开关频率</param>
+        public void SetConditions(double inductance, double currentPeakMax, double frequencyMax)
         {
-            this.inductanceMax = inductanceMax;
-            this.frequency = frequency;
+            this.inductance = inductance;
             this.currentPeakMax = currentPeakMax;
+            this.frequencyMax = frequencyMax;
         }
 
         /// <summary>
@@ -72,6 +71,22 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 添加电路参数（用于评估）
+        /// </summary>
+        /// <param name="m">输入电压对应编号</param>
+        /// <param name="n">负载点对应编号</param>
+        /// <param name="currentAverage">电感平均电流</param>
+        /// <param name="currentRipple">电感电流纹波</param>
+        /// <param name="frequency">开关频率</param>
+        public void AddEvalParameters(int m, int n, double currentAverage, double currentRipple, double frequency)
+        {
+            currentAverageForEvaluation[m, n] = currentAverage;
+            currentRippleForEvaluation[m, n] = currentRipple;
+            frequencyVariable = true;
+            frequencyForEvaluation[m, n] = frequency;
+        }
+
+        /// <summary>
         /// 选择电路参数用于当前计算
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
@@ -80,6 +95,14 @@ namespace PV_analysis.Components
         {
             currentAverage = currentAverageForEvaluation[m, n];
             currentRipple = currentRippleForEvaluation[m, n];
+            if (frequencyVariable)
+            {
+                frequency = frequencyForEvaluation[m, n];
+            }
+            else
+            {
+                frequency = frequencyMax;
+            }
         }
 
         /// <summary>
@@ -88,7 +111,7 @@ namespace PV_analysis.Components
         public override void Design()
         {
             //若感值为0则退出设计
-            if (inductanceMax == 0)
+            if (inductance == 0)
             {
                 return;
             }
@@ -99,7 +122,7 @@ namespace PV_analysis.Components
             double currentDensity = 400; //电流密度(A/cm^2)
             double S3 = 0.75; //有效窗口系数
             double S2 = 0.6; //填充系数
-            double energyMax = 0.5 * inductanceMax * Math.Pow(currentPeakMax, 2);
+            double energyMax = 0.5 * inductance * Math.Pow(currentPeakMax, 2);
             double areaProduct = 2 * energyMax / (ratioWindowUtilization * magneticFluxDensityMax * currentDensity) * 1e4; //所需磁芯面积积最小值(cm^4)
             double Axp = currentPeakMax / currentDensity; //满足电流密度所需裸线面积(cm^2)
 
@@ -125,7 +148,7 @@ namespace PV_analysis.Components
 
                         //选取绕线
                         //System.out.println(AP+" "+areaProduct+" "+(int)Math.ceil(Axp/AxpAWG));
-                        double delta = Math.Sqrt(lowCu / (Math.PI * miu0 * miuCu * frequency)) * 1e2; //集肤深度(cm)
+                        double delta = Math.Sqrt(lowCu / (Math.PI * miu0 * miuCu * frequencyMax)) * 1e2; //集肤深度(cm)
                         for (int w = 0; w < Data.WireList.Count; w++)
                         {
                             //集肤深度验证
@@ -309,7 +332,7 @@ namespace PV_analysis.Components
         private int CalcN(double lg, double G, double Aecc)
         {
             double FF = CalcFF(lg, G, Aecc);
-            return (int)Math.Ceiling(Math.Sqrt(lg * inductanceMax / (0.4 * Math.PI * Aecc * FF * 1e-8)));
+            return (int)Math.Ceiling(Math.Sqrt(lg * inductance / (0.4 * Math.PI * Aecc * FF * 1e-8)));
         }
 
         /// <summary>

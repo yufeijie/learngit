@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using static PV_analysis.Curve;
 
 namespace PV_analysis.Components
@@ -21,17 +20,20 @@ namespace PV_analysis.Components
         private bool isPowerLossBalance; //损耗是否均衡，若均衡则只需计算上管的损耗，默认为均衡
 
         //设计条件
+        //TODO 选取器件时考虑fsmax
         private double math_Vmax; //电压应力
         private double math_Imax; //电流应力
-        private double math_fs; //开关频率
+        private double math_fs_max; //最大开关频率
 
         //电路参数
         private double math_Vsw; //开通/关断电压
         private Curve curve_iUp; //上管电流波形
         private Curve curve_iDown; //下管电流波形
+        private double math_fs; //开关频率        
         private double[,] math_Vsw_eval = new double[5, 7]; //开通/关断电压（用于评估）
         private Curve[,] curve_iUp_eval = new Curve[5, 7]; //上管电流波形（用于评估）
         private Curve[,] curve_iDown_eval = new Curve[5, 7]; //下管电流波形（用于评估）
+        private double[,] math_fs_eval = new double[5, 7]; //开关频率（用于评估）
 
         //损耗参数（同类器件中其中一个的损耗）
         private double[] math_PTcon; //主管通态损耗
@@ -87,12 +89,12 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="Vmax">电压应力</param>
         /// <param name="Imax">电流应力</param>
-        /// <param name="fs">开关频率</param>
-        public void SetConditions(double Vmax, double Imax, double fs)
+        /// <param name="fs_max">最大开关频率</param>
+        public void SetConditions(double Vmax, double Imax, double fs_max)
         {
             math_Vmax = Vmax;
             math_Imax = Imax;
-            math_fs = fs;
+            math_fs_max = fs_max;
         }
 
         /// <summary>
@@ -124,6 +126,22 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 添加电路参数（用于评估）
+        /// </summary>
+        /// <param name="m">输入电压对应编号</param>
+        /// <param name="n">负载点对应编号</param>
+        /// <param name="Vsw">开关电压</param>
+        /// <param name="iUp">上管电流波形</param>
+        /// <param name="fs">开关频率</param>
+        public void AddEvalParameters(int m, int n, double Vsw, Curve iUp, double fs)
+        {
+            math_Vsw_eval[m, n] = Vsw;
+            curve_iUp_eval[m, n] = iUp;
+            frequencyVariable = true;
+            math_fs_eval[m, n] = fs;
+        }
+
+        /// <summary>
         /// 选择电路参数用于当前计算
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
@@ -133,6 +151,14 @@ namespace PV_analysis.Components
             math_Vsw = math_Vsw_eval[m, n];
             curve_iUp = curve_iUp_eval[m, n];
             curve_iDown = curve_iDown_eval[m, n];
+            if (frequencyVariable)
+            {
+                math_fs = math_fs_eval[m, n];
+            }
+            else
+            {
+                math_fs = math_fs_max;
+            }
         }
 
         /// <summary>
@@ -222,7 +248,7 @@ namespace PV_analysis.Components
             }
 
             //验证SiC器件的选用是否符合限制条件
-            if ((Data.SemiconductorList[device].Category.Equals("SiC-Module")) && (!selectSiC || math_fs < 50e3))
+            if ((Data.SemiconductorList[device].Category.Equals("SiC-Module")) && (!selectSiC || math_fs_max < 50e3))
             {
                 return false;
             }
@@ -436,7 +462,7 @@ namespace PV_analysis.Components
             double u1 = Data.CurveList[id].GetValue(i1); //获取左边界电流对应的导通压降
             double u2 = Data.CurveList[id].GetValue(i2); //获取右边界电流对应的导通压降
             double energy = Function.IntegrateTwoLinear(t1, i1, u1, t2, i2, u2); //计算导通能耗
-            return energy * this.math_fs;
+            return energy * math_fs;
         }
 
         /// <summary>
