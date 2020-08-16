@@ -28,6 +28,11 @@ namespace PV_analysis
             Anchor = AnchorStyles.None
         };
 
+        public void Add(Curve curve)
+        {
+            Add(curve, curve.Name);
+        }
+
         public void Add(Curve curve, string name)
         {
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();

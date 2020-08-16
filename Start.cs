@@ -17,12 +17,13 @@ namespace PV_analysis
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new MainForm());
 
-            EvaluateDCDCconverter();
-            //EvaluateIsolatedDCDCconverter();
-            //EvaluateIsolatedDCDCconverter_TwoLevel();
+            //EvaluateDCDCConverter();
+            //EvaluateIsolatedDCDCConverter();
+            //EvaluateIsolatedDCDCConverter_TwoLevel();
+            EvaluateDCACConverter();
         }
 
-        public static void EvaluateDCDCconverter()
+        public static void EvaluateDCDCConverter()
         {
             double Psys = 6e6;
             double Vin_min = 860;
@@ -71,7 +72,7 @@ namespace PV_analysis
             Data.Record(converter.GetType().Name + "_all", conditionTitles.ToArray(), conditions.ToArray(), converter.AllDesignList);
         }
 
-        public static void EvaluateIsolatedDCDCconverter()
+        public static void EvaluateIsolatedDCDCConverter()
         {
             Formula.Init();
             double Psys = 6e6;
@@ -123,7 +124,7 @@ namespace PV_analysis
             Data.Record(converter.GetType().Name + "_all", conditionTitles.ToArray(), conditions.ToArray(), converter.AllDesignList);
         }
 
-        public static void EvaluateIsolatedDCDCconverter_TwoLevel()
+        public static void EvaluateIsolatedDCDCConverter_TwoLevel()
         {
             Formula.Init();
             double Psys = 6e6;
@@ -168,6 +169,57 @@ namespace PV_analysis
             conditions.Add(Vin_max.ToString());
             conditions.Add(Vo.ToString());
             conditions.Add(Q.ToString());
+            conditions.Add(NumberRangeToString(numberRange));
+            conditions.Add(TopologyRangeToString(topologyRange));
+            conditions.Add(FrequencyRangeToString(frequencyRange));
+
+            Data.Record(converter.GetType().Name + "_Pareto", conditionTitles.ToArray(), conditions.ToArray(), converter.ParetoDesignList);
+            Data.Record(converter.GetType().Name + "_all", conditionTitles.ToArray(), conditions.ToArray(), converter.AllDesignList);
+        }
+
+        public static void EvaluateDCACConverter()
+        {
+            double Psys = 6e6;
+            double Vg = 35e3; //并网电压（线电压）
+            double Vo = Vg / Math.Sqrt(3); //输出电压（并网相电压）
+            double fg = 50; //并网频率
+            double phi = 0; //功率因数角(rad)
+
+            int[] numberRange = GenerateNumberRange(20, 30);
+            string[] topologyRange = { "CHB_PSPWM" };
+            double[] frequencyRange = GenerateFrequencyRange(10e3, 10e3);
+
+            DCACConverter converter = new DCACConverter(Psys, Vo, fg, phi);
+
+            foreach (string tp in topologyRange) //拓扑变化
+            {
+                converter.CreateTopology(tp);
+                foreach (int n in numberRange) //模块数变化
+                {
+                    converter.Number = n;
+                    foreach (double fs in frequencyRange) //谐振频率变化
+                    {
+                        converter.Math_fs = fs;
+                        Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
+                        converter.Design();
+                    }
+                }
+            }
+
+            List<string> conditionTitles = new List<String>();
+            conditionTitles.Add("Total power");
+            conditionTitles.Add("Grid voltage");
+            conditionTitles.Add("Grid frequency(Hz)");
+            conditionTitles.Add("Power factor angle(rad)");
+            conditionTitles.Add("Number range");
+            conditionTitles.Add("Topology range");
+            conditionTitles.Add("Frequency range(kHz)");
+
+            List<string> conditions = new List<String>();
+            conditions.Add(Psys.ToString());
+            conditions.Add(Vg.ToString());
+            conditions.Add(fg.ToString());
+            conditions.Add(phi.ToString());
             conditions.Add(NumberRangeToString(numberRange));
             conditions.Add(TopologyRangeToString(topologyRange));
             conditions.Add(FrequencyRangeToString(frequencyRange));

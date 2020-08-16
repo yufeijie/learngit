@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Capacitor.cs" />
+    <Compile Include="Components\CHBModule.cs" />
     <Compile Include="Components\Single.cs" />
     <Compile Include="Components\DualModule.cs" />
     <Compile Include="Components\Component.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Topologys\DTCSRC.cs" />
     <Compile Include="Topologys\MultiInputSoftSwitchBoost.cs" />
     <Compile Include="Topologys\InterleavedBoost.cs" />
+    <Compile Include="Topologys\CHB_PSPWM.cs" />
     <Compile Include="Topologys\SRC.cs" />
     <Compile Include="Topologys\TwoLevelBoost.cs" />
     <Compile Include="Topologys\ThreeLevelBoost.cs" />

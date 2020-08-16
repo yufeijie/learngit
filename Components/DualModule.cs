@@ -486,11 +486,11 @@ namespace PV_analysis.Components
             double Tc;
             if (Data.SemiconductorList[device].Category.Equals("SiC-Module"))
             {
-                Tc = math_Tj_max - Math.Max(Pmain * Data.SemiconductorList[device].IGBT_RthJC, Pdiode * Data.SemiconductorList[device].Diode_RthJC);
+                Tc = math_Tj_max - Math.Max(Pmain * Data.SemiconductorList[device].MOSFET_RthJC, Pdiode * Data.SemiconductorList[device].Diode_RthJC);
             }
             else
             {
-                Tc = math_Tj_max - Math.Max(Pmain * Data.SemiconductorList[device].MOSFET_RthJC, Pdiode * Data.SemiconductorList[device].Diode_RthJC);
+                Tc = math_Tj_max - Math.Max(Pmain * Data.SemiconductorList[device].IGBT_RthJC, Pdiode * Data.SemiconductorList[device].Diode_RthJC);
             }
             double Th = Tc - (Pmain + Pdiode) * Data.SemiconductorList[device].Module_RthCH;
             if (Th < math_Th_max) //若此时的散热器温度低于允许温度，则不通过
@@ -502,11 +502,11 @@ namespace PV_analysis.Components
             Pdiode = math_PDcon[1] + math_Prr[1];
             if (Data.SemiconductorList[device].Category.Equals("SiC-Module"))
             {
-                Tc = math_Tj_max - Math.Max(Pmain * Data.SemiconductorList[device].IGBT_RthJC, Pdiode * Data.SemiconductorList[device].Diode_RthJC);
+                Tc = math_Tj_max - Math.Max(Pmain * Data.SemiconductorList[device].MOSFET_RthJC, Pdiode * Data.SemiconductorList[device].Diode_RthJC);
             }
             else
             {
-                Tc = math_Tj_max - Math.Max(Pmain * Data.SemiconductorList[device].MOSFET_RthJC, Pdiode * Data.SemiconductorList[device].Diode_RthJC);
+                Tc = math_Tj_max - Math.Max(Pmain * Data.SemiconductorList[device].IGBT_RthJC, Pdiode * Data.SemiconductorList[device].Diode_RthJC);
             }
             Th = Tc - (Pmain + Pdiode) * Data.SemiconductorList[device].Module_RthCH;
             if (Th < math_Th_max)

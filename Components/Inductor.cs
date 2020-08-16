@@ -27,6 +27,11 @@ namespace PV_analysis.Components
         private double[,] frequencyForEvaluation = new double[5, 7]; //开关频率（用于评估）
 
         /// <summary>
+        /// 是否为交流电感
+        /// </summary>
+        public bool IsAC { get; set; } = false;
+
+        /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="number">同类电感数量</param>
@@ -391,7 +396,7 @@ namespace PV_analysis.Components
             costWire = MLT * 1e-2 * N * Data.WireList[wire].Price;
             cost = costCore + costWire;
         }
-        
+
         //TODO U型磁芯
         /// <summary>
         /// 计算体积
@@ -433,6 +438,22 @@ namespace PV_analysis.Components
             double MLT = (numberCore - 1) * C * 2 + Data.CoreList[core].Math_MLT * 0.1; //一匝绕线长度(cm) 
             double Rwire = lowCu * MLT * 1e-2 * N / (AxpAWG * 1e-4); //单根绕线电阻(ohm)
             powerLossCu = Math.Pow(currentAverage, 2) * Rwire; //计算铜损
+            if (IsAC)
+            {
+                Rwire = lowCu * MLT * 1e-2 * N / (AxpAWG * 1e-4); //直流电阻
+                double r = Data.WireList[wire].Math_Db / 2 * 0.1;
+                double delta = Math.Sqrt(lowCu / (Math.PI * miu0 * miuCu * frequency)) * 1e2; //集肤深度(cm)
+                double Rwire1; //开关频率下的电阻 FIXME
+                if (r < delta)
+                {
+                    Rwire1 = Rwire;
+                }
+                else
+                {
+                    Rwire1 = Rwire * (r * r) / (delta * delta);
+                }
+                powerLossCu +=  Math.Pow(currentRipple, 2) * Rwire1 / Wn; //计算纹波铜损
+            }
         }
 
         /// <summary>
@@ -440,6 +461,7 @@ namespace PV_analysis.Components
         /// </summary>
         private void CalcPowerLossFe()
         {
+            //TODO 交流磁损
             //TODO U型磁芯
             double length = Data.CoreList[core].Math_F * 2 * 0.1; //磁芯参数F(cm)
             double Aecc = numberCore * Data.CoreList[core].Math_Ae * 1e-2; //等效磁芯面积(cm^2)
