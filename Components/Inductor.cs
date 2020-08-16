@@ -10,7 +10,6 @@ namespace PV_analysis.Components
 
         //器件参数
         private double lg; //气隙长度(cm)
-        private int Wn; //并绕股数 TODO 用利兹线设计时，多余的参数
         private int N; //匝数
 
         //设计条件
@@ -46,7 +45,7 @@ namespace PV_analysis.Components
         /// <returns>配置信息</returns>
         private string[] GetConfigs()
         {
-            return new string[] { "FilteringInductor", number.ToString(), GetCoreType(), numberCore.ToString(), lg.ToString(), GetWireType(), Wn.ToString(), N.ToString() };
+            return new string[] { "FilteringInductor", number.ToString(), GetCoreType(), numberCore.ToString(), lg.ToString(), GetWireType(), N.ToString() };
         }
 
         /// <summary>
@@ -168,7 +167,6 @@ namespace PV_analysis.Components
                                 continue;
                             }
                             wire = w;
-                            Wn = Data.WireList[w].Math_Wn;
                             double Ax = Data.WireList[w].Math_A * 1e-3; //绕线截面积(cm^2)
                             int Nmax = (int)Math.Floor(S2 * S3 * Aw / Ax); //满绕匝数
                             //System.out.println(AP+" "+areaProduct+" "+this.Wn+" "+Nmax);
@@ -364,10 +362,6 @@ namespace PV_analysis.Components
             {
                 return false;
             }
-            if (Wn <= 0)
-            {
-                return false;
-            }
             if (core < 0 || core >= Data.CoreList.Count)
             {
                 return false;
@@ -444,7 +438,7 @@ namespace PV_analysis.Components
                 double r = Data.WireList[wire].Math_Db / 2 * 0.1;
                 double delta = Math.Sqrt(lowCu / (Math.PI * miu0 * miuCu * frequency)) * 1e2; //集肤深度(cm)
                 double Rwire1; //开关频率下的电阻 FIXME
-                if (r < delta)
+                if (r <= delta)
                 {
                     Rwire1 = Rwire;
                 }
@@ -452,7 +446,7 @@ namespace PV_analysis.Components
                 {
                     Rwire1 = Rwire * (r * r) / (delta * delta);
                 }
-                powerLossCu +=  Math.Pow(currentRipple, 2) * Rwire1 / Wn; //计算纹波铜损
+                powerLossCu +=  Math.Pow(currentRipple, 2) * Rwire1; //计算纹波铜损
             }
         }
 

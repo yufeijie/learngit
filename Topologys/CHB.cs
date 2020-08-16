@@ -7,7 +7,7 @@ namespace PV_analysis.Topologys
     /// <summary>
     /// CHB拓扑 PSPWM调制方式
     /// </summary>
-    internal class CHB_PSPWM : Topology
+    internal class CHB : Topology
     {
         //可选参数
         private double ratioCurrentRipple = 0.2; //电流纹波系数
@@ -23,7 +23,7 @@ namespace PV_analysis.Topologys
 
         //电路参数
         //需优化参数
-        private int modulation = 0; //调制方式编号 0对应PSPWM，1对应LSPWM
+        private string modulation; //调制方式
         private double frequency; //开关频率
 
         //基本电路参数
@@ -44,60 +44,6 @@ namespace PV_analysis.Topologys
         private double voltageSwitch; //开关器件电压
         private double inductance; //感值
 
-        //总损耗参数(W)
-        private double efficiencyTotal; //整体效率
-        private double powerLossTotal; //总损耗
-        private double powerLossSwitchTotal; //全体开关器件损耗
-        private double powerLossSwitchMax; //模块开关器件损耗最大值
-        private double powerLossIgbtConductionTotal; //全体开关器件IGBT导通损耗
-        private double powerLossIgbtTurnOnTotal; //全体开关器件IGBT开通损耗
-        private double powerLossIgbtTurnOffTotal; //全体开关器件IGBT关断损耗
-        private double powerLossDiodeConductionTotal; //全体开关器件二极管导通损耗
-        private double powerLossDiodeReverseRecoverTotal; //全体开关器件二极管反向恢复损耗
-        private double powerLossEvaluationTotal; //总损耗评估值
-        private double powerLossInductor; //全体电感损耗
-        private double powerLossInductorCu; //全体电感铜损
-        private double powerLossInductorFe; //全体电感铁损
-
-        //模块损耗参数(W)
-        private double[] efficiency; //模块效率
-        private double[] powerLossBlock; //模块损耗
-        private double[] powerLossSwitch; //模块开关器件损耗
-        private double[] powerLossIgbtConduction; //模块开关器件IGBT导通损耗
-        private double[] powerLossIgbtTurnOn; //模块开关器件IGBT开通损耗
-        private double[] powerLossIgbtTurnOff; //模块开关器件IGBT关断损耗
-        private double[] powerLossDiodeConduction; //模块开关器件二极管导通损耗
-        private double[] powerLossDiodeReverseRecover; //模块开关器件二极管反向恢复损耗
-        private double[] powerLossEvaluation; //模块损耗评估值
-
-        //效率评估参数——中国效率
-        private double[] efficiencyCGCModule; //效率评估值
-
-        //总成本参数(RMB)
-        private double costTotal; //总成本
-        private double costInductor; //电感成本
-        private double costInductorCore; //电感磁芯成本
-        private double costInductorWire; //电感绕线成本
-
-        //模块成本参数(RMB)
-        private double costBlock; //模块成本
-        private double costSwitch; //开关器件成本
-        private double costHeatsink; //散热片成本
-        private double costCandD; //控制与驱动成本
-        private double costDriver; //驱动成本
-        private double costController; //控制成本
-
-        //体积参数(dm^3)
-        private double powerDensity; //功率密度(kW/dm^3)
-        private double volumeTotal; //总体积
-        private double volumeBlock; //模块体积
-        private double volumeSwitch; //开关器件体积
-        private double volumeInductor; //电感体积
-        private double volumeHeatsink; //散热片体积
-
-        //温度参数(℃)
-        private double[] temperatureHeatsink; //散热器温度
-
         //模拟波形参数
         private Curve curveVoltageOutputTotalBase; //模拟逆变器整体输出电压基波波形
         private Curve curveVoltageOutputTotal; //模拟逆变器整体输出电压波形
@@ -106,7 +52,7 @@ namespace PV_analysis.Topologys
         /// 初始化
         /// </summary>
         /// <param name="converter">所属变换器</param>
-        public CHB_PSPWM(DCACConverter converter)
+        public CHB(DCACConverter converter)
         {
             this.converter = converter;
         }
@@ -122,7 +68,7 @@ namespace PV_analysis.Topologys
 
             //生成输出电压波形
             int A = 1;
-            curveVoltageOutputTotalBase = new Curve()
+            curveVoltageOutputTotalBase = new Curve
             {
                 Category = "Sine",
                 Amplitude = Math.Sqrt(2) * voltageOutputTotal,
@@ -130,7 +76,7 @@ namespace PV_analysis.Topologys
                 InitialAngle = 0
             };
             curveVoltageOutputTotal = new Curve();
-            Curve us = new Curve()
+            Curve us = new Curve
             {
                 Name = "Us",
                 Category = "Sine",
@@ -143,7 +89,7 @@ namespace PV_analysis.Topologys
             double phi = Math.PI;
             for (int i = 0; i < number; i++)
             {
-                uc[i, 1] = new Curve()
+                uc[i, 1] = new Curve
                 {
                     Name = "Uc" + (i + 1),
                     Category = "Triangle",
@@ -151,7 +97,7 @@ namespace PV_analysis.Topologys
                     Frequency = frequency,
                     InitialAngle = phi
                 };
-                uc[i, 2] = new Curve()
+                uc[i, 2] = new Curve
                 {
                     Name = "Uc" + (i + 1) + "'",
                     Category = "Triangle",
@@ -159,15 +105,15 @@ namespace PV_analysis.Topologys
                     Frequency = frequency,
                     InitialAngle = Math.PI + phi
                 };
-                uc[i, 3] = new Curve() { Name = "g" + (i + 1) + "1" };
+                uc[i, 3] = new Curve { Name = "g" + (i + 1) + "1" };
                 uc[i, 3].Compare(us, uc[i, 1], 0, 1 / frequencyGrid);
-                uc[i, 5] = new Curve() { Name = "g" + (i + 1) + "3" };
+                uc[i, 5] = new Curve { Name = "g" + (i + 1) + "3" };
                 uc[i, 5].Compare(us, uc[i, 2], 0, 1 / frequencyGrid);
-                uc[i, 4] = new Curve() { Name = "g" + (i + 1) + "2" };
+                uc[i, 4] = new Curve { Name = "g" + (i + 1) + "2" };
                 uc[i, 4].Not(uc[i, 5]);
-                uc[i, 6] = new Curve() { Name = "g" + (i + 1) + "4" };
+                uc[i, 6] = new Curve { Name = "g" + (i + 1) + "4" };
                 uc[i, 6].Not(uc[i, 3]);
-                uc[i, 0] = new Curve() { Name = "Uo" + (i + 1) };
+                uc[i, 0] = new Curve { Name = "Uo" + (i + 1) };
                 uc[i, 0].Drive(uc[i, 3], uc[i, 4], voltageInput);
                 curveVoltageOutputTotal.Plus(uc[i, 0]);
                 phi -= Math.PI / number;
@@ -178,7 +124,7 @@ namespace PV_analysis.Topologys
             //graph.Draw();
 
             //得到输出电压波形与滤波电感感值
-            Curve ioR = new Curve() { Name = "Io_Ripple" };
+            Curve ioR = new Curve { Name = "Io_Ripple" };
             inductance = ioR.CreateCurrentRipple(curveVoltageOutputTotal, curveVoltageOutputTotalBase, Math.Sqrt(2) * currentOutputRMS * ratioCurrentRipple); //FIXME 电感对功率因素角的影响？
             currentOutputRippleRMS = ioR.CalcRMS();
             //		Curve ioR2 = new Curve("Io_Ripple'", "t(ms)", "I(A)");
@@ -217,7 +163,7 @@ namespace PV_analysis.Topologys
                   //计算占空比
                     switch (modulation)
                     {
-                        case 0: //PSPWM
+                        case "PSPWM":
                             dutyCycle[0, k] = 0.5 * ratioAmplitudeModulation * MySin(k, 0) + 0.5;
                             dutyCycle[2, k] = 0.5 * ratioAmplitudeModulation * MySin(k, 0) + 0.5;
                             //						if(2*k*this.frequencyGrid < this.frequency) {
@@ -228,7 +174,7 @@ namespace PV_analysis.Topologys
                             //							dutyCycle[2, k] = 1-this.ratioAmplitudeModulation*Math.abs(this.mySin(k, 0));
                             //						}
                             break;
-                        case 1: //LSPWM
+                        case "LSPWM":
                             dutyCycle[0, k] = number * ratioAmplitudeModulation * MySin(k, 0) - i;
                             if (dutyCycle[0, k] > 1)
                             {
@@ -299,6 +245,7 @@ namespace PV_analysis.Topologys
         public override void Design()
         {
             //初始化
+            modulation = converter.Modulation;
             number = converter.Number;
             CHBModule semiconductor = new CHBModule(1) { VoltageVariable = false, MultiNumber = number };
             Inductor inductor = new Inductor(1) { VoltageVariable = false };
@@ -328,6 +275,7 @@ namespace PV_analysis.Topologys
                 voltageOutputTotal = voltageOutput * number;
                 currentOutputRMS = powerFull / (voltageOutput * Math.Cos(anglePowerFactor));
             }
+            converter.Math_Vin = voltageInput;
 
             //计算电路参数
             DesignCircuitParam();

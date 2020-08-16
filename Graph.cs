@@ -41,7 +41,8 @@ namespace PV_analysis
             {
                 values.Add(new ObservablePoint(data[i].X, data[i].Y));
             }
-            chart.Series.Add(new LineSeries {
+            chart.Series.Add(new LineSeries
+            {
                 Title = name,
                 Values = values,
                 LineSmoothness = 0,

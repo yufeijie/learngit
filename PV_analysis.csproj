@@ -140,7 +140,7 @@
     <Compile Include="Topologys\DTCSRC.cs" />
     <Compile Include="Topologys\MultiInputSoftSwitchBoost.cs" />
     <Compile Include="Topologys\InterleavedBoost.cs" />
-    <Compile Include="Topologys\CHB_PSPWM.cs" />
+    <Compile Include="Topologys\CHB.cs" />
     <Compile Include="Topologys\SRC.cs" />
     <Compile Include="Topologys\TwoLevelBoost.cs" />
     <Compile Include="Topologys\ThreeLevelBoost.cs" />

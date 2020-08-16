@@ -75,7 +75,7 @@ namespace PV_analysis.Components
         /// <returns>配置信息</returns>
         private string[] GetConfigs()
         {
-            return new string[] { "CHBModule", GetDeviceType() };
+            return new string[] { "CHBModule", number.ToString(), GetDeviceType() };
         }
 
         /// <summary>
@@ -89,6 +89,7 @@ namespace PV_analysis.Components
             math_Vmax = Vmax;
             math_Imax = Imax;
             math_fs_max = fs_max;
+            cycleTime = 1 / math_fs_max;
         }
 
         /// <summary>
@@ -244,14 +245,14 @@ namespace PV_analysis.Components
             switch (Data.SemiconductorList[device].Configuration)
             {
                 case "Dual":
-                    semiconductorCost = MultiNumber * 2 * Data.SemiconductorList[device].Price;
+                    semiconductorCost = 2 * Data.SemiconductorList[device].Price;
                     break;
                 case "Fourpack":
-                    semiconductorCost = MultiNumber * Data.SemiconductorList[device].Price;
+                    semiconductorCost = Data.SemiconductorList[device].Price;
                     break;
             }
             //TODO 驱动需要不同
-            driverCost = MultiNumber * 4 * 31.4253; //IX2120B IXYS MOQ100 Mouser
+            driverCost = 4 * 31.4253; //IX2120B IXYS MOQ100 Mouser
             cost = semiconductorCost + driverCost;
         }
 
@@ -263,10 +264,10 @@ namespace PV_analysis.Components
             switch (Data.SemiconductorList[device].Configuration)
             {
                 case "Dual":
-                    volume = MultiNumber * 2 * Data.SemiconductorList[device].Volume;
+                    volume = 2 * Data.SemiconductorList[device].Volume;
                     break;
                 case "Fourpack":
-                    volume = MultiNumber * Data.SemiconductorList[device].Volume;
+                    volume = Data.SemiconductorList[device].Volume;
                     break;
             }
         }
@@ -352,6 +353,8 @@ namespace PV_analysis.Components
                     powerLoss += math_PTcon[i, j] + math_Pon[i, j] + math_Poff[i, j] + math_PDcon[i, j] + math_Prr[i, j];
                 }
             }
+
+            powerLoss /= MultiNumber;
         }
 
         /// <summary>

@@ -108,7 +108,7 @@ namespace PV_analysis.Converters
 		/// <summary>
 		/// 所有设计方案
 		/// </summary>
-		public ConverterDesignList AllDesignList { get; } = new ConverterDesignList() { IsAll = true };
+		public ConverterDesignList AllDesignList { get; } = new ConverterDesignList { IsAll = true };
 
 		/// <summary>
 		/// 获取设计方案的配置信息

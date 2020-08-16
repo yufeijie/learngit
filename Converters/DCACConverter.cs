@@ -12,7 +12,7 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 直流侧输入电压（若设置此值，则按照直流侧设计）
         /// </summary>
-        public double Math_Vin { get; set; } = 0;
+        public double Math_Vin { get; set; }
 
         /// <summary>
         /// 整体输出电压
@@ -33,7 +33,12 @@ namespace PV_analysis.Converters
         /// 幅度调制比
         /// </summary>
         public double Math_Ma { get; set; } = 0.95;
-                
+        
+        /// <summary>
+        /// 调制方式
+        /// </summary>
+        public string Modulation { get; set; }
+
         /// <summary>
         /// 初始化
         /// </summary>
@@ -56,7 +61,7 @@ namespace PV_analysis.Converters
         /// <returns>配置信息</returns>
         public override string[] GetConfigs()
         {
-            string[] data = { Number.ToString(), (Math_fs / 1e3).ToString(), Math_Ma.ToString(), Topology.GetType().Name };
+            string[] data = { Number.ToString(), (Math_fs / 1e3).ToString(), Math_Ma.ToString(), Topology.GetType().Name, Modulation};
             return data;
         }
 
@@ -68,8 +73,8 @@ namespace PV_analysis.Converters
         {
             switch (name)
             {
-                case "CHB_PSPWM":
-                    Topology = new CHB_PSPWM(this);
+                case "CHB":
+                    Topology = new CHB(this);
                     break;
                 default:
                     Topology = null;

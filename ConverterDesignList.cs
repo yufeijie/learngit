@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace PV_analysis
 {
@@ -16,6 +17,8 @@ namespace PV_analysis
         /// 默认为false
         /// </summary>
         public bool IsAll { get; set; } = false;
+
+        public int Size{ get { return size; } }
 
         /// <summary>
         /// 存储变换器设计方案的评估结果与配置信息
@@ -135,13 +138,40 @@ namespace PV_analysis
         }
 
         /// <summary>
+        /// 将当前的变换器设计方案集合转化为系统设计方案集合
+        /// </summary>
+        /// <param name="configs">额外配置信息</param>
+        public void Transfer(string[] configs)
+        {
+            ConverterDesignData now = head;
+            while (now != null)
+            {
+                List<string> newConfigs = new List<string>();
+                newConfigs.Add((now.Efficiency * 100).ToString());
+                newConfigs.Add(now.Volume.ToString());
+                newConfigs.Add((now.Cost / 1e4).ToString());
+                foreach (string config in now.Configs)
+                {
+                    newConfigs.Add(config);
+                }
+                foreach (string config in configs)
+                {
+                    newConfigs.Add(config);
+                }
+                now.Configs = newConfigs.ToArray();
+                now = now.Next;
+            }
+            Filter();
+        }
+
+        /// <summary>
         /// 将器件设计方案集合转化为变换器设计方案集合，并合并到当前集合中
         /// </summary>
         /// <param name="componentDesignList">器件设计方案集合</param>
         /// <param name="power">总功率</param>
         /// <param name="number">模块数</param>
         /// <param name="phaseNum">相数</param>
-        /// <param name="configs">变换器设计信息</param>
+        /// <param name="configs">变换器配置信息</param>
         public void Transfer(ComponentDesignList componentDesignList, double power, double number, double phaseNum, string[] configs)
         {
             IComponentDesignData[] designs = componentDesignList.GetData();
@@ -164,6 +194,28 @@ namespace PV_analysis
                     newConfigs.Add(config);
                 }
                 Add(efficiency, volume, cost, newConfigs.ToArray());
+            }
+            Filter();
+        }
+
+        /// <summary>
+        /// 去除效率低于90%的设计方案
+        /// </summary>
+        public void Filter()
+        {
+            ConverterDesignData now = head;
+            List<ConverterDesignData> list = new List<ConverterDesignData>();
+            while (now != null)
+            {
+                if (now.Efficiency < 0.9)
+                {
+                    list.Add(now);
+                }
+                now = now.Next;
+            }
+            foreach (ConverterDesignData design in list)
+            {
+                Delete(design);
             }
         }
 
