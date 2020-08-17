@@ -200,11 +200,14 @@ namespace PV_analysis
         public static string StringArrayToString(string[] topologyRange)
         {
             String str = "";
-            foreach (string to in topologyRange)
+            if (topologyRange.Length != 0)
             {
-                str = str + to + ",";
+                foreach (string to in topologyRange)
+                {
+                    str = str + to + ",";
+                }
+                str = str.Substring(0, str.Length - 1);
             }
-            str = str.Substring(0, str.Length - 1);
             return str;
         }
 

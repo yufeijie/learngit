@@ -13,8 +13,13 @@ namespace PV_analysis
     /// </summary>
     internal static class Data
     {
-        private static readonly string dataPath = Application.StartupPath + "/Resources/data.xlsx"; //数据库文件位置
-        private static readonly string resultPath = Application.StartupPath + "/Results/"; //输出文件位置
+        private static readonly string dataPath = Application.StartupPath + "\\Resources\\data.xlsx"; //数据库文件位置
+        private static readonly string resultPath = Application.StartupPath + "\\Results\\"; //默认输出文件位置
+
+        /// <summary>
+        /// 默认输出位置
+        /// </summary>
+        public static string ResultPath { get { return resultPath; } }
 
         /// <summary>
         /// 开关器件数据
@@ -45,6 +50,7 @@ namespace PV_analysis
         public class Semiconductor //开关器件数据类
         {
             //基本信息
+            public bool Available { get; set; } = true; //可用状态
             public string Type { get; } //型号
             public string Manufacturer { get; } //厂商
             public string Category { get; } //类型（IGBT，SiC-MOSFET单管，SiC模块等）
@@ -193,6 +199,7 @@ namespace PV_analysis
         public class Wire //绕线数据类
         {
             //基本信息
+            public bool Available { get; set; } = true; //可用状态
             public string Type { get; } //型号
             public string Category { get; } //类型（利兹线，漆包线）
             public double Price { get; } //单位价格(RMB/unit)
@@ -220,6 +227,7 @@ namespace PV_analysis
         public class Core //绕线数据类
         {
             //基本信息
+            public bool Available { get; set; } = true; //可用状态
             public string Type { get; } //型号
             public string Manufacturer { get; } //厂商
             public string Shape { get; } //磁性形状（EE，U等）
@@ -275,7 +283,9 @@ namespace PV_analysis
         public class Capacitor //电容数据类
         {
             //基本信息
+            public bool Available { get; set; } = true; //可用状态
             public string Type { get; } //型号
+            public string Category { get; } //类型
             public double Price { get; } //价格(RMB)
             public double Volume { get; } //体积(dm^3)
 
@@ -289,13 +299,14 @@ namespace PV_analysis
             public Capacitor(IRow row)
             {
                 Type = row.GetCell(1).StringCellValue;
-                Price = row.GetCell(6).NumericCellValue;
-                Volume = row.GetCell(9).NumericCellValue;
-                Math_Un = row.GetCell(2).NumericCellValue;
-                Math_C = row.GetCell(3).NumericCellValue;
-                Math_Irms = row.GetCell(4).NumericCellValue;
-                Math_Ipeak = (row.GetCell(13) != null) ? row.GetCell(13).NumericCellValue : 0;
-                Math_ESR = row.GetCell(5).NumericCellValue;
+                Category = row.GetCell(2).StringCellValue;
+                Price = row.GetCell(7).NumericCellValue;
+                Volume = row.GetCell(10).NumericCellValue;
+                Math_Un = row.GetCell(3).NumericCellValue;
+                Math_C = row.GetCell(4).NumericCellValue;
+                Math_Irms = row.GetCell(5).NumericCellValue;
+                Math_Ipeak = (row.GetCell(14) != null) ? row.GetCell(14).NumericCellValue : 0;
+                Math_ESR = row.GetCell(6).NumericCellValue;
             }
         }
 
@@ -381,6 +392,11 @@ namespace PV_analysis
 
         public static void Record(string name, string[] conditionTitles, string[] conditions, ConverterDesignList designList)
         {
+            Record(resultPath, name + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss_fff") + ".xlsx", conditionTitles, conditions, designList);
+        }
+
+        public static void Record(string path, string name, string[] conditionTitles, string[] conditions, ConverterDesignList designList)
+        {
             IWorkbook workbook = new XSSFWorkbook(); //新建Excel
 
             //记录设计条件
@@ -399,7 +415,7 @@ namespace PV_analysis
             //记录设计结果
             sheet = workbook.CreateSheet("Results"); //新建一个工作薄
             IConverterDesignData[] designs = designList.GetData();
-            for(int i = 0; i < designs.Length; i++)
+            for (int i = 0; i < designs.Length; i++)
             {
                 row = sheet.CreateRow(i);
                 for (int j = 0; j < designs[i].Configs.Length; j++)
@@ -407,8 +423,8 @@ namespace PV_analysis
                     row.CreateCell(j).SetCellValue(designs[i].Configs[j]);
                 }
             }
-            DateTime now = DateTime.Now;
-            FileStream file = new FileStream(resultPath + name + "_" + now.ToString("yyyyMMdd_HHmmss_fff") + ".xlsx", FileMode.Create);
+            
+            FileStream file = new FileStream(path + name, FileMode.Create);
             workbook.Write(file);
             file.Close();
         }

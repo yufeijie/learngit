@@ -141,6 +141,11 @@ namespace PV_analysis.Components
                 numberCore = j;
                 for (int i = 0; i < Data.CoreList.Count; i++)//搜寻库中所有磁芯型号
                 {
+                    //验证器件是否可用
+                    if (!Data.CoreList[i].Available)
+                    {
+                        continue;
+                    }
                     core = i;
                     double AP = j * Data.CoreList[i].Math_AP * 1e-4;//计算当前磁芯的面积积(cm^4)               
                     //System.out.println(AP+" "+areaProduct);                                                         

@@ -140,6 +140,11 @@ namespace PV_analysis.Components
                     {
                         continue;
                     }
+                    //验证器件是否可用
+                    if (!Data.CoreList[i].Available)
+                    {
+                        continue;
+                    }
                     core = i;
                     double AP = j * Data.CoreList[i].Math_AP * 1e-4; //计算当前磁芯的面积积(cm^4)
                     //System.out.println(AP+" "+areaProduct);

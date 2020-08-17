@@ -210,7 +210,19 @@ namespace PV_analysis.Components
         private bool Validate()
         {
             //验证编号是否合法
-            if (device < 0 || device >= Data.SemiconductorList.Count || paralleledNum <= 0 || paralleledNum > paralleledNumMax)
+            if (device < 0 || device >= Data.SemiconductorList.Count)
+            {
+                return false;
+            }
+            
+            //验证器件是否可用
+            if (!Data.SemiconductorList[device].Available)
+            {
+                return false;
+            }
+
+            //验证并联数目是否合法
+            if (paralleledNum <= 0 || paralleledNum > paralleledNumMax)
             {
                 return false;
             }

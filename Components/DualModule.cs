@@ -227,6 +227,12 @@ namespace PV_analysis.Components
                 return false;
             }
 
+            //验证器件是否可用
+            if (!Data.SemiconductorList[device].Available)
+            {
+                return false;
+            }
+
             //验证器件类型是否符合
             if (!Data.SemiconductorList[device].Category.Equals("IGBT-Module") && !Data.SemiconductorList[device].Category.Equals("SiC-Module"))
             {

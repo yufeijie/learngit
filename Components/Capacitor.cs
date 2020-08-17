@@ -161,6 +161,12 @@ namespace PV_analysis.Components
                 return false;
             }
 
+            //验证器件是否可用
+            if (!Data.CapacitorList[device].Available)
+            {
+                return false;
+            }
+
             //验证当前参数组的参数是否已经给定
             if (voltageMax == 0 || capacitor == 0)
             {
