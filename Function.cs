@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PV_analysis
 {
@@ -86,5 +87,142 @@ namespace PV_analysis
             //由牛顿-莱布尼茨公式得到积分结果
             return k1 * k2 * Math.Pow(x2 - x1, 3) / 3 + (k1 * b2 + k2 * b1) * Math.Pow(x2 - x1, 2) / 2 + b1 * b2 * (x2 - x1);
         }
+
+        /// <summary>
+        /// 生成可用模块数序列
+        /// </summary>
+        /// <param name="min">最少模块数</param>
+        /// <param name="max">最多模块数</param>
+        /// <returns>可用模块数序列</returns>
+        public static int[] GenerateNumberRange(int min, int max)
+        {
+            List<int> numberRange = new List<int>();
+            int n = min;
+            while (n <= max)
+            {
+                numberRange.Add(n);
+                n++;
+            }
+            return numberRange.ToArray();
+        }
+
+        /// <summary>
+        /// 生成可用模块数序列
+        /// </summary>
+        /// <param name="min">最少模块数</param>
+        /// <param name="max">最多模块数</param>
+        /// <param name="step">间隔</param>
+        /// <returns>可用模块数序列</returns>
+        public static int[] GenerateNumberRange(int min, int max, int step)
+        {
+            List<int> numberRange = new List<int>();
+            int n = min;
+            while (n <= max)
+            {
+                numberRange.Add(n);
+                n += step;
+            }
+            return numberRange.ToArray();
+        }
+
+        /// <summary>
+        /// 生成可用频率序列
+        /// </summary>
+        /// <param name="min">最低频率</param>
+        /// <param name="max">最高频率</param>
+        /// <returns>可用频率序列</returns>
+        public static double[] GenerateFrequencyRange(double min, double max)
+        {
+            List<double> frequencyRange = new List<double>();
+            double f = min;
+            while (f <= max)
+            {
+                frequencyRange.Add(f);
+                if (f < 20e3)
+                {
+                    f += 1e3;
+                }
+                else
+                {
+                    if (f < 100e3)
+                    {
+                        f += 5e3;
+                    }
+                    else
+                    {
+                        f += 10e3;
+                    }
+                }
+            }
+            return frequencyRange.ToArray();
+        }
+
+        /// <summary>
+        /// 生成可用频率序列
+        /// </summary>
+        /// <param name="min">最低频率</param>
+        /// <param name="max">最高频率</param>
+        /// <param name="step">间隔</param>
+        /// <returns>可用频率序列</returns>
+        public static double[] GenerateFrequencyRange(double min, double max, double step)
+        {
+            List<double> frequencyRange = new List<double>();
+            double f = min;
+            while (f <= max)
+            {
+                frequencyRange.Add(f);
+                f += step;
+            }
+            return frequencyRange.ToArray();
+        }
+
+        /// <summary>
+        /// 可用模块数序列转化为字符串
+        /// </summary>
+        /// <param name="numberRange">可用模块数序列</param>
+        /// <returns>对应字符串</returns>
+        public static string IntArrayToString(int[] numberRange)
+        {
+            String str = "";
+            foreach (int n in numberRange)
+            {
+                str = str + n.ToString() + ",";
+            }
+            str = str.Substring(0, str.Length - 1);
+            return str;
+        }
+
+        /// <summary>
+        /// 可用拓扑序列转化为字符串
+        /// </summary>
+        /// <param name="topologyRange">可用拓扑序列</param>
+        /// <returns>对应字符串</returns>
+        public static string StringArrayToString(string[] topologyRange)
+        {
+            String str = "";
+            foreach (string to in topologyRange)
+            {
+                str = str + to + ",";
+            }
+            str = str.Substring(0, str.Length - 1);
+            return str;
+        }
+
+        /// <summary>
+        /// 可用频率序列转化为字符串
+        /// </summary>
+        /// <param name="frequencyRange">可用频率序列</param>
+        /// <returns>对应字符串</returns>
+        public static string DoubleArrayToString(double[] frequencyRange)
+        {
+            String str = "";
+            foreach (double f in frequencyRange)
+            {
+                str = str + (f / 1e3).ToString() + ",";
+            }
+            str = str.Substring(0, str.Length - 1);
+            return str;
+        }
+
     }
 }

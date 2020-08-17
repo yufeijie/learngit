@@ -8,9 +8,7 @@ namespace PV_analysis.Components
         private bool isCheckBm = true; //在评估时是否进行交流磁通密度检查 TODO 目前仅在变压器设计时检查
 
         //器件参数
-        private int Wnp; //原边并绕股数
         private int Np; //原边匝数
-        private int Wns; //副边并绕股数
         private int Ns; //副边匝数
 
         //设计条件
@@ -45,7 +43,7 @@ namespace PV_analysis.Components
         /// <returns>配置信息</returns>
         private string[] GetConfigs()
         {
-            return new string[] { "Transformer", number.ToString(), GetCoreType(), numberCore.ToString(), GetWireType(), Wnp.ToString(), Np.ToString(), Wns.ToString(), Ns.ToString() };
+            return new string[] { "Transformer", number.ToString(), GetCoreType(), numberCore.ToString(), GetWireType(), Np.ToString(), Ns.ToString() };
         }
 
         /// <summary>
@@ -169,8 +167,6 @@ namespace PV_analysis.Components
                                 continue;
                             }
                             wire = w;
-                            Wnp = Data.WireList[w].Math_Wn; //原边并绕股数 FIXME 并绕股数对可用匝数（窗口利用系数）的影响
-                            Wns = Data.WireList[w].Math_Wn; //副边并绕股数
                             double Ax = Data.WireList[w].Math_A * 1e-3; //绕线截面积(cm^2)
                             //绕线设计 FIXME Np:Ns匝比可能不等于变比（变比不为整数时）
                             Np = (int)Math.Ceiling(0.5 * fluxLinkageMax / (magneticFluxDensityMax * Aecc * 1e-4)); //原边绕组匝数
@@ -213,14 +209,6 @@ namespace PV_analysis.Components
         public bool Validate()
         {
             if (wire < 0 || wire >= Data.WireList.Count)
-            {
-                return false;
-            }
-            if (Wnp <= 0)
-            {
-                return false;
-            }
-            if (Wns <= 0)
             {
                 return false;
             }
@@ -340,7 +328,7 @@ namespace PV_analysis.Components
         private void CalcPowerLossFe()
         {
             double Aecc = numberCore * Data.CoreList[core].Math_Ae * 1e-2; //等效磁芯面积(cm^2)
-            double Bm = 0.5 * fluxLinkage / (Np * Aecc * 1e-4); //交流磁通密度(cm^2)
+            double Bm = 0.5 * fluxLinkage / (Np*2 * Aecc * 1e-4); //交流磁通密度(cm^2)
             double prewV = GetInductanceFeLoss(frequency, Bm);// //单位体积铁损(W/m^3)
             double volume = numberCore * Data.CoreList[core].Math_Ve * 1e-9; //磁芯体积(m^3) Datasheet中给出的即为一对磁芯的有效磁体积
             powerLossFe = prewV * volume; //计算铁损

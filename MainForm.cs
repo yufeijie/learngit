@@ -17,6 +17,34 @@ namespace PV_analysis
         private int nowResult = -1;
         private List<Label> labelList = new List<Label>();
 
+        private string selectedSystem; //所要评估的系统，三级架构或两级架构
+
+        private double Psys = 6e6; //架构总功率
+        private double Vpv_min = 860; //光伏板输出电压最小值
+        private double Vpv_max = 1300; //光伏板输出电压最大值
+        private double Vg = 35e3; //并网电压（线电压）
+        private double Vo = 35e3 / Math.Sqrt(3); //输出电压（并网相电压）
+        private double fg = 50; //并网频率
+        private double[] VbusRange = { 1300 }; //母线电压范围
+        private double phi = 0; //功率因数角(rad)
+
+        //前级DC/DC参数
+        private int[] DCDC_numberRange = Function.GenerateNumberRange(1, 120); //可用模块数序列
+        private string[] DCDC_topologyRange; //可用拓扑序列
+        private double[] DCDC_frequencyRange = Function.GenerateFrequencyRange(1e3, 100e3); //可用开关频率序列
+
+        //隔离DC/DC参数
+        private double isolatedDCDC_Q = 1; //品质因数预设值
+        private string[] isolatedDCDC_topologyRange; //可用拓扑序列
+        private double[] isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(1e3, 100e3); //可用谐振频率序列
+
+        //DC/AC参数
+        private int[] DCAC_numberRange = Function.GenerateNumberRange(1, 40); //可用模块数序列，隔离DCDC与此同
+        private string[] DCAC_topologyRange; //可用拓扑序列
+        private string[] DCAC_modulationRange = { "PSPWM", "LSPWM" }; //可用调制方式序列
+        private double[] DCAC_frequencyRange = Function.GenerateFrequencyRange(10e3, 10e3);
+
+
         public MainForm()
         {
             InitializeComponent();
@@ -24,14 +52,14 @@ namespace PV_analysis
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            panelNow[0] = this.Home_Panel;
-            panelNow[1] = this.Home_Panel;
-            panelNow[2] = this.Estimate_Ready_Panel;
-            panelNow[3] = this.Display_Ready_Panel;
-            panelNow[4] = this.Admin_Panel;
+            panelNow[0] = Home_Panel;
+            panelNow[1] = Home_Panel;
+            panelNow[2] = Estimate_Ready_Panel;
+            panelNow[3] = Display_Ready_Panel;
+            panelNow[4] = Admin_Panel;
 
-            activeColor = this.Tab_Home_Button.BackColor;
-            inactiveColor = this.Tab_Estimate_Button.BackColor;
+            activeColor = Tab_Home_Button.BackColor;
+            inactiveColor = Tab_Estimate_Button.BackColor;
         }
 
         private void Tab_Home_Button_Click(object sender, EventArgs e)
@@ -40,10 +68,10 @@ namespace PV_analysis
             panelNow[0] = panelNow[1];
             panelNow[0].Visible = true;
 
-            this.Tab_Home_Button.BackColor = activeColor;
-            this.Tab_Estimate_Button.BackColor = inactiveColor;
-            this.Tab_Display_Button.BackColor = inactiveColor;
-            this.Tab_Admin_Button.BackColor = inactiveColor;
+            Tab_Home_Button.BackColor = activeColor;
+            Tab_Estimate_Button.BackColor = inactiveColor;
+            Tab_Display_Button.BackColor = inactiveColor;
+            Tab_Admin_Button.BackColor = inactiveColor;
         }
 
         private void Tab_Estimate_Button_Click(object sender, EventArgs e)
@@ -52,10 +80,10 @@ namespace PV_analysis
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
 
-            this.Tab_Home_Button.BackColor = inactiveColor;
-            this.Tab_Estimate_Button.BackColor = activeColor;
-            this.Tab_Display_Button.BackColor = inactiveColor;
-            this.Tab_Admin_Button.BackColor = inactiveColor;
+            Tab_Home_Button.BackColor = inactiveColor;
+            Tab_Estimate_Button.BackColor = activeColor;
+            Tab_Display_Button.BackColor = inactiveColor;
+            Tab_Admin_Button.BackColor = inactiveColor;
         }
 
         private void Tab_Display_Button_Click(object sender, EventArgs e)
@@ -64,10 +92,10 @@ namespace PV_analysis
             panelNow[0] = panelNow[3];
             panelNow[0].Visible = true;
 
-            this.Tab_Home_Button.BackColor = inactiveColor;
-            this.Tab_Estimate_Button.BackColor = inactiveColor;
-            this.Tab_Display_Button.BackColor = activeColor;
-            this.Tab_Admin_Button.BackColor = inactiveColor;
+            Tab_Home_Button.BackColor = inactiveColor;
+            Tab_Estimate_Button.BackColor = inactiveColor;
+            Tab_Display_Button.BackColor = activeColor;
+            Tab_Admin_Button.BackColor = inactiveColor;
         }
 
         private void Tab_Admin_Button_Click(object sender, EventArgs e)
@@ -76,15 +104,15 @@ namespace PV_analysis
             panelNow[0] = panelNow[4];
             panelNow[0].Visible = true;
 
-            this.Tab_Home_Button.BackColor = inactiveColor;
-            this.Tab_Estimate_Button.BackColor = inactiveColor;
-            this.Tab_Display_Button.BackColor = inactiveColor;
-            this.Tab_Admin_Button.BackColor = activeColor;
+            Tab_Home_Button.BackColor = inactiveColor;
+            Tab_Estimate_Button.BackColor = inactiveColor;
+            Tab_Display_Button.BackColor = inactiveColor;
+            Tab_Admin_Button.BackColor = activeColor;
         }
 
         private void Estimate_Ready_Begin_Button_Click(object sender, EventArgs e)
         {
-            panelNow[2] = this.Estimate_Step1_Panel;
+            panelNow[2] = Estimate_Step1_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
@@ -92,7 +120,7 @@ namespace PV_analysis
 
         private void Estimate_Step1_Prev_Button_Click(object sender, EventArgs e)
         {
-            panelNow[2] = this.Estimate_Ready_Panel;
+            panelNow[2] = Estimate_Ready_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
@@ -100,15 +128,84 @@ namespace PV_analysis
 
         private void Estimate_Step1_Next_Button_Click(object sender, EventArgs e)
         {
-            panelNow[2] = this.Estimate_Step2_Panel;
-            panelNow[0].Visible = false;
-            panelNow[0] = panelNow[2];
-            panelNow[0].Visible = true;
+            if (Estimate_Step1_CheckedListBox.CheckedItems.Count <= 0)
+            {
+                MessageBox.Show("请选择一项");
+            }
+            else if (Estimate_Step1_CheckedListBox.CheckedItems.Count > 1)
+            {
+                MessageBox.Show("只能选择一项");
+            }
+            else
+            {
+                selectedSystem = Estimate_Step1_CheckedListBox.GetItemText(Estimate_Step1_CheckedListBox.CheckedItems[0]);
+                switch (selectedSystem)
+                {
+                    case "三级架构":
+                        Estimate_Step2_Group1_Item1_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item2_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item3_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item1_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group3_Item1_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = true;
+
+                        Estimate_Step2_Group1_Item1_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item2_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item3_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item1_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group3_Item1_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = true;
+                        break;
+                    case "两级架构":
+                        Estimate_Step2_Group1_Item1_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item1_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = true;
+                        Estimate_Step2_Group3_Item1_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = true;
+
+                        Estimate_Step2_Group1_Item1_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item1_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Checked = true;
+                        Estimate_Step2_Group3_Item1_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = true;
+                        break;
+                }
+                panelNow[2] = Estimate_Step2_Panel;
+                panelNow[0].Visible = false;
+                panelNow[0] = panelNow[2];
+                panelNow[0].Visible = true;
+            }
         }
 
         private void Estimate_Step2_Prev_Button_Click(object sender, EventArgs e)
         {
-            panelNow[2] = this.Estimate_Step1_Panel;
+            panelNow[2] = Estimate_Step1_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
@@ -116,15 +213,122 @@ namespace PV_analysis
 
         private void Estimate_Step2_Next_Button_Click(object sender, EventArgs e)
         {
-            panelNow[2] = this.Estimate_Step3_Panel;
-            panelNow[0].Visible = false;
-            panelNow[0] = panelNow[2];
-            panelNow[0].Visible = true;
+            List<string> DCDC_topologyList = new List<string>();
+            if (Estimate_Step2_Group1_Item1_Left_CheckBox.Checked)
+            {
+                DCDC_topologyList.Add("ThreeLevelBoost");
+            }
+            if (Estimate_Step2_Group1_Item2_Left_CheckBox.Checked)
+            {
+                DCDC_topologyList.Add("TwoLevelBoost");
+            }
+            if (Estimate_Step2_Group1_Item3_Left_CheckBox.Checked)
+            {
+                DCDC_topologyList.Add("InterleavedBoost");
+            }
+
+            List<string> isolatedDCDC_topologyList = new List<string>();
+            if (Estimate_Step2_Group2_Item1_Left_CheckBox.Checked)
+            {
+                isolatedDCDC_topologyList.Add("SRC");
+            }
+            if (Estimate_Step2_Group2_Item2_Left_CheckBox.Checked)
+            {
+                isolatedDCDC_topologyList.Add("DTCSRC");
+            }
+
+            List<string> DCAC_topologyList = new List<string>();
+            if (Estimate_Step2_Group3_Item1_Left_CheckBox.Checked)
+            {
+                DCAC_topologyList.Add("CHB");
+            }
+
+            if (selectedSystem.Equals("三级架构") && DCDC_topologyList.Count == 0)
+            {
+                MessageBox.Show("请至少选择一项前级DC/DC拓扑");
+            }
+            else if (isolatedDCDC_topologyList.Count == 0)
+            {
+                MessageBox.Show("请至少选择一项隔离DC/DC拓扑");
+            }
+            else if (DCAC_topologyList.Count == 0)
+            {
+                MessageBox.Show("请至少选择一项逆变拓扑");
+            }
+            else
+            {
+                switch (selectedSystem)
+                {
+                    case "三级架构":
+                        textBox10.Enabled = true;
+                        textBox9.Enabled = true;
+                        textBox8.Enabled = true;
+                        Estimate_Step2_Group1_Item2_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item3_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item1_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group3_Item1_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = true;
+
+                        Estimate_Step2_Group1_Item1_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item2_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item3_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item1_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group3_Item1_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = true;
+                        break;
+                    case "两级架构":
+                        Estimate_Step2_Group1_Item1_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item1_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = true;
+                        Estimate_Step2_Group3_Item1_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = true;
+
+                        Estimate_Step2_Group1_Item1_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item1_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Checked = true;
+                        Estimate_Step2_Group3_Item1_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = true;
+                        break;
+                }
+                DCDC_topologyRange = DCDC_topologyList.ToArray();
+                isolatedDCDC_topologyRange = isolatedDCDC_topologyList.ToArray();
+                DCAC_topologyRange = DCAC_topologyList.ToArray();
+                panelNow[2] = Estimate_Step3_Panel;
+                panelNow[0].Visible = false;
+                panelNow[0] = panelNow[2];
+                panelNow[0].Visible = true;
+            }
         }
 
         private void Estimate_Step3_Prev_Button_Click(object sender, EventArgs e)
         {
-            panelNow[2] = this.Estimate_Step2_Panel;
+            panelNow[2] = Estimate_Step2_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
@@ -132,7 +336,7 @@ namespace PV_analysis
 
         private void Estimate_Step3_Next_Button_Click(object sender, EventArgs e)
         {
-            panelNow[2] = this.Estimate_Step4_Panel;
+            panelNow[2] = Estimate_Step4_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
@@ -140,7 +344,7 @@ namespace PV_analysis
 
         private void Estimate_Step4_Prev_Button_Click(object sender, EventArgs e)
         {
-            panelNow[2] = this.Estimate_Step3_Panel;
+            panelNow[2] = Estimate_Step3_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
@@ -148,7 +352,7 @@ namespace PV_analysis
 
         private void Estimate_Step4_Next_Button_Click(object sender, EventArgs e)
         {
-            panelNow[2] = this.Estimate_Step5_Panel;
+            panelNow[2] = Estimate_Step5_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
@@ -156,7 +360,7 @@ namespace PV_analysis
 
         private void Estimate_Step5_Prev_Button_Click(object sender, EventArgs e)
         {
-            panelNow[2] = this.Estimate_Step4_Panel;
+            panelNow[2] = Estimate_Step4_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
@@ -164,7 +368,7 @@ namespace PV_analysis
 
         private void Estimate_Step5_Next_button_Click(object sender, EventArgs e)
         {
-            panelNow[2] = this.Estimate_Result_Panel;
+            panelNow[2] = Estimate_Result_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
@@ -177,18 +381,18 @@ namespace PV_analysis
 
         private void Estimate_Result_Display_Button_Click(object sender, EventArgs e)
         {
-            panelNow[3] = this.Display_Show_Panel;
+            panelNow[3] = Display_Show_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[3];
             panelNow[0].Visible = true;
 
-            this.Tab_Estimate_Button.BackColor = inactiveColor;
-            this.Tab_Display_Button.BackColor = activeColor;
+            Tab_Estimate_Button.BackColor = inactiveColor;
+            Tab_Display_Button.BackColor = activeColor;
         }
 
         private void Estimate_Result_Restart_Button_Click(object sender, EventArgs e)
         {
-            panelNow[2] = this.Estimate_Ready_Panel;
+            panelNow[2] = Estimate_Ready_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
@@ -273,7 +477,7 @@ namespace PV_analysis
                 label93.Text = "";
 
                 //切换到显示页面
-                panelNow[3] = this.Display_Show_Panel;
+                panelNow[3] = Display_Show_Panel;
                 panelNow[0].Visible = false;
                 panelNow[0] = panelNow[3];
                 panelNow[0].Visible = true;
@@ -432,7 +636,7 @@ namespace PV_analysis
                 };
                 pieChart3.LegendLocation = LegendLocation.Bottom;
 
-                panelNow[3] = this.Display_Detail_Panel;
+                panelNow[3] = Display_Detail_Panel;
                 panelNow[0].Visible = false;
                 panelNow[0] = panelNow[3];
                 panelNow[0].Visible = true;
@@ -452,7 +656,7 @@ namespace PV_analysis
 
         private void Display_Show_Restart_Button_Click(object sender, EventArgs e)
         {
-            panelNow[3] = this.Display_Ready_Panel;
+            panelNow[3] = Display_Ready_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[3];
             panelNow[0].Visible = true;
@@ -463,7 +667,7 @@ namespace PV_analysis
             //Display_Detail_Main_Panel.Controls.Clear();
             //labelList.Clear();
 
-            panelNow[3] = this.Display_Show_Panel;
+            panelNow[3] = Display_Show_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[3];
             panelNow[0].Visible = true;
@@ -471,66 +675,78 @@ namespace PV_analysis
 
         private void Estimate_Step1_CheckedListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.Estimate_Step1_Item1_CheckBox.Checked = this.Estimate_Step1_CheckedListBox.GetItemChecked(0);
-            this.Estimate_Step1_Item2_CheckBox.Checked = this.Estimate_Step1_CheckedListBox.GetItemChecked(1);
+            Estimate_Step1_Item1_CheckBox.Checked = Estimate_Step1_CheckedListBox.GetItemChecked(0);
+            Estimate_Step1_Item2_CheckBox.Checked = Estimate_Step1_CheckedListBox.GetItemChecked(1);
         }
 
         private void Estimate_Step1_Item1_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            this.Estimate_Step1_CheckedListBox.SetItemChecked(0, this.Estimate_Step1_Item1_CheckBox.Checked);
+            Estimate_Step1_CheckedListBox.SetItemChecked(0, Estimate_Step1_Item1_CheckBox.Checked);
         }
 
         private void Estimate_Step1_Item2_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            this.Estimate_Step1_CheckedListBox.SetItemChecked(1, this.Estimate_Step1_Item2_CheckBox.Checked);
-        }
-
-        private void Estimate_Step2_Group1_CheckedListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.Estimate_Step2_Group1_Item1_CheckBox.Checked = this.Estimate_Step2_Group1_CheckedListBox.GetItemChecked(0);
-            this.Estimate_Step2_Group1_Item2_CheckBox.Checked = this.Estimate_Step2_Group1_CheckedListBox.GetItemChecked(1);
-            this.Estimate_Step2_Group1_Item3_CheckBox.Checked = this.Estimate_Step2_Group1_CheckedListBox.GetItemChecked(2);
-        }
-
-        private void Estimate_Step2_Group2_CheckedListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.Estimate_Step2_Group2_Item1_CheckBox.Checked = this.Estimate_Step2_Group2_CheckedListBox.GetItemChecked(0);
-            this.Estimate_Step2_Group2_Item2_CheckBox.Checked = this.Estimate_Step2_Group2_CheckedListBox.GetItemChecked(1);
-        }
-
-        private void Estimate_Step2_Group3_CheckedListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.Estimate_Step2_Group3_Item1_CheckBox.Checked = this.Estimate_Step2_Group3_CheckedListBox.GetItemChecked(0);
+            Estimate_Step1_CheckedListBox.SetItemChecked(1, Estimate_Step1_Item2_CheckBox.Checked);
         }
 
         private void Estimate_Step2_Group1_Item1_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            this.Estimate_Step2_Group1_CheckedListBox.SetItemChecked(0, this.Estimate_Step2_Group1_Item1_CheckBox.Checked);
+            Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = Estimate_Step2_Group1_Item1_CheckBox.Checked;
         }
 
         private void Estimate_Step2_Group1_Item2_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            this.Estimate_Step2_Group1_CheckedListBox.SetItemChecked(1, this.Estimate_Step2_Group1_Item2_CheckBox.Checked);
+            Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = Estimate_Step2_Group1_Item2_CheckBox.Checked;
         }
 
         private void Estimate_Step2_Group1_Item3_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            this.Estimate_Step2_Group1_CheckedListBox.SetItemChecked(2, this.Estimate_Step2_Group1_Item3_CheckBox.Checked);
+            Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = Estimate_Step2_Group1_Item3_CheckBox.Checked;
         }
 
         private void Estimate_Step2_Group2_Item1_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            this.Estimate_Step2_Group2_CheckedListBox.SetItemChecked(0, this.Estimate_Step2_Group2_Item1_CheckBox.Checked);
+            Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = Estimate_Step2_Group2_Item1_CheckBox.Checked;
         }
 
         private void Estimate_Step2_Group2_Item2_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            this.Estimate_Step2_Group2_CheckedListBox.SetItemChecked(1, this.Estimate_Step2_Group2_Item2_CheckBox.Checked);
+            Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = Estimate_Step2_Group2_Item2_CheckBox.Checked;
         }
 
         private void Estimate_Step2_Group3_Item1_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            this.Estimate_Step2_Group3_CheckedListBox.SetItemChecked(0, this.Estimate_Step2_Group3_Item1_CheckBox.Checked);
+            Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = Estimate_Step2_Group3_Item1_CheckBox.Checked;
+        }
+
+        private void Estimate_Step2_Group1_Item1_Left_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step2_Group1_Item1_CheckBox.Checked = Estimate_Step2_Group1_Item1_Left_CheckBox.Checked;
+        }
+
+        private void Estimate_Step2_Group1_Item2_Left_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step2_Group1_Item2_CheckBox.Checked = Estimate_Step2_Group1_Item2_Left_CheckBox.Checked;
+        }
+
+        private void Estimate_Step2_Group1_Item3_Left_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step2_Group1_Item3_CheckBox.Checked = Estimate_Step2_Group1_Item3_Left_CheckBox.Checked;
+        }
+
+        private void Estimate_Step2_Group2_Item1_Left_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step2_Group2_Item1_CheckBox.Checked = Estimate_Step2_Group2_Item1_Left_CheckBox.Checked;
+        }
+
+        private void Estimate_Step2_Group2_Item2_Left_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step2_Group2_Item2_CheckBox.Checked = Estimate_Step2_Group2_Item2_Left_CheckBox.Checked;
+        }
+
+        private void Estimate_Step2_Group3_Item1_Left_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step2_Group3_Item1_CheckBox.Checked = Estimate_Step2_Group3_Item1_Left_CheckBox.Checked;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -546,6 +762,16 @@ namespace PV_analysis
         private void label148_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox11_TextChanged(object sender, EventArgs e)
+        {
+            textBox14.Text = textBox11.Text;
+        }
+
+        private void textBox14_TextChanged(object sender, EventArgs e)
+        {
+            textBox11.Text = textBox14.Text;
         }
     }
 

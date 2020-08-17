@@ -1,6 +1,7 @@
 ﻿using PV_analysis.Converters;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace PV_analysis
 {
@@ -13,16 +14,16 @@ namespace PV_analysis
         public static void Main()
         {
             //生成窗体
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new MainForm());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
 
             //EvaluateDCDCConverter();
             //EvaluateIsolatedDCDCConverter();
             //EvaluateIsolatedDCDCConverter_TwoStage();
             //EvaluateDCACConverter();
             //EvaluateThreeStageSystem();
-            EvaluateTwoStageSystem();
+            //EvaluateTwoStageSystem();
         }
 
         public static void EvaluateThreeStageSystem()
@@ -45,20 +46,20 @@ namespace PV_analysis
             double phi = 0; //功率因数角(rad)
 
             //前级DC/DC参数
-            int[] DCDC_numberRange = GenerateNumberRange(1, 120); //可用模块数序列
+            int[] DCDC_numberRange = Function.GenerateNumberRange(1, 120); //可用模块数序列
             string[] DCDC_topologyRange = { "ThreeLevelBoost", "TwoLevelBoost", "InterleavedBoost" }; //可用拓扑序列
-            double[] DCDC_frequencyRange = GenerateFrequencyRange(1e3, 100e3); //可用开关频率序列
+            double[] DCDC_frequencyRange = Function.GenerateFrequencyRange(1e3, 100e3); //可用开关频率序列
 
             //隔离DC/DC参数
             double isolatedDCDC_Q = 1; //品质因数预设值
             string[] isolatedDCDC_topologyRange = { "SRC" }; //可用拓扑序列
-            double[] isolatedDCDC_resonanceFrequencyRange = GenerateFrequencyRange(1e3, 100e3); //可用谐振频率序列
+            double[] isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(1e3, 100e3); //可用谐振频率序列
 
             //DC/AC参数
-            int[] DCAC_numberRange = GenerateNumberRange(1, 40); //可用模块数序列，隔离DCDC与此同
+            int[] DCAC_numberRange = Function.GenerateNumberRange(1, 40); //可用模块数序列，隔离DCDC与此同
             string[] DCAC_topologyRange = { "CHB" };
             string[] DCAC_modulationRange = { "PSPWM", "LSPWM" }; //可用调制方式序列
-            double[] DCAC_frequencyRange = GenerateFrequencyRange(10e3, 10e3);
+            double[] DCAC_frequencyRange = Function.GenerateFrequencyRange(10e3, 10e3);
 
             //系统设计
             foreach (double Vbus in VbusRange) //母线电压变化
@@ -174,18 +175,18 @@ namespace PV_analysis
                 Vpv_max.ToString(),
                 Vg.ToString(),
                 fg.ToString(),
-                DoubleArrayToString(VbusRange),
-                IntArrayToString(DCDC_numberRange),
-                StringArrayToString(DCDC_topologyRange),
-                DoubleArrayToString(DCDC_frequencyRange),
+                Function.DoubleArrayToString(VbusRange),
+                Function.IntArrayToString(DCDC_numberRange),
+                Function.StringArrayToString(DCDC_topologyRange),
+                Function.DoubleArrayToString(DCDC_frequencyRange),
                 isolatedDCDC_Q.ToString(),
-                StringArrayToString(isolatedDCDC_topologyRange),
-                DoubleArrayToString(isolatedDCDC_resonanceFrequencyRange),
+                Function.StringArrayToString(isolatedDCDC_topologyRange),
+                Function.DoubleArrayToString(isolatedDCDC_resonanceFrequencyRange),
                 phi.ToString(),
-                IntArrayToString(DCAC_numberRange),
-                StringArrayToString(DCAC_topologyRange),
-                StringArrayToString(DCAC_modulationRange),
-                DoubleArrayToString(DCAC_frequencyRange)
+                Function.IntArrayToString(DCAC_numberRange),
+                Function.StringArrayToString(DCAC_topologyRange),
+                Function.StringArrayToString(DCAC_modulationRange),
+                Function.DoubleArrayToString(DCAC_frequencyRange)
             };
 
             Data.Record("ThreeStageSystem_Pareto", conditionTitles, conditions, paretoDesignList);
@@ -214,14 +215,14 @@ namespace PV_analysis
             //隔离DC/DC参数
             double isolatedDCDC_Q = 1; //品质因数预设值
             string[] isolatedDCDC_topologyRange = { "DTCSRC" }; //可用拓扑序列
-            double[] isolatedDCDC_resonanceFrequencyRange = GenerateFrequencyRange(25e3, 25e3); //可用谐振频率序列
+            double[] isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(25e3, 25e3); //可用谐振频率序列
 
             //DC/AC参数
             double DCAC_Vin = 1300; //逆变器直流侧电压
-            int[] DCAC_numberRange = GenerateNumberRange(20, 20); //可用模块数序列，隔离DCDC与此同
+            int[] DCAC_numberRange = Function.GenerateNumberRange(20, 20); //可用模块数序列，隔离DCDC与此同
             string[] DCAC_topologyRange = { "CHB" };
             string[] DCAC_modulationRange = { "PSPWM", "LSPWM" }; //可用调制方式序列
-            double[] DCAC_frequencyRange = GenerateFrequencyRange(10e3, 10e3);
+            double[] DCAC_frequencyRange = Function.GenerateFrequencyRange(10e3, 10e3);
 
             foreach (int j in DCAC_numberRange) //目前只考虑一拖一
             {
@@ -305,18 +306,18 @@ namespace PV_analysis
                 Vg.ToString(),
                 fg.ToString(),
                 isolatedDCDC_Q.ToString(),
-                StringArrayToString(isolatedDCDC_topologyRange),
-                DoubleArrayToString(isolatedDCDC_resonanceFrequencyRange),
+                Function.StringArrayToString(isolatedDCDC_topologyRange),
+                Function.DoubleArrayToString(isolatedDCDC_resonanceFrequencyRange),
                 DCAC_Vin.ToString(),
                 phi.ToString(),
-                IntArrayToString(DCAC_numberRange),
-                StringArrayToString(DCAC_topologyRange),
-                StringArrayToString(DCAC_modulationRange),
-                DoubleArrayToString(DCAC_frequencyRange)
+                Function.IntArrayToString(DCAC_numberRange),
+                Function.StringArrayToString(DCAC_topologyRange),
+                Function.StringArrayToString(DCAC_modulationRange),
+                Function.DoubleArrayToString(DCAC_frequencyRange)
             };
 
-            Data.Record("ThreeStageSystem_Pareto", conditionTitles, conditions, paretoDesignList);
-            Data.Record("ThreeStageSystem_all", conditionTitles, conditions, allDesignList);
+            Data.Record("TwoStageSystem_Pareto", conditionTitles, conditions, paretoDesignList);
+            Data.Record("TwoStageSystem_all", conditionTitles, conditions, allDesignList);
         }
 
         public static void EvaluateDCDCConverter()
@@ -325,9 +326,9 @@ namespace PV_analysis
             double Vin_min = 860;
             double Vin_max = 1300;
             double Vo = 1300;
-            int[] numberRange = GenerateNumberRange(1, 120);
+            int[] numberRange = Function.GenerateNumberRange(1, 120);
             string[] topologyRange = { "ThreeLevelBoost", "TwoLevelBoost", "InterleavedBoost" };
-            double[] frequencyRange = GenerateFrequencyRange(1e3, 50e3);
+            double[] frequencyRange = Function.GenerateFrequencyRange(1e3, 50e3);
 
             DCDCConverter converter = new DCDCConverter(Psys, Vin_min, Vin_max, Vo);
 
@@ -363,9 +364,9 @@ namespace PV_analysis
                 Vin_min.ToString(),
                 Vin_max.ToString(),
                 Vo.ToString(),
-                IntArrayToString(numberRange),
-                StringArrayToString(topologyRange),
-                DoubleArrayToString(frequencyRange)
+                Function.IntArrayToString(numberRange),
+                Function.StringArrayToString(topologyRange),
+                Function.DoubleArrayToString(frequencyRange)
             };
 
             Data.Record(converter.GetType().Name + "_Pareto", conditionTitles, conditions, converter.ParetoDesignList);
@@ -381,9 +382,9 @@ namespace PV_analysis
             double Vin = 1300;
             double Vo = 1300;
             double Q = 1;
-            int[] numberRange = GenerateNumberRange(20, 20);
+            int[] numberRange = Function.GenerateNumberRange(20, 20);
             string[] topologyRange = { "SRC" };
-            double[] frequencyRange = GenerateFrequencyRange(25e3, 25e3);
+            double[] frequencyRange = Function.GenerateFrequencyRange(25e3, 25e3);
 
             IsolatedDCDCConverter converter = new IsolatedDCDCConverter(Psys, Vin, Vo, Q);
 
@@ -419,9 +420,9 @@ namespace PV_analysis
                 Vin.ToString(),
                 Vo.ToString(),
                 Q.ToString(),
-                IntArrayToString(numberRange),
-                StringArrayToString(topologyRange),
-                DoubleArrayToString(frequencyRange)
+                Function.IntArrayToString(numberRange),
+                Function.StringArrayToString(topologyRange),
+                Function.DoubleArrayToString(frequencyRange)
             };
 
             Data.Record(converter.GetType().Name + "_Pareto", conditionTitles, conditions, converter.ParetoDesignList);
@@ -436,9 +437,9 @@ namespace PV_analysis
             double Vin_max = 1300;
             double Vo = 1300;
             double Q = 1;
-            int[] numberRange = GenerateNumberRange(20, 20);
+            int[] numberRange = Function.GenerateNumberRange(20, 20);
             string[] topologyRange = { "DTCSRC" };
-            double[] frequencyRange = GenerateFrequencyRange(25e3, 25e3);
+            double[] frequencyRange = Function.GenerateFrequencyRange(25e3, 25e3);
 
             IsolatedDCDCConverter converter = new IsolatedDCDCConverter(Psys, Vin_min, Vin_max, Vo, Q);
 
@@ -476,9 +477,9 @@ namespace PV_analysis
                 Vin_max.ToString(),
                 Vo.ToString(),
                 Q.ToString(),
-                IntArrayToString(numberRange),
-                StringArrayToString(topologyRange),
-                DoubleArrayToString(frequencyRange)
+                Function.IntArrayToString(numberRange),
+                Function.StringArrayToString(topologyRange),
+                Function.DoubleArrayToString(frequencyRange)
             };
 
             Data.Record(converter.GetType().Name + "_Pareto", conditionTitles, conditions, converter.ParetoDesignList);
@@ -493,10 +494,10 @@ namespace PV_analysis
             double fg = 50; //并网频率
             double phi = 0; //功率因数角(rad)
 
-            int[] numberRange = GenerateNumberRange(20, 30);
+            int[] numberRange = Function.GenerateNumberRange(20, 30);
             string[] topologyRange = { "CHB" };
             string[] modulationRange = { "PSPWM", "LSPWM" };
-            double[] frequencyRange = GenerateFrequencyRange(10e3, 10e3);
+            double[] frequencyRange = Function.GenerateFrequencyRange(10e3, 10e3);
 
             DCACConverter converter = new DCACConverter(Psys, Vo, fg, phi);
 
@@ -538,151 +539,14 @@ namespace PV_analysis
                 Vg.ToString(),
                 fg.ToString(),
                 phi.ToString(),
-                IntArrayToString(numberRange),
-                StringArrayToString(topologyRange),
-                StringArrayToString(modulationRange),
-                DoubleArrayToString(frequencyRange)
+                Function.IntArrayToString(numberRange),
+                Function.StringArrayToString(topologyRange),
+                Function.StringArrayToString(modulationRange),
+                Function.DoubleArrayToString(frequencyRange)
             };
 
             Data.Record(converter.GetType().Name + "_Pareto", conditionTitles, conditions, converter.ParetoDesignList);
             Data.Record(converter.GetType().Name + "_all", conditionTitles, conditions, converter.AllDesignList);
         }
-
-        /// <summary>
-        /// 生成可用模块数序列
-        /// </summary>
-        /// <param name="min">最少模块数</param>
-        /// <param name="max">最多模块数</param>
-        /// <returns>可用模块数序列</returns>
-        public static int[] GenerateNumberRange(int min, int max)
-        {
-            List<int> numberRange = new List<int>();
-            int n = min;
-            while (n <= max)
-            {
-                numberRange.Add(n);
-                n++;
-            }
-            return numberRange.ToArray();
-        }
-
-        /// <summary>
-        /// 生成可用模块数序列
-        /// </summary>
-        /// <param name="min">最少模块数</param>
-        /// <param name="max">最多模块数</param>
-        /// <param name="step">间隔</param>
-        /// <returns>可用模块数序列</returns>
-        public static int[] GenerateNumberRange(int min, int max, int step)
-        {
-            List<int> numberRange = new List<int>();
-            int n = min;
-            while (n <= max)
-            {
-                numberRange.Add(n);
-                n += step;
-            }
-            return numberRange.ToArray();
-        }
-
-        /// <summary>
-        /// 生成可用频率序列
-        /// </summary>
-        /// <param name="min">最低频率</param>
-        /// <param name="max">最高频率</param>
-        /// <returns>可用频率序列</returns>
-        public static double[] GenerateFrequencyRange(double min, double max)
-        {
-            List<double> frequencyRange = new List<double>();
-            double f = min;
-            while (f <= max)
-            {
-                frequencyRange.Add(f);
-                if (f < 20e3)
-                {
-                    f += 1e3;
-                }
-                else
-                {
-                    if (f < 100e3)
-                    {
-                        f += 5e3;
-                    }
-                    else
-                    {
-                        f += 10e3;
-                    }
-                }
-            }
-            return frequencyRange.ToArray();
-        }
-
-        /// <summary>
-        /// 生成可用频率序列
-        /// </summary>
-        /// <param name="min">最低频率</param>
-        /// <param name="max">最高频率</param>
-        /// <param name="step">间隔</param>
-        /// <returns>可用频率序列</returns>
-        public static double[] GenerateFrequencyRange(double min, double max, double step)
-        {
-            List<double> frequencyRange = new List<double>();
-            double f = min;
-            while (f <= max)
-            {
-                frequencyRange.Add(f);
-                f += step;
-            }
-            return frequencyRange.ToArray();
-        }
-
-        /// <summary>
-        /// 可用模块数序列转化为字符串
-        /// </summary>
-        /// <param name="numberRange">可用模块数序列</param>
-        /// <returns>对应字符串</returns>
-        public static string IntArrayToString(int[] numberRange)
-        {
-            String str = "";
-            foreach (int n in numberRange)
-            {
-                str = str + n.ToString() + ",";
-            }
-            str = str.Substring(0, str.Length - 1);
-            return str;
-        }
-
-        /// <summary>
-        /// 可用拓扑序列转化为字符串
-        /// </summary>
-        /// <param name="topologyRange">可用拓扑序列</param>
-        /// <returns>对应字符串</returns>
-        public static string StringArrayToString(string[] topologyRange)
-        {
-            String str = "";
-            foreach (string to in topologyRange)
-            {
-                str = str + to + ",";
-            }
-            str = str.Substring(0, str.Length - 1);
-            return str;
-        }
-
-        /// <summary>
-        /// 可用频率序列转化为字符串
-        /// </summary>
-        /// <param name="frequencyRange">可用频率序列</param>
-        /// <returns>对应字符串</returns>
-        public static string DoubleArrayToString(double[] frequencyRange)
-        {
-            String str = "";
-            foreach (double f in frequencyRange)
-            {
-                str = str + (f / 1e3).ToString() + ",";
-            }
-            str = str.Substring(0, str.Length - 1);
-            return str;
-        }
-
     }
 }
