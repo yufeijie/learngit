@@ -89,6 +89,9 @@ namespace PV_analysis.Topologys
             components = new Component[] { semiconductor, inductor };
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { semiconductor, inductor };
+
+            DesignCircuitParam();
+            semiconductor.SetConstants(frequencyGrid, voltageSwitch, ratioFrequencyModulation, timeTurnOnIgbt, timeTurnOnDiode);
         }
 
         /// <summary>
@@ -274,14 +277,11 @@ namespace PV_analysis.Topologys
         }
 
         /// <summary>
-        /// 准备设计所需的参数，包括：计算电路参数，设定元器件参数
+        /// 准备评估所需的电路参数
         /// </summary>
         public override void Prepare()
         {
             //计算电路参数
-            DesignCircuitParam();
-            semiconductor.AddParameters(frequencyGrid, voltageSwitch, ratioFrequencyModulation, timeTurnOnIgbt, timeTurnOnDiode);
-
             int n = Config.CGC_POWER_RATIO.Length;
 
             for (int j = 0; j < n; j++)
@@ -303,6 +303,19 @@ namespace PV_analysis.Topologys
             double currentOutputPeak = Math.Sqrt(2) * currentOutputRMS; //TODO 纹波？
             semiconductor.SetConditions(voltageStressSwitch, currentOutputPeak, frequency);
             inductor.SetConditions(inductance, currentOutputPeak, frequency);
+        }
+
+        /// <summary>
+		/// 计算相应负载下的电路参数
+		/// </summary>
+		/// <param name="load">负载</param>
+		public override void Calc(double load)
+        {
+            math_P = math_Pfull * load; //改变负载
+            Simulate();
+            //设置元器件的电路参数
+            semiconductor.SetParameters(currentSwitch);
+            inductor.SetParameters(currentOutputRMS, currentOutputRippleRMS, frequency);
         }
 
         /// <summary>

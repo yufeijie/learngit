@@ -119,6 +119,8 @@ namespace PV_analysis.Topologys
             components = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
+
+            DesignCircuitParam();
         }
 
         /// <summary>
@@ -223,12 +225,11 @@ namespace PV_analysis.Topologys
         }
 
         /// <summary>
-        /// 准备设计所需的参数，包括：计算电路参数，设定元器件参数
+        /// 准备评估所需的电路参数
         /// </summary>
         public override void Prepare()
         {
             //计算电路参数
-            DesignCircuitParam();
             currentInductorMax = 0;
             currentInductorRMSMax = 0;
             voltageCapacitorMax = 0;
@@ -265,9 +266,10 @@ namespace PV_analysis.Topologys
                     fluxLinkageMax = Math.Max(fluxLinkageMax, fluxLinkage);
 
                     //设置元器件的电路参数（用于评估）
-                    primaryDualModule.AddEvalParameters(i, j, voltageSwitch_P, currentSwitch_P, frequencySwitch);
+                    primaryDualModule.AddEvalParameters(i, j, voltageSwitch_P, currentSwitch_P, currentSwitch_P, frequencySwitch);
                     single.AddEvalParameters(i, j, voltageSwitch_S, currentSwitch_S, frequencySwitch);
-                    secondaryDualModule.AddEvalParameters(i, j, voltageSwitch_D, currentSwitch_D.Copy(-1), frequencySwitch);
+                    Curve iD = currentSwitch_D.Copy(-1);
+                    secondaryDualModule.AddEvalParameters(i, j, voltageSwitch_D, iD, iD, frequencySwitch);
                     resonantInductor.AddEvalParameters(i, j, currentInductorRMS, currentInductorPeak * 2, frequencySwitch);
                     transformer.AddEvalParameters(i, j, currentInductorRMS, currentInductorPeak * 2, frequencySwitch, fluxLinkage);
                     resonantCapacitor.AddEvalParameters(i, j, currentInductorRMS);
@@ -289,6 +291,26 @@ namespace PV_analysis.Topologys
             transformer.SetConditions(math_P, currentInductorMax, frequencySwitchMax, turnRatioTransformer, fluxLinkageMax); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(capacitanceResonance, voltageCapacitorMax, currentInductorRMSMax);
             filteringCapacitor.SetConditions(200 * 1e-6, voltageOutputDef, currentCapacitorFilterRMSMax);
+        }
+
+        /// <summary>
+		/// 计算相应负载下的电路参数
+		/// </summary>
+		/// <param name="load">负载</param>
+		public override void Calc(double load)
+        {
+            math_P = math_Pfull * load; //改变负载
+            Simulate();
+            frequencySwitch *= frequencyBase; //还原实际值
+            //设置元器件的电路参数
+            primaryDualModule.SetParameters(voltageSwitch_P, currentSwitch_P, currentSwitch_P, frequencySwitch);
+            single.SetParameters(voltageSwitch_S, currentSwitch_S, frequencySwitch);
+            Curve iD = currentSwitch_D.Copy(-1);
+            secondaryDualModule.SetParameters(voltageSwitch_D, iD, iD, frequencySwitch);
+            resonantInductor.SetParameters(currentInductorRMS, currentInductorPeak * 2, frequencySwitch);
+            transformer.SetParameters(currentInductorRMS, currentInductorPeak * 2, frequencySwitch, fluxLinkage);
+            resonantCapacitor.SetParameters(currentInductorRMS);
+            filteringCapacitor.SetParameters(currentCapacitorFilterRMS);
         }
     }
 }

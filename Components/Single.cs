@@ -6,12 +6,7 @@ namespace PV_analysis.Components
     internal class Single : Semiconductor
     {
         //限制条件
-        private static readonly bool isCheckTemperature = true; //在评估时是否进行温度检查
         private bool isSoftOff = false; //是否以软关断的方式进行计算(仅在符合条件时为true)
-        private static readonly bool isCheckExcess = false; //是否检查过剩容量
-        private static readonly double excess = 1; //允许过剩容量
-        private static bool selectSiC = true; //SiC器件选用开关，true为可选用
-        private static readonly double margin = 0.2; //裕量
         private static readonly double paralleledNumMax = 10; //最大并联数
 
         //器件参数
@@ -152,7 +147,7 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        private void SelectParameters(int m, int n)
+        protected override void SelectParameters(int m, int n)
         {
             math_Vsw = math_Vsw_eval[m, n];
             curve_i = curve_i_eval[m, n];
@@ -164,6 +159,19 @@ namespace PV_analysis.Components
             {
                 math_fs = math_fs_max;
             }
+        }
+
+        /// <summary>
+        /// 设置电路参数
+        /// </summary>
+        /// <param name="Vsw">开关电压</param>
+        /// <param name="i">电流波形</param>
+        /// <param name="fs">开关频率</param>
+        public void SetParameters(double Vsw, Curve i, double fs)
+        {
+            math_Vsw = Vsw;
+            curve_i = i;
+            math_fs = fs;
         }
 
         /// <summary>
@@ -181,55 +189,11 @@ namespace PV_analysis.Components
                     {
                         if (Evaluate()) //损耗评估，并进行温度检查
                         {
-                            CalcVolume(); //计算体积
-                            CalcCost(); //计算成本
                             designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
                         }
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// 损耗评估，并进行温度检查
-        /// </summary>
-        /// <param name="m">输入电压对应编号</param>
-        /// <param name="n">负载点对应编号</param>
-        /// <returns>评估结果，若温度检查不通过则返回false</returns>
-        private bool Evaluate()
-        {
-            int m = Config.CGC_VOLTAGE_RATIO.Length;
-            int n = Config.CGC_POWER_RATIO.Length;
-
-            if (!VoltageVariable) //输入电压不变
-            {
-                m = 1;
-            }
-
-            powerLossEvaluation = 0;
-            for (int i = 0; i < m; i++) //对不同输入电压进行计算
-            {
-                for (int j = n - 1; j >= 0; j--) //对不同功率点进行计算
-                {
-                    SelectParameters(i, j); //设置对应条件下的电路参数
-                    CalcPowerLoss(); //计算对应条件下的损耗
-                    if (isCheckTemperature && !CheckTemperature()) //验证散热器温度
-                    {
-                        return false;
-                    }
-                    if (PowerVariable)
-                    {
-                        powerLossEvaluation += powerLoss * Config.CGC_POWER_WEIGHT[j] / Config.CGC_POWER_RATIO[j]; //计算损耗评估值
-                    }
-                    else //若负载不变，则只评估满载
-                    {
-                        powerLossEvaluation = powerLoss;
-                        break;
-                    }
-                }
-            }
-            powerLossEvaluation /= m;
-            return true;
         }
 
         /// <summary>
@@ -284,28 +248,9 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
-        /// 计算成本
-        /// </summary>
-        private void CalcCost()
-        {
-            semiconductorCost = paralleledNum * Data.SemiconductorList[device].Price;
-            //TODO 驱动需要不同
-            driverCost = paralleledNum * 31.4253; //IX2120B IXYS MOQ100 Mouser
-            cost = semiconductorCost + driverCost;
-        }
-
-        /// <summary>
-        /// 计算体积
-        /// </summary>
-        private void CalcVolume()
-        {
-            volume = paralleledNum * Data.SemiconductorList[device].Volume;
-        }
-
-        /// <summary>
         /// 计算损耗 TODO 未考虑MOSFET反向导通
         /// </summary>
-        private void CalcPowerLoss()
+        public override void CalcPowerLoss()
         {
             CalcPowerLoss_MOSFET(curve_i, out math_PTcon, out math_Pon, out math_Poff, out math_PDcon, out math_Prr);
             powerLoss = math_PTcon + math_Pon + math_Poff + math_PDcon + math_Prr;
@@ -480,10 +425,29 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 计算成本
+        /// </summary>
+        protected override void CalcCost()
+        {
+            semiconductorCost = paralleledNum * Data.SemiconductorList[device].Price;
+            //TODO 驱动需要不同
+            driverCost = paralleledNum * 31.4253; //IX2120B IXYS MOQ100 Mouser
+            cost = semiconductorCost + driverCost;
+        }
+
+        /// <summary>
+        /// 计算体积
+        /// </summary>
+        protected override void CalcVolume()
+        {
+            volume = paralleledNum * Data.SemiconductorList[device].Volume;
+        }
+
+        /// <summary>
         /// 验证温度
         /// </summary>
         /// <returns>是否验证通过</returns>
-        private bool CheckTemperature()
+        protected override bool CheckTemperature()
         {
             //计算工作在最大结温时的散热器温度
             double P = (math_PTcon + math_Pon + math_Poff + math_PDcon + math_Prr) / paralleledNum;

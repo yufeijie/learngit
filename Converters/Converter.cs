@@ -21,60 +21,6 @@ namespace PV_analysis.Converters
 		protected string name = null; //变换器名
 		protected short stage = 0; //第几级变换器
 		
-		//---设计信息---
-		//protected ConverterDesignInfo designInfo;
-
-		//---评估结果---
-		protected double efficiency; //效率
-		protected double efficiencyCGC; //中国效率
-		//损耗(W)
-		protected double powerLossTotal; //总损耗
-		//(单个模块)
-		protected double powerLossModule; //模块总损耗
-		protected double powerLossSwitch; //全体开关器件损耗
-		protected double powerLossIgbtConduction; //全体开关器件IGBT导通损耗
-		protected double powerLossIgbtTurnOn; //全体开关器件IGBT开通损耗
-		protected double powerLossIgbtTurnOff; //全体开关器件IGBT关断损耗
-		protected double powerLossDiodeConduction; //全体开关器件二极管导通损耗
-		protected double powerLossDiodeReverseRecover; //全体开关器件二极管反向恢复损耗
-		protected double powerLossMagnetics; //全体磁性元件损耗
-		protected double powerLossMagneticsCu; //全体磁性元件铜损
-		protected double powerLossMagneticsFe; //全体磁性元件铁损
-		protected double powerLossCapacitor; //全体电容损耗
-		protected double powerLossEvaluation; //总损耗评估值
-		//成本(￥)
-		protected double costTotal; //总成本
-		//(单个模块)
-		protected double costModule; //模块总成本
-		protected double costSwitch; //开关器件成本
-		protected double costMagnetics; //磁性元件成本
-		protected double costMagneticsCore; //磁性元件磁芯成本
-		protected double costMagneticsWire; //磁性元件绕线成本
-		protected double costCapacitor; //电容成本
-		protected double costCandD; //控制与驱动成本
-		protected double costDriver; //驱动成本
-		protected double costController; //控制成本
-		protected double costPCB; //PCB成本
-		protected double costHeatsink; //散热片成本
-		//protected double costHeatsinkFin; //鳍片成本
-		//protected double costHeatsinkFan; //风扇成本
-		//体积(dm^3)
-		protected double powerDensity; //功率密度(kW/dm^3)
-		protected double volumeTotal; //总体积
-		//(单个模块)
-		protected double volumeModule; //总体积
-		protected double volumeSwitch; //开关器件体积
-		protected double volumeMagnetics; //磁性元件体积
-		protected double volumeCapacitor; //电容体积
-		protected double volumeHeatsink; //散热片体积
-		//protected double volumeHeatsinkFin; //鳍片体积
-		//protected double volumeHeatsinkFan; //风扇体积
-		//温度(℃)
-		protected double temperatureHeatsink; //散热器温度
-
-		//---设计结果---
-		//protected ParetoList design; //Pareto最优设计结果
-
 		/// <summary>
 		/// 系统功率
 		/// </summary>
@@ -99,6 +45,26 @@ namespace PV_analysis.Converters
 		/// 拓扑
 		/// </summary>
 		public Topology Topology { get; set; }
+
+		/// <summary>
+		/// 中国效率
+		/// </summary>
+		public double EfficiencyCGC { get; private set; }
+
+		/// <summary>
+		/// 成本
+		/// </summary>
+		public double Cost { get; private set; }
+
+		/// <summary>
+		/// 体积
+		/// </summary>
+		public double Volume { get; private set; }
+
+		/// <summary>
+		/// 效率
+		/// </summary>
+		public double Efficiency { get; private set; }
 
 		/// <summary>
 		/// Pareto最优设计方案
@@ -128,24 +94,21 @@ namespace PV_analysis.Converters
 		/// </summary>
 		public void Design()
 		{
-			Topology.Design();
+			Topology.Prepare();
+			foreach (Component component in Topology.Components)
+			{
+				component.Design();
+				//若没有设计结果，则设计失败，退出
+				if (component.DesignList.Size == 0)
+				{
+					Console.WriteLine(component.GetType().Name + " design Failed");
+					break;
+				}
+			}
 			int n = 0; //用于记录当前元器件组合的序号
 			foreach (Component[] components in Topology.ComponentGroups)
 			{
-				//检查该组器件是否都有设计结果
-				bool ok = true;
-				foreach (Component component in components)
-				{
-					if (component.DesignList.Size == 0)
-					{
-						Console.WriteLine(component.GetType().Name + " design Failed");
-						ok = false;
-						break;
-					}
-				}
-				if (!ok) { continue; }
-
-				//如果所有器件都有设计方案，则组合并记录
+				//组合并记录
 				ComponentDesignList designCombinationList = new ComponentDesignList();
 				foreach (Component component in components) //组合各个器件的设计方案
 				{
@@ -158,6 +121,41 @@ namespace PV_analysis.Converters
 				AllDesignList.Merge(newDesignList); //记录所有设计
 				n++;
 			}
+		}
+
+		/// <summary>
+		/// 评估，得到中国效率、体积、成本
+		/// </summary>
+		public void Evaluate()
+		{
+			Topology.Prepare();
+			double Pevel = 0;
+			foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
+            {
+                component.Evaluate();
+				Pevel += component.Math_Peval;
+				Cost += component.Cost;
+				Volume += component.Volume;
+			}
+			EfficiencyCGC = 1 - Pevel * Number * PhaseNum / Math_Psys;
+			Cost *= Number * PhaseNum;
+			Volume *= Number * PhaseNum;
+		}
+
+		/// <summary>
+		/// 模拟变换器运行，得到相应负载下的效率
+		/// </summary>
+		/// <param name="load">负载</param>
+		public void Operate(double load = 1.00)
+		{
+			Topology.Calc(load);
+			double Ploss = 0;
+			foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
+			{
+				component.CalcPowerLoss();
+				Ploss += component.PowerLoss;
+			}
+			Efficiency = 1 - Ploss * Number * PhaseNum / Math_Psys;
 		}
 	}
 }

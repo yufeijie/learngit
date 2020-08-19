@@ -81,5 +81,64 @@ namespace PV_analysis.Components
         /// 自动设计，得到设计方案
         /// </summary>
         public abstract void Design();
+
+        /// <summary>
+        /// 评估，得到中国效率、体积、成本
+        /// </summary>
+        public void Evaluate()
+        {
+            int m = Config.CGC_VOLTAGE_RATIO.Length;
+            int n = Config.CGC_POWER_RATIO.Length;
+
+            if (!VoltageVariable) //输入电压不变
+            {
+                m = 1;
+            }
+
+            powerLossEvaluation = 0;
+            for (int i = 0; i < m; i++) //对不同输入电压进行计算
+            {
+                for (int j = n - 1; j >= 0; j--) //对不同功率点进行计算
+                {
+                    SelectParameters(i, j); //设置对应条件下的电路参数
+                    CalcPowerLoss(); //计算对应条件下的损耗
+                    if (PowerVariable)
+                    {
+                        powerLossEvaluation += powerLoss * Config.CGC_POWER_WEIGHT[j] / Config.CGC_POWER_RATIO[j]; //计算损耗评估值
+                    }
+                    else //若负载不变，则只评估满载
+                    {
+                        powerLossEvaluation = powerLoss;
+                        break;
+                    }
+                }
+            }
+            powerLossEvaluation /= m;
+
+            CalcVolume();
+            CalcCost();
+        }
+
+        /// <summary>
+        /// 选择电路参数用于当前计算
+        /// </summary>
+        /// <param name="m">输入电压对应编号</param>
+        /// <param name="n">负载点对应编号</param>
+        protected abstract void SelectParameters(int m, int n);
+
+        /// <summary>
+        /// 计算损耗
+        /// </summary>
+        public abstract void CalcPowerLoss();
+
+        /// <summary>
+        /// 计算体积
+        /// </summary>
+        protected abstract void CalcVolume();
+
+        /// <summary>
+        /// 计算成本
+        /// </summary>
+        protected abstract void CalcCost();
     }
 }

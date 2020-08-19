@@ -103,6 +103,8 @@ namespace PV_analysis.Topologys
             components = new Component[] { primaryDualModule, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { primaryDualModule, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
+
+            DesignCircuitParam();
         }
 
         /// <summary>
@@ -193,12 +195,11 @@ namespace PV_analysis.Topologys
         }
 
         /// <summary>
-        /// 准备设计所需的参数，包括：计算电路参数，设定元器件参数
+        /// 准备评估所需的电路参数
         /// </summary>
         public override void Prepare()
         {
             //计算电路参数
-            DesignCircuitParam();
             currentInductorMax = 0;
             currentInductorRMSMax = 0;
             voltageCapacitorMax = 0;
@@ -219,8 +220,9 @@ namespace PV_analysis.Topologys
                 currentCapacitorFilterRMSMax = Math.Max(currentCapacitorFilterRMSMax, currentCapacitorFilterRMS);
 
                 //设置元器件的电路参数（用于评估）
-                primaryDualModule.AddEvalParameters(0, j, voltageSwitch_P, currentSwitch_P);
-                secondaryDualModule.AddEvalParameters(0, j, voltageSwitch_S, currentSwitch_S.Copy(-1));
+                primaryDualModule.AddEvalParameters(0, j, voltageSwitch_P, currentSwitch_P, currentSwitch_P);
+                Curve iD = currentSwitch_S.Copy(-1);
+                secondaryDualModule.AddEvalParameters(0, j, voltageSwitch_S, iD, iD);
                 resonantInductor.AddEvalParameters(0, j, currentInductorRMS, currentInductorPeak * 2);
                 transformer.AddEvalParameters(0, j, currentInductorRMS, currentInductorPeak * 2);
                 resonantCapacitor.AddEvalParameters(0, j, currentInductorRMS);
@@ -241,5 +243,24 @@ namespace PV_analysis.Topologys
             resonantCapacitor.SetConditions(capacitanceResonance, voltageCapacitorMax, currentInductorRMSMax);
             filteringCapacitor.SetConditions(200 * 1e-6, voltageOutputDef, currentCapacitorFilterRMSMax); //TODO 滤波电容的设计
         }
+
+        /// <summary>
+		/// 计算相应负载下的电路参数
+		/// </summary>
+		/// <param name="load">负载</param>
+		public override void Calc(double load)
+        {
+            math_P = math_Pfull * load; //改变负载
+            Simulate();
+            //设置元器件的电路参数
+            primaryDualModule.SetParameters(voltageSwitch_P, currentSwitch_P, currentSwitch_P, frequencySwitch);
+            Curve iD = currentSwitch_S.Copy(-1);
+            secondaryDualModule.SetParameters(voltageSwitch_S, iD, iD, frequencySwitch);
+            resonantInductor.SetParameters(currentInductorRMS, currentInductorPeak * 2, frequencySwitch);
+            transformer.SetParameters(currentInductorRMS, currentInductorPeak * 2, frequencySwitch, fluxLinkage);
+            resonantCapacitor.SetParameters(currentInductorRMS);
+            filteringCapacitor.SetParameters(currentCapacitorFilterRMS);
+        }
+
     }
 }

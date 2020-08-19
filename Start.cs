@@ -16,7 +16,7 @@ namespace PV_analysis
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new MainForm());
 
-            string[][] info = Data.Load("DCDCConverter_Pareto_20200819_153509_483.xlsx", 1);
+            string[][] info = Data.Load("DCDCConverter_Pareto_20200820_002051_708.xlsx", 1);
             string[] conditions = info[0];
             string[] configs = info[1];
             double Psys = double.Parse(conditions[0]);
@@ -25,6 +25,8 @@ namespace PV_analysis
             double Vo = double.Parse(conditions[3]);
             DCDCConverter converter = new DCDCConverter(Psys, Vin_min, Vin_max, Vo);
             converter.Load(configs, 3); //数字为数组下标，读取信息后，下标位置会相应改变
+            converter.Evaluate(); //进行评估
+            converter.Operate();
 
             //EvaluateDCDCConverter();
             //EvaluateIsolatedDCDCConverter();

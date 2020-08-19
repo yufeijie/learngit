@@ -114,7 +114,7 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        public void SelectParameters(int m, int n)
+        protected override void SelectParameters(int m, int n)
         {
             currentAverage = currentAverageForEvaluation[m, n];
             currentRipple = currentRippleForEvaluation[m, n];
@@ -128,6 +128,21 @@ namespace PV_analysis.Components
                 frequency = frequencyMax;
                 fluxLinkage = fluxLinkageMax;
             }
+        }
+
+        /// <summary>
+        /// 设置电路参数
+        /// </summary>
+        /// <param name="currentAverage">电感平均电流</param>
+        /// <param name="currentRipple">电感电流纹波</param>
+        /// <param name="frequency">开关频率</param>
+        /// <param name="fluxLinkage">磁链</param>
+        public void SetParameters(double currentAverage, double currentRipple, double frequency, double fluxLinkage)
+        {
+            this.currentAverage = currentAverage;
+            this.currentRipple = currentRipple;
+            this.frequency = frequency;
+            this.fluxLinkage = fluxLinkage;
         }
 
         /// <summary>
@@ -198,7 +213,7 @@ namespace PV_analysis.Components
                                     Console.WriteLine("Wrong Np!");
                                     System.Environment.Exit(-1);
                                 }
-                                Ns = (int)Math.Ceiling(Np / turnRatio);
+                                Ns = (int)Math.Ceiling(Np / turnRatio); //这里会引起变比变化
                                 //窗口系数检查
                                 double Awp = Np * Ax; //并绕后原边所占窗口面积(cm^2)
                                 double Aws = Ns * Ax; //并绕后副边所占窗口面积(cm^2)
@@ -211,8 +226,6 @@ namespace PV_analysis.Components
                                 //评估
                                 if (Evaluate())
                                 {
-                                    CalcVolume();
-                                    CalcCost();
                                     designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
                                 }
                             }
@@ -248,9 +261,9 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
-        /// 损耗评估
+        /// 评估，得到中国效率、体积、成本，并进行交流磁通检查
         /// </summary>
-        private bool Evaluate()
+        private new bool Evaluate()
         {
             int m = Config.CGC_VOLTAGE_RATIO.Length;
             int n = Config.CGC_POWER_RATIO.Length;
@@ -283,13 +296,16 @@ namespace PV_analysis.Components
                 }
             }
             powerLossEvaluation /= m;
+
+            CalcVolume();
+            CalcCost();
             return true;
         }
 
         /// <summary>
         /// 计算成本
         /// </summary>
-        public void CalcCost()
+        protected override void CalcCost()
         {
             costCore = 2 * numberCore * Data.CoreList[core].Price;
             double MLT; //一匝绕线长度(cm) 
@@ -303,7 +319,7 @@ namespace PV_analysis.Components
         /// <summary>
         /// 计算体积
         /// </summary>
-        public void CalcVolume()
+        protected override void CalcVolume()
         {
             double length; //长(mm)
             double width; //宽(mm)
@@ -320,7 +336,7 @@ namespace PV_analysis.Components
         /// <summary>
         /// 计算损耗
         /// </summary>
-        public void CalcPowerLoss()
+        public override void CalcPowerLoss()
         {
             CalcPowerLossCu(); //计算铜损
             CalcPowerLossFe(); //计算铁损

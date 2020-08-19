@@ -100,7 +100,7 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        /// <param name="currentRMS">电容电流有效值（用于评估）	</param>
+        /// <param name="currentRMS">电容电流有效值</param>
         public void AddEvalParameters(int m, int n, double currentRMS)
         {
             currentRMSForEvaluation[m, n] = currentRMS;
@@ -111,9 +111,18 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        public void SelectParameters(int m, int n)
+        protected override void SelectParameters(int m, int n)
         {
             currentRMS = currentRMSForEvaluation[m, n];
+        }
+
+        /// <summary>
+        /// 设置电路参数
+        /// </summary>
+        /// <param name="currentRMS">电容电流有效值</param>
+        public void SetParameters(double currentRMS)
+        {
+            this.currentRMS = currentRMS;
         }
 
         /// <summary>
@@ -136,47 +145,12 @@ namespace PV_analysis.Components
                         {
                             M = numberMax; //对于同种电容，只允许一个可行设计方案
                             N = numberMax;
-                            Evaluate();
-                            CalcVolume();
-                            CalcCost();
+                            Evaluate();                            
                             designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
                         }
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// 损耗评估
-        /// </summary>
-        private void Evaluate()
-        {
-            int m = Config.CGC_VOLTAGE_RATIO.Length;
-            int n = Config.CGC_POWER_RATIO.Length;
-
-            if (!VoltageVariable) //输入电压不变
-            {
-                m = 1;
-            }
-
-            for (int i = 0; i < m; i++) //对不同输入电压进行计算
-            {
-                for (int j = n - 1; j >= 0; j--) //对不同功率点进行计算
-                {
-                    SelectParameters(i, j); //设置对应条件下的电路参数
-                    CalcPowerLoss(); //计算对应条件下的损耗
-                    if (PowerVariable)
-                    {
-                        powerLossEvaluation += powerLoss * Config.CGC_POWER_WEIGHT[j] / Config.CGC_POWER_RATIO[j]; //计算损耗评估值
-                    }
-                    else //若负载不变，则只评估满载
-                    {
-                        powerLossEvaluation = powerLoss;
-                        break;
-                    }
-                }
-            }
-            powerLossEvaluation /= m;
         }
 
         /// <summary>
@@ -222,9 +196,18 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 计算损耗
+        /// </summary>
+        public override void CalcPowerLoss()
+        {
+            double ESR = Data.CapacitorList[device].Math_ESR * 1e-3; //获取等效串联电阻
+            powerLoss = Math.Pow(currentRMS, 2) * ESR * numberSeriesConnected / numberParallelConnected;
+        }
+
+        /// <summary>
         /// 计算成本
         /// </summary>
-        public void CalcCost()
+        protected override void CalcCost()
         {
             cost = numberSeriesConnected * numberParallelConnected * Data.CapacitorList[device].Price;
         }
@@ -232,18 +215,9 @@ namespace PV_analysis.Components
         /// <summary>
         /// 计算体积
         /// </summary>
-        public void CalcVolume()
+        protected override void CalcVolume()
         {
             volume = numberSeriesConnected * numberParallelConnected * Data.CapacitorList[device].Volume;
-        }
-
-        /// <summary>
-        /// 计算损耗
-        /// </summary>
-        public void CalcPowerLoss()
-        {
-            double ESR = Data.CapacitorList[device].Math_ESR * 1e-3; //获取等效串联电阻
-            powerLoss = Math.Pow(currentRMS, 2) * ESR * numberSeriesConnected / numberParallelConnected;
         }
     }
 }

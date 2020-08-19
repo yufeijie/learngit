@@ -110,7 +110,7 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        public void SelectParameters(int m, int n)
+        protected override void SelectParameters(int m, int n)
         {
             currentAverage = currentAverageForEvaluation[m, n];
             currentRipple = currentRippleForEvaluation[m, n];
@@ -122,6 +122,19 @@ namespace PV_analysis.Components
             {
                 frequency = frequencyMax;
             }
+        }
+
+        /// <summary>
+        /// 设置电路参数
+        /// </summary>
+        /// <param name="currentAverage">电感平均电流</param>
+        /// <param name="currentRipple">电感电流纹波</param>
+        /// <param name="frequency">开关频率</param>
+        public void SetParameters(double currentAverage, double currentRipple, double frequency)
+        {
+            this.currentAverage = currentAverage;
+            this.currentRipple = currentRipple;
+            this.frequency = frequency;
         }
 
         /// <summary>
@@ -219,48 +232,13 @@ namespace PV_analysis.Components
                                 N = CalcN(lg, length, Aecc);
 
                                 //评估
-                                Evaluate();
-                                CalcVolume();
-                                CalcCost();
+                                Evaluate();                                
                                 designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
                             }
                         }
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// 损耗评估
-        /// </summary>
-        private void Evaluate()
-        {
-            int m = Config.CGC_VOLTAGE_RATIO.Length;
-            int n = Config.CGC_POWER_RATIO.Length;
-
-            if (!VoltageVariable) //输入电压不变
-            {
-                m = 1;
-            }
-
-            for (int i = 0; i < m; i++) //对不同输入电压进行计算
-            {
-                for (int j = n - 1; j >= 0; j--) //对不同功率点进行计算
-                {
-                    SelectParameters(i, j); //设置对应条件下的电路参数
-                    CalcPowerLoss(); //计算对应条件下的损耗
-                    if (PowerVariable)
-                    {
-                        powerLossEvaluation += powerLoss * Config.CGC_POWER_WEIGHT[j] / Config.CGC_POWER_RATIO[j]; //计算损耗评估值
-                    }
-                    else //若负载不变，则只评估满载
-                    {
-                        powerLossEvaluation = powerLoss;
-                        break;
-                    }
-                }
-            }
-            powerLossEvaluation /= m;
         }
 
         /// <summary>
@@ -400,7 +378,7 @@ namespace PV_analysis.Components
         /// <summary>
         /// 计算成本
         /// </summary>
-        public void CalcCost()
+        protected override void CalcCost()
         {
             costCore = 2 * numberCore * Data.CoreList[core].Price;
             double MLT; //一匝绕线长度(cm) 
@@ -415,7 +393,7 @@ namespace PV_analysis.Components
         /// <summary>
         /// 计算体积
         /// </summary>
-        public void CalcVolume()
+        protected override void CalcVolume()
         {
             double length; //长(mm)
             double width; //宽(mm)
@@ -435,7 +413,7 @@ namespace PV_analysis.Components
         /// <summary>
         /// 计算损耗
         /// </summary>
-        public void CalcPowerLoss()
+        public override void CalcPowerLoss()
         {
             CalcPowerLossCu(); //计算铜损
             CalcPowerLossFe(); //计算铁损
