@@ -43,13 +43,43 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 设置电容型号
+        /// </summary>
+        /// <returns>型号</returns>
+        private void SetDeviceType(string type)
+        {
+            for (int i = 0; i < Data.CapacitorList.Count; i++)
+            {
+                if (type.Equals(Data.CapacitorList[i].Type))
+                {
+                    device = i;
+                    return;
+                }
+            }
+            device = -1;
+        }
+
+        /// <summary>
         /// 获取设计方案的配置信息
         /// </summary>
         /// <returns>配置信息</returns>
         public string[] GetConfigs()
         {
-            string[] data = { "FilteringCapacitor", number.ToString(), GetDeviceType(), numberSeriesConnected.ToString(), numberParallelConnected.ToString() };
+            string[] data = { number.ToString(), GetDeviceType(), numberSeriesConnected.ToString(), numberParallelConnected.ToString() };
             return data;
+        }
+
+        /// <summary>
+        /// 读取配置信息
+        /// </summary>
+        /// <param name="configs">配置信息</param>
+        /// <param name="index">当前下标</param>
+        public override void Load(string[] configs, ref int index)
+        {
+            number = int.Parse(configs[index++]);
+            SetDeviceType(configs[index++]);
+            numberSeriesConnected = int.Parse(configs[index++]);
+            numberParallelConnected = int.Parse(configs[index++]);
         }
 
         /// <summary>

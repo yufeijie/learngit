@@ -31,12 +31,29 @@ namespace PV_analysis.Components
         protected double costWire; //单个绕线成本
 
         /// <summary>
-        /// 获取磁芯的型号
+        /// 获取磁芯型号
         /// </summary>
         /// <returns>型号</returns>
         protected string GetCoreType()
         {
             return Data.CoreList[core].Type;
+        }
+
+        /// <summary>
+        /// 设置磁芯型号
+        /// </summary>
+        /// <returns>型号</returns>
+        protected void SetCoreType(string type)
+        {
+            for (int i = 0; i < Data.CoreList.Count; i++)
+            {
+                if (type.Equals(Data.CoreList[i].Type))
+                {
+                    core = i;
+                    return;
+                }
+            }
+            core = -1;
         }
 
         /// <summary>
@@ -46,6 +63,23 @@ namespace PV_analysis.Components
         protected string GetWireType()
         {
             return Data.WireList[wire].Type;
+        }
+
+        /// <summary>
+        /// 设置绕线型号
+        /// </summary>
+        /// <returns>型号</returns>
+        protected void SetWireType(string type)
+        {
+            for (int i = 0; i < Data.WireList.Count; i++)
+            {
+                if (type.Equals(Data.WireList[i].Type))
+                {
+                    wire = i;
+                    return;
+                }
+            }
+            wire = -1;
         }
 
         /// <summary>

@@ -59,7 +59,7 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
-        /// 获取器件的型号
+        /// 获取器件型号
         /// </summary>
         /// <returns>型号</returns>
         private string GetDeviceType()
@@ -68,12 +68,40 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 设置器件型号
+        /// </summary>
+        /// <returns>型号</returns>
+        private void SetDeviceType(string type)
+        {
+            for (int i = 0; i < Data.SemiconductorList.Count; i++)
+            {
+                if (type.Equals(Data.SemiconductorList[i].Type))
+                {
+                    device = i;
+                    return;
+                }
+            }
+            device = -1;
+        }
+
+        /// <summary>
         /// 获取设计方案的配置信息
         /// </summary>
         /// <returns>配置信息</returns>
         private string[] GetConfigs()
         {
-            return new string[] { "DualModule", number.ToString(), GetDeviceType() };
+            return new string[] { number.ToString(), GetDeviceType() };
+        }
+
+        /// <summary>
+        /// 读取配置信息
+        /// </summary>
+        /// <param name="configs">配置信息</param>
+        /// <param name="index">当前下标</param>
+        public override void Load(string[] configs, ref int index)
+        {
+            number = int.Parse(configs[index++]);
+            SetDeviceType(configs[index++]);
         }
 
         /// <summary>

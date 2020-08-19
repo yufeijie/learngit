@@ -45,7 +45,22 @@ namespace PV_analysis.Components
         /// <returns>配置信息</returns>
         private string[] GetConfigs()
         {
-            return new string[] { "FilteringInductor", number.ToString(), GetCoreType(), numberCore.ToString(), lg.ToString(), GetWireType(), N.ToString() };
+            return new string[] { number.ToString(), GetCoreType(), numberCore.ToString(), lg.ToString(), GetWireType(), N.ToString() };
+        }
+
+        /// <summary>
+        /// 读取配置信息
+        /// </summary>
+        /// <param name="configs">配置信息</param>
+        /// <param name="index">当前下标</param>
+        public override void Load(string[] configs, ref int index)
+        {
+            number = int.Parse(configs[index++]);
+            SetCoreType(configs[index++]);
+            numberCore = int.Parse(configs[index++]);
+            lg = double.Parse(configs[index++]);
+            SetWireType(configs[index++]);
+            N = int.Parse(configs[index++]);
         }
 
         /// <summary>

@@ -32,8 +32,6 @@ namespace PV_analysis.Topologys
         private double qualityFactorDef; //品质因数预设值
 
         //基本电路参数
-        private double powerFull; //满载模块功率
-        private double power; //功率
         private double voltageInput; //输入电压
         private double voltageOutput; //输出电压
         private double qualityFactor; //品质因数
@@ -86,13 +84,41 @@ namespace PV_analysis.Topologys
         private Curve voltageCapacitor; //谐振电容电压波形
         private Curve currentCapacitorFilter; //滤波电容电流波形
 
+        //元器件
+        private DualModule primaryDualModule;
+        private Single single;
+        private DualModule secondaryDualModule; //TODO 此处应为二极管
+        private Inductor resonantInductor;
+        private Transformer transformer;
+        private Capacitor resonantCapacitor;
+        private Capacitor filteringCapacitor;
+
         /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="converter">所属变换器</param>
         public DTCSRC(IsolatedDCDCConverter converter)
         {
+            //获取设计规格
             this.converter = converter;
+            math_Pfull = converter.Math_Psys / converter.PhaseNum / converter.Number;
+            voltageInputMinDef = converter.Math_Vin_min;
+            voltageInputMaxDef = converter.Math_Vin_max;
+            voltageOutputDef = converter.Math_Vo;
+            frequencyResonance = converter.Math_fr;
+            qualityFactorDef = converter.Math_Q;
+
+            //初始化元器件
+            primaryDualModule = new DualModule(2);
+            single = new Single(2);
+            secondaryDualModule = new DualModule(1);
+            resonantInductor = new Inductor(1);
+            transformer = new Transformer(1);
+            resonantCapacitor = new Capacitor(1);
+            filteringCapacitor = new Capacitor(1);
+            components = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
+            componentGroups = new Component[1][];
+            componentGroups[0] = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
         }
 
         /// <summary>
@@ -119,7 +145,7 @@ namespace PV_analysis.Topologys
         private void Simulate()
         {
             gain = turnRatioTransformer * voltageOutput / voltageInput;
-            resistanceLoad = Math.Pow(voltageOutput, 2) / power;
+            resistanceLoad = Math.Pow(voltageOutput, 2) / math_P;
             qualityFactor = impedanceResonance / (Math.Pow(turnRatioTransformer, 2) * resistanceLoad);
             //求解Vo和t0
             MWArray output = Formula.solve.solve_DTCSRC(qualityFactor, gain);
@@ -197,30 +223,10 @@ namespace PV_analysis.Topologys
         }
 
         /// <summary>
-        /// 自动设计，得到每个器件的设计方案
+        /// 准备设计所需的参数，包括：计算电路参数，设定元器件参数
         /// </summary>
-        public override void Design()
+        public override void Prepare()
         {
-            //初始化
-            DualModule primaryDualModule = new DualModule(2);
-            Single single = new Single(2);
-            DualModule secondaryDualModule = new DualModule(1); //TODO 此处应为二极管
-            Inductor resonantInductor = new Inductor(1);
-            Transformer transformer = new Transformer(1);
-            Capacitor resonantCapacitor = new Capacitor(1);
-            Capacitor filteringCapacitor = new Capacitor(1);
-            components = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
-            componentGroups = new Component[1][];
-            componentGroups[0] = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
-
-            //获取设计规格
-            powerFull = converter.Math_Psys / converter.PhaseNum / converter.Number;
-            voltageInputMinDef = converter.Math_Vin_min;
-            voltageInputMaxDef = converter.Math_Vin_max;
-            voltageOutputDef = converter.Math_Vo;
-            frequencyResonance = converter.Math_fr;
-            qualityFactorDef = converter.Math_Q;
-
             //计算电路参数
             DesignCircuitParam();
             currentInductorMax = 0;
@@ -243,7 +249,7 @@ namespace PV_analysis.Topologys
                 voltageInput = voltageInputMinDef + (voltageInputMaxDef - voltageInputMinDef) * Config.CGC_VOLTAGE_RATIO[i];
                 for (int j = 0; j < n; j++)
                 {
-                    power = powerFull * Config.CGC_POWER_RATIO[j]; //改变模块功率
+                    math_P = math_Pfull * Config.CGC_POWER_RATIO[j]; //改变负载
                     Simulate();
                     //Graph graph = new Graph();
                     //graph.Add(currentSwitch_P, "iP");
@@ -280,14 +286,9 @@ namespace PV_analysis.Topologys
             single.SetConditions(voltageOutputDef, turnRatioTransformer * currentInductorMax, frequencySwitchMax);
             secondaryDualModule.SetConditions(voltageOutputDef, turnRatioTransformer * currentInductorMax, frequencySwitchMax);
             resonantInductor.SetConditions(inductanceResonance, currentInductorMax, frequencySwitchMax);
-            transformer.SetConditions(power, currentInductorMax, frequencySwitchMax, turnRatioTransformer, fluxLinkageMax); //FIXME 磁链是否会变化？
+            transformer.SetConditions(math_P, currentInductorMax, frequencySwitchMax, turnRatioTransformer, fluxLinkageMax); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(capacitanceResonance, voltageCapacitorMax, currentInductorRMSMax);
             filteringCapacitor.SetConditions(200 * 1e-6, voltageOutputDef, currentCapacitorFilterRMSMax);
-
-            foreach (Component component in components)
-            {
-                component.Design();
-            }
         }
     }
 }

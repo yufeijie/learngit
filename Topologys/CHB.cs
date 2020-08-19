@@ -27,8 +27,6 @@ namespace PV_analysis.Topologys
         private double frequency; //开关频率
 
         //基本电路参数
-        private double powerFull; //模块满载功率
-        private double power; //模块功率
         private double voltageInput; //模块输入电压
         private double voltageOutput; //模块输出电压
         private double voltageOutputTotal; //整体输出电压
@@ -48,13 +46,49 @@ namespace PV_analysis.Topologys
         private Curve curveVoltageOutputTotalBase; //模拟逆变器整体输出电压基波波形
         private Curve curveVoltageOutputTotal; //模拟逆变器整体输出电压波形
 
+        //元器件
+        private CHBModule semiconductor;
+        private Inductor inductor;
+
         /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="converter">所属变换器</param>
         public CHB(DCACConverter converter)
         {
+            //获取设计规格
             this.converter = converter;
+            math_Pfull = converter.Math_Psys / converter.PhaseNum / number;
+            voltageInputDef = converter.Math_Vin;
+            voltageOutputTotalDef = converter.Math_Vo;
+            frequencyGrid = converter.Math_fg;
+            anglePowerFactor = converter.Math_phi;
+            ratioAmplitudeModulation = converter.Math_Ma;
+            modulation = converter.Modulation;
+            number = converter.Number;
+            frequency = converter.Math_fs;
+            if (voltageInputDef == 0)
+            {
+                voltageOutputTotal = voltageOutputTotalDef;
+                voltageOutput = voltageOutputTotal / number;
+                currentOutputRMS = math_Pfull / (voltageOutput * Math.Cos(anglePowerFactor));
+                voltageInput = Math.Sqrt(2) * voltageOutput / ratioAmplitudeModulation;
+            }
+            else
+            {
+                voltageInput = voltageInputDef;
+                voltageOutput = voltageInput / Math.Sqrt(2) * ratioAmplitudeModulation;
+                voltageOutputTotal = voltageOutput * number;
+                currentOutputRMS = math_Pfull / (voltageOutput * Math.Cos(anglePowerFactor));
+            }
+            converter.Math_Vin = voltageInput;
+
+            //初始化元器件
+            semiconductor = new CHBModule(1) { VoltageVariable = false, MultiNumber = number };
+            inductor = new Inductor(1) { VoltageVariable = false };
+            components = new Component[] { semiconductor, inductor };
+            componentGroups = new Component[1][];
+            componentGroups[0] = new Component[] { semiconductor, inductor };
         }
 
         /// <summary>
@@ -231,7 +265,7 @@ namespace PV_analysis.Topologys
         private void Simulate()
         {
             //还原输出电流波形
-            currentOutputRMS = power / (voltageOutput * Math.Cos(anglePowerFactor));
+            currentOutputRMS = math_P / (voltageOutput * Math.Cos(anglePowerFactor));
             currentSwitch = new double[ratioFrequencyModulation];
             for (int k = 0; k < ratioFrequencyModulation; k++)
             {
@@ -240,43 +274,10 @@ namespace PV_analysis.Topologys
         }
 
         /// <summary>
-        /// 自动设计，得到每个器件的设计方案
+        /// 准备设计所需的参数，包括：计算电路参数，设定元器件参数
         /// </summary>
-        public override void Design()
+        public override void Prepare()
         {
-            //初始化
-            modulation = converter.Modulation;
-            number = converter.Number;
-            CHBModule semiconductor = new CHBModule(1) { VoltageVariable = false, MultiNumber = number };
-            Inductor inductor = new Inductor(1) { VoltageVariable = false };
-            components = new Component[] { semiconductor, inductor };
-            componentGroups = new Component[1][];
-            componentGroups[0] = new Component[] { semiconductor, inductor };
-
-            //获取设计规格
-            powerFull = converter.Math_Psys / converter.PhaseNum / number;
-            voltageInputDef = converter.Math_Vin;
-            voltageOutputTotalDef = converter.Math_Vo;
-            frequencyGrid = converter.Math_fg;
-            anglePowerFactor = converter.Math_phi;
-            ratioAmplitudeModulation = converter.Math_Ma;
-            frequency = converter.Math_fs;
-            if (voltageInputDef == 0)
-            {
-                voltageOutputTotal = voltageOutputTotalDef;
-                voltageOutput = voltageOutputTotal / number;
-                currentOutputRMS = powerFull / (voltageOutput * Math.Cos(anglePowerFactor));
-                voltageInput = Math.Sqrt(2) * voltageOutput / ratioAmplitudeModulation;
-            }
-            else
-            {
-                voltageInput = voltageInputDef;
-                voltageOutput = voltageInput / Math.Sqrt(2) * ratioAmplitudeModulation;
-                voltageOutputTotal = voltageOutput * number;
-                currentOutputRMS = powerFull / (voltageOutput * Math.Cos(anglePowerFactor));
-            }
-            converter.Math_Vin = voltageInput;
-
             //计算电路参数
             DesignCircuitParam();
             semiconductor.AddParameters(frequencyGrid, voltageSwitch, ratioFrequencyModulation, timeTurnOnIgbt, timeTurnOnDiode);
@@ -285,7 +286,7 @@ namespace PV_analysis.Topologys
 
             for (int j = 0; j < n; j++)
             {
-                power = powerFull * Config.CGC_POWER_RATIO[j]; //改变模块功率
+                math_P = math_Pfull * Config.CGC_POWER_RATIO[j]; //改变负载
                 Simulate();
                 //Graph graph = new Graph();
                 //graph.Add(currentSwitch_P, "iP");
@@ -302,11 +303,6 @@ namespace PV_analysis.Topologys
             double currentOutputPeak = Math.Sqrt(2) * currentOutputRMS; //TODO 纹波？
             semiconductor.SetConditions(voltageStressSwitch, currentOutputPeak, frequency);
             inductor.SetConditions(inductance, currentOutputPeak, frequency);
-
-            foreach (Component component in components)
-            {
-                component.Design();
-            }
         }
 
         /// <summary>

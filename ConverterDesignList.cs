@@ -152,11 +152,11 @@ namespace PV_analysis
                     now.Volume.ToString(),
                     now.Cost.ToString()
                 };
-                foreach (string config in now.Configs)
+                foreach (string config in configs)
                 {
                     newConfigs.Add(config);
                 }
-                foreach (string config in configs)
+                foreach (string config in now.Configs)
                 {
                     newConfigs.Add(config);
                 }
@@ -173,8 +173,9 @@ namespace PV_analysis
         /// <param name="power">总功率</param>
         /// <param name="number">模块数</param>
         /// <param name="phaseNum">相数</param>
+        /// <param name="n">元器件组合序号</param>
         /// <param name="configs">变换器配置信息</param>
-        public void Transfer(ComponentDesignList componentDesignList, double power, double number, double phaseNum, string[] configs)
+        public void Transfer(ComponentDesignList componentDesignList, double power, double number, double phaseNum, int n, string[] configs)
         {
             IComponentDesignData[] designs = componentDesignList.GetData();
             foreach (IComponentDesignData design in designs)
@@ -192,6 +193,7 @@ namespace PV_analysis
                 {
                     newConfigs.Add(config);
                 }
+                newConfigs.Add(n.ToString());
                 foreach (string config in design.Configs)
                 {
                     newConfigs.Add(config);

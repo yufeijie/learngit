@@ -31,6 +31,11 @@ namespace PV_analysis.Components
         protected ComponentDesignList designList = new ComponentDesignList(); //TODO 封装
 
         /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// 评估时，输入电压是否变化
         /// </summary>
         public bool VoltageVariable { get; set; } = true;
@@ -64,6 +69,13 @@ namespace PV_analysis.Components
         /// 设计结果
         /// </summary>
         public ComponentDesignList DesignList { get { return designList; } }
+
+        /// <summary>
+        /// 读取配置信息
+        /// </summary>
+        /// <param name="configs">配置信息</param>
+        /// <param name="index">当前下标</param>
+        public abstract void Load(string[] configs, ref int index);
 
         /// <summary>
         /// 自动设计，得到设计方案

@@ -15,8 +15,6 @@ namespace PV_analysis.Topologys
         private DCDCConverter converter; //所属变换器
 
         //基本电路参数
-        private double math_Pmax; //满载功率
-        private double math_P; //功率
         private double math_fs; //开关频率
         private double math_Vin_min; //输入电压最小值
         private double math_Vin_max; //输入电压最大值
@@ -39,13 +37,32 @@ namespace PV_analysis.Topologys
         private Curve curve_iS; //主管电流
         private Curve curve_iD; //升压二极管电流
 
+        //元器件
+        private DualModule dualModule;
+        private Inductor inductor;
+        private Capacitor capacitor;
+
         /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="converter">所属变换器</param>
         public InterleavedBoost(DCDCConverter converter)
         {
+            //获取设计规格
             this.converter = converter;
+            math_Pfull = converter.Math_Psys / converter.Number;
+            math_fs = converter.Math_fs;
+            math_Vin_min = converter.Math_Vin_min;
+            math_Vin_max = converter.Math_Vin_max;
+            math_Vo = converter.Math_Vo;
+
+            //初始化元器件
+            dualModule = new DualModule(2, false);
+            inductor = new Inductor(2);
+            capacitor = new Capacitor(1);
+            components = new Component[] { dualModule, inductor, capacitor };
+            componentGroups = new Component[1][];
+            componentGroups[0] = new Component[] { dualModule, inductor, capacitor };
         }
 
         /// <summary>
@@ -53,7 +70,7 @@ namespace PV_analysis.Topologys
         /// </summary>
         private void DesignCircuitParam()
         {
-            double P = math_Pmax;
+            double P = math_Pfull;
             double Vin = math_Vin_min;
             double Vo = math_Vo;
             double fs = math_fs;
@@ -205,25 +222,10 @@ namespace PV_analysis.Topologys
         }
 
         /// <summary>
-        /// 自动设计，得到每个器件的设计方案
+        /// 准备设计所需的参数，包括：计算电路参数，设定元器件参数
         /// </summary>
-        public override void Design()
+        public override void Prepare()
         {
-            //初始化
-            DualModule dualModule = new DualModule(2, false);
-            Inductor inductor = new Inductor(2);
-            Capacitor capacitor = new Capacitor(1);
-            components = new Component[] { dualModule, inductor, capacitor };
-            componentGroups = new Component[1][];
-            componentGroups[0] = new Component[] { dualModule, inductor, capacitor };
-
-            //获取设计规格
-            math_Pmax = converter.Math_Psys / converter.Number;
-            math_fs = converter.Math_fs;
-            math_Vin_min = converter.Math_Vin_min;
-            math_Vin_max = converter.Math_Vin_max;
-            math_Vo = converter.Math_Vo;
-
             //计算电路参数
             DesignCircuitParam();
             math_ICrms_max = 0;
@@ -234,7 +236,7 @@ namespace PV_analysis.Topologys
                 math_Vin = math_Vin_min + (math_Vin_max - math_Vin_min) * Config.CGC_VOLTAGE_RATIO[i];
                 for (int j = 0; j < n; j++)
                 {
-                    math_P = math_Pmax * Config.CGC_POWER_RATIO[j]; //改变模块功率
+                    math_P = math_Pfull * Config.CGC_POWER_RATIO[j]; //改变负载
                     Simulate();
                     //Graph graph = new Graph();
                     //graph.Add(curve_iS, "iS");
@@ -253,11 +255,6 @@ namespace PV_analysis.Topologys
             dualModule.SetConditions(math_VSmax, math_ISmax, math_fs);
             inductor.SetConditions(math_L, math_ILmax, math_fs);
             capacitor.SetConditions(math_C, math_VCmax, math_ICrms_max);
-
-            foreach (Component component in components)
-            {
-                component.Design();
-            }
         }
     }
 }

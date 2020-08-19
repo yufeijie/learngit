@@ -1,7 +1,5 @@
 ﻿using PV_analysis.Converters;
 using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace PV_analysis
 {
@@ -14,9 +12,19 @@ namespace PV_analysis
         public static void Main()
         {
             //生成窗体
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new MainForm());
+
+            string[][] info = Data.Load("DCDCConverter_Pareto_20200819_153509_483.xlsx", 1);
+            string[] conditions = info[0];
+            string[] configs = info[1];
+            double Psys = double.Parse(conditions[0]);
+            double Vin_min = double.Parse(conditions[1]);
+            double Vin_max = double.Parse(conditions[2]);
+            double Vo = double.Parse(conditions[3]);
+            DCDCConverter converter = new DCDCConverter(Psys, Vin_min, Vin_max, Vo);
+            converter.Load(configs, 3); //数字为数组下标，读取信息后，下标位置会相应改变
 
             //EvaluateDCDCConverter();
             //EvaluateIsolatedDCDCConverter();
@@ -69,15 +77,15 @@ namespace PV_analysis
                 Console.WriteLine("-------------------------");
                 Console.WriteLine("Front-stage DC/DC converters design...");
                 DCDCConverter DCDC = new DCDCConverter(Psys, Vpv_min, Vpv_max, Vbus);
-                foreach (string tp in DCDC_topologyRange) //拓扑变化
+                foreach (int n in DCDC_numberRange) //模块数变化
                 {
-                    DCDC.CreateTopology(tp);
-                    foreach (int n in DCDC_numberRange) //模块数变化
+                    DCDC.Number = n;
+                    foreach (double fs in DCDC_frequencyRange) //开关频率变化
                     {
-                        DCDC.Number = n;
-                        foreach (double fs in DCDC_frequencyRange) //开关频率变化
+                        DCDC.Math_fs = fs;
+                        foreach (string tp in DCDC_topologyRange) //拓扑变化
                         {
-                            DCDC.Math_fs = fs;
+                            DCDC.CreateTopology(tp);
                             Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
                             DCDC.Design();
                         }
@@ -93,18 +101,17 @@ namespace PV_analysis
                     Console.WriteLine("-------------------------");
                     Console.WriteLine("Inverters design...");
                     DCACConverter DCAC = new DCACConverter(Psys, Vo, fg, phi) { Number = j };
-                    foreach (string tp in DCAC_topologyRange) //拓扑变化
+                    foreach (string mo in DCAC_modulationRange) //拓扑变化
                     {
-                        DCAC.CreateTopology(tp);
-                        foreach (string mo in DCAC_modulationRange) //拓扑变化
+                        DCAC.Modulation = mo;
+                        foreach (double fs in DCAC_frequencyRange) //谐振频率变化
                         {
-                            DCAC.Modulation = mo;
-                            foreach (double fs in DCAC_frequencyRange) //谐振频率变化
+                            DCAC.Math_fs = fs;
+                            foreach (string tp in DCAC_topologyRange) //拓扑变化
                             {
-                                DCAC.Math_fs = fs;
-                                Console.WriteLine("Now topology=" + tp + ", n=" + j + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
                                 DCAC.Math_Vin = 0;
-                                //inverter.setVoltageInputDef(inv_voltageInput); //FIXME
+                                DCAC.CreateTopology(tp);
+                                Console.WriteLine("Now topology=" + tp + ", n=" + j + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
                                 DCAC.Design();
                             }
                         }
@@ -118,12 +125,12 @@ namespace PV_analysis
                     Console.WriteLine("-------------------------");
                     Console.WriteLine("Isolated DC/DC converters design...");
                     IsolatedDCDCConverter isolatedDCDC = new IsolatedDCDCConverter(Psys, Vbus, DCAC.Math_Vin, isolatedDCDC_Q) { Number = j };
-                    foreach (string tp in isolatedDCDC_topologyRange) //拓扑变化
+                    foreach (double fr in isolatedDCDC_resonanceFrequencyRange) //谐振频率变化
                     {
-                        isolatedDCDC.CreateTopology(tp);
-                        foreach (double fr in isolatedDCDC_resonanceFrequencyRange) //谐振频率变化
+                        isolatedDCDC.Math_fr = fr;
+                        foreach (string tp in isolatedDCDC_topologyRange) //拓扑变化
                         {
-                            isolatedDCDC.Math_fr = fr;
+                            isolatedDCDC.CreateTopology(tp);
                             Console.WriteLine("Now topology=" + tp + ", n=" + j + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
                             isolatedDCDC.Design();
                         }
@@ -189,8 +196,8 @@ namespace PV_analysis
                 Function.DoubleArrayToString(DCAC_frequencyRange)
             };
 
-            Data.Record("ThreeStageSystem_Pareto", conditionTitles, conditions, paretoDesignList);
-            Data.Record("ThreeStageSystem_all", conditionTitles, conditions, allDesignList);
+            Data.Save("ThreeStageSystem_Pareto", conditionTitles, conditions, paretoDesignList);
+            Data.Save("ThreeStageSystem_all", conditionTitles, conditions, allDesignList);
         }
 
         public static void EvaluateTwoStageSystem()
@@ -230,12 +237,12 @@ namespace PV_analysis
                 Console.WriteLine("-------------------------");
                 Console.WriteLine("Isolated DC/DC converters design...");
                 IsolatedDCDCConverter isolatedDCDC = new IsolatedDCDCConverter(Psys, Vpv_min, Vpv_max, DCAC_Vin, isolatedDCDC_Q) { Number = j };
-                foreach (string tp in isolatedDCDC_topologyRange) //拓扑变化
+                foreach (double fr in isolatedDCDC_resonanceFrequencyRange) //谐振频率变化
                 {
-                    isolatedDCDC.CreateTopology(tp);
-                    foreach (double fr in isolatedDCDC_resonanceFrequencyRange) //谐振频率变化
+                    isolatedDCDC.Math_fr = fr;
+                    foreach (string tp in isolatedDCDC_topologyRange) //拓扑变化
                     {
-                        isolatedDCDC.Math_fr = fr;
+                        isolatedDCDC.CreateTopology(tp);
                         Console.WriteLine("Now topology=" + tp + ", n=" + j + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
                         isolatedDCDC.Design();
                     }
@@ -249,15 +256,15 @@ namespace PV_analysis
                 Console.WriteLine("-------------------------");
                 Console.WriteLine("Inverters design...");
                 DCACConverter DCAC = new DCACConverter(Psys, Vo, fg, phi) { Number = j, Math_Vin = DCAC_Vin };
-                foreach (string tp in DCAC_topologyRange) //拓扑变化
+                foreach (double fs in DCAC_frequencyRange) //谐振频率变化
                 {
-                    DCAC.CreateTopology(tp);
-                    foreach (string mo in DCAC_modulationRange) //拓扑变化
+                    DCAC.Math_fs = fs;
+                    foreach (string mo in DCAC_modulationRange) //调制方式变化
                     {
                         DCAC.Modulation = mo;
-                        foreach (double fs in DCAC_frequencyRange) //谐振频率变化
+                        foreach (string tp in DCAC_topologyRange) //拓扑变化
                         {
-                            DCAC.Math_fs = fs;
+                            DCAC.CreateTopology(tp);
                             Console.WriteLine("Now topology=" + tp + ", n=" + j + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
                             //inverter.setVoltageInputDef(inv_voltageInput); //FIXME
                             DCAC.Design();
@@ -316,8 +323,8 @@ namespace PV_analysis
                 Function.DoubleArrayToString(DCAC_frequencyRange)
             };
 
-            Data.Record("TwoStageSystem_Pareto", conditionTitles, conditions, paretoDesignList);
-            Data.Record("TwoStageSystem_all", conditionTitles, conditions, allDesignList);
+            Data.Save("TwoStageSystem_Pareto", conditionTitles, conditions, paretoDesignList);
+            Data.Save("TwoStageSystem_all", conditionTitles, conditions, allDesignList);
         }
 
         public static void EvaluateDCDCConverter()
@@ -328,19 +335,19 @@ namespace PV_analysis
             double Vo = 1300;
             int[] numberRange = Function.GenerateNumberRange(1, 120);
             string[] topologyRange = { "ThreeLevelBoost", "TwoLevelBoost", "InterleavedBoost" };
-            double[] frequencyRange = Function.GenerateFrequencyRange(1e3, 50e3);
+            double[] frequencyRange = Function.GenerateFrequencyRange(1e3, 100e3);
 
             DCDCConverter converter = new DCDCConverter(Psys, Vin_min, Vin_max, Vo);
 
-            foreach (string tp in topologyRange) //拓扑变化
+            foreach (int n in numberRange) //模块数变化
             {
-                converter.CreateTopology(tp);
-                foreach (int n in numberRange) //模块数变化
+                converter.Number = n;
+                foreach (double fs in frequencyRange) //开关频率变化
                 {
-                    converter.Number = n;
-                    foreach (double fs in frequencyRange) //开关频率变化
+                    converter.Math_fs = fs;
+                    foreach (string tp in topologyRange) //拓扑变化
                     {
-                        converter.Math_fs = fs;
+                        converter.CreateTopology(tp);
                         Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
                         converter.Design();
                     }
@@ -369,8 +376,8 @@ namespace PV_analysis
                 Function.DoubleArrayToString(frequencyRange)
             };
 
-            Data.Record(converter.GetType().Name + "_Pareto", conditionTitles, conditions, converter.ParetoDesignList);
-            Data.Record(converter.GetType().Name + "_all", conditionTitles, conditions, converter.AllDesignList);
+            Data.Save(converter.GetType().Name + "_Pareto", conditionTitles, conditions, converter.ParetoDesignList);
+            Data.Save(converter.GetType().Name + "_all", conditionTitles, conditions, converter.AllDesignList);
         }
 
         public static void EvaluateIsolatedDCDCConverter()
@@ -388,15 +395,15 @@ namespace PV_analysis
 
             IsolatedDCDCConverter converter = new IsolatedDCDCConverter(Psys, Vin, Vo, Q);
 
-            foreach (string tp in topologyRange) //拓扑变化
+            foreach (int n in numberRange) //模块数变化
             {
-                converter.CreateTopology(tp);
-                foreach (int n in numberRange) //模块数变化
+                converter.Number = n;
+                foreach (double fr in frequencyRange) //谐振频率变化
                 {
-                    converter.Number = n;
-                    foreach (double fr in frequencyRange) //谐振频率变化
+                    converter.Math_fr = fr;
+                    foreach (string tp in topologyRange) //拓扑变化
                     {
-                        converter.Math_fr = fr;
+                        converter.CreateTopology(tp);
                         Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
                         converter.Design();
                     }
@@ -425,8 +432,8 @@ namespace PV_analysis
                 Function.DoubleArrayToString(frequencyRange)
             };
 
-            Data.Record(converter.GetType().Name + "_Pareto", conditionTitles, conditions, converter.ParetoDesignList);
-            Data.Record(converter.GetType().Name + "_all", conditionTitles, conditions, converter.AllDesignList);
+            Data.Save(converter.GetType().Name + "_Pareto", conditionTitles, conditions, converter.ParetoDesignList);
+            Data.Save(converter.GetType().Name + "_all", conditionTitles, conditions, converter.AllDesignList);
         }
 
         public static void EvaluateIsolatedDCDCConverter_TwoStage()
@@ -443,15 +450,15 @@ namespace PV_analysis
 
             IsolatedDCDCConverter converter = new IsolatedDCDCConverter(Psys, Vin_min, Vin_max, Vo, Q);
 
-            foreach (string tp in topologyRange) //拓扑变化
+            foreach (int n in numberRange) //模块数变化
             {
-                converter.CreateTopology(tp);
-                foreach (int n in numberRange) //模块数变化
+                converter.Number = n;
+                foreach (double fr in frequencyRange) //谐振频率变化
                 {
-                    converter.Number = n;
-                    foreach (double fr in frequencyRange) //谐振频率变化
+                    converter.Math_fr = fr;
+                    foreach (string tp in topologyRange) //拓扑变化
                     {
-                        converter.Math_fr = fr;
+                        converter.CreateTopology(tp);
                         Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
                         converter.Design();
                     }
@@ -482,8 +489,8 @@ namespace PV_analysis
                 Function.DoubleArrayToString(frequencyRange)
             };
 
-            Data.Record(converter.GetType().Name + "_Pareto", conditionTitles, conditions, converter.ParetoDesignList);
-            Data.Record(converter.GetType().Name + "_all", conditionTitles, conditions, converter.AllDesignList);
+            Data.Save(converter.GetType().Name + "_Pareto", conditionTitles, conditions, converter.ParetoDesignList);
+            Data.Save(converter.GetType().Name + "_all", conditionTitles, conditions, converter.AllDesignList);
         }
 
         public static void EvaluateDCACConverter()
@@ -501,20 +508,20 @@ namespace PV_analysis
 
             DCACConverter converter = new DCACConverter(Psys, Vo, fg, phi);
 
-            foreach (string tp in topologyRange) //拓扑变化
+            foreach (int n in numberRange) //模块数变化
             {
-                converter.CreateTopology(tp);
-                foreach (string mo in modulationRange) //拓扑变化
+                converter.Number = n;
+                foreach (double fs in frequencyRange) //谐振频率变化
                 {
-                    converter.Modulation = mo;
-                    foreach (int n in numberRange) //模块数变化
+                    converter.Math_fs = fs;
+                    foreach (string mo in modulationRange) //调制方式变化
                     {
-                        converter.Number = n;
-                        foreach (double fs in frequencyRange) //谐振频率变化
+                        converter.Modulation = mo;
+                        foreach (string tp in topologyRange) //拓扑变化
                         {
-                            converter.Math_fs = fs;
-                            Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
                             converter.Math_Vin = 0;
+                            converter.CreateTopology(tp);
+                            Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
                             converter.Design();
                         }
                     }
@@ -545,8 +552,8 @@ namespace PV_analysis
                 Function.DoubleArrayToString(frequencyRange)
             };
 
-            Data.Record(converter.GetType().Name + "_Pareto", conditionTitles, conditions, converter.ParetoDesignList);
-            Data.Record(converter.GetType().Name + "_all", conditionTitles, conditions, converter.AllDesignList);
+            Data.Save(converter.GetType().Name + "_Pareto", conditionTitles, conditions, converter.ParetoDesignList);
+            Data.Save(converter.GetType().Name + "_all", conditionTitles, conditions, converter.AllDesignList);
         }
     }
 }

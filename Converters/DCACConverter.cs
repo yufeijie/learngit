@@ -1,9 +1,4 @@
 ﻿using PV_analysis.Topologys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PV_analysis.Converters
 {
@@ -33,7 +28,7 @@ namespace PV_analysis.Converters
         /// 幅度调制比
         /// </summary>
         public double Math_Ma { get; set; } = 0.95;
-        
+
         /// <summary>
         /// 调制方式
         /// </summary>
@@ -61,12 +56,27 @@ namespace PV_analysis.Converters
         /// <returns>配置信息</returns>
         public override string[] GetConfigs()
         {
-            string[] data = { Number.ToString(), (Math_fs / 1e3).ToString(), Math_Ma.ToString(), Topology.GetType().Name, Modulation};
+            string[] data = { Number.ToString(), Math_fs.ToString(), Math_Ma.ToString(), Modulation, Topology.GetType().Name };
             return data;
         }
 
         /// <summary>
-        /// 创建拓扑（实际上为调制方式不同）
+        /// 读取配置信息
+        /// </summary>
+        /// <param name="configs">配置信息</param>
+        /// <param name="index">当前下标</param>
+        public override void Load(string[] configs, int index)
+        {
+            Number = int.Parse(configs[index++]);
+            Math_fs = double.Parse(configs[index++]);
+            Math_Ma = double.Parse(configs[index++]);
+            Modulation = configs[index++];
+            CreateTopology(configs[index++]);
+            Topology.Load(configs, index);
+        }
+
+        /// <summary>
+        /// 创建拓扑（此前需保证变换器的参数已配置好）
         /// </summary>
         /// <param name="name">拓扑名</param>
         public void CreateTopology(string name)

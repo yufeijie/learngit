@@ -909,8 +909,8 @@ namespace PV_analysis
                 path = filePath.Substring(0, filePath.LastIndexOf("\\")) + "\\"; //获取文件路径，不带文件名 
             }
 
-            Data.Record(path, name + "_Pareto.xlsx", conditionTitles, conditions, paretoDesignList);
-            Data.Record(path, name + "_all.xlsx", conditionTitles, conditions, allDesignList);
+            Data.Save(path, name + "_Pareto.xlsx", conditionTitles, conditions, paretoDesignList);
+            Data.Save(path, name + "_all.xlsx", conditionTitles, conditions, allDesignList);
         }
 
         private void Estimate_Result_Display_Button_Click(object sender, EventArgs e)

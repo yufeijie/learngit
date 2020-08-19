@@ -117,12 +117,19 @@ namespace PV_analysis.Converters
 		public abstract string[] GetConfigs();
 
 		/// <summary>
+		/// 读取配置信息
+		/// </summary>
+		/// <param name="configs">配置信息</param>
+		/// <param name="index">当前下标</param>
+		public abstract void Load(string[] configs, int index);
+
+		/// <summary>
 		/// 自动设计，整合设计结果（不会覆盖之前的设计结果）
 		/// </summary>
 		public void Design()
 		{
 			Topology.Design();
-			int n = 0; //用于记录
+			int n = 0; //用于记录当前元器件组合的序号
 			foreach (Component[] components in Topology.ComponentGroups)
 			{
 				//检查该组器件是否都有设计结果
@@ -146,9 +153,10 @@ namespace PV_analysis.Converters
 				}
 				//TODO 控制芯片、散热器设计
 				ConverterDesignList newDesignList = new ConverterDesignList();
-				newDesignList.Transfer(designCombinationList, Math_Psys, Number, PhaseNum, GetConfigs()); //转化为变换器设计
+				newDesignList.Transfer(designCombinationList, Math_Psys, Number, PhaseNum, n, GetConfigs()); //转化为变换器设计
 				ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
 				AllDesignList.Merge(newDesignList); //记录所有设计
+				n++;
 			}
 		}
 	}

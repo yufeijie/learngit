@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace PV_analysis
 {
     /// <summary>
-    /// 数据库类，用于访问数据库中各个元件的信息，存放评估结果
+    /// 数据库类，用于访问数据库中各个元件的信息，存放/读取评估结果
     /// </summary>
     internal static class Data
     {
@@ -310,6 +310,9 @@ namespace PV_analysis
             }
         }
 
+        /// <summary>
+        /// 初始化，读取数据库到内存
+        /// </summary>
         static Data()
         {
             //因为IReadOnlyList没有Add方法，这里使用临时变量进行赋值
@@ -390,12 +393,27 @@ namespace PV_analysis
             CapacitorList = capacitorList;
         }
 
-        public static void Record(string name, string[] conditionTitles, string[] conditions, ConverterDesignList designList)
+        /// <summary>
+        /// 保存设计结果
+        /// </summary>
+        /// <param name="name">文件名</param>
+        /// <param name="conditionTitles">设计条件标题</param>
+        /// <param name="conditions">设计条件</param>
+        /// <param name="designList">设计方案</param>
+        public static void Save(string name, string[] conditionTitles, string[] conditions, ConverterDesignList designList)
         {
-            Record(resultPath, name + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss_fff") + ".xlsx", conditionTitles, conditions, designList);
+            Save(resultPath, name + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss_fff") + ".xlsx", conditionTitles, conditions, designList);
         }
 
-        public static void Record(string path, string name, string[] conditionTitles, string[] conditions, ConverterDesignList designList)
+        /// <summary>
+        /// 保存设计结果
+        /// </summary>
+        /// <param name="path">路径</param>
+        /// <param name="name">文件名</param>
+        /// <param name="conditionTitles">设计条件标题</param>
+        /// <param name="conditions">设计条件</param>
+        /// <param name="designList">设计方案</param>
+        public static void Save(string path, string name, string[] conditionTitles, string[] conditions, ConverterDesignList designList)
         {
             IWorkbook workbook = new XSSFWorkbook(); //新建Excel
 
@@ -427,6 +445,39 @@ namespace PV_analysis
             FileStream file = new FileStream(path + name, FileMode.Create);
             workbook.Write(file);
             file.Close();
+        }
+
+        /// <summary>
+        /// 读取设计结果
+        /// </summary>
+        /// <param name="name">文件名</param>
+        /// <param name="n">行号</param>
+        /// <returns>设计结果</returns>
+        public static string[][] Load(string name, int n)
+        {
+            List<string> conditions = new List<string>();
+            List<string> configs = new List<string>();
+
+            //打开Excel
+            IWorkbook workbook = WorkbookFactory.Create(resultPath + name);
+
+            //读取设计条件
+            ISheet sheet = workbook.GetSheetAt(0); //获取第二个工作薄
+            IRow row = sheet.GetRow(1);
+            for (int i = 0; i < row.LastCellNum; i++)
+            {
+                conditions.Add(row.GetCell(i).StringCellValue);
+            }
+
+            //读取设计结果
+            sheet = workbook.GetSheetAt(1); //获取第二个工作薄
+            row = sheet.GetRow(n);
+            for (int i = 0; i < row.LastCellNum; i++)
+            {
+                configs.Add(row.GetCell(i).StringCellValue);
+            }
+
+            return new string[][] { conditions.ToArray(), configs.ToArray() };
         }
     }
 }
