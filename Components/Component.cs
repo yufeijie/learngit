@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PV_analysis.Components
 {
+    /// <summary>
+    /// 元器件，设计统一
+    /// </summary>
     internal abstract class Component
     {
         //特殊参数

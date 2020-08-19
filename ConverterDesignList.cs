@@ -146,10 +146,12 @@ namespace PV_analysis
             ConverterDesignData now = head;
             while (now != null)
             {
-                List<string> newConfigs = new List<string>();
-                newConfigs.Add((now.Efficiency * 100).ToString());
-                newConfigs.Add(now.Volume.ToString());
-                newConfigs.Add((now.Cost / 1e4).ToString());
+                List<string> newConfigs = new List<string>
+                {
+                    now.Efficiency.ToString(),
+                    now.Volume.ToString(),
+                    now.Cost.ToString()
+                };
                 foreach (string config in now.Configs)
                 {
                     newConfigs.Add(config);
@@ -180,11 +182,12 @@ namespace PV_analysis
                 double efficiency = 1 - design.PowerLoss * number * phaseNum / power;
                 double volume = design.Volume * number * phaseNum;
                 double cost = design.Cost * number * phaseNum;
-                List<string> newConfigs = new List<string>();
-                newConfigs.Add((efficiency * 100).ToString());
-                newConfigs.Add(volume.ToString());
-                newConfigs.Add((cost / 1e4).ToString());
-                newConfigs.Add((power / number / phaseNum).ToString());
+                List<string> newConfigs = new List<string>
+                {
+                    efficiency.ToString(),
+                    volume.ToString(),
+                    cost.ToString()
+                };
                 foreach (string config in configs)
                 {
                     newConfigs.Add(config);

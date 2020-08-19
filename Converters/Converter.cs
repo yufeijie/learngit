@@ -122,6 +122,7 @@ namespace PV_analysis.Converters
 		public void Design()
 		{
 			Topology.Design();
+			int n = 0; //用于记录
 			foreach (Component[] components in Topology.ComponentGroups)
 			{
 				//检查该组器件是否都有设计结果
@@ -143,7 +144,7 @@ namespace PV_analysis.Converters
 				{
 					designCombinationList.Combine(component.DesignList);
 				}
-				//TODO 散热器设计
+				//TODO 控制芯片、散热器设计
 				ConverterDesignList newDesignList = new ConverterDesignList();
 				newDesignList.Transfer(designCombinationList, Math_Psys, Number, PhaseNum, GetConfigs()); //转化为变换器设计
 				ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计

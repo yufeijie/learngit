@@ -1178,17 +1178,6 @@ namespace PV_analysis
             }
         }
 
-        private Label newLabel(System.Drawing.Point point, string text)
-        {
-            Label label = new System.Windows.Forms.Label();
-            label.AutoSize = true;
-            label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            label.Location = point;
-            label.Text = text;
-            label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            return label;
-        }
-
         private void Display_Show_Restart_Button_Click(object sender, EventArgs e)
         {
             panelNow[3] = Display_Ready_Panel;

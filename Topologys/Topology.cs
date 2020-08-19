@@ -8,11 +8,11 @@ namespace PV_analysis.Topologys
     /// </summary>
     internal abstract class Topology
     {
-        protected Component[][] componentGroups; //可行元器件组
-        protected Component[] components; //可行元件组中出现的所有元器件（待设计的元器件）
+        protected Component[][] componentGroups; //可行元器件组合
+        protected Component[] components; //可行元件组合中出现的所有元器件（待设计的元器件）
 
         /// <summary>
-        /// 可行元器件组
+        /// 可行元器件组合
         /// </summary>
         public Component[][] ComponentGroups { get { return componentGroups; } }
 
