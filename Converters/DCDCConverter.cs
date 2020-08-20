@@ -70,7 +70,7 @@ namespace PV_analysis.Converters
         /// <returns>配置信息</returns>
         protected override string[] GetConditionTitles()
         {
-            string[] conditionTitles = new string[]
+            string[] conditionTitles =
             {
                 "Total power",
                 "Minimum input voltage",
@@ -89,7 +89,7 @@ namespace PV_analysis.Converters
         /// <returns>配置信息</returns>
         protected override string[] GetConditions()
         {
-            string[] conditions = new string[]
+            string[] conditions =
             {
                 Math_Psys.ToString(),
                 Math_Vin_min.ToString(),

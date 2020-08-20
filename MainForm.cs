@@ -3,6 +3,7 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using NPOI.SS.UserModel;
 using PV_analysis.Converters;
+using PV_analysis.Systems;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -29,6 +30,7 @@ namespace PV_analysis
         private double fg = 50; //并网频率
         private double[] VbusRange = { 1300 }; //母线电压范围
         private double phi = 0; //功率因数角(rad)
+        private double DCAC_Vin_def = 1300; //逆变器直流侧电压
 
         //前级DC/DC参数
         private int[] DCDC_numberRange; //可用模块数序列
@@ -615,258 +617,61 @@ namespace PV_analysis
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
 
+            WriteLine("Start...");
+            WriteLine();
+            Formula.Init();
+            Structure structure = new ThreeLevelStructure();
             switch (selectedSystem)
             {
                 case "三级架构":
-                    EvaluateThreeStageSystem();
+                    structure = new ThreeLevelStructure
+                    {
+                        Math_Psys = Psys,
+                        Math_Vpv_min = Vpv_min,
+                        Math_Vpv_max = Vpv_max,
+                        Math_Vg = Vg,
+                        Math_Vo = Vo,
+                        Math_fg = fg,
+                        IsolatedDCDC_Q = isolatedDCDC_Q,
+                        Math_phi = phi,
+                        Math_VbusRange = VbusRange,
+                        DCDC_numberRange = DCDC_numberRange,
+                        DCDC_topologyRange = DCDC_topologyRange,
+                        DCDC_frequencyRange = DCDC_frequencyRange,
+                        IsolatedDCDC_topologyRange = isolatedDCDC_topologyRange,
+                        IsolatedDCDC_resonanceFrequencyRange = isolatedDCDC_resonanceFrequencyRange,
+                        DCAC_numberRange = DCAC_numberRange,
+                        DCAC_topologyRange = DCAC_topologyRange,
+                        DCAC_modulationRange = DCAC_modulationRange,
+                        DCAC_frequencyRange = DCAC_frequencyRange,
+                    };
                     break;
                 case "两级架构":
-                    EvaluateTwoStageSystem();
+                    structure = new TwoLevelStructure
+                    {
+                        Math_Psys = Psys,
+                        Math_Vpv_min = Vpv_min,
+                        Math_Vpv_max = Vpv_max,
+                        Math_Vg = Vg,
+                        Math_Vo = Vo,
+                        Math_fg = fg,
+                        IsolatedDCDC_Q = isolatedDCDC_Q,
+                        DCAC_Vin_def = DCAC_Vin_def,
+                        Math_phi = phi,
+                        IsolatedDCDC_topologyRange = isolatedDCDC_topologyRange,
+                        IsolatedDCDC_resonanceFrequencyRange = isolatedDCDC_resonanceFrequencyRange,
+                        DCAC_numberRange = DCAC_numberRange,
+                        DCAC_topologyRange = DCAC_topologyRange,
+                        DCAC_modulationRange = DCAC_modulationRange,
+                        DCAC_frequencyRange = DCAC_frequencyRange,
+                    };
                     break;
             }
-        }
-
-        private void EvaluateThreeStageSystem()
-        {
-            WriteLine("Start...");
-            WriteLine();
-
-            Formula.Init();
-            paretoDesignList = new ConverterDesignList();
-            allDesignList = new ConverterDesignList { IsAll = true };
-
-            //系统设计
-            foreach (double Vbus in VbusRange) //母线电压变化
-            {
-                WriteLine("Now DC bus voltage = " + Vbus + ":");
-                //前级DC/DC变换器设计
-                WriteLine("-------------------------");
-                WriteLine("Front-stage DC/DC converters design...");
-                DCDCConverter DCDC = new DCDCConverter(Psys, Vpv_min, Vpv_max, Vbus);
-                foreach (string tp in DCDC_topologyRange) //拓扑变化
-                {
-                    DCDC.CreateTopology(tp);
-                    foreach (int n in DCDC_numberRange) //模块数变化
-                    {
-                        DCDC.Number = n;
-                        foreach (double fs in DCDC_frequencyRange) //开关频率变化
-                        {
-                            DCDC.Math_fs = fs;
-                            WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
-                            DCDC.Design();
-                        }
-                    }
-                }
-                if (DCDC.AllDesignList.Size <= 0)
-                {
-                    continue;
-                }
-                foreach (int j in DCAC_numberRange) //目前只考虑一拖一
-                {
-                    //逆变器设计
-                    WriteLine("-------------------------");
-                    WriteLine("Inverters design...");
-                    DCACConverter DCAC = new DCACConverter(Psys, Vo, fg, phi) { Number = j };
-                    foreach (string tp in DCAC_topologyRange) //拓扑变化
-                    {
-                        DCAC.CreateTopology(tp);
-                        foreach (string mo in DCAC_modulationRange) //拓扑变化
-                        {
-                            DCAC.Modulation = mo;
-                            foreach (double fs in DCAC_frequencyRange) //谐振频率变化
-                            {
-                                DCAC.Math_fs = fs;
-                                WriteLine("Now topology=" + tp + ", n=" + j + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
-                                DCAC.Math_Vin = 0;
-                                //inverter.setVoltageInputDef(inv_voltageInput); //FIXME
-                                DCAC.Design();
-                            }
-                        }
-                    }
-                    if (DCAC.AllDesignList.Size <= 0)
-                    {
-                        continue;
-                    }
-
-                    //隔离DC/DC变换器设计
-                    WriteLine("-------------------------");
-                    WriteLine("Isolated DC/DC converters design...");
-                    IsolatedDCDCConverter isolatedDCDC = new IsolatedDCDCConverter(Psys, Vbus, DCAC.Math_Vin, isolatedDCDC_Q) { Number = j };
-                    foreach (string tp in isolatedDCDC_topologyRange) //拓扑变化
-                    {
-                        isolatedDCDC.CreateTopology(tp);
-                        foreach (double fr in isolatedDCDC_resonanceFrequencyRange) //谐振频率变化
-                        {
-                            isolatedDCDC.Math_fr = fr;
-                            WriteLine("Now topology=" + tp + ", n=" + j + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
-                            isolatedDCDC.Design();
-                        }
-                    }
-                    if (isolatedDCDC.AllDesignList.Size <= 0)
-                    {
-                        continue;
-                    }
-
-                    //整合得到最终结果
-                    WriteLine("-------------------------");
-                    WriteLine("Inv num=" + j + ", DC bus voltage=" + Vbus + ", Combining...");
-                    ConverterDesignList newDesignList = new ConverterDesignList();
-                    newDesignList.Combine(DCDC.ParetoDesignList);
-                    newDesignList.Combine(isolatedDCDC.ParetoDesignList);
-                    newDesignList.Combine(DCAC.ParetoDesignList);
-                    newDesignList.Transfer(new string[] { Vbus.ToString(), DCAC.Math_Vin.ToString() });
-                    paretoDesignList.Merge(newDesignList); //记录Pareto最优设计
-                    allDesignList.Merge(newDesignList); //记录所有设计
-                }
-                WriteLine("=========================");
-            }
-
-            conditionTitles = new string[]
-            {
-                "Total power",
-                "PV min voltage",
-                "PV max voltage",
-                "Grid voltage",
-                "Grid frequency(Hz)",
-                "DC bus voltage range",
-                "DCDC number range",
-                "DCDC topology range",
-                "DCDC frequency range(kHz)",
-                "Isolated DCDC quality factor default",
-                "Isolated DCDC topology range",
-                "Isolated DCDC resonance frequency range(kHz)",
-                "DCAC power factor angle(rad)",
-                "DCAC number range",
-                "DCAC topology range",
-                "DCAC modulation range",
-                "DCAC frequency range(kHz)"
-            };
-
-            conditions = new string[]
-            {
-                Psys.ToString(),
-                Vpv_min.ToString(),
-                Vpv_max.ToString(),
-                Vg.ToString(),
-                fg.ToString(),
-                Function.DoubleArrayToString(VbusRange),
-                Function.IntArrayToString(DCDC_numberRange),
-                Function.StringArrayToString(DCDC_topologyRange),
-                Function.DoubleArrayToString(DCDC_frequencyRange),
-                isolatedDCDC_Q.ToString(),
-                Function.StringArrayToString(isolatedDCDC_topologyRange),
-                Function.DoubleArrayToString(isolatedDCDC_resonanceFrequencyRange),
-                phi.ToString(),
-                Function.IntArrayToString(DCAC_numberRange),
-                Function.StringArrayToString(DCAC_topologyRange),
-                Function.StringArrayToString(DCAC_modulationRange),
-                Function.DoubleArrayToString(DCAC_frequencyRange)
-            };
-        }
-
-        private void EvaluateTwoStageSystem()
-        {
-            WriteLine("Start...");
-            WriteLine();
-
-            Formula.Init();
-            paretoDesignList = new ConverterDesignList();
-            allDesignList = new ConverterDesignList { IsAll = true };
-
-            //DC/AC参数
-            double DCAC_Vin = 1300; //逆变器直流侧电压
-
-            foreach (int j in DCAC_numberRange) //目前只考虑一拖一
-            {
-                //隔离DC/DC变换器设计
-                WriteLine("-------------------------");
-                WriteLine("Isolated DC/DC converters design...");
-                IsolatedDCDCConverter isolatedDCDC = new IsolatedDCDCConverter(Psys, Vpv_min, Vpv_max, DCAC_Vin, isolatedDCDC_Q) { Number = j };
-                foreach (string tp in isolatedDCDC_topologyRange) //拓扑变化
-                {
-                    isolatedDCDC.CreateTopology(tp);
-                    foreach (double fr in isolatedDCDC_resonanceFrequencyRange) //谐振频率变化
-                    {
-                        isolatedDCDC.Math_fr = fr;
-                        WriteLine("Now topology=" + tp + ", n=" + j + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
-                        isolatedDCDC.Design();
-                    }
-                }
-                if (isolatedDCDC.AllDesignList.Size <= 0)
-                {
-                    continue;
-                }
-
-                //逆变器设计
-                WriteLine("-------------------------");
-                WriteLine("Inverters design...");
-                DCACConverter DCAC = new DCACConverter(Psys, Vo, fg, phi) { Number = j, Math_Vin = DCAC_Vin };
-                foreach (string tp in DCAC_topologyRange) //拓扑变化
-                {
-                    DCAC.CreateTopology(tp);
-                    foreach (string mo in DCAC_modulationRange) //拓扑变化
-                    {
-                        DCAC.Modulation = mo;
-                        foreach (double fs in DCAC_frequencyRange) //谐振频率变化
-                        {
-                            DCAC.Math_fs = fs;
-                            WriteLine("Now topology=" + tp + ", n=" + j + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
-                            //inverter.setVoltageInputDef(inv_voltageInput); //FIXME
-                            DCAC.Design();
-                        }
-                    }
-                }
-                if (DCAC.AllDesignList.Size <= 0)
-                {
-                    continue;
-                }
-
-                //整合得到最终结果
-                WriteLine("-------------------------");
-                WriteLine("Inv num=" + j + ", Combining...");
-                ConverterDesignList newDesignList = new ConverterDesignList();
-                newDesignList.Combine(isolatedDCDC.ParetoDesignList);
-                newDesignList.Combine(DCAC.ParetoDesignList);
-                newDesignList.Transfer(new string[] { });
-                paretoDesignList.Merge(newDesignList); //记录Pareto最优设计
-                allDesignList.Merge(newDesignList); //记录所有设计
-            }
-
-            conditionTitles = new string[]
-            {
-                "Total power",
-                "PV min voltage",
-                "PV max voltage",
-                "Grid voltage",
-                "Grid frequency(Hz)",
-                "Isolated DCDC quality factor default",
-                "Isolated DCDC topology range",
-                "Isolated DCDC resonance frequency range(kHz)",
-                "DCAC input voltage",
-                "DCAC power factor angle(rad)",
-                "DCAC number range",
-                "DCAC topology range",
-                "DCAC modulation range",
-                "DCAC frequency range(kHz)"
-            };
-
-            conditions = new string[]
-            {
-                Psys.ToString(),
-                Vpv_min.ToString(),
-                Vpv_max.ToString(),
-                Vg.ToString(),
-                fg.ToString(),
-                isolatedDCDC_Q.ToString(),
-                Function.StringArrayToString(isolatedDCDC_topologyRange),
-                Function.DoubleArrayToString(isolatedDCDC_resonanceFrequencyRange),
-                DCAC_Vin.ToString(),
-                phi.ToString(),
-                Function.IntArrayToString(DCAC_numberRange),
-                Function.StringArrayToString(DCAC_topologyRange),
-                Function.StringArrayToString(DCAC_modulationRange),
-                Function.DoubleArrayToString(DCAC_frequencyRange)
-            };
+            structure.Optimize();
+            paretoDesignList = structure.ParetoDesignList;
+            allDesignList = structure.AllDesignList;
+            conditionTitles = structure.GetConditionTitles();
+            conditions = structure.GetConditions();
         }
 
         private void WriteLine()

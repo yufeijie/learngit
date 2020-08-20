@@ -61,7 +61,7 @@ namespace PV_analysis.Topologys
             number = converter.Number;
             modulation = converter.Modulation;
             math_Pfull = converter.Math_Psys / converter.PhaseNum / number;
-            voltageInputDef = converter.Math_Vin;
+            voltageInputDef = converter.Math_Vin_def;
             voltageOutputTotalDef = converter.Math_Vo;
             frequencyGrid = converter.Math_fg;
             anglePowerFactor = converter.Math_phi;

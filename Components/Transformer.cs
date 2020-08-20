@@ -273,6 +273,7 @@ namespace PV_analysis.Components
                 m = 1;
             }
 
+            powerLossEvaluation = 0;
             for (int i = 0; i < m; i++) //对不同输入电压进行计算
             {
                 for (int j = n - 1; j >= 0; j--) //对不同功率点进行计算

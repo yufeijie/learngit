@@ -130,9 +130,7 @@ namespace PV_analysis.Converters
         public void Save()
         {
             string[] conditionTitles = GetConditionTitles();
-
             string[] conditions = GetConditions();
-
             Data.Save(GetType().Name + "_Pareto", conditionTitles, conditions, ParetoDesignList);
             Data.Save(GetType().Name + "_all", conditionTitles, conditions, AllDesignList);
         }

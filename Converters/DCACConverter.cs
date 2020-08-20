@@ -6,7 +6,12 @@ namespace PV_analysis.Converters
     internal class DCACConverter : Converter
     {
         /// <summary>
-        /// 直流侧输入电压（若设置此值，则按照直流侧设计）
+        /// 直流侧输入电压预设值（若设置此值，则按照直流侧设计）
+        /// </summary>
+        public double Math_Vin_def { get; set; } = 0;
+
+        /// <summary>
+        /// 直流侧输入电压
         /// </summary>
         public double Math_Vin { get; set; }
 
@@ -93,7 +98,7 @@ namespace PV_analysis.Converters
         /// <returns>配置信息</returns>
         protected override string[] GetConditionTitles()
         {
-            string[] conditionTitles = new string[]
+            string[] conditionTitles =
             {
                 "Total power",
                 "Grid voltage",
@@ -113,7 +118,7 @@ namespace PV_analysis.Converters
         /// <returns>配置信息</returns>
         protected override string[] GetConditions()
         {
-            string[] conditions = new string[]
+            string[] conditions =
             {
                 Math_Psys.ToString(),
                 Math_Vg.ToString(),
@@ -160,7 +165,6 @@ namespace PV_analysis.Converters
                         Modulation = mo;
                         foreach (string tp in TopologyRange) //拓扑变化
                         {
-                            Math_Vin = 0;
                             CreateTopology(tp);
                             Console.WriteLine("Now topology=" + tp + ", modulation=" + mo + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
                             Design();
