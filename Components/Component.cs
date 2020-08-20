@@ -83,6 +83,13 @@ namespace PV_analysis.Components
         public abstract void Design();
 
         /// <summary>
+        /// 选择电路参数用于当前计算
+        /// </summary>
+        /// <param name="m">输入电压对应编号</param>
+        /// <param name="n">负载点对应编号</param>
+        protected abstract void SelectParameters(int m, int n);
+
+        /// <summary>
         /// 评估，得到中国效率、体积、成本
         /// </summary>
         public void Evaluate()
@@ -118,13 +125,6 @@ namespace PV_analysis.Components
             CalcVolume();
             CalcCost();
         }
-
-        /// <summary>
-        /// 选择电路参数用于当前计算
-        /// </summary>
-        /// <param name="m">输入电压对应编号</param>
-        /// <param name="n">负载点对应编号</param>
-        protected abstract void SelectParameters(int m, int n);
 
         /// <summary>
         /// 计算损耗

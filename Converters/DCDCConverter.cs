@@ -12,7 +12,7 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 输入电压最小值
         /// </summary>
-        public double Math_Vin_min { get; }
+        public double Math_Vin_min { get;}
 
         /// <summary>
         /// 输入电压最大值
@@ -23,6 +23,21 @@ namespace PV_analysis.Converters
         /// 输出电压
         /// </summary>
         public double Math_Vo { get; }
+
+        /// <summary>
+        /// 模块数范围
+        /// </summary>
+        public int[] NumberRange { get; set; }
+
+        /// <summary>
+        /// 拓扑范围
+        /// </summary>
+        public string[] TopologyRange { get; set; }
+
+        /// <summary>
+        /// 开关频率范围
+        /// </summary>
+        public double[] FrequencyRange { get; set; }
 
         /// <summary>
         /// 初始化
@@ -50,16 +65,41 @@ namespace PV_analysis.Converters
         }
 
         /// <summary>
-        /// 读取配置信息
+        /// 获取设计条件标题
         /// </summary>
-        /// <param name="configs">配置信息</param>
-        /// <param name="index">当前下标</param>
-        public override void Load(string[] configs, int index)
+        /// <returns>配置信息</returns>
+        protected override string[] GetConditionTitles()
         {
-            Number = int.Parse(configs[index++]);
-            Math_fs = double.Parse(configs[index++]);
-            CreateTopology(configs[index++]);
-            Topology.Load(configs, index);
+            string[] conditionTitles = new string[]
+            {
+                "Total power",
+                "Minimum input voltage",
+                "Maximum input voltage",
+                "Output voltage",
+                "Number range",
+                "Topology range",
+                "Resonance frequency range(kHz)"
+            };
+            return conditionTitles;
+        }
+
+        /// <summary>
+        /// 获取设计条件
+        /// </summary>
+        /// <returns>配置信息</returns>
+        protected override string[] GetConditions()
+        {
+            string[] conditions = new string[]
+            {
+                Math_Psys.ToString(),
+                Math_Vin_min.ToString(),
+                Math_Vin_max.ToString(),
+                Math_Vo.ToString(),
+                Function.IntArrayToString(NumberRange),
+                Function.StringArrayToString(TopologyRange),
+                Function.DoubleArrayToString(FrequencyRange)
+            };
+            return conditions;
         }
 
         /// <summary>
@@ -83,6 +123,40 @@ namespace PV_analysis.Converters
                     Topology = null;
                     break;
             }
+        }
+        
+        /// <summary>
+        /// 根据给定的条件，对变换器进行优化设计
+        /// </summary>
+        public void Optimize()
+        {
+            foreach (int n in NumberRange) //模块数变化
+            {
+                Number = n;
+                foreach (double fs in FrequencyRange) //开关频率变化
+                {
+                    Math_fs = fs;
+                    foreach (string tp in TopologyRange) //拓扑变化
+                    {
+                        CreateTopology(tp);
+                        Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
+                        Design();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 读取配置信息
+        /// </summary>
+        /// <param name="configs">配置信息</param>
+        /// <param name="index">当前下标</param>
+        public override void Load(string[] configs, int index)
+        {
+            Number = int.Parse(configs[index++]);
+            Math_fs = double.Parse(configs[index++]);
+            CreateTopology(configs[index++]);
+            Topology.Load(configs, index);
         }
     }
 }

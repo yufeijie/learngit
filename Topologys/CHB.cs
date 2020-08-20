@@ -58,14 +58,14 @@ namespace PV_analysis.Topologys
         {
             //获取设计规格
             this.converter = converter;
+            number = converter.Number;
+            modulation = converter.Modulation;
             math_Pfull = converter.Math_Psys / converter.PhaseNum / number;
             voltageInputDef = converter.Math_Vin;
             voltageOutputTotalDef = converter.Math_Vo;
             frequencyGrid = converter.Math_fg;
             anglePowerFactor = converter.Math_phi;
             ratioAmplitudeModulation = converter.Math_Ma;
-            modulation = converter.Modulation;
-            number = converter.Number;
             frequency = converter.Math_fs;
             if (voltageInputDef == 0)
             {
