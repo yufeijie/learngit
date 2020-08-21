@@ -103,8 +103,15 @@ namespace PV_analysis.Topologys
             components = new Component[] { primaryDualModule, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { primaryDualModule, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
+        }
 
-            DesignCircuitParam();
+        /// <summary>
+        /// 获取拓扑名
+        /// </summary>
+        /// <returns>拓扑名</returns>
+        public override string GetName()
+        {
+            return "SRC";
         }
 
         /// <summary>
@@ -200,6 +207,8 @@ namespace PV_analysis.Topologys
         public override void Prepare()
         {
             //计算电路参数
+            DesignCircuitParam();
+
             currentInductorMax = 0;
             currentInductorRMSMax = 0;
             voltageCapacitorMax = 0;

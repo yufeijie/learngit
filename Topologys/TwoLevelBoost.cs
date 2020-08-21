@@ -63,8 +63,15 @@ namespace PV_analysis.Topologys
             components = new Component[] { dualModule, inductor, capacitor };
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { dualModule, inductor, capacitor };
+        }
 
-            DesignCircuitParam();
+        /// <summary>
+        /// 获取拓扑名
+        /// </summary>
+        /// <returns>拓扑名</returns>
+        public override string GetName()
+        {
+            return "两电平Boost";
         }
 
         /// <summary>
@@ -161,6 +168,8 @@ namespace PV_analysis.Topologys
         public override void Prepare()
         {
             //计算电路参数
+            DesignCircuitParam();
+
             math_ICrms_max = 0;
             int m = Config.CGC_VOLTAGE_RATIO.Length;
             int n = Config.CGC_POWER_RATIO.Length;

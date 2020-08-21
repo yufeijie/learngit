@@ -1,4 +1,5 @@
 ﻿using PV_analysis.Converters;
+using PV_analysis.Structures;
 using System;
 using System.Windows.Forms;
 
@@ -22,10 +23,7 @@ namespace PV_analysis
             //OptimizeIsolatedDCDCConverter_TwoStage();
             //OptimizeDCACConverter();
 
-            //LoadDCDCConverter();
-            //LoadIsolatedDCDCConverter();
-            //LoadIsolatedDCDCConverter_TwoStage();
-            //LoadDCACConverter();
+            //Load("TwoLevelStructure_Pareto_20200821_112116_772.xlsx", 1);
         }
 
         public static void OptimizeDCDCConverter()
@@ -109,68 +107,116 @@ namespace PV_analysis
             converter.Save();
         }
 
-        public static void LoadDCDCConverter()
+        public static void Load(string name, int n)
         {
-            string[][] info = Data.Load("DCDCConverter_all_20200819_153509_760.xlsx", 48213);
+            string[][] info = Data.Load(name, n);
             string[] conditions = info[0];
             string[] configs = info[1];
-            double Psys = double.Parse(conditions[0]);
-            double Vin_min = double.Parse(conditions[1]);
-            double Vin_max = double.Parse(conditions[2]);
-            double Vo = double.Parse(conditions[3]);
-            DCDCConverter converter = new DCDCConverter(Psys, Vin_min, Vin_max, Vo);
-            converter.Load(configs, 3); //数字为数组下标，读取信息后，下标位置会相应改变
-            converter.Evaluate(); //进行评估
-            converter.Operate();
-        }
+            string obj = conditions[0];
+            Converter converter;
+            Structure structure;
+            int index = 0;
+            switch (obj)
+            {
+                case "DCDCConverter":
+                    double Psys = double.Parse(conditions[1]);
+                    double Vin_min = double.Parse(conditions[2]);
+                    double Vin_max = double.Parse(conditions[3]);
+                    double Vo = double.Parse(conditions[4]);
+                    converter = new DCDCConverter(Psys, Vin_min, Vin_max, Vo);
+                    converter.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
+                    converter.Evaluate(); //进行评估
+                    converter.Operate();
+                    break;
 
-        public static void LoadIsolatedDCDCConverter()
-        {
-            Formula.Init();
-            string[][] info = Data.Load("IsolatedDCDCConverter_Pareto_20200820_174738_294.xlsx", 1);
-            string[] conditions = info[0];
-            string[] configs = info[1];
-            double Psys = double.Parse(conditions[0]);
-            double Vin = double.Parse(conditions[1]);
-            double Vo = double.Parse(conditions[2]);
-            double Q = double.Parse(conditions[3]);
-            IsolatedDCDCConverter converter = new IsolatedDCDCConverter(Psys, Vin, Vo, Q);
-            converter.Load(configs, 3); //数字为数组下标，读取信息后，下标位置会相应改变
-            converter.Evaluate(); //进行评估
-            converter.Operate();
-        }
+                case "IsolatedDCDCConverter":
+                    Formula.Init();
+                    Psys = double.Parse(conditions[1]);
+                    double Vin = double.Parse(conditions[2]);
+                    Vo = double.Parse(conditions[3]);
+                    double Q = double.Parse(conditions[4]);
+                    converter = new IsolatedDCDCConverter(Psys, Vin, Vo, Q);
+                    converter.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
+                    converter.Evaluate(); //进行评估
+                    converter.Operate();
+                    break;
 
-        public static void LoadIsolatedDCDCConverter_TwoStage()
-        {
-            Formula.Init();
-            string[][] info = Data.Load("IsolatedDCDCConverter_Pareto_20200820_231505_317.xlsx", 1);
-            string[] conditions = info[0];
-            string[] configs = info[1];
-            double Psys = double.Parse(conditions[0]);
-            double Vin_min = double.Parse(conditions[1]);
-            double Vin_max = double.Parse(conditions[2]);
-            double Vo = double.Parse(conditions[3]);
-            double Q = double.Parse(conditions[4]);
-            IsolatedDCDCConverter converter = new IsolatedDCDCConverter(Psys, Vin_min, Vin_max, Vo, Q);
-            converter.Load(configs, 3); //数字为数组下标，读取信息后，下标位置会相应改变
-            converter.Evaluate(); //进行评估
-            converter.Operate();
-        }
+                case "IsolatedDCDCConverter(TwoStage)":
+                    Formula.Init();
+                    Psys = double.Parse(conditions[1]);
+                    Vin_min = double.Parse(conditions[2]);
+                    Vin_max = double.Parse(conditions[3]);
+                    Vo = double.Parse(conditions[4]);
+                    Q = double.Parse(conditions[5]);
+                    converter = new IsolatedDCDCConverter(Psys, Vin_min, Vin_max, Vo, Q);
+                    converter.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
+                    converter.Evaluate(); //进行评估
+                    converter.Operate();
+                    break;
 
-        public static void LoadDCACConverter()
-        {
-            Formula.Init();
-            string[][] info = Data.Load("DCACConverter_Pareto_20200820_231626_630.xlsx", 2);
-            string[] conditions = info[0];
-            string[] configs = info[1];
-            double Psys = double.Parse(conditions[0]);
-            double Vg = double.Parse(conditions[1]);
-            double fg = double.Parse(conditions[2]);
-            double phi = double.Parse(conditions[3]);
-            DCACConverter converter = new DCACConverter(Psys, Vg, fg, phi);
-            converter.Load(configs, 3); //数字为数组下标，读取信息后，下标位置会相应改变
-            converter.Evaluate(); //进行评估
-            converter.Operate();
+                case "DCACConverter":
+                    Psys = double.Parse(conditions[1]);
+                    double Vg = double.Parse(conditions[2]);
+                    double fg = double.Parse(conditions[3]);
+                    double phi = double.Parse(conditions[4]);
+                    converter = new DCACConverter(Psys, Vg, fg, phi);
+                    converter.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
+                    converter.Evaluate(); //进行评估
+                    converter.Operate();
+                    break;
+
+                case "ThreeLevelStructure":
+                    Formula.Init();
+                    Psys = double.Parse(conditions[1]);
+                    double Vpv_min = double.Parse(conditions[2]);
+                    double Vpv_max = double.Parse(conditions[3]);
+                    Vg = double.Parse(conditions[4]);
+                    fg = double.Parse(conditions[5]);
+                    Q = double.Parse(conditions[6]);
+                    phi = double.Parse(conditions[7]);
+                    structure = new TwoLevelStructure()
+                    {
+                        Math_Psys = Psys,
+                        Math_Vpv_min = Vpv_min,
+                        Math_Vpv_max = Vpv_max,
+                        Math_Vg = Vg,
+                        Math_Vo = Vg / Math.Sqrt(3),
+                        Math_fg = fg,
+                        IsolatedDCDC_Q = Q,
+                        Math_phi = phi,
+                    };
+                    structure.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
+                    structure.Evaluate(); //进行评估
+                    structure.Operate();
+                    break;
+
+                case "TwoLevelStructure":
+                    Formula.Init();
+                    Psys = double.Parse(conditions[1]);
+                    Vpv_min = double.Parse(conditions[2]);
+                    Vpv_max = double.Parse(conditions[3]);
+                    Vg = double.Parse(conditions[4]);
+                    fg = double.Parse(conditions[5]);
+                    Q = double.Parse(conditions[6]);
+                    double DCAC_Vin_def = double.Parse(conditions[7]);
+                    phi = double.Parse(conditions[8]);
+                    structure = new TwoLevelStructure()
+                    {
+                        Math_Psys = Psys,
+                        Math_Vpv_min = Vpv_min,
+                        Math_Vpv_max = Vpv_max,
+                        Math_Vg = Vg,
+                        Math_Vo = Vg / Math.Sqrt(3),
+                        Math_fg = fg,
+                        IsolatedDCDC_Q = Q,
+                        DCAC_Vin_def = DCAC_Vin_def,
+                        Math_phi = phi,
+                    };
+                    structure.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
+                    structure.Evaluate(); //进行评估
+                    structure.Operate();
+                    break;
+            }
         }
     }
 }

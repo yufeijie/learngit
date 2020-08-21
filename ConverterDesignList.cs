@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace PV_analysis
 {
@@ -18,7 +17,7 @@ namespace PV_analysis
         /// </summary>
         public bool IsAll { get; set; } = false;
 
-        public int Size{ get { return size; } }
+        public int Size { get { return size; } }
 
         /// <summary>
         /// 存储变换器设计方案的评估结果与配置信息
@@ -47,6 +46,29 @@ namespace PV_analysis
                 now = now.Next;
             }
             return data;
+        }
+
+        /// <summary>
+        /// 根据设计方案的评估结果，得到相应的配置信息
+        /// </summary>
+        /// <param name="efficiency">效率（若为NaN，则不考虑）</param>
+        /// <param name="volume">体积（若为NaN，则不考虑）</param>
+        /// <param name="cost">成本（若为NaN，则不考虑）</param>
+        /// <returns>配置信息</returns>
+        public string[] GetConfigs(double efficiency, double volume, double cost)
+        {
+            ConverterDesignData now = head;
+            while (now != null)
+            {
+                if ((double.IsNaN(efficiency) || Function.EQ(efficiency, now.Efficiency))
+                && (double.IsNaN(volume) || Function.EQ(volume, now.Volume))
+                && (double.IsNaN(cost) || Function.EQ(cost, now.Cost)))
+                {
+                    return now.Configs;
+                }
+                now = now.Next;
+            }
+            return null;
         }
 
         /// <summary>

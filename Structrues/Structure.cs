@@ -1,7 +1,16 @@
-﻿namespace PV_analysis.Systems
+﻿using PV_analysis.Components;
+using PV_analysis.Converters;
+using PV_analysis.Topologys;
+
+namespace PV_analysis.Structures
 {
     internal abstract class Structure
     {
+        /// <summary>
+        /// 包含的变换器
+        /// </summary>
+        public Converter[] Converters { get; protected set; }
+
         //---整体参数---
         /// <summary>
         /// 架构总功率
@@ -9,12 +18,12 @@
         public double Math_Psys { get; set; }
 
         /// <summary>
-        /// 光伏板MPPT电压最小值
+        /// 光伏MPPT电压最小值
         /// </summary>
         public double Math_Vpv_min { get; set; }
 
         /// <summary>
-        /// 光伏板MPPT电压最大值
+        /// 光伏MPPT电压最大值
         /// </summary>
         public double Math_Vpv_max { get; set; }
 
@@ -34,19 +43,30 @@
         public double Math_fg { get; set; }
 
         /// <summary>
+        /// 母线电压
+        /// </summary>
+        public double Math_Vbus { get; set; }
+
+        /// <summary>
         /// 母线电压范围
         /// </summary>
         public double[] Math_VbusRange { get; set; }
 
+        //---隔离DC/DC参数---
         /// <summary>
-        /// 功率因数角(rad)
+        /// 隔离DCDC品质因数预设值
         /// </summary>
-        public double Math_phi { get; set; }
+        public double IsolatedDCDC_Q { get; set; }
 
         /// <summary>
         /// DCAC直流侧电压预设值
         /// </summary>
         public double DCAC_Vin_def { get; set; }
+
+        /// <summary>
+        /// DCAC功率因数角(rad)
+        /// </summary>
+        public double Math_phi { get; set; }
 
         //---DC/DC参数---
         /// <summary>
@@ -63,12 +83,6 @@
         /// DCDC可用开关频率序列
         /// </summary>
         public double[] DCDC_frequencyRange { get; set; }
-
-        //---隔离DC/DC参数---
-        /// <summary>
-        /// 品质因数预设值
-        /// </summary>
-        public double IsolatedDCDC_Q { get; set; }
 
         /// <summary>
         /// 隔离DCDC可用拓扑序列
@@ -102,6 +116,26 @@
         public double[] DCAC_frequencyRange { get; set; }
 
         /// <summary>
+        /// 中国效率
+        /// </summary>
+        public double EfficiencyCGC { get; protected set; }
+
+        /// <summary>
+        /// 成本
+        /// </summary>
+        public double Cost { get; protected set; }
+
+        /// <summary>
+        /// 体积
+        /// </summary>
+        public double Volume { get; protected set; }
+
+        /// <summary>
+        /// 效率
+        /// </summary>
+        public double Efficiency { get; protected set; }
+
+        /// <summary>
         /// Pareto最优设计方案
         /// </summary>
         public ConverterDesignList ParetoDesignList { get; } = new ConverterDesignList();
@@ -110,6 +144,12 @@
         /// 所有设计方案
         /// </summary>
         public ConverterDesignList AllDesignList { get; } = new ConverterDesignList { IsAll = true };
+
+        /// <summary>
+        /// 获取拓扑名
+        /// </summary>
+        /// <returns>拓扑名</returns>
+        public abstract string GetName();
 
         /// <summary>
         /// 获取设计条件标题
@@ -133,10 +173,32 @@
         /// </summary>
         public void Save()
         {
+            Save(GetType().Name);
+        }
+
+        /// <summary>
+        /// 保存设计结果
+        /// </summary>
+        /// <param name="name">文件名</param>
+        public void Save(string name)
+        {
             string[] conditionTitles = GetConditionTitles();
             string[] conditions = GetConditions();
-            Data.Save(GetType().Name + "_Pareto", conditionTitles, conditions, ParetoDesignList);
-            Data.Save(GetType().Name + "_all", conditionTitles, conditions, AllDesignList);
+            Data.Save(name + "_Pareto", conditionTitles, conditions, ParetoDesignList);
+            Data.Save(name + "_all", conditionTitles, conditions, AllDesignList);
+        }
+
+        /// <summary>
+        /// 保存设计结果
+        /// </summary>
+        /// <param name="path">路径</param>
+        /// <param name="name">文件名</param>
+        public void Save(string path, string name)
+        {
+            string[] conditionTitles = GetConditionTitles();
+            string[] conditions = GetConditions();
+            Data.Save(path, name + "_Pareto", conditionTitles, conditions, ParetoDesignList);
+            Data.Save(path, name + "_all", conditionTitles, conditions, AllDesignList);
         }
 
         /// <summary>
@@ -144,6 +206,37 @@
         /// </summary>
         /// <param name="configs">配置信息</param>
         /// <param name="index">当前下标</param>
-        public abstract void Load(string[] configs, int index);
+        public abstract void Load(string[] configs, ref int index);
+
+        /// <summary>
+        /// 评估，得到中国效率、体积、成本
+        /// </summary>
+        public void Evaluate()
+        {
+            EfficiencyCGC = 1;
+            Cost = 0;
+            Volume = 0;
+            foreach (Converter converter in Converters)
+            {
+                converter.Evaluate();
+                EfficiencyCGC += converter.EfficiencyCGC - 1;
+                Cost += converter.Cost;
+                Volume += converter.Volume;
+            }
+        }
+
+        /// <summary>
+        /// 模拟变换器运行，得到相应负载下的效率
+        /// </summary>
+        /// <param name="load">负载</param>
+        public void Operate(double load = 1.00)
+        {
+            Efficiency = 1;
+            foreach (Converter converter in Converters)
+            {
+                converter.Operate(load);
+                Efficiency += converter.Efficiency - 1;
+            }
+        }
     }
 }

@@ -45,22 +45,22 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 中国效率
         /// </summary>
-        public double EfficiencyCGC { get; private set; }
+        public double EfficiencyCGC { get; protected set; }
 
         /// <summary>
         /// 成本
         /// </summary>
-        public double Cost { get; private set; }
+        public double Cost { get; protected set; }
 
         /// <summary>
         /// 体积
         /// </summary>
-        public double Volume { get; private set; }
+        public double Volume { get; protected set; }
 
         /// <summary>
         /// 效率
         /// </summary>
-        public double Efficiency { get; private set; }
+        public double Efficiency { get; protected set; }
 
         /// <summary>
         /// Pareto最优设计方案
@@ -129,10 +129,32 @@ namespace PV_analysis.Converters
         /// </summary>
         public void Save()
         {
+            Save(GetType().Name);
+        }
+
+        /// <summary>
+        /// 保存设计结果
+        /// </summary>
+        /// <param name="name">文件名</param>
+        public void Save(string name)
+        {
             string[] conditionTitles = GetConditionTitles();
             string[] conditions = GetConditions();
-            Data.Save(GetType().Name + "_Pareto", conditionTitles, conditions, ParetoDesignList);
-            Data.Save(GetType().Name + "_all", conditionTitles, conditions, AllDesignList);
+            Data.Save(name + "_Pareto", conditionTitles, conditions, ParetoDesignList);
+            Data.Save(name + "_all", conditionTitles, conditions, AllDesignList);
+        }
+
+        /// <summary>
+        /// 保存设计结果
+        /// </summary>
+        /// <param name="path">路径</param>
+        /// <param name="name">文件名</param>
+        public void Save(string path, string name)
+        {
+            string[] conditionTitles = GetConditionTitles();
+            string[] conditions = GetConditions();
+            Data.Save(path, name + "_Pareto", conditionTitles, conditions, ParetoDesignList);
+            Data.Save(path, name + "_all", conditionTitles, conditions, AllDesignList);
         }
 
         /// <summary>
@@ -140,7 +162,7 @@ namespace PV_analysis.Converters
         /// </summary>
         /// <param name="configs">配置信息</param>
         /// <param name="index">当前下标</param>
-        public abstract void Load(string[] configs, int index);
+        public abstract void Load(string[] configs, ref int index);
 
         /// <summary>
         /// 评估，得到中国效率、体积、成本
@@ -149,6 +171,8 @@ namespace PV_analysis.Converters
         {
             Topology.Prepare();
             double Pevel = 0;
+            Cost = 0;
+            Volume = 0;
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
                 component.Evaluate();

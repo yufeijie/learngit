@@ -106,27 +106,29 @@ namespace PV_analysis.Converters
             {
                 conditionTitles = new string[]
                 {
-                    "Total power",
-                    "Minimum input voltage",
-                    "Maximum input voltage",
-                    "Output voltage",
-                    "Quality factor",
-                    "Number range",
-                    "Topology range",
-                    "Resonance frequency range(kHz)"
+                    "评估对象",
+                    "总功率",
+                    "输入电压最小值",
+                    "输入电压最大值",
+                    "输出电压",
+                    "品质因数",
+                    "模块数范围",
+                    "拓扑范围",
+                    "谐振频率范围(kHz)"
                 };
             }
             else
             {
                 conditionTitles = new string[]
                 {
-                    "Total power",
-                    "Input voltage",
-                    "Output voltage",
-                    "Quality factor",
-                    "Number range",
-                    "Topology range",
-                    "Resonance frequency range(kHz)"
+                    "评估对象",
+                    "总功率",
+                    "输入电压",
+                    "输出电压",
+                    "品质因数",
+                    "模块数范围",
+                    "拓扑范围",
+                    "谐振频率范围(kHz)"
                 };
             }
             return conditionTitles;
@@ -143,6 +145,7 @@ namespace PV_analysis.Converters
             {
                 conditions = new string[]
                 {
+                    GetType().Name + "(TwoStage)",
                     Math_Psys.ToString(),
                     Math_Vin_min.ToString(),
                     Math_Vin_max.ToString(),
@@ -157,6 +160,7 @@ namespace PV_analysis.Converters
             {
                 conditions = new string[]
                 {
+                    GetType().Name,
                     Math_Psys.ToString(),
                     Math_Vin.ToString(),
                     Math_Vo.ToString(),
@@ -215,12 +219,15 @@ namespace PV_analysis.Converters
         /// </summary>
         /// <param name="configs">配置信息</param>
         /// <param name="index">当前下标</param>
-        public override void Load(string[] configs, int index)
+        public override void Load(string[] configs, ref int index)
         {
+            EfficiencyCGC = double.Parse(configs[index++]);
+            Volume = double.Parse(configs[index++]);
+            Cost = double.Parse(configs[index++]);
             Number = int.Parse(configs[index++]);
             Math_fr = double.Parse(configs[index++]);
             CreateTopology(configs[index++]);
-            Topology.Load(configs, index);
+            Topology.Load(configs, ref index);
         }
     }
 }

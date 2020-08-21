@@ -224,6 +224,7 @@
             this.Estimate_Result_Title_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Result_Title_Label = new System.Windows.Forms.Label();
             this.Estimate_Result_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Result_QuickSave_Button = new System.Windows.Forms.Button();
             this.Estimate_Result_Restart_Button = new System.Windows.Forms.Button();
             this.Estimate_Result_Save_Button = new System.Windows.Forms.Button();
             this.Estimate_Result_Display_Button = new System.Windows.Forms.Button();
@@ -2689,6 +2690,7 @@
             // Estimate_Result_Operation_Panel
             // 
             this.Estimate_Result_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_QuickSave_Button);
             this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_Restart_Button);
             this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_Save_Button);
             this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_Display_Button);
@@ -2697,6 +2699,19 @@
             this.Estimate_Result_Operation_Panel.Name = "Estimate_Result_Operation_Panel";
             this.Estimate_Result_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
             this.Estimate_Result_Operation_Panel.TabIndex = 1;
+            // 
+            // Estimate_Result_QuickSave_Button
+            // 
+            this.Estimate_Result_QuickSave_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Estimate_Result_QuickSave_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Result_QuickSave_Button.Location = new System.Drawing.Point(1080, 8);
+            this.Estimate_Result_QuickSave_Button.Name = "Estimate_Result_QuickSave_Button";
+            this.Estimate_Result_QuickSave_Button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Result_QuickSave_Button.TabIndex = 3;
+            this.Estimate_Result_QuickSave_Button.Text = "快速保存";
+            this.Estimate_Result_QuickSave_Button.UseVisualStyleBackColor = true;
+            this.Estimate_Result_QuickSave_Button.Click += new System.EventHandler(this.Estimate_Result_QuickSave_Button_Click);
             // 
             // Estimate_Result_Restart_Button
             // 
@@ -2842,7 +2857,6 @@
             this.Display_Show_ChartControl_Button.Size = new System.Drawing.Size(75, 23);
             this.Display_Show_ChartControl_Button.TabIndex = 1;
             this.Display_Show_ChartControl_Button.UseVisualStyleBackColor = true;
-            this.Display_Show_ChartControl_Button.Click += new System.EventHandler(this.button1_Click);
             // 
             // panel5
             // 
@@ -3104,7 +3118,6 @@
             this.label107.TabIndex = 83;
             this.label107.Text = "99%";
             this.label107.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label107.Click += new System.EventHandler(this.label107_Click);
             // 
             // label110
             // 
@@ -3255,6 +3268,7 @@
             // 
             this.Display_Show_Detail_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Display_Show_Detail_Button.Enabled = false;
             this.Display_Show_Detail_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Display_Show_Detail_Button.Location = new System.Drawing.Point(1320, 8);
             this.Display_Show_Detail_Button.Name = "Display_Show_Detail_Button";
@@ -3355,7 +3369,6 @@
             this.label148.TabIndex = 154;
             this.label148.Text = "损耗分布(%)";
             this.label148.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label148.Click += new System.EventHandler(this.label148_Click);
             // 
             // pieChart3
             // 
@@ -3782,6 +3795,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.Display_Show_Panel);
             this.Controls.Add(this.Estimate_Result_Panel);
             this.Controls.Add(this.Estimate_Step5_Panel);
             this.Controls.Add(this.Estimate_Step3_Panel);
@@ -3789,7 +3803,6 @@
             this.Controls.Add(this.Estimate_Step4_Panel);
             this.Controls.Add(this.Estimate_Step1_Panel);
             this.Controls.Add(this.Display_Detail_Panel);
-            this.Controls.Add(this.Display_Show_Panel);
             this.Controls.Add(this.Display_Ready_Panel);
             this.Controls.Add(this.Admin_Panel);
             this.Controls.Add(this.Home_Panel);
@@ -4185,6 +4198,7 @@
         private System.Windows.Forms.CheckBox Estimate_Step2_Group1_Item2_Left_CheckBox;
         private System.Windows.Forms.CheckBox Estimate_Step2_Group1_Item1_Left_CheckBox;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
+        private System.Windows.Forms.Button Estimate_Result_QuickSave_Button;
     }
 }
 

@@ -33,11 +33,17 @@ namespace PV_analysis.Topologys
         public int GroupIndex { get { return groupIndex; } }
 
         /// <summary>
+        /// 获取拓扑名
+        /// </summary>
+        /// <returns>拓扑名</returns>
+        public abstract string GetName();
+
+        /// <summary>
         /// 读取配置信息
         /// </summary>
         /// <param name="configs">配置信息</param>
         /// <param name="index">当前下标</param>
-        public void Load(string[] configs, int index)
+        public void Load(string[] configs, ref int index)
         {
             groupIndex = int.Parse(configs[index++]);
             foreach (Component component in componentGroups[groupIndex])

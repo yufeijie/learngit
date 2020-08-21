@@ -402,7 +402,7 @@ namespace PV_analysis
         /// <param name="designList">设计方案</param>
         public static void Save(string name, string[] conditionTitles, string[] conditions, ConverterDesignList designList)
         {
-            Save(resultPath, name + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss_fff") + ".xlsx", conditionTitles, conditions, designList);
+            Save(resultPath, name + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss_fff"), conditionTitles, conditions, designList);
         }
 
         /// <summary>
@@ -442,7 +442,7 @@ namespace PV_analysis
                 }
             }
             
-            FileStream file = new FileStream(path + name, FileMode.Create);
+            FileStream file = new FileStream(path + name + ".xlsx", FileMode.Create);
             workbook.Write(file);
             file.Close();
         }
@@ -478,6 +478,47 @@ namespace PV_analysis
             }
 
             return new string[][] { conditions.ToArray(), configs.ToArray() };
+        }
+
+        /// <summary>
+        /// 读取设计结果
+        /// </summary>
+        /// <param name="filePath">路径名</param>
+        /// <returns>设计结果</returns>
+        public static string[][] Load(string filePath)
+        {
+            string[][] results;
+
+            //打开Excel
+            IWorkbook workbook = WorkbookFactory.Create(filePath);
+
+            //读取设计结果
+            ISheet sheet = workbook.GetSheetAt(1); //获取第二个工作薄
+            IRow row;
+            int n = sheet.LastRowNum; //获取行数，这里行数=sheet.LastRowNum+1
+            results = new string[n + 2][]; //results[0][]用于存储设计条件
+            for (int i = 0; i <= sheet.LastRowNum; i++)
+            {
+                row = sheet.GetRow(i);
+                string[] configs = new string[row.LastCellNum];
+                for (int j = 0; j < row.LastCellNum; j++)
+                {
+                    configs[j] = row.GetCell(j).StringCellValue;
+                }
+                results[i + 1] = configs;
+            }
+
+            //读取设计条件
+            sheet = workbook.GetSheetAt(0); //获取第二个工作薄
+            row = sheet.GetRow(1);
+            string[] conditions = new string[row.LastCellNum];
+            for (int i = 0; i < row.LastCellNum; i++)
+            {
+                conditions[i] = row.GetCell(i).StringCellValue;
+            }
+            results[0] = conditions;
+
+            return results;
         }
     }
 }

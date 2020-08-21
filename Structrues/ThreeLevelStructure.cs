@@ -5,13 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PV_analysis.Systems
+namespace PV_analysis.Structures
 {
     internal class ThreeLevelStructure : Structure
     {
-        private DCDCConverter DCDC;
-        private IsolatedDCDCConverter isolatedDCDC;
-        private DCACConverter DCAC;
+        public DCDCConverter DCDC { get; private set; }
+        public IsolatedDCDCConverter IsolatedDCDC { get; private set; }
+        public DCACConverter DCAC { get; private set; }
+
+        /// <summary>
+        /// 获取拓扑名
+        /// </summary>
+        /// <returns>拓扑名</returns>
+        public override string GetName()
+        {
+            return "三级架构";
+        }
 
         /// <summary>
         /// 获取设计条件标题
@@ -21,23 +30,24 @@ namespace PV_analysis.Systems
         {
             string[] conditionTitles =
             {
-                "Total power",
-                "PV min voltage",
-                "PV max voltage",
-                "Grid voltage",
-                "Grid frequency(Hz)",
-                "Isolated DCDC quality factor default",
-                "DCAC power factor angle(rad)",
-                "DC bus voltage range",
-                "DCDC number range",
-                "DCDC topology range",
-                "DCDC frequency range(kHz)",
-                "Isolated DCDC topology range",
-                "Isolated DCDC resonance frequency range(kHz)",
-                "DCAC number range",
-                "DCAC topology range",
-                "DCAC modulation range",
-                "DCAC frequency range(kHz)"
+                "评估对象",
+                "总功率",
+                "光伏MPPT电压最小值",
+                "光伏MPPT电压最大值",
+                "并网电压",
+                "并网频率(Hz)",
+                "隔离DCDC品质因数",
+                "DCAC功率因数角(rad)",
+                "母线电压范围",
+                "DCDC模块数范围",
+                "DCDC拓扑范围",
+                "DCDC频率范围(kHz)",
+                "隔离DCDC拓扑范围",
+                "隔离DCDC谐振频率范围(kHz)",
+                "DCAC模块数范围",
+                "DCAC拓扑范围",
+                "DCAC调制方式范围",
+                "DCAC频率范围(kHz)"
             };
             return conditionTitles;
         }
@@ -50,6 +60,7 @@ namespace PV_analysis.Systems
         {
             string[] conditions =
             {
+                GetType().Name,
                 Math_Psys.ToString(),
                 Math_Vpv_min.ToString(),
                 Math_Vpv_max.ToString(),
@@ -104,7 +115,6 @@ namespace PV_analysis.Systems
                         TopologyRange = DCAC_topologyRange,
                         ModulationRange = DCAC_modulationRange,
                         FrequencyRange = DCAC_frequencyRange,
-                        Math_Vin_def = 0
                     };
                     DCAC.Optimize();
                     if (DCAC.AllDesignList.Size <= 0)
@@ -115,14 +125,14 @@ namespace PV_analysis.Systems
                     //隔离DC/DC变换器设计
                     Console.WriteLine("-------------------------");
                     Console.WriteLine("Isolated DC/DC converters design...");
-                    isolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Vbus, DCAC.Math_Vin, IsolatedDCDC_Q)
+                    IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Vbus, DCAC.Math_Vin, IsolatedDCDC_Q)
                     {
                         NumberRange = new int[] { j },
                         TopologyRange = IsolatedDCDC_topologyRange,
                         FrequencyRange = IsolatedDCDC_resonanceFrequencyRange
                     };
-                    isolatedDCDC.Optimize();
-                    if (isolatedDCDC.AllDesignList.Size <= 0)
+                    IsolatedDCDC.Optimize();
+                    if (IsolatedDCDC.AllDesignList.Size <= 0)
                     {
                         continue;
                     }
@@ -132,9 +142,9 @@ namespace PV_analysis.Systems
                     Console.WriteLine("Inv num=" + j + ", DC bus voltage=" + Vbus + ", Combining...");
                     ConverterDesignList newDesignList = new ConverterDesignList();
                     newDesignList.Combine(DCDC.ParetoDesignList);
-                    newDesignList.Combine(isolatedDCDC.ParetoDesignList);
+                    newDesignList.Combine(IsolatedDCDC.ParetoDesignList);
                     newDesignList.Combine(DCAC.ParetoDesignList);
-                    newDesignList.Transfer(new string[] { Vbus.ToString(), DCAC.Math_Vin.ToString() });
+                    newDesignList.Transfer(new string[] { Vbus.ToString(), DCAC.Math_Vin .ToString() });
                     ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
                     AllDesignList.Merge(newDesignList); //记录所有设计
                 }
@@ -147,12 +157,20 @@ namespace PV_analysis.Systems
         /// </summary>
         /// <param name="configs">配置信息</param>
         /// <param name="index">当前下标</param>
-        public override void Load(string[] configs, int index)
+        public override void Load(string[] configs, ref int index)
         {
-            //Number = int.Parse(configs[index++]);
-            //Math_fs = double.Parse(configs[index++]);
-            //CreateTopology(configs[index++]);
-            //Topology.Load(configs, index);
+            EfficiencyCGC = double.Parse(configs[index++]);
+            Volume = double.Parse(configs[index++]);
+            Cost = double.Parse(configs[index++]);
+            Math_Vbus = double.Parse(configs[index++]);
+            double DCAC_Vin = double.Parse(configs[index++]);
+            DCDC = new DCDCConverter(Math_Psys, Math_Vpv_min, Math_Vpv_max, Math_Vbus);
+            DCDC.Load(configs, ref index);
+            IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Math_Vbus, DCAC_Vin, IsolatedDCDC_Q);
+            IsolatedDCDC.Load(configs, ref index);
+            DCAC = new DCACConverter(Math_Psys, Math_Vo, Math_fg, Math_phi);
+            DCAC.Load(configs, ref index);
+            Converters = new Converter[] { DCDC, IsolatedDCDC, DCAC };
         }
     }
 }

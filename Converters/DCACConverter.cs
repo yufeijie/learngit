@@ -100,14 +100,15 @@ namespace PV_analysis.Converters
         {
             string[] conditionTitles =
             {
-                "Total power",
-                "Grid voltage",
-                "Grid frequency(Hz)",
-                "Power factor angle(rad)",
-                "Number range",
-                "Topology range",
-                "Modulation range",
-                "Frequency range(kHz)"
+                "评估对象",
+                "总功率",
+                "并网电压",
+                "并网频率(Hz)",
+                "功率因数角(rad)",
+                "模块数范围",
+                "拓扑范围",
+                "调制方式范围",
+                "频率范围(kHz)"
             };
             return conditionTitles;
         }
@@ -120,6 +121,7 @@ namespace PV_analysis.Converters
         {
             string[] conditions =
             {
+                GetType().Name,
                 Math_Psys.ToString(),
                 Math_Vg.ToString(),
                 Math_fg.ToString(),
@@ -179,14 +181,17 @@ namespace PV_analysis.Converters
         /// </summary>
         /// <param name="configs">配置信息</param>
         /// <param name="index">当前下标</param>
-        public override void Load(string[] configs, int index)
+        public override void Load(string[] configs, ref int index)
         {
+            EfficiencyCGC = double.Parse(configs[index++]);
+            Volume = double.Parse(configs[index++]);
+            Cost = double.Parse(configs[index++]);
             Number = int.Parse(configs[index++]);
             Math_fs = double.Parse(configs[index++]);
             Math_Ma = double.Parse(configs[index++]);
             Modulation = configs[index++];
             CreateTopology(configs[index++]);
-            Topology.Load(configs, index);
+            Topology.Load(configs, ref index);
         }
 
     }

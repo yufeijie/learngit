@@ -134,12 +134,11 @@
     <Compile Include="Function.cs" />
     <Compile Include="ComponentDesignList.cs" />
     <Compile Include="Graph.cs" />
-    <Compile Include="ResultList.cs" />
     <Compile Include="Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Systems\Structure.cs" />
-    <Compile Include="Systems\ThreeLevelStructure.cs" />
-    <Compile Include="Systems\TwoLevelStructure.cs" />
+    <Compile Include="Structrues\Structure.cs" />
+    <Compile Include="Structrues\ThreeLevelStructure.cs" />
+    <Compile Include="Structrues\TwoLevelStructure.cs" />
     <Compile Include="Topologys\DTCSRC.cs" />
     <Compile Include="Topologys\MultiInputSoftSwitchBoost.cs" />
     <Compile Include="Topologys\InterleavedBoost.cs" />

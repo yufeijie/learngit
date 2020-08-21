@@ -1,5 +1,4 @@
-﻿using PV_analysis.Components;
-using PV_analysis.Topologys;
+﻿using PV_analysis.Topologys;
 using System;
 
 namespace PV_analysis.Converters
@@ -12,7 +11,7 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 输入电压最小值
         /// </summary>
-        public double Math_Vin_min { get;}
+        public double Math_Vin_min { get; }
 
         /// <summary>
         /// 输入电压最大值
@@ -72,13 +71,14 @@ namespace PV_analysis.Converters
         {
             string[] conditionTitles =
             {
-                "Total power",
-                "Minimum input voltage",
-                "Maximum input voltage",
-                "Output voltage",
-                "Number range",
-                "Topology range",
-                "Resonance frequency range(kHz)"
+                "评估对象",
+                "总功率",
+                "输入电压最小值",
+                "输入电压最大值",
+                "输出电压",
+                "模块数范围",
+                "拓扑范围",
+                "谐振频率范围(kHz)"
             };
             return conditionTitles;
         }
@@ -91,6 +91,7 @@ namespace PV_analysis.Converters
         {
             string[] conditions =
             {
+                GetType().Name,
                 Math_Psys.ToString(),
                 Math_Vin_min.ToString(),
                 Math_Vin_max.ToString(),
@@ -124,7 +125,7 @@ namespace PV_analysis.Converters
                     break;
             }
         }
-        
+
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
@@ -151,12 +152,15 @@ namespace PV_analysis.Converters
         /// </summary>
         /// <param name="configs">配置信息</param>
         /// <param name="index">当前下标</param>
-        public override void Load(string[] configs, int index)
+        public override void Load(string[] configs, ref int index)
         {
+            EfficiencyCGC = double.Parse(configs[index++]);
+            Volume = double.Parse(configs[index++]);
+            Cost = double.Parse(configs[index++]);
             Number = int.Parse(configs[index++]);
             Math_fs = double.Parse(configs[index++]);
             CreateTopology(configs[index++]);
-            Topology.Load(configs, index);
+            Topology.Load(configs, ref index);
         }
     }
 }

@@ -89,9 +89,15 @@ namespace PV_analysis.Topologys
             components = new Component[] { semiconductor, inductor };
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { semiconductor, inductor };
+        }
 
-            DesignCircuitParam();
-            semiconductor.SetConstants(frequencyGrid, voltageSwitch, ratioFrequencyModulation, timeTurnOnIgbt, timeTurnOnDiode);
+        /// <summary>
+        /// 获取拓扑名
+        /// </summary>
+        /// <returns>拓扑名</returns>
+        public override string GetName()
+        {
+            return "CHB";
         }
 
         /// <summary>
@@ -282,6 +288,9 @@ namespace PV_analysis.Topologys
         public override void Prepare()
         {
             //计算电路参数
+            DesignCircuitParam();
+            semiconductor.SetConstants(frequencyGrid, voltageSwitch, ratioFrequencyModulation, timeTurnOnIgbt, timeTurnOnDiode);
+
             int n = Config.CGC_POWER_RATIO.Length;
 
             for (int j = 0; j < n; j++)
