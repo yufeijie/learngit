@@ -1,4 +1,6 @@
-﻿namespace PV_analysis
+﻿using PV_analysis.Converters;
+
+namespace PV_analysis
 {
     /// <summary>
     /// 器件设计方案集合
@@ -108,6 +110,29 @@
                 }
                 head = newList.head;
                 size = newList.size;
+            }
+        }
+
+        /// <summary>
+        /// 设计散热器
+        /// 设计DSP
+        /// </summary>
+        public void DesignAuxComponent()
+        {
+            ComponentDesignData now = head;
+            while (now != null)
+            {
+                //设计散热器
+                double Rh = (Config.MAX_HEATSINK_TEMPERATURE - Config.AMBIENT_TEMPERATURE) / now.PowerLoss; //此处应采用损耗最大值
+                double Vh = 1 / (Config.CSPI * Rh);
+                double Ch = Vh * Config.HEATSINK_UNIT_PRICE;
+                now.Volume += Vh;
+                now.Cost += Ch;
+
+                //设计DSP
+                now.Cost += 157.296; //每个变换器模块用一个DSP，型号：TMS320F28335PGFA TI 100 Mouser FIXM
+
+                now = now.Next;
             }
         }
 

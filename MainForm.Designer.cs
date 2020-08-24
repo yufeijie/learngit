@@ -236,6 +236,7 @@
             this.Display_Show_Panel = new System.Windows.Forms.Panel();
             this.Display_Show_Main_Panel = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.Display_Show_ChartControl_Button = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -2833,6 +2834,7 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.comboBox1);
             this.panel6.Controls.Add(this.cartesianChart1);
             this.panel6.Controls.Add(this.Display_Show_ChartControl_Button);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2841,8 +2843,24 @@
             this.panel6.Size = new System.Drawing.Size(1080, 807);
             this.panel6.TabIndex = 6;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "成本-效率",
+            "体积-效率",
+            "成本-体积"});
+            this.comboBox1.Location = new System.Drawing.Point(883, 28);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(85, 25);
+            this.comboBox1.TabIndex = 3;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // cartesianChart1
             // 
+            this.cartesianChart1.BackColor = System.Drawing.Color.White;
             this.cartesianChart1.Location = new System.Drawing.Point(67, 88);
             this.cartesianChart1.Name = "cartesianChart1";
             this.cartesianChart1.Size = new System.Drawing.Size(946, 665);
@@ -4199,6 +4217,7 @@
         private System.Windows.Forms.CheckBox Estimate_Step2_Group1_Item1_Left_CheckBox;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
         private System.Windows.Forms.Button Estimate_Result_QuickSave_Button;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

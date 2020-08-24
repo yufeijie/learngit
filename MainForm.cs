@@ -1,10 +1,12 @@
 ﻿using LiveCharts;
 using LiveCharts.Defaults;
+using LiveCharts.Geared;
 using LiveCharts.Wpf;
 using PV_analysis.Structures;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace PV_analysis
 {
@@ -45,6 +47,8 @@ namespace PV_analysis
         private double[] DCAC_frequencyRange;
 
         private Structure structure; //架构
+
+        private string displayCategory = ""; //图像显示类型
 
         public MainForm()
         {
@@ -671,7 +675,7 @@ namespace PV_analysis
             }
             structure.Optimize();
         }
-        
+
         private void Estimate_Result_Restart_Button_Click(object sender, EventArgs e)
         {
             panelNow[2] = Estimate_Ready_Panel;
@@ -708,20 +712,83 @@ namespace PV_analysis
             structure.Save(path, name);
         }
 
-        private void Estimate_Result_Display_Button_Click(object sender, EventArgs e)
+        private void Display()
         {
+            //获取数据
             IConverterDesignData[] data = structure.AllDesignList.GetData();
-            ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
-            for (int i = 0; i < data.Length; i++)
-            {
-                values.Add(new ObservablePoint(data[i].Cost / 1e4, data[i].Efficiency));
-            }
-            cartesianChart1.Series.Clear();
-            cartesianChart1.Series.Add(new ScatterSeries
-            {
-                Values = values
-            });
 
+            //更新图像显示
+            panel6.Controls.Remove(cartesianChart1);
+            cartesianChart1.Dispose();
+            cartesianChart1 = new LiveCharts.WinForms.CartesianChart
+            {
+                BackColor = System.Drawing.Color.White,
+                DisableAnimations = true,
+                Location = new System.Drawing.Point(67, 88),
+                Name = "cartesianChart1",
+                Size = new System.Drawing.Size(946, 665),
+                TabIndex = 2,
+                Text = "cartesianChart1"
+            };
+            panel6.Controls.Add(cartesianChart1);
+            panel6.Visible = false; //解决底色变黑
+            panel6.Visible = true;
+            ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
+            switch (displayCategory)
+            {
+                case "成本-效率":
+                    for (int i = 1; i < data.Length; i++)
+                    {
+                        values.Add(new ObservablePoint(data[i].Cost / 1e4, data[i].Efficiency * 100));
+                    }
+                    cartesianChart1.AxisX.Add(new Axis
+                    {
+                        Title = "成本（万元）"
+                    });
+                    cartesianChart1.AxisY.Add(new Axis
+                    {
+                        LabelFormatter = value => Math.Round(value,8).ToString(),
+                        Title = "中国效率（%）"
+                    });
+                    break;
+                case "体积-效率":
+                    for (int i = 1; i < data.Length; i++)
+                    {
+                        values.Add(new ObservablePoint(data[i].Volume, data[i].Efficiency * 100));
+                    }
+                    cartesianChart1.AxisX.Add(new Axis
+                    {
+                        
+                        Title = "体积（dm^3）"
+                    });
+                    cartesianChart1.AxisY.Add(new Axis
+                    {
+                        LabelFormatter = value => Math.Round(value, 8).ToString(),
+                        Title = "中国效率（%）"
+                    });
+                    break;
+                case "成本-体积":
+                    for (int i = 1; i < data.Length; i++)
+                    {
+                        values.Add(new ObservablePoint(data[i].Cost / 1e4, data[i].Volume));
+                    }
+                    cartesianChart1.AxisX.Add(new Axis
+                    {
+                        Title = "成本（万元）"
+                    });
+                    cartesianChart1.AxisY.Add(new Axis
+                    {
+                        Title = "体积（dm^3）"
+                    });
+                    break;
+            }
+            cartesianChart1.Series.Add(new GScatterSeries
+            {
+                Values = values.AsGearedValues().WithQuality(Quality.Low),
+                Fill = Brushes.Transparent,
+                StrokeThickness = .5,
+                PointGeometry = null //use a null geometry when you have many series
+            });
             //Pareto前沿
             //values = new ChartValues<ObservablePoint>();
             //for (int i = 0; i < 20; i++)
@@ -734,20 +801,11 @@ namespace PV_analysis
             //    LineSmoothness = 0,
             //    PointGeometry = null
             //});
-            cartesianChart1.AxisX.Clear();
-            cartesianChart1.AxisX.Add(new Axis
-            {
-                Title = "成本（万元）"
-            });
-            cartesianChart1.AxisY.Clear();
-            cartesianChart1.AxisY.Add(new Axis
-            {
-                Title = "中国效率（%）"
-            });
+            cartesianChart1.Zoom = ZoomingOptions.Xy;
             cartesianChart1.LegendLocation = LegendLocation.Right;
-            cartesianChart1.DataClick += ChartOnDataClick; //添加点击图像点事件
+            cartesianChart1.DataClick += Chart_OnDataClick; //添加点击图像点事件
 
-            //清空显示
+            //清空文本显示
             label107.Text = "";
             label106.Text = "";
             label104.Text = "";
@@ -762,13 +820,80 @@ namespace PV_analysis
             label94.Text = "";
             label93.Text = "";
 
+            //更新控件            
             Display_Show_Detail_Button.Enabled = false;
+        }
 
+        private void Chart_OnDataClick(object sender, ChartPoint chartPoint)
+        {
+            //目前采用评估结果比较来查找 TODO 能否直接将chartPoint与点的具体信息相联系
+            string[] configs = new string[1];
+            switch (displayCategory)
+            {
+                case "成本-效率":
+                    configs = structure.AllDesignList.GetConfigs(chartPoint.Y / 100, double.NaN, chartPoint.X * 1e4);
+                    break;
+                case "体积-效率":
+                    configs = structure.AllDesignList.GetConfigs(chartPoint.Y / 100, chartPoint.X, double.NaN);
+                    break;
+                case "成本-体积":
+                    configs = structure.AllDesignList.GetConfigs(double.NaN, chartPoint.Y, chartPoint.X * 1e4);
+                    break;
+            }
+            int index = 0;
+            structure.Load(configs, ref index);
+
+            label107.Text = (structure.EfficiencyCGC * 100).ToString("f2") + "%";
+            label106.Text = (structure.Cost / 1e4).ToString("f2") + "万元";
+            label104.Text = structure.Volume.ToString("f2") + "dm^3";
+            label90.Text = selectedSystem;
+            switch (selectedSystem)
+            {
+                case "三级架构":
+                    label98.Text = ((ThreeLevelStructure)structure).DCDC.Number.ToString(); ;
+                    label97.Text = (((ThreeLevelStructure)structure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz";
+                    label96.Text = ((ThreeLevelStructure)structure).DCDC.Topology.GetName();
+                    label92.Text = ((ThreeLevelStructure)structure).IsolatedDCDC.Number.ToString();
+                    label87.Text = (((ThreeLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz";
+                    label86.Text = ((ThreeLevelStructure)structure).IsolatedDCDC.Topology.GetName();
+                    label95.Text = ((ThreeLevelStructure)structure).DCAC.Number.ToString();
+                    label94.Text = (((ThreeLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
+                    label93.Text = ((ThreeLevelStructure)structure).DCAC.Modulation.ToString();
+                    break;
+
+                case "两级架构":
+                    label98.Text = "";
+                    label97.Text = "";
+                    label96.Text = "";
+                    label92.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Number.ToString();
+                    label87.Text = (((TwoLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz";
+                    label86.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Topology.GetName();
+                    label95.Text = ((TwoLevelStructure)structure).DCAC.Number.ToString();
+                    label94.Text = (((TwoLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
+                    label93.Text = ((TwoLevelStructure)structure).DCAC.Modulation.ToString();
+                    break;
+            }
+
+            //更新控件
+            Display_Show_Detail_Button.Enabled = true;
+        }
+
+        private void Estimate_Result_Display_Button_Click(object sender, EventArgs e)
+        {
+            //更新控件
+            displayCategory = comboBox1.Items[0].ToString();
+            comboBox1.SelectedIndex = 0;
+
+            //更新图像
+            Display();
+
+            //页面切换
             panelNow[3] = Display_Show_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[3];
             panelNow[0].Visible = true;
 
+            //左侧栏切换
             Tab_Estimate_Button.BackColor = inactiveColor;
             Tab_Display_Button.BackColor = activeColor;
         }
@@ -782,6 +907,7 @@ namespace PV_analysis
             };
             if (openFileDialog.ShowDialog() == DialogResult.OK) //如果选定了文件
             {
+                //读取数据
                 string filePath = openFileDialog.FileName; //取得文件路径及文件名
                 string[][] info = Data.Load(filePath); //读取数据
                 string[] conditions = info[0];
@@ -836,110 +962,27 @@ namespace PV_analysis
                         };
                         break;
                 }
-                ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
                 for (int i = 1; i < info.Length; i++)
                 {
                     double efficiency = double.Parse(info[i][0]);
                     double volume = double.Parse(info[i][1]);
                     double cost = double.Parse(info[i][2]);
                     structure.AllDesignList.Add(efficiency, volume, cost, info[i]);
-                    values.Add(new ObservablePoint(cost / 1e4, efficiency));
                 }
-                cartesianChart1.Series.Clear();
-                cartesianChart1.Series.Add(new ScatterSeries
-                {
-                    Values = values
-                });
 
-                //Pareto前沿
-                //values = new ChartValues<ObservablePoint>();
-                //for (int i = 0; i < 20; i++)
-                //{
-                //    values.Add(new ObservablePoint(resultList.cost[i], resultList.efficiency[i]));
-                //}
-                //cartesianChart1.Series.Add(new LineSeries
-                //{
-                //    Values = values,
-                //    LineSmoothness = 0,
-                //    PointGeometry = null
-                //});
-                cartesianChart1.AxisX.Clear();
-                cartesianChart1.AxisX.Add(new Axis
-                {
-                    Title = "成本（万元）"
-                });
-                cartesianChart1.AxisY.Clear();
-                cartesianChart1.AxisY.Add(new Axis
-                {
-                    Title = "中国效率（%）"
-                });
-                cartesianChart1.LegendLocation = LegendLocation.Right;
-                cartesianChart1.DataClick += ChartOnDataClick; //添加点击图像点事件
+                //更新控件
+                displayCategory = comboBox1.Items[0].ToString();
+                comboBox1.SelectedIndex = 0;
 
-                //清空显示
-                label107.Text = "";
-                label106.Text = "";
-                label104.Text = "";
-                label98.Text = "";
-                label97.Text = "";
-                label96.Text = "";
-                label90.Text = "";
-                label92.Text = "";
-                label87.Text = "";
-                label86.Text = "";
-                label95.Text = "";
-                label94.Text = "";
-                label93.Text = "";
+                //更新图像
+                Display();
 
-                Display_Show_Detail_Button.Enabled = false;
-
-                //切换到显示页面
+                //页面切换
                 panelNow[3] = Display_Show_Panel;
                 panelNow[0].Visible = false;
                 panelNow[0] = panelNow[3];
                 panelNow[0].Visible = true;
             }
-        }
-
-        private void ChartOnDataClick(object sender, ChartPoint chartPoint)
-        {
-            //目前采用评估结果比较来查找 TODO 能否直接将chartPoint与点的具体信息相联系
-            string[] configs = structure.AllDesignList.GetConfigs(chartPoint.Y, double.NaN, chartPoint.X * 1e4);
-            int index = 0;
-            structure.Load(configs, ref index);
-
-            label107.Text = (structure.EfficiencyCGC * 100).ToString("f2") + "%";
-            label106.Text = (structure.Cost / 1e4).ToString("f2") + "万元";
-            label104.Text = structure.Volume.ToString("f2") + "dm^3";
-            label90.Text = selectedSystem;
-            switch (selectedSystem)
-            {
-                case "三级架构":
-                    label98.Text = ((ThreeLevelStructure)structure).DCDC.Number.ToString(); ;
-                    label97.Text = (((ThreeLevelStructure)structure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz";
-                    label96.Text = ((ThreeLevelStructure)structure).DCDC.Topology.GetName();
-                    label92.Text = ((ThreeLevelStructure)structure).IsolatedDCDC.Number.ToString();
-                    label87.Text = (((ThreeLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz";
-                    label86.Text = ((ThreeLevelStructure)structure).IsolatedDCDC.Topology.GetName();
-                    label95.Text = ((ThreeLevelStructure)structure).DCAC.Number.ToString();
-                    label94.Text = (((ThreeLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
-                    label93.Text = ((ThreeLevelStructure)structure).DCAC.Modulation.ToString();
-                    break;
-
-                case "两级架构":
-                    label98.Text = "";
-                    label97.Text = "";
-                    label96.Text = "";
-                    label92.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Number.ToString();
-                    label87.Text = (((TwoLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz";
-                    label86.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Topology.GetName();
-                    label95.Text = ((TwoLevelStructure)structure).DCAC.Number.ToString();
-                    label94.Text = (((TwoLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
-                    label93.Text = ((TwoLevelStructure)structure).DCAC.Modulation.ToString();
-                    break;
-            }
-
-            Display_Show_Detail_Button.Enabled = true;
         }
 
         private void Display_Show_Detail_Button_Click(object sender, EventArgs e)
@@ -1098,7 +1141,7 @@ namespace PV_analysis
                         },
                     };
                     pieChart1.LegendLocation = LegendLocation.Bottom;
-                    
+
                     c1 = Math.Round(structure.Converters[0].Cost / 1e4, 2);
                     c2 = Math.Round(structure.Converters[1].Cost / 1e4, 2);
                     pieChart2.Series = new SeriesCollection
@@ -1253,6 +1296,14 @@ namespace PV_analysis
         {
             textBox11.Text = textBox14.Text;
         }
-    }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!displayCategory.Equals(comboBox1.Text))
+            {
+                displayCategory = comboBox1.Text;
+                Display();
+            }
+        }
+    }
 }

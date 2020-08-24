@@ -48,6 +48,11 @@ namespace PV_analysis.Converters
         public double EfficiencyCGC { get; protected set; }
 
         /// <summary>
+        /// 损耗评估值
+        /// </summary>
+        public double Math_Peval { get; protected set; }
+
+        /// <summary>
         /// 成本
         /// </summary>
         public double Cost { get; protected set; }
@@ -112,8 +117,19 @@ namespace PV_analysis.Converters
                 //组合并记录
                 ComponentDesignList designCombinationList = new ComponentDesignList();
                 foreach (Component component in components) //组合各个器件的设计方案
+                {                    
+                    if (component.GetType().BaseType.Name.Equals("Semiconductor"))
+                    {
+                        designCombinationList.Combine(component.DesignList);
+                    }
+                }
+                designCombinationList.DesignAuxComponent();
+                foreach (Component component in components) //组合各个器件的设计方案
                 {
-                    designCombinationList.Combine(component.DesignList);
+                    if (!component.GetType().BaseType.Name.Equals("Semiconductor"))
+                    {
+                        designCombinationList.Combine(component.DesignList);
+                    }
                 }
                 //TODO 控制芯片、散热器设计
                 ConverterDesignList newDesignList = new ConverterDesignList();
@@ -170,17 +186,31 @@ namespace PV_analysis.Converters
         public void Evaluate()
         {
             Topology.Prepare();
-            double Pevel = 0;
+            Math_Peval = 0;
             Cost = 0;
             Volume = 0;
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
-                component.Evaluate();
-                Pevel += component.Math_Peval;
-                Cost += component.Cost;
-                Volume += component.Volume;
+                if (component.GetType().BaseType.Name.Equals("Semiconductor"))
+                {
+                    component.Evaluate();
+                    Math_Peval += component.Math_Peval;
+                    Cost += component.Cost;
+                    Volume += component.Volume;
+                }
             }
-            EfficiencyCGC = 1 - Pevel * Number * PhaseNum / Math_Psys;
+            DesignAuxComponent();
+            foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
+            {
+                if (!component.GetType().BaseType.Name.Equals("Semiconductor"))
+                {
+                    component.Evaluate();
+                    Math_Peval += component.Math_Peval;
+                    Cost += component.Cost;
+                    Volume += component.Volume;
+                }
+            }
+            EfficiencyCGC = 1 - Math_Peval * Number * PhaseNum / Math_Psys;
             Cost *= Number * PhaseNum;
             Volume *= Number * PhaseNum;
         }
@@ -199,6 +229,23 @@ namespace PV_analysis.Converters
                 Ploss += component.PowerLoss;
             }
             Efficiency = 1 - Ploss * Number * PhaseNum / Math_Psys;
+        }
+
+        /// <summary>
+        /// 设计散热器
+        /// 设计DSP
+        /// </summary>
+        public void DesignAuxComponent()
+        {
+            //评估散热器
+            double Rh = (Config.MAX_HEATSINK_TEMPERATURE - Config.AMBIENT_TEMPERATURE) / Math_Peval; //此处应采用损耗最大值
+            double Vh = 1 / (Config.CSPI * Rh);
+            double Ch = Vh * Config.HEATSINK_UNIT_PRICE;
+            Volume += Vh;
+            Cost += Ch;
+
+            //评估DSP
+            Cost += 157.296; //每个变换器模块用一个DSP，型号：TMS320F28335PGFA TI 100 Mouser FIXM
         }
     }
 }
