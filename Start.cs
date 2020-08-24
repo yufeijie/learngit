@@ -32,9 +32,9 @@ namespace PV_analysis
             double Vin_min = 860;
             double Vin_max = 1300;
             double Vo = 1300;
-            int[] numberRange = Function.GenerateNumberRange(1, 120);
-            string[] topologyRange = { "ThreeLevelBoost", "TwoLevelBoost", "InterleavedBoost" };
-            double[] frequencyRange = Function.GenerateFrequencyRange(1e3, 100e3);
+            int[] numberRange = Function.GenerateNumberRange(120, 120);
+            string[] topologyRange = { "ThreeLevelBoost",};
+            double[] frequencyRange = Function.GenerateFrequencyRange(10e3, 10e3);
             DCDCConverter converter = new DCDCConverter(Psys, Vin_min, Vin_max, Vo)
             {
                 NumberRange = numberRange,

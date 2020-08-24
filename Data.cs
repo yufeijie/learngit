@@ -169,12 +169,9 @@ namespace PV_analysis
             {
                 //获取曲线数据
                 double value = 0;
-                if (Math_x0 > 0 && Math_y0 > 0) //在x坐标较小时，直接线性化
+                if (Math_x0 > 0 && Math_y0 > 0 && Function.LE(x, Math_x0)) //在x坐标较小时，直接线性化
                 {
-                    if (Function.LE(x, Math_x0))
-                    {
-                        value = x / Math_x0 * Math_y0;
-                    }
+                    value = x / Math_x0 * Math_y0;
                 }
                 else
                 {

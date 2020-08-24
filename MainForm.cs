@@ -265,44 +265,56 @@ namespace PV_analysis
                 switch (selectedSystem)
                 {
                     case "三级架构":
-                        textBox10.Enabled = true;
-                        textBox9.Enabled = true;
-                        textBox8.Enabled = true;
-                        textBox11.Enabled = true;
-                        textBox7.Enabled = true;
-                        textBox6.Enabled = true;
-                        textBox14.Enabled = true;
-                        textBox13.Enabled = true;
-                        textBox12.Enabled = true;
-                        textBox10.Text = "100";
-                        textBox9.Text = "1";
-                        textBox8.Text = "100";
-                        textBox11.Text = "40";
-                        textBox7.Text = "1";
-                        textBox6.Text = "100";
-                        textBox14.Text = "40";
-                        textBox13.Text = "10";
-                        textBox12.Text = "10";
+                        Estimate_Step3_DCDCMinNumber_TextBox.Enabled = true;
+                        Estimate_Step3_DCDCMaxNumber_TextBox.Enabled = true;
+                        Estimate_Step3_DCDCMinFrequency_TextBox.Enabled = true;
+                        Estimate_Step3_DCDCMaxFrequency_TextBox.Enabled = true;
+                        Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Enabled = true;
+                        Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Enabled = true;
+                        Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Enabled = true;
+                        Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Enabled = true;
+                        Estimate_Step3_DCACMinNumber_TextBox.Enabled = true;
+                        Estimate_Step3_DCACMaxNumber_TextBox.Enabled = true;
+                        Estimate_Step3_DCACMinFrequency_TextBox.Enabled = true;
+                        Estimate_Step3_DCACMaxFrequency_TextBox.Enabled = true;
+                        Estimate_Step3_DCDCMinNumber_TextBox.Text = "1";
+                        Estimate_Step3_DCDCMaxNumber_TextBox.Text = "120";
+                        Estimate_Step3_DCDCMinFrequency_TextBox.Text = "1";
+                        Estimate_Step3_DCDCMaxFrequency_TextBox.Text = "100";
+                        Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text = "1";
+                        Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text = "40";
+                        Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text = "1";
+                        Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text = "100";
+                        Estimate_Step3_DCACMinNumber_TextBox.Text = "1";
+                        Estimate_Step3_DCACMaxNumber_TextBox.Text = "40";
+                        Estimate_Step3_DCACMinFrequency_TextBox.Text = "10";
+                        Estimate_Step3_DCACMaxFrequency_TextBox.Text = "10";
                         break;
                     case "两级架构":
-                        textBox10.Enabled = false;
-                        textBox9.Enabled = false;
-                        textBox8.Enabled = false;
-                        textBox11.Enabled = false;
-                        textBox7.Enabled = false;
-                        textBox6.Enabled = false;
-                        textBox14.Enabled = false;
-                        textBox13.Enabled = false;
-                        textBox12.Enabled = false;
-                        textBox10.Text = "";
-                        textBox9.Text = "";
-                        textBox8.Text = "";
-                        textBox11.Text = "20";
-                        textBox7.Text = "25";
-                        textBox6.Text = "25";
-                        textBox14.Text = "20";
-                        textBox13.Text = "10";
-                        textBox12.Text = "10";
+                        Estimate_Step3_DCDCMinNumber_TextBox.Enabled = false;
+                        Estimate_Step3_DCDCMaxNumber_TextBox.Enabled = false;
+                        Estimate_Step3_DCDCMinFrequency_TextBox.Enabled = false;
+                        Estimate_Step3_DCDCMaxFrequency_TextBox.Enabled = false;
+                        Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Enabled = false;
+                        Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Enabled = false;
+                        Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Enabled = false;
+                        Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Enabled = false;
+                        Estimate_Step3_DCACMinNumber_TextBox.Enabled = false;
+                        Estimate_Step3_DCACMaxNumber_TextBox.Enabled = false;
+                        Estimate_Step3_DCACMinFrequency_TextBox.Enabled = false;
+                        Estimate_Step3_DCACMaxFrequency_TextBox.Enabled = false;
+                        Estimate_Step3_DCDCMinNumber_TextBox.Text = "";
+                        Estimate_Step3_DCDCMaxNumber_TextBox.Text = "";
+                        Estimate_Step3_DCDCMinFrequency_TextBox.Text = "";
+                        Estimate_Step3_DCDCMaxFrequency_TextBox.Text = "";
+                        Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text = "20";
+                        Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text = "20";
+                        Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text = "25";
+                        Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text = "25";
+                        Estimate_Step3_DCACMinNumber_TextBox.Text = "20";
+                        Estimate_Step3_DCACMaxNumber_TextBox.Text = "20";
+                        Estimate_Step3_DCACMinFrequency_TextBox.Text = "10";
+                        Estimate_Step3_DCACMaxFrequency_TextBox.Text = "10";
                         break;
                 }
                 DCDC_topologyRange = DCDC_topologyList.ToArray();
@@ -352,25 +364,25 @@ namespace PV_analysis
         private void Estimate_Step3_Next_Button_Click(object sender, EventArgs e)
         {
             //记录
-            Psys = double.Parse(textBox1.Text) * 1e6;
-            Vpv_min = double.Parse(textBox2.Text);
-            Vpv_max = double.Parse(textBox3.Text);
-            Vpv_peak = double.Parse(textBox4.Text);
-            Vg = double.Parse(textBox5.Text) * 1e3;
+            Psys = double.Parse(Estimate_Step3_Psys_TextBox.Text) * 1e6;
+            Vpv_min = double.Parse(Estimate_Step3_Vpvmin_TextBox.Text);
+            Vpv_max = double.Parse(Estimate_Step3_Vpvmax_TextBox.Text);
+            Vpv_peak = double.Parse(Estimate_Step3_Vpvpeak_TextBox.Text);
+            Vg = double.Parse(Estimate_Step3_Vgrid_TextBox.Text) * 1e3;
             Vo = Vg / Math.Sqrt(3);
             switch (selectedSystem)
             {
                 case "三级架构":
-                    DCDC_numberRange = Function.GenerateNumberRange(1, int.Parse(textBox10.Text));
-                    DCDC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(textBox9.Text) * 1e3, double.Parse(textBox8.Text) * 1e3);
-                    isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(double.Parse(textBox7.Text) * 1e3, double.Parse(textBox6.Text) * 1e3);
-                    DCAC_numberRange = Function.GenerateNumberRange(1, int.Parse(textBox14.Text));
-                    DCAC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(textBox13.Text) * 1e3, double.Parse(textBox12.Text) * 1e3);
+                    DCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_DCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_DCDCMaxNumber_TextBox.Text));
+                    DCDC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCDCMaxFrequency_TextBox.Text) * 1e3);
+                    isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text) * 1e3);
+                    DCAC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_DCACMinNumber_TextBox.Text), int.Parse(Estimate_Step3_DCACMaxNumber_TextBox.Text));
+                    DCAC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCACMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCACMaxFrequency_TextBox.Text) * 1e3);
                     break;
                 case "两级架构":
-                    isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(double.Parse(textBox7.Text) * 1e3, double.Parse(textBox6.Text) * 1e3);
-                    DCAC_numberRange = Function.GenerateNumberRange(int.Parse(textBox14.Text), int.Parse(textBox14.Text));
-                    DCAC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(textBox13.Text) * 1e3, double.Parse(textBox12.Text) * 1e3);
+                    isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text) * 1e3);
+                    DCAC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_DCACMinNumber_TextBox.Text), int.Parse(Estimate_Step3_DCACMaxNumber_TextBox.Text));
+                    DCAC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCACMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCACMaxFrequency_TextBox.Text) * 1e3);
                     break;
             }
 
@@ -386,12 +398,12 @@ namespace PV_analysis
             }
             foreach (string manufacturer in manufacturerList)
             {
-                flowLayoutPanel1.Controls.Add(CreateLabel(manufacturer + ":"));
+                Estimate_Step4_Semiconductor_FlowLayoutPanel.Controls.Add(CreateLabel(manufacturer + ":"));
                 foreach (Data.Semiconductor semiconductor in Data.SemiconductorList)
                 {
                     if (semiconductor.Manufacturer.Equals(manufacturer))
                     {
-                        flowLayoutPanel1.Controls.Add(CreateCheckBox(semiconductor.Type));
+                        Estimate_Step4_Semiconductor_FlowLayoutPanel.Controls.Add(CreateCheckBox(semiconductor.Type));
                     }
                 }
             }
@@ -408,12 +420,12 @@ namespace PV_analysis
             }
             foreach (string manufacturer in manufacturerList)
             {
-                flowLayoutPanel2.Controls.Add(CreateLabel(manufacturer + ":"));
+                Estimate_Step4_Core_FlowLayoutPanel.Controls.Add(CreateLabel(manufacturer + ":"));
                 foreach (Data.Core core in Data.CoreList)
                 {
                     if (core.Manufacturer.Equals(manufacturer))
                     {
-                        flowLayoutPanel2.Controls.Add(CreateCheckBox(core.Type));
+                        Estimate_Step4_Core_FlowLayoutPanel.Controls.Add(CreateCheckBox(core.Type));
                     }
                 }
             }
@@ -430,12 +442,12 @@ namespace PV_analysis
             }
             foreach (string category in categoryList)
             {
-                flowLayoutPanel3.Controls.Add(CreateLabel(category + ":"));
+                Estimate_Step4_Wire_FlowLayoutPanel.Controls.Add(CreateLabel(category + ":"));
                 foreach (Data.Wire wire in Data.WireList)
                 {
                     if (wire.Category.Equals(category))
                     {
-                        flowLayoutPanel3.Controls.Add(CreateCheckBox(wire.Type));
+                        Estimate_Step4_Wire_FlowLayoutPanel.Controls.Add(CreateCheckBox(wire.Type));
                     }
                 }
             }
@@ -452,12 +464,12 @@ namespace PV_analysis
             }
             foreach (string category in categoryList)
             {
-                flowLayoutPanel4.Controls.Add(CreateLabel(category + ":"));
+                Estimate_Step4_Capacitor_FlowLayoutPanel.Controls.Add(CreateLabel(category + ":"));
                 foreach (Data.Capacitor capacitor in Data.CapacitorList)
                 {
                     if (capacitor.Category.Equals(category))
                     {
-                        flowLayoutPanel4.Controls.Add(CreateCheckBox(capacitor.Type));
+                        Estimate_Step4_Capacitor_FlowLayoutPanel.Controls.Add(CreateCheckBox(capacitor.Type));
                     }
                 }
             }
@@ -479,7 +491,7 @@ namespace PV_analysis
         private void Estimate_Step4_Next_Button_Click(object sender, EventArgs e)
         {
             //更新开关器件可用状态
-            foreach (Control control in flowLayoutPanel1.Controls)
+            foreach (Control control in Estimate_Step4_Semiconductor_FlowLayoutPanel.Controls)
             {
                 if (control.GetType() == typeof(CheckBox))
                 {
@@ -495,7 +507,7 @@ namespace PV_analysis
             }
 
             //更新磁芯可用状态
-            foreach (Control control in flowLayoutPanel2.Controls)
+            foreach (Control control in Estimate_Step4_Core_FlowLayoutPanel.Controls)
             {
                 if (control.GetType() == typeof(CheckBox))
                 {
@@ -511,7 +523,7 @@ namespace PV_analysis
             }
 
             //更新绕线可用状态
-            foreach (Control control in flowLayoutPanel3.Controls)
+            foreach (Control control in Estimate_Step4_Wire_FlowLayoutPanel.Controls)
             {
                 if (control.GetType() == typeof(CheckBox))
                 {
@@ -527,7 +539,7 @@ namespace PV_analysis
             }
 
             //更新电容可用状态
-            foreach (Control control in flowLayoutPanel4.Controls)
+            foreach (Control control in Estimate_Step4_Capacitor_FlowLayoutPanel.Controls)
             {
                 if (control.GetType() == typeof(CheckBox))
                 {
@@ -543,15 +555,16 @@ namespace PV_analysis
             }
 
             //更新信息
-            label63.Text = textBox1.Text;
-            label64.Text = textBox2.Text;
-            label65.Text = textBox3.Text;
-            label66.Text = textBox4.Text;
-            label67.Text = textBox5.Text;
-            label78.Text = selectedSystem;
-            label68.Text = textBox10.Text;
-            label73.Text = textBox9.Text;
-            label72.Text = textBox8.Text;
+            Estimate_Step5_Psys_Value_Label.Text = Estimate_Step3_Psys_TextBox.Text;
+            Estimate_Step5_Vpvmin_Value_Label.Text = Estimate_Step3_Vpvmin_TextBox.Text;
+            Estimate_Step5_Vpvmax_Value_Label.Text = Estimate_Step3_Vpvmax_TextBox.Text;
+            Estimate_Step5_Vpvpeak_Value_Label.Text = Estimate_Step3_Vpvpeak_TextBox.Text;
+            Estimate_Step5_Vgrid_Value_Label.Text = Estimate_Step3_Vgrid_TextBox.Text;
+            Estimate_Step5_StructureRange_Value_Label.Text = selectedSystem;
+            Estimate_Step5_DCDCMinNumber_Value_Label.Text = Estimate_Step3_DCDCMinNumber_TextBox.Text;
+            Estimate_Step5_DCDCMaxNumber_Value_Label.Text = Estimate_Step3_DCDCMaxNumber_TextBox.Text;
+            Estimate_Step5_DCDCMinFrequency_Label.Text = Estimate_Step3_DCDCMinFrequency_TextBox.Text;
+            Estimate_Step5_DCDCMaxFrequency_Label.Text = Estimate_Step3_DCDCMaxFrequency_TextBox.Text;
             List<string> DCDC_topologyList = new List<string>();
             if (Estimate_Step2_Group1_Item1_Left_CheckBox.Checked)
             {
@@ -565,10 +578,11 @@ namespace PV_analysis
             {
                 DCDC_topologyList.Add("交错并联Boost");
             }
-            label79.Text = Function.StringArrayToString(DCDC_topologyList.ToArray());
-            label69.Text = textBox11.Text;
-            label71.Text = textBox7.Text;
-            label74.Text = textBox6.Text;
+            Estimate_Step5_DCDCTopologyRange_Value_Label.Text = Function.StringArrayToString(DCDC_topologyList.ToArray());
+            Estimate_Step5_IsolatedDCDCMinNumber_Value_Label.Text = Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text;
+            Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label.Text = Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text;
+            Estimate_Step5_IsolatedDCDCMinFrequency_Label.Text = Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text;
+            Estimate_Step5_IsolatedDCDCMaxFrequency_Label.Text = Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text;
             List<string> isolatedDCDC_topologyList = new List<string>();
             if (Estimate_Step2_Group2_Item1_Left_CheckBox.Checked)
             {
@@ -579,16 +593,17 @@ namespace PV_analysis
                 isolatedDCDC_topologyList.Add("DTCSRC");
             }
 
-            label81.Text = Function.StringArrayToString(isolatedDCDC_topologyList.ToArray());
-            label70.Text = textBox14.Text;
-            label75.Text = textBox13.Text;
-            label76.Text = textBox12.Text;
+            Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label.Text = Function.StringArrayToString(isolatedDCDC_topologyList.ToArray());
+            Estimate_Step5_DCACMinNumber_Value_Label.Text = Estimate_Step3_DCACMinNumber_TextBox.Text;
+            Estimate_Step5_DCACMaxNumber_Value_Label.Text = Estimate_Step3_DCACMaxNumber_TextBox.Text;
+            Estimate_Step5_DCACMinFrequency_Label.Text = Estimate_Step3_DCACMinFrequency_TextBox.Text;
+            Estimate_Step5_DCACMaxFrequency_Label.Text = Estimate_Step3_DCACMaxFrequency_TextBox.Text;
             List<string> DCAC_topologyList = new List<string>();
             if (Estimate_Step2_Group3_Item1_Left_CheckBox.Checked)
             {
                 DCAC_topologyList.Add("CHB");
             }
-            label83.Text = Function.StringArrayToString(DCAC_topologyList.ToArray());
+            Estimate_Step5_DCACTopologyRange_Value_Label.Text = Function.StringArrayToString(DCAC_topologyList.ToArray());
 
             panelNow[2] = Estimate_Step5_Panel;
             panelNow[0].Visible = false;
@@ -606,17 +621,17 @@ namespace PV_analysis
 
         private void WriteLine()
         {
-            label85.Text += "\r\n";
+            Estimate_Result_Print_Label.Text += "\r\n";
         }
 
         private void WriteLine(string text)
         {
-            label85.Text += "\r\n" + text;
+            Estimate_Result_Print_Label.Text += "\r\n" + text;
         }
 
         private void Estimate_Step5_Next_button_Click(object sender, EventArgs e)
         {
-            label85.Text = "";
+            Estimate_Result_Print_Label.Text = "";
 
             panelNow[2] = Estimate_Result_Panel;
             panelNow[0].Visible = false;
@@ -718,9 +733,9 @@ namespace PV_analysis
             IConverterDesignData[] data = structure.AllDesignList.GetData();
 
             //更新图像显示
-            panel6.Controls.Remove(cartesianChart1);
-            cartesianChart1.Dispose();
-            cartesianChart1 = new LiveCharts.WinForms.CartesianChart
+            Display_Show_Graph_Panel.Controls.Remove(Display_Show_Graph_CartesianChart);
+            Display_Show_Graph_CartesianChart.Dispose();
+            Display_Show_Graph_CartesianChart = new LiveCharts.WinForms.CartesianChart
             {
                 BackColor = System.Drawing.Color.White,
                 DisableAnimations = true,
@@ -730,9 +745,9 @@ namespace PV_analysis
                 TabIndex = 2,
                 Text = "cartesianChart1"
             };
-            panel6.Controls.Add(cartesianChart1);
-            panel6.Visible = false; //解决底色变黑
-            panel6.Visible = true;
+            Display_Show_Graph_Panel.Controls.Add(Display_Show_Graph_CartesianChart);
+            Display_Show_Graph_Panel.Visible = false; //解决底色变黑
+            Display_Show_Graph_Panel.Visible = true;
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
             switch (displayCategory)
             {
@@ -741,11 +756,11 @@ namespace PV_analysis
                     {
                         values.Add(new ObservablePoint(data[i].Cost / 1e4, data[i].Efficiency * 100));
                     }
-                    cartesianChart1.AxisX.Add(new Axis
+                    Display_Show_Graph_CartesianChart.AxisX.Add(new Axis
                     {
                         Title = "成本（万元）"
                     });
-                    cartesianChart1.AxisY.Add(new Axis
+                    Display_Show_Graph_CartesianChart.AxisY.Add(new Axis
                     {
                         LabelFormatter = value => Math.Round(value,8).ToString(),
                         Title = "中国效率（%）"
@@ -756,12 +771,12 @@ namespace PV_analysis
                     {
                         values.Add(new ObservablePoint(data[i].Volume, data[i].Efficiency * 100));
                     }
-                    cartesianChart1.AxisX.Add(new Axis
+                    Display_Show_Graph_CartesianChart.AxisX.Add(new Axis
                     {
                         
                         Title = "体积（dm^3）"
                     });
-                    cartesianChart1.AxisY.Add(new Axis
+                    Display_Show_Graph_CartesianChart.AxisY.Add(new Axis
                     {
                         LabelFormatter = value => Math.Round(value, 8).ToString(),
                         Title = "中国效率（%）"
@@ -772,17 +787,17 @@ namespace PV_analysis
                     {
                         values.Add(new ObservablePoint(data[i].Cost / 1e4, data[i].Volume));
                     }
-                    cartesianChart1.AxisX.Add(new Axis
+                    Display_Show_Graph_CartesianChart.AxisX.Add(new Axis
                     {
                         Title = "成本（万元）"
                     });
-                    cartesianChart1.AxisY.Add(new Axis
+                    Display_Show_Graph_CartesianChart.AxisY.Add(new Axis
                     {
                         Title = "体积（dm^3）"
                     });
                     break;
             }
-            cartesianChart1.Series.Add(new GScatterSeries
+            Display_Show_Graph_CartesianChart.Series.Add(new GScatterSeries
             {
                 Values = values.AsGearedValues().WithQuality(Quality.Low),
                 Fill = Brushes.Transparent,
@@ -801,24 +816,24 @@ namespace PV_analysis
             //    LineSmoothness = 0,
             //    PointGeometry = null
             //});
-            cartesianChart1.Zoom = ZoomingOptions.Xy;
-            cartesianChart1.LegendLocation = LegendLocation.Right;
-            cartesianChart1.DataClick += Chart_OnDataClick; //添加点击图像点事件
+            Display_Show_Graph_CartesianChart.Zoom = ZoomingOptions.Xy;
+            Display_Show_Graph_CartesianChart.LegendLocation = LegendLocation.Right;
+            Display_Show_Graph_CartesianChart.DataClick += Chart_OnDataClick; //添加点击图像点事件
 
             //清空文本显示
-            label107.Text = "";
-            label106.Text = "";
-            label104.Text = "";
-            label98.Text = "";
-            label97.Text = "";
-            label96.Text = "";
-            label90.Text = "";
-            label92.Text = "";
-            label87.Text = "";
-            label86.Text = "";
-            label95.Text = "";
-            label94.Text = "";
-            label93.Text = "";
+            Display_Show_EfficiencyCGC_Value_Label.Text = "";
+            Display_Show_Cost_Value_Label.Text = "";
+            Display_Show_Volume_Value_Label.Text = "";
+            Display_Show_DCDCNumber_Value_Label.Text = "";
+            Display_Show_DCDCFrequency_Value_Label.Text = "";
+            Display_Show_DCDCTopology_Value_Label.Text = "";
+            Display_Show_Structure_Value_Label.Text = "";
+            Display_Show_IsolatedDCDCNumber_Value_Label.Text = "";
+            Display_Show_IsolatedDCDCFrequency_Value_Label.Text = "";
+            Display_Show_IsolatedDCDCTopology_Value_Label.Text = "";
+            Display_Show_DCACNumber_Value_Label.Text = "";
+            Display_Show_DCACFrequency_Value_Label.Text = "";
+            Display_Show_DCACTopology_Value_Label.Text = "";
 
             //更新控件            
             Display_Show_Detail_Button.Enabled = false;
@@ -843,34 +858,34 @@ namespace PV_analysis
             int index = 0;
             structure.Load(configs, ref index);
 
-            label107.Text = (structure.EfficiencyCGC * 100).ToString("f2") + "%";
-            label106.Text = (structure.Cost / 1e4).ToString("f2") + "万元";
-            label104.Text = structure.Volume.ToString("f2") + "dm^3";
-            label90.Text = selectedSystem;
+            Display_Show_EfficiencyCGC_Value_Label.Text = (structure.EfficiencyCGC * 100).ToString("f2") + "%";
+            Display_Show_Cost_Value_Label.Text = (structure.Cost / 1e4).ToString("f2") + "万元";
+            Display_Show_Volume_Value_Label.Text = structure.Volume.ToString("f2") + "dm^3";
+            Display_Show_Structure_Value_Label.Text = selectedSystem;
             switch (selectedSystem)
             {
                 case "三级架构":
-                    label98.Text = ((ThreeLevelStructure)structure).DCDC.Number.ToString(); ;
-                    label97.Text = (((ThreeLevelStructure)structure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz";
-                    label96.Text = ((ThreeLevelStructure)structure).DCDC.Topology.GetName();
-                    label92.Text = ((ThreeLevelStructure)structure).IsolatedDCDC.Number.ToString();
-                    label87.Text = (((ThreeLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz";
-                    label86.Text = ((ThreeLevelStructure)structure).IsolatedDCDC.Topology.GetName();
-                    label95.Text = ((ThreeLevelStructure)structure).DCAC.Number.ToString();
-                    label94.Text = (((ThreeLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
-                    label93.Text = ((ThreeLevelStructure)structure).DCAC.Modulation.ToString();
+                    Display_Show_DCDCNumber_Value_Label.Text = ((ThreeLevelStructure)structure).DCDC.Number.ToString(); ;
+                    Display_Show_DCDCFrequency_Value_Label.Text = (((ThreeLevelStructure)structure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz";
+                    Display_Show_DCDCTopology_Value_Label.Text = ((ThreeLevelStructure)structure).DCDC.Topology.GetName();
+                    Display_Show_IsolatedDCDCNumber_Value_Label.Text = ((ThreeLevelStructure)structure).IsolatedDCDC.Number.ToString();
+                    Display_Show_IsolatedDCDCFrequency_Value_Label.Text = (((ThreeLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz";
+                    Display_Show_IsolatedDCDCTopology_Value_Label.Text = ((ThreeLevelStructure)structure).IsolatedDCDC.Topology.GetName();
+                    Display_Show_DCACNumber_Value_Label.Text = ((ThreeLevelStructure)structure).DCAC.Number.ToString();
+                    Display_Show_DCACFrequency_Value_Label.Text = (((ThreeLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
+                    Display_Show_DCACTopology_Value_Label.Text = ((ThreeLevelStructure)structure).DCAC.Modulation.ToString();
                     break;
 
                 case "两级架构":
-                    label98.Text = "";
-                    label97.Text = "";
-                    label96.Text = "";
-                    label92.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Number.ToString();
-                    label87.Text = (((TwoLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz";
-                    label86.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Topology.GetName();
-                    label95.Text = ((TwoLevelStructure)structure).DCAC.Number.ToString();
-                    label94.Text = (((TwoLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
-                    label93.Text = ((TwoLevelStructure)structure).DCAC.Modulation.ToString();
+                    Display_Show_DCDCNumber_Value_Label.Text = "";
+                    Display_Show_DCDCFrequency_Value_Label.Text = "";
+                    Display_Show_DCDCTopology_Value_Label.Text = "";
+                    Display_Show_IsolatedDCDCNumber_Value_Label.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Number.ToString();
+                    Display_Show_IsolatedDCDCFrequency_Value_Label.Text = (((TwoLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz";
+                    Display_Show_IsolatedDCDCTopology_Value_Label.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Topology.GetName();
+                    Display_Show_DCACNumber_Value_Label.Text = ((TwoLevelStructure)structure).DCAC.Number.ToString();
+                    Display_Show_DCACFrequency_Value_Label.Text = (((TwoLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
+                    Display_Show_DCACTopology_Value_Label.Text = ((TwoLevelStructure)structure).DCAC.Modulation.ToString();
                     break;
             }
 
@@ -881,8 +896,8 @@ namespace PV_analysis
         private void Estimate_Result_Display_Button_Click(object sender, EventArgs e)
         {
             //更新控件
-            displayCategory = comboBox1.Items[0].ToString();
-            comboBox1.SelectedIndex = 0;
+            displayCategory = Display_Show_GraphCategory_ComboBox.Items[0].ToString();
+            Display_Show_GraphCategory_ComboBox.SelectedIndex = 0;
 
             //更新图像
             Display();
@@ -971,8 +986,8 @@ namespace PV_analysis
                 }
 
                 //更新控件
-                displayCategory = comboBox1.Items[0].ToString();
-                comboBox1.SelectedIndex = 0;
+                displayCategory = Display_Show_GraphCategory_ComboBox.Items[0].ToString();
+                Display_Show_GraphCategory_ComboBox.SelectedIndex = 0;
 
                 //更新图像
                 Display();
@@ -1005,27 +1020,27 @@ namespace PV_analysis
 
             Func<ChartPoint, string> labelPoint = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
 
-            label136.Text = (structure.EfficiencyCGC * 100).ToString("f2") + "%";
-            label135.Text = (structure.Cost / 1e4).ToString("f2") + "万元";
-            label134.Text = structure.Volume.ToString("f2") + "dm^3";
-            label130.Text = selectedSystem;
+            Display_Detail_EfficiencyCGC_Value_Label.Text = (structure.EfficiencyCGC * 100).ToString("f2") + "%";
+            Display_Detail_Cost_Value_Label.Text = (structure.Cost / 1e4).ToString("f2") + "万元";
+            Display_Detail_Volume_Value_Label.Text = structure.Volume.ToString("f2") + "dm^3";
+            Display_Detail_Structure_Value_Label.Text = selectedSystem;
             switch (selectedSystem)
             {
                 case "三级架构":
-                    label108.Text = ((ThreeLevelStructure)structure).DCDC.Number.ToString(); ;
-                    label105.Text = (((ThreeLevelStructure)structure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz";
-                    label103.Text = ((ThreeLevelStructure)structure).DCDC.Topology.GetName();
-                    label125.Text = ((ThreeLevelStructure)structure).IsolatedDCDC.Number.ToString();
-                    label124.Text = (((ThreeLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz";
-                    label123.Text = ((ThreeLevelStructure)structure).IsolatedDCDC.Topology.GetName();
-                    label121.Text = ((ThreeLevelStructure)structure).DCAC.Number.ToString();
-                    label120.Text = (((ThreeLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
-                    label119.Text = ((ThreeLevelStructure)structure).DCAC.Modulation.ToString();
+                    Display_Detail_DCDCNumber_Value_Label.Text = ((ThreeLevelStructure)structure).DCDC.Number.ToString(); ;
+                    Display_Detail_DCDCFrequency_Value_Label.Text = (((ThreeLevelStructure)structure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz";
+                    Display_Detail_DCDCTopology_Value_Label.Text = ((ThreeLevelStructure)structure).DCDC.Topology.GetName();
+                    Display_Detail_IsolatedDCDCNumber_Value_Label.Text = ((ThreeLevelStructure)structure).IsolatedDCDC.Number.ToString();
+                    Display_Detail_IsolatedDCDCFrequency_Value_Label.Text = (((ThreeLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz";
+                    Display_Detail_IsolatedDCDCTopology_Value_Label.Text = ((ThreeLevelStructure)structure).IsolatedDCDC.Topology.GetName();
+                    Display_Detail_DCACNumber_Value_Label.Text = ((ThreeLevelStructure)structure).DCAC.Number.ToString();
+                    Display_Detail_DCACFrequency_Value_Label.Text = (((ThreeLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
+                    Display_Detail_DCACTopology_Value_Label.Text = ((ThreeLevelStructure)structure).DCAC.Modulation.ToString();
                     //显示图像
                     double p1 = Math.Round(100 - structure.Converters[0].EfficiencyCGC * 100, 2);
                     double p2 = Math.Round(100 - structure.Converters[1].EfficiencyCGC * 100, 2);
                     double p3 = Math.Round(100 - structure.Converters[2].EfficiencyCGC * 100, 2);
-                    pieChart1.Series = new SeriesCollection
+                    Display_Detail_SystemLossBreakdown_PieChart.Series = new SeriesCollection
                     {
                         new PieSeries
                         {
@@ -1049,41 +1064,12 @@ namespace PV_analysis
                             LabelPoint = labelPoint
                         },
                     };
-                    pieChart1.LegendLocation = LegendLocation.Bottom;
-
-                    double c1 = Math.Round(structure.Converters[0].Cost / 1e4, 2);
-                    double c2 = Math.Round(structure.Converters[1].Cost / 1e4, 2);
-                    double c3 = Math.Round(structure.Converters[2].Cost / 1e4, 2);
-                    pieChart2.Series = new SeriesCollection
-                    {
-                        new PieSeries
-                        {
-                            Title = "前级DC/DC",
-                            Values = new ChartValues<double> {c1},
-                            DataLabels = true,
-                            LabelPoint = labelPoint
-                        },
-                        new PieSeries
-                        {
-                            Title = "隔离DC/DC",
-                            Values = new ChartValues<double> {c2},
-                            DataLabels = true,
-                            LabelPoint = labelPoint
-                        },
-                        new PieSeries
-                        {
-                            Title = "逆变",
-                            Values = new ChartValues<double> {c3},
-                            DataLabels = true,
-                            LabelPoint = labelPoint
-                        },
-                    };
-                    pieChart2.LegendLocation = LegendLocation.Bottom;
+                    Display_Detail_SystemLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     double v1 = Math.Round(structure.Converters[0].Volume, 2);
                     double v2 = Math.Round(structure.Converters[1].Volume, 2);
                     double v3 = Math.Round(structure.Converters[2].Volume, 2);
-                    pieChart3.Series = new SeriesCollection
+                    Display_Detail_SystemVolumeBreakdown_PieChart.Series = new SeriesCollection
                     {
                         new PieSeries
                         {
@@ -1107,23 +1093,52 @@ namespace PV_analysis
                             LabelPoint = labelPoint
                         },
                     };
-                    pieChart3.LegendLocation = LegendLocation.Bottom;
+                    Display_Detail_SystemVolumeBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+
+                    double c1 = Math.Round(structure.Converters[0].Cost / 1e4, 2);
+                    double c2 = Math.Round(structure.Converters[1].Cost / 1e4, 2);
+                    double c3 = Math.Round(structure.Converters[2].Cost / 1e4, 2);
+                    Display_Detail_SystemCostBreakdown_PieChart.Series = new SeriesCollection
+                    {
+                        new PieSeries
+                        {
+                            Title = "前级DC/DC",
+                            Values = new ChartValues<double> {c1},
+                            DataLabels = true,
+                            LabelPoint = labelPoint
+                        },
+                        new PieSeries
+                        {
+                            Title = "隔离DC/DC",
+                            Values = new ChartValues<double> {c2},
+                            DataLabels = true,
+                            LabelPoint = labelPoint
+                        },
+                        new PieSeries
+                        {
+                            Title = "逆变",
+                            Values = new ChartValues<double> {c3},
+                            DataLabels = true,
+                            LabelPoint = labelPoint
+                        },
+                    };
+                    Display_Detail_SystemCostBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
                     break;
 
                 case "两级架构":
-                    label108.Text = "";
-                    label105.Text = "";
-                    label103.Text = "";
-                    label125.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Number.ToString();
-                    label124.Text = (((TwoLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz";
-                    label123.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Topology.GetName();
-                    label121.Text = ((TwoLevelStructure)structure).DCAC.Number.ToString();
-                    label120.Text = (((TwoLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
-                    label119.Text = ((TwoLevelStructure)structure).DCAC.Modulation.ToString();
+                    Display_Detail_DCDCNumber_Value_Label.Text = "";
+                    Display_Detail_DCDCFrequency_Value_Label.Text = "";
+                    Display_Detail_DCDCTopology_Value_Label.Text = "";
+                    Display_Detail_IsolatedDCDCNumber_Value_Label.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Number.ToString();
+                    Display_Detail_IsolatedDCDCFrequency_Value_Label.Text = (((TwoLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz";
+                    Display_Detail_IsolatedDCDCTopology_Value_Label.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Topology.GetName();
+                    Display_Detail_DCACNumber_Value_Label.Text = ((TwoLevelStructure)structure).DCAC.Number.ToString();
+                    Display_Detail_DCACFrequency_Value_Label.Text = (((TwoLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
+                    Display_Detail_DCACTopology_Value_Label.Text = ((TwoLevelStructure)structure).DCAC.Modulation.ToString();
                     //显示图像
                     p1 = Math.Round(100 - structure.Converters[0].EfficiencyCGC * 100, 2);
                     p2 = Math.Round(100 - structure.Converters[1].EfficiencyCGC * 100, 2);
-                    pieChart1.Series = new SeriesCollection
+                    Display_Detail_SystemLossBreakdown_PieChart.Series = new SeriesCollection
                     {
                         new PieSeries
                         {
@@ -1140,32 +1155,11 @@ namespace PV_analysis
                             LabelPoint = labelPoint
                         },
                     };
-                    pieChart1.LegendLocation = LegendLocation.Bottom;
-
-                    c1 = Math.Round(structure.Converters[0].Cost / 1e4, 2);
-                    c2 = Math.Round(structure.Converters[1].Cost / 1e4, 2);
-                    pieChart2.Series = new SeriesCollection
-                    {
-                        new PieSeries
-                        {
-                            Title = "隔离DC/DC",
-                            Values = new ChartValues<double> {c1},
-                            DataLabels = true,
-                            LabelPoint = labelPoint
-                        },
-                        new PieSeries
-                        {
-                            Title = "逆变",
-                            Values = new ChartValues<double> {c2},
-                            DataLabels = true,
-                            LabelPoint = labelPoint
-                        },
-                    };
-                    pieChart2.LegendLocation = LegendLocation.Bottom;
+                    Display_Detail_SystemLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     v1 = Math.Round(structure.Converters[0].Volume, 2);
                     v2 = Math.Round(structure.Converters[1].Volume, 2);
-                    pieChart3.Series = new SeriesCollection
+                    Display_Detail_SystemVolumeBreakdown_PieChart.Series = new SeriesCollection
                     {
                         new PieSeries
                         {
@@ -1182,7 +1176,28 @@ namespace PV_analysis
                             LabelPoint = labelPoint
                         },
                     };
-                    pieChart3.LegendLocation = LegendLocation.Bottom;
+                    Display_Detail_SystemVolumeBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+
+                    c1 = Math.Round(structure.Converters[0].Cost / 1e4, 2);
+                    c2 = Math.Round(structure.Converters[1].Cost / 1e4, 2);
+                    Display_Detail_SystemCostBreakdown_PieChart.Series = new SeriesCollection
+                    {
+                        new PieSeries
+                        {
+                            Title = "隔离DC/DC",
+                            Values = new ChartValues<double> {c1},
+                            DataLabels = true,
+                            LabelPoint = labelPoint
+                        },
+                        new PieSeries
+                        {
+                            Title = "逆变",
+                            Values = new ChartValues<double> {c2},
+                            DataLabels = true,
+                            LabelPoint = labelPoint
+                        },
+                    };
+                    Display_Detail_SystemCostBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
                     break;
             }
 
@@ -1289,19 +1304,29 @@ namespace PV_analysis
 
         private void textBox11_TextChanged(object sender, EventArgs e)
         {
-            textBox14.Text = textBox11.Text;
+            Estimate_Step3_DCACMinNumber_TextBox.Text = Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text;
+        }
+
+        private void textBox16_TextChanged(object sender, EventArgs e)
+        {
+            Estimate_Step3_DCACMaxNumber_TextBox.Text = Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text;
         }
 
         private void textBox14_TextChanged(object sender, EventArgs e)
         {
-            textBox11.Text = textBox14.Text;
+            Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text = Estimate_Step3_DCACMinNumber_TextBox.Text;
+        }
+
+        private void textBox17_TextChanged(object sender, EventArgs e)
+        {
+            Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text = Estimate_Step3_DCACMaxNumber_TextBox.Text;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!displayCategory.Equals(comboBox1.Text))
+            if (!displayCategory.Equals(Display_Show_GraphCategory_ComboBox.Text))
             {
-                displayCategory = comboBox1.Text;
+                displayCategory = Display_Show_GraphCategory_ComboBox.Text;
                 Display();
             }
         }
