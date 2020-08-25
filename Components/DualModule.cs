@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using static PV_analysis.Curve;
 
 namespace PV_analysis.Components
@@ -84,6 +85,25 @@ namespace PV_analysis.Components
         private string[] GetConfigs()
         {
             return new string[] { number.ToString(), GetDeviceType() };
+        }
+
+        /// <summary>
+        /// 获取损耗分布
+        /// </summary>
+        public override List<Item> GetLossBreakdown()
+        {
+            List<Item> lossList = new List<Item>();
+            lossList.Add(new Item("PTcon_up", number * math_PTcon[0]));
+            lossList.Add(new Item("Pon_up", number * math_Pon[0]));
+            lossList.Add(new Item("Poff_up", number * math_Poff[0]));
+            lossList.Add(new Item("PDcon_up", number * math_PDcon[0]));
+            lossList.Add(new Item("Prr_up", number * math_Prr[0]));
+            lossList.Add(new Item("PTcon_down", number * math_PTcon[1]));
+            lossList.Add(new Item("Pon_down", number * math_Pon[1]));
+            lossList.Add(new Item("Poff_down", number * math_Poff[1]));
+            lossList.Add(new Item("PDcon_down", number * math_PDcon[1]));
+            lossList.Add(new Item("Prr_down", number * math_Prr[1]));
+            return lossList;
         }
 
         /// <summary>

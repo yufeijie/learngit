@@ -1,6 +1,7 @@
 ﻿using PV_analysis.Components;
 using PV_analysis.Converters;
 using PV_analysis.Topologys;
+using System.Collections.Generic;
 
 namespace PV_analysis.Structures
 {
@@ -121,6 +122,11 @@ namespace PV_analysis.Structures
         public double EfficiencyCGC { get; protected set; }
 
         /// <summary>
+        /// 损耗
+        /// </summary>
+        public double PowerLoss { get; protected set; }
+
+        /// <summary>
         /// 成本
         /// </summary>
         public double Cost { get; protected set; }
@@ -162,6 +168,19 @@ namespace PV_analysis.Structures
         /// </summary>
         /// <returns>配置信息</returns>
         public abstract string[] GetConditions();
+
+        /// <summary>
+        /// 获取损耗分布（变换器）
+        /// </summary>
+        public List<Item> GetLossBreakdown()
+        {
+            List<Item> lossList = new List<Item>();
+            foreach (Converter converter in Converters)
+            {
+                lossList.Add(new Item(converter.GetType().Name, converter.PowerLoss));
+            }
+            return lossList;
+        }
 
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
@@ -229,14 +248,16 @@ namespace PV_analysis.Structures
         /// 模拟变换器运行，得到相应负载下的效率
         /// </summary>
         /// <param name="load">负载</param>
-        public void Operate(double load = 1.00)
+        public void Operate(double load = 1.0)
         {
-            Efficiency = 1;
+            PowerLoss = 0;
             foreach (Converter converter in Converters)
             {
                 converter.Operate(load);
-                Efficiency += converter.Efficiency - 1;
+                PowerLoss += converter.PowerLoss;
+                
             }
+            Efficiency = 1 - PowerLoss / Math_Psys;
         }
     }
 }

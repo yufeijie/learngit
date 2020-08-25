@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PV_analysis.Components
 {
@@ -46,6 +47,17 @@ namespace PV_analysis.Components
         private string[] GetConfigs()
         {
             return new string[] { number.ToString(), GetCoreType(), numberCore.ToString(), lg.ToString(), GetWireType(), N.ToString() };
+        }
+
+        /// <summary>
+        /// 获取损耗分布
+        /// </summary>
+        public override List<Item> GetLossBreakdown()
+        {
+            List<Item> lossList = new List<Item>();
+            lossList.Add(new Item("inductor Cu", number * powerLossCu));
+            lossList.Add(new Item("inductor Fe", number * powerLossFe));
+            return lossList;
         }
 
         /// <summary>

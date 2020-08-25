@@ -17,7 +17,7 @@ namespace PV_analysis
         private System.Drawing.Color inactiveColor;
         private List<Label> labelList = new List<Label>();
 
-        private string selectedSystem; //所要评估的系统，三级架构或两级架构
+        private string selectedStructure; //所要评估的架构，三级架构或两级架构
 
         private double Psys; //架构总功率
         private double Vpv_min; //光伏MPPT电压最小值
@@ -48,7 +48,12 @@ namespace PV_analysis
 
         private Structure structure; //架构
 
-        private string displayCategory = ""; //图像显示类型
+        //不同负载下的损耗分布
+        private int div = 100; //空载到满载划分精度
+        private List<Item>[] system_lossLists; //系统损耗分布信息
+        private List<Item>[] DCDC_lossLists; //前级DC/DC损耗分布信息
+        private List<Item>[] isolatedDCDC_lossLists; //隔离DC/DC损耗分布信息
+        private List<Item>[] DCAC_lossLists; //DC/AC损耗分布信息
 
         public MainForm()
         {
@@ -143,8 +148,8 @@ namespace PV_analysis
             }
             else
             {
-                selectedSystem = Estimate_Step1_CheckedListBox.GetItemText(Estimate_Step1_CheckedListBox.CheckedItems[0]);
-                switch (selectedSystem)
+                selectedStructure = Estimate_Step1_CheckedListBox.GetItemText(Estimate_Step1_CheckedListBox.CheckedItems[0]);
+                switch (selectedStructure)
                 {
                     case "三级架构":
                         Estimate_Step2_Group1_Item1_CheckBox.Enabled = true;
@@ -248,7 +253,7 @@ namespace PV_analysis
                 DCAC_topologyList.Add("CHB");
             }
 
-            if (selectedSystem.Equals("三级架构") && DCDC_topologyList.Count == 0)
+            if (selectedStructure.Equals("三级架构") && DCDC_topologyList.Count == 0)
             {
                 MessageBox.Show("请至少选择一项前级DC/DC拓扑");
             }
@@ -262,7 +267,7 @@ namespace PV_analysis
             }
             else
             {
-                switch (selectedSystem)
+                switch (selectedStructure)
                 {
                     case "三级架构":
                         Estimate_Step3_DCDCMinNumber_TextBox.Enabled = true;
@@ -370,7 +375,7 @@ namespace PV_analysis
             Vpv_peak = double.Parse(Estimate_Step3_Vpvpeak_TextBox.Text);
             Vg = double.Parse(Estimate_Step3_Vgrid_TextBox.Text) * 1e3;
             Vo = Vg / Math.Sqrt(3);
-            switch (selectedSystem)
+            switch (selectedStructure)
             {
                 case "三级架构":
                     DCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_DCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_DCDCMaxNumber_TextBox.Text));
@@ -560,7 +565,7 @@ namespace PV_analysis
             Estimate_Step5_Vpvmax_Value_Label.Text = Estimate_Step3_Vpvmax_TextBox.Text;
             Estimate_Step5_Vpvpeak_Value_Label.Text = Estimate_Step3_Vpvpeak_TextBox.Text;
             Estimate_Step5_Vgrid_Value_Label.Text = Estimate_Step3_Vgrid_TextBox.Text;
-            Estimate_Step5_StructureRange_Value_Label.Text = selectedSystem;
+            Estimate_Step5_StructureRange_Value_Label.Text = selectedStructure;
             Estimate_Step5_DCDCMinNumber_Value_Label.Text = Estimate_Step3_DCDCMinNumber_TextBox.Text;
             Estimate_Step5_DCDCMaxNumber_Value_Label.Text = Estimate_Step3_DCDCMaxNumber_TextBox.Text;
             Estimate_Step5_DCDCMinFrequency_Label.Text = Estimate_Step3_DCDCMinFrequency_TextBox.Text;
@@ -642,7 +647,7 @@ namespace PV_analysis
             WriteLine();
             Formula.Init();
             structure = new ThreeLevelStructure();
-            switch (selectedSystem)
+            switch (selectedStructure)
             {
                 case "三级架构":
                     structure = new ThreeLevelStructure
@@ -749,7 +754,7 @@ namespace PV_analysis
             Display_Show_Graph_Panel.Visible = false; //解决底色变黑
             Display_Show_Graph_Panel.Visible = true;
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
-            switch (displayCategory)
+            switch (Display_Show_GraphCategory_ComboBox.Text)
             {
                 case "成本-效率":
                     for (int i = 1; i < data.Length; i++)
@@ -762,7 +767,7 @@ namespace PV_analysis
                     });
                     Display_Show_Graph_CartesianChart.AxisY.Add(new Axis
                     {
-                        LabelFormatter = value => Math.Round(value,8).ToString(),
+                        LabelFormatter = value => Math.Round(value, 8).ToString(),
                         Title = "中国效率（%）"
                     });
                     break;
@@ -773,7 +778,7 @@ namespace PV_analysis
                     }
                     Display_Show_Graph_CartesianChart.AxisX.Add(new Axis
                     {
-                        
+
                         Title = "体积（dm^3）"
                     });
                     Display_Show_Graph_CartesianChart.AxisY.Add(new Axis
@@ -843,7 +848,7 @@ namespace PV_analysis
         {
             //目前采用评估结果比较来查找 TODO 能否直接将chartPoint与点的具体信息相联系
             string[] configs = new string[1];
-            switch (displayCategory)
+            switch (Display_Show_GraphCategory_ComboBox.Text)
             {
                 case "成本-效率":
                     configs = structure.AllDesignList.GetConfigs(chartPoint.Y / 100, double.NaN, chartPoint.X * 1e4);
@@ -861,8 +866,8 @@ namespace PV_analysis
             Display_Show_EfficiencyCGC_Value_Label.Text = (structure.EfficiencyCGC * 100).ToString("f2") + "%";
             Display_Show_Cost_Value_Label.Text = (structure.Cost / 1e4).ToString("f2") + "万元";
             Display_Show_Volume_Value_Label.Text = structure.Volume.ToString("f2") + "dm^3";
-            Display_Show_Structure_Value_Label.Text = selectedSystem;
-            switch (selectedSystem)
+            Display_Show_Structure_Value_Label.Text = selectedStructure;
+            switch (selectedStructure)
             {
                 case "三级架构":
                     Display_Show_DCDCNumber_Value_Label.Text = ((ThreeLevelStructure)structure).DCDC.Number.ToString(); ;
@@ -895,12 +900,15 @@ namespace PV_analysis
 
         private void Estimate_Result_Display_Button_Click(object sender, EventArgs e)
         {
-            //更新控件
-            displayCategory = Display_Show_GraphCategory_ComboBox.Items[0].ToString();
-            Display_Show_GraphCategory_ComboBox.SelectedIndex = 0;
-
-            //更新图像
-            Display();
+            //更新控件、图像
+            if (Display_Show_GraphCategory_ComboBox.SelectedIndex == 0)
+            {
+                Display();
+            }
+            else
+            {
+                Display_Show_GraphCategory_ComboBox.SelectedIndex = 0;
+            }
 
             //页面切换
             panelNow[3] = Display_Show_Panel;
@@ -911,6 +919,14 @@ namespace PV_analysis
             //左侧栏切换
             Tab_Estimate_Button.BackColor = inactiveColor;
             Tab_Display_Button.BackColor = activeColor;
+        }
+
+        private void Display_Show_Restart_Button_Click(object sender, EventArgs e)
+        {
+            panelNow[3] = Display_Ready_Panel;
+            panelNow[0].Visible = false;
+            panelNow[0] = panelNow[3];
+            panelNow[0].Visible = true;
         }
 
         private void Display_Ready_Load_Button_Click(object sender, EventArgs e)
@@ -930,7 +946,7 @@ namespace PV_analysis
                 switch (obj)
                 {
                     case "ThreeLevelStructure":
-                        selectedSystem = "三级架构";
+                        selectedStructure = "三级架构";
                         Formula.Init();
                         double Psys = double.Parse(conditions[1]);
                         double Vpv_min = double.Parse(conditions[2]);
@@ -953,7 +969,7 @@ namespace PV_analysis
                         break;
 
                     case "TwoLevelStructure":
-                        selectedSystem = "两级架构";
+                        selectedStructure = "两级架构";
                         Formula.Init();
                         Psys = double.Parse(conditions[1]);
                         Vpv_min = double.Parse(conditions[2]);
@@ -985,12 +1001,15 @@ namespace PV_analysis
                     structure.AllDesignList.Add(efficiency, volume, cost, info[i]);
                 }
 
-                //更新控件
-                displayCategory = Display_Show_GraphCategory_ComboBox.Items[0].ToString();
-                Display_Show_GraphCategory_ComboBox.SelectedIndex = 0;
-
-                //更新图像
-                Display();
+                //更新控件、图像
+                if (Display_Show_GraphCategory_ComboBox.SelectedIndex == 0)
+                {
+                    Display();
+                }
+                else
+                {
+                    Display_Show_GraphCategory_ComboBox.SelectedIndex = 0;
+                }
 
                 //页面切换
                 panelNow[3] = Display_Show_Panel;
@@ -1000,10 +1019,126 @@ namespace PV_analysis
             }
         }
 
+        private void DisplayLossBreakdown()
+        {
+            int load = Display_Detail_Load_TrackBar.Value;
+            Func<ChartPoint, string> labelPoint = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
+            SeriesCollection system_series = new SeriesCollection();
+            for (int i = 0; i < system_lossLists[load - 1].Count; i++)
+            {
+                if (!Function.EQ(system_lossLists[load - 1][i].Value, 0))
+                {
+                    system_series.Add(new PieSeries
+                    {
+                        Title = system_lossLists[load - 1][i].Name,
+                        Values = new ChartValues<double> { Math.Round(system_lossLists[load - 1][i].Value, 2) },
+                        DataLabels = true,
+                        LabelPoint = labelPoint
+                    });
+                }
+            }
+            Display_Detail_SystemLossBreakdown_PieChart.Series = system_series;
+            Display_Detail_SystemLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+            switch (selectedStructure)
+            {
+                case "三级架构":
+                    SeriesCollection DCDC_series = new SeriesCollection();
+                    for (int i = 0; i < DCDC_lossLists[load - 1].Count; i++)
+                    {
+                        if (!Function.EQ(DCDC_lossLists[load - 1][i].Value, 0))
+                        {
+                            DCDC_series.Add(new PieSeries
+                            {
+                                Title = DCDC_lossLists[load - 1][i].Name,
+                                Values = new ChartValues<double> { Math.Round(DCDC_lossLists[load - 1][i].Value, 2) },
+                                DataLabels = true,
+                                LabelPoint = labelPoint
+                            });
+                        }
+                    }
+                    Display_Detail_DCDCLossBreakdown_PieChart.Series = DCDC_series;
+                    Display_Detail_DCDCLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+
+                    SeriesCollection isolatedDCDC_series = new SeriesCollection();
+                    for (int i = 0; i < isolatedDCDC_lossLists[load - 1].Count; i++)
+                    {
+                        if (!Function.EQ(isolatedDCDC_lossLists[load - 1][i].Value, 0))
+                        {
+                            isolatedDCDC_series.Add(new PieSeries
+                            {
+                                Title = isolatedDCDC_lossLists[load - 1][i].Name,
+                                Values = new ChartValues<double> { Math.Round(isolatedDCDC_lossLists[load - 1][i].Value, 2) },
+                                DataLabels = true,
+                                LabelPoint = labelPoint
+                            });
+                        }
+                    }
+                    Display_Detail_IsolatedDCDCLossBreakdown_PieChart.Series = isolatedDCDC_series;
+                    Display_Detail_IsolatedDCDCLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+
+                    SeriesCollection DCAC_series = new SeriesCollection();
+                    for (int i = 0; i < DCAC_lossLists[load - 1].Count; i++)
+                    {
+                        if (!Function.EQ(DCAC_lossLists[load - 1][i].Value, 0))
+                        {
+                            DCAC_series.Add(new PieSeries
+                            {
+                                Title = DCAC_lossLists[load - 1][i].Name,
+                                Values = new ChartValues<double> { Math.Round(DCAC_lossLists[load - 1][i].Value, 2) },
+                                DataLabels = true,
+                                LabelPoint = labelPoint
+                            });
+                        }
+                    }
+                    Display_Detail_DCACLossBreakdown_PieChart.Series = DCAC_series;
+                    Display_Detail_DCACLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+                    break;
+
+                case "两级架构":
+                    Display_Detail_DCDCLossBreakdown_PieChart.Series = new SeriesCollection();
+                    Display_Detail_DCDCLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+
+                    isolatedDCDC_series = new SeriesCollection();
+                    for (int i = 0; i < isolatedDCDC_lossLists[load - 1].Count; i++)
+                    {
+                        if (!Function.EQ(isolatedDCDC_lossLists[load - 1][i].Value, 0))
+                        {
+                            isolatedDCDC_series.Add(new PieSeries
+                            {
+                                Title = isolatedDCDC_lossLists[load - 1][i].Name,
+                                Values = new ChartValues<double> { Math.Round(isolatedDCDC_lossLists[load - 1][i].Value, 2) },
+                                DataLabels = true,
+                                LabelPoint = labelPoint
+                            });
+                        }
+                    }
+                    Display_Detail_IsolatedDCDCLossBreakdown_PieChart.Series = isolatedDCDC_series;
+                    Display_Detail_IsolatedDCDCLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+
+                    DCAC_series = new SeriesCollection();
+                    for (int i = 0; i < DCAC_lossLists[load - 1].Count; i++)
+                    {
+                        if (!Function.EQ(DCAC_lossLists[load - 1][i].Value, 0))
+                        {
+                            DCAC_series.Add(new PieSeries
+                            {
+                                Title = DCAC_lossLists[load - 1][i].Name,
+                                Values = new ChartValues<double> { Math.Round(DCAC_lossLists[load - 1][i].Value, 2) },
+                                DataLabels = true,
+                                LabelPoint = labelPoint
+                            });
+                        }
+                    }
+                    Display_Detail_DCACLossBreakdown_PieChart.Series = DCAC_series;
+                    Display_Detail_DCACLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+                    break;
+            }
+        }
+
         private void Display_Show_Detail_Button_Click(object sender, EventArgs e)
         {
-            structure.Evaluate();
-            structure.Operate();
+            //详情信息显示
+            structure.Evaluate(); //评估
 
             //int x = 100;
             //int y = 40;
@@ -1023,8 +1158,8 @@ namespace PV_analysis
             Display_Detail_EfficiencyCGC_Value_Label.Text = (structure.EfficiencyCGC * 100).ToString("f2") + "%";
             Display_Detail_Cost_Value_Label.Text = (structure.Cost / 1e4).ToString("f2") + "万元";
             Display_Detail_Volume_Value_Label.Text = structure.Volume.ToString("f2") + "dm^3";
-            Display_Detail_Structure_Value_Label.Text = selectedSystem;
-            switch (selectedSystem)
+            Display_Detail_Structure_Value_Label.Text = selectedStructure;
+            switch (selectedStructure)
             {
                 case "三级架构":
                     Display_Detail_DCDCNumber_Value_Label.Text = ((ThreeLevelStructure)structure).DCDC.Number.ToString(); ;
@@ -1040,7 +1175,7 @@ namespace PV_analysis
                     double p1 = Math.Round(100 - structure.Converters[0].EfficiencyCGC * 100, 2);
                     double p2 = Math.Round(100 - structure.Converters[1].EfficiencyCGC * 100, 2);
                     double p3 = Math.Round(100 - structure.Converters[2].EfficiencyCGC * 100, 2);
-                    Display_Detail_SystemLossBreakdown_PieChart.Series = new SeriesCollection
+                    Display_Detail_SystemEvaluateLossBreakdown_PieChart.Series = new SeriesCollection
                     {
                         new PieSeries
                         {
@@ -1064,7 +1199,7 @@ namespace PV_analysis
                             LabelPoint = labelPoint
                         },
                     };
-                    Display_Detail_SystemLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+                    Display_Detail_SystemEvaluateLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     double v1 = Math.Round(structure.Converters[0].Volume, 2);
                     double v2 = Math.Round(structure.Converters[1].Volume, 2);
@@ -1138,7 +1273,7 @@ namespace PV_analysis
                     //显示图像
                     p1 = Math.Round(100 - structure.Converters[0].EfficiencyCGC * 100, 2);
                     p2 = Math.Round(100 - structure.Converters[1].EfficiencyCGC * 100, 2);
-                    Display_Detail_SystemLossBreakdown_PieChart.Series = new SeriesCollection
+                    Display_Detail_SystemEvaluateLossBreakdown_PieChart.Series = new SeriesCollection
                     {
                         new PieSeries
                         {
@@ -1155,7 +1290,7 @@ namespace PV_analysis
                             LabelPoint = labelPoint
                         },
                     };
-                    Display_Detail_SystemLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+                    Display_Detail_SystemEvaluateLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     v1 = Math.Round(structure.Converters[0].Volume, 2);
                     v2 = Math.Round(structure.Converters[1].Volume, 2);
@@ -1201,18 +1336,75 @@ namespace PV_analysis
                     break;
             }
 
+            //生成不同负载下的损耗数据
+            ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
+            system_lossLists = new List<Item>[div];
+            DCDC_lossLists = new List<Item>[div];
+            isolatedDCDC_lossLists = new List<Item>[div];
+            DCAC_lossLists = new List<Item>[div];
+            for (int i = 1; i <= div; i++)
+            {
+                structure.Operate(1.0 * i / div);
+                values.Add(new ObservablePoint(100 * i / div, structure.Efficiency * 100));
+                system_lossLists[i - 1] = structure.GetLossBreakdown();
+                switch (selectedStructure)
+                {
+                    case "三级架构":
+                        DCDC_lossLists[i - 1] = ((ThreeLevelStructure)structure).DCDC.GetLossBreakdown();
+                        isolatedDCDC_lossLists[i - 1] = ((ThreeLevelStructure)structure).IsolatedDCDC.GetLossBreakdown();
+                        DCAC_lossLists[i - 1] = ((ThreeLevelStructure)structure).DCAC.GetLossBreakdown();
+                        break;
+                    case "两级架构":
+                        isolatedDCDC_lossLists[i - 1] = ((TwoLevelStructure)structure).IsolatedDCDC.GetLossBreakdown();
+                        DCAC_lossLists[i - 1] = ((TwoLevelStructure)structure).DCAC.GetLossBreakdown();
+                        break;
+                }
+            }
+
+            //负载-效率图像
+            Display_Detail_Main_Panel.Controls.Remove(Display_Detail_SystemLoadVsEfficiency_CartesianChart);
+            Display_Detail_SystemLoadVsEfficiency_CartesianChart.Dispose();
+            Display_Detail_SystemLoadVsEfficiency_CartesianChart = new LiveCharts.WinForms.CartesianChart
+            {
+                BackColor = System.Drawing.Color.White,
+                Location = new System.Drawing.Point(316, 877),
+                Name = "Display_Detail_SystemLoadVsEfficiency_CartesianChart",
+                Size = new System.Drawing.Size(800, 600),
+                TabIndex = 160,
+                Text = "cartesianChart1"
+            };
+            Display_Detail_Main_Panel.Controls.Add(Display_Detail_SystemLoadVsEfficiency_CartesianChart);
+            Display_Detail_Main_Panel.Visible = false; //解决底色变黑
+            Display_Detail_Main_Panel.Visible = true;
+            Display_Detail_SystemLoadVsEfficiency_CartesianChart.Series.Add(new LineSeries
+            {
+                Values = values
+            });
+            Display_Detail_SystemLoadVsEfficiency_CartesianChart.AxisX.Add(new Axis
+            {
+                Title = "负载（%）"
+            });
+            Display_Detail_SystemLoadVsEfficiency_CartesianChart.AxisY.Add(new Axis
+            {
+                LabelFormatter = value => Math.Round(value, 8).ToString(),
+                Title = "效率（%）"
+            });
+            Display_Detail_SystemLoadVsEfficiency_CartesianChart.LegendLocation = LegendLocation.Right;
+
+            //损耗分布图像
+            Display_Detail_Load_TrackBar.Value = 100;
+            DisplayLossBreakdown();
+
             panelNow[3] = Display_Detail_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[3];
             panelNow[0].Visible = true;
         }
 
-        private void Display_Show_Restart_Button_Click(object sender, EventArgs e)
+        private void Display_Detail_Load_TrackBar_Scroll(object sender, EventArgs e)
         {
-            panelNow[3] = Display_Ready_Panel;
-            panelNow[0].Visible = false;
-            panelNow[0] = panelNow[3];
-            panelNow[0].Visible = true;
+            Display_Detail_Load_Value_Label.Text = Display_Detail_Load_TrackBar.Value.ToString() + "%";
+            DisplayLossBreakdown();
         }
 
         private void Display_Detail_Back_Button_Click(object sender, EventArgs e)
@@ -1302,33 +1494,29 @@ namespace PV_analysis
             Estimate_Step2_Group3_Item1_CheckBox.Checked = Estimate_Step2_Group3_Item1_Left_CheckBox.Checked;
         }
 
-        private void textBox11_TextChanged(object sender, EventArgs e)
+        private void Estimate_Step3_IsolatedDCDCMinNumber_TextBox_TextChanged(object sender, EventArgs e)
         {
             Estimate_Step3_DCACMinNumber_TextBox.Text = Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text;
         }
 
-        private void textBox16_TextChanged(object sender, EventArgs e)
+        private void Estimate_Step3_IsolatedDCDCMaxNumber_TextBox_TextChanged(object sender, EventArgs e)
         {
             Estimate_Step3_DCACMaxNumber_TextBox.Text = Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text;
         }
 
-        private void textBox14_TextChanged(object sender, EventArgs e)
+        private void Estimate_Step3_DCACMinNumber_TextBox_TextChanged(object sender, EventArgs e)
         {
             Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text = Estimate_Step3_DCACMinNumber_TextBox.Text;
         }
 
-        private void textBox17_TextChanged(object sender, EventArgs e)
+        private void Estimate_Step3_DCACMaxNumber_TextBox_TextChanged(object sender, EventArgs e)
         {
             Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text = Estimate_Step3_DCACMaxNumber_TextBox.Text;
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void Display_Show_GraphCategory_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!displayCategory.Equals(Display_Show_GraphCategory_ComboBox.Text))
-            {
-                displayCategory = Display_Show_GraphCategory_ComboBox.Text;
-                Display();
-            }
+            Display();
         }
     }
 }

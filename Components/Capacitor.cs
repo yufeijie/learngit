@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PV_analysis.Components
 {
@@ -67,6 +68,16 @@ namespace PV_analysis.Components
         {
             string[] data = { number.ToString(), GetDeviceType(), numberSeriesConnected.ToString(), numberParallelConnected.ToString() };
             return data;
+        }
+
+        /// <summary>
+        /// 获取损耗分布
+        /// </summary>
+        public override List<Item> GetLossBreakdown()
+        {
+            List<Item> lossList = new List<Item>();
+            lossList.Add(new Item("capacitor", number * powerLoss));
+            return lossList;
         }
 
         /// <summary>

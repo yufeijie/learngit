@@ -71,6 +71,11 @@ namespace PV_analysis.Components
         public ComponentDesignList DesignList { get { return designList; } }
 
         /// <summary>
+        /// 获取损耗分布
+        /// </summary>
+        public abstract List<Item> GetLossBreakdown();
+
+        /// <summary>
         /// 读取配置信息
         /// </summary>
         /// <param name="configs">配置信息</param>

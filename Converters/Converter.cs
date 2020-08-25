@@ -1,6 +1,8 @@
-﻿using PV_analysis.Components;
+﻿using NPOI.SS.Formula.Functions;
+using PV_analysis.Components;
 using PV_analysis.Topologys;
 using System;
+using System.Collections.Generic;
 
 namespace PV_analysis.Converters
 {
@@ -53,6 +55,11 @@ namespace PV_analysis.Converters
         public double Math_Peval { get; protected set; }
 
         /// <summary>
+        /// 损耗
+        /// </summary>
+        public double PowerLoss { get; protected set; }
+
+        /// <summary>
         /// 成本
         /// </summary>
         public double Cost { get; protected set; }
@@ -96,6 +103,19 @@ namespace PV_analysis.Converters
         protected abstract string[] GetConditions();
 
         /// <summary>
+        /// 获取损耗分布（元器件）
+        /// </summary>
+        public List<Item> GetLossBreakdown()
+        {
+            List<Item> lossList = new List<Item>();
+            foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
+            {
+                lossList.AddRange(component.GetLossBreakdown());
+            }
+            return lossList;
+        }
+
+        /// <summary>
         /// 自动设计，整合设计结果（不会覆盖之前的设计结果）
         /// </summary>
         public void Design()
@@ -117,7 +137,7 @@ namespace PV_analysis.Converters
                 //组合并记录
                 ComponentDesignList designCombinationList = new ComponentDesignList();
                 foreach (Component component in components) //组合各个器件的设计方案
-                {                    
+                {
                     if (component.GetType().BaseType.Name.Equals("Semiconductor"))
                     {
                         designCombinationList.Combine(component.DesignList);
@@ -219,16 +239,17 @@ namespace PV_analysis.Converters
         /// 模拟变换器运行，得到相应负载下的效率
         /// </summary>
         /// <param name="load">负载</param>
-        public void Operate(double load = 1.00)
+        public void Operate(double load = 1.0)
         {
             Topology.Calc(load);
-            double Ploss = 0;
+            PowerLoss = 0;
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
                 component.CalcPowerLoss();
-                Ploss += component.PowerLoss;
+                PowerLoss += component.PowerLoss;
             }
-            Efficiency = 1 - Ploss * Number * PhaseNum / Math_Psys;
+            PowerLoss *= Number * PhaseNum;
+            Efficiency = 1 - PowerLoss / Math_Psys;
         }
 
         /// <summary>

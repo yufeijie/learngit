@@ -318,7 +318,7 @@ namespace PV_analysis.Topologys
 		/// 计算相应负载下的电路参数
 		/// </summary>
 		/// <param name="load">负载</param>
-		public override void Calc(double load)
+		public override void Calc(double load = 1.0)
         {
             math_P = math_Pfull * load; //改变负载
             Simulate();
