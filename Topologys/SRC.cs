@@ -94,12 +94,36 @@ namespace PV_analysis.Topologys
             voltageInput = voltageInputDef;
 
             //初始化元器件
-            primaryDualModule = new DualModule(2) { VoltageVariable = false };
-            secondaryDualModule = new DualModule(2) { VoltageVariable = false };
-            resonantInductor = new Inductor(1) { VoltageVariable = false };
-            transformer = new Transformer(1) { VoltageVariable = false };
-            resonantCapacitor = new Capacitor(1) { VoltageVariable = false };
-            filteringCapacitor = new Capacitor(1) { VoltageVariable = false };
+            primaryDualModule = new DualModule(2)
+            {
+                Name = "原边开关管",
+                VoltageVariable = false
+            };
+            secondaryDualModule = new DualModule(2)
+            {
+                Name = "副边二极管",
+                VoltageVariable = false
+            };
+            resonantInductor = new Inductor(1)
+            {
+                Name = "谐振电感",
+                VoltageVariable = false
+            };
+            transformer = new Transformer(1)
+            {
+                Name = "变压器",
+                VoltageVariable = false
+            };
+            resonantCapacitor = new Capacitor(1)
+            {
+                Name = "谐振电容",
+                VoltageVariable = false,
+            };
+            filteringCapacitor = new Capacitor(1)
+            {
+                Name = "滤波电容",
+                VoltageVariable = false,
+            };
             components = new Component[] { primaryDualModule, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { primaryDualModule, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };

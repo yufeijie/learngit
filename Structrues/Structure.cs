@@ -257,7 +257,7 @@ namespace PV_analysis.Structures
                 PowerLoss += converter.PowerLoss;
                 
             }
-            Efficiency = 1 - PowerLoss / Math_Psys;
+            Efficiency = 1 - PowerLoss / (Math_Psys * load);
         }
     }
 }

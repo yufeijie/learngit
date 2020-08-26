@@ -116,12 +116,14 @@ namespace PV_analysis.Components
             PDcon_ave /= MultiNumber;
             Prr_ave /= MultiNumber;
 
-            List<Item> lossList = new List<Item>();
-            lossList.Add(new Item("PTcon", number * PTcon_ave));
-            lossList.Add(new Item("Pon", number * Pon_ave));
-            lossList.Add(new Item("Poff", number * Poff_ave));
-            lossList.Add(new Item("PDcon", number * PDcon_ave));
-            lossList.Add(new Item("Prr", number * Prr_ave));
+            List<Item> lossList = new List<Item>
+            {
+                new Item(Name + "(PTcon)", number * PTcon_ave),
+                new Item(Name + "(Pon)", number * Pon_ave),
+                new Item(Name + "(Poff)", number * Poff_ave),
+                new Item(Name + "(PDcon)", number * PDcon_ave),
+                new Item(Name + "(Prr)", number * Prr_ave)
+            };
             return lossList;
         }
 

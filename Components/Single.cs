@@ -94,12 +94,14 @@ namespace PV_analysis.Components
         /// </summary>
         public override List<Item> GetLossBreakdown()
         {
-            List<Item> lossList = new List<Item>();
-            lossList.Add(new Item("PTcon", number * math_PTcon));
-            lossList.Add(new Item("Pon", number * math_Pon));
-            lossList.Add(new Item("Poff", number * math_Poff));
-            lossList.Add(new Item("PDcon", number * math_PDcon));
-            lossList.Add(new Item("Prr", number * math_Prr));
+            List<Item> lossList = new List<Item>
+            {
+                new Item(Name + "(PTcon)", number * math_PTcon),
+                new Item(Name + "(Pon)", number * math_Pon),
+                new Item(Name + "(Poff)", number * math_Poff),
+                new Item(Name + "(PDcon)", number * math_PDcon),
+                new Item(Name + "(Prr)", number * math_Prr)
+            };
             return lossList;
         }
 

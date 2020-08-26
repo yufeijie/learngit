@@ -249,7 +249,7 @@ namespace PV_analysis.Converters
                 PowerLoss += component.PowerLoss;
             }
             PowerLoss *= Number * PhaseNum;
-            Efficiency = 1 - PowerLoss / Math_Psys;
+            Efficiency = 1 - PowerLoss / (Math_Psys * load);
         }
 
         /// <summary>

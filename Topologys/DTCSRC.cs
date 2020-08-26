@@ -109,13 +109,34 @@ namespace PV_analysis.Topologys
             qualityFactorDef = converter.Math_Q;
 
             //初始化元器件
-            primaryDualModule = new DualModule(2);
-            single = new Single(2);
-            secondaryDualModule = new DualModule(1);
-            resonantInductor = new Inductor(1);
-            transformer = new Transformer(1);
-            resonantCapacitor = new Capacitor(1);
-            filteringCapacitor = new Capacitor(1);
+            primaryDualModule = new DualModule(2)
+            {
+                Name = "原边开关管"
+            };
+            single = new Single(2)
+            {
+                Name = "副边开关管"
+            };
+            secondaryDualModule = new DualModule(1)
+            {
+                Name = "副边二极管"
+            };
+            resonantInductor = new Inductor(1)
+            {
+                Name = "谐振电感"
+            };
+            transformer = new Transformer(1)
+            {
+                Name = "变压器"
+            };
+            resonantCapacitor = new Capacitor(1)
+            {
+                Name = "谐振电容"
+            };
+            filteringCapacitor = new Capacitor(1)
+            {
+                Name = "滤波电容"
+            };
             components = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
@@ -309,6 +330,7 @@ namespace PV_analysis.Topologys
 		public override void Calc(double load = 1.0)
         {
             math_P = math_Pfull * load; //改变负载
+            voltageInput = voltageInputMinDef; //改变输入电压
             Simulate();
             frequencySwitch *= frequencyBase; //还原实际值
             //设置元器件的电路参数

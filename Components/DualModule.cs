@@ -42,6 +42,16 @@ namespace PV_analysis.Components
         private static readonly double math_Tj_max = 110;//最高结温
 
         /// <summary>
+        /// 上管名称
+        /// </summary>
+        public string Name_Up { get; set; }
+
+        /// <summary>
+        /// 下管名称
+        /// </summary>
+        public string Name_Down { get; set; }
+
+        /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="number">同类开关器件数量</param>
@@ -92,17 +102,40 @@ namespace PV_analysis.Components
         /// </summary>
         public override List<Item> GetLossBreakdown()
         {
+            string name_Up;
+            string name_Down;
+            if (Name == null)
+            {
+                name_Up = Name_Up;
+                name_Down = Name_Down;
+            }
+            else
+            {
+                name_Up = Name;
+                name_Down = Name;
+            }
             List<Item> lossList = new List<Item>();
-            lossList.Add(new Item("PTcon_up", number * math_PTcon[0]));
-            lossList.Add(new Item("Pon_up", number * math_Pon[0]));
-            lossList.Add(new Item("Poff_up", number * math_Poff[0]));
-            lossList.Add(new Item("PDcon_up", number * math_PDcon[0]));
-            lossList.Add(new Item("Prr_up", number * math_Prr[0]));
-            lossList.Add(new Item("PTcon_down", number * math_PTcon[1]));
-            lossList.Add(new Item("Pon_down", number * math_Pon[1]));
-            lossList.Add(new Item("Poff_down", number * math_Poff[1]));
-            lossList.Add(new Item("PDcon_down", number * math_PDcon[1]));
-            lossList.Add(new Item("Prr_down", number * math_Prr[1]));
+            if (isPowerLossBalance)
+            {
+                lossList.Add(new Item(name_Up + "(PTcon)", number * math_PTcon[0] * 2));
+                lossList.Add(new Item(name_Up + "(Pon)", number * math_Pon[0] * 2));
+                lossList.Add(new Item(name_Up + "(Poff)", number * math_Poff[0] * 2));
+                lossList.Add(new Item(name_Up + "(PDcon)", number * math_PDcon[0] * 2));
+                lossList.Add(new Item(name_Up + "(Prr)", number * math_Prr[0] * 2));
+            }
+            else
+            {
+                lossList.Add(new Item(name_Up + "(PTcon)", number * math_PTcon[0]));
+                lossList.Add(new Item(name_Up + "(Pon)", number * math_Pon[0]));
+                lossList.Add(new Item(name_Up + "(Poff)", number * math_Poff[0]));
+                lossList.Add(new Item(name_Up + "(PDcon)", number * math_PDcon[0]));
+                lossList.Add(new Item(name_Up + "(Prr)", number * math_Prr[0]));
+                lossList.Add(new Item(name_Down + "(PTcon)", number * math_PTcon[1]));
+                lossList.Add(new Item(name_Down + "(Pon)", number * math_Pon[1]));
+                lossList.Add(new Item(name_Down + "(Poff)", number * math_Poff[1]));
+                lossList.Add(new Item(name_Down + "(PDcon)", number * math_PDcon[1]));
+                lossList.Add(new Item(name_Down + "(Prr)", number * math_Prr[1]));
+            }
             return lossList;
         }
 

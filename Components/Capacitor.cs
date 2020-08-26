@@ -75,8 +75,10 @@ namespace PV_analysis.Components
         /// </summary>
         public override List<Item> GetLossBreakdown()
         {
-            List<Item> lossList = new List<Item>();
-            lossList.Add(new Item("capacitor", number * powerLoss));
+            List<Item> lossList = new List<Item>
+            {
+                new Item(Name, number * powerLoss)
+            };
             return lossList;
         }
 

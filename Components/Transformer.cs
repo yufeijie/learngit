@@ -52,9 +52,11 @@ namespace PV_analysis.Components
         /// </summary>
         public override List<Item> GetLossBreakdown()
         {
-            List<Item> lossList = new List<Item>();
-            lossList.Add(new Item("transformer Cu", number * powerLossCu));
-            lossList.Add(new Item("transformer Fe", number * powerLossFe));
+            List<Item> lossList = new List<Item>
+            {
+                new Item(Name + "(Cu)", number * powerLossCu),
+                new Item(Name + "(Fe)", number * powerLossFe)
+            };
             return lossList;
         }
 

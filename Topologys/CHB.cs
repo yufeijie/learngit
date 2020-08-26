@@ -84,8 +84,17 @@ namespace PV_analysis.Topologys
             converter.Math_Vin = voltageInput;
 
             //初始化元器件
-            semiconductor = new CHBModule(1) { VoltageVariable = false, MultiNumber = number };
-            inductor = new Inductor(1) { VoltageVariable = false };
+            semiconductor = new CHBModule(1)
+            {
+                Name = "开关管",
+                VoltageVariable = false,
+                MultiNumber = number
+            };
+            inductor = new Inductor(1)
+            {
+                Name = "滤波电感",
+                VoltageVariable = false
+            };
             components = new Component[] { semiconductor, inductor };
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { semiconductor, inductor };

@@ -745,10 +745,8 @@ namespace PV_analysis
                 BackColor = System.Drawing.Color.White,
                 DisableAnimations = true,
                 Location = new System.Drawing.Point(67, 88),
-                Name = "cartesianChart1",
                 Size = new System.Drawing.Size(946, 665),
                 TabIndex = 2,
-                Text = "cartesianChart1"
             };
             Display_Show_Graph_Panel.Controls.Add(Display_Show_Graph_CartesianChart);
             Display_Show_Graph_Panel.Visible = false; //解决底色变黑
@@ -804,6 +802,7 @@ namespace PV_analysis
             }
             Display_Show_Graph_CartesianChart.Series.Add(new GScatterSeries
             {
+                Title = "Results",
                 Values = values.AsGearedValues().WithQuality(Quality.Low),
                 Fill = Brushes.Transparent,
                 StrokeThickness = .5,
@@ -1368,16 +1367,15 @@ namespace PV_analysis
             {
                 BackColor = System.Drawing.Color.White,
                 Location = new System.Drawing.Point(316, 877),
-                Name = "Display_Detail_SystemLoadVsEfficiency_CartesianChart",
                 Size = new System.Drawing.Size(800, 600),
                 TabIndex = 160,
-                Text = "cartesianChart1"
             };
             Display_Detail_Main_Panel.Controls.Add(Display_Detail_SystemLoadVsEfficiency_CartesianChart);
             Display_Detail_Main_Panel.Visible = false; //解决底色变黑
             Display_Detail_Main_Panel.Visible = true;
             Display_Detail_SystemLoadVsEfficiency_CartesianChart.Series.Add(new LineSeries
             {
+                Title = "Vin=860V",
                 Values = values
             });
             Display_Detail_SystemLoadVsEfficiency_CartesianChart.AxisX.Add(new Axis

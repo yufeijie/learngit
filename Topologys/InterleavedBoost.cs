@@ -57,9 +57,19 @@ namespace PV_analysis.Topologys
             math_Vo = converter.Math_Vo;
 
             //初始化元器件
-            dualModule = new DualModule(2, false);
-            inductor = new Inductor(2);
-            capacitor = new Capacitor(1);
+            dualModule = new DualModule(2, false)
+            {
+                Name_Up = "二极管",
+                Name_Down = "开关管"
+            };
+            inductor = new Inductor(2)
+            {
+                Name = "滤波电感"
+            };
+            capacitor = new Capacitor(1)
+            {
+                Name = "滤波电容"
+            };
             components = new Component[] { dualModule, inductor, capacitor };
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { dualModule, inductor, capacitor };
@@ -274,6 +284,7 @@ namespace PV_analysis.Topologys
 		public override void Calc(double load = 1.0)
         {
             math_P = math_Pfull * load; //改变负载
+            math_Vin = math_Vin_min; //改变输入电压
             Simulate();
             //设置元器件的电路参数
             dualModule.SetParameters(math_VSmax, curve_iS, curve_iD.Copy(-1), math_fs); //采用半桥模块时，第二个开关管波形为-iD
