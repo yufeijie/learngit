@@ -1020,7 +1020,7 @@ namespace PV_analysis
         private void DisplayLossBreakdown()
         {
             int load = Display_Detail_Load_TrackBar.Value;
-            Func<ChartPoint, string> labelPoint = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
+            string labelPoint(ChartPoint chartPoint) => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
             SeriesCollection system_series = new SeriesCollection();
             for (int i = 0; i < system_lossLists[load - 1].Count; i++)
             {
@@ -1036,6 +1036,7 @@ namespace PV_analysis
                 }
             }
             Display_Detail_SystemLossBreakdown_PieChart.Series = system_series;
+            Display_Detail_SystemLossBreakdown_PieChart.StartingRotationAngle = 0;
             Display_Detail_SystemLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
             switch (selectedStructure)
             {
@@ -1055,6 +1056,7 @@ namespace PV_analysis
                         }
                     }
                     Display_Detail_DCDCLossBreakdown_PieChart.Series = DCDC_series;
+                    Display_Detail_DCDCLossBreakdown_PieChart.StartingRotationAngle = 0;
                     Display_Detail_DCDCLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     SeriesCollection isolatedDCDC_series = new SeriesCollection();
@@ -1072,6 +1074,7 @@ namespace PV_analysis
                         }
                     }
                     Display_Detail_IsolatedDCDCLossBreakdown_PieChart.Series = isolatedDCDC_series;
+                    Display_Detail_IsolatedDCDCLossBreakdown_PieChart.StartingRotationAngle = 0;
                     Display_Detail_IsolatedDCDCLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     SeriesCollection DCAC_series = new SeriesCollection();
@@ -1089,6 +1092,7 @@ namespace PV_analysis
                         }
                     }
                     Display_Detail_DCACLossBreakdown_PieChart.Series = DCAC_series;
+                    Display_Detail_DCACLossBreakdown_PieChart.StartingRotationAngle = 0;
                     Display_Detail_DCACLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
                     break;
 
@@ -1111,6 +1115,7 @@ namespace PV_analysis
                         }
                     }
                     Display_Detail_IsolatedDCDCLossBreakdown_PieChart.Series = isolatedDCDC_series;
+                    Display_Detail_IsolatedDCDCLossBreakdown_PieChart.StartingRotationAngle = 0;
                     Display_Detail_IsolatedDCDCLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     DCAC_series = new SeriesCollection();
@@ -1128,6 +1133,7 @@ namespace PV_analysis
                         }
                     }
                     Display_Detail_DCACLossBreakdown_PieChart.Series = DCAC_series;
+                    Display_Detail_DCACLossBreakdown_PieChart.StartingRotationAngle = 0;
                     Display_Detail_DCACLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
                     break;
             }
@@ -1197,6 +1203,7 @@ namespace PV_analysis
                             LabelPoint = labelPoint
                         },
                     };
+                    Display_Detail_SystemEvaluateLossBreakdown_PieChart.StartingRotationAngle = 0;
                     Display_Detail_SystemEvaluateLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     double v1 = Math.Round(structure.Converters[0].Volume, 2);
@@ -1226,6 +1233,7 @@ namespace PV_analysis
                             LabelPoint = labelPoint
                         },
                     };
+                    Display_Detail_SystemVolumeBreakdown_PieChart.StartingRotationAngle = 0;
                     Display_Detail_SystemVolumeBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     double c1 = Math.Round(structure.Converters[0].Cost / 1e4, 2);
@@ -1255,6 +1263,7 @@ namespace PV_analysis
                             LabelPoint = labelPoint
                         },
                     };
+                    Display_Detail_SystemCostBreakdown_PieChart.StartingRotationAngle = 0;
                     Display_Detail_SystemCostBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
                     break;
 
@@ -1288,6 +1297,7 @@ namespace PV_analysis
                             LabelPoint = labelPoint
                         },
                     };
+                    Display_Detail_SystemEvaluateLossBreakdown_PieChart.StartingRotationAngle = 0;
                     Display_Detail_SystemEvaluateLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     v1 = Math.Round(structure.Converters[0].Volume, 2);
@@ -1309,6 +1319,7 @@ namespace PV_analysis
                             LabelPoint = labelPoint
                         },
                     };
+                    Display_Detail_SystemVolumeBreakdown_PieChart.StartingRotationAngle = 0;
                     Display_Detail_SystemVolumeBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     c1 = Math.Round(structure.Converters[0].Cost / 1e4, 2);
@@ -1330,6 +1341,7 @@ namespace PV_analysis
                             LabelPoint = labelPoint
                         },
                     };
+                    Display_Detail_SystemCostBreakdown_PieChart.StartingRotationAngle = 0;
                     Display_Detail_SystemCostBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
                     break;
             }
