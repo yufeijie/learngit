@@ -9,12 +9,7 @@ namespace PV_analysis.Converters
         /// 直流侧输入电压预设值（若设置此值，则按照直流侧设计）
         /// </summary>
         public double Math_Vin_def { get; set; } = 0;
-
-        /// <summary>
-        /// 直流侧输入电压
-        /// </summary>
-        public double Math_Vin { get; set; }
-
+        
         /// <summary>
         /// 并网电压
         /// </summary>

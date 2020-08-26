@@ -3568,15 +3568,15 @@
             // 
             // Display_Detail_Vin_TrackBar
             // 
-            this.Display_Detail_Vin_TrackBar.LargeChange = 50;
+            this.Display_Detail_Vin_TrackBar.LargeChange = 10;
             this.Display_Detail_Vin_TrackBar.Location = new System.Drawing.Point(463, 1564);
             this.Display_Detail_Vin_TrackBar.Maximum = 1300;
             this.Display_Detail_Vin_TrackBar.Minimum = 860;
             this.Display_Detail_Vin_TrackBar.Name = "Display_Detail_Vin_TrackBar";
             this.Display_Detail_Vin_TrackBar.Size = new System.Drawing.Size(506, 45);
-            this.Display_Detail_Vin_TrackBar.SmallChange = 10;
             this.Display_Detail_Vin_TrackBar.TabIndex = 170;
             this.Display_Detail_Vin_TrackBar.Value = 860;
+            this.Display_Detail_Vin_TrackBar.Scroll += new System.EventHandler(this.Display_Detail_Vin_TrackBar_Scroll);
             // 
             // Display_Detail_SystemLossBreakdown_Label
             // 

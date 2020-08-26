@@ -126,7 +126,6 @@ namespace PV_analysis
                     converter = new DCDCConverter(Psys, Vin_min, Vin_max, Vo);
                     converter.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
                     converter.Evaluate(); //进行评估
-                    converter.Operate();
                     break;
 
                 case "IsolatedDCDCConverter":
@@ -138,7 +137,6 @@ namespace PV_analysis
                     converter = new IsolatedDCDCConverter(Psys, Vin, Vo, Q);
                     converter.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
                     converter.Evaluate(); //进行评估
-                    converter.Operate();
                     break;
 
                 case "IsolatedDCDCConverter(TwoStage)":
@@ -151,7 +149,6 @@ namespace PV_analysis
                     converter = new IsolatedDCDCConverter(Psys, Vin_min, Vin_max, Vo, Q);
                     converter.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
                     converter.Evaluate(); //进行评估
-                    converter.Operate();
                     break;
 
                 case "DCACConverter":
@@ -162,7 +159,6 @@ namespace PV_analysis
                     converter = new DCACConverter(Psys, Vg, fg, phi);
                     converter.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
                     converter.Evaluate(); //进行评估
-                    converter.Operate();
                     break;
 
                 case "ThreeLevelStructure":
@@ -187,7 +183,6 @@ namespace PV_analysis
                     };
                     structure.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
                     structure.Evaluate(); //进行评估
-                    structure.Operate();
                     break;
 
                 case "TwoLevelStructure":
@@ -214,7 +209,6 @@ namespace PV_analysis
                     };
                     structure.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
                     structure.Evaluate(); //进行评估
-                    structure.Operate();
                     break;
             }
         }

@@ -324,13 +324,12 @@ namespace PV_analysis.Topologys
         }
 
         /// <summary>
-		/// 计算相应负载下的电路参数
+		/// 计算电路参数
 		/// </summary>
-		/// <param name="load">负载</param>
-		public override void Calc(double load = 1.0)
+		public override void Calc()
         {
-            math_P = math_Pfull * load; //改变负载
-            voltageInput = voltageInputMinDef; //改变输入电压
+            math_P = converter.Math_P;
+            voltageInput = converter.Math_Vin;
             Simulate();
             frequencySwitch *= frequencyBase; //还原实际值
             //设置元器件的电路参数

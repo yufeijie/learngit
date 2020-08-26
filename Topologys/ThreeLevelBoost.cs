@@ -270,13 +270,12 @@ namespace PV_analysis.Topologys
         }
 
         /// <summary>
-		/// 计算相应负载下的电路参数
+		/// 计算电路参数
 		/// </summary>
-		/// <param name="load">负载</param>
-		public override void Calc(double load = 1.0)
+		public override void Calc()
         {
-            math_P = math_Pfull * load; //改变负载
-            math_Vin = math_Vin_min; //改变输入电压
+            math_P = converter.Math_P;
+            math_Vin = converter.Math_Vin;
             Simulate();
             //设置元器件的电路参数
             dualModule.SetParameters(math_VSmax, curve_iD.Copy(-1), curve_iS, math_fs); //采用半桥模块时，第二个开关管波形为-iD

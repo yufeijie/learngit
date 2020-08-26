@@ -6,11 +6,6 @@ namespace PV_analysis.Converters
     internal class IsolatedDCDCConverter : Converter
     {
         /// <summary>
-        /// 输入电压
-        /// </summary>
-        public double Math_Vin { get; }
-
-        /// <summary>
         /// 输入电压最小值
         /// </summary>
         public double Math_Vin_min { get; }

@@ -50,10 +50,6 @@ namespace PV_analysis
 
         //不同负载下的损耗分布
         private int div = 100; //空载到满载划分精度
-        private List<Item>[] system_lossLists; //系统损耗分布信息
-        private List<Item>[] DCDC_lossLists; //前级DC/DC损耗分布信息
-        private List<Item>[] isolatedDCDC_lossLists; //隔离DC/DC损耗分布信息
-        private List<Item>[] DCAC_lossLists; //DC/AC损耗分布信息
 
         public MainForm()
         {
@@ -1019,17 +1015,24 @@ namespace PV_analysis
 
         private void DisplayLossBreakdown()
         {
-            int load = Display_Detail_Load_TrackBar.Value;
+            double load = Display_Detail_Load_TrackBar.Value / 100.0;
+            double Vin = Display_Detail_Vin_TrackBar.Value;
+
+            //生成数据
+            structure.Operate(load, Vin);
+            List<Item> system_lossLists = structure.GetLossBreakdown(); //系统损耗分布信息
+
+            //更新图像
             string labelPoint(ChartPoint chartPoint) => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
             SeriesCollection system_series = new SeriesCollection();
-            for (int i = 0; i < system_lossLists[load - 1].Count; i++)
+            for (int i = 0; i < system_lossLists.Count; i++)
             {
-                if (Math.Round(system_lossLists[load - 1][i].Value, 2) > 0)
+                if (Math.Round(system_lossLists[i].Value, 2) > 0)
                 {
                     system_series.Add(new PieSeries
                     {
-                        Title = system_lossLists[load - 1][i].Name,
-                        Values = new ChartValues<double> { Math.Round(system_lossLists[load - 1][i].Value, 2) },
+                        Title = system_lossLists[i].Name,
+                        Values = new ChartValues<double> { Math.Round(system_lossLists[i].Value, 2) },
                         DataLabels = true,
                         LabelPoint = labelPoint
                     });
@@ -1041,15 +1044,19 @@ namespace PV_analysis
             switch (selectedStructure)
             {
                 case "三级架构":
+                    List<Item> DCDC_lossLists = ((ThreeLevelStructure)structure).DCDC.GetLossBreakdown(); //前级DC/DC损耗分布信息
+                    List<Item> isolatedDCDC_lossLists = ((ThreeLevelStructure)structure).IsolatedDCDC.GetLossBreakdown(); //隔离DC/DC损耗分布信息
+                    List<Item> DCAC_lossLists = ((ThreeLevelStructure)structure).DCAC.GetLossBreakdown(); //DC/AC损耗分布信息
+
                     SeriesCollection DCDC_series = new SeriesCollection();
-                    for (int i = 0; i < DCDC_lossLists[load - 1].Count; i++)
+                    for (int i = 0; i < DCDC_lossLists.Count; i++)
                     {
-                        if (Math.Round(DCDC_lossLists[load - 1][i].Value, 2) > 0)
+                        if (Math.Round(DCDC_lossLists[i].Value, 2) > 0)
                         {
                             DCDC_series.Add(new PieSeries
                             {
-                                Title = DCDC_lossLists[load - 1][i].Name,
-                                Values = new ChartValues<double> { Math.Round(DCDC_lossLists[load - 1][i].Value, 2) },
+                                Title = DCDC_lossLists[i].Name,
+                                Values = new ChartValues<double> { Math.Round(DCDC_lossLists[i].Value, 2) },
                                 DataLabels = true,
                                 LabelPoint = labelPoint
                             });
@@ -1060,14 +1067,14 @@ namespace PV_analysis
                     Display_Detail_DCDCLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     SeriesCollection isolatedDCDC_series = new SeriesCollection();
-                    for (int i = 0; i < isolatedDCDC_lossLists[load - 1].Count; i++)
+                    for (int i = 0; i < isolatedDCDC_lossLists.Count; i++)
                     {
-                        if (Math.Round(isolatedDCDC_lossLists[load - 1][i].Value, 2) > 0)
+                        if (Math.Round(isolatedDCDC_lossLists[i].Value, 2) > 0)
                         {
                             isolatedDCDC_series.Add(new PieSeries
                             {
-                                Title = isolatedDCDC_lossLists[load - 1][i].Name,
-                                Values = new ChartValues<double> { Math.Round(isolatedDCDC_lossLists[load - 1][i].Value, 2) },
+                                Title = isolatedDCDC_lossLists[i].Name,
+                                Values = new ChartValues<double> { Math.Round(isolatedDCDC_lossLists[i].Value, 2) },
                                 DataLabels = true,
                                 LabelPoint = labelPoint
                             });
@@ -1078,14 +1085,14 @@ namespace PV_analysis
                     Display_Detail_IsolatedDCDCLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     SeriesCollection DCAC_series = new SeriesCollection();
-                    for (int i = 0; i < DCAC_lossLists[load - 1].Count; i++)
+                    for (int i = 0; i < DCAC_lossLists.Count; i++)
                     {
-                        if (Math.Round(DCAC_lossLists[load - 1][i].Value, 2) > 0)
+                        if (Math.Round(DCAC_lossLists[i].Value, 2) > 0)
                         {
                             DCAC_series.Add(new PieSeries
                             {
-                                Title = DCAC_lossLists[load - 1][i].Name,
-                                Values = new ChartValues<double> { Math.Round(DCAC_lossLists[load - 1][i].Value, 2) },
+                                Title = DCAC_lossLists[i].Name,
+                                Values = new ChartValues<double> { Math.Round(DCAC_lossLists[i].Value, 2) },
                                 DataLabels = true,
                                 LabelPoint = labelPoint
                             });
@@ -1097,18 +1104,22 @@ namespace PV_analysis
                     break;
 
                 case "两级架构":
+                    isolatedDCDC_lossLists = ((TwoLevelStructure)structure).IsolatedDCDC.GetLossBreakdown(); //隔离DC/DC损耗分布信息
+                    DCAC_lossLists = ((TwoLevelStructure)structure).DCAC.GetLossBreakdown(); //DC/AC损耗分布信息
+
                     Display_Detail_DCDCLossBreakdown_PieChart.Series = new SeriesCollection();
+                    Display_Detail_DCDCLossBreakdown_PieChart.StartingRotationAngle = 0;
                     Display_Detail_DCDCLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     isolatedDCDC_series = new SeriesCollection();
-                    for (int i = 0; i < isolatedDCDC_lossLists[load - 1].Count; i++)
+                    for (int i = 0; i < isolatedDCDC_lossLists.Count; i++)
                     {
-                        if (Math.Round(isolatedDCDC_lossLists[load - 1][i].Value, 2) > 0)
+                        if (Math.Round(isolatedDCDC_lossLists[i].Value, 2) > 0)
                         {
                             isolatedDCDC_series.Add(new PieSeries
                             {
-                                Title = isolatedDCDC_lossLists[load - 1][i].Name,
-                                Values = new ChartValues<double> { Math.Round(isolatedDCDC_lossLists[load - 1][i].Value, 2) },
+                                Title = isolatedDCDC_lossLists[i].Name,
+                                Values = new ChartValues<double> { Math.Round(isolatedDCDC_lossLists[i].Value, 2) },
                                 DataLabels = true,
                                 LabelPoint = labelPoint
                             });
@@ -1119,14 +1130,14 @@ namespace PV_analysis
                     Display_Detail_IsolatedDCDCLossBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
                     DCAC_series = new SeriesCollection();
-                    for (int i = 0; i < DCAC_lossLists[load - 1].Count; i++)
+                    for (int i = 0; i < DCAC_lossLists.Count; i++)
                     {
-                        if (Math.Round(DCAC_lossLists[load - 1][i].Value, 2) > 0)
+                        if (Math.Round(DCAC_lossLists[i].Value, 2) > 0)
                         {
                             DCAC_series.Add(new PieSeries
                             {
-                                Title = DCAC_lossLists[load - 1][i].Name,
-                                Values = new ChartValues<double> { Math.Round(DCAC_lossLists[load - 1][i].Value, 2) },
+                                Title = DCAC_lossLists[i].Name,
+                                Values = new ChartValues<double> { Math.Round(DCAC_lossLists[i].Value, 2) },
                                 DataLabels = true,
                                 LabelPoint = labelPoint
                             });
@@ -1348,60 +1359,43 @@ namespace PV_analysis
 
             //生成不同负载下的损耗数据
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
-            system_lossLists = new List<Item>[div];
-            DCDC_lossLists = new List<Item>[div];
-            isolatedDCDC_lossLists = new List<Item>[div];
-            DCAC_lossLists = new List<Item>[div];
             for (int i = 1; i <= div; i++)
             {
-                structure.Operate(1.0 * i / div);
+                structure.Operate(1.0 * i / div, structure.Math_Vpv_min);
                 values.Add(new ObservablePoint(100 * i / div, structure.Efficiency * 100));
-                system_lossLists[i - 1] = structure.GetLossBreakdown();
-                switch (selectedStructure)
-                {
-                    case "三级架构":
-                        DCDC_lossLists[i - 1] = ((ThreeLevelStructure)structure).DCDC.GetLossBreakdown();
-                        isolatedDCDC_lossLists[i - 1] = ((ThreeLevelStructure)structure).IsolatedDCDC.GetLossBreakdown();
-                        DCAC_lossLists[i - 1] = ((ThreeLevelStructure)structure).DCAC.GetLossBreakdown();
-                        break;
-                    case "两级架构":
-                        isolatedDCDC_lossLists[i - 1] = ((TwoLevelStructure)structure).IsolatedDCDC.GetLossBreakdown();
-                        DCAC_lossLists[i - 1] = ((TwoLevelStructure)structure).DCAC.GetLossBreakdown();
-                        break;
-                }
             }
 
             //负载-效率图像
-            Display_Detail_Main_Panel.Controls.Remove(Display_Detail_SystemLoadVsEfficiency_CartesianChart);
-            Display_Detail_SystemLoadVsEfficiency_CartesianChart.Dispose();
-            Display_Detail_SystemLoadVsEfficiency_CartesianChart = new LiveCharts.WinForms.CartesianChart
+            Display_Detail_SystemLoadVsEfficiency_CartesianChart.Series = new SeriesCollection
             {
-                BackColor = System.Drawing.Color.White,
-                Location = new System.Drawing.Point(316, 877),
-                Size = new System.Drawing.Size(800, 600),
-                TabIndex = 160,
+                new LineSeries
+                {
+                    Title = "Vin=860V",
+                    Values = values
+                }
             };
-            Display_Detail_Main_Panel.Controls.Add(Display_Detail_SystemLoadVsEfficiency_CartesianChart);
-            Display_Detail_Main_Panel.Visible = false; //解决底色变黑
-            Display_Detail_Main_Panel.Visible = true;
-            Display_Detail_SystemLoadVsEfficiency_CartesianChart.Series.Add(new LineSeries
+            Display_Detail_SystemLoadVsEfficiency_CartesianChart.AxisX = new AxesCollection
             {
-                Title = "Vin=860V",
-                Values = values
-            });
-            Display_Detail_SystemLoadVsEfficiency_CartesianChart.AxisX.Add(new Axis
+                new Axis
+                {
+                    Title = "负载（%）"
+                }
+            };
+            Display_Detail_SystemLoadVsEfficiency_CartesianChart.AxisY = new AxesCollection
             {
-                Title = "负载（%）"
-            });
-            Display_Detail_SystemLoadVsEfficiency_CartesianChart.AxisY.Add(new Axis
-            {
-                LabelFormatter = value => Math.Round(value, 8).ToString(),
-                Title = "效率（%）"
-            });
+                new Axis
+                {
+                    LabelFormatter = value => Math.Round(value, 8).ToString(),
+                    Title = "效率（%）"
+                }
+            };
             Display_Detail_SystemLoadVsEfficiency_CartesianChart.LegendLocation = LegendLocation.Right;
 
             //损耗分布图像
             Display_Detail_Load_TrackBar.Value = 100;
+            Display_Detail_Load_Value_Label.Text = Display_Detail_Load_TrackBar.Value.ToString() + "%";
+            Display_Detail_Vin_TrackBar.Value = (int)structure.Math_Vpv_min;
+            Display_Detail_Vin_Value_Label.Text = Display_Detail_Vin_TrackBar.Value.ToString() + "V";
             DisplayLossBreakdown();
 
             panelNow[3] = Display_Detail_Panel;
@@ -1413,6 +1407,11 @@ namespace PV_analysis
         private void Display_Detail_Load_TrackBar_Scroll(object sender, EventArgs e)
         {
             Display_Detail_Load_Value_Label.Text = Display_Detail_Load_TrackBar.Value.ToString() + "%";
+            DisplayLossBreakdown();
+        }
+        private void Display_Detail_Vin_TrackBar_Scroll(object sender, EventArgs e)
+        {
+            Display_Detail_Vin_Value_Label.Text = Display_Detail_Vin_TrackBar.Value.ToString() + "V";
             DisplayLossBreakdown();
         }
 

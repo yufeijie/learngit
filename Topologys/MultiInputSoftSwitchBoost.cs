@@ -77,7 +77,7 @@ namespace PV_analysis.Topologys
 			throw new NotImplementedException();
 		}
 
-		public override void Calc(double load)
+		public override void Calc()
 		{
 			throw new NotImplementedException();
 		}

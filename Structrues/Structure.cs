@@ -248,12 +248,12 @@ namespace PV_analysis.Structures
         /// 模拟变换器运行，得到相应负载下的效率
         /// </summary>
         /// <param name="load">负载</param>
-        public void Operate(double load = 1.0)
+        public void Operate(double load, double Vin)
         {
             PowerLoss = 0;
             foreach (Converter converter in Converters)
             {
-                converter.Operate(load);
+                converter.Operate(load, Vin);
                 PowerLoss += converter.PowerLoss;
                 
             }

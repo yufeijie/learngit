@@ -278,12 +278,11 @@ namespace PV_analysis.Topologys
         }
 
         /// <summary>
-		/// 计算相应负载下的电路参数
+		/// 计算电路参数
 		/// </summary>
-		/// <param name="load">负载</param>
-		public override void Calc(double load = 1.0)
+		public override void Calc()
         {
-            math_P = math_Pfull * load; //改变负载
+            math_P = converter.Math_P;
             Simulate();
             //设置元器件的电路参数
             primaryDualModule.SetParameters(voltageSwitch_P, currentSwitch_P, currentSwitch_P, frequencySwitch);
@@ -294,6 +293,5 @@ namespace PV_analysis.Topologys
             resonantCapacitor.SetParameters(currentInductorRMS);
             filteringCapacitor.SetParameters(currentCapacitorFilterRMS);
         }
-
     }
 }

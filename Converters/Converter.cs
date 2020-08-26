@@ -25,6 +25,16 @@ namespace PV_analysis.Converters
         public double Math_Psys { get; set; }
 
         /// <summary>
+        /// 模块功率
+        /// </summary>
+        public double Math_P { get; set; }
+
+        /// <summary>
+        /// 输入电压
+        /// </summary>
+        public double Math_Vin { get; set; }
+
+        /// <summary>
         /// 开关频率
         /// </summary>
         public double Math_fs { get; set; }
@@ -234,14 +244,15 @@ namespace PV_analysis.Converters
             Cost *= Number * PhaseNum;
             Volume *= Number * PhaseNum;
         }
-
+        
         /// <summary>
         /// 模拟变换器运行，得到相应负载下的效率
         /// </summary>
         /// <param name="load">负载</param>
-        public void Operate(double load = 1.0)
+        public void Operate(double load)
         {
-            Topology.Calc(load);
+            Math_P = Math_Psys / PhaseNum / Number * load;
+            Topology.Calc();
             PowerLoss = 0;
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
@@ -250,6 +261,16 @@ namespace PV_analysis.Converters
             }
             PowerLoss *= Number * PhaseNum;
             Efficiency = 1 - PowerLoss / (Math_Psys * load);
+        }
+
+        /// <summary>
+        /// 模拟变换器运行，得到相应负载、输入电压下的效率
+        /// </summary>
+        /// <param name="load">负载</param>
+        public void Operate(double load, double Vin)
+        {
+            Math_Vin = Vin;
+            Operate(load);
         }
 
         /// <summary>

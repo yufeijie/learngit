@@ -58,9 +58,9 @@ namespace PV_analysis.Topologys
         public abstract void Prepare();
 
         /// <summary>
-		/// 计算相应负载下的电路参数
+		/// 计算电路参数
 		/// </summary>
 		/// <param name="load">负载</param>
-		public abstract void Calc(double load);
+		public abstract void Calc();
     }
 }
