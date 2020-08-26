@@ -3560,33 +3560,33 @@
             // 
             this.Display_Detail_DCACLossBreakdown_Label.AutoSize = true;
             this.Display_Detail_DCACLossBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Detail_DCACLossBreakdown_Label.Location = new System.Drawing.Point(1080, 1968);
+            this.Display_Detail_DCACLossBreakdown_Label.Location = new System.Drawing.Point(1052, 1968);
             this.Display_Detail_DCACLossBreakdown_Label.Name = "Display_Detail_DCACLossBreakdown_Label";
-            this.Display_Detail_DCACLossBreakdown_Label.Size = new System.Drawing.Size(160, 26);
+            this.Display_Detail_DCACLossBreakdown_Label.Size = new System.Drawing.Size(217, 26);
             this.Display_Detail_DCACLossBreakdown_Label.TabIndex = 167;
-            this.Display_Detail_DCACLossBreakdown_Label.Text = "逆变损耗分布(W)";
+            this.Display_Detail_DCACLossBreakdown_Label.Text = "逆变单模块损耗分布(W)";
             this.Display_Detail_DCACLossBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Display_Detail_IsolatedDCDCLossBreakdown_Label
             // 
             this.Display_Detail_IsolatedDCDCLossBreakdown_Label.AutoSize = true;
             this.Display_Detail_IsolatedDCDCLossBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.Location = new System.Drawing.Point(598, 1968);
+            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.Location = new System.Drawing.Point(570, 1968);
             this.Display_Detail_IsolatedDCDCLossBreakdown_Label.Name = "Display_Detail_IsolatedDCDCLossBreakdown_Label";
-            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.Size = new System.Drawing.Size(216, 26);
+            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.Size = new System.Drawing.Size(273, 26);
             this.Display_Detail_IsolatedDCDCLossBreakdown_Label.TabIndex = 166;
-            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.Text = "隔离DCDC损耗分布(W)";
+            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.Text = "隔离DCDC单模块损耗分布(W)";
             this.Display_Detail_IsolatedDCDCLossBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Display_Detail_DCDCLossBreakdown_Label
             // 
             this.Display_Detail_DCDCLossBreakdown_Label.AutoSize = true;
             this.Display_Detail_DCDCLossBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Detail_DCDCLossBreakdown_Label.Location = new System.Drawing.Point(145, 1968);
+            this.Display_Detail_DCDCLossBreakdown_Label.Location = new System.Drawing.Point(116, 1968);
             this.Display_Detail_DCDCLossBreakdown_Label.Name = "Display_Detail_DCDCLossBreakdown_Label";
-            this.Display_Detail_DCDCLossBreakdown_Label.Size = new System.Drawing.Size(216, 26);
+            this.Display_Detail_DCDCLossBreakdown_Label.Size = new System.Drawing.Size(273, 26);
             this.Display_Detail_DCDCLossBreakdown_Label.TabIndex = 165;
-            this.Display_Detail_DCDCLossBreakdown_Label.Text = "前级DCDC损耗分布(W)";
+            this.Display_Detail_DCDCLossBreakdown_Label.Text = "前级DCDC单模块损耗分布(W)";
             this.Display_Detail_DCDCLossBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Display_Detail_DCACLossBreakdown_PieChart

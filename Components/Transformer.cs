@@ -379,7 +379,7 @@ namespace PV_analysis.Components
         private void CalcPowerLossFe()
         {
             double Aecc = numberCore * Data.CoreList[core].Math_Ae * 1e-2; //等效磁芯面积(cm^2)
-            double Bm = 0.5 * fluxLinkage / (Np*2 * Aecc * 1e-4); //交流磁通密度(cm^2)
+            double Bm = 0.5 * fluxLinkage / (Np * Aecc * 1e-4); //交流磁通密度(cm^2)
             double prewV = GetInductanceFeLoss(frequency, Bm);// //单位体积铁损(W/m^3)
             double volume = numberCore * Data.CoreList[core].Math_Ve * 1e-9; //磁芯体积(m^3) Datasheet中给出的即为一对磁芯的有效磁体积
             powerLossFe = prewV * volume; //计算铁损

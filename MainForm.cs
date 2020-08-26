@@ -1025,7 +1025,7 @@ namespace PV_analysis
             SeriesCollection system_series = new SeriesCollection();
             for (int i = 0; i < system_lossLists[load - 1].Count; i++)
             {
-                if (!Function.EQ(system_lossLists[load - 1][i].Value, 0))
+                if (Math.Round(system_lossLists[load - 1][i].Value, 2) > 0)
                 {
                     system_series.Add(new PieSeries
                     {
@@ -1044,7 +1044,7 @@ namespace PV_analysis
                     SeriesCollection DCDC_series = new SeriesCollection();
                     for (int i = 0; i < DCDC_lossLists[load - 1].Count; i++)
                     {
-                        if (!Function.EQ(DCDC_lossLists[load - 1][i].Value, 0))
+                        if (Math.Round(DCDC_lossLists[load - 1][i].Value, 2) > 0)
                         {
                             DCDC_series.Add(new PieSeries
                             {
@@ -1061,7 +1061,7 @@ namespace PV_analysis
                     SeriesCollection isolatedDCDC_series = new SeriesCollection();
                     for (int i = 0; i < isolatedDCDC_lossLists[load - 1].Count; i++)
                     {
-                        if (!Function.EQ(isolatedDCDC_lossLists[load - 1][i].Value, 0))
+                        if (Math.Round(isolatedDCDC_lossLists[load - 1][i].Value, 2) > 0)
                         {
                             isolatedDCDC_series.Add(new PieSeries
                             {
@@ -1078,7 +1078,7 @@ namespace PV_analysis
                     SeriesCollection DCAC_series = new SeriesCollection();
                     for (int i = 0; i < DCAC_lossLists[load - 1].Count; i++)
                     {
-                        if (!Function.EQ(DCAC_lossLists[load - 1][i].Value, 0))
+                        if (Math.Round(DCAC_lossLists[load - 1][i].Value, 2) > 0)
                         {
                             DCAC_series.Add(new PieSeries
                             {
@@ -1100,7 +1100,7 @@ namespace PV_analysis
                     isolatedDCDC_series = new SeriesCollection();
                     for (int i = 0; i < isolatedDCDC_lossLists[load - 1].Count; i++)
                     {
-                        if (!Function.EQ(isolatedDCDC_lossLists[load - 1][i].Value, 0))
+                        if (Math.Round(isolatedDCDC_lossLists[load - 1][i].Value, 2) > 0)
                         {
                             isolatedDCDC_series.Add(new PieSeries
                             {
@@ -1117,7 +1117,7 @@ namespace PV_analysis
                     DCAC_series = new SeriesCollection();
                     for (int i = 0; i < DCAC_lossLists[load - 1].Count; i++)
                     {
-                        if (!Function.EQ(DCAC_lossLists[load - 1][i].Value, 0))
+                        if (Math.Round(DCAC_lossLists[load - 1][i].Value, 2) > 0)
                         {
                             DCAC_series.Add(new PieSeries
                             {
