@@ -643,8 +643,6 @@ namespace PV_analysis
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
 
-            WriteLine("Start...");
-            WriteLine();
             Formula.Init();
             structure = new ThreeLevelStructure();
             switch (selectedStructure)
@@ -694,6 +692,8 @@ namespace PV_analysis
                     break;
             }
             structure.Optimize();
+            WriteLine("评估结束！");
+            WriteLine();
         }
 
         private void Estimate_Result_Restart_Button_Click(object sender, EventArgs e)
@@ -726,10 +726,9 @@ namespace PV_analysis
             {
                 string filePath = saveFileDialog.FileName.ToString(); //获得文件路径 
                 name = filePath.Substring(filePath.LastIndexOf("\\") + 1, filePath.LastIndexOf(".xlsx") - (filePath.LastIndexOf("\\") + 1)); //获取文件名，不带路径
-                path = filePath.Substring(0, filePath.LastIndexOf("\\")) + "\\"; //获取文件路径，不带文件名 
+                path = filePath.Substring(0, filePath.LastIndexOf("\\")) + "\\"; //获取文件路径，不带文件名
+                structure.Save(path, name);
             }
-
-            structure.Save(path, name);
         }
 
         private void Display()
