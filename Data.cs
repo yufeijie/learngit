@@ -438,10 +438,20 @@ namespace PV_analysis
                     row.CreateCell(j).SetCellValue(designs[i].Configs[j]);
                 }
             }
-            
-            FileStream file = new FileStream(path + name + ".xlsx", FileMode.Create);
-            workbook.Write(file);
-            file.Close();
+
+            //检查文件夹是否存在，若不存在则创建
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            //再次检查，查看文件夹是否创建成功
+            if (Directory.Exists(path))
+            {
+                FileStream file = new FileStream(path + name + ".xlsx", FileMode.Create);
+                workbook.Write(file);
+                file.Close();
+            } //TODO 错误提示
+            workbook.Close();
         }
 
         /// <summary>
