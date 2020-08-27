@@ -260,9 +260,12 @@ namespace PV_analysis.Components
             }
 
             //容量过剩检查
-            if (isCheckExcess && (Data.SemiconductorList[device].Math_Vmax * (1 - margin) > math_Vmax * (1 + excess) || Data.SemiconductorList[device].Math_Imax * (1 - margin) > math_Imax * (1 + excess)))
+            if (isCheckExcess)
             {
-                return false;
+                if (Data.SemiconductorList[device].Math_Vmax * (1 - margin) > math_Vmax * (1 + excess) || Data.SemiconductorList[device].Math_Imax * (1 - margin) > math_Imax * (1 + excess))
+                {
+                    return false;
+                }
             }
 
             return true;

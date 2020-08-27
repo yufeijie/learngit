@@ -5,9 +5,6 @@ namespace PV_analysis.Components
 {
     internal class Transformer : Magnetics
     {
-        //限制条件
-        private bool isCheckBm = true; //在评估时是否进行交流磁通密度检查 TODO 目前仅在变压器设计时检查
-
         //器件参数
         private int Np; //原边匝数
         private int Ns; //副边匝数
@@ -294,8 +291,7 @@ namespace PV_analysis.Components
                 {
                     SelectParameters(i, j); //设置对应条件下的电路参数
                     CalcPowerLoss(); //计算对应条件下的损耗
-                    //交流磁通检查 FIXME
-                    if (isCheckBm && !CheckBm())
+                    if (!CheckBm()) //交流磁通检查 FIXME
                     {
                         return false;
                     }

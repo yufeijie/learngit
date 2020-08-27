@@ -41,9 +41,7 @@ namespace PV_analysis.Components
 
         //温度参数(℃)
         private static readonly double math_Th_max = 60; //散热器允许最高温度
-        private double math_Tc; //壳温
         private static readonly double math_Tj_max = 110;//最高结温
-        private double math_Tj_main; //主管结温
 
         /// <summary>
         /// 初始化
@@ -256,9 +254,12 @@ namespace PV_analysis.Components
             }
 
             //容量过剩检查
-            if (isCheckExcess && (Data.SemiconductorList[device].Math_Vmax * (1 - margin) > math_Vmax * (1 + excess) || paralleledNum * Data.SemiconductorList[device].Math_Imax * (1 - margin) > math_Imax * (1 + excess)))
+            if (isCheckExcess)
             {
-                return false;
+                if (Data.SemiconductorList[device].Math_Vmax * (1 - margin) > math_Vmax * (1 + excess) || paralleledNum * Data.SemiconductorList[device].Math_Imax * (1 - margin) > math_Imax * (1 + excess))
+                {
+                    return false;
+                }
             }
 
             return true;

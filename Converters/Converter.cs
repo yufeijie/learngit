@@ -137,7 +137,14 @@ namespace PV_analysis.Converters
                 //若没有设计结果，则设计失败，退出
                 if (component.DesignList.Size == 0)
                 {
-                    Console.WriteLine(component.GetType().Name + " design Failed");
+                    if (component.Name != null)
+                    {
+                        Console.WriteLine(component.Name + "设计失败！");
+                    }
+                    else
+                    {
+                        Console.WriteLine(component.GetType().Name + "设计失败！");
+                    }
                     break;
                 }
             }

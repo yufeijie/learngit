@@ -11,9 +11,6 @@ namespace PV_analysis.Components
     internal abstract class Semiconductor : Component
     {
         //限制条件
-        protected static readonly bool isCheckTemperature = true; //在评估时是否进行温度检查
-        protected static readonly bool isCheckExcess = false; //是否检查过剩容量
-        protected static readonly double excess = 1; //允许过剩容量
         protected static bool selectSiC = true; //SiC器件选用开关，true为可选用
         protected static readonly double margin = 0.2; //裕量
 
@@ -38,7 +35,7 @@ namespace PV_analysis.Components
                 {
                     SelectParameters(i, j); //设置对应条件下的电路参数
                     CalcPowerLoss(); //计算对应条件下的损耗
-                    if (isCheckTemperature && !CheckTemperature()) //验证散热器温度
+                    if (!CheckTemperature()) //验证散热器温度
                     {
                         return false;
                     }
