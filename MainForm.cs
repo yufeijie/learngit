@@ -884,7 +884,7 @@ namespace PV_analysis
                     Display_Show_IsolatedDCDCTopology_Value_Label.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Topology.GetName();
                     Display_Show_DCACNumber_Value_Label.Text = ((TwoLevelStructure)structure).DCAC.Number.ToString();
                     Display_Show_DCACFrequency_Value_Label.Text = (((TwoLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
-                    Display_Show_DCACTopology_Value_Label.Text = ((TwoLevelStructure)structure).DCAC.Modulation.ToString();
+                    Display_Show_DCACTopology_Value_Label.Text = ((TwoLevelStructure)structure).DCAC.Topology.GetName();
                     break;
             }
 
@@ -1287,7 +1287,7 @@ namespace PV_analysis
                     Display_Detail_IsolatedDCDCTopology_Value_Label.Text = ((TwoLevelStructure)structure).IsolatedDCDC.Topology.GetName();
                     Display_Detail_DCACNumber_Value_Label.Text = ((TwoLevelStructure)structure).DCAC.Number.ToString();
                     Display_Detail_DCACFrequency_Value_Label.Text = (((TwoLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz";
-                    Display_Detail_DCACTopology_Value_Label.Text = ((TwoLevelStructure)structure).DCAC.Modulation.ToString();
+                    Display_Detail_DCACTopology_Value_Label.Text = ((TwoLevelStructure)structure).DCAC.Topology.GetName();
                     //显示图像
                     p1 = Math.Round(100 - structure.Converters[0].EfficiencyCGC * 100, 2);
                     p2 = Math.Round(100 - structure.Converters[1].EfficiencyCGC * 100, 2);

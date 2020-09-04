@@ -14,11 +14,11 @@ namespace PV_analysis
         public static void Main()
         {
             //生成窗体
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new MainForm());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
 
-            OptimizeDCDCConverter();
+            //OptimizeDCDCConverter();
             //OptimizeIsolatedDCDCConverter();
             //OptimizeIsolatedDCDCConverter_TwoStage();
             //OptimizeDCACConverter();
