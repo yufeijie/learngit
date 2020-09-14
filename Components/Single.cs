@@ -7,7 +7,7 @@ namespace PV_analysis.Components
     internal class Single : Semiconductor
     {
         //限制条件
-        private bool isSoftOff = false; //是否以软关断的方式进行计算(仅在符合条件时为true)
+        //private bool isSoftOff = false; //是否以软关断的方式进行计算(仅在符合条件时为true)
         private static readonly double paralleledNumMax = 10; //最大并联数
 
         //器件参数

@@ -14,10 +14,8 @@ namespace PV_analysis.Topologys
         private bool isLeakageInductanceIntegrated = true; //是否认为谐振电感集成在变压器中
 
         //可选参数
-        //private double ratioVoltageRipple; //电压纹波系数
-
-        private static readonly double math_kIrip = 0.2; //电流纹波系数
-        private static readonly double math_kVrip = 0.1; //电压纹波系数
+        //private static readonly double math_kIrip = 0.2; //电流纹波系数
+        //private static readonly double math_kVrip = 0.1; //电压纹波系数
 
         private IsolatedDCDCConverter converter; //所属变换器
 
@@ -124,7 +122,15 @@ namespace PV_analysis.Topologys
                 Name = "滤波电容",
                 VoltageVariable = false,
             };
-            components = new Component[] { primaryDualModule, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
+            if (isLeakageInductanceIntegrated)
+            {
+                components = new Component[] { primaryDualModule, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
+            }
+            else
+            {
+                components = new Component[] { primaryDualModule, secondaryDualModule, resonantInductor, transformer, resonantCapacitor, filteringCapacitor };
+            }
+            
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { primaryDualModule, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
         }

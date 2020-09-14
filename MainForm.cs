@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace PV_analysis
 {
-    internal partial class MainForm : System.Windows.Forms.Form
+    internal partial class MainForm : Form
     {
         private Panel[] panelNow = new Panel[5];
         private System.Drawing.Color activeColor;

@@ -95,7 +95,7 @@ namespace PV_analysis
             return value;
         }
 
-        public static double DTC_SRC_Ψm(double Vin, double Vp, double Vbase, double T, double Td, double fs, double Q, double M, double mode)
+        public static double DTC_SRC_Ψm(double Vin, double Vp, double Vbase, double T, double Td, double fs, double Q, double M, int mode)
         {
             double value;
             if (mode == 1)
@@ -113,7 +113,7 @@ namespace PV_analysis
             return value;
         }
 
-        public static double DTC_SRC_vcr(double t, double Td, double fs, double Q, double M, double mode)
+        public static double DTC_SRC_vcr(double t, double Td, double fs, double Q, double M, int mode)
         {
             double value;
             if (t >= 0.5)
@@ -154,7 +154,7 @@ namespace PV_analysis
             return value;
         }
 
-        public static double DTC_SRC_ilr(double t, double Td, double fs, double Q, double M, double mode)
+        public static double DTC_SRC_ilr(double t, double Td, double fs, double Q, double M, int mode)
         {
             double value;
             if (t >= 0.5)
@@ -193,14 +193,14 @@ namespace PV_analysis
             return value;
         }
 
-        public static double DTC_SRC_Te2(double Td, double fs, double Q, double M, double mode)
+        public static double DTC_SRC_Te2(double Td, double fs, double Q, double M, int mode)
         {
             double B = DTC_SRC_B(Td, fs, Q, M, mode);
             double value = Td + B * fs / (2 * Math.PI);
             return value;
         }
 
-        public static double DTC_SRC_B(double Td, double fs, double Q, double M, double mode)
+        public static double DTC_SRC_B(double Td, double fs, double Q, double M, int mode)
         {
             double BP = DTC_SRC_BP(Td, fs, Q, M);
             double R3 = DTC_SRC_R3(Td, fs, Q, M);
@@ -237,16 +237,16 @@ namespace PV_analysis
             return value;
         }
 
-        public static bool DTC_SRC_CCMflag(double Td, double fs, double Q, double M)
+        public static int DTC_SRC_CCMflag(double Td, double fs, double Q, double M)
         {
             double BPccm = DTC_SRC_BP(Td, fs, Q, M);
             if (Math.Sin(Math.PI / fs - 2 * Math.PI * Td / fs + BPccm) >= 0)
             {
-                return true;
+                return 1;
             }
             else
             {
-                return false;
+                return 0;
             }
         }
 
@@ -288,13 +288,6 @@ namespace PV_analysis
         public static double DTC_SRC_Vcrpk(double Td, double fs, double Q, double M)
         {
             double value = (1 - Math.Cos(2 * Math.PI * Td / fs) + Math.PI / fs * Q * M) / (1 + Math.Cos(2 * Math.PI * Td / fs));
-            return value;
-        }
-
-        public static double DTC_SRC_Td(double Vref, double Pin)
-        {
-            double value = 1.37625 - 0.00324648 * Vref + 3.03631e-6 * Vref * Vref - 1.04815e-9 * Math.Pow(Vref, 3) + 0.0004936151 * Pin - 3.61014e-6 * Pin * Pin + 1.05543e-8 * Math.Pow(Pin, 3);
-            value = value > 0 ? value : 0;
             return value;
         }
 

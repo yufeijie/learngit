@@ -13,10 +13,8 @@ namespace PV_analysis.Topologys
         private bool isLeakageInductanceIntegrated = true; //是否认为谐振电感集成在变压器中
 
         //可选参数
-        //private double ratioVoltageRipple; //电压纹波系数
-
-        private static readonly double math_kIrip = 0.2; //电流纹波系数
-        private static readonly double math_kVrip = 0.1; //电压纹波系数
+        //private static readonly double math_kIrip = 0.2; //电流纹波系数
+        //private static readonly double math_kVrip = 0.1; //电压纹波系数
 
         private IsolatedDCDCConverter converter; //所属变换器
 
@@ -25,7 +23,6 @@ namespace PV_analysis.Topologys
         private double frequencyResonance; //谐振频率
 
         //给定参数
-        private double voltageInputDef; //模块输入电压预设值
         private double voltageInputMinDef; //模块输入电压预设最小值
         private double voltageInputMaxDef; //模块输入电压预设最大值
         private double voltageOutputDef; //模块输出电压预设值
@@ -36,13 +33,10 @@ namespace PV_analysis.Topologys
         private double voltageOutput; //输出电压
         private double qualityFactor; //品质因数
         private double frequencySwitch; //开关频率
-        private double angularVelocityResonance; //谐振角速度
         private double timeCycleSwitch; //开关周期
-        private double timeCycleResonance; //谐振周期
         private double resistanceLoad; //负载等效电阻
-        private double time0; //过零点
         private double currentOutput; //输出电流
-        private double conductionMode; //电流导通模式 0->DCM 1->CCM
+        private int conductionMode; //电流导通模式 0->DCM 1->CCM
         private double gain; //变换器增益
         private double timeDelay; //DTC-SRC第一阶段时间
         private double fluxLinkage; //磁链
@@ -58,7 +52,6 @@ namespace PV_analysis.Topologys
         private double impedanceResonance; //谐振阻抗
         private double inductanceResonance; //谐振电感值
         private double capacitanceResonance; //谐振电容值
-        private double deadTime; //死区时间
 
         //主电路元件参数
         //	private double dutyCycle; //占空比
@@ -137,7 +130,14 @@ namespace PV_analysis.Topologys
             {
                 Name = "滤波电容"
             };
-            components = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
+            if (isLeakageInductanceIntegrated)
+            {
+                components = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
+            }
+            else
+            {
+                components = new Component[] { primaryDualModule, single, secondaryDualModule, resonantInductor, transformer, resonantCapacitor, filteringCapacitor };
+            }
             componentGroups = new Component[1][];
             componentGroups[0] = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
         }
@@ -177,7 +177,7 @@ namespace PV_analysis.Topologys
             gain = turnRatioTransformer * voltageOutput / voltageInput;
             resistanceLoad = Math.Pow(voltageOutput, 2) / math_P;
             qualityFactor = impedanceResonance / (Math.Pow(turnRatioTransformer, 2) * resistanceLoad);
-            //求解Vo和t0
+            //求解Td和fs
             MWArray output = Formula.solve.solve_DTCSRC(qualityFactor, gain);
             MWNumericArray result = (MWNumericArray)output;
             timeDelay = result[1].ToScalarDouble();
@@ -209,6 +209,7 @@ namespace PV_analysis.Topologys
             timeCycleBase = timeCycleSwitch;
             voltageCapacitorPeak = voltageBase * Formula.DTC_SRC_Vcrpk(timeDelay, frequencySwitch, qualityFactor, gain);
             currentOutput = voltageOutput / resistanceLoad;
+            conductionMode = Formula.DTC_SRC_CCMflag(timeDelay, frequencySwitch, qualityFactor, gain);
             fluxLinkage = Formula.DTC_SRC_Ψm(voltageInput, voltageOutput * turnRatioTransformer, voltageBase, timeCycleSwitch, timeDelay, frequencySwitch, qualityFactor, gain, conductionMode);
 
             currentInductorPeak = 0;
@@ -283,6 +284,7 @@ namespace PV_analysis.Topologys
                     math_P = math_Pfull * Config.CGC_POWER_RATIO[j]; //改变负载
                     Simulate();
                     //Graph graph = new Graph();
+                    //graph.Add(currentInductor, "iL");
                     //graph.Add(currentSwitch_P, "iP");
                     //graph.Add(currentSwitch_S, "iS");
                     //graph.Add(currentSwitch_D, "iD");
