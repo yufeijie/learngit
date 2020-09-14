@@ -106,6 +106,8 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ResonantCapacitor.cs" />
+    <Compile Include="Components\FilteringCapacitor.cs" />
     <Compile Include="Components\Capacitor.cs" />
     <Compile Include="Components\CHBModule.cs" />
     <Compile Include="Components\Single.cs" />

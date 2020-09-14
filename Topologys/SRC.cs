@@ -114,12 +114,12 @@ namespace PV_analysis.Topologys
                 Name = "变压器",
                 VoltageVariable = false
             };
-            resonantCapacitor = new Capacitor(1)
+            resonantCapacitor = new ResonantCapacitor(1)
             {
                 Name = "谐振电容",
                 VoltageVariable = false,
             };
-            filteringCapacitor = new Capacitor(1)
+            filteringCapacitor = new FilteringCapacitor(1)
             {
                 Name = "滤波电容",
                 VoltageVariable = false,

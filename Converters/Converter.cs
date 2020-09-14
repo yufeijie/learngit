@@ -230,7 +230,7 @@ namespace PV_analysis.Converters
             {
                 if (component.GetType().BaseType.Name.Equals("Semiconductor"))
                 {
-                    component.Evaluate();
+                    component.Evaluate(); //此时调用的是父类的方法
                     Math_Peval += component.Math_Peval;
                     Cost += component.Cost;
                     Volume += component.Volume;

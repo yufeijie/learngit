@@ -66,7 +66,7 @@ namespace PV_analysis.Topologys
             {
                 Name = "滤波电感"
             };
-            capacitor = new Capacitor(1)
+            capacitor = new FilteringCapacitor(1)
             {
                 Name = "滤波电容"
             };

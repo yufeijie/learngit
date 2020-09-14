@@ -3,25 +3,25 @@ using System.Collections.Generic;
 
 namespace PV_analysis.Components
 {
-    internal class Capacitor : Component
+    internal abstract class Capacitor : Component
     {
         //限制条件
-        private static readonly double margin = 0.1; //裕量
-        private static readonly int numberMax = 10; //最大器件数
+        protected static readonly double margin = 0.1; //裕量
+        protected static readonly int numberMax = 20; //最大器件数
 
         //器件参数
-        private int device; //电容编号
-        private int numberSeriesConnected; //串联数量
-        private int numberParallelConnected; //并联数量
+        protected int device; //电容编号
+        protected int numberSeriesConnected; //串联数量
+        protected int numberParallelConnected; //并联数量
 
         //设计条件
-        private double capacitor; //电容值
-        private double voltageMax; //电压最大值
-        private double currentRMSMax; //电流有效值最大值
+        protected double capacitor; //电容值
+        protected double voltageMax; //电压最大值
+        protected double currentRMSMax; //电流有效值最大值
 
         //电路参数
-        private double currentRMS; //电容电流有效值
-        private double[,] currentRMSForEvaluation = new double[5, 7]; //电容电流有效值（用于评估）
+        protected double currentRMS; //电容电流有效值
+        protected double[,] currentRMSForEvaluation = new double[5, 7]; //电容电流有效值（用于评估）
 
         /// <summary>
         /// 初始化
@@ -30,7 +30,6 @@ namespace PV_analysis.Components
         public Capacitor(int number)
         {
             this.number = number;
-            isCheckExcess = true;
         }
 
         /// <summary>
@@ -46,7 +45,7 @@ namespace PV_analysis.Components
         /// 设置电容型号
         /// </summary>
         /// <returns>型号</returns>
-        private void SetDeviceType(string type)
+        protected void SetDeviceType(string type)
         {
             for (int i = 0; i < Data.CapacitorList.Count; i++)
             {
@@ -138,34 +137,6 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
-        /// 自动设计
-        /// </summary>
-        public override void Design()
-        {
-            for (int i = 0; i < Data.CapacitorList.Count; i++) //搜寻库中所有电容型号
-            {
-                device = i; //选用当前型号电容
-                int numberSeriesConnectedMin = (int)Math.Ceiling(voltageMax / (Data.CapacitorList[device].Math_Un) * (1 - margin));
-                int numberParallelConnectedMin = (int)Math.Ceiling(currentRMSMax / (Data.CapacitorList[device].Math_Irms) * (1 - margin));
-                for (int M = numberSeriesConnectedMin; M <= numberMax; M++)
-                {
-                    for (int N = numberParallelConnectedMin; M * N <= numberMax; N++)
-                    {
-                        numberSeriesConnected = M;
-                        numberParallelConnected = N;
-                        if (Validate()) //验证该电容是否可用
-                        {
-                            M = numberMax; //对于同种电容，只允许一个可行设计方案
-                            N = numberMax;
-                            Evaluate();
-                            designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// 验证电容的编号、电压、容值、电流是否满足要求
         /// </summary>
         /// <returns>验证结果，true为满足</returns>
@@ -189,9 +160,8 @@ namespace PV_analysis.Components
                 return false;
             }
 
-            //验证电压电流应力、容值是否满足
+            //验证电压电流应力是否满足
             if (Data.CapacitorList[device].Math_Un * (1 - margin) * numberSeriesConnected < voltageMax
-                || Data.CapacitorList[device].Math_C * numberParallelConnected / numberSeriesConnected < capacitor * 1e6
                 || Data.CapacitorList[device].Math_Irms * (1 - margin) * numberParallelConnected < currentRMSMax)
             {
                 return false;
@@ -200,9 +170,8 @@ namespace PV_analysis.Components
             //容量过剩检查
             if (isCheckExcess)
             {
-                if (Data.CapacitorList[device].Math_Un * (1 - margin) * numberSeriesConnected > voltageMax * (1 + excess) //防止过多的串联
-                    || Data.CapacitorList[device].Math_C * numberParallelConnected / numberSeriesConnected > capacitor * 1e6 * (1 + excess)
-                    //|| Data.CapacitorList[device].Math_Irms * (1 - margin) * numberParallelConnected > currentRMSMax * (1 + excess)
+                if (Data.CapacitorList[device].Math_Un * (1 - margin) * numberSeriesConnected > voltageMax * (1 + excess)
+                    || Data.CapacitorList[device].Math_Irms * (1 - margin) * numberParallelConnected > currentRMSMax * (1 + excess)
                     )
                 {
                     return false;
