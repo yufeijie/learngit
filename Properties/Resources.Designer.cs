@@ -153,6 +153,16 @@ namespace PV_analysis.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 前级DCDC变换单元_三级 {
+            get {
+                object obj = ResourceManager.GetObject("前级DCDC变换单元_三级", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 设置 {
             get {
                 object obj = ResourceManager.GetObject("设置", resourceCulture);
@@ -166,6 +176,36 @@ namespace PV_analysis.Properties {
         internal static System.Drawing.Bitmap 评估结果 {
             get {
                 object obj = ResourceManager.GetObject("评估结果", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 逆变单元 {
+            get {
+                object obj = ResourceManager.GetObject("逆变单元", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 隔离DCDC变换单元_三级 {
+            get {
+                object obj = ResourceManager.GetObject("隔离DCDC变换单元_三级", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 隔离DCDC变换单元_两级 {
+            get {
+                object obj = ResourceManager.GetObject("隔离DCDC变换单元_两级", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

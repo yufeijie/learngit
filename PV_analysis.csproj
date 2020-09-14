@@ -237,6 +237,20 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\前级DCDC变换单元%28三级%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\前级DCDC变换单元_三级.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\隔离DCDC变换单元_三级.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\隔离DCDC变换单元_两级.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\逆变单元.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

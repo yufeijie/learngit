@@ -2,6 +2,7 @@
 using LiveCharts.Defaults;
 using LiveCharts.Geared;
 using LiveCharts.Wpf;
+using PV_analysis.Converters;
 using PV_analysis.Structures;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace PV_analysis
         private System.Drawing.Color inactiveColor;
         private List<Label> labelList = new List<Label>();
 
+        //评估参数（系统）
+        private Structure structure; //架构
         private string selectedStructure; //所要评估的架构，三级架构或两级架构
 
         private double Psys; //架构总功率
@@ -46,7 +49,9 @@ namespace PV_analysis
         private string[] DCAC_modulationRange = { "PSPWM", "LSPWM" }; //可用调制方式序列
         private double[] DCAC_frequencyRange;
 
-        private Structure structure; //架构
+        //评估参数（变换单元）
+        private Converter converter; //变换单元
+        private string selectedConverter; //所要评估的变换单元
 
         //不同负载下的损耗分布
         private int div = 100; //空载到满载划分精度
@@ -116,9 +121,17 @@ namespace PV_analysis
             Tab_Admin_Button.BackColor = activeColor;
         }
 
-        private void Estimate_Ready_Begin_Button_Click(object sender, EventArgs e)
+        private void Estimate_Ready_System_button_Click(object sender, EventArgs e)
         {
             panelNow[2] = Estimate_Step1_Panel;
+            panelNow[0].Visible = false;
+            panelNow[0] = panelNow[2];
+            panelNow[0].Visible = true;
+        }
+
+        private void Estimate_Ready_Converter_button_Click(object sender, EventArgs e)
+        {
+            panelNow[2] = Estimate_Step1B_Panel;
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
@@ -144,6 +157,7 @@ namespace PV_analysis
             }
             else
             {
+                selectedConverter = null;
                 selectedStructure = Estimate_Step1_CheckedListBox.GetItemText(Estimate_Step1_CheckedListBox.CheckedItems[0]);
                 switch (selectedStructure)
                 {
@@ -209,9 +223,156 @@ namespace PV_analysis
             }
         }
 
+        private void Estimate_Step1B_Prev_Button_Click(object sender, EventArgs e)
+        {
+            panelNow[2] = Estimate_Ready_Panel;
+            panelNow[0].Visible = false;
+            panelNow[0] = panelNow[2];
+            panelNow[0].Visible = true;
+        }
+
+        private void Estimate_Step1B_Next_Button_Click(object sender, EventArgs e)
+        {
+            if (Estimate_Step1B_CheckedListBox.CheckedItems.Count <= 0)
+            {
+                MessageBox.Show("请选择一项");
+            }
+            else if (Estimate_Step1B_CheckedListBox.CheckedItems.Count > 1)
+            {
+                MessageBox.Show("只能选择一项");
+            }
+            else
+            {
+                selectedConverter = Estimate_Step1B_CheckedListBox.GetItemText(Estimate_Step1B_CheckedListBox.CheckedItems[0]);
+                selectedStructure = null;
+                switch (selectedConverter)
+                {
+                    case "前级DC/DC变换单元_三级":
+                        Estimate_Step2_Group1_Item1_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item2_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item3_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item1_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group3_Item1_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = false;
+
+                        Estimate_Step2_Group1_Item1_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item2_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item3_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item1_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group3_Item1_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = false;
+                        break;
+                    case "隔离DC/DC变换单元_三级":
+                        Estimate_Step2_Group1_Item1_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item1_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group3_Item1_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = false;
+
+                        Estimate_Step2_Group1_Item1_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item1_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group3_Item1_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = false;
+                        break;
+                    case "隔离DC/DC变换单元_两级":
+                        Estimate_Step2_Group1_Item1_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item1_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = true;
+                        Estimate_Step2_Group3_Item1_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = false;
+
+                        Estimate_Step2_Group1_Item1_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item1_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Checked = true;
+                        Estimate_Step2_Group3_Item1_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = false;
+                        break;
+                    case "逆变单元":
+                        Estimate_Step2_Group1_Item1_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item1_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group3_Item1_CheckBox.Enabled = true;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = true;
+
+                        Estimate_Step2_Group1_Item1_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item1_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group3_Item1_CheckBox.Checked = true;
+                        Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = true;
+                        break;
+                }
+                panelNow[2] = Estimate_Step2_Panel;
+                panelNow[0].Visible = false;
+                panelNow[0] = panelNow[2];
+                panelNow[0].Visible = true;
+            }
+        }
+
         private void Estimate_Step2_Prev_Button_Click(object sender, EventArgs e)
         {
-            panelNow[2] = Estimate_Step1_Panel;
+            if (selectedStructure != null)
+            {
+                panelNow[2] = Estimate_Step1_Panel;
+            }
+            else
+            {
+                panelNow[2] = Estimate_Step1B_Panel;
+            }
             panelNow[0].Visible = false;
             panelNow[0] = panelNow[2];
             panelNow[0].Visible = true;
@@ -249,83 +410,278 @@ namespace PV_analysis
                 DCAC_topologyList.Add("CHB");
             }
 
-            if (selectedStructure.Equals("三级架构") && DCDC_topologyList.Count == 0)
+            if (selectedStructure != null)
             {
-                MessageBox.Show("请至少选择一项前级DC/DC拓扑");
-            }
-            else if (isolatedDCDC_topologyList.Count == 0)
-            {
-                MessageBox.Show("请至少选择一项隔离DC/DC拓扑");
-            }
-            else if (DCAC_topologyList.Count == 0)
-            {
-                MessageBox.Show("请至少选择一项逆变拓扑");
+                if (selectedStructure.Equals("三级架构") && DCDC_topologyList.Count == 0)
+                {
+                    MessageBox.Show("请至少选择一项前级DC/DC拓扑");
+                    return;
+                }
+                else if (isolatedDCDC_topologyList.Count == 0)
+                {
+                    MessageBox.Show("请至少选择一项隔离DC/DC拓扑");
+                    return;
+                }
+                else if (DCAC_topologyList.Count == 0)
+                {
+                    MessageBox.Show("请至少选择一项逆变拓扑");
+                    return;
+                }
+                else
+                {
+                    switch (selectedStructure)
+                    {
+                        case "三级架构":
+                            Estimate_Step3_DCDCMinNumber_TextBox.Enabled = true;
+                            Estimate_Step3_DCDCMaxNumber_TextBox.Enabled = true;
+                            Estimate_Step3_DCDCMinFrequency_TextBox.Enabled = true;
+                            Estimate_Step3_DCDCMaxFrequency_TextBox.Enabled = true;
+                            Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Enabled = true;
+                            Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Enabled = true;
+                            Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Enabled = true;
+                            Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Enabled = true;
+                            Estimate_Step3_DCACMinNumber_TextBox.Enabled = true;
+                            Estimate_Step3_DCACMaxNumber_TextBox.Enabled = true;
+                            Estimate_Step3_DCACMinFrequency_TextBox.Enabled = true;
+                            Estimate_Step3_DCACMaxFrequency_TextBox.Enabled = true;
+                            Estimate_Step3_DCDCMinNumber_TextBox.Text = "1";
+                            Estimate_Step3_DCDCMaxNumber_TextBox.Text = "120";
+                            Estimate_Step3_DCDCMinFrequency_TextBox.Text = "1";
+                            Estimate_Step3_DCDCMaxFrequency_TextBox.Text = "100";
+                            Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text = "1";
+                            Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text = "40";
+                            Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text = "1";
+                            Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text = "100";
+                            Estimate_Step3_DCACMinNumber_TextBox.Text = "1";
+                            Estimate_Step3_DCACMaxNumber_TextBox.Text = "40";
+                            Estimate_Step3_DCACMinFrequency_TextBox.Text = "10";
+                            Estimate_Step3_DCACMaxFrequency_TextBox.Text = "10";
+                            break;
+                        case "两级架构":
+                            Estimate_Step3_DCDCMinNumber_TextBox.Enabled = false;
+                            Estimate_Step3_DCDCMaxNumber_TextBox.Enabled = false;
+                            Estimate_Step3_DCDCMinFrequency_TextBox.Enabled = false;
+                            Estimate_Step3_DCDCMaxFrequency_TextBox.Enabled = false;
+                            Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Enabled = false;
+                            Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Enabled = false;
+                            Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Enabled = false;
+                            Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Enabled = false;
+                            Estimate_Step3_DCACMinNumber_TextBox.Enabled = false;
+                            Estimate_Step3_DCACMaxNumber_TextBox.Enabled = false;
+                            Estimate_Step3_DCACMinFrequency_TextBox.Enabled = false;
+                            Estimate_Step3_DCACMaxFrequency_TextBox.Enabled = false;
+                            Estimate_Step3_DCDCMinNumber_TextBox.Text = "";
+                            Estimate_Step3_DCDCMaxNumber_TextBox.Text = "";
+                            Estimate_Step3_DCDCMinFrequency_TextBox.Text = "";
+                            Estimate_Step3_DCDCMaxFrequency_TextBox.Text = "";
+                            Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text = "20";
+                            Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text = "20";
+                            Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text = "25";
+                            Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text = "25";
+                            Estimate_Step3_DCACMinNumber_TextBox.Text = "20";
+                            Estimate_Step3_DCACMaxNumber_TextBox.Text = "20";
+                            Estimate_Step3_DCACMinFrequency_TextBox.Text = "10";
+                            Estimate_Step3_DCACMaxFrequency_TextBox.Text = "10";
+                            break;
+                    }
+                    DCDC_topologyRange = DCDC_topologyList.ToArray();
+                    isolatedDCDC_topologyRange = isolatedDCDC_topologyList.ToArray();
+                    DCAC_topologyRange = DCAC_topologyList.ToArray();
+                }
             }
             else
             {
-                switch (selectedStructure)
+                if (selectedStructure.Equals("前级DC/DC变换单元_三级") && DCDC_topologyList.Count == 0)
                 {
-                    case "三级架构":
-                        Estimate_Step3_DCDCMinNumber_TextBox.Enabled = true;
-                        Estimate_Step3_DCDCMaxNumber_TextBox.Enabled = true;
-                        Estimate_Step3_DCDCMinFrequency_TextBox.Enabled = true;
-                        Estimate_Step3_DCDCMaxFrequency_TextBox.Enabled = true;
-                        Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Enabled = true;
-                        Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Enabled = true;
-                        Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Enabled = true;
-                        Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Enabled = true;
-                        Estimate_Step3_DCACMinNumber_TextBox.Enabled = true;
-                        Estimate_Step3_DCACMaxNumber_TextBox.Enabled = true;
-                        Estimate_Step3_DCACMinFrequency_TextBox.Enabled = true;
-                        Estimate_Step3_DCACMaxFrequency_TextBox.Enabled = true;
-                        Estimate_Step3_DCDCMinNumber_TextBox.Text = "1";
-                        Estimate_Step3_DCDCMaxNumber_TextBox.Text = "120";
-                        Estimate_Step3_DCDCMinFrequency_TextBox.Text = "1";
-                        Estimate_Step3_DCDCMaxFrequency_TextBox.Text = "100";
-                        Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text = "1";
-                        Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text = "40";
-                        Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text = "1";
-                        Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text = "100";
-                        Estimate_Step3_DCACMinNumber_TextBox.Text = "1";
-                        Estimate_Step3_DCACMaxNumber_TextBox.Text = "40";
-                        Estimate_Step3_DCACMinFrequency_TextBox.Text = "10";
-                        Estimate_Step3_DCACMaxFrequency_TextBox.Text = "10";
-                        break;
-                    case "两级架构":
-                        Estimate_Step3_DCDCMinNumber_TextBox.Enabled = false;
-                        Estimate_Step3_DCDCMaxNumber_TextBox.Enabled = false;
-                        Estimate_Step3_DCDCMinFrequency_TextBox.Enabled = false;
-                        Estimate_Step3_DCDCMaxFrequency_TextBox.Enabled = false;
-                        Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Enabled = false;
-                        Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Enabled = false;
-                        Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Enabled = false;
-                        Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Enabled = false;
-                        Estimate_Step3_DCACMinNumber_TextBox.Enabled = false;
-                        Estimate_Step3_DCACMaxNumber_TextBox.Enabled = false;
-                        Estimate_Step3_DCACMinFrequency_TextBox.Enabled = false;
-                        Estimate_Step3_DCACMaxFrequency_TextBox.Enabled = false;
-                        Estimate_Step3_DCDCMinNumber_TextBox.Text = "";
-                        Estimate_Step3_DCDCMaxNumber_TextBox.Text = "";
-                        Estimate_Step3_DCDCMinFrequency_TextBox.Text = "";
-                        Estimate_Step3_DCDCMaxFrequency_TextBox.Text = "";
-                        Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text = "20";
-                        Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text = "20";
-                        Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text = "25";
-                        Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text = "25";
-                        Estimate_Step3_DCACMinNumber_TextBox.Text = "20";
-                        Estimate_Step3_DCACMaxNumber_TextBox.Text = "20";
-                        Estimate_Step3_DCACMinFrequency_TextBox.Text = "10";
-                        Estimate_Step3_DCACMaxFrequency_TextBox.Text = "10";
-                        break;
+                    MessageBox.Show("请至少选择一项前级DC/DC拓扑");
+                    return;
                 }
-                DCDC_topologyRange = DCDC_topologyList.ToArray();
-                isolatedDCDC_topologyRange = isolatedDCDC_topologyList.ToArray();
-                DCAC_topologyRange = DCAC_topologyList.ToArray();
-                panelNow[2] = Estimate_Step3_Panel;
-                panelNow[0].Visible = false;
-                panelNow[0] = panelNow[2];
-                panelNow[0].Visible = true;
+                else if ((selectedStructure.Equals("隔离DC/DC变换单元_三级") || selectedStructure.Equals("隔离DC/DC变换单元_两级")) && isolatedDCDC_topologyList.Count == 0)
+                {
+                    MessageBox.Show("请至少选择一项隔离DC/DC拓扑");
+                    return;
+                }
+                else if (selectedStructure.Equals("逆变单元") && DCAC_topologyList.Count == 0)
+                {
+                    MessageBox.Show("请至少选择一项逆变拓扑");
+                    return;
+                }
+                else
+                {
+                    switch (selectedStructure)
+                    {
+                        case "前级DC/DC变换单元_三级":
+                            Estimate_Step2_Group1_Item1_CheckBox.Enabled = true;
+                            Estimate_Step2_Group1_Item2_CheckBox.Enabled = true;
+                            Estimate_Step2_Group1_Item3_CheckBox.Enabled = true;
+                            Estimate_Step2_Group2_Item1_CheckBox.Enabled = false;
+                            Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                            Estimate_Step2_Group3_Item1_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = true;
+                            Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = true;
+                            Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = true;
+                            Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = false;
+
+                            Estimate_Step2_Group1_Item1_CheckBox.Checked = true;
+                            Estimate_Step2_Group1_Item2_CheckBox.Checked = true;
+                            Estimate_Step2_Group1_Item3_CheckBox.Checked = true;
+                            Estimate_Step2_Group2_Item1_CheckBox.Checked = false;
+                            Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                            Estimate_Step2_Group3_Item1_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = true;
+                            Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = true;
+                            Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = true;
+                            Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = false;
+                            break;
+                        case "隔离DC/DC变换单元_三级":
+                            Estimate_Step2_Group1_Item1_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item2_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
+                            Estimate_Step2_Group2_Item1_CheckBox.Enabled = true;
+                            Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                            Estimate_Step2_Group3_Item1_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = true;
+                            Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = false;
+
+                            Estimate_Step2_Group1_Item1_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item2_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
+                            Estimate_Step2_Group2_Item1_CheckBox.Checked = true;
+                            Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                            Estimate_Step2_Group3_Item1_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = true;
+                            Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = false;
+                            break;
+                        case "隔离DC/DC变换单元_两级":
+                            Estimate_Step2_Group1_Item1_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item2_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
+                            Estimate_Step2_Group2_Item1_CheckBox.Enabled = false;
+                            Estimate_Step2_Group2_Item2_CheckBox.Enabled = true;
+                            Estimate_Step2_Group3_Item1_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = true;
+                            Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = false;
+
+                            Estimate_Step2_Group1_Item1_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item2_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
+                            Estimate_Step2_Group2_Item1_CheckBox.Checked = false;
+                            Estimate_Step2_Group2_Item2_CheckBox.Checked = true;
+                            Estimate_Step2_Group3_Item1_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = true;
+                            Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = false;
+                            break;
+                        case "逆变单元":
+                            Estimate_Step2_Group1_Item1_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item2_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
+                            Estimate_Step2_Group2_Item1_CheckBox.Enabled = false;
+                            Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                            Estimate_Step2_Group3_Item1_CheckBox.Enabled = true;
+                            Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                            Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = true;
+
+                            Estimate_Step2_Group1_Item1_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item2_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
+                            Estimate_Step2_Group2_Item1_CheckBox.Checked = false;
+                            Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                            Estimate_Step2_Group3_Item1_CheckBox.Checked = true;
+                            Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                            Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = true;
+                            break;
+
+                        case "三级架构":
+                            Estimate_Step3_DCDCMinNumber_TextBox.Enabled = true;
+                            Estimate_Step3_DCDCMaxNumber_TextBox.Enabled = true;
+                            Estimate_Step3_DCDCMinFrequency_TextBox.Enabled = true;
+                            Estimate_Step3_DCDCMaxFrequency_TextBox.Enabled = true;
+                            Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Enabled = true;
+                            Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Enabled = true;
+                            Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Enabled = true;
+                            Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Enabled = true;
+                            Estimate_Step3_DCACMinNumber_TextBox.Enabled = true;
+                            Estimate_Step3_DCACMaxNumber_TextBox.Enabled = true;
+                            Estimate_Step3_DCACMinFrequency_TextBox.Enabled = true;
+                            Estimate_Step3_DCACMaxFrequency_TextBox.Enabled = true;
+                            Estimate_Step3_DCDCMinNumber_TextBox.Text = "1";
+                            Estimate_Step3_DCDCMaxNumber_TextBox.Text = "120";
+                            Estimate_Step3_DCDCMinFrequency_TextBox.Text = "1";
+                            Estimate_Step3_DCDCMaxFrequency_TextBox.Text = "100";
+                            Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text = "1";
+                            Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text = "40";
+                            Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text = "1";
+                            Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text = "100";
+                            Estimate_Step3_DCACMinNumber_TextBox.Text = "1";
+                            Estimate_Step3_DCACMaxNumber_TextBox.Text = "40";
+                            Estimate_Step3_DCACMinFrequency_TextBox.Text = "10";
+                            Estimate_Step3_DCACMaxFrequency_TextBox.Text = "10";
+                            break;
+                        case "两级架构":
+                            Estimate_Step3_DCDCMinNumber_TextBox.Enabled = false;
+                            Estimate_Step3_DCDCMaxNumber_TextBox.Enabled = false;
+                            Estimate_Step3_DCDCMinFrequency_TextBox.Enabled = false;
+                            Estimate_Step3_DCDCMaxFrequency_TextBox.Enabled = false;
+                            Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Enabled = false;
+                            Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Enabled = false;
+                            Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Enabled = false;
+                            Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Enabled = false;
+                            Estimate_Step3_DCACMinNumber_TextBox.Enabled = false;
+                            Estimate_Step3_DCACMaxNumber_TextBox.Enabled = false;
+                            Estimate_Step3_DCACMinFrequency_TextBox.Enabled = false;
+                            Estimate_Step3_DCACMaxFrequency_TextBox.Enabled = false;
+                            Estimate_Step3_DCDCMinNumber_TextBox.Text = "";
+                            Estimate_Step3_DCDCMaxNumber_TextBox.Text = "";
+                            Estimate_Step3_DCDCMinFrequency_TextBox.Text = "";
+                            Estimate_Step3_DCDCMaxFrequency_TextBox.Text = "";
+                            Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text = "20";
+                            Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text = "20";
+                            Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text = "25";
+                            Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text = "25";
+                            Estimate_Step3_DCACMinNumber_TextBox.Text = "20";
+                            Estimate_Step3_DCACMaxNumber_TextBox.Text = "20";
+                            Estimate_Step3_DCACMinFrequency_TextBox.Text = "10";
+                            Estimate_Step3_DCACMaxFrequency_TextBox.Text = "10";
+                            break;
+                    }
+                    DCDC_topologyRange = DCDC_topologyList.ToArray();
+                    isolatedDCDC_topologyRange = isolatedDCDC_topologyList.ToArray();
+                    DCAC_topologyRange = DCAC_topologyList.ToArray();
+                }
             }
+
+            panelNow[2] = Estimate_Step3_Panel;
+            panelNow[0].Visible = false;
+            panelNow[0] = panelNow[2];
+            panelNow[0].Visible = true;
         }
 
         private void Estimate_Step3_Prev_Button_Click(object sender, EventArgs e)
@@ -1409,6 +1765,7 @@ namespace PV_analysis
             Display_Detail_Load_Value_Label.Text = Display_Detail_Load_TrackBar.Value.ToString() + "%";
             DisplayLossBreakdown();
         }
+
         private void Display_Detail_Vin_TrackBar_Scroll(object sender, EventArgs e)
         {
             Display_Detail_Vin_Value_Label.Text = Display_Detail_Vin_TrackBar.Value.ToString() + "V";
@@ -1440,6 +1797,34 @@ namespace PV_analysis
         private void Estimate_Step1_Item2_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Estimate_Step1_CheckedListBox.SetItemChecked(1, Estimate_Step1_Item2_CheckBox.Checked);
+        }
+
+        private void Estimate_Step1B_CheckedListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Estimate_Step1B_Item1_CheckBox.Checked = Estimate_Step1B_CheckedListBox.GetItemChecked(0);
+            Estimate_Step1B_Item2_CheckBox.Checked = Estimate_Step1B_CheckedListBox.GetItemChecked(1);
+            Estimate_Step1B_Item3_CheckBox.Checked = Estimate_Step1B_CheckedListBox.GetItemChecked(2);
+            Estimate_Step1B_Item4_CheckBox.Checked = Estimate_Step1B_CheckedListBox.GetItemChecked(3);
+        }
+
+        private void Estimate_Step1B_Item1_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step1B_CheckedListBox.SetItemChecked(0, Estimate_Step1B_Item1_CheckBox.Checked);
+        }
+
+        private void Estimate_Step1B_Item2_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step1B_CheckedListBox.SetItemChecked(1, Estimate_Step1B_Item2_CheckBox.Checked);
+        }
+
+        private void Estimate_Step1B_Item3_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step1B_CheckedListBox.SetItemChecked(2, Estimate_Step1B_Item3_CheckBox.Checked);
+        }
+
+        private void Estimate_Step1B_Item4_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step1B_CheckedListBox.SetItemChecked(3, Estimate_Step1B_Item4_CheckBox.Checked);
         }
 
         private void Estimate_Step2_Group1_Item1_CheckBox_CheckedChanged(object sender, EventArgs e)
