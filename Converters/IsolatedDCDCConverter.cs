@@ -140,7 +140,7 @@ namespace PV_analysis.Converters
             {
                 conditions = new string[]
                 {
-                    GetType().Name + "(TwoStage)",
+                    GetType().Name + "_TwoStage",
                     Math_Psys.ToString(),
                     Math_Vin_min.ToString(),
                     Math_Vin_max.ToString(),
@@ -191,7 +191,7 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
-        public void Optimize()
+        public override void Optimize()
         {
             foreach (int n in NumberRange) //模块数变化
             {

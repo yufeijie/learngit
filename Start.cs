@@ -139,7 +139,7 @@ namespace PV_analysis
                     converter.Evaluate(); //进行评估
                     break;
 
-                case "IsolatedDCDCConverter(TwoStage)":
+                case "IsolatedDCDCConverter_TwoStage":
                     Formula.Init();
                     Psys = double.Parse(conditions[1]);
                     Vin_min = double.Parse(conditions[2]);

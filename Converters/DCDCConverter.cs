@@ -129,7 +129,7 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
-        public void Optimize()
+        public override void Optimize()
         {
             foreach (int n in NumberRange) //模块数变化
             {

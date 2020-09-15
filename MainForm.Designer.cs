@@ -168,66 +168,6 @@
             this.Estimate_Step4_Operation_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step4_Prev_Button = new System.Windows.Forms.Button();
             this.Estimate_Step4_Next_Button = new System.Windows.Forms.Button();
-            this.Estimate_Step5_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Step5_Main_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Step5_DCACNumberRange_Symbol_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Symbol_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCDCNumberRange_Symbol_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCACMaxNumber_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCDCMaxNumber_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCACTopologyRange_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCACTopologyRange_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCDCTopologyRange_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCDCTopologyRange_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_StructureRange_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_StructureRange_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCACMaxFrequency_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCACMinFrequency_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_IsolatedDCDCMaxFrequency_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCDCMinFrequency_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCDCMaxFrequency_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_IsolatedDCDCMinFrequency_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCACMinNumber_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_IsolatedDCDCMinNumber_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCDCMinNumber_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Vgrid_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Vpvpeak_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Vpvmax_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Vpvmin_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Psys_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCACFrequencyRange_Unit_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCACFrequencyRange_Symbol_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCACFrequencyRange_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCACNumberRange_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCAC_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Unit_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Symbol_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_IsolatedDCDC_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCDCFrequencyRange_Unit_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCDCFrequencyRange_Symbol_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCDCFrequencyRange_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCDCNumberRange_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_DCDC_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Vgrid_Unit_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Vgrid_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Vpvpeak_Unit_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Vpvpeak_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_VpvRange_Unit_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_VpvRange_Symbol_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_VpvRange_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Psys_Unit_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Psys_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_System_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Title_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Step5_Title_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step5_Operation_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Step5_Prev_Button = new System.Windows.Forms.Button();
-            this.Estimate_Step5_Next_button = new System.Windows.Forms.Button();
             this.Estimate_Result_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Result_Main_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Result_Print_Label = new System.Windows.Forms.Label();
@@ -367,6 +307,36 @@
             this.Estimate_Step1B_Operation_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1B_Prev_Button = new System.Windows.Forms.Button();
             this.Estimate_Step1B_Next_Button = new System.Windows.Forms.Button();
+            this.Estimate_Step3B_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step3B_Main_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step3B_Vo_Unit_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_Vo_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3B_Vo_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_NumberRange_Symbol_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_MaxNumber_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3B_FrequencyRange_Unit_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_MaxFrequency_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3B_FrequencyRange_Symbol_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_MinFrequency_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3B_FrequencyRange_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_MinNumber_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3B_NumberRange_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_Vin_Unit_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_Vin_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3B_Vin_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_VinRange_Unit_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_Vinmax_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3B_VinRange_Symbol_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_Vinmin_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3B_VinRange_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_Psys_Unit_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_Psys_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3B_Psys_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_Title_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step3B_Title_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step3B_Prev_Button = new System.Windows.Forms.Button();
+            this.Estimate_Step3B_Next_Button = new System.Windows.Forms.Button();
             this.Home_Panel.SuspendLayout();
             this.Home_Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).BeginInit();
@@ -415,10 +385,6 @@
             this.Estimate_Step4_Semiconductor_Panel.SuspendLayout();
             this.Estimate_Step4_Title_Panel.SuspendLayout();
             this.Estimate_Step4_Operation_Panel.SuspendLayout();
-            this.Estimate_Step5_Panel.SuspendLayout();
-            this.Estimate_Step5_Main_Panel.SuspendLayout();
-            this.Estimate_Step5_Title_Panel.SuspendLayout();
-            this.Estimate_Step5_Operation_Panel.SuspendLayout();
             this.Estimate_Result_Panel.SuspendLayout();
             this.Estimate_Result_Main_Panel.SuspendLayout();
             this.Estimate_Result_Title_Panel.SuspendLayout();
@@ -452,6 +418,10 @@
             this.Estimate_Step1B_Main_Left_Panel.SuspendLayout();
             this.Estimate_Step1B_Title_Panel.SuspendLayout();
             this.Estimate_Step1B_Operation_Panel.SuspendLayout();
+            this.Estimate_Step3B_Panel.SuspendLayout();
+            this.Estimate_Step3B_Main_Panel.SuspendLayout();
+            this.Estimate_Step3B_Title_Panel.SuspendLayout();
+            this.Estimate_Step3B_Operation_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // Home_Panel
@@ -2089,726 +2059,9 @@
             this.Estimate_Step4_Next_Button.Name = "Estimate_Step4_Next_Button";
             this.Estimate_Step4_Next_Button.Size = new System.Drawing.Size(100, 34);
             this.Estimate_Step4_Next_Button.TabIndex = 0;
-            this.Estimate_Step4_Next_Button.Text = "下一步";
+            this.Estimate_Step4_Next_Button.Text = "开始评估";
             this.Estimate_Step4_Next_Button.UseVisualStyleBackColor = true;
             this.Estimate_Step4_Next_Button.Click += new System.EventHandler(this.Estimate_Step4_Next_Button_Click);
-            // 
-            // Estimate_Step5_Panel
-            // 
-            this.Estimate_Step5_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Estimate_Step5_Panel.Controls.Add(this.Estimate_Step5_Main_Panel);
-            this.Estimate_Step5_Panel.Controls.Add(this.Estimate_Step5_Title_Panel);
-            this.Estimate_Step5_Panel.Controls.Add(this.Estimate_Step5_Operation_Panel);
-            this.Estimate_Step5_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Estimate_Step5_Panel.Location = new System.Drawing.Point(150, 0);
-            this.Estimate_Step5_Panel.Name = "Estimate_Step5_Panel";
-            this.Estimate_Step5_Panel.Size = new System.Drawing.Size(1434, 861);
-            this.Estimate_Step5_Panel.TabIndex = 8;
-            this.Estimate_Step5_Panel.Visible = false;
-            // 
-            // Estimate_Step5_Main_Panel
-            // 
-            this.Estimate_Step5_Main_Panel.AutoScroll = true;
-            this.Estimate_Step5_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCACNumberRange_Symbol_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_IsolatedDCDCNumberRange_Symbol_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCDCNumberRange_Symbol_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCACMaxNumber_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCDCMaxNumber_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCACTopologyRange_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_IsolatedDCDCTopologyRange_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCACTopologyRange_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCDCTopologyRange_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCDCTopologyRange_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_StructureRange_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_StructureRange_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCACMaxFrequency_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCACMinFrequency_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_IsolatedDCDCMaxFrequency_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCDCMinFrequency_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCDCMaxFrequency_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_IsolatedDCDCMinFrequency_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCACMinNumber_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_IsolatedDCDCMinNumber_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCDCMinNumber_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_Vgrid_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_Vpvpeak_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_Vpvmax_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_Vpvmin_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_Psys_Value_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCACFrequencyRange_Unit_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCACFrequencyRange_Symbol_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCACFrequencyRange_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCACNumberRange_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCAC_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_IsolatedDCDCFrequencyRange_Unit_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_IsolatedDCDCFrequencyRange_Symbol_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_IsolatedDCDCFrequencyRange_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_IsolatedDCDCNumberRange_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_IsolatedDCDC_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCDCFrequencyRange_Unit_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCDCFrequencyRange_Symbol_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCDCFrequencyRange_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCDCNumberRange_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_DCDC_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_Vgrid_Unit_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_Vgrid_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_Vpvpeak_Unit_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_Vpvpeak_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_VpvRange_Unit_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_VpvRange_Symbol_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_VpvRange_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_Psys_Unit_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_Psys_Label);
-            this.Estimate_Step5_Main_Panel.Controls.Add(this.Estimate_Step5_System_Label);
-            this.Estimate_Step5_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Estimate_Step5_Main_Panel.Location = new System.Drawing.Point(0, 50);
-            this.Estimate_Step5_Main_Panel.Name = "Estimate_Step5_Main_Panel";
-            this.Estimate_Step5_Main_Panel.Size = new System.Drawing.Size(1432, 759);
-            this.Estimate_Step5_Main_Panel.TabIndex = 4;
-            // 
-            // Estimate_Step5_DCACNumberRange_Symbol_Label
-            // 
-            this.Estimate_Step5_DCACNumberRange_Symbol_Label.AutoSize = true;
-            this.Estimate_Step5_DCACNumberRange_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCACNumberRange_Symbol_Label.Location = new System.Drawing.Point(511, 817);
-            this.Estimate_Step5_DCACNumberRange_Symbol_Label.Name = "Estimate_Step5_DCACNumberRange_Symbol_Label";
-            this.Estimate_Step5_DCACNumberRange_Symbol_Label.Size = new System.Drawing.Size(20, 21);
-            this.Estimate_Step5_DCACNumberRange_Symbol_Label.TabIndex = 110;
-            this.Estimate_Step5_DCACNumberRange_Symbol_Label.Text = "~";
-            this.Estimate_Step5_DCACNumberRange_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_IsolatedDCDCNumberRange_Symbol_Label
-            // 
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Symbol_Label.AutoSize = true;
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Symbol_Label.Location = new System.Drawing.Point(511, 607);
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Symbol_Label.Name = "Estimate_Step5_IsolatedDCDCNumberRange_Symbol_Label";
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Symbol_Label.Size = new System.Drawing.Size(20, 21);
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Symbol_Label.TabIndex = 109;
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Symbol_Label.Text = "~";
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCDCNumberRange_Symbol_Label
-            // 
-            this.Estimate_Step5_DCDCNumberRange_Symbol_Label.AutoSize = true;
-            this.Estimate_Step5_DCDCNumberRange_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCDCNumberRange_Symbol_Label.Location = new System.Drawing.Point(511, 397);
-            this.Estimate_Step5_DCDCNumberRange_Symbol_Label.Name = "Estimate_Step5_DCDCNumberRange_Symbol_Label";
-            this.Estimate_Step5_DCDCNumberRange_Symbol_Label.Size = new System.Drawing.Size(20, 21);
-            this.Estimate_Step5_DCDCNumberRange_Symbol_Label.TabIndex = 108;
-            this.Estimate_Step5_DCDCNumberRange_Symbol_Label.Text = "~";
-            this.Estimate_Step5_DCDCNumberRange_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCACMaxNumber_Value_Label
-            // 
-            this.Estimate_Step5_DCACMaxNumber_Value_Label.AutoSize = true;
-            this.Estimate_Step5_DCACMaxNumber_Value_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCACMaxNumber_Value_Label.Location = new System.Drawing.Point(589, 817);
-            this.Estimate_Step5_DCACMaxNumber_Value_Label.Name = "Estimate_Step5_DCACMaxNumber_Value_Label";
-            this.Estimate_Step5_DCACMaxNumber_Value_Label.Size = new System.Drawing.Size(28, 21);
-            this.Estimate_Step5_DCACMaxNumber_Value_Label.TabIndex = 107;
-            this.Estimate_Step5_DCACMaxNumber_Value_Label.Text = "40";
-            this.Estimate_Step5_DCACMaxNumber_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label
-            // 
-            this.Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label.AutoSize = true;
-            this.Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label.Location = new System.Drawing.Point(589, 607);
-            this.Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label.Name = "Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label";
-            this.Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label.Size = new System.Drawing.Size(28, 21);
-            this.Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label.TabIndex = 106;
-            this.Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label.Text = "40";
-            this.Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCDCMaxNumber_Value_Label
-            // 
-            this.Estimate_Step5_DCDCMaxNumber_Value_Label.AutoSize = true;
-            this.Estimate_Step5_DCDCMaxNumber_Value_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCDCMaxNumber_Value_Label.Location = new System.Drawing.Point(585, 397);
-            this.Estimate_Step5_DCDCMaxNumber_Value_Label.Name = "Estimate_Step5_DCDCMaxNumber_Value_Label";
-            this.Estimate_Step5_DCDCMaxNumber_Value_Label.Size = new System.Drawing.Size(37, 21);
-            this.Estimate_Step5_DCDCMaxNumber_Value_Label.TabIndex = 105;
-            this.Estimate_Step5_DCDCMaxNumber_Value_Label.Text = "120";
-            this.Estimate_Step5_DCDCMaxNumber_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCACTopologyRange_Value_Label
-            // 
-            this.Estimate_Step5_DCACTopologyRange_Value_Label.AutoSize = true;
-            this.Estimate_Step5_DCACTopologyRange_Value_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_DCACTopologyRange_Value_Label.Location = new System.Drawing.Point(413, 914);
-            this.Estimate_Step5_DCACTopologyRange_Value_Label.Name = "Estimate_Step5_DCACTopologyRange_Value_Label";
-            this.Estimate_Step5_DCACTopologyRange_Value_Label.Size = new System.Drawing.Size(52, 25);
-            this.Estimate_Step5_DCACTopologyRange_Value_Label.TabIndex = 104;
-            this.Estimate_Step5_DCACTopologyRange_Value_Label.Text = "CHB";
-            this.Estimate_Step5_DCACTopologyRange_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label
-            // 
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label.AutoSize = true;
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label.Location = new System.Drawing.Point(365, 700);
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label.Name = "Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label";
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label.Size = new System.Drawing.Size(149, 25);
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label.TabIndex = 102;
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label.Text = "SRC、DTC-SRC";
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_IsolatedDCDCTopologyRange_Label
-            // 
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Label.AutoSize = true;
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Label.Location = new System.Drawing.Point(135, 700);
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Label.Name = "Estimate_Step5_IsolatedDCDCTopologyRange_Label";
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Label.Size = new System.Drawing.Size(107, 25);
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Label.TabIndex = 101;
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Label.Text = "选用拓扑：";
-            this.Estimate_Step5_IsolatedDCDCTopologyRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCACTopologyRange_Label
-            // 
-            this.Estimate_Step5_DCACTopologyRange_Label.AutoSize = true;
-            this.Estimate_Step5_DCACTopologyRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_DCACTopologyRange_Label.Location = new System.Drawing.Point(135, 914);
-            this.Estimate_Step5_DCACTopologyRange_Label.Name = "Estimate_Step5_DCACTopologyRange_Label";
-            this.Estimate_Step5_DCACTopologyRange_Label.Size = new System.Drawing.Size(107, 25);
-            this.Estimate_Step5_DCACTopologyRange_Label.TabIndex = 103;
-            this.Estimate_Step5_DCACTopologyRange_Label.Text = "选用拓扑：";
-            this.Estimate_Step5_DCACTopologyRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCDCTopologyRange_Value_Label
-            // 
-            this.Estimate_Step5_DCDCTopologyRange_Value_Label.AutoSize = true;
-            this.Estimate_Step5_DCDCTopologyRange_Value_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_DCDCTopologyRange_Value_Label.Location = new System.Drawing.Point(365, 494);
-            this.Estimate_Step5_DCDCTopologyRange_Value_Label.Name = "Estimate_Step5_DCDCTopologyRange_Value_Label";
-            this.Estimate_Step5_DCDCTopologyRange_Value_Label.Size = new System.Drawing.Size(396, 25);
-            this.Estimate_Step5_DCDCTopologyRange_Value_Label.TabIndex = 100;
-            this.Estimate_Step5_DCDCTopologyRange_Value_Label.Text = "三电平Boost、两电平Boost、交错并联Boost";
-            this.Estimate_Step5_DCDCTopologyRange_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCDCTopologyRange_Label
-            // 
-            this.Estimate_Step5_DCDCTopologyRange_Label.AutoSize = true;
-            this.Estimate_Step5_DCDCTopologyRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_DCDCTopologyRange_Label.Location = new System.Drawing.Point(135, 494);
-            this.Estimate_Step5_DCDCTopologyRange_Label.Name = "Estimate_Step5_DCDCTopologyRange_Label";
-            this.Estimate_Step5_DCDCTopologyRange_Label.Size = new System.Drawing.Size(107, 25);
-            this.Estimate_Step5_DCDCTopologyRange_Label.TabIndex = 99;
-            this.Estimate_Step5_DCDCTopologyRange_Label.Text = "选用拓扑：";
-            this.Estimate_Step5_DCDCTopologyRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_StructureRange_Value_Label
-            // 
-            this.Estimate_Step5_StructureRange_Value_Label.AutoSize = true;
-            this.Estimate_Step5_StructureRange_Value_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_StructureRange_Value_Label.Location = new System.Drawing.Point(365, 280);
-            this.Estimate_Step5_StructureRange_Value_Label.Name = "Estimate_Step5_StructureRange_Value_Label";
-            this.Estimate_Step5_StructureRange_Value_Label.Size = new System.Drawing.Size(183, 25);
-            this.Estimate_Step5_StructureRange_Value_Label.TabIndex = 98;
-            this.Estimate_Step5_StructureRange_Value_Label.Text = "三级架构、两级架构";
-            this.Estimate_Step5_StructureRange_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_StructureRange_Label
-            // 
-            this.Estimate_Step5_StructureRange_Label.AutoSize = true;
-            this.Estimate_Step5_StructureRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_StructureRange_Label.Location = new System.Drawing.Point(135, 280);
-            this.Estimate_Step5_StructureRange_Label.Name = "Estimate_Step5_StructureRange_Label";
-            this.Estimate_Step5_StructureRange_Label.Size = new System.Drawing.Size(107, 25);
-            this.Estimate_Step5_StructureRange_Label.TabIndex = 97;
-            this.Estimate_Step5_StructureRange_Label.Text = "选用架构：";
-            this.Estimate_Step5_StructureRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCACMaxFrequency_Label
-            // 
-            this.Estimate_Step5_DCACMaxFrequency_Label.AutoSize = true;
-            this.Estimate_Step5_DCACMaxFrequency_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCACMaxFrequency_Label.Location = new System.Drawing.Point(589, 867);
-            this.Estimate_Step5_DCACMaxFrequency_Label.Name = "Estimate_Step5_DCACMaxFrequency_Label";
-            this.Estimate_Step5_DCACMaxFrequency_Label.Size = new System.Drawing.Size(28, 21);
-            this.Estimate_Step5_DCACMaxFrequency_Label.TabIndex = 96;
-            this.Estimate_Step5_DCACMaxFrequency_Label.Text = "10";
-            this.Estimate_Step5_DCACMaxFrequency_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCACMinFrequency_Label
-            // 
-            this.Estimate_Step5_DCACMinFrequency_Label.AutoSize = true;
-            this.Estimate_Step5_DCACMinFrequency_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCACMinFrequency_Label.Location = new System.Drawing.Point(425, 867);
-            this.Estimate_Step5_DCACMinFrequency_Label.Name = "Estimate_Step5_DCACMinFrequency_Label";
-            this.Estimate_Step5_DCACMinFrequency_Label.Size = new System.Drawing.Size(28, 21);
-            this.Estimate_Step5_DCACMinFrequency_Label.TabIndex = 95;
-            this.Estimate_Step5_DCACMinFrequency_Label.Text = "10";
-            this.Estimate_Step5_DCACMinFrequency_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_IsolatedDCDCMaxFrequency_Label
-            // 
-            this.Estimate_Step5_IsolatedDCDCMaxFrequency_Label.AutoSize = true;
-            this.Estimate_Step5_IsolatedDCDCMaxFrequency_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_IsolatedDCDCMaxFrequency_Label.Location = new System.Drawing.Point(585, 657);
-            this.Estimate_Step5_IsolatedDCDCMaxFrequency_Label.Name = "Estimate_Step5_IsolatedDCDCMaxFrequency_Label";
-            this.Estimate_Step5_IsolatedDCDCMaxFrequency_Label.Size = new System.Drawing.Size(37, 21);
-            this.Estimate_Step5_IsolatedDCDCMaxFrequency_Label.TabIndex = 94;
-            this.Estimate_Step5_IsolatedDCDCMaxFrequency_Label.Text = "100";
-            this.Estimate_Step5_IsolatedDCDCMaxFrequency_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCDCMinFrequency_Label
-            // 
-            this.Estimate_Step5_DCDCMinFrequency_Label.AutoSize = true;
-            this.Estimate_Step5_DCDCMinFrequency_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCDCMinFrequency_Label.Location = new System.Drawing.Point(430, 447);
-            this.Estimate_Step5_DCDCMinFrequency_Label.Name = "Estimate_Step5_DCDCMinFrequency_Label";
-            this.Estimate_Step5_DCDCMinFrequency_Label.Size = new System.Drawing.Size(19, 21);
-            this.Estimate_Step5_DCDCMinFrequency_Label.TabIndex = 93;
-            this.Estimate_Step5_DCDCMinFrequency_Label.Text = "1";
-            this.Estimate_Step5_DCDCMinFrequency_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCDCMaxFrequency_Label
-            // 
-            this.Estimate_Step5_DCDCMaxFrequency_Label.AutoSize = true;
-            this.Estimate_Step5_DCDCMaxFrequency_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCDCMaxFrequency_Label.Location = new System.Drawing.Point(585, 447);
-            this.Estimate_Step5_DCDCMaxFrequency_Label.Name = "Estimate_Step5_DCDCMaxFrequency_Label";
-            this.Estimate_Step5_DCDCMaxFrequency_Label.Size = new System.Drawing.Size(37, 21);
-            this.Estimate_Step5_DCDCMaxFrequency_Label.TabIndex = 92;
-            this.Estimate_Step5_DCDCMaxFrequency_Label.Text = "100";
-            this.Estimate_Step5_DCDCMaxFrequency_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_IsolatedDCDCMinFrequency_Label
-            // 
-            this.Estimate_Step5_IsolatedDCDCMinFrequency_Label.AutoSize = true;
-            this.Estimate_Step5_IsolatedDCDCMinFrequency_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_IsolatedDCDCMinFrequency_Label.Location = new System.Drawing.Point(430, 657);
-            this.Estimate_Step5_IsolatedDCDCMinFrequency_Label.Name = "Estimate_Step5_IsolatedDCDCMinFrequency_Label";
-            this.Estimate_Step5_IsolatedDCDCMinFrequency_Label.Size = new System.Drawing.Size(19, 21);
-            this.Estimate_Step5_IsolatedDCDCMinFrequency_Label.TabIndex = 91;
-            this.Estimate_Step5_IsolatedDCDCMinFrequency_Label.Text = "1";
-            this.Estimate_Step5_IsolatedDCDCMinFrequency_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCACMinNumber_Value_Label
-            // 
-            this.Estimate_Step5_DCACMinNumber_Value_Label.AutoSize = true;
-            this.Estimate_Step5_DCACMinNumber_Value_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCACMinNumber_Value_Label.Location = new System.Drawing.Point(430, 817);
-            this.Estimate_Step5_DCACMinNumber_Value_Label.Name = "Estimate_Step5_DCACMinNumber_Value_Label";
-            this.Estimate_Step5_DCACMinNumber_Value_Label.Size = new System.Drawing.Size(19, 21);
-            this.Estimate_Step5_DCACMinNumber_Value_Label.TabIndex = 90;
-            this.Estimate_Step5_DCACMinNumber_Value_Label.Text = "1";
-            this.Estimate_Step5_DCACMinNumber_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_IsolatedDCDCMinNumber_Value_Label
-            // 
-            this.Estimate_Step5_IsolatedDCDCMinNumber_Value_Label.AutoSize = true;
-            this.Estimate_Step5_IsolatedDCDCMinNumber_Value_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_IsolatedDCDCMinNumber_Value_Label.Location = new System.Drawing.Point(430, 607);
-            this.Estimate_Step5_IsolatedDCDCMinNumber_Value_Label.Name = "Estimate_Step5_IsolatedDCDCMinNumber_Value_Label";
-            this.Estimate_Step5_IsolatedDCDCMinNumber_Value_Label.Size = new System.Drawing.Size(19, 21);
-            this.Estimate_Step5_IsolatedDCDCMinNumber_Value_Label.TabIndex = 89;
-            this.Estimate_Step5_IsolatedDCDCMinNumber_Value_Label.Text = "1";
-            this.Estimate_Step5_IsolatedDCDCMinNumber_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCDCMinNumber_Value_Label
-            // 
-            this.Estimate_Step5_DCDCMinNumber_Value_Label.AutoSize = true;
-            this.Estimate_Step5_DCDCMinNumber_Value_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCDCMinNumber_Value_Label.Location = new System.Drawing.Point(430, 397);
-            this.Estimate_Step5_DCDCMinNumber_Value_Label.Name = "Estimate_Step5_DCDCMinNumber_Value_Label";
-            this.Estimate_Step5_DCDCMinNumber_Value_Label.Size = new System.Drawing.Size(19, 21);
-            this.Estimate_Step5_DCDCMinNumber_Value_Label.TabIndex = 88;
-            this.Estimate_Step5_DCDCMinNumber_Value_Label.Text = "1";
-            this.Estimate_Step5_DCDCMinNumber_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_Vgrid_Value_Label
-            // 
-            this.Estimate_Step5_Vgrid_Value_Label.AutoSize = true;
-            this.Estimate_Step5_Vgrid_Value_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_Vgrid_Value_Label.Location = new System.Drawing.Point(425, 232);
-            this.Estimate_Step5_Vgrid_Value_Label.Name = "Estimate_Step5_Vgrid_Value_Label";
-            this.Estimate_Step5_Vgrid_Value_Label.Size = new System.Drawing.Size(28, 21);
-            this.Estimate_Step5_Vgrid_Value_Label.TabIndex = 87;
-            this.Estimate_Step5_Vgrid_Value_Label.Text = "35";
-            this.Estimate_Step5_Vgrid_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_Vpvpeak_Value_Label
-            // 
-            this.Estimate_Step5_Vpvpeak_Value_Label.AutoSize = true;
-            this.Estimate_Step5_Vpvpeak_Value_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_Vpvpeak_Value_Label.Location = new System.Drawing.Point(416, 182);
-            this.Estimate_Step5_Vpvpeak_Value_Label.Name = "Estimate_Step5_Vpvpeak_Value_Label";
-            this.Estimate_Step5_Vpvpeak_Value_Label.Size = new System.Drawing.Size(46, 21);
-            this.Estimate_Step5_Vpvpeak_Value_Label.TabIndex = 86;
-            this.Estimate_Step5_Vpvpeak_Value_Label.Text = "1500";
-            this.Estimate_Step5_Vpvpeak_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_Vpvmax_Value_Label
-            // 
-            this.Estimate_Step5_Vpvmax_Value_Label.AutoSize = true;
-            this.Estimate_Step5_Vpvmax_Value_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_Vpvmax_Value_Label.Location = new System.Drawing.Point(580, 132);
-            this.Estimate_Step5_Vpvmax_Value_Label.Name = "Estimate_Step5_Vpvmax_Value_Label";
-            this.Estimate_Step5_Vpvmax_Value_Label.Size = new System.Drawing.Size(46, 21);
-            this.Estimate_Step5_Vpvmax_Value_Label.TabIndex = 85;
-            this.Estimate_Step5_Vpvmax_Value_Label.Text = "1300";
-            this.Estimate_Step5_Vpvmax_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_Vpvmin_Value_Label
-            // 
-            this.Estimate_Step5_Vpvmin_Value_Label.AutoSize = true;
-            this.Estimate_Step5_Vpvmin_Value_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_Vpvmin_Value_Label.Location = new System.Drawing.Point(421, 132);
-            this.Estimate_Step5_Vpvmin_Value_Label.Name = "Estimate_Step5_Vpvmin_Value_Label";
-            this.Estimate_Step5_Vpvmin_Value_Label.Size = new System.Drawing.Size(37, 21);
-            this.Estimate_Step5_Vpvmin_Value_Label.TabIndex = 84;
-            this.Estimate_Step5_Vpvmin_Value_Label.Text = "860";
-            this.Estimate_Step5_Vpvmin_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_Psys_Value_Label
-            // 
-            this.Estimate_Step5_Psys_Value_Label.AutoSize = true;
-            this.Estimate_Step5_Psys_Value_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_Psys_Value_Label.Location = new System.Drawing.Point(430, 82);
-            this.Estimate_Step5_Psys_Value_Label.Name = "Estimate_Step5_Psys_Value_Label";
-            this.Estimate_Step5_Psys_Value_Label.Size = new System.Drawing.Size(19, 21);
-            this.Estimate_Step5_Psys_Value_Label.TabIndex = 83;
-            this.Estimate_Step5_Psys_Value_Label.Text = "6";
-            this.Estimate_Step5_Psys_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCACFrequencyRange_Unit_Label
-            // 
-            this.Estimate_Step5_DCACFrequencyRange_Unit_Label.AutoSize = true;
-            this.Estimate_Step5_DCACFrequencyRange_Unit_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCACFrequencyRange_Unit_Label.Location = new System.Drawing.Point(675, 867);
-            this.Estimate_Step5_DCACFrequencyRange_Unit_Label.Name = "Estimate_Step5_DCACFrequencyRange_Unit_Label";
-            this.Estimate_Step5_DCACFrequencyRange_Unit_Label.Size = new System.Drawing.Size(40, 21);
-            this.Estimate_Step5_DCACFrequencyRange_Unit_Label.TabIndex = 82;
-            this.Estimate_Step5_DCACFrequencyRange_Unit_Label.Text = "kHz";
-            this.Estimate_Step5_DCACFrequencyRange_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCACFrequencyRange_Symbol_Label
-            // 
-            this.Estimate_Step5_DCACFrequencyRange_Symbol_Label.AutoSize = true;
-            this.Estimate_Step5_DCACFrequencyRange_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCACFrequencyRange_Symbol_Label.Location = new System.Drawing.Point(511, 867);
-            this.Estimate_Step5_DCACFrequencyRange_Symbol_Label.Name = "Estimate_Step5_DCACFrequencyRange_Symbol_Label";
-            this.Estimate_Step5_DCACFrequencyRange_Symbol_Label.Size = new System.Drawing.Size(20, 21);
-            this.Estimate_Step5_DCACFrequencyRange_Symbol_Label.TabIndex = 80;
-            this.Estimate_Step5_DCACFrequencyRange_Symbol_Label.Text = "~";
-            this.Estimate_Step5_DCACFrequencyRange_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCACFrequencyRange_Label
-            // 
-            this.Estimate_Step5_DCACFrequencyRange_Label.AutoSize = true;
-            this.Estimate_Step5_DCACFrequencyRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_DCACFrequencyRange_Label.Location = new System.Drawing.Point(135, 865);
-            this.Estimate_Step5_DCACFrequencyRange_Label.Name = "Estimate_Step5_DCACFrequencyRange_Label";
-            this.Estimate_Step5_DCACFrequencyRange_Label.Size = new System.Drawing.Size(145, 25);
-            this.Estimate_Step5_DCACFrequencyRange_Label.TabIndex = 78;
-            this.Estimate_Step5_DCACFrequencyRange_Label.Text = "开关频率范围：";
-            this.Estimate_Step5_DCACFrequencyRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCACNumberRange_Label
-            // 
-            this.Estimate_Step5_DCACNumberRange_Label.AutoSize = true;
-            this.Estimate_Step5_DCACNumberRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_DCACNumberRange_Label.Location = new System.Drawing.Point(135, 815);
-            this.Estimate_Step5_DCACNumberRange_Label.Name = "Estimate_Step5_DCACNumberRange_Label";
-            this.Estimate_Step5_DCACNumberRange_Label.Size = new System.Drawing.Size(126, 25);
-            this.Estimate_Step5_DCACNumberRange_Label.TabIndex = 76;
-            this.Estimate_Step5_DCACNumberRange_Label.Text = "模块数范围：";
-            this.Estimate_Step5_DCACNumberRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCAC_Label
-            // 
-            this.Estimate_Step5_DCAC_Label.AutoSize = true;
-            this.Estimate_Step5_DCAC_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_DCAC_Label.Location = new System.Drawing.Point(135, 764);
-            this.Estimate_Step5_DCAC_Label.Name = "Estimate_Step5_DCAC_Label";
-            this.Estimate_Step5_DCAC_Label.Size = new System.Drawing.Size(69, 26);
-            this.Estimate_Step5_DCAC_Label.TabIndex = 75;
-            this.Estimate_Step5_DCAC_Label.Text = "逆变：";
-            this.Estimate_Step5_DCAC_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_IsolatedDCDCFrequencyRange_Unit_Label
-            // 
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Unit_Label.AutoSize = true;
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Unit_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Unit_Label.Location = new System.Drawing.Point(675, 657);
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Unit_Label.Name = "Estimate_Step5_IsolatedDCDCFrequencyRange_Unit_Label";
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Unit_Label.Size = new System.Drawing.Size(40, 21);
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Unit_Label.TabIndex = 74;
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Unit_Label.Text = "kHz";
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_IsolatedDCDCFrequencyRange_Symbol_Label
-            // 
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Symbol_Label.AutoSize = true;
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Symbol_Label.Location = new System.Drawing.Point(511, 657);
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Symbol_Label.Name = "Estimate_Step5_IsolatedDCDCFrequencyRange_Symbol_Label";
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Symbol_Label.Size = new System.Drawing.Size(20, 21);
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Symbol_Label.TabIndex = 72;
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Symbol_Label.Text = "~";
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_IsolatedDCDCFrequencyRange_Label
-            // 
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Label.AutoSize = true;
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Label.Location = new System.Drawing.Point(135, 655);
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Label.Name = "Estimate_Step5_IsolatedDCDCFrequencyRange_Label";
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Label.Size = new System.Drawing.Size(145, 25);
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Label.TabIndex = 70;
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Label.Text = "开关频率范围：";
-            this.Estimate_Step5_IsolatedDCDCFrequencyRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_IsolatedDCDCNumberRange_Label
-            // 
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Label.AutoSize = true;
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Label.Location = new System.Drawing.Point(135, 605);
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Label.Name = "Estimate_Step5_IsolatedDCDCNumberRange_Label";
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Label.Size = new System.Drawing.Size(126, 25);
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Label.TabIndex = 68;
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Label.Text = "模块数范围：";
-            this.Estimate_Step5_IsolatedDCDCNumberRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_IsolatedDCDC_Label
-            // 
-            this.Estimate_Step5_IsolatedDCDC_Label.AutoSize = true;
-            this.Estimate_Step5_IsolatedDCDC_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_IsolatedDCDC_Label.Location = new System.Drawing.Point(135, 554);
-            this.Estimate_Step5_IsolatedDCDC_Label.Name = "Estimate_Step5_IsolatedDCDC_Label";
-            this.Estimate_Step5_IsolatedDCDC_Label.Size = new System.Drawing.Size(134, 26);
-            this.Estimate_Step5_IsolatedDCDC_Label.TabIndex = 67;
-            this.Estimate_Step5_IsolatedDCDC_Label.Text = "隔离DC/DC：";
-            this.Estimate_Step5_IsolatedDCDC_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCDCFrequencyRange_Unit_Label
-            // 
-            this.Estimate_Step5_DCDCFrequencyRange_Unit_Label.AutoSize = true;
-            this.Estimate_Step5_DCDCFrequencyRange_Unit_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCDCFrequencyRange_Unit_Label.Location = new System.Drawing.Point(675, 447);
-            this.Estimate_Step5_DCDCFrequencyRange_Unit_Label.Name = "Estimate_Step5_DCDCFrequencyRange_Unit_Label";
-            this.Estimate_Step5_DCDCFrequencyRange_Unit_Label.Size = new System.Drawing.Size(40, 21);
-            this.Estimate_Step5_DCDCFrequencyRange_Unit_Label.TabIndex = 66;
-            this.Estimate_Step5_DCDCFrequencyRange_Unit_Label.Text = "kHz";
-            this.Estimate_Step5_DCDCFrequencyRange_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCDCFrequencyRange_Symbol_Label
-            // 
-            this.Estimate_Step5_DCDCFrequencyRange_Symbol_Label.AutoSize = true;
-            this.Estimate_Step5_DCDCFrequencyRange_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_DCDCFrequencyRange_Symbol_Label.Location = new System.Drawing.Point(511, 447);
-            this.Estimate_Step5_DCDCFrequencyRange_Symbol_Label.Name = "Estimate_Step5_DCDCFrequencyRange_Symbol_Label";
-            this.Estimate_Step5_DCDCFrequencyRange_Symbol_Label.Size = new System.Drawing.Size(20, 21);
-            this.Estimate_Step5_DCDCFrequencyRange_Symbol_Label.TabIndex = 64;
-            this.Estimate_Step5_DCDCFrequencyRange_Symbol_Label.Text = "~";
-            this.Estimate_Step5_DCDCFrequencyRange_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCDCFrequencyRange_Label
-            // 
-            this.Estimate_Step5_DCDCFrequencyRange_Label.AutoSize = true;
-            this.Estimate_Step5_DCDCFrequencyRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_DCDCFrequencyRange_Label.Location = new System.Drawing.Point(135, 445);
-            this.Estimate_Step5_DCDCFrequencyRange_Label.Name = "Estimate_Step5_DCDCFrequencyRange_Label";
-            this.Estimate_Step5_DCDCFrequencyRange_Label.Size = new System.Drawing.Size(145, 25);
-            this.Estimate_Step5_DCDCFrequencyRange_Label.TabIndex = 62;
-            this.Estimate_Step5_DCDCFrequencyRange_Label.Text = "开关频率范围：";
-            this.Estimate_Step5_DCDCFrequencyRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCDCNumberRange_Label
-            // 
-            this.Estimate_Step5_DCDCNumberRange_Label.AutoSize = true;
-            this.Estimate_Step5_DCDCNumberRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_DCDCNumberRange_Label.Location = new System.Drawing.Point(135, 395);
-            this.Estimate_Step5_DCDCNumberRange_Label.Name = "Estimate_Step5_DCDCNumberRange_Label";
-            this.Estimate_Step5_DCDCNumberRange_Label.Size = new System.Drawing.Size(126, 25);
-            this.Estimate_Step5_DCDCNumberRange_Label.TabIndex = 60;
-            this.Estimate_Step5_DCDCNumberRange_Label.Text = "模块数范围：";
-            this.Estimate_Step5_DCDCNumberRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_DCDC_Label
-            // 
-            this.Estimate_Step5_DCDC_Label.AutoSize = true;
-            this.Estimate_Step5_DCDC_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_DCDC_Label.Location = new System.Drawing.Point(135, 344);
-            this.Estimate_Step5_DCDC_Label.Name = "Estimate_Step5_DCDC_Label";
-            this.Estimate_Step5_DCDC_Label.Size = new System.Drawing.Size(134, 26);
-            this.Estimate_Step5_DCDC_Label.TabIndex = 59;
-            this.Estimate_Step5_DCDC_Label.Text = "前级DC/DC：";
-            this.Estimate_Step5_DCDC_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_Vgrid_Unit_Label
-            // 
-            this.Estimate_Step5_Vgrid_Unit_Label.AutoSize = true;
-            this.Estimate_Step5_Vgrid_Unit_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_Vgrid_Unit_Label.Location = new System.Drawing.Point(511, 232);
-            this.Estimate_Step5_Vgrid_Unit_Label.Name = "Estimate_Step5_Vgrid_Unit_Label";
-            this.Estimate_Step5_Vgrid_Unit_Label.Size = new System.Drawing.Size(32, 21);
-            this.Estimate_Step5_Vgrid_Unit_Label.TabIndex = 58;
-            this.Estimate_Step5_Vgrid_Unit_Label.Text = "kV";
-            this.Estimate_Step5_Vgrid_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_Vgrid_Label
-            // 
-            this.Estimate_Step5_Vgrid_Label.AutoSize = true;
-            this.Estimate_Step5_Vgrid_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_Vgrid_Label.Location = new System.Drawing.Point(135, 230);
-            this.Estimate_Step5_Vgrid_Label.Name = "Estimate_Step5_Vgrid_Label";
-            this.Estimate_Step5_Vgrid_Label.Size = new System.Drawing.Size(107, 25);
-            this.Estimate_Step5_Vgrid_Label.TabIndex = 56;
-            this.Estimate_Step5_Vgrid_Label.Text = "并网电压：";
-            this.Estimate_Step5_Vgrid_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_Vpvpeak_Unit_Label
-            // 
-            this.Estimate_Step5_Vpvpeak_Unit_Label.AutoSize = true;
-            this.Estimate_Step5_Vpvpeak_Unit_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_Vpvpeak_Unit_Label.Location = new System.Drawing.Point(511, 182);
-            this.Estimate_Step5_Vpvpeak_Unit_Label.Name = "Estimate_Step5_Vpvpeak_Unit_Label";
-            this.Estimate_Step5_Vpvpeak_Unit_Label.Size = new System.Drawing.Size(23, 21);
-            this.Estimate_Step5_Vpvpeak_Unit_Label.TabIndex = 55;
-            this.Estimate_Step5_Vpvpeak_Unit_Label.Text = "V";
-            this.Estimate_Step5_Vpvpeak_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_Vpvpeak_Label
-            // 
-            this.Estimate_Step5_Vpvpeak_Label.AutoSize = true;
-            this.Estimate_Step5_Vpvpeak_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_Vpvpeak_Label.Location = new System.Drawing.Point(135, 180);
-            this.Estimate_Step5_Vpvpeak_Label.Name = "Estimate_Step5_Vpvpeak_Label";
-            this.Estimate_Step5_Vpvpeak_Label.Size = new System.Drawing.Size(145, 25);
-            this.Estimate_Step5_Vpvpeak_Label.TabIndex = 53;
-            this.Estimate_Step5_Vpvpeak_Label.Text = "光伏最大电压：";
-            this.Estimate_Step5_Vpvpeak_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_VpvRange_Unit_Label
-            // 
-            this.Estimate_Step5_VpvRange_Unit_Label.AutoSize = true;
-            this.Estimate_Step5_VpvRange_Unit_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_VpvRange_Unit_Label.Location = new System.Drawing.Point(675, 132);
-            this.Estimate_Step5_VpvRange_Unit_Label.Name = "Estimate_Step5_VpvRange_Unit_Label";
-            this.Estimate_Step5_VpvRange_Unit_Label.Size = new System.Drawing.Size(23, 21);
-            this.Estimate_Step5_VpvRange_Unit_Label.TabIndex = 52;
-            this.Estimate_Step5_VpvRange_Unit_Label.Text = "V";
-            this.Estimate_Step5_VpvRange_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_VpvRange_Symbol_Label
-            // 
-            this.Estimate_Step5_VpvRange_Symbol_Label.AutoSize = true;
-            this.Estimate_Step5_VpvRange_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_VpvRange_Symbol_Label.Location = new System.Drawing.Point(511, 132);
-            this.Estimate_Step5_VpvRange_Symbol_Label.Name = "Estimate_Step5_VpvRange_Symbol_Label";
-            this.Estimate_Step5_VpvRange_Symbol_Label.Size = new System.Drawing.Size(20, 21);
-            this.Estimate_Step5_VpvRange_Symbol_Label.TabIndex = 50;
-            this.Estimate_Step5_VpvRange_Symbol_Label.Text = "~";
-            this.Estimate_Step5_VpvRange_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_VpvRange_Label
-            // 
-            this.Estimate_Step5_VpvRange_Label.AutoSize = true;
-            this.Estimate_Step5_VpvRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_VpvRange_Label.Location = new System.Drawing.Point(135, 130);
-            this.Estimate_Step5_VpvRange_Label.Name = "Estimate_Step5_VpvRange_Label";
-            this.Estimate_Step5_VpvRange_Label.Size = new System.Drawing.Size(199, 25);
-            this.Estimate_Step5_VpvRange_Label.TabIndex = 48;
-            this.Estimate_Step5_VpvRange_Label.Text = "光伏MPPT电压范围：";
-            this.Estimate_Step5_VpvRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_Psys_Unit_Label
-            // 
-            this.Estimate_Step5_Psys_Unit_Label.AutoSize = true;
-            this.Estimate_Step5_Psys_Unit_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step5_Psys_Unit_Label.Location = new System.Drawing.Point(511, 82);
-            this.Estimate_Step5_Psys_Unit_Label.Name = "Estimate_Step5_Psys_Unit_Label";
-            this.Estimate_Step5_Psys_Unit_Label.Size = new System.Drawing.Size(44, 21);
-            this.Estimate_Step5_Psys_Unit_Label.TabIndex = 47;
-            this.Estimate_Step5_Psys_Unit_Label.Text = "MW";
-            this.Estimate_Step5_Psys_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_Psys_Label
-            // 
-            this.Estimate_Step5_Psys_Label.AutoSize = true;
-            this.Estimate_Step5_Psys_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_Psys_Label.Location = new System.Drawing.Point(135, 80);
-            this.Estimate_Step5_Psys_Label.Name = "Estimate_Step5_Psys_Label";
-            this.Estimate_Step5_Psys_Label.Size = new System.Drawing.Size(126, 25);
-            this.Estimate_Step5_Psys_Label.TabIndex = 45;
-            this.Estimate_Step5_Psys_Label.Text = "系统总功率：";
-            this.Estimate_Step5_Psys_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_System_Label
-            // 
-            this.Estimate_Step5_System_Label.AutoSize = true;
-            this.Estimate_Step5_System_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_System_Label.Location = new System.Drawing.Point(135, 29);
-            this.Estimate_Step5_System_Label.Name = "Estimate_Step5_System_Label";
-            this.Estimate_Step5_System_Label.Size = new System.Drawing.Size(107, 26);
-            this.Estimate_Step5_System_Label.TabIndex = 44;
-            this.Estimate_Step5_System_Label.Text = "整体系统：";
-            this.Estimate_Step5_System_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Estimate_Step5_Title_Panel
-            // 
-            this.Estimate_Step5_Title_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Estimate_Step5_Title_Panel.Controls.Add(this.Estimate_Step5_Title_Label);
-            this.Estimate_Step5_Title_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step5_Title_Panel.Location = new System.Drawing.Point(0, 0);
-            this.Estimate_Step5_Title_Panel.Name = "Estimate_Step5_Title_Panel";
-            this.Estimate_Step5_Title_Panel.Size = new System.Drawing.Size(1432, 50);
-            this.Estimate_Step5_Title_Panel.TabIndex = 3;
-            // 
-            // Estimate_Step5_Title_Label
-            // 
-            this.Estimate_Step5_Title_Label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Estimate_Step5_Title_Label.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_Title_Label.Location = new System.Drawing.Point(0, 0);
-            this.Estimate_Step5_Title_Label.Name = "Estimate_Step5_Title_Label";
-            this.Estimate_Step5_Title_Label.Size = new System.Drawing.Size(1430, 48);
-            this.Estimate_Step5_Title_Label.TabIndex = 0;
-            this.Estimate_Step5_Title_Label.Text = "5.确认条件";
-            this.Estimate_Step5_Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Estimate_Step5_Operation_Panel
-            // 
-            this.Estimate_Step5_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Estimate_Step5_Operation_Panel.Controls.Add(this.Estimate_Step5_Prev_Button);
-            this.Estimate_Step5_Operation_Panel.Controls.Add(this.Estimate_Step5_Next_button);
-            this.Estimate_Step5_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Estimate_Step5_Operation_Panel.Location = new System.Drawing.Point(0, 809);
-            this.Estimate_Step5_Operation_Panel.Name = "Estimate_Step5_Operation_Panel";
-            this.Estimate_Step5_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
-            this.Estimate_Step5_Operation_Panel.TabIndex = 1;
-            // 
-            // Estimate_Step5_Prev_Button
-            // 
-            this.Estimate_Step5_Prev_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Estimate_Step5_Prev_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_Prev_Button.Location = new System.Drawing.Point(1199, 8);
-            this.Estimate_Step5_Prev_Button.Name = "Estimate_Step5_Prev_Button";
-            this.Estimate_Step5_Prev_Button.Size = new System.Drawing.Size(100, 34);
-            this.Estimate_Step5_Prev_Button.TabIndex = 1;
-            this.Estimate_Step5_Prev_Button.Text = "上一步";
-            this.Estimate_Step5_Prev_Button.UseVisualStyleBackColor = true;
-            this.Estimate_Step5_Prev_Button.Click += new System.EventHandler(this.Estimate_Step5_Prev_Button_Click);
-            // 
-            // Estimate_Step5_Next_button
-            // 
-            this.Estimate_Step5_Next_button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Estimate_Step5_Next_button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step5_Next_button.Location = new System.Drawing.Point(1320, 8);
-            this.Estimate_Step5_Next_button.Name = "Estimate_Step5_Next_button";
-            this.Estimate_Step5_Next_button.Size = new System.Drawing.Size(100, 34);
-            this.Estimate_Step5_Next_button.TabIndex = 0;
-            this.Estimate_Step5_Next_button.Text = "评估";
-            this.Estimate_Step5_Next_button.UseVisualStyleBackColor = true;
-            this.Estimate_Step5_Next_button.Click += new System.EventHandler(this.Estimate_Step5_Next_button_Click);
             // 
             // Estimate_Result_Panel
             // 
@@ -4430,20 +3683,368 @@
             this.Estimate_Step1B_Next_Button.UseVisualStyleBackColor = true;
             this.Estimate_Step1B_Next_Button.Click += new System.EventHandler(this.Estimate_Step1B_Next_Button_Click);
             // 
+            // Estimate_Step3B_Panel
+            // 
+            this.Estimate_Step3B_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Step3B_Panel.Controls.Add(this.Estimate_Step3B_Main_Panel);
+            this.Estimate_Step3B_Panel.Controls.Add(this.Estimate_Step3B_Title_Panel);
+            this.Estimate_Step3B_Panel.Controls.Add(this.Estimate_Step3B_Operation_Panel);
+            this.Estimate_Step3B_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Estimate_Step3B_Panel.Location = new System.Drawing.Point(150, 0);
+            this.Estimate_Step3B_Panel.Name = "Estimate_Step3B_Panel";
+            this.Estimate_Step3B_Panel.Size = new System.Drawing.Size(1434, 861);
+            this.Estimate_Step3B_Panel.TabIndex = 15;
+            this.Estimate_Step3B_Panel.Visible = false;
+            // 
+            // Estimate_Step3B_Main_Panel
+            // 
+            this.Estimate_Step3B_Main_Panel.AutoScroll = true;
+            this.Estimate_Step3B_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Vo_Unit_Label);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Vo_TextBox);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Vo_Label);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_NumberRange_Symbol_Label);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_MaxNumber_TextBox);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_FrequencyRange_Unit_Label);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_MaxFrequency_TextBox);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_FrequencyRange_Symbol_Label);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_MinFrequency_TextBox);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_FrequencyRange_Label);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_MinNumber_TextBox);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_NumberRange_Label);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Vin_Unit_Label);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Vin_TextBox);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Vin_Label);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_VinRange_Unit_Label);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Vinmax_TextBox);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_VinRange_Symbol_Label);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Vinmin_TextBox);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_VinRange_Label);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Psys_Unit_Label);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Psys_TextBox);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Psys_Label);
+            this.Estimate_Step3B_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Estimate_Step3B_Main_Panel.Location = new System.Drawing.Point(0, 50);
+            this.Estimate_Step3B_Main_Panel.Name = "Estimate_Step3B_Main_Panel";
+            this.Estimate_Step3B_Main_Panel.Size = new System.Drawing.Size(1432, 759);
+            this.Estimate_Step3B_Main_Panel.TabIndex = 4;
+            // 
+            // Estimate_Step3B_Vo_Unit_Label
+            // 
+            this.Estimate_Step3B_Vo_Unit_Label.AutoSize = true;
+            this.Estimate_Step3B_Vo_Unit_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_Vo_Unit_Label.Location = new System.Drawing.Point(487, 238);
+            this.Estimate_Step3B_Vo_Unit_Label.Name = "Estimate_Step3B_Vo_Unit_Label";
+            this.Estimate_Step3B_Vo_Unit_Label.Size = new System.Drawing.Size(23, 21);
+            this.Estimate_Step3B_Vo_Unit_Label.TabIndex = 50;
+            this.Estimate_Step3B_Vo_Unit_Label.Text = "V";
+            this.Estimate_Step3B_Vo_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_Vo_TextBox
+            // 
+            this.Estimate_Step3B_Vo_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_Vo_TextBox.Location = new System.Drawing.Point(365, 234);
+            this.Estimate_Step3B_Vo_TextBox.Name = "Estimate_Step3B_Vo_TextBox";
+            this.Estimate_Step3B_Vo_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3B_Vo_TextBox.TabIndex = 49;
+            this.Estimate_Step3B_Vo_TextBox.Text = "1300";
+            this.Estimate_Step3B_Vo_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Estimate_Step3B_Vo_Label
+            // 
+            this.Estimate_Step3B_Vo_Label.AutoSize = true;
+            this.Estimate_Step3B_Vo_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step3B_Vo_Label.Location = new System.Drawing.Point(131, 236);
+            this.Estimate_Step3B_Vo_Label.Name = "Estimate_Step3B_Vo_Label";
+            this.Estimate_Step3B_Vo_Label.Size = new System.Drawing.Size(107, 25);
+            this.Estimate_Step3B_Vo_Label.TabIndex = 48;
+            this.Estimate_Step3B_Vo_Label.Text = "输出电压：";
+            this.Estimate_Step3B_Vo_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_NumberRange_Symbol_Label
+            // 
+            this.Estimate_Step3B_NumberRange_Symbol_Label.AutoSize = true;
+            this.Estimate_Step3B_NumberRange_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_NumberRange_Symbol_Label.Location = new System.Drawing.Point(487, 293);
+            this.Estimate_Step3B_NumberRange_Symbol_Label.Name = "Estimate_Step3B_NumberRange_Symbol_Label";
+            this.Estimate_Step3B_NumberRange_Symbol_Label.Size = new System.Drawing.Size(20, 21);
+            this.Estimate_Step3B_NumberRange_Symbol_Label.TabIndex = 47;
+            this.Estimate_Step3B_NumberRange_Symbol_Label.Text = "~";
+            this.Estimate_Step3B_NumberRange_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_MaxNumber_TextBox
+            // 
+            this.Estimate_Step3B_MaxNumber_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_MaxNumber_TextBox.Location = new System.Drawing.Point(531, 289);
+            this.Estimate_Step3B_MaxNumber_TextBox.Name = "Estimate_Step3B_MaxNumber_TextBox";
+            this.Estimate_Step3B_MaxNumber_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3B_MaxNumber_TextBox.TabIndex = 44;
+            this.Estimate_Step3B_MaxNumber_TextBox.Text = "120";
+            this.Estimate_Step3B_MaxNumber_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Estimate_Step3B_FrequencyRange_Unit_Label
+            // 
+            this.Estimate_Step3B_FrequencyRange_Unit_Label.AutoSize = true;
+            this.Estimate_Step3B_FrequencyRange_Unit_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_FrequencyRange_Unit_Label.Location = new System.Drawing.Point(653, 348);
+            this.Estimate_Step3B_FrequencyRange_Unit_Label.Name = "Estimate_Step3B_FrequencyRange_Unit_Label";
+            this.Estimate_Step3B_FrequencyRange_Unit_Label.Size = new System.Drawing.Size(40, 21);
+            this.Estimate_Step3B_FrequencyRange_Unit_Label.TabIndex = 27;
+            this.Estimate_Step3B_FrequencyRange_Unit_Label.Text = "kHz";
+            this.Estimate_Step3B_FrequencyRange_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_MaxFrequency_TextBox
+            // 
+            this.Estimate_Step3B_MaxFrequency_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_MaxFrequency_TextBox.Location = new System.Drawing.Point(531, 344);
+            this.Estimate_Step3B_MaxFrequency_TextBox.Name = "Estimate_Step3B_MaxFrequency_TextBox";
+            this.Estimate_Step3B_MaxFrequency_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3B_MaxFrequency_TextBox.TabIndex = 26;
+            this.Estimate_Step3B_MaxFrequency_TextBox.Text = "100";
+            this.Estimate_Step3B_MaxFrequency_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Estimate_Step3B_FrequencyRange_Symbol_Label
+            // 
+            this.Estimate_Step3B_FrequencyRange_Symbol_Label.AutoSize = true;
+            this.Estimate_Step3B_FrequencyRange_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_FrequencyRange_Symbol_Label.Location = new System.Drawing.Point(487, 348);
+            this.Estimate_Step3B_FrequencyRange_Symbol_Label.Name = "Estimate_Step3B_FrequencyRange_Symbol_Label";
+            this.Estimate_Step3B_FrequencyRange_Symbol_Label.Size = new System.Drawing.Size(20, 21);
+            this.Estimate_Step3B_FrequencyRange_Symbol_Label.TabIndex = 25;
+            this.Estimate_Step3B_FrequencyRange_Symbol_Label.Text = "~";
+            this.Estimate_Step3B_FrequencyRange_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_MinFrequency_TextBox
+            // 
+            this.Estimate_Step3B_MinFrequency_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_MinFrequency_TextBox.Location = new System.Drawing.Point(365, 344);
+            this.Estimate_Step3B_MinFrequency_TextBox.Name = "Estimate_Step3B_MinFrequency_TextBox";
+            this.Estimate_Step3B_MinFrequency_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3B_MinFrequency_TextBox.TabIndex = 24;
+            this.Estimate_Step3B_MinFrequency_TextBox.Text = "1";
+            this.Estimate_Step3B_MinFrequency_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Estimate_Step3B_FrequencyRange_Label
+            // 
+            this.Estimate_Step3B_FrequencyRange_Label.AutoSize = true;
+            this.Estimate_Step3B_FrequencyRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step3B_FrequencyRange_Label.Location = new System.Drawing.Point(131, 346);
+            this.Estimate_Step3B_FrequencyRange_Label.Name = "Estimate_Step3B_FrequencyRange_Label";
+            this.Estimate_Step3B_FrequencyRange_Label.Size = new System.Drawing.Size(145, 25);
+            this.Estimate_Step3B_FrequencyRange_Label.TabIndex = 23;
+            this.Estimate_Step3B_FrequencyRange_Label.Text = "开关频率范围：";
+            this.Estimate_Step3B_FrequencyRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_MinNumber_TextBox
+            // 
+            this.Estimate_Step3B_MinNumber_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_MinNumber_TextBox.Location = new System.Drawing.Point(365, 289);
+            this.Estimate_Step3B_MinNumber_TextBox.Name = "Estimate_Step3B_MinNumber_TextBox";
+            this.Estimate_Step3B_MinNumber_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3B_MinNumber_TextBox.TabIndex = 21;
+            this.Estimate_Step3B_MinNumber_TextBox.Text = "1";
+            this.Estimate_Step3B_MinNumber_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Estimate_Step3B_NumberRange_Label
+            // 
+            this.Estimate_Step3B_NumberRange_Label.AutoSize = true;
+            this.Estimate_Step3B_NumberRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step3B_NumberRange_Label.Location = new System.Drawing.Point(131, 291);
+            this.Estimate_Step3B_NumberRange_Label.Name = "Estimate_Step3B_NumberRange_Label";
+            this.Estimate_Step3B_NumberRange_Label.Size = new System.Drawing.Size(126, 25);
+            this.Estimate_Step3B_NumberRange_Label.TabIndex = 20;
+            this.Estimate_Step3B_NumberRange_Label.Text = "模块数范围：";
+            this.Estimate_Step3B_NumberRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_Vin_Unit_Label
+            // 
+            this.Estimate_Step3B_Vin_Unit_Label.AutoSize = true;
+            this.Estimate_Step3B_Vin_Unit_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_Vin_Unit_Label.Location = new System.Drawing.Point(487, 183);
+            this.Estimate_Step3B_Vin_Unit_Label.Name = "Estimate_Step3B_Vin_Unit_Label";
+            this.Estimate_Step3B_Vin_Unit_Label.Size = new System.Drawing.Size(23, 21);
+            this.Estimate_Step3B_Vin_Unit_Label.TabIndex = 15;
+            this.Estimate_Step3B_Vin_Unit_Label.Text = "V";
+            this.Estimate_Step3B_Vin_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_Vin_TextBox
+            // 
+            this.Estimate_Step3B_Vin_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_Vin_TextBox.Location = new System.Drawing.Point(365, 179);
+            this.Estimate_Step3B_Vin_TextBox.Name = "Estimate_Step3B_Vin_TextBox";
+            this.Estimate_Step3B_Vin_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3B_Vin_TextBox.TabIndex = 14;
+            this.Estimate_Step3B_Vin_TextBox.Text = "1300";
+            this.Estimate_Step3B_Vin_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Estimate_Step3B_Vin_Label
+            // 
+            this.Estimate_Step3B_Vin_Label.AutoSize = true;
+            this.Estimate_Step3B_Vin_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step3B_Vin_Label.Location = new System.Drawing.Point(131, 181);
+            this.Estimate_Step3B_Vin_Label.Name = "Estimate_Step3B_Vin_Label";
+            this.Estimate_Step3B_Vin_Label.Size = new System.Drawing.Size(107, 25);
+            this.Estimate_Step3B_Vin_Label.TabIndex = 13;
+            this.Estimate_Step3B_Vin_Label.Text = "输入电压：";
+            this.Estimate_Step3B_Vin_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_VinRange_Unit_Label
+            // 
+            this.Estimate_Step3B_VinRange_Unit_Label.AutoSize = true;
+            this.Estimate_Step3B_VinRange_Unit_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_VinRange_Unit_Label.Location = new System.Drawing.Point(653, 128);
+            this.Estimate_Step3B_VinRange_Unit_Label.Name = "Estimate_Step3B_VinRange_Unit_Label";
+            this.Estimate_Step3B_VinRange_Unit_Label.Size = new System.Drawing.Size(23, 21);
+            this.Estimate_Step3B_VinRange_Unit_Label.TabIndex = 12;
+            this.Estimate_Step3B_VinRange_Unit_Label.Text = "V";
+            this.Estimate_Step3B_VinRange_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_Vinmax_TextBox
+            // 
+            this.Estimate_Step3B_Vinmax_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_Vinmax_TextBox.Location = new System.Drawing.Point(531, 124);
+            this.Estimate_Step3B_Vinmax_TextBox.Name = "Estimate_Step3B_Vinmax_TextBox";
+            this.Estimate_Step3B_Vinmax_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3B_Vinmax_TextBox.TabIndex = 11;
+            this.Estimate_Step3B_Vinmax_TextBox.Text = "1300";
+            this.Estimate_Step3B_Vinmax_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Estimate_Step3B_VinRange_Symbol_Label
+            // 
+            this.Estimate_Step3B_VinRange_Symbol_Label.AutoSize = true;
+            this.Estimate_Step3B_VinRange_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_VinRange_Symbol_Label.Location = new System.Drawing.Point(487, 128);
+            this.Estimate_Step3B_VinRange_Symbol_Label.Name = "Estimate_Step3B_VinRange_Symbol_Label";
+            this.Estimate_Step3B_VinRange_Symbol_Label.Size = new System.Drawing.Size(20, 21);
+            this.Estimate_Step3B_VinRange_Symbol_Label.TabIndex = 10;
+            this.Estimate_Step3B_VinRange_Symbol_Label.Text = "~";
+            this.Estimate_Step3B_VinRange_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_Vinmin_TextBox
+            // 
+            this.Estimate_Step3B_Vinmin_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_Vinmin_TextBox.Location = new System.Drawing.Point(365, 124);
+            this.Estimate_Step3B_Vinmin_TextBox.Name = "Estimate_Step3B_Vinmin_TextBox";
+            this.Estimate_Step3B_Vinmin_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3B_Vinmin_TextBox.TabIndex = 9;
+            this.Estimate_Step3B_Vinmin_TextBox.Text = "860";
+            this.Estimate_Step3B_Vinmin_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Estimate_Step3B_VinRange_Label
+            // 
+            this.Estimate_Step3B_VinRange_Label.AutoSize = true;
+            this.Estimate_Step3B_VinRange_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step3B_VinRange_Label.Location = new System.Drawing.Point(131, 126);
+            this.Estimate_Step3B_VinRange_Label.Name = "Estimate_Step3B_VinRange_Label";
+            this.Estimate_Step3B_VinRange_Label.Size = new System.Drawing.Size(145, 25);
+            this.Estimate_Step3B_VinRange_Label.TabIndex = 8;
+            this.Estimate_Step3B_VinRange_Label.Text = "输入电压范围：";
+            this.Estimate_Step3B_VinRange_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_Psys_Unit_Label
+            // 
+            this.Estimate_Step3B_Psys_Unit_Label.AutoSize = true;
+            this.Estimate_Step3B_Psys_Unit_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_Psys_Unit_Label.Location = new System.Drawing.Point(487, 73);
+            this.Estimate_Step3B_Psys_Unit_Label.Name = "Estimate_Step3B_Psys_Unit_Label";
+            this.Estimate_Step3B_Psys_Unit_Label.Size = new System.Drawing.Size(44, 21);
+            this.Estimate_Step3B_Psys_Unit_Label.TabIndex = 7;
+            this.Estimate_Step3B_Psys_Unit_Label.Text = "MW";
+            this.Estimate_Step3B_Psys_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_Psys_TextBox
+            // 
+            this.Estimate_Step3B_Psys_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_Psys_TextBox.Location = new System.Drawing.Point(365, 69);
+            this.Estimate_Step3B_Psys_TextBox.Name = "Estimate_Step3B_Psys_TextBox";
+            this.Estimate_Step3B_Psys_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3B_Psys_TextBox.TabIndex = 6;
+            this.Estimate_Step3B_Psys_TextBox.Text = "6";
+            this.Estimate_Step3B_Psys_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Estimate_Step3B_Psys_Label
+            // 
+            this.Estimate_Step3B_Psys_Label.AutoSize = true;
+            this.Estimate_Step3B_Psys_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step3B_Psys_Label.Location = new System.Drawing.Point(131, 71);
+            this.Estimate_Step3B_Psys_Label.Name = "Estimate_Step3B_Psys_Label";
+            this.Estimate_Step3B_Psys_Label.Size = new System.Drawing.Size(126, 25);
+            this.Estimate_Step3B_Psys_Label.TabIndex = 5;
+            this.Estimate_Step3B_Psys_Label.Text = "系统总功率：";
+            this.Estimate_Step3B_Psys_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_Title_Panel
+            // 
+            this.Estimate_Step3B_Title_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Step3B_Title_Panel.Controls.Add(this.Estimate_Step3B_Title_Label);
+            this.Estimate_Step3B_Title_Panel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Estimate_Step3B_Title_Panel.Location = new System.Drawing.Point(0, 0);
+            this.Estimate_Step3B_Title_Panel.Name = "Estimate_Step3B_Title_Panel";
+            this.Estimate_Step3B_Title_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Estimate_Step3B_Title_Panel.TabIndex = 3;
+            // 
+            // Estimate_Step3B_Title_Label
+            // 
+            this.Estimate_Step3B_Title_Label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Estimate_Step3B_Title_Label.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step3B_Title_Label.Location = new System.Drawing.Point(0, 0);
+            this.Estimate_Step3B_Title_Label.Name = "Estimate_Step3B_Title_Label";
+            this.Estimate_Step3B_Title_Label.Size = new System.Drawing.Size(1430, 48);
+            this.Estimate_Step3B_Title_Label.TabIndex = 0;
+            this.Estimate_Step3B_Title_Label.Text = "3.设定参数";
+            this.Estimate_Step3B_Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Estimate_Step3B_Operation_Panel
+            // 
+            this.Estimate_Step3B_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Step3B_Operation_Panel.Controls.Add(this.Estimate_Step3B_Prev_Button);
+            this.Estimate_Step3B_Operation_Panel.Controls.Add(this.Estimate_Step3B_Next_Button);
+            this.Estimate_Step3B_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Estimate_Step3B_Operation_Panel.Location = new System.Drawing.Point(0, 809);
+            this.Estimate_Step3B_Operation_Panel.Name = "Estimate_Step3B_Operation_Panel";
+            this.Estimate_Step3B_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Estimate_Step3B_Operation_Panel.TabIndex = 1;
+            // 
+            // Estimate_Step3B_Prev_Button
+            // 
+            this.Estimate_Step3B_Prev_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Estimate_Step3B_Prev_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step3B_Prev_Button.Location = new System.Drawing.Point(1199, 8);
+            this.Estimate_Step3B_Prev_Button.Name = "Estimate_Step3B_Prev_Button";
+            this.Estimate_Step3B_Prev_Button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Step3B_Prev_Button.TabIndex = 1;
+            this.Estimate_Step3B_Prev_Button.Text = "上一步";
+            this.Estimate_Step3B_Prev_Button.UseVisualStyleBackColor = true;
+            this.Estimate_Step3B_Prev_Button.Click += new System.EventHandler(this.Estimate_Step3B_Prev_Button_Click);
+            // 
+            // Estimate_Step3B_Next_Button
+            // 
+            this.Estimate_Step3B_Next_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Estimate_Step3B_Next_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step3B_Next_Button.Location = new System.Drawing.Point(1320, 8);
+            this.Estimate_Step3B_Next_Button.Name = "Estimate_Step3B_Next_Button";
+            this.Estimate_Step3B_Next_Button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Step3B_Next_Button.TabIndex = 0;
+            this.Estimate_Step3B_Next_Button.Text = "下一步";
+            this.Estimate_Step3B_Next_Button.UseVisualStyleBackColor = true;
+            this.Estimate_Step3B_Next_Button.Click += new System.EventHandler(this.Estimate_Step3B_Next_Button_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
-            this.Controls.Add(this.Estimate_Step5_Panel);
-            this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Estimate_Step1B_Panel);
-            this.Controls.Add(this.Estimate_Step2_Panel);
-            this.Controls.Add(this.Estimate_Ready_Panel);
-            this.Controls.Add(this.Display_Ready_Panel);
+            this.Controls.Add(this.Estimate_Step3B_Panel);
+            this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Estimate_Step1_Panel);
-            this.Controls.Add(this.Display_Detail_Panel);
+            this.Controls.Add(this.Estimate_Ready_Panel);
             this.Controls.Add(this.Estimate_Step4_Panel);
+            this.Controls.Add(this.Estimate_Step2_Panel);
+            this.Controls.Add(this.Display_Ready_Panel);
+            this.Controls.Add(this.Display_Detail_Panel);
             this.Controls.Add(this.Display_Show_Panel);
             this.Controls.Add(this.Estimate_Result_Panel);
             this.Controls.Add(this.Admin_Panel);
@@ -4519,11 +4120,6 @@
             this.Estimate_Step4_Semiconductor_Panel.PerformLayout();
             this.Estimate_Step4_Title_Panel.ResumeLayout(false);
             this.Estimate_Step4_Operation_Panel.ResumeLayout(false);
-            this.Estimate_Step5_Panel.ResumeLayout(false);
-            this.Estimate_Step5_Main_Panel.ResumeLayout(false);
-            this.Estimate_Step5_Main_Panel.PerformLayout();
-            this.Estimate_Step5_Title_Panel.ResumeLayout(false);
-            this.Estimate_Step5_Operation_Panel.ResumeLayout(false);
             this.Estimate_Result_Panel.ResumeLayout(false);
             this.Estimate_Result_Main_Panel.ResumeLayout(false);
             this.Estimate_Result_Title_Panel.ResumeLayout(false);
@@ -4563,6 +4159,11 @@
             this.Estimate_Step1B_Main_Left_Panel.ResumeLayout(false);
             this.Estimate_Step1B_Title_Panel.ResumeLayout(false);
             this.Estimate_Step1B_Operation_Panel.ResumeLayout(false);
+            this.Estimate_Step3B_Panel.ResumeLayout(false);
+            this.Estimate_Step3B_Main_Panel.ResumeLayout(false);
+            this.Estimate_Step3B_Main_Panel.PerformLayout();
+            this.Estimate_Step3B_Title_Panel.ResumeLayout(false);
+            this.Estimate_Step3B_Operation_Panel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -4604,12 +4205,6 @@
         private System.Windows.Forms.Panel Estimate_Step4_Operation_Panel;
         private System.Windows.Forms.Button Estimate_Step4_Prev_Button;
         private System.Windows.Forms.Button Estimate_Step4_Next_Button;
-        private System.Windows.Forms.Panel Estimate_Step5_Panel;
-        private System.Windows.Forms.Panel Estimate_Step5_Title_Panel;
-        private System.Windows.Forms.Label Estimate_Step5_Title_Label;
-        private System.Windows.Forms.Panel Estimate_Step5_Operation_Panel;
-        private System.Windows.Forms.Button Estimate_Step5_Prev_Button;
-        private System.Windows.Forms.Button Estimate_Step5_Next_button;
         private System.Windows.Forms.Panel Estimate_Result_Panel;
         private System.Windows.Forms.Panel Estimate_Result_Main_Panel;
         private System.Windows.Forms.Panel Estimate_Result_Title_Panel;
@@ -4724,54 +4319,6 @@
         private System.Windows.Forms.Panel Estimate_Step4_Semiconductor_Panel;
         private System.Windows.Forms.FlowLayoutPanel Estimate_Step4_Semiconductor_FlowLayoutPanel;
         private System.Windows.Forms.Label Estimate_Step4_Semiconductor_Label;
-        private System.Windows.Forms.Panel Estimate_Step5_Main_Panel;
-        private System.Windows.Forms.Label Estimate_Step5_DCACMaxFrequency_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCACMinFrequency_Label;
-        private System.Windows.Forms.Label Estimate_Step5_IsolatedDCDCMaxFrequency_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCDCMinFrequency_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCDCMaxFrequency_Label;
-        private System.Windows.Forms.Label Estimate_Step5_IsolatedDCDCMinFrequency_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCACMinNumber_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_IsolatedDCDCMinNumber_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCDCMinNumber_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_Vgrid_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_Vpvpeak_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_Vpvmax_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_Vpvmin_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_Psys_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCACFrequencyRange_Unit_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCACFrequencyRange_Symbol_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCACFrequencyRange_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCACNumberRange_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCAC_Label;
-        private System.Windows.Forms.Label Estimate_Step5_IsolatedDCDCFrequencyRange_Unit_Label;
-        private System.Windows.Forms.Label Estimate_Step5_IsolatedDCDCFrequencyRange_Symbol_Label;
-        private System.Windows.Forms.Label Estimate_Step5_IsolatedDCDCFrequencyRange_Label;
-        private System.Windows.Forms.Label Estimate_Step5_IsolatedDCDCNumberRange_Label;
-        private System.Windows.Forms.Label Estimate_Step5_IsolatedDCDC_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCDCFrequencyRange_Unit_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCDCFrequencyRange_Symbol_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCDCFrequencyRange_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCDCNumberRange_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCDC_Label;
-        private System.Windows.Forms.Label Estimate_Step5_Vgrid_Unit_Label;
-        private System.Windows.Forms.Label Estimate_Step5_Vgrid_Label;
-        private System.Windows.Forms.Label Estimate_Step5_Vpvpeak_Unit_Label;
-        private System.Windows.Forms.Label Estimate_Step5_Vpvpeak_Label;
-        private System.Windows.Forms.Label Estimate_Step5_VpvRange_Unit_Label;
-        private System.Windows.Forms.Label Estimate_Step5_VpvRange_Symbol_Label;
-        private System.Windows.Forms.Label Estimate_Step5_VpvRange_Label;
-        private System.Windows.Forms.Label Estimate_Step5_Psys_Unit_Label;
-        private System.Windows.Forms.Label Estimate_Step5_Psys_Label;
-        private System.Windows.Forms.Label Estimate_Step5_System_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCACTopologyRange_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_IsolatedDCDCTopologyRange_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_IsolatedDCDCTopologyRange_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCACTopologyRange_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCDCTopologyRange_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCDCTopologyRange_Label;
-        private System.Windows.Forms.Label Estimate_Step5_StructureRange_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_StructureRange_Label;
         private System.Windows.Forms.Label Estimate_Result_Print_Label;
         private System.Windows.Forms.Panel Display_Show_Graph_Panel;
         private System.Windows.Forms.Panel Display_Show_Info_Panel;
@@ -4861,12 +4408,6 @@
         private System.Windows.Forms.TextBox Estimate_Step3_DCACMaxNumber_TextBox;
         private System.Windows.Forms.TextBox Estimate_Step3_IsolatedDCDCMaxNumber_TextBox;
         private System.Windows.Forms.TextBox Estimate_Step3_DCDCMaxNumber_TextBox;
-        private System.Windows.Forms.Label Estimate_Step5_DCACNumberRange_Symbol_Label;
-        private System.Windows.Forms.Label Estimate_Step5_IsolatedDCDCNumberRange_Symbol_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCDCNumberRange_Symbol_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCACMaxNumber_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_IsolatedDCDCMaxNumber_Value_Label;
-        private System.Windows.Forms.Label Estimate_Step5_DCDCMaxNumber_Value_Label;
         private System.Windows.Forms.Label Display_Detail_Load_Label;
         private System.Windows.Forms.TrackBar Display_Detail_Load_TrackBar;
         private System.Windows.Forms.Label Display_Detail_Load_Value_Label;
@@ -4907,6 +4448,36 @@
         private System.Windows.Forms.Panel Estimate_Step1B_Item3_Panel;
         private System.Windows.Forms.CheckBox Estimate_Step1B_Item3_CheckBox;
         private System.Windows.Forms.PictureBox Estimate_Step1B_Item3_PictureBox;
+        private System.Windows.Forms.Panel Estimate_Step3B_Panel;
+        private System.Windows.Forms.Panel Estimate_Step3B_Main_Panel;
+        private System.Windows.Forms.Label Estimate_Step3B_NumberRange_Symbol_Label;
+        private System.Windows.Forms.TextBox Estimate_Step3B_MaxNumber_TextBox;
+        private System.Windows.Forms.Label Estimate_Step3B_FrequencyRange_Unit_Label;
+        private System.Windows.Forms.TextBox Estimate_Step3B_MaxFrequency_TextBox;
+        private System.Windows.Forms.Label Estimate_Step3B_FrequencyRange_Symbol_Label;
+        private System.Windows.Forms.TextBox Estimate_Step3B_MinFrequency_TextBox;
+        private System.Windows.Forms.Label Estimate_Step3B_FrequencyRange_Label;
+        private System.Windows.Forms.TextBox Estimate_Step3B_MinNumber_TextBox;
+        private System.Windows.Forms.Label Estimate_Step3B_NumberRange_Label;
+        private System.Windows.Forms.Label Estimate_Step3B_Vin_Unit_Label;
+        private System.Windows.Forms.TextBox Estimate_Step3B_Vin_TextBox;
+        private System.Windows.Forms.Label Estimate_Step3B_Vin_Label;
+        private System.Windows.Forms.Label Estimate_Step3B_VinRange_Unit_Label;
+        private System.Windows.Forms.TextBox Estimate_Step3B_Vinmax_TextBox;
+        private System.Windows.Forms.Label Estimate_Step3B_VinRange_Symbol_Label;
+        private System.Windows.Forms.TextBox Estimate_Step3B_Vinmin_TextBox;
+        private System.Windows.Forms.Label Estimate_Step3B_VinRange_Label;
+        private System.Windows.Forms.Label Estimate_Step3B_Psys_Unit_Label;
+        private System.Windows.Forms.TextBox Estimate_Step3B_Psys_TextBox;
+        private System.Windows.Forms.Label Estimate_Step3B_Psys_Label;
+        private System.Windows.Forms.Panel Estimate_Step3B_Title_Panel;
+        private System.Windows.Forms.Label Estimate_Step3B_Title_Label;
+        private System.Windows.Forms.Panel Estimate_Step3B_Operation_Panel;
+        private System.Windows.Forms.Button Estimate_Step3B_Prev_Button;
+        private System.Windows.Forms.Button Estimate_Step3B_Next_Button;
+        private System.Windows.Forms.Label Estimate_Step3B_Vo_Unit_Label;
+        private System.Windows.Forms.TextBox Estimate_Step3B_Vo_TextBox;
+        private System.Windows.Forms.Label Estimate_Step3B_Vo_Label;
     }
 }
 
