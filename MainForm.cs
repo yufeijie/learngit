@@ -1648,82 +1648,62 @@ namespace PV_analysis
             }
         }
 
-        private void Display_Show_Detail_Button_Click(object sender, EventArgs e)
+        private void Display_Show_Detail_System_Display(double[,] data)
         {
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
-            string labelPoint(ChartPoint chartPoint) => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation); //饼图数据标签显示格式
 
-            //文字信息显示
-            if (selectedStructure != null)
+            //生成文字信息
+            panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
+            panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (structure.EfficiencyCGC * 100).ToString("f2") + "%"));
+            panelList.Add(Display_Show_Preview_CreateInfo("成本：", (structure.Cost / 1e4).ToString("f2") + "万元"));
+            panelList.Add(Display_Show_Preview_CreateInfo("体积：", structure.Volume.ToString("f2") + "dm^3"));
+            panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
+            panelList.Add(Display_Show_Preview_CreateInfo("架构：", selectedStructure));
+            switch (selectedStructure)
             {
-                structure.Evaluate(); //评估
-                //生成显示信息
-                panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-                panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (structure.EfficiencyCGC * 100).ToString("f2") + "%"));
-                panelList.Add(Display_Show_Preview_CreateInfo("成本：", (structure.Cost / 1e4).ToString("f2") + "万元"));
-                panelList.Add(Display_Show_Preview_CreateInfo("体积：", structure.Volume.ToString("f2") + "dm^3"));
-                panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-                panelList.Add(Display_Show_Preview_CreateInfo("架构：", selectedStructure));
-                switch (selectedStructure)
-                {
-                    case "三级架构":
-                        panelList.Add(Display_Show_Preview_CreateTitle("前级DC/DC："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)structure).DCDC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)structure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)structure).DCDC.Topology.GetName()));
-                        panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)structure).IsolatedDCDC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)structure).IsolatedDCDC.Topology.GetName()));
-                        panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)structure).DCAC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)structure).DCAC.Modulation.ToString()));
-                        //更新面板显示
-                        Display_Detail_System_Right_Panel.Controls.Clear(); //清空原有控件
-                        for (int i = panelList.Count - 1; i >= 0; i--) //逆序添加控件，以正常显示
-                        {
-                            Display_Detail_System_Right_Panel.Controls.Add(panelList[i]);
-                        }
+                case "三级架构":
+                    panelList.Add(Display_Show_Preview_CreateTitle("前级DC/DC："));
+                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)structure).DCDC.Number.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)structure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz"));
+                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)structure).DCDC.Topology.GetName()));
+                    panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC："));
+                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)structure).IsolatedDCDC.Number.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
+                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)structure).IsolatedDCDC.Topology.GetName()));
+                    panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
+                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)structure).DCAC.Number.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
+                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)structure).DCAC.Modulation.ToString()));
+                    break;
 
-                        panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (structure.EfficiencyCGC * 100).ToString("f2") + "%"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("成本：", (structure.Cost / 1e4).ToString("f2") + "万元"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("体积：", structure.Volume.ToString("f2") + "dm^3"));
-                        panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)structure).DCDC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)structure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)structure).DCDC.Topology.GetName()));
-                        //更新面板显示
-                        Display_Detail_DCDC_Right_Panel.Controls.Clear(); //清空原有控件
-                        for (int i = panelList.Count - 1; i >= 0; i--) //逆序添加控件，以正常显示
-                        {
-                            Display_Detail_DCDC_Right_Panel.Controls.Add(panelList[i]);
-                        }
-                        break;
+                case "两级架构":
+                    panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC："));
+                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)structure).IsolatedDCDC.Number.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
+                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)structure).IsolatedDCDC.Topology.GetName()));
+                    panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
+                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)structure).DCAC.Number.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
+                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)structure).DCAC.Modulation.ToString()));
+                    break;
+            }
+            //更新面板显示
+            Display_Detail_System_Right_Panel.Controls.Clear(); //清空原有控件
+            for (int i = panelList.Count - 1; i >= 0; i--) //逆序添加控件，以正常显示
+            {
+                Display_Detail_System_Right_Panel.Controls.Add(panelList[i]);
+            }
 
-                    case "两级架构":
-                        panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)structure).IsolatedDCDC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)structure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)structure).IsolatedDCDC.Topology.GetName()));
-                        panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)structure).DCAC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)structure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)structure).DCAC.Modulation.ToString()));
-                        break;
-                }
-
-                
-
-                switch (selectedStructure)
-                {
-                    case "三级架构":
-                        //显示图像
-                        double v1 = Math.Round(structure.Converters[0].Volume, 2);
-                        double v2 = Math.Round(structure.Converters[1].Volume, 2);
-                        double v3 = Math.Round(structure.Converters[2].Volume, 2);
-                        Display_Detail_SystemVolumeBreakdown_PieChart.Series = new SeriesCollection
+            //生成图像
+            //饼图
+            string labelPoint(ChartPoint chartPoint) => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation); //饼图数据标签显示格式
+            switch (selectedStructure)
+            {
+                case "三级架构":
+                    double v1 = Math.Round(structure.Converters[0].Volume, 2);
+                    double v2 = Math.Round(structure.Converters[1].Volume, 2);
+                    double v3 = Math.Round(structure.Converters[2].Volume, 2);
+                    Display_Detail_SystemVolumeBreakdown_PieChart.Series = new SeriesCollection
                         {
                             new PieSeries
                             {
@@ -1747,13 +1727,13 @@ namespace PV_analysis
                                 LabelPoint = labelPoint
                             },
                         };
-                        Display_Detail_SystemVolumeBreakdown_PieChart.StartingRotationAngle = 0;
-                        Display_Detail_SystemVolumeBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+                    Display_Detail_SystemVolumeBreakdown_PieChart.StartingRotationAngle = 0;
+                    Display_Detail_SystemVolumeBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
-                        double c1 = Math.Round(structure.Converters[0].Cost / 1e4, 2);
-                        double c2 = Math.Round(structure.Converters[1].Cost / 1e4, 2);
-                        double c3 = Math.Round(structure.Converters[2].Cost / 1e4, 2);
-                        Display_Detail_SystemCostBreakdown_PieChart.Series = new SeriesCollection
+                    double c1 = Math.Round(structure.Converters[0].Cost / 1e4, 2);
+                    double c2 = Math.Round(structure.Converters[1].Cost / 1e4, 2);
+                    double c3 = Math.Round(structure.Converters[2].Cost / 1e4, 2);
+                    Display_Detail_SystemCostBreakdown_PieChart.Series = new SeriesCollection
                         {
                             new PieSeries
                             {
@@ -1777,15 +1757,14 @@ namespace PV_analysis
                                 LabelPoint = labelPoint
                             },
                         };
-                        Display_Detail_SystemCostBreakdown_PieChart.StartingRotationAngle = 0;
-                        Display_Detail_SystemCostBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
-                        break;
+                    Display_Detail_SystemCostBreakdown_PieChart.StartingRotationAngle = 0;
+                    Display_Detail_SystemCostBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+                    break;
 
-                    case "两级架构":
-                        //显示图像
-                        v1 = Math.Round(structure.Converters[0].Volume, 2);
-                        v2 = Math.Round(structure.Converters[1].Volume, 2);
-                        Display_Detail_SystemVolumeBreakdown_PieChart.Series = new SeriesCollection
+                case "两级架构":
+                    v1 = Math.Round(structure.Converters[0].Volume, 2);
+                    v2 = Math.Round(structure.Converters[1].Volume, 2);
+                    Display_Detail_SystemVolumeBreakdown_PieChart.Series = new SeriesCollection
                         {
                             new PieSeries
                             {
@@ -1802,12 +1781,12 @@ namespace PV_analysis
                                 LabelPoint = labelPoint
                             },
                         };
-                        Display_Detail_SystemVolumeBreakdown_PieChart.StartingRotationAngle = 0;
-                        Display_Detail_SystemVolumeBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+                    Display_Detail_SystemVolumeBreakdown_PieChart.StartingRotationAngle = 0;
+                    Display_Detail_SystemVolumeBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
 
-                        c1 = Math.Round(structure.Converters[0].Cost / 1e4, 2);
-                        c2 = Math.Round(structure.Converters[1].Cost / 1e4, 2);
-                        Display_Detail_SystemCostBreakdown_PieChart.Series = new SeriesCollection
+                    c1 = Math.Round(structure.Converters[0].Cost / 1e4, 2);
+                    c2 = Math.Round(structure.Converters[1].Cost / 1e4, 2);
+                    Display_Detail_SystemCostBreakdown_PieChart.Series = new SeriesCollection
                         {
                             new PieSeries
                             {
@@ -1824,10 +1803,69 @@ namespace PV_analysis
                                 LabelPoint = labelPoint
                             },
                         };
-                        Display_Detail_SystemCostBreakdown_PieChart.StartingRotationAngle = 0;
-                        Display_Detail_SystemCostBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
-                        break;
+                    Display_Detail_SystemCostBreakdown_PieChart.StartingRotationAngle = 0;
+                    Display_Detail_SystemCostBreakdown_PieChart.LegendLocation = LegendLocation.Bottom;
+                    break;
+            }
+
+            //负载-效率图像
+            ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
+            for (int i = 0; i < data.Length; i++)
+            {
+                values.Add(new ObservablePoint(data[i, 0], data[i, 1]));
+            }
+            Display_Detail_SystemLoadVsEfficiency_CartesianChart.Series = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "Vin=860V",
+                    Values = values
                 }
+            };
+            Display_Detail_SystemLoadVsEfficiency_CartesianChart.AxisX = new AxesCollection
+            {
+                new Axis
+                {
+                    Title = "负载（%）"
+                }
+            };
+            Display_Detail_SystemLoadVsEfficiency_CartesianChart.AxisY = new AxesCollection
+            {
+                new Axis
+                {
+                    LabelFormatter = value => Math.Round(value, 8).ToString(),
+                    Title = "效率（%）"
+                }
+            };
+            Display_Detail_SystemLoadVsEfficiency_CartesianChart.LegendLocation = LegendLocation.Right;
+
+            //更新控件状态以显示
+            Display_Detail_TabControl.Controls.Add(Display_Detail_System_TabPage);
+        }
+
+        private void Display_Show_Detail_Button_Click(object sender, EventArgs e)
+        {
+            Display_Detail_TabControl.Controls.Clear(); //清除所有控件以隐藏
+
+            List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
+
+            //生成数据
+            structure.Evaluate(); //评估
+            double[,] data = new double[div, 5];
+            for (int i = 1; i <= div; i++)
+            {
+                structure.Operate(1.0 * i / div, structure.Math_Vpv_min);
+                //记录负载-效率曲线数据
+                data[i - 1, 0] = 100 * i / div; //负载点(%)
+                data[i - 1, 1] = structure.Efficiency * 100; //整体架构效率(%)
+            }
+
+
+
+            //文字信息显示
+            if (selectedStructure != null)
+            {
+                Display_Show_Detail_System_Display();
             }
             else
             {
@@ -1864,40 +1902,6 @@ namespace PV_analysis
                 //        break;
                 //}
             }
-
-            //生成不同负载下的损耗数据
-            ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
-            for (int i = 1; i <= div; i++)
-            {
-                structure.Operate(1.0 * i / div, structure.Math_Vpv_min);
-                values.Add(new ObservablePoint(100 * i / div, structure.Efficiency * 100));
-            }
-
-            //负载-效率图像
-            Display_Detail_SystemLoadVsEfficiency_CartesianChart.Series = new SeriesCollection
-            {
-                new LineSeries
-                {
-                    Title = "Vin=860V",
-                    Values = values
-                }
-            };
-            Display_Detail_SystemLoadVsEfficiency_CartesianChart.AxisX = new AxesCollection
-            {
-                new Axis
-                {
-                    Title = "负载（%）"
-                }
-            };
-            Display_Detail_SystemLoadVsEfficiency_CartesianChart.AxisY = new AxesCollection
-            {
-                new Axis
-                {
-                    LabelFormatter = value => Math.Round(value, 8).ToString(),
-                    Title = "效率（%）"
-                }
-            };
-            Display_Detail_SystemLoadVsEfficiency_CartesianChart.LegendLocation = LegendLocation.Right;
 
             //损耗分布图像
             Display_Detail_Load_TrackBar.Value = 100;
