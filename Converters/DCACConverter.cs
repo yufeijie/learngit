@@ -78,6 +78,15 @@ namespace PV_analysis.Converters
         }
 
         /// <summary>
+        /// 获取变换单元名
+        /// </summary>
+        /// <returns>变换单元名</returns>
+        public override string GetName()
+        {
+            return "逆变单元";
+        }
+
+        /// <summary>
         /// 获取设计方案的配置信息
         /// </summary>
         /// <returns>配置信息</returns>

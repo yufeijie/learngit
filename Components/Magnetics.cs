@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PV_analysis.Components
 {
@@ -80,6 +77,32 @@ namespace PV_analysis.Components
                 }
             }
             wire = -1;
+        }
+
+        /// <summary>
+        /// 获取成本分布
+        /// </summary>
+        /// <returns>成本分布信息</returns>
+        public override List<Item> GetCostBreakdown()
+        {
+            List<Item> list = new List<Item>
+            {
+                new Item(Name, Math.Round(number * (costCore + costWire), 2))
+            };
+            return list;
+        }
+
+        /// <summary>
+        /// 获取体积分布
+        /// </summary>
+        /// <returns>体积分布信息</returns>
+        public override List<Item> GetVolumeBreakdown()
+        {
+            List<Item> list = new List<Item>
+            {
+                new Item(Name, Math.Round(Volume, 2))
+            };
+            return list;
         }
 
         /// <summary>

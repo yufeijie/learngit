@@ -202,31 +202,48 @@
             this.Display_Detail_TabControl = new System.Windows.Forms.TabControl();
             this.Display_Detail_System_TabPage = new System.Windows.Forms.TabPage();
             this.Display_Detail_System_Main_Panel = new System.Windows.Forms.Panel();
-            this.Display_Detail_SystemCostBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
-            this.Display_Detail_SystemLoadVsEfficiency_Label = new System.Windows.Forms.Label();
-            this.Display_Detail_SystemCostBreakdown_Label = new System.Windows.Forms.Label();
-            this.Display_Detail_SystemVolumeBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
-            this.Display_Detail_SystemVolumeBreakdown_Label = new System.Windows.Forms.Label();
-            this.Display_Detail_SystemLoadVsEfficiency_CartesianChart = new LiveCharts.WinForms.CartesianChart();
+            this.Display_Detail_System_CostBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
+            this.Display_Detail_System_LossBreakdown_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_System_LoadVsEfficiency_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_System_CostBreakdown_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_System_VolumeBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
+            this.Display_Detail_System_LossBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
+            this.Display_Detail_System_VolumeBreakdown_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_System_LoadVsEfficiency_CartesianChart = new LiveCharts.WinForms.CartesianChart();
             this.Display_Detail_System_Right_Panel = new System.Windows.Forms.Panel();
             this.Display_Detail_DCDC_TabPage = new System.Windows.Forms.TabPage();
             this.Display_Detail_DCDC_Main_Panel = new System.Windows.Forms.Panel();
+            this.Display_Detail_DCDC_CostBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
+            this.Display_Detail_DCDC_LossBreakdown_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_DCDC_LoadVsEfficiency_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_DCDC_CostBreakdown_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_DCDC_VolumeBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
+            this.Display_Detail_DCDC_LossBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
+            this.Display_Detail_DCDC_VolumeBreakdown_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart = new LiveCharts.WinForms.CartesianChart();
             this.Display_Detail_DCDC_Right_Panel = new System.Windows.Forms.Panel();
             this.Display_Detail_IsolatedDCDC_TabPage = new System.Windows.Forms.TabPage();
             this.Display_Detail_IsolatedDCDC_Main_Panel = new System.Windows.Forms.Panel();
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart = new LiveCharts.WinForms.CartesianChart();
             this.Display_Detail_IsolatedDCDC_Right_Panel = new System.Windows.Forms.Panel();
             this.Display_Detail_DCAC_TabPage = new System.Windows.Forms.TabPage();
             this.Display_Detail_DCAC_Main_Panel = new System.Windows.Forms.Panel();
+            this.Display_Detail_DCAC_CostBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
+            this.Display_Detail_DCAC_LossBreakdown_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_DCAC_LoadVsEfficiency_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_DCAC_CostBreakdown_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_DCAC_VolumeBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
+            this.Display_Detail_DCAC_LossBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
+            this.Display_Detail_DCAC_VolumeBreakdown_Label = new System.Windows.Forms.Label();
+            this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart = new LiveCharts.WinForms.CartesianChart();
             this.Display_Detail_DCAC_Right_Panel = new System.Windows.Forms.Panel();
-            this.Display_Detail_LossBreakdown_TabPage = new System.Windows.Forms.TabPage();
-            this.Display_Detail_DCDCLossBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
-            this.Display_Detail_SystemLossBreakdown_Label = new System.Windows.Forms.Label();
-            this.Display_Detail_IsolatedDCDCLossBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
-            this.Display_Detail_SystemLossBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
-            this.Display_Detail_DCACLossBreakdown_PieChart = new LiveCharts.WinForms.PieChart();
-            this.Display_Detail_DCACLossBreakdown_Label = new System.Windows.Forms.Label();
-            this.Display_Detail_DCDCLossBreakdown_Label = new System.Windows.Forms.Label();
-            this.Display_Detail_IsolatedDCDCLossBreakdown_Label = new System.Windows.Forms.Label();
             this.Display_Detail_Operation_Panel = new System.Windows.Forms.Panel();
             this.Display_Detail_Load_TrackBar = new System.Windows.Forms.TrackBar();
             this.Display_Detail_Back_Button = new System.Windows.Forms.Button();
@@ -357,9 +374,11 @@
             this.Display_Detail_System_TabPage.SuspendLayout();
             this.Display_Detail_System_Main_Panel.SuspendLayout();
             this.Display_Detail_DCDC_TabPage.SuspendLayout();
+            this.Display_Detail_DCDC_Main_Panel.SuspendLayout();
             this.Display_Detail_IsolatedDCDC_TabPage.SuspendLayout();
+            this.Display_Detail_IsolatedDCDC_Main_Panel.SuspendLayout();
             this.Display_Detail_DCAC_TabPage.SuspendLayout();
-            this.Display_Detail_LossBreakdown_TabPage.SuspendLayout();
+            this.Display_Detail_DCAC_Main_Panel.SuspendLayout();
             this.Display_Detail_Operation_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Display_Detail_Load_TrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Display_Detail_Vin_TrackBar)).BeginInit();
@@ -2381,7 +2400,6 @@
             this.Display_Detail_TabControl.Controls.Add(this.Display_Detail_DCDC_TabPage);
             this.Display_Detail_TabControl.Controls.Add(this.Display_Detail_IsolatedDCDC_TabPage);
             this.Display_Detail_TabControl.Controls.Add(this.Display_Detail_DCAC_TabPage);
-            this.Display_Detail_TabControl.Controls.Add(this.Display_Detail_LossBreakdown_TabPage);
             this.Display_Detail_TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Display_Detail_TabControl.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Display_Detail_TabControl.ItemSize = new System.Drawing.Size(150, 50);
@@ -2408,77 +2426,100 @@
             // Display_Detail_System_Main_Panel
             // 
             this.Display_Detail_System_Main_Panel.AutoScroll = true;
-            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_SystemCostBreakdown_PieChart);
-            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_SystemLossBreakdown_Label);
-            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_SystemLoadVsEfficiency_Label);
-            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_SystemCostBreakdown_Label);
-            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_SystemVolumeBreakdown_PieChart);
-            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_SystemLossBreakdown_PieChart);
-            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_SystemVolumeBreakdown_Label);
-            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_SystemLoadVsEfficiency_CartesianChart);
+            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_System_CostBreakdown_PieChart);
+            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_System_LossBreakdown_Label);
+            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_System_LoadVsEfficiency_Label);
+            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_System_CostBreakdown_Label);
+            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_System_VolumeBreakdown_PieChart);
+            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_System_LossBreakdown_PieChart);
+            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_System_VolumeBreakdown_Label);
+            this.Display_Detail_System_Main_Panel.Controls.Add(this.Display_Detail_System_LoadVsEfficiency_CartesianChart);
             this.Display_Detail_System_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Display_Detail_System_Main_Panel.Location = new System.Drawing.Point(3, 3);
             this.Display_Detail_System_Main_Panel.Name = "Display_Detail_System_Main_Panel";
             this.Display_Detail_System_Main_Panel.Size = new System.Drawing.Size(1068, 743);
             this.Display_Detail_System_Main_Panel.TabIndex = 163;
             // 
-            // Display_Detail_SystemCostBreakdown_PieChart
+            // Display_Detail_System_CostBreakdown_PieChart
             // 
-            this.Display_Detail_SystemCostBreakdown_PieChart.Location = new System.Drawing.Point(116, 67);
-            this.Display_Detail_SystemCostBreakdown_PieChart.Name = "Display_Detail_SystemCostBreakdown_PieChart";
-            this.Display_Detail_SystemCostBreakdown_PieChart.Size = new System.Drawing.Size(400, 300);
-            this.Display_Detail_SystemCostBreakdown_PieChart.TabIndex = 153;
-            this.Display_Detail_SystemCostBreakdown_PieChart.Text = "pieChart3";
+            this.Display_Detail_System_CostBreakdown_PieChart.Font = new System.Drawing.Font("宋体", 9F);
+            this.Display_Detail_System_CostBreakdown_PieChart.Location = new System.Drawing.Point(376, 80);
+            this.Display_Detail_System_CostBreakdown_PieChart.Name = "Display_Detail_System_CostBreakdown_PieChart";
+            this.Display_Detail_System_CostBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_System_CostBreakdown_PieChart.TabIndex = 153;
+            this.Display_Detail_System_CostBreakdown_PieChart.Text = "pieChart3";
             // 
-            // Display_Detail_SystemLoadVsEfficiency_Label
+            // Display_Detail_System_LossBreakdown_Label
             // 
-            this.Display_Detail_SystemLoadVsEfficiency_Label.AutoSize = true;
-            this.Display_Detail_SystemLoadVsEfficiency_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Detail_SystemLoadVsEfficiency_Label.Location = new System.Drawing.Point(488, 340);
-            this.Display_Detail_SystemLoadVsEfficiency_Label.Name = "Display_Detail_SystemLoadVsEfficiency_Label";
-            this.Display_Detail_SystemLoadVsEfficiency_Label.Size = new System.Drawing.Size(96, 26);
-            this.Display_Detail_SystemLoadVsEfficiency_Label.TabIndex = 161;
-            this.Display_Detail_SystemLoadVsEfficiency_Label.Text = "负载-效率";
-            this.Display_Detail_SystemLoadVsEfficiency_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Display_Detail_System_LossBreakdown_Label.AutoSize = true;
+            this.Display_Detail_System_LossBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_System_LossBreakdown_Label.Location = new System.Drawing.Point(101, 30);
+            this.Display_Detail_System_LossBreakdown_Label.Name = "Display_Detail_System_LossBreakdown_Label";
+            this.Display_Detail_System_LossBreakdown_Label.Size = new System.Drawing.Size(160, 26);
+            this.Display_Detail_System_LossBreakdown_Label.TabIndex = 169;
+            this.Display_Detail_System_LossBreakdown_Label.Text = "系统损耗分布(W)";
+            this.Display_Detail_System_LossBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // Display_Detail_SystemCostBreakdown_Label
+            // Display_Detail_System_LoadVsEfficiency_Label
             // 
-            this.Display_Detail_SystemCostBreakdown_Label.AutoSize = true;
-            this.Display_Detail_SystemCostBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Detail_SystemCostBreakdown_Label.Location = new System.Drawing.Point(246, 23);
-            this.Display_Detail_SystemCostBreakdown_Label.Name = "Display_Detail_SystemCostBreakdown_Label";
-            this.Display_Detail_SystemCostBreakdown_Label.Size = new System.Drawing.Size(140, 26);
-            this.Display_Detail_SystemCostBreakdown_Label.TabIndex = 156;
-            this.Display_Detail_SystemCostBreakdown_Label.Text = "成本分布(万元)";
-            this.Display_Detail_SystemCostBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Display_Detail_System_LoadVsEfficiency_Label.AutoSize = true;
+            this.Display_Detail_System_LoadVsEfficiency_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_System_LoadVsEfficiency_Label.Location = new System.Drawing.Point(478, 410);
+            this.Display_Detail_System_LoadVsEfficiency_Label.Name = "Display_Detail_System_LoadVsEfficiency_Label";
+            this.Display_Detail_System_LoadVsEfficiency_Label.Size = new System.Drawing.Size(96, 26);
+            this.Display_Detail_System_LoadVsEfficiency_Label.TabIndex = 161;
+            this.Display_Detail_System_LoadVsEfficiency_Label.Text = "负载-效率";
+            this.Display_Detail_System_LoadVsEfficiency_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // Display_Detail_SystemVolumeBreakdown_PieChart
+            // Display_Detail_System_CostBreakdown_Label
             // 
-            this.Display_Detail_SystemVolumeBreakdown_PieChart.Location = new System.Drawing.Point(524, 53);
-            this.Display_Detail_SystemVolumeBreakdown_PieChart.Name = "Display_Detail_SystemVolumeBreakdown_PieChart";
-            this.Display_Detail_SystemVolumeBreakdown_PieChart.Size = new System.Drawing.Size(400, 300);
-            this.Display_Detail_SystemVolumeBreakdown_PieChart.TabIndex = 152;
-            this.Display_Detail_SystemVolumeBreakdown_PieChart.Text = "pieChart2";
+            this.Display_Detail_System_CostBreakdown_Label.AutoSize = true;
+            this.Display_Detail_System_CostBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_System_CostBreakdown_Label.Location = new System.Drawing.Point(456, 30);
+            this.Display_Detail_System_CostBreakdown_Label.Name = "Display_Detail_System_CostBreakdown_Label";
+            this.Display_Detail_System_CostBreakdown_Label.Size = new System.Drawing.Size(140, 26);
+            this.Display_Detail_System_CostBreakdown_Label.TabIndex = 156;
+            this.Display_Detail_System_CostBreakdown_Label.Text = "成本分布(万元)";
+            this.Display_Detail_System_CostBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // Display_Detail_SystemVolumeBreakdown_Label
+            // Display_Detail_System_VolumeBreakdown_PieChart
             // 
-            this.Display_Detail_SystemVolumeBreakdown_Label.AutoSize = true;
-            this.Display_Detail_SystemVolumeBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Detail_SystemVolumeBreakdown_Label.Location = new System.Drawing.Point(644, 9);
-            this.Display_Detail_SystemVolumeBreakdown_Label.Name = "Display_Detail_SystemVolumeBreakdown_Label";
-            this.Display_Detail_SystemVolumeBreakdown_Label.Size = new System.Drawing.Size(160, 26);
-            this.Display_Detail_SystemVolumeBreakdown_Label.TabIndex = 155;
-            this.Display_Detail_SystemVolumeBreakdown_Label.Text = "体积分布(dm^3)";
-            this.Display_Detail_SystemVolumeBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Display_Detail_System_VolumeBreakdown_PieChart.Font = new System.Drawing.Font("宋体", 9F);
+            this.Display_Detail_System_VolumeBreakdown_PieChart.Location = new System.Drawing.Point(719, 80);
+            this.Display_Detail_System_VolumeBreakdown_PieChart.Name = "Display_Detail_System_VolumeBreakdown_PieChart";
+            this.Display_Detail_System_VolumeBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_System_VolumeBreakdown_PieChart.TabIndex = 152;
+            this.Display_Detail_System_VolumeBreakdown_PieChart.Text = "pieChart2";
             // 
-            // Display_Detail_SystemLoadVsEfficiency_CartesianChart
+            // Display_Detail_System_LossBreakdown_PieChart
             // 
-            this.Display_Detail_SystemLoadVsEfficiency_CartesianChart.BackColor = System.Drawing.Color.White;
-            this.Display_Detail_SystemLoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(136, 381);
-            this.Display_Detail_SystemLoadVsEfficiency_CartesianChart.Name = "Display_Detail_SystemLoadVsEfficiency_CartesianChart";
-            this.Display_Detail_SystemLoadVsEfficiency_CartesianChart.Size = new System.Drawing.Size(800, 600);
-            this.Display_Detail_SystemLoadVsEfficiency_CartesianChart.TabIndex = 160;
-            this.Display_Detail_SystemLoadVsEfficiency_CartesianChart.Text = "cartesianChart1";
+            this.Display_Detail_System_LossBreakdown_PieChart.Font = new System.Drawing.Font("宋体", 9F);
+            this.Display_Detail_System_LossBreakdown_PieChart.Location = new System.Drawing.Point(31, 80);
+            this.Display_Detail_System_LossBreakdown_PieChart.Name = "Display_Detail_System_LossBreakdown_PieChart";
+            this.Display_Detail_System_LossBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_System_LossBreakdown_PieChart.TabIndex = 168;
+            this.Display_Detail_System_LossBreakdown_PieChart.Text = "pieChart1";
+            // 
+            // Display_Detail_System_VolumeBreakdown_Label
+            // 
+            this.Display_Detail_System_VolumeBreakdown_Label.AutoSize = true;
+            this.Display_Detail_System_VolumeBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_System_VolumeBreakdown_Label.Location = new System.Drawing.Point(789, 30);
+            this.Display_Detail_System_VolumeBreakdown_Label.Name = "Display_Detail_System_VolumeBreakdown_Label";
+            this.Display_Detail_System_VolumeBreakdown_Label.Size = new System.Drawing.Size(160, 26);
+            this.Display_Detail_System_VolumeBreakdown_Label.TabIndex = 155;
+            this.Display_Detail_System_VolumeBreakdown_Label.Text = "体积分布(dm^3)";
+            this.Display_Detail_System_VolumeBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Detail_System_LoadVsEfficiency_CartesianChart
+            // 
+            this.Display_Detail_System_LoadVsEfficiency_CartesianChart.BackColor = System.Drawing.Color.White;
+            this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Font = new System.Drawing.Font("宋体", 9F);
+            this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 450);
+            this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Name = "Display_Detail_System_LoadVsEfficiency_CartesianChart";
+            this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Size = new System.Drawing.Size(800, 600);
+            this.Display_Detail_System_LoadVsEfficiency_CartesianChart.TabIndex = 160;
+            this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Text = "cartesianChart1";
             // 
             // Display_Detail_System_Right_Panel
             // 
@@ -2506,11 +2547,96 @@
             // Display_Detail_DCDC_Main_Panel
             // 
             this.Display_Detail_DCDC_Main_Panel.AutoScroll = true;
+            this.Display_Detail_DCDC_Main_Panel.Controls.Add(this.Display_Detail_DCDC_CostBreakdown_PieChart);
+            this.Display_Detail_DCDC_Main_Panel.Controls.Add(this.Display_Detail_DCDC_LossBreakdown_Label);
+            this.Display_Detail_DCDC_Main_Panel.Controls.Add(this.Display_Detail_DCDC_LoadVsEfficiency_Label);
+            this.Display_Detail_DCDC_Main_Panel.Controls.Add(this.Display_Detail_DCDC_CostBreakdown_Label);
+            this.Display_Detail_DCDC_Main_Panel.Controls.Add(this.Display_Detail_DCDC_VolumeBreakdown_PieChart);
+            this.Display_Detail_DCDC_Main_Panel.Controls.Add(this.Display_Detail_DCDC_LossBreakdown_PieChart);
+            this.Display_Detail_DCDC_Main_Panel.Controls.Add(this.Display_Detail_DCDC_VolumeBreakdown_Label);
+            this.Display_Detail_DCDC_Main_Panel.Controls.Add(this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart);
             this.Display_Detail_DCDC_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Display_Detail_DCDC_Main_Panel.Location = new System.Drawing.Point(3, 3);
             this.Display_Detail_DCDC_Main_Panel.Name = "Display_Detail_DCDC_Main_Panel";
             this.Display_Detail_DCDC_Main_Panel.Size = new System.Drawing.Size(1068, 743);
             this.Display_Detail_DCDC_Main_Panel.TabIndex = 163;
+            // 
+            // Display_Detail_DCDC_CostBreakdown_PieChart
+            // 
+            this.Display_Detail_DCDC_CostBreakdown_PieChart.Location = new System.Drawing.Point(376, 80);
+            this.Display_Detail_DCDC_CostBreakdown_PieChart.Name = "Display_Detail_DCDC_CostBreakdown_PieChart";
+            this.Display_Detail_DCDC_CostBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_DCDC_CostBreakdown_PieChart.TabIndex = 171;
+            this.Display_Detail_DCDC_CostBreakdown_PieChart.Text = "pieChart3";
+            // 
+            // Display_Detail_DCDC_LossBreakdown_Label
+            // 
+            this.Display_Detail_DCDC_LossBreakdown_Label.AutoSize = true;
+            this.Display_Detail_DCDC_LossBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_DCDC_LossBreakdown_Label.Location = new System.Drawing.Point(101, 30);
+            this.Display_Detail_DCDC_LossBreakdown_Label.Name = "Display_Detail_DCDC_LossBreakdown_Label";
+            this.Display_Detail_DCDC_LossBreakdown_Label.Size = new System.Drawing.Size(160, 26);
+            this.Display_Detail_DCDC_LossBreakdown_Label.TabIndex = 177;
+            this.Display_Detail_DCDC_LossBreakdown_Label.Text = "模块损耗分布(W)";
+            this.Display_Detail_DCDC_LossBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Detail_DCDC_LoadVsEfficiency_Label
+            // 
+            this.Display_Detail_DCDC_LoadVsEfficiency_Label.AutoSize = true;
+            this.Display_Detail_DCDC_LoadVsEfficiency_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_DCDC_LoadVsEfficiency_Label.Location = new System.Drawing.Point(478, 410);
+            this.Display_Detail_DCDC_LoadVsEfficiency_Label.Name = "Display_Detail_DCDC_LoadVsEfficiency_Label";
+            this.Display_Detail_DCDC_LoadVsEfficiency_Label.Size = new System.Drawing.Size(96, 26);
+            this.Display_Detail_DCDC_LoadVsEfficiency_Label.TabIndex = 175;
+            this.Display_Detail_DCDC_LoadVsEfficiency_Label.Text = "负载-效率";
+            this.Display_Detail_DCDC_LoadVsEfficiency_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Detail_DCDC_CostBreakdown_Label
+            // 
+            this.Display_Detail_DCDC_CostBreakdown_Label.AutoSize = true;
+            this.Display_Detail_DCDC_CostBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_DCDC_CostBreakdown_Label.Location = new System.Drawing.Point(447, 30);
+            this.Display_Detail_DCDC_CostBreakdown_Label.Name = "Display_Detail_DCDC_CostBreakdown_Label";
+            this.Display_Detail_DCDC_CostBreakdown_Label.Size = new System.Drawing.Size(159, 26);
+            this.Display_Detail_DCDC_CostBreakdown_Label.TabIndex = 173;
+            this.Display_Detail_DCDC_CostBreakdown_Label.Text = "模块成本分布(元)";
+            this.Display_Detail_DCDC_CostBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Detail_DCDC_VolumeBreakdown_PieChart
+            // 
+            this.Display_Detail_DCDC_VolumeBreakdown_PieChart.Location = new System.Drawing.Point(719, 80);
+            this.Display_Detail_DCDC_VolumeBreakdown_PieChart.Name = "Display_Detail_DCDC_VolumeBreakdown_PieChart";
+            this.Display_Detail_DCDC_VolumeBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_DCDC_VolumeBreakdown_PieChart.TabIndex = 170;
+            this.Display_Detail_DCDC_VolumeBreakdown_PieChart.Text = "pieChart2";
+            // 
+            // Display_Detail_DCDC_LossBreakdown_PieChart
+            // 
+            this.Display_Detail_DCDC_LossBreakdown_PieChart.Location = new System.Drawing.Point(31, 80);
+            this.Display_Detail_DCDC_LossBreakdown_PieChart.Name = "Display_Detail_DCDC_LossBreakdown_PieChart";
+            this.Display_Detail_DCDC_LossBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_DCDC_LossBreakdown_PieChart.TabIndex = 176;
+            this.Display_Detail_DCDC_LossBreakdown_PieChart.Text = "pieChart1";
+            // 
+            // Display_Detail_DCDC_VolumeBreakdown_Label
+            // 
+            this.Display_Detail_DCDC_VolumeBreakdown_Label.AutoSize = true;
+            this.Display_Detail_DCDC_VolumeBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_DCDC_VolumeBreakdown_Label.Location = new System.Drawing.Point(770, 30);
+            this.Display_Detail_DCDC_VolumeBreakdown_Label.Name = "Display_Detail_DCDC_VolumeBreakdown_Label";
+            this.Display_Detail_DCDC_VolumeBreakdown_Label.Size = new System.Drawing.Size(198, 26);
+            this.Display_Detail_DCDC_VolumeBreakdown_Label.TabIndex = 172;
+            this.Display_Detail_DCDC_VolumeBreakdown_Label.Text = "模块体积分布(dm^3)";
+            this.Display_Detail_DCDC_VolumeBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Detail_DCDC_LoadVsEfficiency_CartesianChart
+            // 
+            this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.BackColor = System.Drawing.Color.White;
+            this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 450);
+            this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.Name = "Display_Detail_DCDC_LoadVsEfficiency_CartesianChart";
+            this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.Size = new System.Drawing.Size(800, 600);
+            this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.TabIndex = 174;
+            this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.Text = "cartesianChart1";
             // 
             // Display_Detail_DCDC_Right_Panel
             // 
@@ -2538,11 +2664,96 @@
             // Display_Detail_IsolatedDCDC_Main_Panel
             // 
             this.Display_Detail_IsolatedDCDC_Main_Panel.AutoScroll = true;
+            this.Display_Detail_IsolatedDCDC_Main_Panel.Controls.Add(this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart);
+            this.Display_Detail_IsolatedDCDC_Main_Panel.Controls.Add(this.Display_Detail_IsolatedDCDC_LossBreakdown_Label);
+            this.Display_Detail_IsolatedDCDC_Main_Panel.Controls.Add(this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_Label);
+            this.Display_Detail_IsolatedDCDC_Main_Panel.Controls.Add(this.Display_Detail_IsolatedDCDC_CostBreakdown_Label);
+            this.Display_Detail_IsolatedDCDC_Main_Panel.Controls.Add(this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart);
+            this.Display_Detail_IsolatedDCDC_Main_Panel.Controls.Add(this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart);
+            this.Display_Detail_IsolatedDCDC_Main_Panel.Controls.Add(this.Display_Detail_IsolatedDCDC_VolumeBreakdown_Label);
+            this.Display_Detail_IsolatedDCDC_Main_Panel.Controls.Add(this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart);
             this.Display_Detail_IsolatedDCDC_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Display_Detail_IsolatedDCDC_Main_Panel.Location = new System.Drawing.Point(3, 3);
             this.Display_Detail_IsolatedDCDC_Main_Panel.Name = "Display_Detail_IsolatedDCDC_Main_Panel";
             this.Display_Detail_IsolatedDCDC_Main_Panel.Size = new System.Drawing.Size(1068, 743);
             this.Display_Detail_IsolatedDCDC_Main_Panel.TabIndex = 163;
+            // 
+            // Display_Detail_IsolatedDCDC_CostBreakdown_PieChart
+            // 
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart.Location = new System.Drawing.Point(376, 80);
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart.Name = "Display_Detail_IsolatedDCDC_CostBreakdown_PieChart";
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart.TabIndex = 179;
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart.Text = "pieChart3";
+            // 
+            // Display_Detail_IsolatedDCDC_LossBreakdown_Label
+            // 
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_Label.AutoSize = true;
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_Label.Location = new System.Drawing.Point(101, 30);
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_Label.Name = "Display_Detail_IsolatedDCDC_LossBreakdown_Label";
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_Label.Size = new System.Drawing.Size(160, 26);
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_Label.TabIndex = 185;
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_Label.Text = "模块损耗分布(W)";
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Detail_IsolatedDCDC_LoadVsEfficiency_Label
+            // 
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_Label.AutoSize = true;
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_Label.Location = new System.Drawing.Point(478, 410);
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_Label.Name = "Display_Detail_IsolatedDCDC_LoadVsEfficiency_Label";
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_Label.Size = new System.Drawing.Size(96, 26);
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_Label.TabIndex = 183;
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_Label.Text = "负载-效率";
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Detail_IsolatedDCDC_CostBreakdown_Label
+            // 
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_Label.AutoSize = true;
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_Label.Location = new System.Drawing.Point(447, 30);
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_Label.Name = "Display_Detail_IsolatedDCDC_CostBreakdown_Label";
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_Label.Size = new System.Drawing.Size(159, 26);
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_Label.TabIndex = 181;
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_Label.Text = "模块成本分布(元)";
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart
+            // 
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart.Location = new System.Drawing.Point(719, 80);
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart.Name = "Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart";
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart.TabIndex = 178;
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart.Text = "pieChart5";
+            // 
+            // Display_Detail_IsolatedDCDC_LossBreakdown_PieChart
+            // 
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart.Location = new System.Drawing.Point(31, 80);
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart.Name = "Display_Detail_IsolatedDCDC_LossBreakdown_PieChart";
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart.TabIndex = 184;
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart.Text = "pieChart1";
+            // 
+            // Display_Detail_IsolatedDCDC_VolumeBreakdown_Label
+            // 
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_Label.AutoSize = true;
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_Label.Location = new System.Drawing.Point(770, 30);
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_Label.Name = "Display_Detail_IsolatedDCDC_VolumeBreakdown_Label";
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_Label.Size = new System.Drawing.Size(198, 26);
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_Label.TabIndex = 180;
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_Label.Text = "模块体积分布(dm^3)";
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart
+            // 
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.BackColor = System.Drawing.Color.White;
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 450);
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.Name = "Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart";
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.Size = new System.Drawing.Size(800, 600);
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.TabIndex = 182;
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.Text = "cartesianChart2";
             // 
             // Display_Detail_IsolatedDCDC_Right_Panel
             // 
@@ -2570,11 +2781,96 @@
             // Display_Detail_DCAC_Main_Panel
             // 
             this.Display_Detail_DCAC_Main_Panel.AutoScroll = true;
+            this.Display_Detail_DCAC_Main_Panel.Controls.Add(this.Display_Detail_DCAC_CostBreakdown_PieChart);
+            this.Display_Detail_DCAC_Main_Panel.Controls.Add(this.Display_Detail_DCAC_LossBreakdown_Label);
+            this.Display_Detail_DCAC_Main_Panel.Controls.Add(this.Display_Detail_DCAC_LoadVsEfficiency_Label);
+            this.Display_Detail_DCAC_Main_Panel.Controls.Add(this.Display_Detail_DCAC_CostBreakdown_Label);
+            this.Display_Detail_DCAC_Main_Panel.Controls.Add(this.Display_Detail_DCAC_VolumeBreakdown_PieChart);
+            this.Display_Detail_DCAC_Main_Panel.Controls.Add(this.Display_Detail_DCAC_LossBreakdown_PieChart);
+            this.Display_Detail_DCAC_Main_Panel.Controls.Add(this.Display_Detail_DCAC_VolumeBreakdown_Label);
+            this.Display_Detail_DCAC_Main_Panel.Controls.Add(this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart);
             this.Display_Detail_DCAC_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Display_Detail_DCAC_Main_Panel.Location = new System.Drawing.Point(3, 3);
             this.Display_Detail_DCAC_Main_Panel.Name = "Display_Detail_DCAC_Main_Panel";
             this.Display_Detail_DCAC_Main_Panel.Size = new System.Drawing.Size(1068, 743);
             this.Display_Detail_DCAC_Main_Panel.TabIndex = 163;
+            // 
+            // Display_Detail_DCAC_CostBreakdown_PieChart
+            // 
+            this.Display_Detail_DCAC_CostBreakdown_PieChart.Location = new System.Drawing.Point(376, 80);
+            this.Display_Detail_DCAC_CostBreakdown_PieChart.Name = "Display_Detail_DCAC_CostBreakdown_PieChart";
+            this.Display_Detail_DCAC_CostBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_DCAC_CostBreakdown_PieChart.TabIndex = 179;
+            this.Display_Detail_DCAC_CostBreakdown_PieChart.Text = "pieChart3";
+            // 
+            // Display_Detail_DCAC_LossBreakdown_Label
+            // 
+            this.Display_Detail_DCAC_LossBreakdown_Label.AutoSize = true;
+            this.Display_Detail_DCAC_LossBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_DCAC_LossBreakdown_Label.Location = new System.Drawing.Point(101, 30);
+            this.Display_Detail_DCAC_LossBreakdown_Label.Name = "Display_Detail_DCAC_LossBreakdown_Label";
+            this.Display_Detail_DCAC_LossBreakdown_Label.Size = new System.Drawing.Size(160, 26);
+            this.Display_Detail_DCAC_LossBreakdown_Label.TabIndex = 185;
+            this.Display_Detail_DCAC_LossBreakdown_Label.Text = "模块损耗分布(W)";
+            this.Display_Detail_DCAC_LossBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Detail_DCAC_LoadVsEfficiency_Label
+            // 
+            this.Display_Detail_DCAC_LoadVsEfficiency_Label.AutoSize = true;
+            this.Display_Detail_DCAC_LoadVsEfficiency_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_DCAC_LoadVsEfficiency_Label.Location = new System.Drawing.Point(478, 410);
+            this.Display_Detail_DCAC_LoadVsEfficiency_Label.Name = "Display_Detail_DCAC_LoadVsEfficiency_Label";
+            this.Display_Detail_DCAC_LoadVsEfficiency_Label.Size = new System.Drawing.Size(96, 26);
+            this.Display_Detail_DCAC_LoadVsEfficiency_Label.TabIndex = 183;
+            this.Display_Detail_DCAC_LoadVsEfficiency_Label.Text = "负载-效率";
+            this.Display_Detail_DCAC_LoadVsEfficiency_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Detail_DCAC_CostBreakdown_Label
+            // 
+            this.Display_Detail_DCAC_CostBreakdown_Label.AutoSize = true;
+            this.Display_Detail_DCAC_CostBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_DCAC_CostBreakdown_Label.Location = new System.Drawing.Point(447, 30);
+            this.Display_Detail_DCAC_CostBreakdown_Label.Name = "Display_Detail_DCAC_CostBreakdown_Label";
+            this.Display_Detail_DCAC_CostBreakdown_Label.Size = new System.Drawing.Size(159, 26);
+            this.Display_Detail_DCAC_CostBreakdown_Label.TabIndex = 181;
+            this.Display_Detail_DCAC_CostBreakdown_Label.Text = "模块成本分布(元)";
+            this.Display_Detail_DCAC_CostBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Detail_DCAC_VolumeBreakdown_PieChart
+            // 
+            this.Display_Detail_DCAC_VolumeBreakdown_PieChart.Location = new System.Drawing.Point(719, 80);
+            this.Display_Detail_DCAC_VolumeBreakdown_PieChart.Name = "Display_Detail_DCAC_VolumeBreakdown_PieChart";
+            this.Display_Detail_DCAC_VolumeBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_DCAC_VolumeBreakdown_PieChart.TabIndex = 178;
+            this.Display_Detail_DCAC_VolumeBreakdown_PieChart.Text = "pieChart8";
+            // 
+            // Display_Detail_DCAC_LossBreakdown_PieChart
+            // 
+            this.Display_Detail_DCAC_LossBreakdown_PieChart.Location = new System.Drawing.Point(31, 80);
+            this.Display_Detail_DCAC_LossBreakdown_PieChart.Name = "Display_Detail_DCAC_LossBreakdown_PieChart";
+            this.Display_Detail_DCAC_LossBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_DCAC_LossBreakdown_PieChart.TabIndex = 184;
+            this.Display_Detail_DCAC_LossBreakdown_PieChart.Text = "pieChart1";
+            // 
+            // Display_Detail_DCAC_VolumeBreakdown_Label
+            // 
+            this.Display_Detail_DCAC_VolumeBreakdown_Label.AutoSize = true;
+            this.Display_Detail_DCAC_VolumeBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Detail_DCAC_VolumeBreakdown_Label.Location = new System.Drawing.Point(770, 30);
+            this.Display_Detail_DCAC_VolumeBreakdown_Label.Name = "Display_Detail_DCAC_VolumeBreakdown_Label";
+            this.Display_Detail_DCAC_VolumeBreakdown_Label.Size = new System.Drawing.Size(198, 26);
+            this.Display_Detail_DCAC_VolumeBreakdown_Label.TabIndex = 180;
+            this.Display_Detail_DCAC_VolumeBreakdown_Label.Text = "模块体积分布(dm^3)";
+            this.Display_Detail_DCAC_VolumeBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Detail_DCAC_LoadVsEfficiency_CartesianChart
+            // 
+            this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.BackColor = System.Drawing.Color.White;
+            this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 450);
+            this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.Name = "Display_Detail_DCAC_LoadVsEfficiency_CartesianChart";
+            this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.Size = new System.Drawing.Size(800, 600);
+            this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.TabIndex = 182;
+            this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.Text = "cartesianChart3";
             // 
             // Display_Detail_DCAC_Right_Panel
             // 
@@ -2584,99 +2880,6 @@
             this.Display_Detail_DCAC_Right_Panel.Name = "Display_Detail_DCAC_Right_Panel";
             this.Display_Detail_DCAC_Right_Panel.Size = new System.Drawing.Size(348, 743);
             this.Display_Detail_DCAC_Right_Panel.TabIndex = 162;
-            // 
-            // Display_Detail_LossBreakdown_TabPage
-            // 
-            this.Display_Detail_LossBreakdown_TabPage.AutoScroll = true;
-            this.Display_Detail_LossBreakdown_TabPage.Controls.Add(this.Display_Detail_DCDCLossBreakdown_PieChart);
-            this.Display_Detail_LossBreakdown_TabPage.Controls.Add(this.Display_Detail_IsolatedDCDCLossBreakdown_PieChart);
-            this.Display_Detail_LossBreakdown_TabPage.Controls.Add(this.Display_Detail_DCACLossBreakdown_PieChart);
-            this.Display_Detail_LossBreakdown_TabPage.Controls.Add(this.Display_Detail_DCACLossBreakdown_Label);
-            this.Display_Detail_LossBreakdown_TabPage.Controls.Add(this.Display_Detail_DCDCLossBreakdown_Label);
-            this.Display_Detail_LossBreakdown_TabPage.Controls.Add(this.Display_Detail_IsolatedDCDCLossBreakdown_Label);
-            this.Display_Detail_LossBreakdown_TabPage.Location = new System.Drawing.Point(4, 54);
-            this.Display_Detail_LossBreakdown_TabPage.Name = "Display_Detail_LossBreakdown_TabPage";
-            this.Display_Detail_LossBreakdown_TabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.Display_Detail_LossBreakdown_TabPage.Size = new System.Drawing.Size(1422, 749);
-            this.Display_Detail_LossBreakdown_TabPage.TabIndex = 3;
-            this.Display_Detail_LossBreakdown_TabPage.Text = "损耗分析";
-            this.Display_Detail_LossBreakdown_TabPage.UseVisualStyleBackColor = true;
-            // 
-            // Display_Detail_DCDCLossBreakdown_PieChart
-            // 
-            this.Display_Detail_DCDCLossBreakdown_PieChart.Location = new System.Drawing.Point(62, 505);
-            this.Display_Detail_DCDCLossBreakdown_PieChart.Name = "Display_Detail_DCDCLossBreakdown_PieChart";
-            this.Display_Detail_DCDCLossBreakdown_PieChart.Size = new System.Drawing.Size(400, 300);
-            this.Display_Detail_DCDCLossBreakdown_PieChart.TabIndex = 162;
-            this.Display_Detail_DCDCLossBreakdown_PieChart.Text = "pieChart1";
-            // 
-            // Display_Detail_SystemLossBreakdown_Label
-            // 
-            this.Display_Detail_SystemLossBreakdown_Label.AutoSize = true;
-            this.Display_Detail_SystemLossBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Detail_SystemLossBreakdown_Label.Location = new System.Drawing.Point(40, 37);
-            this.Display_Detail_SystemLossBreakdown_Label.Name = "Display_Detail_SystemLossBreakdown_Label";
-            this.Display_Detail_SystemLossBreakdown_Label.Size = new System.Drawing.Size(160, 26);
-            this.Display_Detail_SystemLossBreakdown_Label.TabIndex = 169;
-            this.Display_Detail_SystemLossBreakdown_Label.Text = "系统损耗分布(W)";
-            this.Display_Detail_SystemLossBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Display_Detail_IsolatedDCDCLossBreakdown_PieChart
-            // 
-            this.Display_Detail_IsolatedDCDCLossBreakdown_PieChart.Location = new System.Drawing.Point(516, 505);
-            this.Display_Detail_IsolatedDCDCLossBreakdown_PieChart.Name = "Display_Detail_IsolatedDCDCLossBreakdown_PieChart";
-            this.Display_Detail_IsolatedDCDCLossBreakdown_PieChart.Size = new System.Drawing.Size(400, 300);
-            this.Display_Detail_IsolatedDCDCLossBreakdown_PieChart.TabIndex = 163;
-            this.Display_Detail_IsolatedDCDCLossBreakdown_PieChart.Text = "pieChart2";
-            // 
-            // Display_Detail_SystemLossBreakdown_PieChart
-            // 
-            this.Display_Detail_SystemLossBreakdown_PieChart.Location = new System.Drawing.Point(-80, 81);
-            this.Display_Detail_SystemLossBreakdown_PieChart.Name = "Display_Detail_SystemLossBreakdown_PieChart";
-            this.Display_Detail_SystemLossBreakdown_PieChart.Size = new System.Drawing.Size(400, 300);
-            this.Display_Detail_SystemLossBreakdown_PieChart.TabIndex = 168;
-            this.Display_Detail_SystemLossBreakdown_PieChart.Text = "pieChart1";
-            // 
-            // Display_Detail_DCACLossBreakdown_PieChart
-            // 
-            this.Display_Detail_DCACLossBreakdown_PieChart.Location = new System.Drawing.Point(970, 505);
-            this.Display_Detail_DCACLossBreakdown_PieChart.Name = "Display_Detail_DCACLossBreakdown_PieChart";
-            this.Display_Detail_DCACLossBreakdown_PieChart.Size = new System.Drawing.Size(400, 300);
-            this.Display_Detail_DCACLossBreakdown_PieChart.TabIndex = 164;
-            this.Display_Detail_DCACLossBreakdown_PieChart.Text = "pieChart3";
-            // 
-            // Display_Detail_DCACLossBreakdown_Label
-            // 
-            this.Display_Detail_DCACLossBreakdown_Label.AutoSize = true;
-            this.Display_Detail_DCACLossBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Detail_DCACLossBreakdown_Label.Location = new System.Drawing.Point(1062, 461);
-            this.Display_Detail_DCACLossBreakdown_Label.Name = "Display_Detail_DCACLossBreakdown_Label";
-            this.Display_Detail_DCACLossBreakdown_Label.Size = new System.Drawing.Size(217, 26);
-            this.Display_Detail_DCACLossBreakdown_Label.TabIndex = 167;
-            this.Display_Detail_DCACLossBreakdown_Label.Text = "逆变单模块损耗分布(W)";
-            this.Display_Detail_DCACLossBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Display_Detail_DCDCLossBreakdown_Label
-            // 
-            this.Display_Detail_DCDCLossBreakdown_Label.AutoSize = true;
-            this.Display_Detail_DCDCLossBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Detail_DCDCLossBreakdown_Label.Location = new System.Drawing.Point(126, 461);
-            this.Display_Detail_DCDCLossBreakdown_Label.Name = "Display_Detail_DCDCLossBreakdown_Label";
-            this.Display_Detail_DCDCLossBreakdown_Label.Size = new System.Drawing.Size(273, 26);
-            this.Display_Detail_DCDCLossBreakdown_Label.TabIndex = 165;
-            this.Display_Detail_DCDCLossBreakdown_Label.Text = "前级DCDC单模块损耗分布(W)";
-            this.Display_Detail_DCDCLossBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Display_Detail_IsolatedDCDCLossBreakdown_Label
-            // 
-            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.AutoSize = true;
-            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.Location = new System.Drawing.Point(580, 461);
-            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.Name = "Display_Detail_IsolatedDCDCLossBreakdown_Label";
-            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.Size = new System.Drawing.Size(273, 26);
-            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.TabIndex = 166;
-            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.Text = "隔离DCDC单模块损耗分布(W)";
-            this.Display_Detail_IsolatedDCDCLossBreakdown_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Display_Detail_Operation_Panel
             // 
@@ -3524,10 +3727,14 @@
             this.Display_Detail_System_Main_Panel.ResumeLayout(false);
             this.Display_Detail_System_Main_Panel.PerformLayout();
             this.Display_Detail_DCDC_TabPage.ResumeLayout(false);
+            this.Display_Detail_DCDC_Main_Panel.ResumeLayout(false);
+            this.Display_Detail_DCDC_Main_Panel.PerformLayout();
             this.Display_Detail_IsolatedDCDC_TabPage.ResumeLayout(false);
+            this.Display_Detail_IsolatedDCDC_Main_Panel.ResumeLayout(false);
+            this.Display_Detail_IsolatedDCDC_Main_Panel.PerformLayout();
             this.Display_Detail_DCAC_TabPage.ResumeLayout(false);
-            this.Display_Detail_LossBreakdown_TabPage.ResumeLayout(false);
-            this.Display_Detail_LossBreakdown_TabPage.PerformLayout();
+            this.Display_Detail_DCAC_Main_Panel.ResumeLayout(false);
+            this.Display_Detail_DCAC_Main_Panel.PerformLayout();
             this.Display_Detail_Operation_Panel.ResumeLayout(false);
             this.Display_Detail_Operation_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Display_Detail_Load_TrackBar)).EndInit();
@@ -3718,10 +3925,10 @@
         private System.Windows.Forms.Button Display_Show_ChartControl_Button;
         private LiveCharts.WinForms.CartesianChart Display_Show_Graph_CartesianChart;
         private System.Windows.Forms.Button Tab_Test_Button;
-        private LiveCharts.WinForms.PieChart Display_Detail_SystemCostBreakdown_PieChart;
-        private LiveCharts.WinForms.PieChart Display_Detail_SystemVolumeBreakdown_PieChart;
-        private System.Windows.Forms.Label Display_Detail_SystemCostBreakdown_Label;
-        private System.Windows.Forms.Label Display_Detail_SystemVolumeBreakdown_Label;
+        private LiveCharts.WinForms.PieChart Display_Detail_System_CostBreakdown_PieChart;
+        private LiveCharts.WinForms.PieChart Display_Detail_System_VolumeBreakdown_PieChart;
+        private System.Windows.Forms.Label Display_Detail_System_CostBreakdown_Label;
+        private System.Windows.Forms.Label Display_Detail_System_VolumeBreakdown_Label;
         private System.Windows.Forms.CheckBox Estimate_Step2_Group3_Item1_Left_CheckBox;
         private System.Windows.Forms.CheckBox Estimate_Step2_Group2_Item2_Left_CheckBox;
         private System.Windows.Forms.CheckBox Estimate_Step2_Group2_Item1_Left_CheckBox;
@@ -3740,16 +3947,10 @@
         private System.Windows.Forms.Label Display_Detail_Load_Label;
         private System.Windows.Forms.TrackBar Display_Detail_Load_TrackBar;
         private System.Windows.Forms.Label Display_Detail_Load_Value_Label;
-        private System.Windows.Forms.Label Display_Detail_SystemLoadVsEfficiency_Label;
-        private LiveCharts.WinForms.CartesianChart Display_Detail_SystemLoadVsEfficiency_CartesianChart;
-        private System.Windows.Forms.Label Display_Detail_DCACLossBreakdown_Label;
-        private System.Windows.Forms.Label Display_Detail_IsolatedDCDCLossBreakdown_Label;
-        private System.Windows.Forms.Label Display_Detail_DCDCLossBreakdown_Label;
-        private LiveCharts.WinForms.PieChart Display_Detail_DCACLossBreakdown_PieChart;
-        private LiveCharts.WinForms.PieChart Display_Detail_IsolatedDCDCLossBreakdown_PieChart;
-        private LiveCharts.WinForms.PieChart Display_Detail_DCDCLossBreakdown_PieChart;
-        private System.Windows.Forms.Label Display_Detail_SystemLossBreakdown_Label;
-        private LiveCharts.WinForms.PieChart Display_Detail_SystemLossBreakdown_PieChart;
+        private System.Windows.Forms.Label Display_Detail_System_LoadVsEfficiency_Label;
+        private LiveCharts.WinForms.CartesianChart Display_Detail_System_LoadVsEfficiency_CartesianChart;
+        private System.Windows.Forms.Label Display_Detail_System_LossBreakdown_Label;
+        private LiveCharts.WinForms.PieChart Display_Detail_System_LossBreakdown_PieChart;
         private System.Windows.Forms.Label Display_Detail_Vin_Value_Label;
         private System.Windows.Forms.Label Display_Detail_Vin_Label;
         private System.Windows.Forms.TrackBar Display_Detail_Vin_TrackBar;
@@ -3812,7 +4013,6 @@
         private System.Windows.Forms.Panel Display_Show_Preview_Main_Panel;
         private System.Windows.Forms.TabControl Display_Detail_TabControl;
         private System.Windows.Forms.TabPage Display_Detail_System_TabPage;
-        private System.Windows.Forms.TabPage Display_Detail_LossBreakdown_TabPage;
         private System.Windows.Forms.Panel Display_Detail_System_Right_Panel;
         private System.Windows.Forms.Panel Display_Detail_System_Main_Panel;
         private System.Windows.Forms.TabPage Display_Detail_DCDC_TabPage;
@@ -3824,6 +4024,30 @@
         private System.Windows.Forms.TabPage Display_Detail_DCAC_TabPage;
         private System.Windows.Forms.Panel Display_Detail_DCAC_Main_Panel;
         private System.Windows.Forms.Panel Display_Detail_DCAC_Right_Panel;
+        private LiveCharts.WinForms.PieChart Display_Detail_DCDC_CostBreakdown_PieChart;
+        private System.Windows.Forms.Label Display_Detail_DCDC_LossBreakdown_Label;
+        private System.Windows.Forms.Label Display_Detail_DCDC_LoadVsEfficiency_Label;
+        private System.Windows.Forms.Label Display_Detail_DCDC_CostBreakdown_Label;
+        private LiveCharts.WinForms.PieChart Display_Detail_DCDC_VolumeBreakdown_PieChart;
+        private LiveCharts.WinForms.PieChart Display_Detail_DCDC_LossBreakdown_PieChart;
+        private System.Windows.Forms.Label Display_Detail_DCDC_VolumeBreakdown_Label;
+        private LiveCharts.WinForms.CartesianChart Display_Detail_DCDC_LoadVsEfficiency_CartesianChart;
+        private LiveCharts.WinForms.PieChart Display_Detail_IsolatedDCDC_CostBreakdown_PieChart;
+        private System.Windows.Forms.Label Display_Detail_IsolatedDCDC_LossBreakdown_Label;
+        private System.Windows.Forms.Label Display_Detail_IsolatedDCDC_LoadVsEfficiency_Label;
+        private System.Windows.Forms.Label Display_Detail_IsolatedDCDC_CostBreakdown_Label;
+        private LiveCharts.WinForms.PieChart Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart;
+        private LiveCharts.WinForms.PieChart Display_Detail_IsolatedDCDC_LossBreakdown_PieChart;
+        private System.Windows.Forms.Label Display_Detail_IsolatedDCDC_VolumeBreakdown_Label;
+        private LiveCharts.WinForms.CartesianChart Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart;
+        private LiveCharts.WinForms.PieChart Display_Detail_DCAC_CostBreakdown_PieChart;
+        private System.Windows.Forms.Label Display_Detail_DCAC_LossBreakdown_Label;
+        private System.Windows.Forms.Label Display_Detail_DCAC_LoadVsEfficiency_Label;
+        private System.Windows.Forms.Label Display_Detail_DCAC_CostBreakdown_Label;
+        private LiveCharts.WinForms.PieChart Display_Detail_DCAC_VolumeBreakdown_PieChart;
+        private LiveCharts.WinForms.PieChart Display_Detail_DCAC_LossBreakdown_PieChart;
+        private System.Windows.Forms.Label Display_Detail_DCAC_VolumeBreakdown_Label;
+        private LiveCharts.WinForms.CartesianChart Display_Detail_DCAC_LoadVsEfficiency_CartesianChart;
     }
 }
 

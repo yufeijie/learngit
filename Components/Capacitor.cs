@@ -71,13 +71,40 @@ namespace PV_analysis.Components
         /// <summary>
         /// 获取损耗分布
         /// </summary>
+        /// <returns>损耗分布信息</returns>
         public override List<Item> GetLossBreakdown()
         {
-            List<Item> lossList = new List<Item>
+            List<Item> list = new List<Item>
             {
-                new Item(Name, number * powerLoss)
+                new Item(Name, Math.Round(PowerLoss, 2))
             };
-            return lossList;
+            return list;
+        }
+
+        /// <summary>
+        /// 获取成本分布
+        /// </summary>
+        /// <returns>成本分布信息</returns>
+        public override List<Item> GetCostBreakdown()
+        {
+            List<Item> list = new List<Item>
+            {
+                new Item(Name, Math.Round(Cost, 2))
+            };
+            return list;
+        }
+
+        /// <summary>
+        /// 获取体积分布
+        /// </summary>
+        /// <returns>体积分布信息</returns>
+        public override List<Item> GetVolumeBreakdown()
+        {
+            List<Item> list = new List<Item>
+            {
+                new Item(Name, Math.Round(Volume, 2))
+            };
+            return list;
         }
 
         /// <summary>

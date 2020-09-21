@@ -19,6 +19,11 @@ namespace PV_analysis.Converters
         protected string name = null; //变换器名
         protected short stage = 0; //第几级变换器
 
+        //散热器参数（单个模块）
+        private double costHeatsink;
+        private double volumeHeatsink;
+        private double costDSP;
+
         /// <summary>
         /// 系统功率
         /// </summary>
@@ -95,6 +100,12 @@ namespace PV_analysis.Converters
         public ConverterDesignList AllDesignList { get; } = new ConverterDesignList { IsAll = true };
 
         /// <summary>
+        /// 获取变换单元名
+        /// </summary>
+        /// <returns>变换单元名</returns>
+        public abstract string GetName();
+
+        /// <summary>
         /// 获取设计方案的配置信息
         /// </summary>
         /// <returns>配置信息</returns>
@@ -115,14 +126,60 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 获取损耗分布（元器件）
         /// </summary>
+        /// <returns>损耗分布信息</returns>
         public List<Item> GetLossBreakdown()
         {
-            List<Item> lossList = new List<Item>();
+            List<Item> list = new List<Item>();
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
-                lossList.AddRange(component.GetLossBreakdown());
+                list.AddRange(component.GetLossBreakdown());
+            }            
+            return list;
+        }
+
+        /// <summary>
+        /// 获取成本分布（元器件）
+        /// </summary>
+        /// <returns>成本分布信息</returns>
+        public List<Item> GetCostBreakdown()
+        {
+            List<Item> listAll = new List<Item>();
+            foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
+            {
+                listAll.AddRange(component.GetCostBreakdown());
             }
-            return lossList;
+            //整合驱动成本
+            List<Item> list = new List<Item>();
+            double costDriver = 0;
+            foreach (Item item in listAll)
+            {
+                if (item.Name != null && item.Name.Equals("驱动"))
+                {
+                    costDriver += item.Value;
+                }
+                else
+                {
+                    list.Add(item);
+                }
+            }
+            list.Add(new Item("驱动&控制芯片", Math.Round(costDriver + costDSP, 2)));
+            list.Add(new Item("散热器", Math.Round(costHeatsink, 2)));
+            return list;
+        }
+
+        /// <summary>
+        /// 获取体积分布（元器件）
+        /// </summary>
+        /// <returns>体积分布信息</returns>
+        public List<Item> GetVolumeBreakdown()
+        {
+            List<Item> list = new List<Item>();
+            foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
+            {
+                list.AddRange(component.GetVolumeBreakdown());
+            }
+            list.Add(new Item("散热器", Math.Round(volumeHeatsink, 2)));
+            return list;
         }
 
         /// <summary>
@@ -293,13 +350,14 @@ namespace PV_analysis.Converters
         {
             //评估散热器
             double Rh = (Config.MAX_HEATSINK_TEMPERATURE - Config.AMBIENT_TEMPERATURE) / Math_Peval; //此处应采用损耗最大值
-            double Vh = 1 / (Config.CSPI * Rh);
-            double Ch = Vh * Config.HEATSINK_UNIT_PRICE;
-            Volume += Vh;
-            Cost += Ch;
+            volumeHeatsink = 1 / (Config.CSPI * Rh);
+            costHeatsink = volumeHeatsink * Config.HEATSINK_UNIT_PRICE;
+            Volume += volumeHeatsink;
+            Cost += costHeatsink;
 
             //评估DSP
-            Cost += 157.296; //每个变换器模块用一个DSP，型号：TMS320F28335PGFA TI 100 Mouser FIXM
+            costDSP = 157.296; //每个变换器模块用一个DSP，型号：TMS320F28335PGFA TI 100 Mouser FIXM
+            Cost += costDSP;
         }
     }
 }

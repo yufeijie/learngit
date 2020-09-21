@@ -9,9 +9,9 @@ namespace PV_analysis.Structures
         public DCACConverter DCAC { get; private set; }
 
         /// <summary>
-        /// 获取拓扑名
+        /// 获取架构名
         /// </summary>
-        /// <returns>拓扑名</returns>
+        /// <returns>架构名</returns>
         public override string GetName()
         {
             return "两级架构";

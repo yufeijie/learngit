@@ -59,6 +59,7 @@ namespace PV_analysis.Topologys
             //初始化元器件
             dualModule = new DualModule(1, false)
             {
+                Name = "开关器件",
                 Name_Up = "二极管",
                 Name_Down = "开关管"
             };

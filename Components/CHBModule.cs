@@ -32,10 +32,6 @@ namespace PV_analysis.Components
         private double[,] math_PDcon; //反并二极管通态损耗
         private double[,] math_Prr; //反并二极管反向恢复损耗
 
-        //成本参数（同类器件中其中一个的损耗）
-        private double semiconductorCost; //开关器件成本
-        private double driverCost; //驱动成本
-
         //温度参数(℃)
         private static readonly double math_Th_max = 60; //散热器允许最高温度
         private static readonly double math_Tj_max = 110;//最高结温
@@ -92,6 +88,7 @@ namespace PV_analysis.Components
         /// <summary>
         /// 获取损耗分布
         /// </summary>
+        /// <returns>损耗分布信息</returns>
         public override List<Item> GetLossBreakdown()
         {
             double PTcon_ave = 0;
@@ -116,15 +113,15 @@ namespace PV_analysis.Components
             PDcon_ave /= MultiNumber;
             Prr_ave /= MultiNumber;
 
-            List<Item> lossList = new List<Item>
+            List<Item> list = new List<Item>
             {
-                new Item(Name + "(PTcon)", number * PTcon_ave),
-                new Item(Name + "(Pon)", number * Pon_ave),
-                new Item(Name + "(Poff)", number * Poff_ave),
-                new Item(Name + "(PDcon)", number * PDcon_ave),
-                new Item(Name + "(Prr)", number * Prr_ave)
+                new Item(Name + "(PTcon)", Math.Round(number * PTcon_ave, 2)),
+                new Item(Name + "(Pon)", Math.Round(number * Pon_ave, 2)),
+                new Item(Name + "(Poff)", Math.Round(number * Poff_ave, 2)),
+                new Item(Name + "(PDcon)", Math.Round(number * PDcon_ave, 2)),
+                new Item(Name + "(Prr)", Math.Round(number * Prr_ave, 2))
             };
-            return lossList;
+            return list;
         }
 
         /// <summary>

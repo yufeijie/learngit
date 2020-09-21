@@ -33,10 +33,6 @@ namespace PV_analysis.Components
         private double[] math_PDcon; //反并二极管通态损耗
         private double[] math_Prr; //反并二极管反向恢复损耗
 
-        //成本参数（同类器件中其中一个的损耗）
-        private double semiconductorCost; //开关器件成本
-        private double driverCost; //驱动成本
-
         //温度参数(℃)
         private static readonly double math_Th_max = 60; //散热器允许最高温度
         private static readonly double math_Tj_max = 110;//最高结温
@@ -100,43 +96,32 @@ namespace PV_analysis.Components
         /// <summary>
         /// 获取损耗分布
         /// </summary>
+        /// <returns>损耗分布信息</returns>
         public override List<Item> GetLossBreakdown()
         {
-            string name_Up;
-            string name_Down;
-            if (Name == null)
-            {
-                name_Up = Name_Up;
-                name_Down = Name_Down;
-            }
-            else
-            {
-                name_Up = Name;
-                name_Down = Name;
-            }
-            List<Item> lossList = new List<Item>();
+            List<Item> list = new List<Item>();
             if (isPowerLossBalance)
             {
-                lossList.Add(new Item(name_Up + "(PTcon)", number * math_PTcon[0] * 2));
-                lossList.Add(new Item(name_Up + "(Pon)", number * math_Pon[0] * 2));
-                lossList.Add(new Item(name_Up + "(Poff)", number * math_Poff[0] * 2));
-                lossList.Add(new Item(name_Up + "(PDcon)", number * math_PDcon[0] * 2));
-                lossList.Add(new Item(name_Up + "(Prr)", number * math_Prr[0] * 2));
+                list.Add(new Item(Name + "(PTcon)", Math.Round(number * math_PTcon[0] * 2, 2)));
+                list.Add(new Item(Name + "(Pon)", Math.Round(number * math_Pon[0] * 2, 2)));
+                list.Add(new Item(Name + "(Poff)", Math.Round(number * math_Poff[0] * 2, 2)));
+                list.Add(new Item(Name + "(PDcon)", Math.Round(number * math_PDcon[0] * 2, 2)));
+                list.Add(new Item(Name + "(Prr)", Math.Round(number * math_Prr[0] * 2, 2)));
             }
             else
             {
-                lossList.Add(new Item(name_Up + "(PTcon)", number * math_PTcon[0]));
-                lossList.Add(new Item(name_Up + "(Pon)", number * math_Pon[0]));
-                lossList.Add(new Item(name_Up + "(Poff)", number * math_Poff[0]));
-                lossList.Add(new Item(name_Up + "(PDcon)", number * math_PDcon[0]));
-                lossList.Add(new Item(name_Up + "(Prr)", number * math_Prr[0]));
-                lossList.Add(new Item(name_Down + "(PTcon)", number * math_PTcon[1]));
-                lossList.Add(new Item(name_Down + "(Pon)", number * math_Pon[1]));
-                lossList.Add(new Item(name_Down + "(Poff)", number * math_Poff[1]));
-                lossList.Add(new Item(name_Down + "(PDcon)", number * math_PDcon[1]));
-                lossList.Add(new Item(name_Down + "(Prr)", number * math_Prr[1]));
+                list.Add(new Item(Name_Up + "(PTcon)", Math.Round(number * math_PTcon[0], 2)));
+                list.Add(new Item(Name_Up + "(Pon)", Math.Round(number * math_Pon[0], 2)));
+                list.Add(new Item(Name_Up + "(Poff)", Math.Round(number * math_Poff[0], 2)));
+                list.Add(new Item(Name_Up + "(PDcon)", Math.Round(number * math_PDcon[0], 2)));
+                list.Add(new Item(Name_Up + "(Prr)", Math.Round(number * math_Prr[0], 2)));
+                list.Add(new Item(Name_Down + "(PTcon)", Math.Round(number * math_PTcon[1], 2)));
+                list.Add(new Item(Name_Down + "(Pon)", Math.Round(number * math_Pon[1], 2)));
+                list.Add(new Item(Name_Down + "(Poff)", Math.Round(number * math_Poff[1], 2)));
+                list.Add(new Item(Name_Down + "(PDcon)", Math.Round(number * math_PDcon[1], 2)));
+                list.Add(new Item(Name_Down + "(Prr)", Math.Round(number * math_Prr[1], 2)));
             }
-            return lossList;
+            return list;
         }
 
         /// <summary>

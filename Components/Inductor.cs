@@ -52,14 +52,15 @@ namespace PV_analysis.Components
         /// <summary>
         /// 获取损耗分布
         /// </summary>
+        /// <returns>损耗分布信息</returns>
         public override List<Item> GetLossBreakdown()
         {
-            List<Item> lossList = new List<Item>
+            List<Item> list = new List<Item>
             {
-                new Item(Name + "(Cu)", number * powerLossCu),
-                new Item(Name + "(Fe)", number * powerLossFe)
+                new Item(Name + "(Cu)", Math.Round(number * powerLossCu, 2)),
+                new Item(Name + "(Fe)", Math.Round(number * powerLossFe, 2))
             };
-            return lossList;
+            return list;
         }
 
         /// <summary>

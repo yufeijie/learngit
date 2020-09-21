@@ -77,7 +77,20 @@ namespace PV_analysis.Components
         /// <summary>
         /// 获取损耗分布
         /// </summary>
+        /// <returns>损耗分布信息</returns>
         public abstract List<Item> GetLossBreakdown();
+
+        /// <summary>
+        /// 获取成本分布
+        /// </summary>
+        /// <returns>成本分布信息</returns>
+        public abstract List<Item> GetCostBreakdown();
+
+        /// <summary>
+        /// 获取体积分布
+        /// </summary>
+        /// <returns>体积分布信息</returns>
+        public abstract List<Item> GetVolumeBreakdown();
 
         /// <summary>
         /// 读取配置信息

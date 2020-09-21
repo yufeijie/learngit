@@ -1,6 +1,7 @@
 ﻿using PV_analysis.Components;
 using PV_analysis.Converters;
 using PV_analysis.Topologys;
+using System;
 using System.Collections.Generic;
 
 namespace PV_analysis.Structures
@@ -152,9 +153,9 @@ namespace PV_analysis.Structures
         public ConverterDesignList AllDesignList { get; } = new ConverterDesignList { IsAll = true };
 
         /// <summary>
-        /// 获取拓扑名
+        /// 获取架构名
         /// </summary>
-        /// <returns>拓扑名</returns>
+        /// <returns>架构名</returns>
         public abstract string GetName();
 
         /// <summary>
@@ -172,14 +173,43 @@ namespace PV_analysis.Structures
         /// <summary>
         /// 获取损耗分布（变换器）
         /// </summary>
+        /// <returns>损耗分布信息</returns>
         public List<Item> GetLossBreakdown()
         {
-            List<Item> lossList = new List<Item>();
+            List<Item> list = new List<Item>();
             foreach (Converter converter in Converters)
             {
-                lossList.Add(new Item(converter.GetType().Name, converter.PowerLoss));
+                list.Add(new Item(converter.GetName(), Math.Round(converter.PowerLoss, 2)));
             }
-            return lossList;
+            return list;
+        }
+
+        /// <summary>
+        /// 获取成本分布（变换器）
+        /// </summary>
+        /// <returns>成本分布信息</returns>
+        public List<Item> GetCostBreakdown()
+        {
+            List<Item> list = new List<Item>();
+            foreach (Converter converter in Converters)
+            {
+                list.Add(new Item(converter.GetName(), Math.Round(converter.Cost / 1e4, 2)));
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// 获取体积分布（变换器）
+        /// </summary>
+        /// <returns>体积分布信息</returns>
+        public List<Item> GetVolumeBreakdown()
+        {
+            List<Item> list = new List<Item>();
+            foreach (Converter converter in Converters)
+            {
+                list.Add(new Item(converter.GetName(), Math.Round(converter.Volume, 2)));
+            }
+            return list;
         }
 
         /// <summary>
