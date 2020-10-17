@@ -201,7 +201,7 @@ namespace PV_analysis
             switch (Display_Show_GraphCategory_ComboBox.Text)
             {
                 case "成本-效率":
-                    for (int i = 1; i < data.Length; i++)
+                    for (int i = 0; i < data.Length; i++)
                     {
                         values.Add(new ObservablePoint(data[i].Cost / 1e4, data[i].Efficiency * 100));
                     }
@@ -216,7 +216,7 @@ namespace PV_analysis
                     });
                     break;
                 case "体积-效率":
-                    for (int i = 1; i < data.Length; i++)
+                    for (int i = 0; i < data.Length; i++)
                     {
                         values.Add(new ObservablePoint(data[i].Volume, data[i].Efficiency * 100));
                     }
@@ -232,7 +232,7 @@ namespace PV_analysis
                     });
                     break;
                 case "成本-体积":
-                    for (int i = 1; i < data.Length; i++)
+                    for (int i = 0; i < data.Length; i++)
                     {
                         values.Add(new ObservablePoint(data[i].Cost / 1e4, data[i].Volume));
                     }
@@ -1838,7 +1838,7 @@ namespace PV_analysis
                 }
                 if (selectedStructure != null)
                 {
-                    for (int i = 1; i < info.Length; i++)
+                    for (int i = 1; i < info.Length; i++) //i=0为标题行
                     {
                         double efficiency = double.Parse(info[i][0]);
                         double volume = double.Parse(info[i][1]);
@@ -1848,7 +1848,7 @@ namespace PV_analysis
                 }
                 else
                 {
-                    for (int i = 1; i < info.Length; i++)
+                    for (int i = 1; i < info.Length; i++) //i=0为标题行
                     {
                         double efficiency = double.Parse(info[i][0]);
                         double volume = double.Parse(info[i][1]);
