@@ -1,6 +1,7 @@
 ﻿using PV_analysis.Components;
 using PV_analysis.Converters;
 using System;
+using static PV_analysis.Curve;
 
 namespace PV_analysis.Topologys
 {
@@ -138,6 +139,7 @@ namespace PV_analysis.Topologys
             };
             Curve[,] uc = new Curve[number, 7];
 
+            //TODO 这里模拟的只是PSPWM的波形
             double phi = Math.PI;
             for (int i = 0; i < number; i++)
             {
@@ -170,6 +172,19 @@ namespace PV_analysis.Topologys
                 curveVoltageOutputTotal.Plus(uc[i, 0]);
                 phi -= Math.PI / number;
             }
+
+            //Point[] data = curveVoltageOutputTotal.GetData();
+            //Console.WriteLine("-----------" + curveVoltageOutputTotal.Name + "_x------------");
+            //for (int i = 0; i < data.Length; i++)
+            //{
+            //    Console.WriteLine(data[i].X);
+            //}
+
+            //Console.WriteLine("-----------" + curveVoltageOutputTotal.Name + "_y------------");
+            //for (int i = 0; i < data.Length; i++)
+            //{
+            //    Console.WriteLine(data[i].Y);
+            //}
 
             //Graph graph = new Graph();
             //graph.Add(curveVoltageOutputTotal);

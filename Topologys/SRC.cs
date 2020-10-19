@@ -2,6 +2,7 @@
 using PV_analysis.Components;
 using PV_analysis.Converters;
 using System;
+using static PV_analysis.Curve;
 
 namespace PV_analysis.Topologys
 {
@@ -229,6 +230,33 @@ namespace PV_analysis.Topologys
             currentInductorRMS = currentInductor.CalcRMS();
             currentCapacitorFilterRMS = currentCapacitorFilter.CalcRMS();
             //在输入电压不变化时，程序执行后恰好是满载功率点，不需要记录最大值
+
+            //提取数据
+            //Point[] data = currentInductor.GetData();
+            //Console.WriteLine("-----------" + currentInductor.Name + "_x------------");
+            //for (int i = 0; i < data.Length; i++)
+            //{
+            //    Console.WriteLine(data[i].X);
+            //}
+
+            //Console.WriteLine("-----------" + currentInductor.Name + "_y------------");
+            //for (int i = 0; i < data.Length; i++)
+            //{
+            //    Console.WriteLine(data[i].Y);
+            //}
+
+            //data = voltageCapacitor.GetData();
+            //Console.WriteLine("-----------" + voltageCapacitor.Name + "_x------------");
+            //for (int i = 0; i < data.Length; i++)
+            //{
+            //    Console.WriteLine(data[i].X);
+            //}
+
+            //Console.WriteLine("-----------" + voltageCapacitor.Name + "_y------------");
+            //for (int i = 0; i < data.Length; i++)
+            //{
+            //    Console.WriteLine(data[i].Y);
+            //}
         }
 
         /// <summary>

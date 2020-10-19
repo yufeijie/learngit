@@ -96,7 +96,7 @@ namespace PV_analysis.Structures
                 //逆变器设计
                 Console.WriteLine("-------------------------");
                 Console.WriteLine("Inverters design...");
-                DCAC = new DCACConverter(Math_Psys, Math_Vo, Math_fg, Math_phi)
+                DCAC = new DCACConverter(Math_Psys, Math_Vg, Math_fg, Math_phi)
                 {
                     NumberRange = new int[] { j },
                     TopologyRange = DCAC_topologyRange,
@@ -134,7 +134,7 @@ namespace PV_analysis.Structures
             Cost = double.Parse(configs[index++]);
             IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Math_Vpv_min, Math_Vpv_max, DCAC_Vin_def, IsolatedDCDC_Q);
             IsolatedDCDC.Load(configs, ref index);
-            DCAC = new DCACConverter(Math_Psys, Math_Vo, Math_fg, Math_phi) { Math_Vin_def = DCAC_Vin_def };
+            DCAC = new DCACConverter(Math_Psys, Math_Vg, Math_fg, Math_phi) { Math_Vin_def = DCAC_Vin_def };
             DCAC.Load(configs, ref index);
             Converters = new Converter[] { IsolatedDCDC, DCAC };
         }
