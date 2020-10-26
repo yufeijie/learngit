@@ -11,63 +11,41 @@ namespace PV_analysis.Topologys
     /// </summary>
     internal class SRC : Topology
     {
-        //特殊参数
-        private bool isLeakageInductanceIntegrated = true; //是否认为谐振电感集成在变压器中
-
         //可选参数
+        private bool isLeakageInductanceIntegrated = true; //是否认为谐振电感集成在变压器中
         //private static readonly double math_kIrip = 0.2; //电流纹波系数
         //private static readonly double math_kVrip = 0.1; //电压纹波系数
 
         private IsolatedDCDCConverter converter; //所属变换器
 
-        //电路参数
-        //需优化参数
-        private double frequencyResonance; //谐振频率
-
-        //给定参数
-        private double voltageInputDef; //模块输入电压预设值
-        private double voltageOutputDef; //模块输出电压预设值
-        private double qualityFactorDef; //品质因数预设值
-
         //基本电路参数
-        private double voltageInput; //输入电压
-        private double voltageOutput; //输出电压
-        private double qualityFactor; //品质因数
-        private double frequencySwitch; //开关频率
-        private double angularVelocityResonance; //谐振角速度
-        private double timeCycleSwitch; //开关周期
-        private double timeCycleResonance; //谐振周期
-        private double resistanceLoad; //负载等效电阻
-        private double time0; //过零点
-        private double currentOutput; //输出电流
-        private double fluxLinkage; //磁链
-
-        //需设计的电路参数
-        private double turnRatioTransformer; //变压器匝比
-        private double impedanceResonance; //谐振阻抗
-        private double inductanceResonance; //谐振电感值
-        private double capacitanceResonance; //谐振电容值
-        private double deadTime; //死区时间
+        private double math_Vin; //输入电压
+        private double math_Vo; //输出电压预设值
+        private double math_Q; //品质因数
+        private double math_fr; //谐振频率
+        private double math_fs; //开关频率
 
         //主电路元件参数
-        //	private double dutyCycle; //占空比
-        private double currentInductorRMS; //电感电流有效值
-        private double currentInductorRMSMax; //电感电流有效值最大值
-        private double currentInductorPeak; //电感电流峰值
-        private double currentInductorMax; //电感电流最大值
-        private double voltageCapacitorPeak; //电容电压峰值
-        private double voltageCapacitorMax; //电容电压最大值
-        private double currentCapacitorFilterRMS; //滤波电容电流有效值
-        private double currentCapacitorFilterRMSMax; //滤波电容电流有效值最大值
-        private double voltageSwitch_P; //原边开关器件电压
-        private double voltageSwitch_S; //副边开关器件电压
+        private double math_VSpmax; //原边开关器件电压应力
+        private double math_VSsmax; //副边开关器件电压应力
+        private double math_n; //变压器变比
+        private double math_ψ; //磁链
+        private double math_Lr; //谐振电感值
+        private double math_ILrms; //谐振电感电流有效值
+        private double math_ILp; //谐振电感电流峰值
+        private double math_Cr; //谐振电容值
+        private double math_VCrp; //谐振电容电压峰值
+        private double math_VCfmax; //电容电压应力
+        private double math_ICfrms; //滤波电容电流有效值
 
         //电压、电流波形
-        private Curve currentSwitch_P; //原边开关器件电流波形
-        private Curve currentSwitch_S; //副边开关器件电流波形
-        private Curve currentInductor; //谐振电感电流波形
-        private Curve voltageCapacitor; //谐振电容电压波形
-        private Curve currentCapacitorFilter; //滤波电容电流波形
+        private double math_vSp; //原边开关器件电压
+        private double math_vSs; //副边开关器件电压
+        private Curve curve_iSp; //原边开关器件电流波形
+        private Curve curve_iSs; //副边开关器件电流波形
+        private Curve curve_iL; //谐振电感电流波形
+        private Curve curve_vCr; //谐振电容电压波形
+        private Curve curve_iCf; //滤波电容电流波形
 
         //元器件
         private DualModule primaryDualModule;
@@ -86,11 +64,10 @@ namespace PV_analysis.Topologys
             //获取设计规格
             this.converter = converter;
             math_Pfull = converter.Math_Psys / converter.PhaseNum / converter.Number;
-            voltageInputDef = converter.Math_Vin;
-            voltageOutputDef = converter.Math_Vo;
-            frequencyResonance = converter.Math_fr;
-            qualityFactorDef = converter.Math_Q;
-            voltageInput = voltageInputDef;
+            math_Vin = converter.Math_Vin;
+            math_Vo = converter.Math_Vo;
+            math_fr = converter.Math_fr;
+            math_Q = converter.Math_Q;
 
             //初始化元器件
             primaryDualModule = new DualModule(2)
@@ -150,24 +127,36 @@ namespace PV_analysis.Topologys
         /// </summary>
         private void DesignCircuitParam()
         {
-            timeCycleResonance = 1 / frequencyResonance;
-            deadTime = timeCycleResonance / 50;
-            angularVelocityResonance = 2 * Math.PI * frequencyResonance;
-            resistanceLoad = Math.Pow(voltageOutputDef, 2) / math_Pfull;
-            turnRatioTransformer = voltageInputDef / voltageOutputDef;
-            impedanceResonance = qualityFactorDef * Math.Pow(turnRatioTransformer, 2) * resistanceLoad;
-            inductanceResonance = impedanceResonance / angularVelocityResonance;
-            capacitanceResonance = 1 / impedanceResonance / angularVelocityResonance;
+            double P = math_Pfull;
+            double Vin = math_Vin;
+            double Vo = math_Vo;
+            double Q = math_Q;
+            double fr = math_fr;
+
+            double Tr = 1 / fr; //谐振周期
+            double Td = Tr / 50; //死区时间
+            double wr = 2 * Math.PI * fr; //谐振角速度
+            double RL = Math.Pow(Vo, 2) / P; //负载等效电阻
+            double n = Vin / Vo; //变比
+            double Zr = Q * Math.Pow(n, 2) * RL; //谐振阻抗
             //求解fs
-            MWArray output = Formula.solve.solveSRC_fs(qualityFactorDef, voltageInput, turnRatioTransformer, deadTime, frequencyResonance);
+            MWArray output = Formula.solve.solveSRC_fs(Q, Vin, n, Td, fr);
             MWNumericArray result = (MWNumericArray)output;
-            frequencySwitch = result.ToScalarDouble();
-            if (frequencySwitch < frequencyResonance || frequencySwitch > frequencyResonance * 2)
+            double fs = result.ToScalarDouble();
+            if (fs < fr || fs > fr * 2)
             {
                 Console.WriteLine("Wrong fs!");
                 System.Environment.Exit(-1);
             }
-            timeCycleSwitch = 1 / frequencySwitch;
+
+            math_fs = fs;
+            math_n = n;
+            math_Lr = Zr / wr;
+            math_Cr = 1 / Zr / wr;
+            math_ψ = 0.5 * Vo * n / fs;
+            math_VSpmax = Vin;
+            math_VSsmax = Vo;
+            math_VCfmax = Vo;
         }
 
         /// <summary>
@@ -175,61 +164,75 @@ namespace PV_analysis.Topologys
         /// </summary>
         private void Simulate()
         {
-            resistanceLoad = Math.Pow(voltageOutputDef, 2) / math_P;
-            qualityFactor = impedanceResonance / (Math.Pow(turnRatioTransformer, 2) * resistanceLoad);
+            double P = math_P;
+            double Vin = math_Vin;
+            double Vo_ref = math_Vo;
+            double fr = math_fr;
+            double fs = math_fs;
+            double n = math_n;
+            double Lr = math_Lr;
+            double Cr = math_Cr;
+
+            double wr = 2 * Math.PI * fr; //谐振角速度
+            double Zr = Math.Sqrt(Lr / Cr); //谐振阻抗
+            double RL = Math.Pow(Vo_ref, 2) / P; //负载等效电阻
+            double Q = Zr / (Math.Pow(n, 2) * RL); //品质因数
+            double Ts = 1 / fs; //开关周期
+
             //求解Vo和t0
-            MWArray output = Formula.solve.solveSRC(qualityFactor, voltageInput, turnRatioTransformer, frequencySwitch, frequencyResonance);
+            MWArray output = Formula.solve.solveSRC(Q, Vin, n, fs, fr);
             MWNumericArray result = (MWNumericArray)output;
-            voltageOutput = result[1].ToScalarDouble();
-            time0 = result[2].ToScalarDouble();
-            if (voltageOutput < voltageOutputDef * 0.8)
+            double Vo = result[1].ToScalarDouble(); //实际输出电压
+            double t0 = result[2].ToScalarDouble(); //电流过零点
+            if (Vo < Vo_ref * 0.8)
             {
                 Console.WriteLine("Wrong Vo!");
                 System.Environment.Exit(-1);
             }
-            if (time0 < 0 || time0 >= timeCycleSwitch / 2)
+            if (t0 < 0 || t0 >= Ts / 2)
             {
                 Console.WriteLine("Wrong t0!");
                 System.Environment.Exit(-1);
             }
-            voltageCapacitorPeak = Formula.SRC_Vcrp(turnRatioTransformer, qualityFactor, voltageOutput, frequencyResonance, frequencySwitch);
-            currentOutput = voltageOutput / resistanceLoad;
-            fluxLinkage = 0.5 * voltageOutput * turnRatioTransformer * timeCycleSwitch;
+            double VCrp = Formula.SRC_Vcrp(n, Q, Vo, fr, fs);
+            double Io = Vo / RL;
 
-            currentInductorPeak = 0;
-            currentInductor = new Curve();
-            voltageCapacitor = new Curve();
+            double ILp = 0;
+            curve_iL = new Curve();
+            curve_vCr = new Curve();
             double startTime = 0;
-            double endTime = timeCycleSwitch;
+            double endTime = Ts;
             double dt = (endTime - startTime) / Config.DEGREE;
             double t;
             for (int i = 0; i <= Config.DEGREE; i++)
             {
                 t = startTime + dt * i;
-                double vab = Formula.SRC_vab(t, timeCycleSwitch, voltageInput);
-                double vTp = Formula.SRC_vTp(t, timeCycleSwitch, time0, turnRatioTransformer, voltageOutput);
-                double iLrp = Formula.SRC_ilrp(t, timeCycleSwitch, voltageCapacitorPeak, vab, vTp, impedanceResonance);
-                double iLr = Formula.SRC_ilr(t, timeCycleSwitch, time0, iLrp, angularVelocityResonance);
-                double vCr = Formula.SRC_vcr(t, timeCycleSwitch, time0, voltageCapacitorPeak, vab, vTp, angularVelocityResonance);
-                currentInductor.Add(t, iLr);
-                voltageCapacitor.Add(t, vCr);
-                currentInductorPeak = Math.Max(currentInductorPeak, Math.Abs(iLr)); //记录峰值
+                double vab = Formula.SRC_vab(t, Ts, Vin);
+                double vTp = Formula.SRC_vTp(t, Ts, t0, n, Vo);
+                double iLrp = Formula.SRC_ilrp(t, Ts, VCrp, vab, vTp, Zr);
+                double iLr = Formula.SRC_ilr(t, Ts, t0, iLrp, wr);
+                double vCr = Formula.SRC_vcr(t, Ts, t0, VCrp, vab, vTp, wr);
+                curve_iL.Add(t, iLr);
+                curve_vCr.Add(t, vCr);
+                ILp = Math.Max(ILp, Math.Abs(iLr)); //记录峰值
             }
             //补充特殊点（保证现有的开关器件损耗计算方法正确）
-            currentInductor.Order(time0, 0);
-            currentInductor.Order(time0 + timeCycleSwitch / 2, 0);
-            voltageCapacitor.Order(time0, -voltageCapacitorPeak);
-            voltageCapacitor.Order(time0 + timeCycleSwitch / 2, voltageCapacitorPeak);
+            curve_iL.Order(t0, 0);
+            curve_iL.Order(t0 + Ts / 2, 0);
+            curve_vCr.Order(t0, -VCrp);
+            curve_vCr.Order(t0 + Ts / 2, VCrp);
             //生成主电路元件波形
-            currentSwitch_P = currentInductor.Cut(0, timeCycleSwitch / 2, 1);
-            currentSwitch_S = currentInductor.Cut(time0, time0 + timeCycleSwitch / 2, turnRatioTransformer);
-            voltageSwitch_P = voltageInput;
-            voltageSwitch_S = voltageOutput;
-            currentCapacitorFilter = currentSwitch_S.Copy(1, 0, -currentOutput);
+            curve_iSp = curve_iL.Cut(0, Ts / 2, 1);
+            curve_iSs = curve_iL.Cut(t0, t0 + Ts / 2, n);
+            math_vSs = Vin;
+            math_vSp = Vo;
+            curve_iCf = curve_iSs.Copy(1, 0, -Io);
             //计算有效值
-            currentInductorRMS = currentInductor.CalcRMS();
-            currentCapacitorFilterRMS = currentCapacitorFilter.CalcRMS();
-            //在输入电压不变化时，程序执行后恰好是满载功率点，不需要记录最大值
+            math_ILrms = curve_iL.CalcRMS();
+            math_ICfrms = curve_iCf.CalcRMS();
+
+            math_VCrp = VCrp;
+            math_ILp = ILp;
 
             //提取数据
             //Point[] data = currentInductor.GetData();
@@ -267,33 +270,34 @@ namespace PV_analysis.Topologys
             //计算电路参数
             DesignCircuitParam();
 
-            currentInductorMax = 0;
-            currentInductorRMSMax = 0;
-            voltageCapacitorMax = 0;
-            currentCapacitorFilterRMSMax = 0;
+            double ILmax = 0; //谐振电感电流最大值
+            double ILrms_max = 0; //谐振电感电流有效值最大值
+            double VCrmax = 0; //谐振电容电压最大值
+            double ICfrms_max = 0; //滤波电容电流有效值最大值
+            
             int n = Config.CGC_POWER_RATIO.Length;
 
             for (int j = 0; j < n; j++)
             {
                 math_P = math_Pfull * Config.CGC_POWER_RATIO[j]; //改变负载
-                Simulate();
+                Simulate(); //进行对应负载下的波形模拟
                 //Graph graph = new Graph();
                 //graph.Add(currentSwitch_P, "iP");
                 //graph.Add(currentSwitch_S, "iS");
                 //graph.Draw();
-                currentInductorMax = Math.Max(currentInductorMax, currentInductorPeak);
-                currentInductorRMSMax = Math.Max(currentInductorRMSMax, currentInductorRMS);
-                voltageCapacitorMax = Math.Max(voltageCapacitorMax, voltageCapacitorPeak);
-                currentCapacitorFilterRMSMax = Math.Max(currentCapacitorFilterRMSMax, currentCapacitorFilterRMS);
+                ILmax = Math.Max(ILmax, math_ILp);
+                ILrms_max = Math.Max(ILrms_max, math_ILrms);
+                VCrmax = Math.Max(VCrmax, math_VCrp);
+                ICfrms_max = Math.Max(ICfrms_max, math_ICfrms);
 
                 //设置元器件的电路参数（用于评估）
-                primaryDualModule.AddEvalParameters(0, j, voltageSwitch_P, currentSwitch_P, currentSwitch_P);
-                Curve iD = currentSwitch_S.Copy(-1);
-                secondaryDualModule.AddEvalParameters(0, j, voltageSwitch_S, iD, iD);
-                resonantInductor.AddEvalParameters(0, j, currentInductorRMS, currentInductorPeak * 2);
-                transformer.AddEvalParameters(0, j, currentInductorRMS, currentInductorPeak * 2);
-                resonantCapacitor.AddEvalParameters(0, j, currentInductorRMS);
-                filteringCapacitor.AddEvalParameters(0, j, currentCapacitorFilterRMS);
+                primaryDualModule.AddEvalParameters(0, j, math_vSp, curve_iSp, curve_iSp);
+                Curve iD = curve_iSs.Copy(-1);
+                secondaryDualModule.AddEvalParameters(0, j, math_vSs, iD, iD);
+                resonantInductor.AddEvalParameters(0, j, math_ILrms, math_ILp * 2);
+                transformer.AddEvalParameters(0, j, math_ILrms, math_ILp * 2);
+                resonantCapacitor.AddEvalParameters(0, j, math_ILrms);
+                filteringCapacitor.AddEvalParameters(0, j, math_ICfrms);
             }
 
             //若认为谐振电感集成在变压器中，则不考虑额外谐振电感
@@ -303,12 +307,12 @@ namespace PV_analysis.Topologys
             //}
 
             //设置元器件的设计条件
-            primaryDualModule.SetConditions(voltageInput, currentInductorMax, frequencySwitch);
-            secondaryDualModule.SetConditions(voltageOutputDef, turnRatioTransformer * currentInductorMax, frequencySwitch);
-            resonantInductor.SetConditions(inductanceResonance, currentInductorMax, frequencySwitch);
-            transformer.SetConditions(math_P, currentInductorMax, frequencySwitch, turnRatioTransformer, fluxLinkage); //FIXME 磁链是否会变化？
-            resonantCapacitor.SetConditions(capacitanceResonance, voltageCapacitorMax, currentInductorRMSMax);
-            filteringCapacitor.SetConditions(200 * 1e-6, voltageOutputDef, currentCapacitorFilterRMSMax); //TODO 滤波电容的设计
+            primaryDualModule.SetConditions(math_VSpmax, ILmax, math_fs);
+            secondaryDualModule.SetConditions(math_VSsmax, math_n * ILmax, math_fs);
+            resonantInductor.SetConditions(math_Lr, ILmax, math_fs);
+            transformer.SetConditions(math_P, ILmax, math_fs, math_n, math_ψ); //FIXME 磁链是否会变化？
+            resonantCapacitor.SetConditions(math_Cr, VCrmax, ILrms_max);
+            filteringCapacitor.SetConditions(200 * 1e-6, math_VCfmax, ICfrms_max); //TODO 滤波电容的设计
         }
 
         /// <summary>
@@ -319,13 +323,13 @@ namespace PV_analysis.Topologys
             math_P = converter.Math_P;
             Simulate();
             //设置元器件的电路参数
-            primaryDualModule.SetParameters(voltageSwitch_P, currentSwitch_P, currentSwitch_P, frequencySwitch);
-            Curve iD = currentSwitch_S.Copy(-1);
-            secondaryDualModule.SetParameters(voltageSwitch_S, iD, iD, frequencySwitch);
-            resonantInductor.SetParameters(currentInductorRMS, currentInductorPeak * 2, frequencySwitch);
-            transformer.SetParameters(currentInductorRMS, currentInductorPeak * 2, frequencySwitch, fluxLinkage);
-            resonantCapacitor.SetParameters(currentInductorRMS);
-            filteringCapacitor.SetParameters(currentCapacitorFilterRMS);
+            primaryDualModule.SetParameters(math_vSp, curve_iSp, curve_iSp, math_fs);
+            Curve iD = curve_iSs.Copy(-1);
+            secondaryDualModule.SetParameters(math_vSs, iD, iD, math_fs);
+            resonantInductor.SetParameters(math_ILrms, math_ILp * 2, math_fs);
+            transformer.SetParameters(math_ILrms, math_ILp * 2, math_fs, math_ψ);
+            resonantCapacitor.SetParameters(math_ILrms);
+            filteringCapacitor.SetParameters(math_ICfrms);
         }
     }
 }
