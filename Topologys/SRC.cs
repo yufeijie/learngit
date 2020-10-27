@@ -138,7 +138,7 @@ namespace PV_analysis.Topologys
             double wr = 2 * Math.PI * fr; //谐振角速度
             double RL = Math.Pow(Vo, 2) / P; //负载等效电阻
             double n = Vin / Vo; //变比
-            double Zr = Q * Math.Pow(n, 2) * RL; //谐振阻抗
+            double Zr = Q * 8 * Math.Pow(n / Math.PI, 2) * RL; //谐振阻抗
             //求解fs
             MWArray output = Formula.solve.solveSRC_fs(Q, Vin, n, Td, fr);
             MWNumericArray result = (MWNumericArray)output;
@@ -176,7 +176,7 @@ namespace PV_analysis.Topologys
             double wr = 2 * Math.PI * fr; //谐振角速度
             double Zr = Math.Sqrt(Lr / Cr); //谐振阻抗
             double RL = Math.Pow(Vo_ref, 2) / P; //负载等效电阻
-            double Q = Zr / (Math.Pow(n, 2) * RL); //品质因数
+            double Q = Zr / (Math.Pow(n, 2) * RL); //品质因数（仅用于计算，并非基波等效的品质因数）
             double Ts = 1 / fs; //开关周期
 
             //求解Vo和t0
