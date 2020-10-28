@@ -895,26 +895,34 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item2_CheckBox.Enabled = true;
                         Estimate_Step2_Group1_Item3_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item1_CheckBox.Enabled = true;
-                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item4_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Enabled = true;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = true;
-                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item4_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = true;
 
                         Estimate_Step2_Group1_Item1_CheckBox.Checked = true;
                         Estimate_Step2_Group1_Item2_CheckBox.Checked = true;
                         Estimate_Step2_Group1_Item3_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item1_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item3_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item4_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Checked = true;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item4_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = true;
                         break;
                     case "两级架构":
@@ -922,26 +930,34 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item2_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item1_CheckBox.Enabled = false;
-                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item4_CheckBox.Enabled = true;
                         Estimate_Step2_Group3_Item1_CheckBox.Enabled = true;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = false;
-                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item4_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = true;
 
                         Estimate_Step2_Group1_Item1_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item2_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item1_CheckBox.Checked = false;
-                        Estimate_Step2_Group2_Item2_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item3_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item4_CheckBox.Checked = true;
                         Estimate_Step2_Group3_Item1_CheckBox.Checked = true;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = false;
-                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item4_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = true;
                         break;
                 }
@@ -976,12 +992,16 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item1_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item4_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item4_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = false;
 
                         Estimate_Step2_Group1_Item1_CheckBox.Checked = true;
@@ -989,12 +1009,16 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item1_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item3_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item4_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item4_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = false;
                         break;
 
@@ -1003,26 +1027,34 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item2_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item1_CheckBox.Enabled = true;
-                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item4_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = true;
-                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item4_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = false;
 
                         Estimate_Step2_Group1_Item1_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item2_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item1_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item3_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item4_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item4_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = false;
                         break;
 
@@ -1031,26 +1063,34 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item2_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item1_CheckBox.Enabled = false;
-                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item4_CheckBox.Enabled = true;
                         Estimate_Step2_Group3_Item1_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = false;
-                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item4_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = false;
 
                         Estimate_Step2_Group1_Item1_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item2_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item1_CheckBox.Checked = false;
-                        Estimate_Step2_Group2_Item2_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item3_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item4_CheckBox.Checked = true;
                         Estimate_Step2_Group3_Item1_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = false;
-                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item4_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = false;
                         break;
 
@@ -1060,12 +1100,16 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item1_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item2_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item4_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Enabled = true;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item2_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item4_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = true;
 
                         Estimate_Step2_Group1_Item1_CheckBox.Checked = false;
@@ -1073,12 +1117,16 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item1_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item2_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item3_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item4_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Checked = true;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item4_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = true;
                         break;
                 }
@@ -1120,6 +1168,14 @@ namespace PV_analysis
                 isolatedDCDC_topologyList.Add("SRC");
             }
             if (Estimate_Step2_Group2_Item2_Left_CheckBox.Checked)
+            {
+                isolatedDCDC_topologyList.Add("LLC");
+            }
+            if (Estimate_Step2_Group2_Item3_Left_CheckBox.Checked)
+            {
+                isolatedDCDC_topologyList.Add("DAB");
+            }
+            if (Estimate_Step2_Group2_Item4_Left_CheckBox.Checked)
             {
                 isolatedDCDC_topologyList.Add("DTCSRC");
             }
@@ -2114,6 +2170,16 @@ namespace PV_analysis
             Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = Estimate_Step2_Group2_Item2_CheckBox.Checked;
         }
 
+        private void Estimate_Step2_Group2_Item3_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = Estimate_Step2_Group2_Item3_CheckBox.Checked;
+        }
+
+        private void Estimate_Step2_Group2_Item4_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step2_Group2_Item4_Left_CheckBox.Checked = Estimate_Step2_Group2_Item4_CheckBox.Checked;
+        }
+
         private void Estimate_Step2_Group3_Item1_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = Estimate_Step2_Group3_Item1_CheckBox.Checked;
@@ -2142,6 +2208,16 @@ namespace PV_analysis
         private void Estimate_Step2_Group2_Item2_Left_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Estimate_Step2_Group2_Item2_CheckBox.Checked = Estimate_Step2_Group2_Item2_Left_CheckBox.Checked;
+        }
+
+        private void Estimate_Step2_Group2_Item3_Left_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step2_Group2_Item3_CheckBox.Checked = Estimate_Step2_Group2_Item3_Left_CheckBox.Checked;
+        }
+
+        private void Estimate_Step2_Group2_Item4_Left_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Estimate_Step2_Group2_Item4_CheckBox.Checked = Estimate_Step2_Group2_Item4_Left_CheckBox.Checked;
         }
 
         private void Estimate_Step2_Group3_Item1_Left_CheckBox_CheckedChanged(object sender, EventArgs e)
