@@ -188,6 +188,9 @@ namespace PV_analysis.Converters
                 case "SRC":
                     Topology = new SRC(this);
                     break;
+                case "LLC":
+                    Topology = new LLC(this);
+                    break;
                 case "DTCSRC":
                     Topology = new DTCSRC(this);
                     break;
