@@ -44,7 +44,7 @@ namespace PV_analysis
         private double[] DCDC_frequencyRange; //可用开关频率序列
 
         //隔离DC/DC参数
-        private double isolatedDCDC_Q = 1; //品质因数预设值
+        private double isolatedDCDC_Q = 0.5; //品质因数预设值
         private string[] isolatedDCDC_topologyRange; //可用拓扑序列
         private double[] isolatedDCDC_resonanceFrequencyRange; //可用谐振频率序列
 
@@ -1672,7 +1672,7 @@ namespace PV_analysis
                         Psys = double.Parse(Estimate_Step3B_Psys_TextBox.Text) * 1e6;
                         double Vin = double.Parse(Estimate_Step3B_Vin_TextBox.Text);
                         Vo = double.Parse(Estimate_Step3B_Vo_TextBox.Text);
-                        double Q = 1;
+                        double Q = isolatedDCDC_Q;
                         converter = new IsolatedDCDCConverter(Psys, Vin, Vo, Q)
                         {
                             NumberRange = numberRange,
@@ -1686,7 +1686,7 @@ namespace PV_analysis
                         Vin_min = double.Parse(Estimate_Step3B_Vinmin_TextBox.Text);
                         Vin_max = double.Parse(Estimate_Step3B_Vinmax_TextBox.Text);
                         Vo = double.Parse(Estimate_Step3B_Vo_TextBox.Text);
-                        Q = 1;
+                        Q = isolatedDCDC_Q;
                         converter = new IsolatedDCDCConverter(Psys, Vin_min, Vin_max, Vo, Q)
                         {
                             NumberRange = numberRange,

@@ -222,7 +222,8 @@ namespace PV_analysis.Topologys
                 iLm *= k;
                 iLr *= k;
                 vCr *= k;
-                
+
+                t = startTime + dt * i; //之前t可能已经改变
                 curve_iLr.Add(t, iLr);
                 curve_iLm.Add(t, iLm);
                 curve_io.Add(t, io);
@@ -246,6 +247,25 @@ namespace PV_analysis.Topologys
 
             math_VCrp = VCrp;
             math_ILrp = ILrp;
+
+            Graph graph = new Graph();
+            //graph.Add(curve_vCr, "vCr");
+            //graph.Draw();
+
+            //graph = new Graph();
+            graph.Add(curve_iLm, "iLm");
+            graph.Add(curve_iLr, "iLr");
+            //graph.Add(curve_iSp, "iSp");
+            graph.Draw();
+
+            //graph = new Graph();
+            //graph.Add(curve_io, "io");
+            //graph.Add(curve_iSs, "iSs");
+            //graph.Draw();
+
+            //graph = new Graph();
+            //graph.Add(curve_iCf, "iCf");
+            //graph.Draw();
 
             //提取数据
             //Point[] data = currentInductor.GetData();
