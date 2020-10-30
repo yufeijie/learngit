@@ -90,7 +90,9 @@
             this.Estimate_Step2_Group3_Item1_Left_CheckBox = new System.Windows.Forms.CheckBox();
             this.Estimate_Step2_Group3_Title_Label = new System.Windows.Forms.Label();
             this.Estimate_Step2_Group2_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step2_Group2_Item3_Left_CheckBox = new System.Windows.Forms.CheckBox();
             this.Estimate_Step2_Group2_Item4_Left_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step2_Group2_Item2_Left_CheckBox = new System.Windows.Forms.CheckBox();
             this.Estimate_Step2_Group2_Item1_Left_CheckBox = new System.Windows.Forms.CheckBox();
             this.Estimate_Step2_Group2_Title_Label = new System.Windows.Forms.Label();
             this.Estimate_Step2_Group1_Panel = new System.Windows.Forms.Panel();
@@ -313,8 +315,6 @@
             this.Estimate_Step3B_Operation_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step3B_Prev_Button = new System.Windows.Forms.Button();
             this.Estimate_Step3B_Next_Button = new System.Windows.Forms.Button();
-            this.Estimate_Step2_Group2_Item3_Left_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step2_Group2_Item2_Left_CheckBox = new System.Windows.Forms.CheckBox();
             this.Home_Panel.SuspendLayout();
             this.Home_Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).BeginInit();
@@ -517,6 +517,7 @@
             this.Tab_Admin_Button.TabIndex = 3;
             this.Tab_Admin_Button.Text = "管理";
             this.Tab_Admin_Button.UseVisualStyleBackColor = false;
+            this.Tab_Admin_Button.Visible = false;
             this.Tab_Admin_Button.Click += new System.EventHandler(this.Tab_Admin_Button_Click);
             // 
             // Tab_Panel
@@ -546,6 +547,7 @@
             this.Tab_Test_Button.TabIndex = 4;
             this.Tab_Test_Button.Text = "测试";
             this.Tab_Test_Button.UseVisualStyleBackColor = false;
+            this.Tab_Test_Button.Visible = false;
             // 
             // Estimate_Ready_Panel
             // 
@@ -1147,6 +1149,19 @@
             this.Estimate_Step2_Group2_Panel.Size = new System.Drawing.Size(162, 154);
             this.Estimate_Step2_Group2_Panel.TabIndex = 3;
             // 
+            // Estimate_Step2_Group2_Item3_Left_CheckBox
+            // 
+            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group2_Item3_Left_CheckBox.AutoSize = true;
+            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Location = new System.Drawing.Point(7, 91);
+            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Name = "Estimate_Step2_Group2_Item3_Left_CheckBox";
+            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Size = new System.Drawing.Size(70, 29);
+            this.Estimate_Step2_Group2_Item3_Left_CheckBox.TabIndex = 6;
+            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Text = "DAB";
+            this.Estimate_Step2_Group2_Item3_Left_CheckBox.UseVisualStyleBackColor = true;
+            this.Estimate_Step2_Group2_Item3_Left_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item3_Left_CheckBox_CheckedChanged);
+            // 
             // Estimate_Step2_Group2_Item4_Left_CheckBox
             // 
             this.Estimate_Step2_Group2_Item4_Left_CheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -1159,6 +1174,19 @@
             this.Estimate_Step2_Group2_Item4_Left_CheckBox.Text = "DTC-SRC";
             this.Estimate_Step2_Group2_Item4_Left_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group2_Item4_Left_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item4_Left_CheckBox_CheckedChanged);
+            // 
+            // Estimate_Step2_Group2_Item2_Left_CheckBox
+            // 
+            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group2_Item2_Left_CheckBox.AutoSize = true;
+            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Location = new System.Drawing.Point(7, 62);
+            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Name = "Estimate_Step2_Group2_Item2_Left_CheckBox";
+            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Size = new System.Drawing.Size(64, 29);
+            this.Estimate_Step2_Group2_Item2_Left_CheckBox.TabIndex = 7;
+            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Text = "LLC";
+            this.Estimate_Step2_Group2_Item2_Left_CheckBox.UseVisualStyleBackColor = true;
+            this.Estimate_Step2_Group2_Item2_Left_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item2_Left_CheckBox_CheckedChanged);
             // 
             // Estimate_Step2_Group2_Item1_Left_CheckBox
             // 
@@ -3703,32 +3731,6 @@
             this.Estimate_Step3B_Next_Button.Text = "下一步";
             this.Estimate_Step3B_Next_Button.UseVisualStyleBackColor = true;
             this.Estimate_Step3B_Next_Button.Click += new System.EventHandler(this.Estimate_Step3B_Next_Button_Click);
-            // 
-            // Estimate_Step2_Group2_Item3_Left_CheckBox
-            // 
-            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group2_Item3_Left_CheckBox.AutoSize = true;
-            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Location = new System.Drawing.Point(7, 91);
-            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Name = "Estimate_Step2_Group2_Item3_Left_CheckBox";
-            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Size = new System.Drawing.Size(70, 29);
-            this.Estimate_Step2_Group2_Item3_Left_CheckBox.TabIndex = 6;
-            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Text = "DAB";
-            this.Estimate_Step2_Group2_Item3_Left_CheckBox.UseVisualStyleBackColor = true;
-            this.Estimate_Step2_Group2_Item3_Left_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item3_Left_CheckBox_CheckedChanged);
-            // 
-            // Estimate_Step2_Group2_Item2_Left_CheckBox
-            // 
-            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group2_Item2_Left_CheckBox.AutoSize = true;
-            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Location = new System.Drawing.Point(7, 62);
-            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Name = "Estimate_Step2_Group2_Item2_Left_CheckBox";
-            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Size = new System.Drawing.Size(64, 29);
-            this.Estimate_Step2_Group2_Item2_Left_CheckBox.TabIndex = 7;
-            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Text = "LLC";
-            this.Estimate_Step2_Group2_Item2_Left_CheckBox.UseVisualStyleBackColor = true;
-            this.Estimate_Step2_Group2_Item2_Left_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item2_Left_CheckBox_CheckedChanged);
             // 
             // MainForm
             // 

@@ -430,7 +430,7 @@ namespace PV_analysis
                 panelList.Add(Display_Show_Preview_CreateInfo("模块数：", converter.Number.ToString()));
                 if (selectedConverter.Equals("隔离DC/DC变换单元_三级") || selectedConverter.Equals("隔离DC/DC变换单元_两级"))
                 {
-                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((IsolatedDCDCConverter)converter).Math_fr / 1e3).ToString("f1") + "kHz"));
+                    panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((IsolatedDCDCConverter)converter).Math_fr / 1e3).ToString("f1") + "kHz"));
                 }
                 else
                 {
@@ -2014,6 +2014,7 @@ namespace PV_analysis
                     //记录负载-效率曲线数据
                     data[i - 1, 0] = 100 * i / div; //负载点(%)
                     data[i - 1, 1] = converter.Efficiency * 100; //整体架构效率(%)
+                    //Console.WriteLine(data[i - 1, 1]);
                 }
 
                 //更新显示                

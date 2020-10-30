@@ -1,4 +1,5 @@
-﻿using PV_analysis.Components;
+﻿using MathWorks.MATLAB.NET.Arrays;
+using PV_analysis.Components;
 using PV_analysis.Converters;
 using System;
 using static PV_analysis.Curve;
@@ -164,6 +165,7 @@ namespace PV_analysis.Topologys
         {
             double P = math_P;
             double Vin = math_Vin;
+            double Vo_ref = math_Vo;
             double fr = math_fr;
             double fs = math_fs;
             double n = math_n;
@@ -171,92 +173,187 @@ namespace PV_analysis.Topologys
             double Lm = math_Lm;
             double Cr = math_Cr;
 
+            double k = Lm / Lr;
             double wr = 2 * Math.PI * fr; //谐振角速度
             double Zr = Math.Sqrt(Lr / Cr); //谐振阻抗
             double Tr = 1 / fr; //谐振周期
             double Ts = 1 / fs; //开关周期
             double Td = Ts - Tr; //死区时间
 
-            double Vo = Vin / (n * (1 - Math.PI / (8 * Lm) * Zr * Td)); //实际输出电压
-            double Io = P / Vo; //输出电流平均值
-            double ILrp = Math.Sqrt(Math.Pow(P * wr * Ts / (4 * n * Vo), 2) + Math.Pow(n * Vo * Tr / (4 * Lm), 2));
-            double VCrp = -Vin + n * Vo + Zr * ILrp;
-            double ILm = n * Vo * Tr / (4 * Lm); //环流时，认为励磁电感电流不变
-            double φ = Math.Atan(-n * n * Vo * Vo * Tr / (P * wr * Lm * Ts));
-
             curve_iLr = new Curve();
             Curve curve_iLm = new Curve();
             Curve curve_io = new Curve();
             curve_vCr = new Curve();
-            double startTime = 0;
-            double endTime = Ts;
-            double dt = (endTime - startTime) / Config.DEGREE;
-            double t;
-            for (int i = 0; i <= Config.DEGREE; i++)
+
+            double VCr0 = -P * Ts / (4 * n * Cr * Vo_ref);
+            if ((Vin - VCr0) * k / (k + 1) >= Vo_ref)
             {
-                t = startTime + dt * i;
-                double iLm;
-                double iLr;
-                double vCr;
-                double io;
-                double k = 1;
-                while (t >= Ts / 2)
+                double Vo = Vin / (n * (1 - Math.PI / (8 * Lm) * Zr * Td)); //实际输出电压
+                double Io = P / Vo; //输出电流平均值
+                double ILrp = Math.Sqrt(Math.Pow(P * wr * Ts / (4 * n * Vo), 2) + Math.Pow(n * Vo * Tr / (4 * Lm), 2));
+                double VCrp = -Vin + n * Vo + Zr * ILrp;
+                double ILm = n * Vo * Tr / (4 * Lm); //环流时，认为励磁电感电流不变
+                double φ = Math.Atan(-n * n * Vo * Vo * Tr / (P * wr * Lm * Ts));
+
+                double startTime = 0;
+                double endTime = Ts;
+                double dt = (endTime - startTime) / Config.DEGREE;
+                double t;
+                for (int i = 0; i <= Config.DEGREE; i++)
                 {
-                    t -= Ts / 2;
-                    k *= -1;
+                    t = startTime + dt * i;
+                    double iLm;
+                    double iLr;
+                    double vCr;
+                    double io;
+                    double p = 1;
+                    while (t >= Ts / 2)
+                    {
+                        t -= Ts / 2;
+                        p *= -1;
+                    }
+                    if (t <= Tr / 2)
+                    {
+                        iLm = -ILm + n * Vo / Lm * t;
+                        iLr = ILrp * Math.Sin(wr * t + φ);
+                        vCr = Vin - n * Vo - Zr * ILrp * Math.Cos(wr * t + φ);
+                    }
+                    else
+                    {
+                        iLm = ILm;
+                        iLr = ILm;
+                        vCr = Vin - n * Vo + P * Ts / (4 * n * Cr * Vo) + Math.PI * n * Vo * Zr / (2 * Lm) * (t - Tr / 2);
+                    }
+                    io = n * (iLr - iLm);
+                    iLm *= p;
+                    iLr *= p;
+                    vCr *= p;
+
+                    t = startTime + dt * i; //之前t可能已经改变
+                    curve_iLr.Add(t, iLr);
+                    curve_iLm.Add(t, iLm);
+                    curve_io.Add(t, io);
+                    curve_vCr.Add(t, vCr);
                 }
-                if (t <= Tr / 2)
+                //补充特殊点（保证现有的开关器件损耗计算方法正确）
+                double t0 = -φ / wr;
+                curve_iLr.Order(t0, 0);
+                curve_iLr.Order(t0 + Ts / 2, 0);
+                curve_vCr.Order(t0, -VCrp);
+                curve_vCr.Order(t0 + Ts / 2, VCrp);
+                //生成主电路元件波形
+                curve_iSp = curve_iLr.Cut(0, Ts / 2, 1);
+                curve_iSs = curve_io.Cut(0, Ts / 2, 1);
+                math_vSs = Vin;
+                math_vSp = Vo;
+                curve_iCf = curve_iSs.Copy(1, 0, -Io);
+                //计算有效值
+                math_ILrrms = curve_iLr.CalcRMS();
+                math_ICfrms = curve_iCf.CalcRMS();
+
+                math_VCrp = VCrp;
+                math_ILrp = ILrp;
+            }
+            else
+            {
+                double Vo = Vo_ref; //实际输出电压
+                double Io = P / Vo; //输出电流平均值                
+                double t1 = Ts / 4 - Math.Sqrt(Ts * Ts / 16 + 2 * Lm * (Io * Ts / (4 * n * Vin) - Cr / k));
+                double ILrp = -Math.Sqrt(Math.Pow(Vin / (k * Zr), 2) + Math.Pow(Vin / (4 * Lm) * (4 * t1 - Ts), 2));
+                double φ = Math.Atan(k * Zr / Lm * (t1 - Ts / 4)) - wr * t1;
+                //求解t2
+                MWArray output = Formula.solve.solveLLC_t2(Vin, Ts, wr, Lm, ILrp, φ);
+                MWNumericArray result = (MWNumericArray)output;
+                double t2 = result.ToScalarDouble();
+                if (t2 < t1 || t2 > Ts / 2)
                 {
-                    iLm = -ILm + n * Vo / Lm * t;
-                    iLr = ILrp * Math.Sin(wr * t + φ);
-                    io = iLr - iLm;
-                    vCr = Vin - n * Vo - Zr * ILrp * Math.Cos(wr * t + φ);
+                    Console.WriteLine("Wrong t2!");
+                    System.Environment.Exit(-1);
+                }
+                                
+                double VCrp = 0;
+                double startTime = 0;
+                double endTime = Ts;
+                double dt = (endTime - startTime) / Config.DEGREE;
+                double t;
+                for (int i = 0; i <= Config.DEGREE; i++)
+                {
+                    t = startTime + dt * i;
+                    double iLm;
+                    double iLr;
+                    double vCr;
+                    double io;
+                    double p = 1;
+                    while (t >= Ts / 2)
+                    {
+                        t -= Ts / 2;
+                        p *= -1;
+                    }
+                    if (t <= t1)
+                    {
+                        iLm = Vin / (4 * Lm) * (4 * t - Ts);
+                        iLr = iLm;
+                        vCr = VCr0 + (2 * Vin * t * t - Vin * Ts * t) / (4 * Lm * Cr);
+                    }
+                    else if (t <= t2)
+                    {
+                        iLm = Vin / (4 * Lm) * (4 * t - Ts);
+                        iLr = -ILrp * Math.Sin(wr * t + φ);
+                        vCr = Zr * ILrp * Math.Cos(wr * t + φ);
+                    }
+                    else
+                    {
+                        iLm = Vin / (4 * Lm) * (4 * t - Ts);
+                        iLr = iLm;
+                        vCr = -VCr0 + (2 * Vin * t * t - Vin * Ts * t) / (4 * Lm * Cr);
+                    }
+                    io = n * (iLr - iLm);
+                    iLm *= p;
+                    iLr *= p;
+                    vCr *= p;
+
+                    t = startTime + dt * i; //之前t可能已经改变
+                    curve_iLr.Add(t, iLr);
+                    curve_iLm.Add(t, iLm);
+                    curve_io.Add(t, io);
+                    curve_vCr.Add(t, vCr);
+
+                    VCrp = Math.Max(VCrp, Math.Abs(vCr));
+                }
+                //补充特殊点（保证现有的开关器件损耗计算方法正确）
+                double t0;
+                if (Vin / (4 * Lm) * (4 * t1 - Ts) <= 0)
+                {
+                    t0 = -φ / wr;
                 }
                 else
                 {
-                    iLm = ILm;
-                    iLr = ILm;
-                    vCr = Vin - n * Vo + P * Ts / (4 * n * Cr * Vo) + Math.PI * n * Vo * Zr / (2 * Lm) * (t - Tr / 2);
+                    t0 = Ts / 4;
                 }
-                io = n * (iLr - iLm);
-                iLm *= k;
-                iLr *= k;
-                vCr *= k;
+                curve_iLr.Order(t0, 0);
+                curve_iLr.Order(t0 + Ts / 2, 0);
+                //生成主电路元件波形
+                curve_iSp = curve_iLr.Cut(0, Ts / 2, 1);
+                curve_iSs = curve_io.Cut(0, Ts / 2, 1);
+                math_vSs = Vin;
+                math_vSp = Vo;
+                curve_iCf = curve_iSs.Copy(1, 0, -Io);
+                //计算有效值
+                math_ILrrms = curve_iLr.CalcRMS();
+                math_ICfrms = curve_iCf.CalcRMS();
 
-                t = startTime + dt * i; //之前t可能已经改变
-                curve_iLr.Add(t, iLr);
-                curve_iLm.Add(t, iLm);
-                curve_io.Add(t, io);
-                curve_vCr.Add(t, vCr);
+                math_VCrp = VCrp;
+                math_ILrp = ILrp;
             }
-            //补充特殊点（保证现有的开关器件损耗计算方法正确）
-            double t0 = -φ / wr;
-            curve_iLr.Order(t0, 0);
-            curve_iLr.Order(t0 + Ts / 2, 0);
-            curve_vCr.Order(t0, -VCrp);
-            curve_vCr.Order(t0 + Ts / 2, VCrp);
-            //生成主电路元件波形
-            curve_iSp = curve_iLr.Cut(0, Ts / 2, 1);
-            curve_iSs = curve_io.Cut(0, Ts / 2, 1);
-            math_vSs = Vin;
-            math_vSp = Vo;
-            curve_iCf = curve_iSs.Copy(1, 0, -Io);
-            //计算有效值
-            math_ILrrms = curve_iLr.CalcRMS();
-            math_ICfrms = curve_iCf.CalcRMS();
-
-            math_VCrp = VCrp;
-            math_ILrp = ILrp;
-
-            Graph graph = new Graph();
+            //Graph graph = new Graph();
             //graph.Add(curve_vCr, "vCr");
             //graph.Draw();
 
             //graph = new Graph();
-            graph.Add(curve_iLm, "iLm");
-            graph.Add(curve_iLr, "iLr");
+            //graph.Add(curve_iLm, "iLm");
+            //graph.Add(curve_iLr, "iLr");
             //graph.Add(curve_iSp, "iSp");
-            graph.Draw();
+            //graph.Draw();
 
             //graph = new Graph();
             //graph.Add(curve_io, "io");
