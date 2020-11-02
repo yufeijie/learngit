@@ -21,6 +21,7 @@ namespace PV_analysis.Topologys
         //基本电路参数
         private double math_Vin; //输入电压
         private double math_Vo; //输出电压预设值
+        private double math_k; //输出个数
         private double math_Q; //品质因数
         private double math_fr; //谐振频率
         private double math_fs; //开关频率
@@ -66,6 +67,7 @@ namespace PV_analysis.Topologys
             math_Pfull = converter.Math_Psys / converter.PhaseNum / converter.Number;
             math_Vin = converter.Math_Vin;
             math_Vo = converter.Math_Vo;
+            math_k = converter.Math_k;
             math_fr = converter.Math_fr;
             math_Q = converter.Math_Q;
 
@@ -131,15 +133,16 @@ namespace PV_analysis.Topologys
             double P = math_Pfull;
             double Vin = math_Vin;
             double Vo = math_Vo;
+            double k = math_k;
             double Q = math_Q;
             double fr = math_fr;
 
             double Tr = 1 / fr; //谐振周期
             double Td = Tr / 50; //死区时间
             double wr = 2 * Math.PI * fr; //谐振角速度
-            double RL = Math.Pow(Vo, 2) / P; //负载等效电阻
+            double RL = k * Math.Pow(Vo, 2) / P; //负载等效电阻
             double n = Vin / Vo; //变比
-            double Zr = Q * 8 * Math.Pow(n / Math.PI, 2) * RL; //谐振阻抗
+            double Zr = Q * 8 * Math.Pow(n / Math.PI, 2) * RL / k; //谐振阻抗
             //求解fs
             MWArray output = Formula.solve.solveSRC_fs(Q, Vin, n, Td, fr);
             MWNumericArray result = (MWNumericArray)output;
@@ -168,6 +171,7 @@ namespace PV_analysis.Topologys
             double P = math_P;
             double Vin = math_Vin;
             double Vo_ref = math_Vo;
+            double k = math_k;
             double fr = math_fr;
             double fs = math_fs;
             double n = math_n;
@@ -176,8 +180,8 @@ namespace PV_analysis.Topologys
 
             double wr = 2 * Math.PI * fr; //谐振角速度
             double Zr = Math.Sqrt(Lr / Cr); //谐振阻抗
-            double RL = Math.Pow(Vo_ref, 2) / P; //负载等效电阻
-            double Q = Zr / (Math.Pow(n, 2) * RL); //品质因数（仅用于计算，并非基波等效的品质因数）
+            double RL = k * Math.Pow(Vo_ref, 2) / P; //负载等效电阻
+            double Q = Zr / (Math.Pow(n, 2) * RL / k); //品质因数（仅用于计算，并非基波等效的品质因数）
             double Ts = 1 / fs; //开关周期
 
             //求解Vo和t0
@@ -224,7 +228,7 @@ namespace PV_analysis.Topologys
             curve_vCr.Order(t0 + Ts / 2, VCrp);
             //生成主电路元件波形
             curve_iSp = curve_iL.Cut(0, Ts / 2, 1);
-            curve_iSs = curve_iL.Cut(t0, t0 + Ts / 2, n);
+            curve_iSs = curve_iL.Cut(t0, t0 + Ts / 2, n / k);
             math_vSs = Vin;
             math_vSp = Vo;
             curve_iCf = curve_iSs.Copy(1, 0, -Io);

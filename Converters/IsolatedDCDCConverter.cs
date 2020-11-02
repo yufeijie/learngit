@@ -21,6 +21,11 @@ namespace PV_analysis.Converters
         public double Math_Vo { get; }
 
         /// <summary>
+        /// 输出个数
+        /// </summary>
+        public double Math_k { get; set; } = 1;
+
+        /// <summary>
         /// 品质因数
         /// </summary>
         public double Math_Q { get; }
