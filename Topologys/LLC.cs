@@ -343,7 +343,7 @@ namespace PV_analysis.Topologys
                 math_ICfrms = curve_iCf.CalcRMS();
 
                 math_VCrp = VCrp;
-                math_ILrp = ILrp;
+                math_ILrp = -ILrp;
             }
             //Graph graph = new Graph();
             //graph.Add(curve_vCr, "vCr");
