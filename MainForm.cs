@@ -807,20 +807,23 @@ namespace PV_analysis
             }
             else
             {
-                //生成数据
-                converter.Operate(load, Vin);
-
                 //更新显示                
                 switch (selectedConverter)
                 {
                     case "前级DC/DC变换单元_三级":
+                        converter.Operate(load, Vin);
                         DisplayPieChart(Display_Detail_DCDC_LossBreakdown_PieChart, converter.GetLossBreakdown()); //前级DC/DC损耗分布饼图
                         break;
                     case "隔离DC/DC变换单元_三级":
+                        converter.Operate(load);
+                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, converter.GetLossBreakdown()); //隔离DC/DC损耗分布饼图
+                        break;
                     case "隔离DC/DC变换单元_两级":
+                        converter.Operate(load, Vin);
                         DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, converter.GetLossBreakdown()); //隔离DC/DC损耗分布饼图
                         break;
                     case "逆变单元":
+                        converter.Operate(load);
                         DisplayPieChart(Display_Detail_DCAC_LossBreakdown_PieChart, converter.GetLossBreakdown()); //逆变损耗分布饼图
                         break;
                 }
