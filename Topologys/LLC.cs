@@ -440,7 +440,7 @@ namespace PV_analysis.Topologys
             primaryDualModule.SetConditions(math_VSpmax, ILrmax, math_fs);
             secondaryDualModule.SetConditions(math_VSsmax, math_n * ILrmax, math_fs);
             resonantInductor.SetConditions(math_Lr, ILrmax, math_fs);
-            transformer.SetConditions(math_P, ILrmax, math_fs, math_n, math_ψ); //FIXME 磁链是否会变化？
+            transformer.SetConditions(math_P, ILrmax, math_fs, math_n, 1, math_ψ); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(math_Cr, VCrmax, ILrrms_max);
             filteringCapacitor.SetConditions(200 * 1e-6, math_VCfmax, ICfrms_max); //TODO 滤波电容的设计
         }

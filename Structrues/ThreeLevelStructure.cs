@@ -37,14 +37,15 @@ namespace PV_analysis.Structures
                 "并网电压",
                 "并网频率(Hz)",
                 "隔离DCDC品质因数",
-                "DCAC功率因数角(rad)",
+                "DCAC功率因数角(rad)",                
                 "母线电压范围",
                 "DCDC模块数范围",
                 "DCDC拓扑范围",
                 "DCDC频率范围(kHz)",
+                "隔离DCDC副边个数范围",
+                "隔离DCDC模块数范围",
                 "隔离DCDC拓扑范围",
                 "隔离DCDC谐振频率范围(kHz)",
-                "DCAC模块数范围",
                 "DCAC拓扑范围",
                 "DCAC调制方式范围",
                 "DCAC频率范围(kHz)"
@@ -72,9 +73,10 @@ namespace PV_analysis.Structures
                 Function.IntArrayToString(DCDC_numberRange),
                 Function.StringArrayToString(DCDC_topologyRange),
                 Function.DoubleArrayToString(DCDC_frequencyRange),
+                Function.IntArrayToString(IsolatedDCDC_secondaryRange),
+                Function.IntArrayToString(IsolatedDCDC_numberRange),
                 Function.StringArrayToString(IsolatedDCDC_topologyRange),
                 Function.DoubleArrayToString(IsolatedDCDC_resonanceFrequencyRange),
-                Function.IntArrayToString(DCAC_numberRange),
                 Function.StringArrayToString(DCAC_topologyRange),
                 Function.StringArrayToString(DCAC_modulationRange),
                 Function.DoubleArrayToString(DCAC_frequencyRange)
@@ -104,51 +106,55 @@ namespace PV_analysis.Structures
                 {
                     continue;
                 }
-                foreach (int j in DCAC_numberRange) //目前只考虑一拖一
+                foreach (int No in IsolatedDCDC_secondaryRange) //一拖N
                 {
-                    //逆变器设计
-                    Console.WriteLine("-------------------------");
-                    Console.WriteLine("Inverters design...");
-                    DCAC = new DCACConverter(Math_Psys, Math_Vg, Math_fg, Math_phi)
+                    foreach (int n in IsolatedDCDC_numberRange)
                     {
-                        NumberRange = new int[] { j },
-                        TopologyRange = DCAC_topologyRange,
-                        ModulationRange = DCAC_modulationRange,
-                        FrequencyRange = DCAC_frequencyRange
-                    };
-                    DCAC.Optimize();
-                    if (DCAC.AllDesignList.Size <= 0)
-                    {
-                        continue;
-                    }
+                        //逆变器设计
+                        Console.WriteLine("-------------------------");
+                        Console.WriteLine("Inverters design...");
+                        DCAC = new DCACConverter(Math_Psys, Math_Vg, Math_fg, Math_phi)
+                        {
+                            NumberRange = new int[] { n * No },
+                            TopologyRange = DCAC_topologyRange,
+                            ModulationRange = DCAC_modulationRange,
+                            FrequencyRange = DCAC_frequencyRange
+                        };
+                        DCAC.Optimize();
+                        if (DCAC.AllDesignList.Size <= 0)
+                        {
+                            continue;
+                        }
 
-                    //隔离DC/DC变换器设计
-                    Console.WriteLine("-------------------------");
-                    Console.WriteLine("Isolated DC/DC converters design...");
-                    IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Vbus, DCAC.Math_Vin, IsolatedDCDC_Q)
-                    {
-                        NumberRange = new int[] { j },
-                        TopologyRange = IsolatedDCDC_topologyRange,
-                        FrequencyRange = IsolatedDCDC_resonanceFrequencyRange
-                    };
-                    IsolatedDCDC.Optimize();
-                    if (IsolatedDCDC.AllDesignList.Size <= 0)
-                    {
-                        continue;
-                    }
+                        //隔离DC/DC变换器设计
+                        Console.WriteLine("-------------------------");
+                        Console.WriteLine("Isolated DC/DC converters design...");
+                        IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Vbus, DCAC.Math_Vin, IsolatedDCDC_Q)
+                        {
+                            SecondaryRange = new int[] { No },
+                            NumberRange = new int[] { n },
+                            TopologyRange = IsolatedDCDC_topologyRange,
+                            FrequencyRange = IsolatedDCDC_resonanceFrequencyRange
+                        };
+                        IsolatedDCDC.Optimize();
+                        if (IsolatedDCDC.AllDesignList.Size <= 0)
+                        {
+                            continue;
+                        }
 
-                    //整合得到最终结果
-                    Console.WriteLine("-------------------------");
-                    Console.WriteLine("Inv num=" + j + ", DC bus voltage=" + Vbus + ", Combining...");
-                    ConverterDesignList newDesignList = new ConverterDesignList();
-                    newDesignList.Combine(DCDC.ParetoDesignList);
-                    newDesignList.Combine(IsolatedDCDC.ParetoDesignList);
-                    newDesignList.Combine(DCAC.ParetoDesignList);
-                    newDesignList.Transfer(new string[] { Vbus.ToString(), DCAC.Math_Vin .ToString() });
-                    ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
-                    AllDesignList.Merge(newDesignList); //记录所有设计
+                        //整合得到最终结果
+                        Console.WriteLine("-------------------------");
+                        Console.WriteLine("Iso num=" + n + ", Iso sec=" + No + ", DC bus voltage=" + Vbus + ", Combining...");
+                        ConverterDesignList newDesignList = new ConverterDesignList();
+                        newDesignList.Combine(DCDC.ParetoDesignList);
+                        newDesignList.Combine(IsolatedDCDC.ParetoDesignList);
+                        newDesignList.Combine(DCAC.ParetoDesignList);
+                        newDesignList.Transfer(new string[] { Vbus.ToString(), DCAC.Math_Vin.ToString() });
+                        ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
+                        AllDesignList.Merge(newDesignList); //记录所有设计
+                    }
+                    Console.WriteLine("=========================");
                 }
-                Console.WriteLine("=========================");
             }
         }
 

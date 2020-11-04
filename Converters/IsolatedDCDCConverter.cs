@@ -21,9 +21,9 @@ namespace PV_analysis.Converters
         public double Math_Vo { get; }
 
         /// <summary>
-        /// 输出个数
+        /// 副边个数
         /// </summary>
-        public double Math_k { get; set; } = 1;
+        public int Math_No { get; set; }
 
         /// <summary>
         /// 品质因数
@@ -34,6 +34,11 @@ namespace PV_analysis.Converters
         /// 谐振频率
         /// </summary>
         public double Math_fr { get; set; }
+
+        /// <summary>
+        /// 副边个数范围
+        /// </summary>
+        public int[] SecondaryRange { get; set; }
 
         /// <summary>
         /// 模块数范围
@@ -100,7 +105,7 @@ namespace PV_analysis.Converters
         /// <returns>配置信息</returns>
         public override string[] GetConfigs()
         {
-            string[] data = { Number.ToString(), Math_fr.ToString(), Topology.GetType().Name };
+            string[] data = { Math_No.ToString(), Number.ToString(), Math_fr.ToString(), Topology.GetType().Name };
             return data;
         }
 
@@ -121,6 +126,7 @@ namespace PV_analysis.Converters
                     "输入电压最大值",
                     "输出电压",
                     "品质因数",
+                    "副边个数范围",
                     "模块数范围",
                     "拓扑范围",
                     "谐振频率范围(kHz)"
@@ -135,6 +141,7 @@ namespace PV_analysis.Converters
                     "输入电压",
                     "输出电压",
                     "品质因数",
+                    "副边个数范围",
                     "模块数范围",
                     "拓扑范围",
                     "谐振频率范围(kHz)"
@@ -160,6 +167,7 @@ namespace PV_analysis.Converters
                     Math_Vin_max.ToString(),
                     Math_Vo.ToString(),
                     Math_Q.ToString(),
+                    Function.IntArrayToString(SecondaryRange),
                     Function.IntArrayToString(NumberRange),
                     Function.StringArrayToString(TopologyRange),
                     Function.DoubleArrayToString(FrequencyRange)
@@ -174,6 +182,7 @@ namespace PV_analysis.Converters
                     Math_Vin.ToString(),
                     Math_Vo.ToString(),
                     Math_Q.ToString(),
+                    Function.IntArrayToString(SecondaryRange),
                     Function.IntArrayToString(NumberRange),
                     Function.StringArrayToString(TopologyRange),
                     Function.DoubleArrayToString(FrequencyRange)
@@ -216,11 +225,24 @@ namespace PV_analysis.Converters
                 foreach (double fr in FrequencyRange) //谐振频率变化
                 {
                     Math_fr = fr;
-                    foreach (string tp in TopologyRange) //拓扑变化
+                    foreach (int No in SecondaryRange) //副边个数变化
                     {
-                        CreateTopology(tp);
-                        Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
-                        Design();
+                        Math_No = No;
+                        foreach (string tp in TopologyRange) //拓扑变化
+                        {
+                            CreateTopology(tp);
+                            if (tp.Equals("SRC")) //目前多输出仅支持SRC
+                            {
+                                Console.WriteLine("Now topology=" + tp + ", No=" + No + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
+                                Design();
+                            }
+                            else
+                            {
+                                if(No == 1)
+                                Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
+                                Design();
+                            }
+                        }
                     }
                 }
             }
@@ -236,6 +258,7 @@ namespace PV_analysis.Converters
             EfficiencyCGC = double.Parse(configs[index++]);
             Volume = double.Parse(configs[index++]);
             Cost = double.Parse(configs[index++]);
+            Math_No = int.Parse(configs[index++]);
             Number = int.Parse(configs[index++]);
             Math_fr = double.Parse(configs[index++]);
             CreateTopology(configs[index++]);

@@ -17,7 +17,6 @@ namespace PV_analysis.Components
         protected String material = "Ferrite"; //材料：铁氧体Ferrite，非晶Amorphous
         protected int core; //磁芯编号
         protected int numberCore; //磁芯数量(单位:对)
-        protected int wire; //绕线编号
 
         //损耗参数（同类器件中其中一个的损耗）
         protected double powerLossCu; //单个电感铜损(W)
@@ -39,7 +38,6 @@ namespace PV_analysis.Components
         /// <summary>
         /// 设置磁芯型号
         /// </summary>
-        /// <returns>型号</returns>
         protected void SetCoreType(string type)
         {
             for (int i = 0; i < Data.CoreList.Count; i++)
@@ -54,29 +52,28 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
-        /// 获取绕线的型号
+        /// 获取绕线型号
         /// </summary>
         /// <returns>型号</returns>
-        protected string GetWireType()
+        protected string GetWireType(int wire)
         {
             return Data.WireList[wire].Type;
         }
 
         /// <summary>
-        /// 设置绕线型号
+        /// 获取绕线编号
         /// </summary>
-        /// <returns>型号</returns>
-        protected void SetWireType(string type)
+        /// <returns>编号</returns>
+        protected int GetWireId(string type)
         {
             for (int i = 0; i < Data.WireList.Count; i++)
             {
                 if (type.Equals(Data.WireList[i].Type))
                 {
-                    wire = i;
-                    return;
+                    return i;
                 }
             }
-            wire = -1;
+            return -1;
         }
 
         /// <summary>

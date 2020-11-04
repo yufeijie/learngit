@@ -320,7 +320,7 @@ namespace PV_analysis.Topologys
             single.SetConditions(voltageOutputDef, turnRatioTransformer * currentInductorMax, frequencySwitchMax);
             secondaryDualModule.SetConditions(voltageOutputDef, turnRatioTransformer * currentInductorMax, frequencySwitchMax);
             resonantInductor.SetConditions(inductanceResonance, currentInductorMax, frequencySwitchMax);
-            transformer.SetConditions(math_P, currentInductorMax, frequencySwitchMax, turnRatioTransformer, fluxLinkageMax); //FIXME 磁链是否会变化？
+            transformer.SetConditions(math_P, currentInductorMax, frequencySwitchMax, turnRatioTransformer, 1, fluxLinkageMax); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(capacitanceResonance, voltageCapacitorMax, currentInductorRMSMax);
             filteringCapacitor.SetConditions(200 * 1e-6, voltageOutputDef, currentCapacitorFilterRMSMax);
         }

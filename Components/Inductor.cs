@@ -10,6 +10,7 @@ namespace PV_analysis.Components
         private static readonly double lgDelta = 1e-4; //气隙长度精度(cm)
 
         //器件参数
+        private int wire; //绕线编号
         private double lg; //气隙长度(cm)
         private int N; //匝数
 
@@ -46,7 +47,7 @@ namespace PV_analysis.Components
         /// <returns>配置信息</returns>
         private string[] GetConfigs()
         {
-            return new string[] { number.ToString(), GetCoreType(), numberCore.ToString(), lg.ToString(), GetWireType(), N.ToString() };
+            return new string[] { number.ToString(), GetCoreType(), numberCore.ToString(), lg.ToString(), GetWireType(wire), N.ToString() };
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace PV_analysis.Components
             SetCoreType(configs[index++]);
             numberCore = int.Parse(configs[index++]);
             lg = double.Parse(configs[index++]);
-            SetWireType(configs[index++]);
+            wire = GetWireId(configs[index++]);
             N = int.Parse(configs[index++]);
         }
 
@@ -170,8 +171,8 @@ namespace PV_analysis.Components
             double S3 = 0.75; //有效窗口系数
             double S2 = 0.6; //填充系数
             double energyMax = 0.5 * inductance * Math.Pow(currentPeakMax, 2);
-            double areaProduct = 2 * energyMax / (ratioWindowUtilization * magneticFluxDensityMax * currentDensity) * 1e4; //所需磁芯面积积最小值(cm^4)
-            double Axp = currentPeakMax / currentDensity; //满足电流密度所需裸线面积(cm^2)
+            double APmin = 2 * energyMax / (ratioWindowUtilization * magneticFluxDensityMax * currentDensity) * 1e4; //所需磁芯面积积最小值(cm^4)
+            double Axbmin = currentPeakMax / currentDensity; //满足电流密度所需裸线面积(cm^2)
 
             //选取磁芯
             for (int j = 1; j <= numberCoreMax; j++) //采用不同的磁芯数量
@@ -190,8 +191,7 @@ namespace PV_analysis.Components
                     }
                     core = i;
                     double AP = j * Data.CoreList[i].Math_AP * 1e-4; //计算当前磁芯的面积积(cm^4)
-                    //System.out.println(AP+" "+areaProduct);
-                    if (AP > areaProduct) //磁芯面积积要大于所需最小值
+                    if (AP > APmin) //磁芯面积积要大于所需最小值
                     {
                         //获取磁芯参数
                         double length = Data.CoreList[i].Math_F * 2 * 0.1; //磁芯参数(cm) 开气隙的边
@@ -199,18 +199,17 @@ namespace PV_analysis.Components
                         double Aecc = j * Data.CoreList[i].Math_Ae * 1e-2; //等效磁芯面积(cm^2)
 
                         //选取绕线
-                        //System.out.println(AP+" "+areaProduct+" "+(int)Math.ceil(Axp/AxpAWG));
                         double delta = Math.Sqrt(lowCu / (Math.PI * miu0 * miuCu * frequencyMax)) * 1e2; //集肤深度(cm)
                         for (int w = 0; w < Data.WireList.Count; w++)
                         {
                             //集肤深度验证
-                            double r = Data.WireList[i].Math_Db / 2 * 0.1; //裸线半径(cm)
+                            double r = Data.WireList[w].Math_Db / 2 * 0.1; //裸线半径(cm)
                             if (r > delta)
                             {
                                 continue;
                             }
-                            double AxpAWG = Data.WireList[w].Math_Ab * 1e-3; //绕线裸线面积(cm^2)
-                            if (AxpAWG < Axp)
+                            double Axb = Data.WireList[w].Math_Ab * 1e-3; //绕线裸线面积(cm^2)
+                            if (Axb < Axbmin)
                             {
                                 continue;
                             }
@@ -440,14 +439,14 @@ namespace PV_analysis.Components
         /// </summary>
         private void CalcPowerLossCu()
         {
-            double AxpAWG = Data.WireList[wire].Math_Ab * 1e-3; //绕线裸线面积(cm^2)
+            double Axb = Data.WireList[wire].Math_Ab * 1e-3; //绕线裸线面积(cm^2)
             double C = Data.CoreList[core].Math_C * 0.1; //(cm)
             double MLT = (numberCore - 1) * C * 2 + Data.CoreList[core].Math_MLT * 0.1; //一匝绕线长度(cm) 
-            double Rwire = lowCu * MLT * 1e-2 * N / (AxpAWG * 1e-4); //单根绕线电阻(ohm)
+            double Rwire = lowCu * MLT * 1e-2 * N / (Axb * 1e-4); //单根绕线电阻(ohm)
             powerLossCu = Math.Pow(currentAverage, 2) * Rwire; //计算铜损
             if (IsAC)
             {
-                Rwire = lowCu * MLT * 1e-2 * N / (AxpAWG * 1e-4); //直流电阻
+                Rwire = lowCu * MLT * 1e-2 * N / (Axb * 1e-4); //直流电阻
                 double r = Data.WireList[wire].Math_Db / 2 * 0.1;
                 double delta = Math.Sqrt(lowCu / (Math.PI * miu0 * miuCu * frequency)) * 1e2; //集肤深度(cm)
                 double Rwire1; //开关频率下的电阻 FIXME

@@ -21,7 +21,7 @@ namespace PV_analysis.Topologys
         //基本电路参数
         private double math_Vin; //输入电压
         private double math_Vo; //输出电压预设值
-        private double math_k; //输出个数
+        private int math_No; //副边个数
         private double math_Q; //品质因数
         private double math_fr; //谐振频率
         private double math_fs; //开关频率
@@ -67,7 +67,7 @@ namespace PV_analysis.Topologys
             math_Pfull = converter.Math_Psys / converter.PhaseNum / converter.Number;
             math_Vin = converter.Math_Vin;
             math_Vo = converter.Math_Vo;
-            math_k = converter.Math_k;
+            math_No = converter.Math_No;
             math_fr = converter.Math_fr;
             math_Q = converter.Math_Q;
 
@@ -77,7 +77,7 @@ namespace PV_analysis.Topologys
                 Name = "原边开关管",
                 VoltageVariable = false
             };
-            secondaryDualModule = new DualModule(2)
+            secondaryDualModule = new DualModule(2 * math_No)
             {
                 Name = "副边二极管",
                 VoltageVariable = false
@@ -97,7 +97,7 @@ namespace PV_analysis.Topologys
                 Name = "谐振电容",
                 VoltageVariable = false,
             };
-            filteringCapacitor = new FilteringCapacitor(1)
+            filteringCapacitor = new FilteringCapacitor(math_No)
             {
                 Name = "滤波电容",
                 VoltageVariable = false,
@@ -133,16 +133,16 @@ namespace PV_analysis.Topologys
             double P = math_Pfull;
             double Vin = math_Vin;
             double Vo = math_Vo;
-            double k = math_k;
+            double No = math_No;
             double Q = math_Q;
             double fr = math_fr;
 
             double Tr = 1 / fr; //谐振周期
             double Td = Tr / 50; //死区时间
             double wr = 2 * Math.PI * fr; //谐振角速度
-            double RL = k * Math.Pow(Vo, 2) / P; //负载等效电阻
+            double RL = No * Math.Pow(Vo, 2) / P; //负载等效电阻
             double n = Vin / Vo; //变比
-            double Zr = Q * 8 * Math.Pow(n / Math.PI, 2) * RL / k; //谐振阻抗
+            double Zr = Q * 8 * Math.Pow(n / Math.PI, 2) * RL / No; //谐振阻抗
             //求解fs
             MWArray output = Formula.solve.solveSRC_fs(Q, Vin, n, Td, fr);
             MWNumericArray result = (MWNumericArray)output;
@@ -171,7 +171,7 @@ namespace PV_analysis.Topologys
             double P = math_P;
             double Vin = math_Vin;
             double Vo_ref = math_Vo;
-            double k = math_k;
+            double No = math_No;
             double fr = math_fr;
             double fs = math_fs;
             double n = math_n;
@@ -180,8 +180,8 @@ namespace PV_analysis.Topologys
 
             double wr = 2 * Math.PI * fr; //谐振角速度
             double Zr = Math.Sqrt(Lr / Cr); //谐振阻抗
-            double RL = k * Math.Pow(Vo_ref, 2) / P; //负载等效电阻
-            double Q = Zr / (Math.Pow(n, 2) * RL / k); //品质因数（仅用于计算，并非基波等效的品质因数）
+            double RL = No * Math.Pow(Vo_ref, 2) / P; //负载等效电阻
+            double Q = Zr / (Math.Pow(n, 2) * RL / No); //品质因数（仅用于计算，并非基波等效的品质因数）
             double Ts = 1 / fs; //开关周期
 
             //求解Vo和t0
@@ -228,7 +228,7 @@ namespace PV_analysis.Topologys
             curve_vCr.Order(t0 + Ts / 2, VCrp);
             //生成主电路元件波形
             curve_iSp = curve_iL.Cut(0, Ts / 2, 1);
-            curve_iSs = curve_iL.Cut(t0, t0 + Ts / 2, n / k);
+            curve_iSs = curve_iL.Cut(t0, t0 + Ts / 2, n / No);
             math_vSs = Vin;
             math_vSp = Vo;
             curve_iCf = curve_iSs.Copy(1, 0, -Io);
@@ -287,8 +287,8 @@ namespace PV_analysis.Topologys
                 math_P = math_Pfull * Config.CGC_POWER_RATIO[j]; //改变负载
                 Simulate(); //进行对应负载下的波形模拟
                 //Graph graph = new Graph();
-                //graph.Add(currentSwitch_P, "iP");
-                //graph.Add(currentSwitch_S, "iS");
+                //graph.Add(curve_iSp, "iP");
+                //graph.Add(curve_iSs, "iS");
                 //graph.Draw();
                 ILmax = Math.Max(ILmax, math_ILp);
                 ILrms_max = Math.Max(ILrms_max, math_ILrms);
@@ -315,7 +315,7 @@ namespace PV_analysis.Topologys
             primaryDualModule.SetConditions(math_VSpmax, ILmax, math_fs);
             secondaryDualModule.SetConditions(math_VSsmax, math_n * ILmax, math_fs);
             resonantInductor.SetConditions(math_Lr, ILmax, math_fs);
-            transformer.SetConditions(math_P, ILmax, math_fs, math_n, math_ψ); //FIXME 磁链是否会变化？
+            transformer.SetConditions(math_Pfull, ILmax, math_fs, math_n, math_No, math_ψ); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(math_Cr, VCrmax, ILrms_max);
             filteringCapacitor.SetConditions(200 * 1e-6, math_VCfmax, ICfrms_max); //TODO 滤波电容的设计
         }

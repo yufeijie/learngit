@@ -54,22 +54,6 @@ namespace PV_analysis.Structures
         /// </summary>
         public double[] Math_VbusRange { get; set; }
 
-        //---隔离DC/DC参数---
-        /// <summary>
-        /// 隔离DCDC品质因数预设值
-        /// </summary>
-        public double IsolatedDCDC_Q { get; set; }
-
-        /// <summary>
-        /// DCAC直流侧电压预设值
-        /// </summary>
-        public double DCAC_Vin_def { get; set; }
-
-        /// <summary>
-        /// DCAC功率因数角(rad)
-        /// </summary>
-        public double Math_phi { get; set; }
-
         //---DC/DC参数---
         /// <summary>
         /// DCDC可用模块数序列
@@ -86,6 +70,22 @@ namespace PV_analysis.Structures
         /// </summary>
         public double[] DCDC_frequencyRange { get; set; }
 
+        //---隔离DC/DC参数---
+        /// <summary>
+        /// 隔离DCDC品质因数预设值
+        /// </summary>
+        public double IsolatedDCDC_Q { get; set; }
+
+        /// <summary>
+        /// 隔离DCDC可用副边个数序列
+        /// </summary>
+        public int[] IsolatedDCDC_secondaryRange { get; set; }
+
+        /// <summary>
+        /// 隔离DCDC可用模块数序列
+        /// </summary>
+        public int[] IsolatedDCDC_numberRange { get; set; }
+
         /// <summary>
         /// 隔离DCDC可用拓扑序列
         /// </summary>
@@ -98,9 +98,14 @@ namespace PV_analysis.Structures
 
         //---DC/AC参数---
         /// <summary>
-        /// DCAC可用模块数序列，隔离DCDC与此同
+        /// DCAC直流侧电压预设值
         /// </summary>
-        public int[] DCAC_numberRange { get; set; }
+        public double DCAC_Vin_def { get; set; }
+
+        /// <summary>
+        /// DCAC功率因数角(rad)
+        /// </summary>
+        public double Math_phi { get; set; }
 
         /// <summary>
         /// DCAC可用拓扑序列

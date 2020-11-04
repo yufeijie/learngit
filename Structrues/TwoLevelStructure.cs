@@ -34,9 +34,10 @@ namespace PV_analysis.Structures
                 "隔离DCDC品质因数",
                 "DCAC直流侧电压预设值",
                 "DCAC功率因数角(rad)",
+                "隔离DCDC副边个数范围",
+                "隔离DCDC模块数范围",
                 "隔离DCDC拓扑范围",
                 "隔离DCDC谐振频率范围(kHz)",
-                "DCAC模块数范围",
                 "DCAC拓扑范围",
                 "DCAC调制方式范围",
                 "DCAC频率范围(kHz)"
@@ -61,9 +62,10 @@ namespace PV_analysis.Structures
                 IsolatedDCDC_Q.ToString(),
                 DCAC_Vin_def.ToString(),
                 Math_phi.ToString(),
+                Function.IntArrayToString(IsolatedDCDC_secondaryRange),
+                Function.IntArrayToString(IsolatedDCDC_numberRange),
                 Function.StringArrayToString(IsolatedDCDC_topologyRange),
                 Function.DoubleArrayToString(IsolatedDCDC_resonanceFrequencyRange),
-                Function.IntArrayToString(DCAC_numberRange),
                 Function.StringArrayToString(DCAC_topologyRange),
                 Function.StringArrayToString(DCAC_modulationRange),
                 Function.DoubleArrayToString(DCAC_frequencyRange)
@@ -76,13 +78,14 @@ namespace PV_analysis.Structures
         /// </summary>
         public override void Optimize()
         {
-            foreach (int j in DCAC_numberRange) //目前只考虑一拖一
+            foreach (int j in IsolatedDCDC_numberRange) //目前只考虑一拖一
             {
                 //隔离DC/DC变换器设计
                 Console.WriteLine("-------------------------");
                 Console.WriteLine("Isolated DC/DC converters design...");
                 IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Math_Vpv_min, Math_Vpv_max, DCAC_Vin_def, IsolatedDCDC_Q)
                 {
+                    SecondaryRange = IsolatedDCDC_secondaryRange,
                     NumberRange = new int[] { j },
                     TopologyRange = IsolatedDCDC_topologyRange,
                     FrequencyRange = IsolatedDCDC_resonanceFrequencyRange
