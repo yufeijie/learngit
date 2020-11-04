@@ -179,7 +179,7 @@ namespace PV_analysis
                         Math_Vo = Vg / Math.Sqrt(3),
                         Math_fg = fg,
                         IsolatedDCDC_Q = Q,
-                        Math_phi = phi,
+                        DCAC_phi = phi,
                     };
                     structure.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
                     structure.Evaluate(); //进行评估
@@ -205,7 +205,7 @@ namespace PV_analysis
                         Math_fg = fg,
                         IsolatedDCDC_Q = Q,
                         DCAC_Vin_def = DCAC_Vin_def,
-                        Math_phi = phi,
+                        DCAC_phi = phi,
                     };
                     structure.Load(configs, ref index); //数字为数组下标，读取信息后，下标位置会相应改变
                     structure.Evaluate(); //进行评估

@@ -103,9 +103,14 @@ namespace PV_analysis.Structures
         public double DCAC_Vin_def { get; set; }
 
         /// <summary>
+        /// DCAC电压调制比
+        /// </summary>
+        public double DCAC_Ma { get; set; }
+
+        /// <summary>
         /// DCAC功率因数角(rad)
         /// </summary>
-        public double Math_phi { get; set; }
+        public double DCAC_phi { get; set; }
 
         /// <summary>
         /// DCAC可用拓扑序列

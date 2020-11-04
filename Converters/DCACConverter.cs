@@ -33,7 +33,7 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 幅度调制比
         /// </summary>
-        public double Math_Ma { get; set; } = 0.95;
+        public double Math_Ma { get; set; }
 
         /// <summary>
         /// 调制方式

@@ -37,7 +37,8 @@ namespace PV_analysis.Structures
                 "并网电压",
                 "并网频率(Hz)",
                 "隔离DCDC品质因数",
-                "DCAC功率因数角(rad)",                
+                "DCAC电压调制比",
+                "DCAC功率因数角(rad)",
                 "母线电压范围",
                 "DCDC模块数范围",
                 "DCDC拓扑范围",
@@ -68,7 +69,8 @@ namespace PV_analysis.Structures
                 Math_Vg.ToString(),
                 Math_fg.ToString(),
                 IsolatedDCDC_Q.ToString(),
-                Math_phi.ToString(),
+                DCAC_Ma.ToString(),
+                DCAC_phi.ToString(),
                 Function.DoubleArrayToString(Math_VbusRange),
                 Function.IntArrayToString(DCDC_numberRange),
                 Function.StringArrayToString(DCDC_topologyRange),
@@ -113,8 +115,9 @@ namespace PV_analysis.Structures
                         //逆变器设计
                         Console.WriteLine("-------------------------");
                         Console.WriteLine("Inverters design...");
-                        DCAC = new DCACConverter(Math_Psys, Math_Vg, Math_fg, Math_phi)
+                        DCAC = new DCACConverter(Math_Psys, Math_Vg, Math_fg, DCAC_phi)
                         {
+                            Math_Ma = DCAC_Ma,
                             NumberRange = new int[] { n * No },
                             TopologyRange = DCAC_topologyRange,
                             ModulationRange = DCAC_modulationRange,
@@ -174,7 +177,7 @@ namespace PV_analysis.Structures
             DCDC.Load(configs, ref index);
             IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Math_Vbus, DCAC_Vin, IsolatedDCDC_Q);
             IsolatedDCDC.Load(configs, ref index);
-            DCAC = new DCACConverter(Math_Psys, Math_Vg, Math_fg, Math_phi);
+            DCAC = new DCACConverter(Math_Psys, Math_Vg, Math_fg, DCAC_phi);
             DCAC.Load(configs, ref index);
             Converters = new Converter[] { DCDC, IsolatedDCDC, DCAC };
         }

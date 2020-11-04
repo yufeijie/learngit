@@ -104,14 +104,7 @@ namespace PV_analysis
         /// <returns>可用模块数序列</returns>
         public static int[] GenerateNumberRange(int min, int max)
         {
-            List<int> numberRange = new List<int>();
-            int n = min;
-            while (n <= max)
-            {
-                numberRange.Add(n);
-                n++;
-            }
-            return numberRange.ToArray();
+            return GenerateNumberRange(min, max, 1);
         }
 
         /// <summary>
@@ -182,6 +175,40 @@ namespace PV_analysis
                 f += step;
             }
             return frequencyRange.ToArray();
+        }
+
+        /// <summary>
+        /// 生成可用母线电压序列
+        /// </summary>
+        /// <param name="min">最低母线电压</param>
+        /// <param name="max">最高母线电压</param>
+        /// <returns>可用母线电压序列</returns>
+        public static double[] GenerateVbusRange(double min, double max)
+        {
+            return GenerateVbusRange(min, max, 50);
+        }
+
+        /// <summary>
+        /// 生成可用母线电压序列
+        /// </summary>
+        /// <param name="min">最低母线电压</param>
+        /// <param name="max">最高母线电压</param>
+        /// <param name="step">间隔</param>
+        /// <returns>可用母线电压序列</returns>
+        public static double[] GenerateVbusRange(double min, double max, double step)
+        {
+            List<double> VbusRange = new List<double>();
+            double v = min;
+            while (v <= max)
+            {
+                VbusRange.Add(v);
+                v += step;
+            }
+            if (v - step != max)
+            {
+                VbusRange.Add(max);
+            }
+            return VbusRange.ToArray();
         }
 
         /// <summary>
