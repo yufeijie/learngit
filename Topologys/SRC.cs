@@ -13,20 +13,18 @@ namespace PV_analysis.Topologys
     {
         //可选参数
         private bool isLeakageInductanceIntegrated = true; //是否认为谐振电感集成在变压器中
-        //private static readonly double math_kIrip = 0.2; //电流纹波系数
-        //private static readonly double math_kVrip = 0.1; //电压纹波系数
 
         private IsolatedDCDCConverter converter; //所属变换器
 
-        //基本电路参数
+        //给定参数
         private double math_Vin; //输入电压
         private double math_Vo; //输出电压预设值
         private int math_No; //副边个数
         private double math_Q; //品质因数
         private double math_fr; //谐振频率
-        private double math_fs; //开关频率
 
         //主电路元件参数
+        private double math_fs; //开关频率
         private double math_VSpmax; //原边开关器件电压应力
         private double math_VSsmax; //副边开关器件电压应力
         private double math_n; //变压器变比
