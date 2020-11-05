@@ -185,12 +185,12 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
-        public abstract void Optimize();
+        public abstract void Optimize(MainForm form);
 
         /// <summary>
         /// 自动设计，整合设计结果（不会覆盖之前的设计结果）
         /// </summary>
-        public void Design()
+        public void Design(MainForm form)
         {
             Topology.Prepare();
             foreach (Component component in Topology.Components)
@@ -201,11 +201,11 @@ namespace PV_analysis.Converters
                 {
                     if (component.Name != null)
                     {
-                        Console.WriteLine(component.Name + "设计失败！");
+                        form.PrintDetails(component.Name + "设计失败！");
                     }
                     else
                     {
-                        Console.WriteLine(component.GetType().Name + "设计失败！");
+                        form.PrintDetails(component.GetType().Name + "设计失败！");
                     }
                     break;
                 }

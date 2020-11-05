@@ -158,7 +158,7 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
-        public override void Optimize()
+        public override void Optimize(MainForm form)
         {
             foreach (int n in NumberRange) //模块数变化
             {
@@ -172,8 +172,8 @@ namespace PV_analysis.Converters
                         foreach (string tp in TopologyRange) //拓扑变化
                         {
                             CreateTopology(tp);
-                            Console.WriteLine("Now topology=" + tp + ", modulation=" + mo + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
-                            Design();
+                            form.PrintDetails("Now topology=" + tp + ", modulation=" + mo + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
+                            Design(form);
                         }
                     }
                 }

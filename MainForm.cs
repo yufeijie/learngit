@@ -6,6 +6,7 @@ using PV_analysis.Converters;
 using PV_analysis.Structures;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -18,15 +19,17 @@ namespace PV_analysis
     /// </summary>
     internal partial class MainForm : Form
     {
+        private Thread evaluationThread; //评估线程
+        private bool isPrintDetails = false;
+
         private readonly Panel[] panelNow = new Panel[5]; //下标0——当前显示页面，下标1-4——各类页面的当前子页面
         private System.Drawing.Color activeColor; //左侧边栏按钮，当前选中颜色
         private System.Drawing.Color inactiveColor; //左侧边栏按钮，未选中颜色
         private List<Label> labelList = new List<Label>();
 
-        
         private Structure structure; //架构
         private string selectedStructure; //所要评估的架构，三级架构或两级架构
-        
+
         //评估参数（系统）
         private double Psys; //架构总功率
         private double Vpv_min; //光伏MPPT电压最小值
@@ -154,20 +157,283 @@ namespace PV_analysis
         }
 
         /// <summary>
-        /// 评估结果步骤，打印换行
+        /// 评估结果步骤，开始评估
         /// </summary>
-        private void Estimate_Result_WriteLine()
+        private void Estimate_Result_Evaluate()
         {
-            Estimate_Result_Print_Label.Text += "\r\n";
+            PrintMsg("初始化……");
+            //更新开关器件可用状态
+            foreach (Control control in Estimate_Step4_Semiconductor_FlowLayoutPanel.Controls)
+            {
+                if (control.GetType() == typeof(CheckBox))
+                {
+                    foreach (Data.Semiconductor semiconductor in Data.SemiconductorList)
+                    {
+                        if (semiconductor.Type.Equals(control.Text))
+                        {
+                            semiconductor.Available = ((CheckBox)control).Checked;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            //更新磁芯可用状态
+            foreach (Control control in Estimate_Step4_Core_FlowLayoutPanel.Controls)
+            {
+                if (control.GetType() == typeof(CheckBox))
+                {
+                    foreach (Data.Core core in Data.CoreList)
+                    {
+                        if (core.Type.Equals(control.Text))
+                        {
+                            core.Available = ((CheckBox)control).Checked;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            //更新绕线可用状态
+            foreach (Control control in Estimate_Step4_Wire_FlowLayoutPanel.Controls)
+            {
+                if (control.GetType() == typeof(CheckBox))
+                {
+                    foreach (Data.Wire wire in Data.WireList)
+                    {
+                        if (wire.Type.Equals(control.Text))
+                        {
+                            wire.Available = ((CheckBox)control).Checked;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            //更新电容可用状态
+            foreach (Control control in Estimate_Step4_Capacitor_FlowLayoutPanel.Controls)
+            {
+                if (control.GetType() == typeof(CheckBox))
+                {
+                    foreach (Data.Capacitor capacitor in Data.CapacitorList)
+                    {
+                        if (capacitor.Type.Equals(control.Text))
+                        {
+                            capacitor.Available = ((CheckBox)control).Checked;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (selectedStructure != null)
+            {
+                Psys = double.Parse(Estimate_Step3_Psys_TextBox.Text) * 1e6;
+                Vpv_min = double.Parse(Estimate_Step3_Vpvmin_TextBox.Text);
+                Vpv_max = double.Parse(Estimate_Step3_Vpvmax_TextBox.Text);
+                Vpv_peak = double.Parse(Estimate_Step3_Vpvpeak_TextBox.Text);
+                Vg = double.Parse(Estimate_Step3_Vgrid_TextBox.Text) * 1e3;
+                Vo = Vg / Math.Sqrt(3);
+                isolatedDCDC_Q = double.Parse(Estimate_Step3_IsolatedDCDCQ_TextBox.Text);
+                DCAC_Ma = double.Parse(Estimate_Step3_DCACMa_TextBox.Text);
+                switch (selectedStructure)
+                {
+                    case "三级架构":
+                        VbusRange = Function.GenerateVbusRange(int.Parse(Estimate_Step3_Vbusmin_TextBox.Text), int.Parse(Estimate_Step3_Vbusmax_TextBox.Text));
+                        DCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_DCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_DCDCMaxNumber_TextBox.Text));
+                        DCDC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCDCMaxFrequency_TextBox.Text) * 1e3);
+                        isolatedDCDC_secondaryRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinSecondary_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox.Text));
+                        isolatedDCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text));
+                        isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text) * 1e3);
+                        DCAC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCACMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCACMaxFrequency_TextBox.Text) * 1e3);
+                        break;
+                    case "两级架构":
+                        isolatedDCDC_secondaryRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinSecondary_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox.Text));
+                        isolatedDCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text));
+                        isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text) * 1e3);
+                        DCAC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCACMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCACMaxFrequency_TextBox.Text) * 1e3);
+                        break;
+                }
+
+                Formula.Init();
+                switch (selectedStructure)
+                {
+                    case "三级架构":
+                        structure = new ThreeLevelStructure
+                        {
+                            Math_Psys = Psys,
+                            Math_Vpv_min = Vpv_min,
+                            Math_Vpv_max = Vpv_max,
+                            Math_Vg = Vg,
+                            Math_Vo = Vo,
+                            Math_fg = fg,
+                            Math_VbusRange = VbusRange,
+                            DCDC_numberRange = DCDC_numberRange,
+                            DCDC_topologyRange = DCDC_topologyRange,
+                            DCDC_frequencyRange = DCDC_frequencyRange,
+                            IsolatedDCDC_Q = isolatedDCDC_Q,
+                            IsolatedDCDC_secondaryRange = isolatedDCDC_secondaryRange,
+                            IsolatedDCDC_numberRange = isolatedDCDC_numberRange,
+                            IsolatedDCDC_topologyRange = isolatedDCDC_topologyRange,
+                            IsolatedDCDC_resonanceFrequencyRange = isolatedDCDC_resonanceFrequencyRange,
+                            DCAC_Ma = DCAC_Ma,
+                            DCAC_phi = DCAC_phi,
+                            DCAC_topologyRange = DCAC_topologyRange,
+                            DCAC_modulationRange = DCAC_modulationRange,
+                            DCAC_frequencyRange = DCAC_frequencyRange,
+                        };
+                        break;
+                    case "两级架构":
+                        structure = new TwoLevelStructure
+                        {
+                            Math_Psys = Psys,
+                            Math_Vpv_min = Vpv_min,
+                            Math_Vpv_max = Vpv_max,
+                            Math_Vg = Vg,
+                            Math_Vo = Vo,
+                            Math_fg = fg,
+                            IsolatedDCDC_Q = isolatedDCDC_Q,
+                            IsolatedDCDC_secondaryRange = isolatedDCDC_secondaryRange,
+                            IsolatedDCDC_numberRange = isolatedDCDC_numberRange,
+                            IsolatedDCDC_topologyRange = isolatedDCDC_topologyRange,
+                            IsolatedDCDC_resonanceFrequencyRange = isolatedDCDC_resonanceFrequencyRange,
+                            DCAC_Vin_def = DCAC_Vin_def,
+                            DCAC_Ma = DCAC_Ma,
+                            DCAC_phi = DCAC_phi,
+                            DCAC_topologyRange = DCAC_topologyRange,
+                            DCAC_modulationRange = DCAC_modulationRange,
+                            DCAC_frequencyRange = DCAC_frequencyRange,
+                        };
+                        break;
+                }
+            }
+            else
+            {
+                int[] secondaryRange = new int[0];
+                if (!Estimate_Step3B_MinSecondary_TextBox.Text.Equals(""))
+                {
+                    secondaryRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3B_MinSecondary_TextBox.Text), int.Parse(Estimate_Step3B_MaxSecondary_TextBox.Text));
+                }
+                int[] numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3B_MinNumber_TextBox.Text), int.Parse(Estimate_Step3B_MaxNumber_TextBox.Text));
+                double[] frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3B_MinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3B_MaxFrequency_TextBox.Text) * 1e3);
+
+                switch (selectedConverter)
+                {
+                    case "前级DC/DC变换单元_三级":
+                        double Psys = double.Parse(Estimate_Step3B_Psys_TextBox.Text) * 1e6;
+                        double Vin_min = double.Parse(Estimate_Step3B_Vinmin_TextBox.Text);
+                        double Vin_max = double.Parse(Estimate_Step3B_Vinmax_TextBox.Text);
+                        double Vo = double.Parse(Estimate_Step3B_Vo_TextBox.Text);
+                        converter = new DCDCConverter(Psys, Vin_min, Vin_max, Vo)
+                        {
+                            NumberRange = numberRange,
+                            TopologyRange = DCDC_topologyRange,
+                            FrequencyRange = frequencyRange
+                        };
+                        break;
+                    case "隔离DC/DC变换单元_三级":
+                        Formula.Init();
+                        Psys = double.Parse(Estimate_Step3B_Psys_TextBox.Text) * 1e6;
+                        double Vin = double.Parse(Estimate_Step3B_Vin_TextBox.Text);
+                        Vo = double.Parse(Estimate_Step3B_Vo_TextBox.Text);
+                        double Q = double.Parse(Estimate_Step3B_Q_TextBox.Text);
+                        converter = new IsolatedDCDCConverter(Psys, Vin, Vo, Q)
+                        {
+                            SecondaryRange = secondaryRange,
+                            NumberRange = numberRange,
+                            TopologyRange = isolatedDCDC_topologyRange,
+                            FrequencyRange = frequencyRange
+                        };
+                        break;
+                    case "隔离DC/DC变换单元_两级":
+                        Formula.Init();
+                        Psys = double.Parse(Estimate_Step3B_Psys_TextBox.Text) * 1e6;
+                        Vin_min = double.Parse(Estimate_Step3B_Vinmin_TextBox.Text);
+                        Vin_max = double.Parse(Estimate_Step3B_Vinmax_TextBox.Text);
+                        Vo = double.Parse(Estimate_Step3B_Vo_TextBox.Text);
+                        Q = double.Parse(Estimate_Step3B_Q_TextBox.Text);
+                        converter = new IsolatedDCDCConverter(Psys, Vin_min, Vin_max, Vo, Q)
+                        {
+                            SecondaryRange = secondaryRange,
+                            NumberRange = numberRange,
+                            TopologyRange = isolatedDCDC_topologyRange,
+                            FrequencyRange = frequencyRange
+                        };
+                        break;
+                    case "逆变单元":
+                        Psys = double.Parse(Estimate_Step3B_Psys_TextBox.Text) * 1e6;
+                        double Vg = double.Parse(Estimate_Step3B_Vo_TextBox.Text) * 1e3;
+                        double fg = 50; //并网频率
+                        double Ma = double.Parse(Estimate_Step3B_Ma_TextBox.Text);
+                        double phi = 0; //功率因数角(rad)
+                        string[] modulationRange = { "PSPWM", "LSPWM" };
+                        converter = new DCACConverter(Psys, Vg, fg, phi)
+                        {
+                            Math_Ma = Ma,
+                            NumberRange = numberRange,
+                            TopologyRange = DCAC_topologyRange,
+                            ModulationRange = modulationRange,
+                            FrequencyRange = frequencyRange
+                        };
+                        break;
+                }
+            }
+            PrintMsg("开始评估！");
+            
+            if (selectedStructure != null)
+            {
+                structure.Optimize(this);
+            }
+            else
+            {
+                converter.Optimize(this);
+            }
+
+            BeginInvoke(new EventHandler(delegate
+            {
+                PrintMsg("完成评估！");
+
+                //按钮状态设置
+                Estimate_Result_End_Button.Visible = false;
+                Estimate_Result_End_Button.Enabled = false;
+                Estimate_Result_Restart_Button.Visible = true;
+                Estimate_Result_Restart_Button.Enabled = true;
+                Estimate_Result_QuickSave_Button.Enabled = true;
+                Estimate_Result_Save_Button.Enabled = true;
+                Estimate_Result_Display_Button.Enabled = true;
+            }));
         }
 
         /// <summary>
-        /// 评估结果步骤，打印文字
+        /// 打印详细信息
+        /// 由isPrintDetails进行判断是否需要打印
         /// </summary>
         /// <param name="text">文字内容</param>
-        private void Estimate_Result_WriteLine(string text)
+        public void PrintDetails(string text = "")
         {
-            Estimate_Result_Print_Label.Text += "\r\n" + text;
+            if (isPrintDetails)
+            {
+                PrintMsg(text);
+            }
+        }
+
+        /// <summary>
+        /// 打印信息
+        /// </summary>
+        /// <param name="text">文字内容</param>
+        public void PrintMsg(string text = "")
+        {
+            if (Thread.CurrentThread.IsBackground)
+            {
+                BeginInvoke(new EventHandler(delegate
+                {
+                    Estimate_Result_Print_RichTextBox.AppendText(text + "\r\n");
+                }));
+            }
+            else
+            {
+                Estimate_Result_Print_RichTextBox.AppendText(text + "\r\n");
+            }
         }
 
         /// <summary>
@@ -1567,234 +1833,40 @@ namespace PV_analysis
 
         private void Estimate_Step4_Next_Button_Click(object sender, EventArgs e)
         {
-            //更新开关器件可用状态
-            foreach (Control control in Estimate_Step4_Semiconductor_FlowLayoutPanel.Controls)
-            {
-                if (control.GetType() == typeof(CheckBox))
-                {
-                    foreach (Data.Semiconductor semiconductor in Data.SemiconductorList)
-                    {
-                        if (semiconductor.Type.Equals(control.Text))
-                        {
-                            semiconductor.Available = ((CheckBox)control).Checked;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            //更新磁芯可用状态
-            foreach (Control control in Estimate_Step4_Core_FlowLayoutPanel.Controls)
-            {
-                if (control.GetType() == typeof(CheckBox))
-                {
-                    foreach (Data.Core core in Data.CoreList)
-                    {
-                        if (core.Type.Equals(control.Text))
-                        {
-                            core.Available = ((CheckBox)control).Checked;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            //更新绕线可用状态
-            foreach (Control control in Estimate_Step4_Wire_FlowLayoutPanel.Controls)
-            {
-                if (control.GetType() == typeof(CheckBox))
-                {
-                    foreach (Data.Wire wire in Data.WireList)
-                    {
-                        if (wire.Type.Equals(control.Text))
-                        {
-                            wire.Available = ((CheckBox)control).Checked;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            //更新电容可用状态
-            foreach (Control control in Estimate_Step4_Capacitor_FlowLayoutPanel.Controls)
-            {
-                if (control.GetType() == typeof(CheckBox))
-                {
-                    foreach (Data.Capacitor capacitor in Data.CapacitorList)
-                    {
-                        if (capacitor.Type.Equals(control.Text))
-                        {
-                            capacitor.Available = ((CheckBox)control).Checked;
-                            break;
-                        }
-                    }
-                }
-            }
+            //按钮状态设置
+            Estimate_Result_End_Button.Visible = true;
+            Estimate_Result_End_Button.Enabled = true;
+            Estimate_Result_Restart_Button.Visible = false;
+            Estimate_Result_Restart_Button.Enabled = false;
+            Estimate_Result_QuickSave_Button.Enabled = false;
+            Estimate_Result_Save_Button.Enabled = false;
+            Estimate_Result_Display_Button.Enabled = false;
 
             //切换显示
-            Estimate_Result_Print_Label.Text = "";
+            Estimate_Result_Print_RichTextBox.Text = "";
             ChangePanel(2, Estimate_Result_Panel);
-
-            //开始评估
-            if (selectedStructure != null)
+            evaluationThread = new Thread(new ThreadStart(Estimate_Result_Evaluate))
             {
-                //structure = new ThreeLevelStructure();
+                IsBackground = true
+            };
+            evaluationThread.Start();
+        }
 
-                Psys = double.Parse(Estimate_Step3_Psys_TextBox.Text) * 1e6;
-                Vpv_min = double.Parse(Estimate_Step3_Vpvmin_TextBox.Text);
-                Vpv_max = double.Parse(Estimate_Step3_Vpvmax_TextBox.Text);
-                Vpv_peak = double.Parse(Estimate_Step3_Vpvpeak_TextBox.Text);
-                Vg = double.Parse(Estimate_Step3_Vgrid_TextBox.Text) * 1e3;
-                Vo = Vg / Math.Sqrt(3);
-                isolatedDCDC_Q = double.Parse(Estimate_Step3_IsolatedDCDCQ_TextBox.Text);
-                DCAC_Ma = double.Parse(Estimate_Step3_DCACMa_TextBox.Text);
-                switch (selectedStructure)
-                {
-                    case "三级架构":
-                        VbusRange = Function.GenerateVbusRange(int.Parse(Estimate_Step3_Vbusmin_TextBox.Text), int.Parse(Estimate_Step3_Vbusmax_TextBox.Text));
-                        DCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_DCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_DCDCMaxNumber_TextBox.Text));
-                        DCDC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCDCMaxFrequency_TextBox.Text) * 1e3);
-                        isolatedDCDC_secondaryRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinSecondary_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox.Text));
-                        isolatedDCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text));
-                        isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text) * 1e3);
-                        DCAC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCACMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCACMaxFrequency_TextBox.Text) * 1e3);
-                        break;
-                    case "两级架构":
-                        isolatedDCDC_secondaryRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinSecondary_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox.Text));
-                        isolatedDCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text));
-                        isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text) * 1e3);
-                        DCAC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCACMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCACMaxFrequency_TextBox.Text) * 1e3);
-                        break;
-                }
+        private void Estimate_Result_End_Button_Click(object sender, EventArgs e)
+        {
+            //按钮状态设置
+            Estimate_Result_End_Button.Visible = false;
+            Estimate_Result_End_Button.Enabled = false;
+            Estimate_Result_Restart_Button.Visible = true;
+            Estimate_Result_Restart_Button.Enabled = true;
+            Estimate_Result_QuickSave_Button.Enabled = false;
+            Estimate_Result_Save_Button.Enabled = false;
+            Estimate_Result_Display_Button.Enabled = false;
 
-                Formula.Init();
-                switch (selectedStructure)
-                {
-                    case "三级架构":
-                        structure = new ThreeLevelStructure
-                        {
-                            Math_Psys = Psys,
-                            Math_Vpv_min = Vpv_min,
-                            Math_Vpv_max = Vpv_max,
-                            Math_Vg = Vg,
-                            Math_Vo = Vo,
-                            Math_fg = fg,
-                            Math_VbusRange = VbusRange,
-                            DCDC_numberRange = DCDC_numberRange,
-                            DCDC_topologyRange = DCDC_topologyRange,
-                            DCDC_frequencyRange = DCDC_frequencyRange,
-                            IsolatedDCDC_Q = isolatedDCDC_Q,
-                            IsolatedDCDC_secondaryRange = isolatedDCDC_secondaryRange,
-                            IsolatedDCDC_numberRange = isolatedDCDC_numberRange,
-                            IsolatedDCDC_topologyRange = isolatedDCDC_topologyRange,
-                            IsolatedDCDC_resonanceFrequencyRange = isolatedDCDC_resonanceFrequencyRange,
-                            DCAC_Ma = DCAC_Ma,
-                            DCAC_phi = DCAC_phi,
-                            DCAC_topologyRange = DCAC_topologyRange,
-                            DCAC_modulationRange = DCAC_modulationRange,
-                            DCAC_frequencyRange = DCAC_frequencyRange,
-                        };
-                        break;
-                    case "两级架构":
-                        structure = new TwoLevelStructure
-                        {
-                            Math_Psys = Psys,
-                            Math_Vpv_min = Vpv_min,
-                            Math_Vpv_max = Vpv_max,
-                            Math_Vg = Vg,
-                            Math_Vo = Vo,
-                            Math_fg = fg,
-                            IsolatedDCDC_Q = isolatedDCDC_Q,
-                            IsolatedDCDC_secondaryRange = isolatedDCDC_secondaryRange,
-                            IsolatedDCDC_numberRange = isolatedDCDC_numberRange,
-                            IsolatedDCDC_topologyRange = isolatedDCDC_topologyRange,
-                            IsolatedDCDC_resonanceFrequencyRange = isolatedDCDC_resonanceFrequencyRange,
-                            DCAC_Vin_def = DCAC_Vin_def,
-                            DCAC_Ma = DCAC_Ma,
-                            DCAC_phi = DCAC_phi,
-                            DCAC_topologyRange = DCAC_topologyRange,
-                            DCAC_modulationRange = DCAC_modulationRange,
-                            DCAC_frequencyRange = DCAC_frequencyRange,
-                        };
-                        break;
-                }
-                structure.Optimize();
-            }
-            else
-            {
-                int[] secondaryRange = new int [0];
-                if (!Estimate_Step3B_MinSecondary_TextBox.Text.Equals(""))
-                {
-                    secondaryRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3B_MinSecondary_TextBox.Text), int.Parse(Estimate_Step3B_MaxSecondary_TextBox.Text));
-                }
-                int[] numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3B_MinNumber_TextBox.Text), int.Parse(Estimate_Step3B_MaxNumber_TextBox.Text));
-                double[] frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3B_MinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3B_MaxFrequency_TextBox.Text) * 1e3);
+            PrintMsg("评估被用户终止！");
 
-                switch (selectedConverter)
-                {
-                    case "前级DC/DC变换单元_三级":
-                        double Psys = double.Parse(Estimate_Step3B_Psys_TextBox.Text) * 1e6;
-                        double Vin_min = double.Parse(Estimate_Step3B_Vinmin_TextBox.Text);
-                        double Vin_max = double.Parse(Estimate_Step3B_Vinmax_TextBox.Text);
-                        double Vo = double.Parse(Estimate_Step3B_Vo_TextBox.Text);
-                        converter = new DCDCConverter(Psys, Vin_min, Vin_max, Vo)
-                        {
-                            NumberRange = numberRange,
-                            TopologyRange = DCDC_topologyRange,
-                            FrequencyRange = frequencyRange
-                        };
-                        break;
-                    case "隔离DC/DC变换单元_三级":
-                        Formula.Init();
-                        Psys = double.Parse(Estimate_Step3B_Psys_TextBox.Text) * 1e6;
-                        double Vin = double.Parse(Estimate_Step3B_Vin_TextBox.Text);
-                        Vo = double.Parse(Estimate_Step3B_Vo_TextBox.Text);
-                        double Q = double.Parse(Estimate_Step3B_Q_TextBox.Text);
-                        converter = new IsolatedDCDCConverter(Psys, Vin, Vo, Q)
-                        {
-                            SecondaryRange = secondaryRange,
-                            NumberRange = numberRange,
-                            TopologyRange = isolatedDCDC_topologyRange,
-                            FrequencyRange = frequencyRange
-                        };
-                        break;
-                    case "隔离DC/DC变换单元_两级":
-                        Formula.Init();
-                        Psys = double.Parse(Estimate_Step3B_Psys_TextBox.Text) * 1e6;
-                        Vin_min = double.Parse(Estimate_Step3B_Vinmin_TextBox.Text);
-                        Vin_max = double.Parse(Estimate_Step3B_Vinmax_TextBox.Text);
-                        Vo = double.Parse(Estimate_Step3B_Vo_TextBox.Text);
-                        Q = double.Parse(Estimate_Step3B_Q_TextBox.Text);
-                        converter = new IsolatedDCDCConverter(Psys, Vin_min, Vin_max, Vo, Q)
-                        {
-                            SecondaryRange = secondaryRange,
-                            NumberRange = numberRange,
-                            TopologyRange = isolatedDCDC_topologyRange,
-                            FrequencyRange = frequencyRange
-                        };
-                        break;
-                    case "逆变单元":
-                        Psys = double.Parse(Estimate_Step3B_Psys_TextBox.Text) * 1e6;
-                        double Vg = double.Parse(Estimate_Step3B_Vo_TextBox.Text) * 1e3;
-                        double fg = 50; //并网频率
-                        double Ma = double.Parse(Estimate_Step3B_Ma_TextBox.Text);
-                        double phi = 0; //功率因数角(rad)
-                        string[] modulationRange = { "PSPWM", "LSPWM" };
-                        converter = new DCACConverter(Psys, Vg, fg, phi)
-                        {
-                            Math_Ma = Ma,
-                            NumberRange = numberRange,
-                            TopologyRange = DCAC_topologyRange,
-                            ModulationRange = modulationRange,
-                            FrequencyRange = frequencyRange
-                        };
-                        break;
-                }
-                converter.Optimize();
-            }
-
-            Estimate_Result_WriteLine("评估结束！");
-            Estimate_Result_WriteLine();
+            //结束线程
+            evaluationThread.Abort();
         }
 
         private void Estimate_Result_Restart_Button_Click(object sender, EventArgs e)
@@ -2129,7 +2201,7 @@ namespace PV_analysis
                 Display_Detail_Vin_TrackBar.Value = (int)structure.Math_Vpv_min;
             }
             else
-            {            
+            {
                 switch (selectedConverter)
                 {
                     case "前级DC/DC变换单元_三级":

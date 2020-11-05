@@ -78,13 +78,13 @@ namespace PV_analysis.Structures
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
-        public override void Optimize()
+        public override void Optimize(MainForm form)
         {
             foreach (int j in IsolatedDCDC_numberRange) //目前只考虑一拖一
             {
                 //隔离DC/DC变换器设计
-                Console.WriteLine("-------------------------");
-                Console.WriteLine("Isolated DC/DC converters design...");
+                form.PrintDetails("-------------------------");
+                form.PrintDetails("Isolated DC/DC converters design...");
                 IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Math_Vpv_min, Math_Vpv_max, DCAC_Vin_def, IsolatedDCDC_Q)
                 {
                     SecondaryRange = IsolatedDCDC_secondaryRange,
@@ -92,15 +92,15 @@ namespace PV_analysis.Structures
                     TopologyRange = IsolatedDCDC_topologyRange,
                     FrequencyRange = IsolatedDCDC_resonanceFrequencyRange
                 };
-                IsolatedDCDC.Optimize();
+                IsolatedDCDC.Optimize(form);
                 if (IsolatedDCDC.AllDesignList.Size <= 0)
                 {
                     continue;
                 }
 
                 //逆变器设计
-                Console.WriteLine("-------------------------");
-                Console.WriteLine("Inverters design...");
+                form.PrintDetails("-------------------------");
+                form.PrintDetails("Inverters design...");
                 DCAC = new DCACConverter(Math_Psys, Math_Vg, Math_fg, DCAC_phi)
                 {
                     Math_Ma = DCAC_Ma,
@@ -110,15 +110,15 @@ namespace PV_analysis.Structures
                     FrequencyRange = DCAC_frequencyRange,
                     Math_Vin_def = DCAC_Vin_def
                 };
-                DCAC.Optimize();
+                DCAC.Optimize(form);
                 if (DCAC.AllDesignList.Size <= 0)
                 {
                     continue;
                 }
 
                 //整合得到最终结果
-                Console.WriteLine("-------------------------");
-                Console.WriteLine("Inv num=" + j + ", Combining...");
+                form.PrintDetails("-------------------------");
+                form.PrintDetails("Inv num=" + j + ", Combining...");
                 ConverterDesignList newDesignList = new ConverterDesignList();
                 newDesignList.Combine(IsolatedDCDC.ParetoDesignList);
                 newDesignList.Combine(DCAC.ParetoDesignList);

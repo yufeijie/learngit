@@ -89,21 +89,21 @@ namespace PV_analysis.Structures
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
-        public override void Optimize()
+        public override void Optimize(MainForm form)
         {
             foreach (double Vbus in Math_VbusRange) //母线电压变化
             {
-                Console.WriteLine("Now DC bus voltage = " + Vbus + ":");
+                form.PrintDetails("Now DC bus voltage = " + Vbus + ":");
                 //前级DC/DC变换器设计
-                Console.WriteLine("-------------------------");
-                Console.WriteLine("Front-stage DC/DC converters design...");
+                form.PrintDetails("-------------------------");
+                form.PrintDetails("Front-stage DC/DC converters design...");
                 DCDC = new DCDCConverter(Math_Psys, Math_Vpv_min, Math_Vpv_max, Vbus)
                 {
                     NumberRange = DCDC_numberRange,
                     TopologyRange = DCDC_topologyRange,
                     FrequencyRange = DCDC_frequencyRange
                 };
-                DCDC.Optimize();
+                DCDC.Optimize(form);
                 if (DCDC.AllDesignList.Size <= 0)
                 {
                     continue;
@@ -113,8 +113,8 @@ namespace PV_analysis.Structures
                     foreach (int n in IsolatedDCDC_numberRange)
                     {
                         //逆变器设计
-                        Console.WriteLine("-------------------------");
-                        Console.WriteLine("Inverters design...");
+                        form.PrintDetails("-------------------------");
+                        form.PrintDetails("Inverters design...");
                         DCAC = new DCACConverter(Math_Psys, Math_Vg, Math_fg, DCAC_phi)
                         {
                             Math_Ma = DCAC_Ma,
@@ -123,15 +123,15 @@ namespace PV_analysis.Structures
                             ModulationRange = DCAC_modulationRange,
                             FrequencyRange = DCAC_frequencyRange
                         };
-                        DCAC.Optimize();
+                        DCAC.Optimize(form);
                         if (DCAC.AllDesignList.Size <= 0)
                         {
                             continue;
                         }
 
                         //隔离DC/DC变换器设计
-                        Console.WriteLine("-------------------------");
-                        Console.WriteLine("Isolated DC/DC converters design...");
+                        form.PrintDetails("-------------------------");
+                        form.PrintDetails("Isolated DC/DC converters design...");
                         IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Vbus, DCAC.Math_Vin, IsolatedDCDC_Q)
                         {
                             SecondaryRange = new int[] { No },
@@ -139,15 +139,15 @@ namespace PV_analysis.Structures
                             TopologyRange = IsolatedDCDC_topologyRange,
                             FrequencyRange = IsolatedDCDC_resonanceFrequencyRange
                         };
-                        IsolatedDCDC.Optimize();
+                        IsolatedDCDC.Optimize(form);
                         if (IsolatedDCDC.AllDesignList.Size <= 0)
                         {
                             continue;
                         }
 
                         //整合得到最终结果
-                        Console.WriteLine("-------------------------");
-                        Console.WriteLine("Iso num=" + n + ", Iso sec=" + No + ", DC bus voltage=" + Vbus + ", Combining...");
+                        form.PrintDetails("-------------------------");
+                        form.PrintDetails("Iso num=" + n + ", Iso sec=" + No + ", DC bus voltage=" + Vbus + ", Combining...");
                         ConverterDesignList newDesignList = new ConverterDesignList();
                         newDesignList.Combine(DCDC.ParetoDesignList);
                         newDesignList.Combine(IsolatedDCDC.ParetoDesignList);
@@ -156,7 +156,7 @@ namespace PV_analysis.Structures
                         ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
                         AllDesignList.Merge(newDesignList); //记录所有设计
                     }
-                    Console.WriteLine("=========================");
+                    form.PrintDetails("=========================");
                 }
             }
         }

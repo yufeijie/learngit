@@ -217,7 +217,7 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
-        public override void Optimize()
+        public override void Optimize(MainForm form)
         {
             foreach (int n in NumberRange) //模块数变化
             {
@@ -233,14 +233,16 @@ namespace PV_analysis.Converters
                             CreateTopology(tp);
                             if (tp.Equals("SRC")) //目前多输出仅支持SRC
                             {
-                                Console.WriteLine("Now topology=" + tp + ", No=" + No + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
-                                Design();
+                                form.PrintDetails("Now topology=" + tp + ", No=" + No + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
+                                Design(form);
                             }
                             else
                             {
-                                if(No == 1)
-                                Console.WriteLine("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
-                                Design();
+                                if (No == 1)
+                                {
+                                    form.PrintDetails("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
+                                    Design(form);
+                                }
                             }
                         }
                     }

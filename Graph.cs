@@ -56,7 +56,6 @@ namespace PV_analysis
         /// <param name="curve">要绘制的曲线</param>
         public void Draw()
         {
-
             chart.AxisX.Add(new Axis
             {
                 Title = "Time"
