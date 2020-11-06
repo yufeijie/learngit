@@ -37,9 +37,11 @@ namespace PV_analysis.Structures
                 "并网电压",
                 "并网频率(Hz)",
                 "隔离DCDC品质因数",
-                "DCAC电压调制比",
+                "DCAC最小电压调制比",
+                "DCAC最大电压调制比",
                 "DCAC功率因数角(rad)",
                 "母线电压范围",
+                "逆变直流侧电压范围",
                 "DCDC模块数范围",
                 "DCDC拓扑范围",
                 "DCDC频率范围(kHz)",
@@ -69,9 +71,11 @@ namespace PV_analysis.Structures
                 Math_Vg.ToString(),
                 Math_fg.ToString(),
                 IsolatedDCDC_Q.ToString(),
-                DCAC_Ma.ToString(),
-                DCAC_phi.ToString(),
+                DCAC_Ma_min.ToString(),
+                DCAC_Ma_max.ToString(),
+                DCAC_φ.ToString(),
                 Function.DoubleArrayToString(Math_VbusRange),
+                Function.DoubleArrayToString(Math_VinvRange),
                 Function.IntArrayToString(DCDC_numberRange),
                 Function.StringArrayToString(DCDC_topologyRange),
                 Function.DoubleArrayToString(DCDC_frequencyRange),
@@ -108,55 +112,59 @@ namespace PV_analysis.Structures
                 {
                     continue;
                 }
-                foreach (int No in IsolatedDCDC_secondaryRange) //一拖N
+                foreach (double Vinv in Math_VinvRange) //逆变直流侧电压变化
                 {
-                    foreach (int n in IsolatedDCDC_numberRange)
+                    form.PrintDetails("Now Inv DC voltage = " + Vinv + ":");
+                    form.PrintDetails("-------------------------");
+                    foreach (int No in IsolatedDCDC_secondaryRange) //一拖N
                     {
-                        //逆变器设计
-                        form.PrintDetails("-------------------------");
-                        form.PrintDetails("Inverters design...");
-                        DCAC = new DCACConverter(Math_Psys, Math_Vg, Math_fg, DCAC_phi)
+                        foreach (int n in IsolatedDCDC_numberRange)
                         {
-                            Math_Ma = DCAC_Ma,
-                            NumberRange = new int[] { n * No },
-                            TopologyRange = DCAC_topologyRange,
-                            ModulationRange = DCAC_modulationRange,
-                            FrequencyRange = DCAC_frequencyRange
-                        };
-                        DCAC.Optimize(form);
-                        if (DCAC.AllDesignList.Size <= 0)
-                        {
-                            continue;
-                        }
+                            //逆变器设计
+                            form.PrintDetails("-------------------------");
+                            form.PrintDetails("Inverters design...");
+                            DCAC = new DCACConverter(Math_Psys, Vinv, Math_Vg, Math_fg, DCAC_Ma_min, DCAC_Ma_max, DCAC_φ)
+                            {
+                                NumberRange = new int[] { n * No },
+                                TopologyRange = DCAC_topologyRange,
+                                ModulationRange = DCAC_modulationRange,
+                                FrequencyRange = DCAC_frequencyRange
+                            };
+                            DCAC.Optimize(form);
+                            if (DCAC.AllDesignList.Size <= 0)
+                            {
+                                continue;
+                            }
 
-                        //隔离DC/DC变换器设计
-                        form.PrintDetails("-------------------------");
-                        form.PrintDetails("Isolated DC/DC converters design...");
-                        IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Vbus, DCAC.Math_Vin, IsolatedDCDC_Q)
-                        {
-                            SecondaryRange = new int[] { No },
-                            NumberRange = new int[] { n },
-                            TopologyRange = IsolatedDCDC_topologyRange,
-                            FrequencyRange = IsolatedDCDC_resonanceFrequencyRange
-                        };
-                        IsolatedDCDC.Optimize(form);
-                        if (IsolatedDCDC.AllDesignList.Size <= 0)
-                        {
-                            continue;
-                        }
+                            //隔离DC/DC变换器设计
+                            form.PrintDetails("-------------------------");
+                            form.PrintDetails("Isolated DC/DC converters design...");
+                            IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Vbus, Vinv, IsolatedDCDC_Q)
+                            {
+                                SecondaryRange = new int[] { No },
+                                NumberRange = new int[] { n },
+                                TopologyRange = IsolatedDCDC_topologyRange,
+                                FrequencyRange = IsolatedDCDC_resonanceFrequencyRange
+                            };
+                            IsolatedDCDC.Optimize(form);
+                            if (IsolatedDCDC.AllDesignList.Size <= 0)
+                            {
+                                continue;
+                            }
 
-                        //整合得到最终结果
-                        form.PrintDetails("-------------------------");
-                        form.PrintDetails("Iso num=" + n + ", Iso sec=" + No + ", DC bus voltage=" + Vbus + ", Combining...");
-                        ConverterDesignList newDesignList = new ConverterDesignList();
-                        newDesignList.Combine(DCDC.ParetoDesignList);
-                        newDesignList.Combine(IsolatedDCDC.ParetoDesignList);
-                        newDesignList.Combine(DCAC.ParetoDesignList);
-                        newDesignList.Transfer(new string[] { Vbus.ToString(), DCAC.Math_Vin.ToString() });
-                        ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
-                        AllDesignList.Merge(newDesignList); //记录所有设计
+                            //整合得到最终结果
+                            form.PrintDetails("-------------------------");
+                            form.PrintDetails("Iso num=" + n + ", Iso sec=" + No + ", DC bus voltage=" + Vbus + ", Combining...");
+                            ConverterDesignList newDesignList = new ConverterDesignList();
+                            newDesignList.Combine(DCDC.ParetoDesignList);
+                            newDesignList.Combine(IsolatedDCDC.ParetoDesignList);
+                            newDesignList.Combine(DCAC.ParetoDesignList);
+                            newDesignList.Transfer(new string[] { Vbus.ToString(), DCAC.Math_Vin.ToString() });
+                            ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
+                            AllDesignList.Merge(newDesignList); //记录所有设计
+                        }
+                        form.PrintDetails("=========================");
                     }
-                    form.PrintDetails("=========================");
                 }
             }
         }
@@ -172,12 +180,12 @@ namespace PV_analysis.Structures
             Volume = double.Parse(configs[index++]);
             Cost = double.Parse(configs[index++]);
             Math_Vbus = double.Parse(configs[index++]);
-            double DCAC_Vin = double.Parse(configs[index++]);
+            DCAC_Vin = double.Parse(configs[index++]);
             DCDC = new DCDCConverter(Math_Psys, Math_Vpv_min, Math_Vpv_max, Math_Vbus);
             DCDC.Load(configs, ref index);
             IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Math_Vbus, DCAC_Vin, IsolatedDCDC_Q);
             IsolatedDCDC.Load(configs, ref index);
-            DCAC = new DCACConverter(Math_Psys, Math_Vg, Math_fg, DCAC_phi);
+            DCAC = new DCACConverter(Math_Psys, DCAC_Vin, Math_Vg, Math_fg, DCAC_Ma_min, DCAC_Ma_max, DCAC_φ);
             DCAC.Load(configs, ref index);
             Converters = new Converter[] { DCDC, IsolatedDCDC, DCAC };
         }

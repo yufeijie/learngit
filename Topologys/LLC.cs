@@ -11,12 +11,12 @@ namespace PV_analysis.Topologys
     /// </summary>
     internal class LLC : Topology
     {
+        private IsolatedDCDCConverter converter; //所属变换器
+
         //可选参数
         private bool isLeakageInductanceIntegrated = true; //是否认为谐振电感集成在变压器中
         //private static readonly double math_kIrip = 0.2; //电流纹波系数
         //private static readonly double math_kVrip = 0.1; //电压纹波系数
-
-        private IsolatedDCDCConverter converter; //所属变换器
 
         //基本电路参数
         private double math_Vin; //输入电压

@@ -6,11 +6,6 @@ namespace PV_analysis.Converters
     internal class DCACConverter : Converter
     {
         /// <summary>
-        /// 直流侧输入电压预设值（若设置此值，则按照直流侧设计）
-        /// </summary>
-        public double Math_Vin_def { get; set; } = 0;
-        
-        /// <summary>
         /// 并网电压
         /// </summary>
         public double Math_Vg { get; }
@@ -28,12 +23,17 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 功率因数角
         /// </summary>
-        public double Math_phi { get; }
+        public double Math_φ { get; }
 
         /// <summary>
-        /// 幅度调制比
+        /// 最小幅度调制比
         /// </summary>
-        public double Math_Ma { get; set; }
+        public double Math_Ma_min { get; set; }
+
+        /// <summary>
+        /// 最大幅度调制比
+        /// </summary>
+        public double Math_Ma_max { get; set; }
 
         /// <summary>
         /// 调制方式
@@ -64,16 +64,22 @@ namespace PV_analysis.Converters
         /// 初始化
         /// </summary>
         /// <param name="Psys">系统功率</param>
-        /// <param name="Vo">整体输出电压</param>
+        /// <param name="Vin">直流侧电压</param>
+        /// <param name="Vg">并网电压</param>
         /// <param name="fg">工频</param>
-        /// <param name="phi">功率因数角</param>
-        public DCACConverter(double Psys, double Vg, double fg, double phi)
+        /// <param name="Ma_min">最小幅度调制比</param>
+        /// <param name="Ma_max">最大幅度调制比</param>
+        /// <param name="φ">功率因数角</param>
+        public DCACConverter(double Psys, double Vin, double Vg, double fg, double Ma_min, double Ma_max, double φ)
         {
             Math_Psys = Psys;
+            Math_Vin = Vin;
             Math_Vg = Vg;
             Math_Vo = Vg / Math.Sqrt(3);
             Math_fg = fg;
-            Math_phi = phi;
+            Math_Ma_min = Ma_min;
+            Math_Ma_max = Ma_max;
+            Math_φ = φ;
             PhaseNum = 3;
         }
 
@@ -92,7 +98,7 @@ namespace PV_analysis.Converters
         /// <returns>配置信息</returns>
         public override string[] GetConfigs()
         {
-            string[] data = { Number.ToString(), Math_fs.ToString(), Math_Ma.ToString(), Modulation, Topology.GetType().Name };
+            string[] data = { Number.ToString(), Math_fs.ToString(), Modulation, Topology.GetType().Name };
             return data;
         }
 
@@ -106,8 +112,11 @@ namespace PV_analysis.Converters
             {
                 "评估对象",
                 "总功率",
+                "直流侧电压",
                 "并网电压",
                 "并网频率(Hz)",
+                "最小幅度调制比",
+                "最大幅度调制比",
                 "功率因数角(rad)",
                 "模块数范围",
                 "拓扑范围",
@@ -127,9 +136,12 @@ namespace PV_analysis.Converters
             {
                 GetType().Name,
                 Math_Psys.ToString(),
+                Math_Vin.ToString(),
                 Math_Vg.ToString(),
                 Math_fg.ToString(),
-                Math_phi.ToString(),
+                Math_Ma_min.ToString(),
+                Math_Ma_max.ToString(),
+                Math_φ.ToString(),
                 Function.IntArrayToString(NumberRange),
                 Function.StringArrayToString(TopologyRange),
                 Function.StringArrayToString(ModulationRange),
@@ -163,17 +175,22 @@ namespace PV_analysis.Converters
             foreach (int n in NumberRange) //模块数变化
             {
                 Number = n;
-                foreach (double fs in FrequencyRange) //谐振频率变化
+                //电压调制比检查
+                double Ma = Math_Vo * Math.Sqrt(2) / (n * Math_Vin);
+                if (Ma > Math_Ma_min && Ma < Math_Ma_max)
                 {
-                    Math_fs = fs;
-                    foreach (string mo in ModulationRange) //调制方式变化
+                    foreach (double fs in FrequencyRange) //谐振频率变化
                     {
-                        Modulation = mo;
-                        foreach (string tp in TopologyRange) //拓扑变化
+                        Math_fs = fs;
+                        foreach (string mo in ModulationRange) //调制方式变化
                         {
-                            CreateTopology(tp);
-                            form.PrintDetails("Now topology=" + tp + ", modulation=" + mo + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
-                            Design(form);
+                            Modulation = mo;
+                            foreach (string tp in TopologyRange) //拓扑变化
+                            {
+                                CreateTopology(tp);
+                                form.PrintDetails("Now topology=" + tp + ", modulation=" + mo + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
+                                Design(form);
+                            }
                         }
                     }
                 }
@@ -192,11 +209,9 @@ namespace PV_analysis.Converters
             Cost = double.Parse(configs[index++]);
             Number = int.Parse(configs[index++]);
             Math_fs = double.Parse(configs[index++]);
-            Math_Ma = double.Parse(configs[index++]);
             Modulation = configs[index++];
             CreateTopology(configs[index++]);
             Topology.Load(configs, ref index);
         }
-
     }
 }

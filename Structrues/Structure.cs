@@ -50,9 +50,19 @@ namespace PV_analysis.Structures
         public double Math_Vbus { get; set; }
 
         /// <summary>
+        /// 逆变直流侧电压
+        /// </summary>
+        public double DCAC_Vin { get; set; }
+
+        /// <summary>
         /// 母线电压范围
         /// </summary>
         public double[] Math_VbusRange { get; set; }
+
+        /// <summary>
+        /// 逆变直流侧电压范围
+        /// </summary>
+        public double[] Math_VinvRange { get; set; }
 
         //---DC/DC参数---
         /// <summary>
@@ -98,19 +108,19 @@ namespace PV_analysis.Structures
 
         //---DC/AC参数---
         /// <summary>
-        /// DCAC直流侧电压预设值
+        /// DCAC最小电压调制比
         /// </summary>
-        public double DCAC_Vin_def { get; set; }
+        public double DCAC_Ma_min { get; set; }
 
         /// <summary>
-        /// DCAC电压调制比
+        /// DCAC最大电压调制比
         /// </summary>
-        public double DCAC_Ma { get; set; }
+        public double DCAC_Ma_max { get; set; }
 
         /// <summary>
         /// DCAC功率因数角(rad)
         /// </summary>
-        public double DCAC_phi { get; set; }
+        public double DCAC_φ { get; set; }
 
         /// <summary>
         /// DCAC可用拓扑序列

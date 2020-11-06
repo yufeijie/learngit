@@ -180,8 +180,8 @@ namespace PV_analysis
         /// <summary>
         /// 生成可用母线电压序列
         /// </summary>
-        /// <param name="min">最低母线电压</param>
-        /// <param name="max">最高母线电压</param>
+        /// <param name="min">母线电压最小值</param>
+        /// <param name="max">母线电压最大值</param>
         /// <returns>可用母线电压序列</returns>
         public static double[] GenerateVbusRange(double min, double max)
         {
@@ -191,8 +191,8 @@ namespace PV_analysis
         /// <summary>
         /// 生成可用母线电压序列
         /// </summary>
-        /// <param name="min">最低母线电压</param>
-        /// <param name="max">最高母线电压</param>
+        /// <param name="min">母线电压最小值</param>
+        /// <param name="max">母线电压最大值</param>
         /// <param name="step">间隔</param>
         /// <returns>可用母线电压序列</returns>
         public static double[] GenerateVbusRange(double min, double max, double step)
@@ -209,6 +209,36 @@ namespace PV_analysis
                 VbusRange.Add(max);
             }
             return VbusRange.ToArray();
+        }
+
+        /// <summary>
+        /// 生成可用逆变直流侧电压序列
+        /// </summary>
+        /// <param name="min">逆变直流侧电压最小值</param>
+        /// <param name="max">逆变直流侧电压最大值</param>
+        /// <returns>可用逆变直流侧电压序列</returns>
+        public static double[] GenerateVinvRange(double min, double max)
+        {
+            return GenerateVinvRange(min, max, 100);
+        }
+
+        /// <summary>
+        /// 生成可用逆变直流侧电压序列
+        /// </summary>
+        /// <param name="min">逆变直流侧电压最小值</param>
+        /// <param name="max">逆变直流侧电压最大值</param>
+        /// <param name="step">间隔</param>
+        /// <returns>可用逆变直流侧电压序列</returns>
+        public static double[] GenerateVinvRange(double min, double max, double step)
+        {
+            List<double> VinvRange = new List<double>();
+            double v = Math.Ceiling(min / 100) * 100;
+            while (v <= max)
+            {
+                VinvRange.Add(v);
+                v += step;
+            }
+            return VinvRange.ToArray();
         }
 
         /// <summary>

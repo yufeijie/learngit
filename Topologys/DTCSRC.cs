@@ -8,11 +8,10 @@ namespace PV_analysis.Topologys
 {
     internal class DTCSRC : Topology
     {
+        private IsolatedDCDCConverter converter; //所属变换器
 
         //特殊参数
         private bool isLeakageInductanceIntegrated = true; //是否认为谐振电感集成在变压器中
-
-        private IsolatedDCDCConverter converter; //所属变换器
 
         //给定参数
         private double math_Vinmin; //输入电压最小值

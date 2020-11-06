@@ -9,10 +9,10 @@ namespace PV_analysis.Topologys
     /// </summary>
     internal class ThreeLevelBoost : Topology
     {
+        private DCDCConverter converter; //所属变换器
+
         private static readonly double math_kIrip = 0.2; //电流纹波系数
         private static readonly double math_kVrip = 0.1; //电压纹波系数
-
-        private DCDCConverter converter; //所属变换器
 
         //基本电路参数
         private double math_fs; //开关频率

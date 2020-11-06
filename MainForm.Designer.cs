@@ -119,8 +119,10 @@
             this.Estimate_Step3_DCACMinNumber_TextBox = new System.Windows.Forms.TextBox();
             this.Estimate_Step3_DCACMaxNumber_TextBox = new System.Windows.Forms.TextBox();
             this.Estimate_Step3_DCACMa_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step3_DCACMa_Symbol_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3_DCACMamax_TextBox = new System.Windows.Forms.TextBox();
             this.Estimate_Step3_DCACMa_Label = new System.Windows.Forms.Label();
-            this.Estimate_Step3_DCACMa_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3_DCACMamin_TextBox = new System.Windows.Forms.TextBox();
             this.Estimate_Step3_DCAC_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step3_DCAC_Label = new System.Windows.Forms.Label();
             this.Estimate_Step3_IsolatedDCDCFrequency_Panel = new System.Windows.Forms.Panel();
@@ -157,6 +159,12 @@
             this.Estimate_Step3_DCDCNumber_Symbol_Label = new System.Windows.Forms.Label();
             this.Estimate_Step3_DCDC_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step3_DCDC_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3_Vinv_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step3_Vinv_label = new System.Windows.Forms.Label();
+            this.Estimate_Step3_Vinvmin_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3_Vinv_Symbol_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3_Vinvmax_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3_Vinv_Unit_Label = new System.Windows.Forms.Label();
             this.Estimate_Step3_Vbus_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step3_Vbus_label = new System.Windows.Forms.Label();
             this.Estimate_Step3_Vbusmin_TextBox = new System.Windows.Forms.TextBox();
@@ -332,7 +340,7 @@
             this.Estimate_Step3B_Number_Symbol_Label = new System.Windows.Forms.Label();
             this.Estimate_Step3B_MaxNumber_TextBox = new System.Windows.Forms.TextBox();
             this.Estimate_Step3B_Ma_Panel = new System.Windows.Forms.Panel();
-            this.Estimate_Step3B_Ma_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3B_Mamin_TextBox = new System.Windows.Forms.TextBox();
             this.Estimate_Step3B_Ma_Label = new System.Windows.Forms.Label();
             this.Estimate_Step3B_Secondary_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step3B_MinSecondary_TextBox = new System.Windows.Forms.TextBox();
@@ -367,6 +375,8 @@
             this.Estimate_Step3B_Operation_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step3B_Prev_Button = new System.Windows.Forms.Button();
             this.Estimate_Step3B_Next_Button = new System.Windows.Forms.Button();
+            this.Estimate_Step3B_Mamax_TextBox = new System.Windows.Forms.TextBox();
+            this.Estimate_Step3B_Ma_Symbol_Label = new System.Windows.Forms.Label();
             this.Home_Panel.SuspendLayout();
             this.Home_Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).BeginInit();
@@ -421,6 +431,7 @@
             this.Estimate_Step3_DCDCFrequency_Panel.SuspendLayout();
             this.Estimate_Step3_DCDCNumber_Panel.SuspendLayout();
             this.Estimate_Step3_DCDC_Panel.SuspendLayout();
+            this.Estimate_Step3_Vinv_Panel.SuspendLayout();
             this.Estimate_Step3_Vbus_Panel.SuspendLayout();
             this.Estimate_Step3_Vgrid_Panel.SuspendLayout();
             this.Estimate_Step3_Vpvpeak_Panel.SuspendLayout();
@@ -1441,6 +1452,7 @@
             this.Estimate_Step3_Main_Panel.Controls.Add(this.Estimate_Step3_DCDCFrequency_Panel);
             this.Estimate_Step3_Main_Panel.Controls.Add(this.Estimate_Step3_DCDCNumber_Panel);
             this.Estimate_Step3_Main_Panel.Controls.Add(this.Estimate_Step3_DCDC_Panel);
+            this.Estimate_Step3_Main_Panel.Controls.Add(this.Estimate_Step3_Vinv_Panel);
             this.Estimate_Step3_Main_Panel.Controls.Add(this.Estimate_Step3_Vbus_Panel);
             this.Estimate_Step3_Main_Panel.Controls.Add(this.Estimate_Step3_Vgrid_Panel);
             this.Estimate_Step3_Main_Panel.Controls.Add(this.Estimate_Step3_Vpvpeak_Panel);
@@ -1462,7 +1474,7 @@
             this.Estimate_Step3_DCACFrequency_Panel.Controls.Add(this.Estimate_Step3_DCACMaxFrequency_TextBox);
             this.Estimate_Step3_DCACFrequency_Panel.Controls.Add(this.Estimate_Step3_DCACFrequency_Unit_Label);
             this.Estimate_Step3_DCACFrequency_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3_DCACFrequency_Panel.Location = new System.Drawing.Point(0, 785);
+            this.Estimate_Step3_DCACFrequency_Panel.Location = new System.Drawing.Point(0, 830);
             this.Estimate_Step3_DCACFrequency_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3_DCACFrequency_Panel.Name = "Estimate_Step3_DCACFrequency_Panel";
             this.Estimate_Step3_DCACFrequency_Panel.Size = new System.Drawing.Size(1413, 45);
@@ -1528,7 +1540,7 @@
             this.Estimate_Step3_DCACNumber_Panel.Controls.Add(this.Estimate_Step3_DCACMinNumber_TextBox);
             this.Estimate_Step3_DCACNumber_Panel.Controls.Add(this.Estimate_Step3_DCACMaxNumber_TextBox);
             this.Estimate_Step3_DCACNumber_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3_DCACNumber_Panel.Location = new System.Drawing.Point(0, 740);
+            this.Estimate_Step3_DCACNumber_Panel.Location = new System.Drawing.Point(0, 785);
             this.Estimate_Step3_DCACNumber_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3_DCACNumber_Panel.Name = "Estimate_Step3_DCACNumber_Panel";
             this.Estimate_Step3_DCACNumber_Panel.Size = new System.Drawing.Size(1413, 45);
@@ -1582,14 +1594,37 @@
             // 
             // Estimate_Step3_DCACMa_Panel
             // 
+            this.Estimate_Step3_DCACMa_Panel.Controls.Add(this.Estimate_Step3_DCACMa_Symbol_Label);
+            this.Estimate_Step3_DCACMa_Panel.Controls.Add(this.Estimate_Step3_DCACMamax_TextBox);
             this.Estimate_Step3_DCACMa_Panel.Controls.Add(this.Estimate_Step3_DCACMa_Label);
-            this.Estimate_Step3_DCACMa_Panel.Controls.Add(this.Estimate_Step3_DCACMa_TextBox);
+            this.Estimate_Step3_DCACMa_Panel.Controls.Add(this.Estimate_Step3_DCACMamin_TextBox);
             this.Estimate_Step3_DCACMa_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3_DCACMa_Panel.Location = new System.Drawing.Point(0, 695);
+            this.Estimate_Step3_DCACMa_Panel.Location = new System.Drawing.Point(0, 740);
             this.Estimate_Step3_DCACMa_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3_DCACMa_Panel.Name = "Estimate_Step3_DCACMa_Panel";
             this.Estimate_Step3_DCACMa_Panel.Size = new System.Drawing.Size(1413, 45);
             this.Estimate_Step3_DCACMa_Panel.TabIndex = 77;
+            // 
+            // Estimate_Step3_DCACMa_Symbol_Label
+            // 
+            this.Estimate_Step3_DCACMa_Symbol_Label.AutoSize = true;
+            this.Estimate_Step3_DCACMa_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3_DCACMa_Symbol_Label.Location = new System.Drawing.Point(500, 12);
+            this.Estimate_Step3_DCACMa_Symbol_Label.Name = "Estimate_Step3_DCACMa_Symbol_Label";
+            this.Estimate_Step3_DCACMa_Symbol_Label.Size = new System.Drawing.Size(20, 21);
+            this.Estimate_Step3_DCACMa_Symbol_Label.TabIndex = 42;
+            this.Estimate_Step3_DCACMa_Symbol_Label.Text = "~";
+            this.Estimate_Step3_DCACMa_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3_DCACMamax_TextBox
+            // 
+            this.Estimate_Step3_DCACMamax_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3_DCACMamax_TextBox.Location = new System.Drawing.Point(540, 8);
+            this.Estimate_Step3_DCACMamax_TextBox.Name = "Estimate_Step3_DCACMamax_TextBox";
+            this.Estimate_Step3_DCACMamax_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3_DCACMamax_TextBox.TabIndex = 41;
+            this.Estimate_Step3_DCACMamax_TextBox.Text = "0.9";
+            this.Estimate_Step3_DCACMamax_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Estimate_Step3_DCACMa_Label
             // 
@@ -1602,21 +1637,21 @@
             this.Estimate_Step3_DCACMa_Label.Text = "调制比：";
             this.Estimate_Step3_DCACMa_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // Estimate_Step3_DCACMa_TextBox
+            // Estimate_Step3_DCACMamin_TextBox
             // 
-            this.Estimate_Step3_DCACMa_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step3_DCACMa_TextBox.Location = new System.Drawing.Point(380, 8);
-            this.Estimate_Step3_DCACMa_TextBox.Name = "Estimate_Step3_DCACMa_TextBox";
-            this.Estimate_Step3_DCACMa_TextBox.Size = new System.Drawing.Size(100, 29);
-            this.Estimate_Step3_DCACMa_TextBox.TabIndex = 40;
-            this.Estimate_Step3_DCACMa_TextBox.Text = "0.8";
-            this.Estimate_Step3_DCACMa_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Estimate_Step3_DCACMamin_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3_DCACMamin_TextBox.Location = new System.Drawing.Point(380, 8);
+            this.Estimate_Step3_DCACMamin_TextBox.Name = "Estimate_Step3_DCACMamin_TextBox";
+            this.Estimate_Step3_DCACMamin_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3_DCACMamin_TextBox.TabIndex = 40;
+            this.Estimate_Step3_DCACMamin_TextBox.Text = "0.7";
+            this.Estimate_Step3_DCACMamin_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Estimate_Step3_DCAC_Panel
             // 
             this.Estimate_Step3_DCAC_Panel.Controls.Add(this.Estimate_Step3_DCAC_Label);
             this.Estimate_Step3_DCAC_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3_DCAC_Panel.Location = new System.Drawing.Point(0, 645);
+            this.Estimate_Step3_DCAC_Panel.Location = new System.Drawing.Point(0, 690);
             this.Estimate_Step3_DCAC_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3_DCAC_Panel.Name = "Estimate_Step3_DCAC_Panel";
             this.Estimate_Step3_DCAC_Panel.Size = new System.Drawing.Size(1413, 50);
@@ -1641,7 +1676,7 @@
             this.Estimate_Step3_IsolatedDCDCFrequency_Panel.Controls.Add(this.Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox);
             this.Estimate_Step3_IsolatedDCDCFrequency_Panel.Controls.Add(this.Estimate_Step3_IsolatedDCDCFrequency_Unit_Label);
             this.Estimate_Step3_IsolatedDCDCFrequency_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3_IsolatedDCDCFrequency_Panel.Location = new System.Drawing.Point(0, 600);
+            this.Estimate_Step3_IsolatedDCDCFrequency_Panel.Location = new System.Drawing.Point(0, 645);
             this.Estimate_Step3_IsolatedDCDCFrequency_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3_IsolatedDCDCFrequency_Panel.Name = "Estimate_Step3_IsolatedDCDCFrequency_Panel";
             this.Estimate_Step3_IsolatedDCDCFrequency_Panel.Size = new System.Drawing.Size(1413, 45);
@@ -1707,7 +1742,7 @@
             this.Estimate_Step3_IsolatedDCDCNumber_Panel.Controls.Add(this.Estimate_Step3_IsolatedDCDCMaxNumber_TextBox);
             this.Estimate_Step3_IsolatedDCDCNumber_Panel.Controls.Add(this.Estimate_Step3_IsolatedDCDCNumber_Symbol_Label);
             this.Estimate_Step3_IsolatedDCDCNumber_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3_IsolatedDCDCNumber_Panel.Location = new System.Drawing.Point(0, 555);
+            this.Estimate_Step3_IsolatedDCDCNumber_Panel.Location = new System.Drawing.Point(0, 600);
             this.Estimate_Step3_IsolatedDCDCNumber_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3_IsolatedDCDCNumber_Panel.Name = "Estimate_Step3_IsolatedDCDCNumber_Panel";
             this.Estimate_Step3_IsolatedDCDCNumber_Panel.Size = new System.Drawing.Size(1413, 45);
@@ -1764,7 +1799,7 @@
             this.Estimate_Step3_IsolatedDCDCSecondary_Panel.Controls.Add(this.Estimate_Step3_IsolatedDCDCSecondary_Symbol_Label);
             this.Estimate_Step3_IsolatedDCDCSecondary_Panel.Controls.Add(this.Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox);
             this.Estimate_Step3_IsolatedDCDCSecondary_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3_IsolatedDCDCSecondary_Panel.Location = new System.Drawing.Point(0, 510);
+            this.Estimate_Step3_IsolatedDCDCSecondary_Panel.Location = new System.Drawing.Point(0, 555);
             this.Estimate_Step3_IsolatedDCDCSecondary_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3_IsolatedDCDCSecondary_Panel.Name = "Estimate_Step3_IsolatedDCDCSecondary_Panel";
             this.Estimate_Step3_IsolatedDCDCSecondary_Panel.Size = new System.Drawing.Size(1413, 45);
@@ -1819,7 +1854,7 @@
             this.Estimate_Step3_IsolatedDCDCQ_Panel.Controls.Add(this.Estimate_Step3_IsolatedDCDCQ_Label);
             this.Estimate_Step3_IsolatedDCDCQ_Panel.Controls.Add(this.Estimate_Step3_IsolatedDCDCQ_TextBox);
             this.Estimate_Step3_IsolatedDCDCQ_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3_IsolatedDCDCQ_Panel.Location = new System.Drawing.Point(0, 465);
+            this.Estimate_Step3_IsolatedDCDCQ_Panel.Location = new System.Drawing.Point(0, 510);
             this.Estimate_Step3_IsolatedDCDCQ_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3_IsolatedDCDCQ_Panel.Name = "Estimate_Step3_IsolatedDCDCQ_Panel";
             this.Estimate_Step3_IsolatedDCDCQ_Panel.Size = new System.Drawing.Size(1413, 45);
@@ -1850,7 +1885,7 @@
             // 
             this.Estimate_Step3_IsolatedDCDC_Panel.Controls.Add(this.Estimate_Step3_IsolatedDCDC_Label);
             this.Estimate_Step3_IsolatedDCDC_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3_IsolatedDCDC_Panel.Location = new System.Drawing.Point(0, 415);
+            this.Estimate_Step3_IsolatedDCDC_Panel.Location = new System.Drawing.Point(0, 460);
             this.Estimate_Step3_IsolatedDCDC_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3_IsolatedDCDC_Panel.Name = "Estimate_Step3_IsolatedDCDC_Panel";
             this.Estimate_Step3_IsolatedDCDC_Panel.Size = new System.Drawing.Size(1413, 50);
@@ -1875,7 +1910,7 @@
             this.Estimate_Step3_DCDCFrequency_Panel.Controls.Add(this.Estimate_Step3_DCDCMaxFrequency_TextBox);
             this.Estimate_Step3_DCDCFrequency_Panel.Controls.Add(this.Estimate_Step3_DCDCFrequency_Unit_Label);
             this.Estimate_Step3_DCDCFrequency_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3_DCDCFrequency_Panel.Location = new System.Drawing.Point(0, 370);
+            this.Estimate_Step3_DCDCFrequency_Panel.Location = new System.Drawing.Point(0, 415);
             this.Estimate_Step3_DCDCFrequency_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3_DCDCFrequency_Panel.Name = "Estimate_Step3_DCDCFrequency_Panel";
             this.Estimate_Step3_DCDCFrequency_Panel.Size = new System.Drawing.Size(1413, 45);
@@ -1941,7 +1976,7 @@
             this.Estimate_Step3_DCDCNumber_Panel.Controls.Add(this.Estimate_Step3_DCDCMaxNumber_TextBox);
             this.Estimate_Step3_DCDCNumber_Panel.Controls.Add(this.Estimate_Step3_DCDCNumber_Symbol_Label);
             this.Estimate_Step3_DCDCNumber_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3_DCDCNumber_Panel.Location = new System.Drawing.Point(0, 325);
+            this.Estimate_Step3_DCDCNumber_Panel.Location = new System.Drawing.Point(0, 370);
             this.Estimate_Step3_DCDCNumber_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3_DCDCNumber_Panel.Name = "Estimate_Step3_DCDCNumber_Panel";
             this.Estimate_Step3_DCDCNumber_Panel.Size = new System.Drawing.Size(1413, 45);
@@ -1993,7 +2028,7 @@
             // 
             this.Estimate_Step3_DCDC_Panel.Controls.Add(this.Estimate_Step3_DCDC_Label);
             this.Estimate_Step3_DCDC_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3_DCDC_Panel.Location = new System.Drawing.Point(0, 275);
+            this.Estimate_Step3_DCDC_Panel.Location = new System.Drawing.Point(0, 320);
             this.Estimate_Step3_DCDC_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3_DCDC_Panel.Name = "Estimate_Step3_DCDC_Panel";
             this.Estimate_Step3_DCDC_Panel.Size = new System.Drawing.Size(1413, 50);
@@ -2009,6 +2044,73 @@
             this.Estimate_Step3_DCDC_Label.TabIndex = 19;
             this.Estimate_Step3_DCDC_Label.Text = "前级DC/DC：";
             this.Estimate_Step3_DCDC_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3_Vinv_Panel
+            // 
+            this.Estimate_Step3_Vinv_Panel.Controls.Add(this.Estimate_Step3_Vinv_label);
+            this.Estimate_Step3_Vinv_Panel.Controls.Add(this.Estimate_Step3_Vinvmin_TextBox);
+            this.Estimate_Step3_Vinv_Panel.Controls.Add(this.Estimate_Step3_Vinv_Symbol_Label);
+            this.Estimate_Step3_Vinv_Panel.Controls.Add(this.Estimate_Step3_Vinvmax_TextBox);
+            this.Estimate_Step3_Vinv_Panel.Controls.Add(this.Estimate_Step3_Vinv_Unit_Label);
+            this.Estimate_Step3_Vinv_Panel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Estimate_Step3_Vinv_Panel.Location = new System.Drawing.Point(0, 275);
+            this.Estimate_Step3_Vinv_Panel.Margin = new System.Windows.Forms.Padding(0);
+            this.Estimate_Step3_Vinv_Panel.Name = "Estimate_Step3_Vinv_Panel";
+            this.Estimate_Step3_Vinv_Panel.Size = new System.Drawing.Size(1413, 45);
+            this.Estimate_Step3_Vinv_Panel.TabIndex = 78;
+            // 
+            // Estimate_Step3_Vinv_label
+            // 
+            this.Estimate_Step3_Vinv_label.AutoSize = true;
+            this.Estimate_Step3_Vinv_label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step3_Vinv_label.Location = new System.Drawing.Point(166, 10);
+            this.Estimate_Step3_Vinv_label.Name = "Estimate_Step3_Vinv_label";
+            this.Estimate_Step3_Vinv_label.Size = new System.Drawing.Size(164, 25);
+            this.Estimate_Step3_Vinv_label.TabIndex = 54;
+            this.Estimate_Step3_Vinv_label.Text = "逆变直流侧电压：";
+            this.Estimate_Step3_Vinv_label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3_Vinvmin_TextBox
+            // 
+            this.Estimate_Step3_Vinvmin_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3_Vinvmin_TextBox.Location = new System.Drawing.Point(380, 8);
+            this.Estimate_Step3_Vinvmin_TextBox.Name = "Estimate_Step3_Vinvmin_TextBox";
+            this.Estimate_Step3_Vinvmin_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3_Vinvmin_TextBox.TabIndex = 55;
+            this.Estimate_Step3_Vinvmin_TextBox.Text = "100";
+            this.Estimate_Step3_Vinvmin_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Estimate_Step3_Vinv_Symbol_Label
+            // 
+            this.Estimate_Step3_Vinv_Symbol_Label.AutoSize = true;
+            this.Estimate_Step3_Vinv_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3_Vinv_Symbol_Label.Location = new System.Drawing.Point(500, 12);
+            this.Estimate_Step3_Vinv_Symbol_Label.Name = "Estimate_Step3_Vinv_Symbol_Label";
+            this.Estimate_Step3_Vinv_Symbol_Label.Size = new System.Drawing.Size(20, 21);
+            this.Estimate_Step3_Vinv_Symbol_Label.TabIndex = 56;
+            this.Estimate_Step3_Vinv_Symbol_Label.Text = "~";
+            this.Estimate_Step3_Vinv_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3_Vinvmax_TextBox
+            // 
+            this.Estimate_Step3_Vinvmax_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3_Vinvmax_TextBox.Location = new System.Drawing.Point(540, 8);
+            this.Estimate_Step3_Vinvmax_TextBox.Name = "Estimate_Step3_Vinvmax_TextBox";
+            this.Estimate_Step3_Vinvmax_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3_Vinvmax_TextBox.TabIndex = 57;
+            this.Estimate_Step3_Vinvmax_TextBox.Text = "3000";
+            this.Estimate_Step3_Vinvmax_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Estimate_Step3_Vinv_Unit_Label
+            // 
+            this.Estimate_Step3_Vinv_Unit_Label.AutoSize = true;
+            this.Estimate_Step3_Vinv_Unit_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3_Vinv_Unit_Label.Location = new System.Drawing.Point(660, 12);
+            this.Estimate_Step3_Vinv_Unit_Label.Name = "Estimate_Step3_Vinv_Unit_Label";
+            this.Estimate_Step3_Vinv_Unit_Label.Size = new System.Drawing.Size(23, 21);
+            this.Estimate_Step3_Vinv_Unit_Label.TabIndex = 58;
+            this.Estimate_Step3_Vinv_Unit_Label.Text = "V";
+            this.Estimate_Step3_Vinv_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Estimate_Step3_Vbus_Panel
             // 
@@ -3982,7 +4084,9 @@
             // 
             // Estimate_Step3B_Ma_Panel
             // 
-            this.Estimate_Step3B_Ma_Panel.Controls.Add(this.Estimate_Step3B_Ma_TextBox);
+            this.Estimate_Step3B_Ma_Panel.Controls.Add(this.Estimate_Step3B_Ma_Symbol_Label);
+            this.Estimate_Step3B_Ma_Panel.Controls.Add(this.Estimate_Step3B_Mamax_TextBox);
+            this.Estimate_Step3B_Ma_Panel.Controls.Add(this.Estimate_Step3B_Mamin_TextBox);
             this.Estimate_Step3B_Ma_Panel.Controls.Add(this.Estimate_Step3B_Ma_Label);
             this.Estimate_Step3B_Ma_Panel.Dock = System.Windows.Forms.DockStyle.Top;
             this.Estimate_Step3B_Ma_Panel.Location = new System.Drawing.Point(0, 320);
@@ -3991,15 +4095,15 @@
             this.Estimate_Step3B_Ma_Panel.Size = new System.Drawing.Size(1430, 45);
             this.Estimate_Step3B_Ma_Panel.TabIndex = 71;
             // 
-            // Estimate_Step3B_Ma_TextBox
+            // Estimate_Step3B_Mamin_TextBox
             // 
-            this.Estimate_Step3B_Ma_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step3B_Ma_TextBox.Location = new System.Drawing.Point(380, 8);
-            this.Estimate_Step3B_Ma_TextBox.Name = "Estimate_Step3B_Ma_TextBox";
-            this.Estimate_Step3B_Ma_TextBox.Size = new System.Drawing.Size(100, 29);
-            this.Estimate_Step3B_Ma_TextBox.TabIndex = 51;
-            this.Estimate_Step3B_Ma_TextBox.Text = "0.8";
-            this.Estimate_Step3B_Ma_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Estimate_Step3B_Mamin_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_Mamin_TextBox.Location = new System.Drawing.Point(380, 8);
+            this.Estimate_Step3B_Mamin_TextBox.Name = "Estimate_Step3B_Mamin_TextBox";
+            this.Estimate_Step3B_Mamin_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3B_Mamin_TextBox.TabIndex = 51;
+            this.Estimate_Step3B_Mamin_TextBox.Text = "0.7";
+            this.Estimate_Step3B_Mamin_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Estimate_Step3B_Ma_Label
             // 
@@ -4377,15 +4481,36 @@
             this.Estimate_Step3B_Next_Button.UseVisualStyleBackColor = true;
             this.Estimate_Step3B_Next_Button.Click += new System.EventHandler(this.Estimate_Step3B_Next_Button_Click);
             // 
+            // Estimate_Step3B_Mamax_TextBox
+            // 
+            this.Estimate_Step3B_Mamax_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_Mamax_TextBox.Location = new System.Drawing.Point(540, 8);
+            this.Estimate_Step3B_Mamax_TextBox.Name = "Estimate_Step3B_Mamax_TextBox";
+            this.Estimate_Step3B_Mamax_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3B_Mamax_TextBox.TabIndex = 52;
+            this.Estimate_Step3B_Mamax_TextBox.Text = "0.9";
+            this.Estimate_Step3B_Mamax_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Estimate_Step3B_Ma_Symbol_Label
+            // 
+            this.Estimate_Step3B_Ma_Symbol_Label.AutoSize = true;
+            this.Estimate_Step3B_Ma_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_Ma_Symbol_Label.Location = new System.Drawing.Point(500, 12);
+            this.Estimate_Step3B_Ma_Symbol_Label.Name = "Estimate_Step3B_Ma_Symbol_Label";
+            this.Estimate_Step3B_Ma_Symbol_Label.Size = new System.Drawing.Size(20, 21);
+            this.Estimate_Step3B_Ma_Symbol_Label.TabIndex = 53;
+            this.Estimate_Step3B_Ma_Symbol_Label.Text = "~";
+            this.Estimate_Step3B_Ma_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.Estimate_Step3_Panel);
+            this.Controls.Add(this.Estimate_Step3B_Panel);
             this.Controls.Add(this.Estimate_Result_Panel);
             this.Controls.Add(this.Home_Panel);
-            this.Controls.Add(this.Estimate_Step3B_Panel);
-            this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Estimate_Step2_Panel);
             this.Controls.Add(this.Display_Detail_Panel);
             this.Controls.Add(this.Display_Show_Panel);
@@ -4481,6 +4606,8 @@
             this.Estimate_Step3_DCDCNumber_Panel.PerformLayout();
             this.Estimate_Step3_DCDC_Panel.ResumeLayout(false);
             this.Estimate_Step3_DCDC_Panel.PerformLayout();
+            this.Estimate_Step3_Vinv_Panel.ResumeLayout(false);
+            this.Estimate_Step3_Vinv_Panel.PerformLayout();
             this.Estimate_Step3_Vbus_Panel.ResumeLayout(false);
             this.Estimate_Step3_Vbus_Panel.PerformLayout();
             this.Estimate_Step3_Vgrid_Panel.ResumeLayout(false);
@@ -4896,7 +5023,7 @@
         private System.Windows.Forms.Panel Estimate_Step3_DCDC_Panel;
         private System.Windows.Forms.Panel Estimate_Step3_DCACMa_Panel;
         private System.Windows.Forms.Label Estimate_Step3_DCACMa_Label;
-        private System.Windows.Forms.TextBox Estimate_Step3_DCACMa_TextBox;
+        private System.Windows.Forms.TextBox Estimate_Step3_DCACMamin_TextBox;
         private System.Windows.Forms.Panel Estimate_Step3_DCACFrequency_Panel;
         private System.Windows.Forms.Panel Estimate_Step3_DCACNumber_Panel;
         private System.Windows.Forms.Panel Estimate_Step3_DCAC_Panel;
@@ -4920,13 +5047,23 @@
         private System.Windows.Forms.Panel Estimate_Step3B_Number_Panel;
         private System.Windows.Forms.Panel Estimate_Step3B_Ma_Panel;
         private System.Windows.Forms.Panel Estimate_Step3B_Secondary_Panel;
-        private System.Windows.Forms.TextBox Estimate_Step3B_Ma_TextBox;
+        private System.Windows.Forms.TextBox Estimate_Step3B_Mamin_TextBox;
         private System.Windows.Forms.Label Estimate_Step3B_Ma_Label;
         private System.Windows.Forms.TextBox Estimate_Step3B_Q_TextBox;
         private System.Windows.Forms.Label Estimate_Step3B_Q_Label;
         private System.Windows.Forms.ProgressBar Estimate_Result_ProgressBar;
         private System.Windows.Forms.Button Estimate_Result_End_Button;
         private System.Windows.Forms.RichTextBox Estimate_Result_Print_RichTextBox;
+        private System.Windows.Forms.Panel Estimate_Step3_Vinv_Panel;
+        private System.Windows.Forms.Label Estimate_Step3_Vinv_label;
+        private System.Windows.Forms.TextBox Estimate_Step3_Vinvmin_TextBox;
+        private System.Windows.Forms.Label Estimate_Step3_Vinv_Symbol_Label;
+        private System.Windows.Forms.TextBox Estimate_Step3_Vinvmax_TextBox;
+        private System.Windows.Forms.Label Estimate_Step3_Vinv_Unit_Label;
+        private System.Windows.Forms.Label Estimate_Step3_DCACMa_Symbol_Label;
+        private System.Windows.Forms.TextBox Estimate_Step3_DCACMamax_TextBox;
+        private System.Windows.Forms.Label Estimate_Step3B_Ma_Symbol_Label;
+        private System.Windows.Forms.TextBox Estimate_Step3B_Mamax_TextBox;
     }
 }
 
