@@ -243,7 +243,8 @@ namespace PV_analysis.Components
                                         Console.WriteLine("Wrong Np!");
                                         System.Environment.Exit(-1);
                                     }
-                                    Ns = (int)Math.Ceiling(Np / turnRatio); //这里会引起变比变化
+                                    Ns = (int)Math.Round(Np / turnRatio); //这里会引起变比变化
+
                                     //窗口系数检查
                                     double Awp = Np * Ax_p; //原边所占窗口面积(cm^2)
                                     double Aws = Ns * Ax_s * secondaryNumber; //副边所占窗口面积(cm^2)
@@ -251,6 +252,12 @@ namespace PV_analysis.Components
                                     if (Ku > S2 * S3)
                                     {
                                         break;
+                                    }
+
+                                    //匝比与变比精度检查，相对误差5%
+                                    if (Math.Abs((double)Np / Ns - turnRatio) / turnRatio > 0.05)
+                                    {
+                                        continue;
                                     }
 
                                     //评估

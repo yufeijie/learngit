@@ -415,6 +415,10 @@ namespace PV_analysis
             {
                 PrintMsg(text);
             }
+            else
+            {
+                Console.WriteLine(text);
+            }
         }
 
         /// <summary>
