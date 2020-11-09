@@ -277,16 +277,17 @@ namespace PV_analysis
         }
 
         /// <summary>
-        /// 可用频率序列转化为字符串
+        /// double序列转化为字符串
         /// </summary>
-        /// <param name="frequencyRange">可用频率序列</param>
+        /// <param name="array">序列</param>
+        /// <param name="k">比例</param>
         /// <returns>对应字符串</returns>
-        public static string DoubleArrayToString(double[] frequencyRange)
+        public static string DoubleArrayToString(double[] array, double k = 1)
         {
             String str = "";
-            foreach (double f in frequencyRange)
+            foreach (double a in array)
             {
-                str = str + (f / 1e3).ToString() + ",";
+                str = str + (a * k).ToString() + ",";
             }
             str = str.Substring(0, str.Length - 1);
             return str;

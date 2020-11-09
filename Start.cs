@@ -1,6 +1,4 @@
-﻿using PV_analysis.Converters;
-using PV_analysis.Structures;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace PV_analysis

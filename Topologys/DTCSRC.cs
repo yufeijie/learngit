@@ -122,14 +122,19 @@ namespace PV_analysis.Topologys
         /// </summary>
         private void DesignCircuitParam()
         {
-            double Lr = 40.5e-6;
-            double Cr = 1e-6;
-            double n = 1;
+            double P = math_Pfull;
+            double Vinmax = math_Vinmax;
+            double Vo = math_Vo;
+            double Q = math_Q;
+            double fr = math_fr;
 
-            double Zr = Math.Sqrt(Lr / Cr);
-            math_fr = 1 / (2 * Math.PI * Math.Sqrt(Lr * Cr));
-            math_Lr = Lr;
-            math_Cr = Cr;
+            double wr = 2 * Math.PI * fr; //谐振角速度
+            double RL = Math.Pow(Vo, 2) / P; //负载等效电阻
+            double n = Vinmax / Vo;
+            double Zr = Q * 8 * Math.Pow(n / Math.PI, 2) * RL; //谐振阻抗
+
+            math_Lr = Zr / wr;
+            math_Cr = 1 / Zr / wr;
             math_n = n;
         }
 
@@ -259,10 +264,10 @@ namespace PV_analysis.Topologys
                     math_P = math_Pfull * Config.CGC_POWER_RATIO[j]; //改变负载
                     Simulate();
                     //Graph graph = new Graph();
-                    //graph.Add(currentInductor, "iL");
-                    //graph.Add(currentSwitch_P, "iP");
-                    //graph.Add(currentSwitch_S, "iS");
-                    //graph.Add(currentSwitch_D, "iD");
+                    //graph.Add(curve_iL, "iL");
+                    //graph.Add(curve_iSp, "iP");
+                    //graph.Add(curve_iSs, "iS");
+                    //graph.Add(curve_iDs, "iD");
                     //graph.Draw();
                     //记录最大值
                     ILmax = Math.Max(ILmax, math_ILp);

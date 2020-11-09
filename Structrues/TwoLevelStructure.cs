@@ -69,10 +69,10 @@ namespace PV_analysis.Structures
                 Function.IntArrayToString(IsolatedDCDC_secondaryRange),
                 Function.IntArrayToString(IsolatedDCDC_numberRange),
                 Function.StringArrayToString(IsolatedDCDC_topologyRange),
-                Function.DoubleArrayToString(IsolatedDCDC_resonanceFrequencyRange),
+                Function.DoubleArrayToString(IsolatedDCDC_resonanceFrequencyRange, 1e-3),
                 Function.StringArrayToString(DCAC_topologyRange),
                 Function.StringArrayToString(DCAC_modulationRange),
-                Function.DoubleArrayToString(DCAC_frequencyRange)
+                Function.DoubleArrayToString(DCAC_frequencyRange, 1e-3)
             };
             return conditions;
         }
