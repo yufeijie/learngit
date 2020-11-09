@@ -126,7 +126,7 @@ namespace PV_analysis.Structures
                     ConverterDesignList newDesignList = new ConverterDesignList();
                     newDesignList.Combine(IsolatedDCDC.ParetoDesignList);
                     newDesignList.Combine(DCAC.ParetoDesignList);
-                    newDesignList.Transfer(new string[] { });
+                    newDesignList.Transfer(new string[] { DCAC.Math_Vin.ToString() });
                     ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
                     AllDesignList.Merge(newDesignList); //记录所有设计
                 }
