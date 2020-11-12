@@ -595,23 +595,10 @@ namespace PV_analysis
         {
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
 
-            //目前采用评估结果比较来查找 TODO 能否直接将chartPoint与点的具体信息相联系
             string[] configs = new string[1];
             if (selectedStructure != null)
-            {
-                //查找对应设计方案
-                switch (Display_Show_GraphCategory_ComboBox.Text)
-                {
-                    case "成本-效率":
-                        configs = structure.AllDesignList.GetConfigs(chartPoint.Y / 100, double.NaN, chartPoint.X * 1e4);
-                        break;
-                    case "体积-效率":
-                        configs = structure.AllDesignList.GetConfigs(chartPoint.Y / 100, chartPoint.X, double.NaN);
-                        break;
-                    case "成本-体积":
-                        configs = structure.AllDesignList.GetConfigs(double.NaN, chartPoint.Y, chartPoint.X * 1e4);
-                        break;
-                }
+            {                
+                configs = structure.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
                 int index = 0;
                 structure.Load(configs, ref index); //读取设计方案
 
@@ -653,19 +640,7 @@ namespace PV_analysis
             }
             else
             {
-                //查找对应设计方案
-                switch (Display_Show_GraphCategory_ComboBox.Text)
-                {
-                    case "成本-效率":
-                        configs = converter.AllDesignList.GetConfigs(chartPoint.Y / 100, double.NaN, chartPoint.X * 1e4);
-                        break;
-                    case "体积-效率":
-                        configs = converter.AllDesignList.GetConfigs(chartPoint.Y / 100, chartPoint.X, double.NaN);
-                        break;
-                    case "成本-体积":
-                        configs = converter.AllDesignList.GetConfigs(double.NaN, chartPoint.Y, chartPoint.X * 1e4);
-                        break;
-                }
+                configs = converter.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
                 int index = 0;
                 converter.Load(configs, ref index); //读取设计方案
 

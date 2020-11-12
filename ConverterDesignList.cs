@@ -50,26 +50,23 @@ namespace PV_analysis
         }
 
         /// <summary>
-        /// 根据设计方案的评估结果，得到相应的配置信息
+        /// 得到对应编号的配置信息
         /// </summary>
-        /// <param name="efficiency">效率（若为NaN，则不考虑）</param>
-        /// <param name="volume">体积（若为NaN，则不考虑）</param>
-        /// <param name="cost">成本（若为NaN，则不考虑）</param>
+        /// <param name="id">编号</param>
         /// <returns>配置信息</returns>
-        public string[] GetConfigs(double efficiency, double volume, double cost)
+        public string[] GetConfigs(int id)
         {
-            ConverterDesignData now = head;
-            while (now != null)
+            if (id >= size)
             {
-                if ((double.IsNaN(efficiency) || Function.EQ(efficiency, now.Efficiency))
-                && (double.IsNaN(volume) || Function.EQ(volume, now.Volume))
-                && (double.IsNaN(cost) || Function.EQ(cost, now.Cost)))
-                {
-                    return now.Configs;
-                }
+                return null;
+            }
+            ConverterDesignData now = head;
+            while (id > 0)
+            {
+                id--;
                 now = now.Next;
             }
-            return null;
+            return now.Configs;
         }
 
         /// <summary>
