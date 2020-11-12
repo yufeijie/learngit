@@ -20,53 +20,26 @@ namespace PV_analysis
     internal partial class MainForm : Form
     {
         private Thread evaluationThread; //评估线程
-        private bool isPrintDetails = false;
+        private readonly bool isPrintDetails = false;
 
         private readonly Panel[] panelNow = new Panel[5]; //下标0——当前显示页面，下标1-4——各类页面的当前子页面
         private System.Drawing.Color activeColor; //左侧边栏按钮，当前选中颜色
         private System.Drawing.Color inactiveColor; //左侧边栏按钮，未选中颜色
-        private List<Label> labelList = new List<Label>();
 
         private Structure structure; //架构
         private string selectedStructure; //所要评估的架构，三级架构或两级架构
 
-        //评估参数（系统）
-        private double Psys; //架构总功率
-        private double Vpv_min; //光伏MPPT电压最小值
-        private double Vpv_max; //光伏MPPT电压最大值
-        private double Vpv_peak; //光伏输出电压最大值
-        private double Vg; //并网电压（线电压）
-        private double Vo; //输出电压（并网相电压）
-        private double fg = 50; //并网频率
-        private double[] VbusRange; //母线电压范围
-        private double[] VinvRange; //逆变直流侧电压范围
-
-        //评估参数（前级DC/DC）
-        private int[] DCDC_numberRange; //可用模块数序列
-        private string[] DCDC_topologyRange; //可用拓扑序列
-        private double[] DCDC_frequencyRange; //可用开关频率序列
-
-        //评估参数（隔离DC/DC）
-        private double isolatedDCDC_Q; //品质因数
-        private int[] isolatedDCDC_secondaryRange; //可用副边个数序列
-        private int[] isolatedDCDC_numberRange; //可用模块数序列
-        private string[] isolatedDCDC_topologyRange; //可用拓扑序列
-        private double[] isolatedDCDC_resonanceFrequencyRange; //可用谐振频率序列
-
-        //评估参数（DC/AC）
-        private double DCAC_Ma_min; //最小电压调制比
-        private double DCAC_Ma_max; //最大电压调制比
-        private double DCAC_φ = 0; //功率因数角(rad)
-        private string[] DCAC_topologyRange; //可用拓扑序列
-        private string[] DCAC_modulationRange = { "PSPWM", "LSPWM" }; //可用调制方式序列
-        private double[] DCAC_frequencyRange;
+        //可用拓扑序列
+        private string[] DCDC_topologyRange;
+        private string[] isolatedDCDC_topologyRange;
+        private string[] DCAC_topologyRange;
 
         //评估参数（变换单元）
         private Converter converter; //变换单元
         private string selectedConverter; //所要评估的变换单元
 
         //不同负载下的损耗分布
-        private int div = 100; //空载到满载划分精度
+        private readonly int div = 100; //空载到满载划分精度
 
         public MainForm()
         {
@@ -229,40 +202,34 @@ namespace PV_analysis
 
             if (selectedStructure != null)
             {
-                Psys = double.Parse(Estimate_Step3_Psys_TextBox.Text) * 1e6;
-                Vpv_min = double.Parse(Estimate_Step3_Vpvmin_TextBox.Text);
-                Vpv_max = double.Parse(Estimate_Step3_Vpvmax_TextBox.Text);
-                Vpv_peak = double.Parse(Estimate_Step3_Vpvpeak_TextBox.Text);
-                Vg = double.Parse(Estimate_Step3_Vgrid_TextBox.Text) * 1e3;
-                Vo = Vg / Math.Sqrt(3);
-                isolatedDCDC_Q = double.Parse(Estimate_Step3_IsolatedDCDCQ_TextBox.Text);
-                DCAC_Ma_min = double.Parse(Estimate_Step3_DCACMamin_TextBox.Text);
-                DCAC_Ma_max = double.Parse(Estimate_Step3_DCACMamax_TextBox.Text);
-                switch (selectedStructure)
-                {
-                    case "三级架构":
-                        VbusRange = Function.GenerateVbusRange(int.Parse(Estimate_Step3_Vbusmin_TextBox.Text), int.Parse(Estimate_Step3_Vbusmax_TextBox.Text));
-                        VinvRange = Function.GenerateVinvRange(int.Parse(Estimate_Step3_Vinvmin_TextBox.Text), int.Parse(Estimate_Step3_Vinvmax_TextBox.Text));
-                        DCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_DCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_DCDCMaxNumber_TextBox.Text));
-                        DCDC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCDCMaxFrequency_TextBox.Text) * 1e3);
-                        isolatedDCDC_secondaryRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinSecondary_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox.Text));
-                        isolatedDCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text));
-                        isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text) * 1e3);
-                        DCAC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCACMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCACMaxFrequency_TextBox.Text) * 1e3);
-                        break;
-                    case "两级架构":
-                        VinvRange = Function.GenerateVinvRange(int.Parse(Estimate_Step3_Vinvmin_TextBox.Text), int.Parse(Estimate_Step3_Vinvmax_TextBox.Text));
-                        isolatedDCDC_secondaryRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinSecondary_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox.Text));
-                        isolatedDCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text));
-                        isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text) * 1e3);
-                        DCAC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCACMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCACMaxFrequency_TextBox.Text) * 1e3);
-                        break;
-                }
-
+                double Psys = double.Parse(Estimate_Step3_Psys_TextBox.Text) * 1e6; //架构总功率
+                double Vpv_min = double.Parse(Estimate_Step3_Vpvmin_TextBox.Text); //光伏MPPT电压最小值
+                double Vpv_max = double.Parse(Estimate_Step3_Vpvmax_TextBox.Text); //光伏MPPT电压最大值
+                double Vpv_peak = double.Parse(Estimate_Step3_Vpvpeak_TextBox.Text); //光伏输出电压最大值
+                double Vg = double.Parse(Estimate_Step3_Vgrid_TextBox.Text) * 1e3; //并网电压（线电压）
+                double Vo = Vg / Math.Sqrt(3); //输出电压（并网相电压）
+                double fg = 50; //并网频率
+                double[] VbusRange; //母线电压范围
+                double[] VinvRange = Function.GenerateVinvRange(int.Parse(Estimate_Step3_Vinvmin_TextBox.Text), int.Parse(Estimate_Step3_Vinvmax_TextBox.Text)); //逆变直流侧电压范围
+                int[] DCDC_numberRange; //DC/DC可用模块数序列
+                double[] DCDC_frequencyRange; //DC/DC可用开关频率序列
+                double isolatedDCDC_Q = double.Parse(Estimate_Step3_IsolatedDCDCQ_TextBox.Text); //品质因数    
+                int[] isolatedDCDC_secondaryRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinSecondary_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox.Text)); //隔离DC/DC可用副边个数序列
+                int[] isolatedDCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text)); //隔离DC/DC可用模块数序列
+                double[] isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text) * 1e3); //隔离DC/DC可用谐振频率序列
+                double DCAC_Ma_min = double.Parse(Estimate_Step3_DCACMamin_TextBox.Text); //最小电压调制比
+                double DCAC_Ma_max = double.Parse(Estimate_Step3_DCACMamax_TextBox.Text); //最大电压调制比
+                double DCAC_φ = 0; //功率因数角(rad)
+                string[] DCAC_modulationRange = { "PSPWM", "LSPWM" }; //DC/AC可用调制方式序列
+                double[] DCAC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCACMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCACMaxFrequency_TextBox.Text) * 1e3); //DC/AC开关谐振频率序列
+                
                 Formula.Init();
                 switch (selectedStructure)
                 {
                     case "三级架构":
+                        VbusRange = Function.GenerateVbusRange(int.Parse(Estimate_Step3_Vbusmin_TextBox.Text), int.Parse(Estimate_Step3_Vbusmax_TextBox.Text));
+                        DCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_DCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_DCDCMaxNumber_TextBox.Text));
+                        DCDC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCDCMaxFrequency_TextBox.Text) * 1e3);
                         structure = new ThreeLevelStructure
                         {
                             Math_Psys = Psys,
@@ -387,7 +354,7 @@ namespace PV_analysis
                 }
             }
             PrintMsg("开始评估！");
-            
+
             if (selectedStructure != null)
             {
                 structure.Optimize(this);
@@ -2213,9 +2180,6 @@ namespace PV_analysis
 
         private void Display_Detail_Back_Button_Click(object sender, EventArgs e)
         {
-            //Display_Detail_Main_Panel.Controls.Clear();
-            //labelList.Clear();
-
             ChangePanel(3, Display_Show_Panel);
         }
 

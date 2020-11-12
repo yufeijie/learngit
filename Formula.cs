@@ -14,7 +14,10 @@ namespace PV_analysis
         //初始化MATLAB求解对象（MATLAB对象初始化需要一定时间，采用统一对象节省运行时间）
         public static void Init()
         {
-            solve = new solve();
+            if (solve == null)
+            {
+                solve = new solve();
+            }
         }
 
         public static double CAC_boost_t3(double D0, double Vo, double fs, double Lr, double wr, double ILmin, int nI)
