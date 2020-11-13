@@ -9,21 +9,6 @@ namespace PV_analysis.Converters
     internal class DCDCConverter : Converter
     {
         /// <summary>
-        /// 输入电压最小值
-        /// </summary>
-        public double Math_Vin_min { get; }
-
-        /// <summary>
-        /// 输入电压最大值
-        /// </summary>
-        public double Math_Vin_max { get; }
-
-        /// <summary>
-        /// 输出电压
-        /// </summary>
-        public double Math_Vo { get; }
-
-        /// <summary>
         /// 模块数范围
         /// </summary>
         public int[] NumberRange { get; set; }
@@ -39,25 +24,10 @@ namespace PV_analysis.Converters
         public double[] FrequencyRange { get; set; }
 
         /// <summary>
-        /// 初始化
-        /// </summary>
-        /// <param name="Psys">系统功率</param>
-        /// <param name="Vin_min">最小输入电压</param>
-        /// <param name="Vin_max">最大输入电压</param>
-        /// <param name="Vo">输出电压</param>
-        public DCDCConverter(double Psys, double Vin_min, double Vin_max, double Vo)
-        {
-            Math_Psys = Psys;
-            Math_Vin_min = Vin_min;
-            Math_Vin_max = Vin_max;
-            Math_Vo = Vo;
-        }
-
-        /// <summary>
         /// 获取变换单元名
         /// </summary>
         /// <returns>变换单元名</returns>
-        public override string GetName()
+        public override string GetCategory()
         {
             return "前级DC/DC变换单元";
         }

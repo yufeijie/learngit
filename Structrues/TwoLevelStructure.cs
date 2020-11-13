@@ -12,7 +12,7 @@ namespace PV_analysis.Structures
         /// 获取架构名
         /// </summary>
         /// <returns>架构名</returns>
-        public override string GetName()
+        public override string GetCategory()
         {
             return "两级架构";
         }
@@ -91,8 +91,17 @@ namespace PV_analysis.Structures
                     //逆变器设计
                     form.PrintDetails("-------------------------");
                     form.PrintDetails("Inverters design...");
-                    DCAC = new DCACConverter(Math_Psys, Vinv, Math_Vg, Math_fg, DCAC_Ma_min, DCAC_Ma_max, DCAC_φ)
+                    DCAC = new DCACConverter()
                     {
+                        PhaseNum = 3,
+                        Math_Psys = Math_Psys,
+                        Math_Vin = Vinv,
+                        Math_Vg = Math_Vg,
+                        Math_Vo = Math_Vg / Math.Sqrt(3),
+                        Math_fg = Math_fg,
+                        Math_Ma_min = DCAC_Ma_min,
+                        Math_Ma_max = DCAC_Ma_max,
+                        Math_φ = DCAC_φ,
                         NumberRange = new int[] { n },
                         TopologyRange = DCAC_topologyRange,
                         ModulationRange = DCAC_modulationRange,
@@ -107,8 +116,15 @@ namespace PV_analysis.Structures
                     //隔离DC/DC变换器设计
                     form.PrintDetails("-------------------------");
                     form.PrintDetails("Isolated DC/DC converters design...");
-                    IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Math_Vpv_min, Math_Vpv_max, Vinv, IsolatedDCDC_Q)
+                    IsolatedDCDC = new IsolatedDCDCConverter()
                     {
+                        PhaseNum = 3,
+                        Math_Psys = Math_Psys,
+                        Math_Vin_min = Math_Vpv_min,
+                        Math_Vin_max = Math_Vpv_max,
+                        IsInputVoltageVariation = true,
+                        Math_Vo = Vinv,
+                        Math_Q = IsolatedDCDC_Q,
                         SecondaryRange = IsolatedDCDC_secondaryRange,
                         NumberRange = new int[] { n },
                         TopologyRange = IsolatedDCDC_topologyRange,
@@ -144,9 +160,29 @@ namespace PV_analysis.Structures
             Volume = double.Parse(configs[index++]);
             Cost = double.Parse(configs[index++]);
             DCAC_Vin = double.Parse(configs[index++]);
-            IsolatedDCDC = new IsolatedDCDCConverter(Math_Psys, Math_Vpv_min, Math_Vpv_max, DCAC_Vin, IsolatedDCDC_Q);
+            IsolatedDCDC = new IsolatedDCDCConverter()
+            {
+                PhaseNum = 3,
+                Math_Psys = Math_Psys,
+                Math_Vin_min = Math_Vpv_min,
+                Math_Vin_max = Math_Vpv_max,
+                IsInputVoltageVariation = true,
+                Math_Vo = DCAC_Vin,
+                Math_Q = IsolatedDCDC_Q
+            };
             IsolatedDCDC.Load(configs, ref index);
-            DCAC = new DCACConverter(Math_Psys, DCAC_Vin, Math_Vg, Math_fg, DCAC_Ma_min, DCAC_Ma_max, DCAC_φ);
+            DCAC = new DCACConverter()
+            {
+                PhaseNum = 3,
+                Math_Psys = Math_Psys,
+                Math_Vin = DCAC_Vin,
+                Math_Vg = Math_Vg,
+                Math_Vo = Math_Vg / Math.Sqrt(3),
+                Math_fg = Math_fg,
+                Math_Ma_min = DCAC_Ma_min,
+                Math_Ma_max = DCAC_Ma_max,
+                Math_φ = DCAC_φ
+            };
             DCAC.Load(configs, ref index);
             Converters = new Converter[] { IsolatedDCDC, DCAC };
         }

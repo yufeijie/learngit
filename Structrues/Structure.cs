@@ -9,6 +9,11 @@ namespace PV_analysis.Structures
     internal abstract class Structure
     {
         /// <summary>
+        /// 架构名
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// 包含的变换器
         /// </summary>
         public Converter[] Converters { get; protected set; }
@@ -173,10 +178,10 @@ namespace PV_analysis.Structures
         public ConverterDesignList AllDesignList { get; } = new ConverterDesignList { IsAll = true };
 
         /// <summary>
-        /// 获取架构名
+        /// 获取架构类型
         /// </summary>
-        /// <returns>架构名</returns>
-        public abstract string GetName();
+        /// <returns>架构类型</returns>
+        public abstract string GetCategory();
 
         /// <summary>
         /// 获取设计条件标题
@@ -199,7 +204,7 @@ namespace PV_analysis.Structures
             List<Item> list = new List<Item>();
             foreach (Converter converter in Converters)
             {
-                list.Add(new Item(converter.GetName(), Math.Round(converter.PowerLoss, 2)));
+                list.Add(new Item(converter.GetCategory(), Math.Round(converter.PowerLoss, 2)));
             }
             return list;
         }
@@ -213,7 +218,7 @@ namespace PV_analysis.Structures
             List<Item> list = new List<Item>();
             foreach (Converter converter in Converters)
             {
-                list.Add(new Item(converter.GetName(), Math.Round(converter.Cost / 1e4, 2)));
+                list.Add(new Item(converter.GetCategory(), Math.Round(converter.Cost / 1e4, 2)));
             }
             return list;
         }
@@ -227,7 +232,7 @@ namespace PV_analysis.Structures
             List<Item> list = new List<Item>();
             foreach (Converter converter in Converters)
             {
-                list.Add(new Item(converter.GetName(), Math.Round(converter.Volume, 2)));
+                list.Add(new Item(converter.GetCategory(), Math.Round(converter.Volume, 2)));
             }
             return list;
         }

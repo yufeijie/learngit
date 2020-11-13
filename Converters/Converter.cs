@@ -12,17 +12,17 @@ namespace PV_analysis.Converters
     internal abstract class Converter
     {
         //优化与评估
-        protected bool isEvaluatedAtDiffInputVoltage = true; //是否对不同输入电压进行评估
         protected static readonly bool isRecordResult = true; //是否记录单级变换器评估结果
-
-        //---基本参数---
-        protected string name = null; //变换器名
-        protected short stage = 0; //第几级变换器
 
         //散热器参数（单个模块）
         private double costHeatsink;
         private double volumeHeatsink;
         private double costDSP;
+
+        /// <summary>
+        /// 变换单元名
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// 系统功率
@@ -33,11 +33,32 @@ namespace PV_analysis.Converters
         /// 模块功率
         /// </summary>
         public double Math_P { get; set; }
-
+        
         /// <summary>
         /// 输入电压
         /// </summary>
         public double Math_Vin { get; set; }
+
+        /// <summary>
+        /// 输入电压最小值
+        /// </summary>
+        public double Math_Vin_min { get; set; }
+
+        /// <summary>
+        /// 输入电压最大值
+        /// </summary>
+        public double Math_Vin_max { get; set; }
+
+        /// <summary>
+        /// 是否对不同输入电压进行评估
+        /// </summary>
+        public bool IsInputVoltageVariation { get; set; }
+
+        /// <summary>
+        /// 输出电压
+        /// 对于逆变单元为总输出电压，其他变换单元为单个模块输出电压
+        /// </summary>
+        public double Math_Vo { get; set; }
 
         /// <summary>
         /// 开关频率
@@ -52,12 +73,12 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 相数(单相or三相)
         /// </summary>
-        public int PhaseNum { get; set; } = 1;
+        public int PhaseNum { get; set; }
 
         /// <summary>
         /// 拓扑
         /// </summary>
-        public Topology Topology { get; set; }
+        public Topology Topology { get; protected set; }
 
         /// <summary>
         /// 中国效率
@@ -103,7 +124,7 @@ namespace PV_analysis.Converters
         /// 获取变换单元名
         /// </summary>
         /// <returns>变换单元名</returns>
-        public abstract string GetName();
+        public abstract string GetCategory();
 
         /// <summary>
         /// 获取设计方案的配置信息

@@ -222,12 +222,13 @@
             this.Estimate_Result_Title_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Result_Title_Label = new System.Windows.Forms.Label();
             this.Estimate_Result_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Result_AddDisplay_Button = new System.Windows.Forms.Button();
             this.Estimate_Result_End_Button = new System.Windows.Forms.Button();
             this.Estimate_Result_ProgressBar = new System.Windows.Forms.ProgressBar();
             this.Estimate_Result_QuickSave_Button = new System.Windows.Forms.Button();
             this.Estimate_Result_Restart_Button = new System.Windows.Forms.Button();
             this.Estimate_Result_Save_Button = new System.Windows.Forms.Button();
-            this.Estimate_Result_Display_Button = new System.Windows.Forms.Button();
+            this.Estimate_Result_NewDisplay_Button = new System.Windows.Forms.Button();
             this.Display_Ready_Panel = new System.Windows.Forms.Panel();
             this.Display_Ready_Main_Panel = new System.Windows.Forms.Panel();
             this.Display_Ready_Label = new System.Windows.Forms.Label();
@@ -244,6 +245,7 @@
             this.Display_Show_Preview_Title_Panel = new System.Windows.Forms.Panel();
             this.Display_Show_Preview_Title_Label = new System.Windows.Forms.Label();
             this.Display_Show_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Display_Show_Add_Button = new System.Windows.Forms.Button();
             this.Display_Show_Restart_Button = new System.Windows.Forms.Button();
             this.Display_Show_Detail_Button = new System.Windows.Forms.Button();
             this.Display_Detail_Panel = new System.Windows.Forms.Panel();
@@ -340,6 +342,8 @@
             this.Estimate_Step3B_Number_Symbol_Label = new System.Windows.Forms.Label();
             this.Estimate_Step3B_MaxNumber_TextBox = new System.Windows.Forms.TextBox();
             this.Estimate_Step3B_Ma_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step3B_Ma_Symbol_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_Mamax_TextBox = new System.Windows.Forms.TextBox();
             this.Estimate_Step3B_Mamin_TextBox = new System.Windows.Forms.TextBox();
             this.Estimate_Step3B_Ma_Label = new System.Windows.Forms.Label();
             this.Estimate_Step3B_Secondary_Panel = new System.Windows.Forms.Panel();
@@ -375,8 +379,6 @@
             this.Estimate_Step3B_Operation_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step3B_Prev_Button = new System.Windows.Forms.Button();
             this.Estimate_Step3B_Next_Button = new System.Windows.Forms.Button();
-            this.Estimate_Step3B_Mamax_TextBox = new System.Windows.Forms.TextBox();
-            this.Estimate_Step3B_Ma_Symbol_Label = new System.Windows.Forms.Label();
             this.Home_Panel.SuspendLayout();
             this.Home_Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).BeginInit();
@@ -1198,7 +1200,7 @@
             this.Estimate_Step2_Group3_Panel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Estimate_Step2_Group3_Panel.Controls.Add(this.Estimate_Step2_Group3_Item1_Left_CheckBox);
             this.Estimate_Step2_Group3_Panel.Controls.Add(this.Estimate_Step2_Group3_Title_Label);
-            this.Estimate_Step2_Group3_Panel.Location = new System.Drawing.Point(73, 521);
+            this.Estimate_Step2_Group3_Panel.Location = new System.Drawing.Point(73, 509);
             this.Estimate_Step2_Group3_Panel.Name = "Estimate_Step2_Group3_Panel";
             this.Estimate_Step2_Group3_Panel.Size = new System.Drawing.Size(162, 118);
             this.Estimate_Step2_Group3_Panel.TabIndex = 4;
@@ -1235,7 +1237,7 @@
             this.Estimate_Step2_Group2_Panel.Controls.Add(this.Estimate_Step2_Group2_Item2_Left_CheckBox);
             this.Estimate_Step2_Group2_Panel.Controls.Add(this.Estimate_Step2_Group2_Item1_Left_CheckBox);
             this.Estimate_Step2_Group2_Panel.Controls.Add(this.Estimate_Step2_Group2_Title_Label);
-            this.Estimate_Step2_Group2_Panel.Location = new System.Drawing.Point(73, 336);
+            this.Estimate_Step2_Group2_Panel.Location = new System.Drawing.Point(73, 324);
             this.Estimate_Step2_Group2_Panel.Name = "Estimate_Step2_Group2_Panel";
             this.Estimate_Step2_Group2_Panel.Size = new System.Drawing.Size(162, 154);
             this.Estimate_Step2_Group2_Panel.TabIndex = 3;
@@ -2742,17 +2744,31 @@
             // Estimate_Result_Operation_Panel
             // 
             this.Estimate_Result_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_AddDisplay_Button);
             this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_End_Button);
             this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_ProgressBar);
             this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_QuickSave_Button);
             this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_Restart_Button);
             this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_Save_Button);
-            this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_Display_Button);
+            this.Estimate_Result_Operation_Panel.Controls.Add(this.Estimate_Result_NewDisplay_Button);
             this.Estimate_Result_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Estimate_Result_Operation_Panel.Location = new System.Drawing.Point(0, 809);
             this.Estimate_Result_Operation_Panel.Name = "Estimate_Result_Operation_Panel";
             this.Estimate_Result_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
             this.Estimate_Result_Operation_Panel.TabIndex = 1;
+            // 
+            // Estimate_Result_AddDisplay_Button
+            // 
+            this.Estimate_Result_AddDisplay_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Estimate_Result_AddDisplay_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Result_AddDisplay_Button.Location = new System.Drawing.Point(1201, 8);
+            this.Estimate_Result_AddDisplay_Button.Name = "Estimate_Result_AddDisplay_Button";
+            this.Estimate_Result_AddDisplay_Button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Result_AddDisplay_Button.TabIndex = 107;
+            this.Estimate_Result_AddDisplay_Button.Text = "加入展示";
+            this.Estimate_Result_AddDisplay_Button.UseVisualStyleBackColor = true;
+            this.Estimate_Result_AddDisplay_Button.Click += new System.EventHandler(this.Estimate_Result_AddDisplay_Button_Click);
             // 
             // Estimate_Result_End_Button
             // 
@@ -2772,7 +2788,7 @@
             // 
             this.Estimate_Result_ProgressBar.Location = new System.Drawing.Point(144, 9);
             this.Estimate_Result_ProgressBar.Name = "Estimate_Result_ProgressBar";
-            this.Estimate_Result_ProgressBar.Size = new System.Drawing.Size(900, 32);
+            this.Estimate_Result_ProgressBar.Size = new System.Drawing.Size(800, 32);
             this.Estimate_Result_ProgressBar.TabIndex = 4;
             // 
             // Estimate_Result_QuickSave_Button
@@ -2780,7 +2796,7 @@
             this.Estimate_Result_QuickSave_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Estimate_Result_QuickSave_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Result_QuickSave_Button.Location = new System.Drawing.Point(1080, 8);
+            this.Estimate_Result_QuickSave_Button.Location = new System.Drawing.Point(967, 8);
             this.Estimate_Result_QuickSave_Button.Name = "Estimate_Result_QuickSave_Button";
             this.Estimate_Result_QuickSave_Button.Size = new System.Drawing.Size(100, 34);
             this.Estimate_Result_QuickSave_Button.TabIndex = 3;
@@ -2806,7 +2822,7 @@
             this.Estimate_Result_Save_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Estimate_Result_Save_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Result_Save_Button.Location = new System.Drawing.Point(1199, 8);
+            this.Estimate_Result_Save_Button.Location = new System.Drawing.Point(1084, 8);
             this.Estimate_Result_Save_Button.Name = "Estimate_Result_Save_Button";
             this.Estimate_Result_Save_Button.Size = new System.Drawing.Size(100, 34);
             this.Estimate_Result_Save_Button.TabIndex = 1;
@@ -2814,18 +2830,18 @@
             this.Estimate_Result_Save_Button.UseVisualStyleBackColor = true;
             this.Estimate_Result_Save_Button.Click += new System.EventHandler(this.Estimate_Result_Save_Button_Click);
             // 
-            // Estimate_Result_Display_Button
+            // Estimate_Result_NewDisplay_Button
             // 
-            this.Estimate_Result_Display_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.Estimate_Result_NewDisplay_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Estimate_Result_Display_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Result_Display_Button.Location = new System.Drawing.Point(1320, 8);
-            this.Estimate_Result_Display_Button.Name = "Estimate_Result_Display_Button";
-            this.Estimate_Result_Display_Button.Size = new System.Drawing.Size(100, 34);
-            this.Estimate_Result_Display_Button.TabIndex = 0;
-            this.Estimate_Result_Display_Button.Text = "展示";
-            this.Estimate_Result_Display_Button.UseVisualStyleBackColor = true;
-            this.Estimate_Result_Display_Button.Click += new System.EventHandler(this.Estimate_Result_Display_Button_Click);
+            this.Estimate_Result_NewDisplay_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Result_NewDisplay_Button.Location = new System.Drawing.Point(1318, 8);
+            this.Estimate_Result_NewDisplay_Button.Name = "Estimate_Result_NewDisplay_Button";
+            this.Estimate_Result_NewDisplay_Button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Result_NewDisplay_Button.TabIndex = 0;
+            this.Estimate_Result_NewDisplay_Button.Text = "新的展示";
+            this.Estimate_Result_NewDisplay_Button.UseVisualStyleBackColor = true;
+            this.Estimate_Result_NewDisplay_Button.Click += new System.EventHandler(this.Estimate_Result_NewDisplay_Button_Click);
             // 
             // Display_Ready_Panel
             // 
@@ -2993,6 +3009,7 @@
             // Display_Show_Operation_Panel
             // 
             this.Display_Show_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Add_Button);
             this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Restart_Button);
             this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Detail_Button);
             this.Display_Show_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -3000,6 +3017,19 @@
             this.Display_Show_Operation_Panel.Name = "Display_Show_Operation_Panel";
             this.Display_Show_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
             this.Display_Show_Operation_Panel.TabIndex = 1;
+            // 
+            // Display_Show_Add_Button
+            // 
+            this.Display_Show_Add_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.Display_Show_Add_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Show_Add_Button.Location = new System.Drawing.Point(120, 8);
+            this.Display_Show_Add_Button.Name = "Display_Show_Add_Button";
+            this.Display_Show_Add_Button.Size = new System.Drawing.Size(100, 34);
+            this.Display_Show_Add_Button.TabIndex = 2;
+            this.Display_Show_Add_Button.Text = "加入展示";
+            this.Display_Show_Add_Button.UseVisualStyleBackColor = true;
+            this.Display_Show_Add_Button.Click += new System.EventHandler(this.Display_Show_Add_Button_Click);
             // 
             // Display_Show_Restart_Button
             // 
@@ -4095,6 +4125,27 @@
             this.Estimate_Step3B_Ma_Panel.Size = new System.Drawing.Size(1430, 45);
             this.Estimate_Step3B_Ma_Panel.TabIndex = 71;
             // 
+            // Estimate_Step3B_Ma_Symbol_Label
+            // 
+            this.Estimate_Step3B_Ma_Symbol_Label.AutoSize = true;
+            this.Estimate_Step3B_Ma_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_Ma_Symbol_Label.Location = new System.Drawing.Point(500, 12);
+            this.Estimate_Step3B_Ma_Symbol_Label.Name = "Estimate_Step3B_Ma_Symbol_Label";
+            this.Estimate_Step3B_Ma_Symbol_Label.Size = new System.Drawing.Size(20, 21);
+            this.Estimate_Step3B_Ma_Symbol_Label.TabIndex = 53;
+            this.Estimate_Step3B_Ma_Symbol_Label.Text = "~";
+            this.Estimate_Step3B_Ma_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_Mamax_TextBox
+            // 
+            this.Estimate_Step3B_Mamax_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estimate_Step3B_Mamax_TextBox.Location = new System.Drawing.Point(540, 8);
+            this.Estimate_Step3B_Mamax_TextBox.Name = "Estimate_Step3B_Mamax_TextBox";
+            this.Estimate_Step3B_Mamax_TextBox.Size = new System.Drawing.Size(100, 29);
+            this.Estimate_Step3B_Mamax_TextBox.TabIndex = 52;
+            this.Estimate_Step3B_Mamax_TextBox.Text = "0.9";
+            this.Estimate_Step3B_Mamax_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Estimate_Step3B_Mamin_TextBox
             // 
             this.Estimate_Step3B_Mamin_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -4481,39 +4532,18 @@
             this.Estimate_Step3B_Next_Button.UseVisualStyleBackColor = true;
             this.Estimate_Step3B_Next_Button.Click += new System.EventHandler(this.Estimate_Step3B_Next_Button_Click);
             // 
-            // Estimate_Step3B_Mamax_TextBox
-            // 
-            this.Estimate_Step3B_Mamax_TextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step3B_Mamax_TextBox.Location = new System.Drawing.Point(540, 8);
-            this.Estimate_Step3B_Mamax_TextBox.Name = "Estimate_Step3B_Mamax_TextBox";
-            this.Estimate_Step3B_Mamax_TextBox.Size = new System.Drawing.Size(100, 29);
-            this.Estimate_Step3B_Mamax_TextBox.TabIndex = 52;
-            this.Estimate_Step3B_Mamax_TextBox.Text = "0.9";
-            this.Estimate_Step3B_Mamax_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // Estimate_Step3B_Ma_Symbol_Label
-            // 
-            this.Estimate_Step3B_Ma_Symbol_Label.AutoSize = true;
-            this.Estimate_Step3B_Ma_Symbol_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estimate_Step3B_Ma_Symbol_Label.Location = new System.Drawing.Point(500, 12);
-            this.Estimate_Step3B_Ma_Symbol_Label.Name = "Estimate_Step3B_Ma_Symbol_Label";
-            this.Estimate_Step3B_Ma_Symbol_Label.Size = new System.Drawing.Size(20, 21);
-            this.Estimate_Step3B_Ma_Symbol_Label.TabIndex = 53;
-            this.Estimate_Step3B_Ma_Symbol_Label.Text = "~";
-            this.Estimate_Step3B_Ma_Symbol_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.Display_Show_Panel);
+            this.Controls.Add(this.Estimate_Result_Panel);
             this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Estimate_Step3B_Panel);
-            this.Controls.Add(this.Estimate_Result_Panel);
             this.Controls.Add(this.Home_Panel);
             this.Controls.Add(this.Estimate_Step2_Panel);
             this.Controls.Add(this.Display_Detail_Panel);
-            this.Controls.Add(this.Display_Show_Panel);
             this.Controls.Add(this.Estimate_Step4_Panel);
             this.Controls.Add(this.Estimate_Step1B_Panel);
             this.Controls.Add(this.Estimate_Step1_Panel);
@@ -4755,10 +4785,6 @@
         private System.Windows.Forms.Panel Estimate_Result_Main_Panel;
         private System.Windows.Forms.Panel Estimate_Result_Title_Panel;
         private System.Windows.Forms.Label Estimate_Result_Title_Label;
-        private System.Windows.Forms.Panel Estimate_Result_Operation_Panel;
-        private System.Windows.Forms.Button Estimate_Result_Restart_Button;
-        private System.Windows.Forms.Button Estimate_Result_Save_Button;
-        private System.Windows.Forms.Button Estimate_Result_Display_Button;
         private System.Windows.Forms.Panel Display_Ready_Panel;
         private System.Windows.Forms.Panel Display_Ready_Main_Panel;
         private System.Windows.Forms.Label Display_Ready_Label;
@@ -4880,7 +4906,6 @@
         private System.Windows.Forms.CheckBox Estimate_Step2_Group1_Item2_Left_CheckBox;
         private System.Windows.Forms.CheckBox Estimate_Step2_Group1_Item1_Left_CheckBox;
         private System.Windows.Forms.FlowLayoutPanel Estimate_Step4_Capacitor_FlowLayoutPanel;
-        private System.Windows.Forms.Button Estimate_Result_QuickSave_Button;
         private System.Windows.Forms.ComboBox Display_Show_GraphCategory_ComboBox;
         private System.Windows.Forms.Label Estimate_Step3_DCACNumber_Symbol_Label;
         private System.Windows.Forms.Label Estimate_Step3_IsolatedDCDCNumber_Symbol_Label;
@@ -5051,8 +5076,6 @@
         private System.Windows.Forms.Label Estimate_Step3B_Ma_Label;
         private System.Windows.Forms.TextBox Estimate_Step3B_Q_TextBox;
         private System.Windows.Forms.Label Estimate_Step3B_Q_Label;
-        private System.Windows.Forms.ProgressBar Estimate_Result_ProgressBar;
-        private System.Windows.Forms.Button Estimate_Result_End_Button;
         private System.Windows.Forms.RichTextBox Estimate_Result_Print_RichTextBox;
         private System.Windows.Forms.Panel Estimate_Step3_Vinv_Panel;
         private System.Windows.Forms.Label Estimate_Step3_Vinv_label;
@@ -5064,6 +5087,15 @@
         private System.Windows.Forms.TextBox Estimate_Step3_DCACMamax_TextBox;
         private System.Windows.Forms.Label Estimate_Step3B_Ma_Symbol_Label;
         private System.Windows.Forms.TextBox Estimate_Step3B_Mamax_TextBox;
+        private System.Windows.Forms.Panel Estimate_Result_Operation_Panel;
+        private System.Windows.Forms.Button Estimate_Result_End_Button;
+        private System.Windows.Forms.ProgressBar Estimate_Result_ProgressBar;
+        private System.Windows.Forms.Button Estimate_Result_QuickSave_Button;
+        private System.Windows.Forms.Button Estimate_Result_Restart_Button;
+        private System.Windows.Forms.Button Estimate_Result_Save_Button;
+        private System.Windows.Forms.Button Estimate_Result_NewDisplay_Button;
+        private System.Windows.Forms.Button Estimate_Result_AddDisplay_Button;
+        private System.Windows.Forms.Button Display_Show_Add_Button;
     }
 }
 

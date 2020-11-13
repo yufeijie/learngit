@@ -8,22 +8,17 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 并网电压
         /// </summary>
-        public double Math_Vg { get; }
-
-        /// <summary>
-        /// 整体输出电压（并网相电压）
-        /// </summary>
-        public double Math_Vo { get; }
+        public double Math_Vg { get; set; }
 
         /// <summary>
         /// 工频
         /// </summary>
-        public double Math_fg { get; }
+        public double Math_fg { get; set; }
 
         /// <summary>
         /// 功率因数角
         /// </summary>
-        public double Math_φ { get; }
+        public double Math_φ { get; set; }
 
         /// <summary>
         /// 最小幅度调制比
@@ -61,33 +56,10 @@ namespace PV_analysis.Converters
         public double[] FrequencyRange { get; set; }
 
         /// <summary>
-        /// 初始化
-        /// </summary>
-        /// <param name="Psys">系统功率</param>
-        /// <param name="Vin">直流侧电压</param>
-        /// <param name="Vg">并网电压</param>
-        /// <param name="fg">工频</param>
-        /// <param name="Ma_min">最小幅度调制比</param>
-        /// <param name="Ma_max">最大幅度调制比</param>
-        /// <param name="φ">功率因数角</param>
-        public DCACConverter(double Psys, double Vin, double Vg, double fg, double Ma_min, double Ma_max, double φ)
-        {
-            Math_Psys = Psys;
-            Math_Vin = Vin;
-            Math_Vg = Vg;
-            Math_Vo = Vg / Math.Sqrt(3);
-            Math_fg = fg;
-            Math_Ma_min = Ma_min;
-            Math_Ma_max = Ma_max;
-            Math_φ = φ;
-            PhaseNum = 3;
-        }
-
-        /// <summary>
         /// 获取变换单元名
         /// </summary>
         /// <returns>变换单元名</returns>
-        public override string GetName()
+        public override string GetCategory()
         {
             return "逆变单元";
         }
