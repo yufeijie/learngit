@@ -39,10 +39,20 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 获取设计方案的配置信息标题
+        /// </summary>
+        /// <returns>配置信息标题</returns>
+        public override string[] GetConfigTitles()
+        {
+            string[] data = { "同类器件数量", "磁芯型号", "磁芯数", "原边绕线型号", "原边匝数", "副边绕线型号", "副边匝数" };
+            return data;
+        }
+
+        /// <summary>
         /// 获取设计方案的配置信息
         /// </summary>
         /// <returns>配置信息</returns>
-        private string[] GetConfigs()
+        public override string[] GetConfigs()
         {
             return new string[] { number.ToString(), GetCoreType(), numberCore.ToString(), GetWireType(wire_p), Np.ToString(), GetWireType(wire_s), Ns.ToString() };
         }

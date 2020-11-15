@@ -245,6 +245,7 @@
             this.Display_Show_Preview_Title_Panel = new System.Windows.Forms.Panel();
             this.Display_Show_Preview_Title_Label = new System.Windows.Forms.Label();
             this.Display_Show_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Display_Show_Clear_Button = new System.Windows.Forms.Button();
             this.Display_Show_Contrast_Button = new System.Windows.Forms.Button();
             this.Display_Show_Select_Button = new System.Windows.Forms.Button();
             this.Display_Show_Add_Button = new System.Windows.Forms.Button();
@@ -381,6 +382,16 @@
             this.Estimate_Step3B_Operation_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step3B_Prev_Button = new System.Windows.Forms.Button();
             this.Estimate_Step3B_Next_Button = new System.Windows.Forms.Button();
+            this.Display_Contrast_Panel = new System.Windows.Forms.Panel();
+            this.Display_Contrast_Main_Panel = new System.Windows.Forms.Panel();
+            this.Display_Contrast_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Display_Contrast_Load_TrackBar = new System.Windows.Forms.TrackBar();
+            this.Display_Contrast_Back_Button = new System.Windows.Forms.Button();
+            this.Display_Contrast_Vin_Label = new System.Windows.Forms.Label();
+            this.Display_Contrast_Vin_TrackBar = new System.Windows.Forms.TrackBar();
+            this.Display_Contrast_Vin_Value_Label = new System.Windows.Forms.Label();
+            this.Display_Contrast_Load_Label = new System.Windows.Forms.Label();
+            this.Display_Contrast_Load_Value_Label = new System.Windows.Forms.Label();
             this.Home_Panel.SuspendLayout();
             this.Home_Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).BeginInit();
@@ -509,6 +520,10 @@
             this.Estimate_Step3B_Converter_Panel.SuspendLayout();
             this.Estimate_Step3B_Title_Panel.SuspendLayout();
             this.Estimate_Step3B_Operation_Panel.SuspendLayout();
+            this.Display_Contrast_Panel.SuspendLayout();
+            this.Display_Contrast_Operation_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Display_Contrast_Load_TrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Display_Contrast_Vin_TrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // Home_Panel
@@ -3011,6 +3026,7 @@
             // Display_Show_Operation_Panel
             // 
             this.Display_Show_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Clear_Button);
             this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Contrast_Button);
             this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Select_Button);
             this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Add_Button);
@@ -3022,13 +3038,27 @@
             this.Display_Show_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
             this.Display_Show_Operation_Panel.TabIndex = 1;
             // 
+            // Display_Show_Clear_Button
+            // 
+            this.Display_Show_Clear_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Display_Show_Clear_Button.Enabled = false;
+            this.Display_Show_Clear_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Show_Clear_Button.Location = new System.Drawing.Point(1084, 8);
+            this.Display_Show_Clear_Button.Name = "Display_Show_Clear_Button";
+            this.Display_Show_Clear_Button.Size = new System.Drawing.Size(100, 34);
+            this.Display_Show_Clear_Button.TabIndex = 5;
+            this.Display_Show_Clear_Button.Text = "清空";
+            this.Display_Show_Clear_Button.UseVisualStyleBackColor = true;
+            this.Display_Show_Clear_Button.Click += new System.EventHandler(this.Display_Show_Clear_Button_Click);
+            // 
             // Display_Show_Contrast_Button
             // 
             this.Display_Show_Contrast_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Display_Show_Contrast_Button.Enabled = false;
             this.Display_Show_Contrast_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Show_Contrast_Button.Location = new System.Drawing.Point(1095, 8);
+            this.Display_Show_Contrast_Button.Location = new System.Drawing.Point(967, 8);
             this.Display_Show_Contrast_Button.Name = "Display_Show_Contrast_Button";
             this.Display_Show_Contrast_Button.Size = new System.Drawing.Size(100, 34);
             this.Display_Show_Contrast_Button.TabIndex = 4;
@@ -3042,7 +3072,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Display_Show_Select_Button.Enabled = false;
             this.Display_Show_Select_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Show_Select_Button.Location = new System.Drawing.Point(1207, 8);
+            this.Display_Show_Select_Button.Location = new System.Drawing.Point(1201, 8);
             this.Display_Show_Select_Button.Name = "Display_Show_Select_Button";
             this.Display_Show_Select_Button.Size = new System.Drawing.Size(100, 34);
             this.Display_Show_Select_Button.TabIndex = 3;
@@ -3082,7 +3112,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Display_Show_Detail_Button.Enabled = false;
             this.Display_Show_Detail_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Show_Detail_Button.Location = new System.Drawing.Point(1319, 8);
+            this.Display_Show_Detail_Button.Location = new System.Drawing.Point(1318, 8);
             this.Display_Show_Detail_Button.Name = "Display_Show_Detail_Button";
             this.Display_Show_Detail_Button.Size = new System.Drawing.Size(100, 34);
             this.Display_Show_Detail_Button.TabIndex = 0;
@@ -4564,14 +4594,133 @@
             this.Estimate_Step3B_Next_Button.UseVisualStyleBackColor = true;
             this.Estimate_Step3B_Next_Button.Click += new System.EventHandler(this.Estimate_Step3B_Next_Button_Click);
             // 
+            // Display_Contrast_Panel
+            // 
+            this.Display_Contrast_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Contrast_Panel.Controls.Add(this.Display_Contrast_Main_Panel);
+            this.Display_Contrast_Panel.Controls.Add(this.Display_Contrast_Operation_Panel);
+            this.Display_Contrast_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Display_Contrast_Panel.Location = new System.Drawing.Point(150, 0);
+            this.Display_Contrast_Panel.Name = "Display_Contrast_Panel";
+            this.Display_Contrast_Panel.Size = new System.Drawing.Size(1434, 861);
+            this.Display_Contrast_Panel.TabIndex = 16;
+            this.Display_Contrast_Panel.Visible = false;
+            // 
+            // Display_Contrast_Main_Panel
+            // 
+            this.Display_Contrast_Main_Panel.AutoScroll = true;
+            this.Display_Contrast_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Contrast_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Display_Contrast_Main_Panel.Location = new System.Drawing.Point(0, 0);
+            this.Display_Contrast_Main_Panel.Name = "Display_Contrast_Main_Panel";
+            this.Display_Contrast_Main_Panel.Size = new System.Drawing.Size(1432, 809);
+            this.Display_Contrast_Main_Panel.TabIndex = 2;
+            // 
+            // Display_Contrast_Operation_Panel
+            // 
+            this.Display_Contrast_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Contrast_Operation_Panel.Controls.Add(this.Display_Contrast_Load_TrackBar);
+            this.Display_Contrast_Operation_Panel.Controls.Add(this.Display_Contrast_Back_Button);
+            this.Display_Contrast_Operation_Panel.Controls.Add(this.Display_Contrast_Vin_Label);
+            this.Display_Contrast_Operation_Panel.Controls.Add(this.Display_Contrast_Vin_TrackBar);
+            this.Display_Contrast_Operation_Panel.Controls.Add(this.Display_Contrast_Vin_Value_Label);
+            this.Display_Contrast_Operation_Panel.Controls.Add(this.Display_Contrast_Load_Label);
+            this.Display_Contrast_Operation_Panel.Controls.Add(this.Display_Contrast_Load_Value_Label);
+            this.Display_Contrast_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Display_Contrast_Operation_Panel.Location = new System.Drawing.Point(0, 809);
+            this.Display_Contrast_Operation_Panel.Name = "Display_Contrast_Operation_Panel";
+            this.Display_Contrast_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Display_Contrast_Operation_Panel.TabIndex = 1;
+            // 
+            // Display_Contrast_Load_TrackBar
+            // 
+            this.Display_Contrast_Load_TrackBar.BackColor = System.Drawing.SystemColors.Control;
+            this.Display_Contrast_Load_TrackBar.Location = new System.Drawing.Point(173, 10);
+            this.Display_Contrast_Load_TrackBar.Maximum = 100;
+            this.Display_Contrast_Load_TrackBar.Minimum = 1;
+            this.Display_Contrast_Load_TrackBar.Name = "Display_Contrast_Load_TrackBar";
+            this.Display_Contrast_Load_TrackBar.Size = new System.Drawing.Size(250, 45);
+            this.Display_Contrast_Load_TrackBar.TabIndex = 157;
+            this.Display_Contrast_Load_TrackBar.Value = 100;
+            // 
+            // Display_Contrast_Back_Button
+            // 
+            this.Display_Contrast_Back_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Display_Contrast_Back_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Contrast_Back_Button.Location = new System.Drawing.Point(1320, 8);
+            this.Display_Contrast_Back_Button.Name = "Display_Contrast_Back_Button";
+            this.Display_Contrast_Back_Button.Size = new System.Drawing.Size(100, 34);
+            this.Display_Contrast_Back_Button.TabIndex = 0;
+            this.Display_Contrast_Back_Button.Text = "返回";
+            this.Display_Contrast_Back_Button.UseVisualStyleBackColor = true;
+            this.Display_Contrast_Back_Button.Click += new System.EventHandler(this.Display_Contrast_Back_Button_Click);
+            // 
+            // Display_Contrast_Vin_Label
+            // 
+            this.Display_Contrast_Vin_Label.AutoSize = true;
+            this.Display_Contrast_Vin_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Contrast_Vin_Label.Location = new System.Drawing.Point(486, 12);
+            this.Display_Contrast_Vin_Label.Name = "Display_Contrast_Vin_Label";
+            this.Display_Contrast_Vin_Label.Size = new System.Drawing.Size(107, 26);
+            this.Display_Contrast_Vin_Label.TabIndex = 171;
+            this.Display_Contrast_Vin_Label.Text = "输入电压：";
+            this.Display_Contrast_Vin_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Contrast_Vin_TrackBar
+            // 
+            this.Display_Contrast_Vin_TrackBar.BackColor = System.Drawing.SystemColors.Control;
+            this.Display_Contrast_Vin_TrackBar.LargeChange = 10;
+            this.Display_Contrast_Vin_TrackBar.Location = new System.Drawing.Point(681, 10);
+            this.Display_Contrast_Vin_TrackBar.Maximum = 1300;
+            this.Display_Contrast_Vin_TrackBar.Minimum = 860;
+            this.Display_Contrast_Vin_TrackBar.Name = "Display_Contrast_Vin_TrackBar";
+            this.Display_Contrast_Vin_TrackBar.Size = new System.Drawing.Size(250, 45);
+            this.Display_Contrast_Vin_TrackBar.TabIndex = 170;
+            this.Display_Contrast_Vin_TrackBar.Value = 860;
+            // 
+            // Display_Contrast_Vin_Value_Label
+            // 
+            this.Display_Contrast_Vin_Value_Label.AutoSize = true;
+            this.Display_Contrast_Vin_Value_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Display_Contrast_Vin_Value_Label.Location = new System.Drawing.Point(612, 15);
+            this.Display_Contrast_Vin_Value_Label.Name = "Display_Contrast_Vin_Value_Label";
+            this.Display_Contrast_Vin_Value_Label.Size = new System.Drawing.Size(50, 21);
+            this.Display_Contrast_Vin_Value_Label.TabIndex = 172;
+            this.Display_Contrast_Vin_Value_Label.Text = "860V";
+            this.Display_Contrast_Vin_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Contrast_Load_Label
+            // 
+            this.Display_Contrast_Load_Label.AutoSize = true;
+            this.Display_Contrast_Load_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Contrast_Load_Label.Location = new System.Drawing.Point(13, 12);
+            this.Display_Contrast_Load_Label.Name = "Display_Contrast_Load_Label";
+            this.Display_Contrast_Load_Label.Size = new System.Drawing.Size(69, 26);
+            this.Display_Contrast_Load_Label.TabIndex = 158;
+            this.Display_Contrast_Load_Label.Text = "负载：";
+            this.Display_Contrast_Load_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Display_Contrast_Load_Value_Label
+            // 
+            this.Display_Contrast_Load_Value_Label.AutoSize = true;
+            this.Display_Contrast_Load_Value_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Display_Contrast_Load_Value_Label.Location = new System.Drawing.Point(101, 15);
+            this.Display_Contrast_Load_Value_Label.Name = "Display_Contrast_Load_Value_Label";
+            this.Display_Contrast_Load_Value_Label.Size = new System.Drawing.Size(53, 21);
+            this.Display_Contrast_Load_Value_Label.TabIndex = 159;
+            this.Display_Contrast_Load_Value_Label.Text = "100%";
+            this.Display_Contrast_Load_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
             this.Controls.Add(this.Display_Detail_Panel);
-            this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Display_Show_Panel);
+            this.Controls.Add(this.Display_Contrast_Panel);
+            this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Estimate_Result_Panel);
             this.Controls.Add(this.Estimate_Step3B_Panel);
             this.Controls.Add(this.Home_Panel);
@@ -4772,6 +4921,11 @@
             this.Estimate_Step3B_Converter_Panel.PerformLayout();
             this.Estimate_Step3B_Title_Panel.ResumeLayout(false);
             this.Estimate_Step3B_Operation_Panel.ResumeLayout(false);
+            this.Display_Contrast_Panel.ResumeLayout(false);
+            this.Display_Contrast_Operation_Panel.ResumeLayout(false);
+            this.Display_Contrast_Operation_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Display_Contrast_Load_TrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Display_Contrast_Vin_TrackBar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -5130,6 +5284,17 @@
         private System.Windows.Forms.Button Display_Show_Add_Button;
         private System.Windows.Forms.Button Display_Show_Contrast_Button;
         private System.Windows.Forms.Button Display_Show_Select_Button;
+        private System.Windows.Forms.Button Display_Show_Clear_Button;
+        private System.Windows.Forms.Panel Display_Contrast_Panel;
+        private System.Windows.Forms.Panel Display_Contrast_Main_Panel;
+        private System.Windows.Forms.Panel Display_Contrast_Operation_Panel;
+        private System.Windows.Forms.TrackBar Display_Contrast_Load_TrackBar;
+        private System.Windows.Forms.Button Display_Contrast_Back_Button;
+        private System.Windows.Forms.Label Display_Contrast_Vin_Label;
+        private System.Windows.Forms.TrackBar Display_Contrast_Vin_TrackBar;
+        private System.Windows.Forms.Label Display_Contrast_Vin_Value_Label;
+        private System.Windows.Forms.Label Display_Contrast_Load_Label;
+        private System.Windows.Forms.Label Display_Contrast_Load_Value_Label;
     }
 }
 

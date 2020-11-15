@@ -57,7 +57,7 @@ namespace PV_analysis.Structures
         /// <summary>
         /// 逆变直流侧电压
         /// </summary>
-        public double DCAC_Vin { get; set; }
+        public double DCAC_Vinv { get; set; }
 
         /// <summary>
         /// 母线电压范围
@@ -186,13 +186,13 @@ namespace PV_analysis.Structures
         /// <summary>
         /// 获取设计条件标题
         /// </summary>
-        /// <returns>配置信息</returns>
+        /// <returns>设计条件标题</returns>
         public abstract string[] GetConditionTitles();
 
         /// <summary>
         /// 获取设计条件
         /// </summary>
-        /// <returns>配置信息</returns>
+        /// <returns>设计条件</returns>
         public abstract string[] GetConditions();
 
         /// <summary>

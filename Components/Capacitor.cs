@@ -58,11 +58,22 @@ namespace PV_analysis.Components
             device = -1;
         }
 
+
+        /// <summary>
+        /// 获取设计方案的配置信息标题
+        /// </summary>
+        /// <returns>配置信息标题</returns>
+        public override string[] GetConfigTitles()
+        {
+            string[] data = { "同类器件数量", "型号", "串联数", "并联数" };
+            return data;
+        }
+
         /// <summary>
         /// 获取设计方案的配置信息
         /// </summary>
         /// <returns>配置信息</returns>
-        public string[] GetConfigs()
+        public override string[] GetConfigs()
         {
             string[] data = { number.ToString(), GetDeviceType(), numberSeriesConnected.ToString(), numberParallelConnected.ToString() };
             return data;

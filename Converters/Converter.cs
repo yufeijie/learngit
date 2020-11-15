@@ -1,5 +1,4 @@
-﻿using NPOI.SS.Formula.Functions;
-using PV_analysis.Components;
+﻿using PV_analysis.Components;
 using PV_analysis.Topologys;
 using System;
 using System.Collections.Generic;
@@ -33,7 +32,7 @@ namespace PV_analysis.Converters
         /// 模块功率
         /// </summary>
         public double Math_P { get; set; }
-        
+
         /// <summary>
         /// 输入电压
         /// </summary>
@@ -127,21 +126,56 @@ namespace PV_analysis.Converters
         public abstract string GetCategory();
 
         /// <summary>
+        /// 获取设计方案的元器件配置信息标题
+        /// </summary>
+        /// <returns>配置信息</returns>
+        public string[] GetComponentConfigTitles()
+        {
+            List<string> comConfigs = new List<string>();
+            foreach (Component com in Topology.ComponentGroups[Topology.GroupIndex])
+            {
+                foreach (string configs in com.GetConfigTitles())
+                {
+                    comConfigs.Add("["+com.Name + "]" + configs);
+                }
+            }
+            return comConfigs.ToArray();
+        }
+
+        /// <summary>
+        /// 获取设计方案的元器件配置信息
+        /// </summary>
+        /// <returns>配置信息</returns>
+        public string[] GetComponentConfigs()
+        {
+            List<string> comConfigs = new List<string>();
+            foreach (Component com in Topology.ComponentGroups[Topology.GroupIndex])
+            {
+                foreach (string configs in com.GetConfigs())
+                {
+                    comConfigs.Add(configs);
+                }
+            }
+            return comConfigs.ToArray();
+        }
+
+        /// <summary>
         /// 获取设计方案的配置信息
         /// </summary>
         /// <returns>配置信息</returns>
         public abstract string[] GetConfigs();
 
+
         /// <summary>
         /// 获取设计条件标题
         /// </summary>
-        /// <returns>配置信息</returns>
+        /// <returns>设计条件标题</returns>
         protected abstract string[] GetConditionTitles();
 
         /// <summary>
         /// 获取设计条件
         /// </summary>
-        /// <returns>配置信息</returns>
+        /// <returns>设计条件</returns>
         protected abstract string[] GetConditions();
 
         /// <summary>
@@ -154,7 +188,7 @@ namespace PV_analysis.Converters
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
                 list.AddRange(component.GetLossBreakdown());
-            }            
+            }
             return list;
         }
 
@@ -340,7 +374,7 @@ namespace PV_analysis.Converters
             Cost *= Number * PhaseNum;
             Volume *= Number * PhaseNum;
         }
-        
+
         /// <summary>
         /// 模拟变换器运行，得到相应负载下的效率
         /// </summary>

@@ -25,7 +25,7 @@ namespace PV_analysis.Structures
         /// <summary>
         /// 获取设计条件标题
         /// </summary>
-        /// <returns>配置信息</returns>
+        /// <returns>设计条件标题</returns>
         public override string[] GetConditionTitles()
         {
             string[] conditionTitles =
@@ -59,7 +59,7 @@ namespace PV_analysis.Structures
         /// <summary>
         /// 获取设计条件
         /// </summary>
-        /// <returns>配置信息</returns>
+        /// <returns>设计条件</returns>
         public override string[] GetConditions()
         {
             string[] conditions =
@@ -223,7 +223,7 @@ namespace PV_analysis.Structures
             Volume = double.Parse(configs[index++]);
             Cost = double.Parse(configs[index++]);
             Math_Vbus = double.Parse(configs[index++]);
-            DCAC_Vin = double.Parse(configs[index++]);
+            DCAC_Vinv = double.Parse(configs[index++]);
             DCDC = new DCDCConverter()
             {
                 PhaseNum = 1,
@@ -243,7 +243,7 @@ namespace PV_analysis.Structures
                 Math_Psys = Math_Psys,
                 Math_Vin = Math_Vbus,
                 IsInputVoltageVariation = false,
-                Math_Vo = DCAC_Vin,
+                Math_Vo = DCAC_Vinv,
                 Math_Q = IsolatedDCDC_Q
             };
             IsolatedDCDC.Load(configs, ref index);
@@ -251,7 +251,7 @@ namespace PV_analysis.Structures
             {
                 PhaseNum = 3,
                 Math_Psys = Math_Psys,
-                Math_Vin = DCAC_Vin,
+                Math_Vin = DCAC_Vinv,
                 Math_Vg = Math_Vg,
                 Math_Vo = Math_Vg / Math.Sqrt(3),
                 Math_fg = Math_fg,

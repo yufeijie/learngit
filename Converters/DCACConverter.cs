@@ -77,7 +77,7 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 获取设计条件标题
         /// </summary>
-        /// <returns>配置信息</returns>
+        /// <returns>设计条件标题</returns>
         protected override string[] GetConditionTitles()
         {
             string[] conditionTitles =
@@ -101,7 +101,7 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 获取设计条件
         /// </summary>
-        /// <returns>配置信息</returns>
+        /// <returns>设计条件</returns>
         protected override string[] GetConditions()
         {
             string[] conditions =

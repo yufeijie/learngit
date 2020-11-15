@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PV_analysis.Components
 {
@@ -73,6 +69,18 @@ namespace PV_analysis.Components
         /// 设计结果
         /// </summary>
         public ComponentDesignList DesignList { get { return designList; } }
+
+        /// <summary>
+        /// 获取设计方案的配置信息标题
+        /// </summary>
+        /// <returns>配置信息标题</returns>
+        public abstract string[] GetConfigTitles();
+
+        /// <summary>
+        /// 获取设计方案的配置信息
+        /// </summary>
+        /// <returns>配置信息</returns>
+        public abstract string[] GetConfigs();
 
         /// <summary>
         /// 获取损耗分布
