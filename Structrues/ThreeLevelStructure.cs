@@ -91,6 +91,28 @@ namespace PV_analysis.Structures
         }
 
         /// <summary>
+        /// 复制当前架构，保留设计条件
+        /// </summary>
+        /// <returns>复制结果</returns>
+        public override Structure Clone()
+        {
+            return new ThreeLevelStructure()
+            {
+                Name = Name,
+                Math_Psys = Math_Psys,
+                Math_Vpv_min = Math_Vpv_min,
+                Math_Vpv_max = Math_Vpv_max,
+                Math_Vg = Math_Vg,
+                Math_Vo = Math_Vo,
+                Math_fg = Math_fg,
+                IsolatedDCDC_Q = IsolatedDCDC_Q,
+                DCAC_Ma_min = DCAC_Ma_min,
+                DCAC_Ma_max = DCAC_Ma_max,
+                DCAC_φ = DCAC_φ
+            };
+        }
+
+        /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
         public override void Optimize(MainForm form)

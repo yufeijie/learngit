@@ -245,6 +245,8 @@
             this.Display_Show_Preview_Title_Panel = new System.Windows.Forms.Panel();
             this.Display_Show_Preview_Title_Label = new System.Windows.Forms.Label();
             this.Display_Show_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Display_Show_Contrast_Button = new System.Windows.Forms.Button();
+            this.Display_Show_Select_Button = new System.Windows.Forms.Button();
             this.Display_Show_Add_Button = new System.Windows.Forms.Button();
             this.Display_Show_Restart_Button = new System.Windows.Forms.Button();
             this.Display_Show_Detail_Button = new System.Windows.Forms.Button();
@@ -3009,6 +3011,8 @@
             // Display_Show_Operation_Panel
             // 
             this.Display_Show_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Contrast_Button);
+            this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Select_Button);
             this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Add_Button);
             this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Restart_Button);
             this.Display_Show_Operation_Panel.Controls.Add(this.Display_Show_Detail_Button);
@@ -3017,6 +3021,34 @@
             this.Display_Show_Operation_Panel.Name = "Display_Show_Operation_Panel";
             this.Display_Show_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
             this.Display_Show_Operation_Panel.TabIndex = 1;
+            // 
+            // Display_Show_Contrast_Button
+            // 
+            this.Display_Show_Contrast_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Display_Show_Contrast_Button.Enabled = false;
+            this.Display_Show_Contrast_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Show_Contrast_Button.Location = new System.Drawing.Point(1095, 8);
+            this.Display_Show_Contrast_Button.Name = "Display_Show_Contrast_Button";
+            this.Display_Show_Contrast_Button.Size = new System.Drawing.Size(100, 34);
+            this.Display_Show_Contrast_Button.TabIndex = 4;
+            this.Display_Show_Contrast_Button.Text = "对比";
+            this.Display_Show_Contrast_Button.UseVisualStyleBackColor = true;
+            this.Display_Show_Contrast_Button.Click += new System.EventHandler(this.Display_Show_Contrast_Button_Click);
+            // 
+            // Display_Show_Select_Button
+            // 
+            this.Display_Show_Select_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Display_Show_Select_Button.Enabled = false;
+            this.Display_Show_Select_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Show_Select_Button.Location = new System.Drawing.Point(1207, 8);
+            this.Display_Show_Select_Button.Name = "Display_Show_Select_Button";
+            this.Display_Show_Select_Button.Size = new System.Drawing.Size(100, 34);
+            this.Display_Show_Select_Button.TabIndex = 3;
+            this.Display_Show_Select_Button.Text = "选择";
+            this.Display_Show_Select_Button.UseVisualStyleBackColor = true;
+            this.Display_Show_Select_Button.Click += new System.EventHandler(this.Display_Show_Select_Button_Click);
             // 
             // Display_Show_Add_Button
             // 
@@ -3050,7 +3082,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Display_Show_Detail_Button.Enabled = false;
             this.Display_Show_Detail_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Show_Detail_Button.Location = new System.Drawing.Point(1320, 8);
+            this.Display_Show_Detail_Button.Location = new System.Drawing.Point(1319, 8);
             this.Display_Show_Detail_Button.Name = "Display_Show_Detail_Button";
             this.Display_Show_Detail_Button.Size = new System.Drawing.Size(100, 34);
             this.Display_Show_Detail_Button.TabIndex = 0;
@@ -4537,13 +4569,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.Display_Detail_Panel);
+            this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Display_Show_Panel);
             this.Controls.Add(this.Estimate_Result_Panel);
-            this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Estimate_Step3B_Panel);
             this.Controls.Add(this.Home_Panel);
             this.Controls.Add(this.Estimate_Step2_Panel);
-            this.Controls.Add(this.Display_Detail_Panel);
             this.Controls.Add(this.Estimate_Step4_Panel);
             this.Controls.Add(this.Estimate_Step1B_Panel);
             this.Controls.Add(this.Estimate_Step1_Panel);
@@ -5096,6 +5128,8 @@
         private System.Windows.Forms.Button Estimate_Result_NewDisplay_Button;
         private System.Windows.Forms.Button Estimate_Result_AddDisplay_Button;
         private System.Windows.Forms.Button Display_Show_Add_Button;
+        private System.Windows.Forms.Button Display_Show_Contrast_Button;
+        private System.Windows.Forms.Button Display_Show_Select_Button;
     }
 }
 

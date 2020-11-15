@@ -45,11 +45,10 @@ namespace PV_analysis
         private List<Converter> converterListForDisplay; //用于展示的变换单元
 
         //选择对象
-        private Structure selectStructure; //展示图像中选中的架构
-        private Converter selectConverter; //展示图像中选中的变换单元
+        private Structure selectedStructure; //展示图像中选中的架构
+        private Converter selectedConverter; //展示图像中选中的变换单元
 
         //对比对象
-        private int contrastNum = 0; //对比的数量
         private List<Structure> structureListForContrast; //用于对比的架构
         private List<Converter> converterListForContrast; //用于对比的变换单元
 
@@ -424,6 +423,7 @@ namespace PV_analysis
                             PhaseNum = 3,
                             Math_Psys = Psys,
                             Math_Vin = Vin,
+                            IsInputVoltageVariation = false,
                             Math_Vg = Vg,
                             Math_Vo = Vg / Math.Sqrt(3),
                             Math_fg = fg,
@@ -556,6 +556,7 @@ namespace PV_analysis
                             PhaseNum = 3,
                             Math_Psys = double.Parse(conditions[1]),
                             Math_Vin = double.Parse(conditions[2]),
+                            IsInputVoltageVariation = false,
                             Math_Vg = double.Parse(conditions[3]),
                             Math_Vo = double.Parse(conditions[3]) / Math.Sqrt(3),
                             Math_fg = double.Parse(conditions[4]),
@@ -749,9 +750,11 @@ namespace PV_analysis
             Display_Show_Graph_CartesianChart.LegendLocation = LegendLocation.Right;
             Display_Show_Graph_CartesianChart.DataClick += Chart_OnDataClick; //添加评估图像点的点击事件
             Display_Show_Preview_Main_Panel.Controls.Clear(); //清空预览面板显示
-            Display_Show_Detail_Button.Enabled = false; //更新控件可用状态
+            Display_Show_Contrast_Button.Enabled = false; //更新控件可用状态
+            Display_Show_Select_Button.Enabled = false; 
+            Display_Show_Detail_Button.Enabled = false;
 
-            displayNum = 0;
+            displayNum = 0;            
             //获取数据
             if (structureListForDisplay.Count > 0)
             {
@@ -860,70 +863,78 @@ namespace PV_analysis
 
             if (structureListForDisplay.Count > 0)
             {
-                selectStructure = structureListForDisplay[int.Parse(chartPoint.SeriesView.Title)];
-                string[] configs = selectStructure.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
+                Structure structure = structureListForDisplay[int.Parse(chartPoint.SeriesView.Title)]; //获取当前选取的架构
+                selectedStructure = structure.Clone(); //将复制用于比较和详情展示
+                string[] configs = structure.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
                 int index = 0;
-                selectStructure.Load(configs, ref index); //读取设计方案
+                selectedStructure.Load(configs, ref index); //读取设计方案
 
                 //生成预览面板显示信息
                 panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-                panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectStructure.EfficiencyCGC * 100).ToString("f2") + "%"));
-                panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectStructure.Cost / 1e4).ToString("f2") + "万元"));
-                panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectStructure.Volume.ToString("f2") + "dm^3"));
+                panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedStructure.EfficiencyCGC * 100).ToString("f2") + "%"));
+                panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectedStructure.Cost / 1e4).ToString("f2") + "万元"));
+                panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectedStructure.Volume.ToString("f2") + "dm^3"));
                 panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-                panelList.Add(Display_Show_Preview_CreateInfo("架构：", selectStructure.Name));
-                switch (selectStructure.Name)
+                panelList.Add(Display_Show_Preview_CreateInfo("架构：", selectedStructure.Name));
+                switch (selectedStructure.Name)
                 {
                     case "三级架构":
                         panelList.Add(Display_Show_Preview_CreateTitle("前级DC/DC："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectStructure).DCDC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectStructure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectStructure).DCDC.Topology.GetName()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectedStructure).DCDC.Number.ToString()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectedStructure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz"));
+                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectedStructure).DCDC.Topology.GetName()));
                         panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectStructure).IsolatedDCDC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectStructure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectStructure).IsolatedDCDC.Topology.GetName()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Number.ToString()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("副边个数：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Math_No.ToString()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("品质因数：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Math_Q.ToString()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
+                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Topology.GetName()));
                         panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectStructure).DCAC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectStructure).DCAC.Modulation.ToString()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectedStructure).DCAC.Number.ToString()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectedStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
+                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectedStructure).DCAC.Modulation.ToString()));
                         break;
 
                     case "两级架构":
                         panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)selectStructure).IsolatedDCDC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)selectStructure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)selectStructure).IsolatedDCDC.Topology.GetName()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Number.ToString()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("副边个数：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Math_No.ToString()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("品质因数：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Math_Q.ToString()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((TwoLevelStructure)selectedStructure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
+                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Topology.GetName()));
                         panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)selectStructure).DCAC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)selectStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)selectStructure).DCAC.Modulation.ToString()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)selectedStructure).DCAC.Number.ToString()));
+                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)selectedStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
+                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)selectedStructure).DCAC.Modulation.ToString()));
                         break;
                 }
             }
             else
             {
-                selectConverter = converterListForDisplay[int.Parse(chartPoint.SeriesView.Title)];
-                string[] configs = selectConverter.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
+                Converter converter = converterListForDisplay[int.Parse(chartPoint.SeriesView.Title)]; //获取当前选取的变换单元
+                selectedConverter = converter.Clone(); //将复制用于比较和详情展示
+                string[] configs = converter.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
                 int index = 0;
-                selectConverter.Load(configs, ref index); //读取设计方案
+                selectedConverter.Load(configs, ref index); //读取设计方案
 
                 //生成预览面板显示信息
                 panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-                panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectConverter.EfficiencyCGC * 100).ToString("f2") + "%"));
-                panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectConverter.Cost / 1e4).ToString("f2") + "万元"));
-                panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectConverter.Volume.ToString("f2") + "dm^3"));
+                panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedConverter.EfficiencyCGC * 100).ToString("f2") + "%"));
+                panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectedConverter.Cost / 1e4).ToString("f2") + "万元"));
+                panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectedConverter.Volume.ToString("f2") + "dm^3"));
                 panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-                panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectConverter.Number.ToString()));
-                if (selectConverter.Name.Equals("隔离DC/DC变换单元_三级") || selectConverter.Name.Equals("隔离DC/DC变换单元_两级"))
-                {
-                    panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((IsolatedDCDCConverter)selectConverter).Math_fr / 1e3).ToString("f1") + "kHz"));
+                panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectedConverter.Number.ToString()));
+                if (selectedConverter.Name.Equals("隔离DC/DC变换单元_三级") || selectedConverter.Name.Equals("隔离DC/DC变换单元_两级"))
+                {                    
+                    panelList.Add(Display_Show_Preview_CreateInfo("副边个数：", ((IsolatedDCDCConverter)selectedConverter).Math_No.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("品质因数：", ((IsolatedDCDCConverter)selectedConverter).Math_Q.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((IsolatedDCDCConverter)selectedConverter).Math_fr / 1e3).ToString("f1") + "kHz"));
                 }
                 else
                 {
-                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (selectConverter.Math_fs / 1e3).ToString("f1") + "kHz"));
+                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (selectedConverter.Math_fs / 1e3).ToString("f1") + "kHz"));
                 }
-                panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectConverter.Topology.GetName()));
+                panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectedConverter.Topology.GetName()));
             }
 
             //更新预览面板显示
@@ -934,6 +945,7 @@ namespace PV_analysis
             }
 
             //更新控件可用状态
+            Display_Show_Select_Button.Enabled = true;
             Display_Show_Detail_Button.Enabled = true;
         }
 
@@ -973,37 +985,41 @@ namespace PV_analysis
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
             panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-            panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectStructure.EfficiencyCGC * 100).ToString("f2") + "%"));
-            panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectStructure.Cost / 1e4).ToString("f2") + "万元"));
-            panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectStructure.Volume.ToString("f2") + "dm^3"));
+            panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedStructure.EfficiencyCGC * 100).ToString("f2") + "%"));
+            panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectedStructure.Cost / 1e4).ToString("f2") + "万元"));
+            panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectedStructure.Volume.ToString("f2") + "dm^3"));
             panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-            panelList.Add(Display_Show_Preview_CreateInfo("架构：", selectStructure.Name));
-            switch (selectStructure.Name)
+            panelList.Add(Display_Show_Preview_CreateInfo("架构：", selectedStructure.Name));
+            switch (selectedStructure.Name)
             {
                 case "三级架构":
                     panelList.Add(Display_Show_Preview_CreateTitle("前级DC/DC："));
-                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectStructure).DCDC.Number.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectStructure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectStructure).DCDC.Topology.GetName()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectedStructure).DCDC.Number.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectedStructure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz"));
+                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectedStructure).DCDC.Topology.GetName()));
                     panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC："));
-                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectStructure).IsolatedDCDC.Number.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectStructure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
-                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectStructure).IsolatedDCDC.Topology.GetName()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Number.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("副边个数：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Math_No.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("品质因数：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Math_Q.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
+                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Topology.GetName()));
                     panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
-                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectStructure).DCAC.Number.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectStructure).DCAC.Modulation.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectedStructure).DCAC.Number.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectedStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
+                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectedStructure).DCAC.Modulation.ToString()));
                     break;
 
                 case "两级架构":
                     panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC："));
-                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)selectStructure).IsolatedDCDC.Number.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)selectStructure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
-                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)selectStructure).IsolatedDCDC.Topology.GetName()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Number.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("副边个数：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Math_No.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("品质因数：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Math_Q.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)selectedStructure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
+                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Topology.GetName()));
                     panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
-                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)selectStructure).DCAC.Number.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)selectStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)selectStructure).DCAC.Modulation.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)selectedStructure).DCAC.Number.ToString()));
+                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)selectedStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
+                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)selectedStructure).DCAC.Modulation.ToString()));
                     break;
             }
             //更新面板显示
@@ -1014,8 +1030,8 @@ namespace PV_analysis
             }
 
             //生成图像
-            DisplayPieChart(Display_Detail_System_CostBreakdown_PieChart, selectStructure.GetCostBreakdown()); //成本分布饼图
-            DisplayPieChart(Display_Detail_System_VolumeBreakdown_PieChart, selectStructure.GetVolumeBreakdown()); //体积分布饼图
+            DisplayPieChart(Display_Detail_System_CostBreakdown_PieChart, selectedStructure.GetCostBreakdown()); //成本分布饼图
+            DisplayPieChart(Display_Detail_System_VolumeBreakdown_PieChart, selectedStructure.GetVolumeBreakdown()); //体积分布饼图
 
             //负载-效率图像
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
@@ -1027,7 +1043,7 @@ namespace PV_analysis
             {
                 new LineSeries
                 {
-                    Title = "Vin=" + selectStructure.Math_Vpv_min + "V",
+                    Title = "Vin=" + selectedStructure.Math_Vpv_min + "V",
                     Values = values
                 }
             };
@@ -1061,13 +1077,13 @@ namespace PV_analysis
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
             panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-            panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectConverter.EfficiencyCGC * 100).ToString("f2") + "%"));
-            panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectConverter.Cost / 1e4).ToString("f2") + "万元"));
-            panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectConverter.Volume.ToString("f2") + "dm^3"));
+            panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedConverter.EfficiencyCGC * 100).ToString("f2") + "%"));
+            panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectedConverter.Cost / 1e4).ToString("f2") + "万元"));
+            panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectedConverter.Volume.ToString("f2") + "dm^3"));
             panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-            panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectConverter.Number.ToString()));
-            panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (selectConverter.Math_fs / 1e3).ToString("f1") + "kHz"));
-            panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectConverter.Topology.GetName()));
+            panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectedConverter.Number.ToString()));
+            panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (selectedConverter.Math_fs / 1e3).ToString("f1") + "kHz"));
+            panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectedConverter.Topology.GetName()));
             //更新面板显示
             Display_Detail_DCDC_Right_Panel.Controls.Clear(); //清空原有控件
             for (int i = panelList.Count - 1; i >= 0; i--) //逆序添加控件，以正常显示
@@ -1076,8 +1092,8 @@ namespace PV_analysis
             }
 
             //生成图像
-            DisplayPieChart(Display_Detail_DCDC_CostBreakdown_PieChart, selectConverter.GetCostBreakdown()); //成本分布饼图
-            DisplayPieChart(Display_Detail_DCDC_VolumeBreakdown_PieChart, selectConverter.GetVolumeBreakdown()); //体积分布饼图
+            DisplayPieChart(Display_Detail_DCDC_CostBreakdown_PieChart, selectedConverter.GetCostBreakdown()); //成本分布饼图
+            DisplayPieChart(Display_Detail_DCDC_VolumeBreakdown_PieChart, selectedConverter.GetVolumeBreakdown()); //体积分布饼图
 
             //负载-效率图像
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
@@ -1089,7 +1105,7 @@ namespace PV_analysis
             {
                 new LineSeries
                 {
-                    Title = "Vin=" + ((DCDCConverter)selectConverter).Math_Vin_min + "V",
+                    Title = "Vin=" + ((DCDCConverter)selectedConverter).Math_Vin_min + "V",
                     Values = values
                 }
             };
@@ -1123,13 +1139,15 @@ namespace PV_analysis
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
             panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-            panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectConverter.EfficiencyCGC * 100).ToString("f2") + "%"));
-            panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectConverter.Cost / 1e4).ToString("f2") + "万元"));
-            panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectConverter.Volume.ToString("f2") + "dm^3"));
+            panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedConverter.EfficiencyCGC * 100).ToString("f2") + "%"));
+            panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectedConverter.Cost / 1e4).ToString("f2") + "万元"));
+            panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectedConverter.Volume.ToString("f2") + "dm^3"));
             panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-            panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectConverter.Number.ToString()));
-            panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((IsolatedDCDCConverter)selectConverter).Math_fr / 1e3).ToString("f1") + "kHz"));
-            panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectConverter.Topology.GetName()));
+            panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectedConverter.Number.ToString()));
+            panelList.Add(Display_Show_Preview_CreateInfo("副边个数：", ((IsolatedDCDCConverter)selectedConverter).Math_No.ToString()));
+            panelList.Add(Display_Show_Preview_CreateInfo("品质因数：", ((IsolatedDCDCConverter)selectedConverter).Math_Q.ToString()));
+            panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((IsolatedDCDCConverter)selectedConverter).Math_fr / 1e3).ToString("f1") + "kHz"));
+            panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectedConverter.Topology.GetName()));
             //更新面板显示
             Display_Detail_IsolatedDCDC_Right_Panel.Controls.Clear(); //清空原有控件
             for (int i = panelList.Count - 1; i >= 0; i--) //逆序添加控件，以正常显示
@@ -1138,8 +1156,8 @@ namespace PV_analysis
             }
 
             //生成图像
-            DisplayPieChart(Display_Detail_IsolatedDCDC_CostBreakdown_PieChart, selectConverter.GetCostBreakdown()); //成本分布饼图
-            DisplayPieChart(Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart, selectConverter.GetVolumeBreakdown()); //体积分布饼图
+            DisplayPieChart(Display_Detail_IsolatedDCDC_CostBreakdown_PieChart, selectedConverter.GetCostBreakdown()); //成本分布饼图
+            DisplayPieChart(Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart, selectedConverter.GetVolumeBreakdown()); //体积分布饼图
 
             //负载-效率图像
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
@@ -1151,7 +1169,7 @@ namespace PV_analysis
             {
                 new LineSeries
                 {
-                    Title = "Vin=" + ((IsolatedDCDCConverter)selectConverter).Math_Vin + "V",
+                    Title = "Vin=" + ((IsolatedDCDCConverter)selectedConverter).Math_Vin + "V",
                     Values = values
                 }
             };
@@ -1185,13 +1203,13 @@ namespace PV_analysis
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
             panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-            panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectConverter.EfficiencyCGC * 100).ToString("f2") + "%"));
-            panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectConverter.Cost / 1e4).ToString("f2") + "万元"));
-            panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectConverter.Volume.ToString("f2") + "dm^3"));
+            panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedConverter.EfficiencyCGC * 100).ToString("f2") + "%"));
+            panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectedConverter.Cost / 1e4).ToString("f2") + "万元"));
+            panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectedConverter.Volume.ToString("f2") + "dm^3"));
             panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-            panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectConverter.Number.ToString()));
-            panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (selectConverter.Math_fs / 1e3).ToString("f1") + "kHz"));
-            panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectConverter.Topology.GetName()));
+            panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectedConverter.Number.ToString()));
+            panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (selectedConverter.Math_fs / 1e3).ToString("f1") + "kHz"));
+            panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectedConverter.Topology.GetName()));
             //更新面板显示
             Display_Detail_DCAC_Right_Panel.Controls.Clear(); //清空原有控件
             for (int i = panelList.Count - 1; i >= 0; i--) //逆序添加控件，以正常显示
@@ -1200,8 +1218,8 @@ namespace PV_analysis
             }
 
             //生成图像
-            DisplayPieChart(Display_Detail_DCAC_CostBreakdown_PieChart, selectConverter.GetCostBreakdown()); //成本分布饼图
-            DisplayPieChart(Display_Detail_DCAC_VolumeBreakdown_PieChart, selectConverter.GetVolumeBreakdown()); //体积分布饼图
+            DisplayPieChart(Display_Detail_DCAC_CostBreakdown_PieChart, selectedConverter.GetCostBreakdown()); //成本分布饼图
+            DisplayPieChart(Display_Detail_DCAC_VolumeBreakdown_PieChart, selectedConverter.GetVolumeBreakdown()); //体积分布饼图
 
             //负载-效率图像
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
@@ -1213,7 +1231,7 @@ namespace PV_analysis
             {
                 new LineSeries
                 {
-                    Title = "Vin=" + ((DCACConverter)selectConverter).Math_Vin + "V", //TODO 这里显示什么标签？
+                    Title = "Vin=" + ((DCACConverter)selectedConverter).Math_Vin + "V", //TODO 这里显示什么标签？
                     Values = values
                 }
             };
@@ -1249,45 +1267,45 @@ namespace PV_analysis
             if (structureListForDisplay.Count > 0)
             {
                 //生成数据
-                selectStructure.Operate(load, Vin);
+                selectedStructure.Operate(load, Vin);
 
                 //更新显示
                 //更新图像
-                DisplayPieChart(Display_Detail_System_LossBreakdown_PieChart, selectStructure.GetLossBreakdown()); //整体系统损耗分布饼图
-                switch (selectStructure.Name)
+                DisplayPieChart(Display_Detail_System_LossBreakdown_PieChart, selectedStructure.GetLossBreakdown()); //整体系统损耗分布饼图
+                switch (selectedStructure.Name)
                 {
                     case "三级架构":
-                        DisplayPieChart(Display_Detail_DCDC_LossBreakdown_PieChart, ((ThreeLevelStructure)selectStructure).DCDC.GetLossBreakdown()); //前级DC/DC损耗分布饼图
-                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, ((ThreeLevelStructure)selectStructure).IsolatedDCDC.GetLossBreakdown()); //隔离DC/DC损耗分布信息
-                        DisplayPieChart(Display_Detail_DCAC_LossBreakdown_PieChart, ((ThreeLevelStructure)selectStructure).DCAC.GetLossBreakdown()); //DC/AC损耗分布信息
+                        DisplayPieChart(Display_Detail_DCDC_LossBreakdown_PieChart, ((ThreeLevelStructure)selectedStructure).DCDC.GetLossBreakdown()); //前级DC/DC损耗分布饼图
+                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.GetLossBreakdown()); //隔离DC/DC损耗分布信息
+                        DisplayPieChart(Display_Detail_DCAC_LossBreakdown_PieChart, ((ThreeLevelStructure)selectedStructure).DCAC.GetLossBreakdown()); //DC/AC损耗分布信息
                         break;
 
                     case "两级架构":
-                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, ((TwoLevelStructure)selectStructure).IsolatedDCDC.GetLossBreakdown()); //隔离DC/DC损耗分布信息
-                        DisplayPieChart(Display_Detail_DCAC_LossBreakdown_PieChart, ((TwoLevelStructure)selectStructure).DCAC.GetLossBreakdown()); //DC/AC损耗分布信息
+                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, ((TwoLevelStructure)selectedStructure).IsolatedDCDC.GetLossBreakdown()); //隔离DC/DC损耗分布信息
+                        DisplayPieChart(Display_Detail_DCAC_LossBreakdown_PieChart, ((TwoLevelStructure)selectedStructure).DCAC.GetLossBreakdown()); //DC/AC损耗分布信息
                         break;
                 }
             }
             else
             {
                 //更新显示                
-                switch (selectConverter.Name)
+                switch (selectedConverter.Name)
                 {
                     case "前级DC/DC变换单元_三级":
-                        selectConverter.Operate(load, Vin);
-                        DisplayPieChart(Display_Detail_DCDC_LossBreakdown_PieChart, selectConverter.GetLossBreakdown()); //前级DC/DC损耗分布饼图
+                        selectedConverter.Operate(load, Vin);
+                        DisplayPieChart(Display_Detail_DCDC_LossBreakdown_PieChart, selectedConverter.GetLossBreakdown()); //前级DC/DC损耗分布饼图
                         break;
                     case "隔离DC/DC变换单元_三级":
-                        selectConverter.Operate(load);
-                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, selectConverter.GetLossBreakdown()); //隔离DC/DC损耗分布饼图
+                        selectedConverter.Operate(load);
+                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, selectedConverter.GetLossBreakdown()); //隔离DC/DC损耗分布饼图
                         break;
                     case "隔离DC/DC变换单元_两级":
-                        selectConverter.Operate(load, Vin);
-                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, selectConverter.GetLossBreakdown()); //隔离DC/DC损耗分布饼图
+                        selectedConverter.Operate(load, Vin);
+                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, selectedConverter.GetLossBreakdown()); //隔离DC/DC损耗分布饼图
                         break;
                     case "逆变单元":
-                        selectConverter.Operate(load);
-                        DisplayPieChart(Display_Detail_DCAC_LossBreakdown_PieChart, selectConverter.GetLossBreakdown()); //逆变损耗分布饼图
+                        selectedConverter.Operate(load);
+                        DisplayPieChart(Display_Detail_DCAC_LossBreakdown_PieChart, selectedConverter.GetLossBreakdown()); //逆变损耗分布饼图
                         break;
                 }
             }
@@ -2069,6 +2087,8 @@ namespace PV_analysis
         {
             structureListForDisplay = new List<Structure>();
             converterListForDisplay = new List<Converter>();
+            structureListForContrast = new List<Structure>();
+            converterListForContrast = new List<Converter>();
             Estimate_Result_Display();
         }
 
@@ -2086,7 +2106,33 @@ namespace PV_analysis
         {
             structureListForDisplay = new List<Structure>();
             converterListForDisplay = new List<Converter>();
+            structureListForContrast = new List<Structure>();
+            converterListForContrast = new List<Converter>();
             Display_Show_Load();
+        }
+        
+        private void Display_Show_Contrast_Button_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Display_Show_Select_Button_Click(object sender, EventArgs e)
+        {
+            if (structureListForContrast.Count >= 4 || converterListForContrast.Count >= 4)
+            {
+                MessageBox.Show("最多只能选择四个进行比较！");
+                return;
+            }
+
+            Display_Show_Contrast_Button.Enabled = true;
+            if (structureListForDisplay.Count > 0)
+            {
+                structureListForContrast.Add(selectedStructure);
+            }
+            else
+            {
+                converterListForContrast.Add(selectedConverter);
+            }
         }
 
         private void Display_Show_Detail_Button_Click(object sender, EventArgs e)
@@ -2096,90 +2142,90 @@ namespace PV_analysis
             if (structureListForDisplay.Count > 0)
             {
                 //生成数据
-                selectStructure.Evaluate();
+                selectedStructure.Evaluate();
                 double[,] systemData = new double[div, 2]; //记录负载-效率曲线数据
                 double[,] DCDCData = new double[div, 2];
                 double[,] isolatedDCDCData = new double[div, 2];
                 double[,] DCACData = new double[div, 2];
                 for (int i = 1; i <= div; i++)
                 {
-                    selectStructure.Operate(1.0 * i / div, selectStructure.Math_Vpv_min);
+                    selectedStructure.Operate(1.0 * i / div, selectedStructure.Math_Vpv_min);
                     //记录负载-效率曲线数据
                     systemData[i - 1, 0] = 100 * i / div; //负载点(%)
-                    systemData[i - 1, 1] = selectStructure.Efficiency * 100; //整体架构效率(%)
-                    switch (selectStructure.Name)
+                    systemData[i - 1, 1] = selectedStructure.Efficiency * 100; //整体架构效率(%)
+                    switch (selectedStructure.Name)
                     {
                         case "三级架构":
                             DCDCData[i - 1, 0] = 100 * i / div; //负载点(%)
-                            DCDCData[i - 1, 1] = ((ThreeLevelStructure)selectStructure).DCDC.Efficiency * 100; //前级DCDC效率(%)
+                            DCDCData[i - 1, 1] = ((ThreeLevelStructure)selectedStructure).DCDC.Efficiency * 100; //前级DCDC效率(%)
                             isolatedDCDCData[i - 1, 0] = 100 * i / div; //负载点(%)
-                            isolatedDCDCData[i - 1, 1] = ((ThreeLevelStructure)selectStructure).IsolatedDCDC.Efficiency * 100; //隔离DCDC效率(%)
+                            isolatedDCDCData[i - 1, 1] = ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Efficiency * 100; //隔离DCDC效率(%)
                             DCACData[i - 1, 0] = 100 * i / div; //负载点(%)
-                            DCACData[i - 1, 1] = ((ThreeLevelStructure)selectStructure).DCAC.Efficiency * 100; //逆变效率(%)
+                            DCACData[i - 1, 1] = ((ThreeLevelStructure)selectedStructure).DCAC.Efficiency * 100; //逆变效率(%)
                             break;
 
                         case "两级架构":
                             isolatedDCDCData[i - 1, 0] = 100 * i / div; //负载点(%)
-                            isolatedDCDCData[i - 1, 1] = ((TwoLevelStructure)selectStructure).IsolatedDCDC.Efficiency * 100; //隔离DCDC效率(%)
+                            isolatedDCDCData[i - 1, 1] = ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Efficiency * 100; //隔离DCDC效率(%)
                             DCACData[i - 1, 0] = 100 * i / div; //负载点(%)
-                            DCACData[i - 1, 1] = ((TwoLevelStructure)selectStructure).DCAC.Efficiency * 100; //逆变效率(%)
+                            DCACData[i - 1, 1] = ((TwoLevelStructure)selectedStructure).DCAC.Efficiency * 100; //逆变效率(%)
                             break;
                     }
                 }
 
                 //更新显示
                 Display_Show_Detail_System_Display(systemData);
-                switch (selectStructure.Name)
+                switch (selectedStructure.Name)
                 {
                     case "三级架构":
-                        selectConverter = ((ThreeLevelStructure)selectStructure).DCDC;
+                        selectedConverter = ((ThreeLevelStructure)selectedStructure).DCDC;
                         Display_Show_Detail_DCDC_Display(DCDCData);
-                        selectConverter = ((ThreeLevelStructure)selectStructure).IsolatedDCDC;
+                        selectedConverter = ((ThreeLevelStructure)selectedStructure).IsolatedDCDC;
                         Display_Show_Detail_IsolatedDCDC_Display(isolatedDCDCData);
-                        selectConverter = ((ThreeLevelStructure)selectStructure).DCAC;
+                        selectedConverter = ((ThreeLevelStructure)selectedStructure).DCAC;
                         Display_Show_Detail_DCAC_Display(DCACData);
-                        selectConverter = null;
+                        selectedConverter = null;
                         break;
 
                     case "两级架构":
-                        selectConverter = ((TwoLevelStructure)selectStructure).IsolatedDCDC;
+                        selectedConverter = ((TwoLevelStructure)selectedStructure).IsolatedDCDC;
                         Display_Show_Detail_IsolatedDCDC_Display(isolatedDCDCData);
-                        selectConverter = ((TwoLevelStructure)selectStructure).DCAC;
+                        selectedConverter = ((TwoLevelStructure)selectedStructure).DCAC;
                         Display_Show_Detail_DCAC_Display(DCACData);
-                        selectConverter = null;
+                        selectedConverter = null;
                         break;
                 }
             }
             else
             {
                 //生成数据
-                selectConverter.Evaluate();
+                selectedConverter.Evaluate();
                 double[,] data = new double[div, 2]; //记录负载-效率曲线数据
                 for (int i = 1; i <= div; i++)
                 {
-                    switch (selectConverter.Name)
+                    switch (selectedConverter.Name)
                     {
                         case "前级DC/DC变换单元_三级":
-                            selectConverter.Operate(1.0 * i / div, ((DCDCConverter)selectConverter).Math_Vin_min);
+                            selectedConverter.Operate(1.0 * i / div, ((DCDCConverter)selectedConverter).Math_Vin_min);
                             break;
                         case "隔离DC/DC变换单元_三级":
-                            selectConverter.Operate(1.0 * i / div, ((IsolatedDCDCConverter)selectConverter).Math_Vin);
+                            selectedConverter.Operate(1.0 * i / div, ((IsolatedDCDCConverter)selectedConverter).Math_Vin);
                             break;
                         case "隔离DC/DC变换单元_两级":
-                            selectConverter.Operate(1.0 * i / div, ((IsolatedDCDCConverter)selectConverter).Math_Vin_min);
+                            selectedConverter.Operate(1.0 * i / div, ((IsolatedDCDCConverter)selectedConverter).Math_Vin_min);
                             break;
                         case "逆变单元":
-                            selectConverter.Operate(1.0 * i / div, ((DCACConverter)selectConverter).Math_Vin);
+                            selectedConverter.Operate(1.0 * i / div, ((DCACConverter)selectedConverter).Math_Vin);
                             break;
                     }
                     //记录负载-效率曲线数据
                     data[i - 1, 0] = 100 * i / div; //负载点(%)
-                    data[i - 1, 1] = selectConverter.Efficiency * 100; //整体架构效率(%)
+                    data[i - 1, 1] = selectedConverter.Efficiency * 100; //整体架构效率(%)
                                                                        //Console.WriteLine(data[i - 1, 1]);
                 }
 
                 //更新显示                
-                switch (selectConverter.Name)
+                switch (selectedConverter.Name)
                 {
                     case "前级DC/DC变换单元_三级":
                         Display_Show_Detail_DCDC_Display(data);
@@ -2200,21 +2246,21 @@ namespace PV_analysis
             if (structureListForDisplay.Count > 0)
             {
                 Display_Detail_Vin_TrackBar.Visible = true;
-                Display_Detail_Vin_TrackBar.Minimum = (int)selectStructure.Math_Vpv_min;
-                Display_Detail_Vin_TrackBar.Maximum = (int)selectStructure.Math_Vpv_max;
-                Display_Detail_Vin_TrackBar.Value = (int)selectStructure.Math_Vpv_min;
+                Display_Detail_Vin_TrackBar.Minimum = (int)selectedStructure.Math_Vpv_min;
+                Display_Detail_Vin_TrackBar.Maximum = (int)selectedStructure.Math_Vpv_max;
+                Display_Detail_Vin_TrackBar.Value = (int)selectedStructure.Math_Vpv_min;
             }
             else
             {
-                switch (selectConverter.Name)
+                switch (selectedConverter.Name)
                 {
                     case "前级DC/DC变换单元_三级":
                         Display_Detail_Vin_TrackBar.Visible = true;
                         Display_Detail_Vin_Label.Visible = true;
                         Display_Detail_Vin_Value_Label.Visible = true;
-                        Display_Detail_Vin_TrackBar.Minimum = (int)((DCDCConverter)selectConverter).Math_Vin_min;
-                        Display_Detail_Vin_TrackBar.Maximum = (int)((DCDCConverter)selectConverter).Math_Vin_max;
-                        Display_Detail_Vin_TrackBar.Value = (int)((DCDCConverter)selectConverter).Math_Vin_min;
+                        Display_Detail_Vin_TrackBar.Minimum = (int)((DCDCConverter)selectedConverter).Math_Vin_min;
+                        Display_Detail_Vin_TrackBar.Maximum = (int)((DCDCConverter)selectedConverter).Math_Vin_max;
+                        Display_Detail_Vin_TrackBar.Value = (int)((DCDCConverter)selectedConverter).Math_Vin_min;
                         Display_Detail_Vin_Value_Label.Text = Display_Detail_Vin_TrackBar.Value.ToString() + "V";
                         break;
                     case "隔离DC/DC变换单元_三级":
@@ -2226,9 +2272,9 @@ namespace PV_analysis
                         Display_Detail_Vin_TrackBar.Visible = true;
                         Display_Detail_Vin_Label.Visible = true;
                         Display_Detail_Vin_Value_Label.Visible = true;
-                        Display_Detail_Vin_TrackBar.Minimum = (int)((IsolatedDCDCConverter)selectConverter).Math_Vin_min;
-                        Display_Detail_Vin_TrackBar.Maximum = (int)((IsolatedDCDCConverter)selectConverter).Math_Vin_max;
-                        Display_Detail_Vin_TrackBar.Value = (int)((IsolatedDCDCConverter)selectConverter).Math_Vin_min;
+                        Display_Detail_Vin_TrackBar.Minimum = (int)((IsolatedDCDCConverter)selectedConverter).Math_Vin_min;
+                        Display_Detail_Vin_TrackBar.Maximum = (int)((IsolatedDCDCConverter)selectedConverter).Math_Vin_max;
+                        Display_Detail_Vin_TrackBar.Value = (int)((IsolatedDCDCConverter)selectedConverter).Math_Vin_min;
                         Display_Detail_Vin_Value_Label.Text = Display_Detail_Vin_TrackBar.Value.ToString() + "V";
                         break;
                     case "逆变单元":

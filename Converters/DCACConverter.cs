@@ -123,6 +123,28 @@ namespace PV_analysis.Converters
         }
 
         /// <summary>
+        /// 复制当前变换器，保留设计条件
+        /// </summary>
+        /// <returns>复制结果</returns>
+        public override Converter Clone()
+        {
+            return new DCACConverter()
+            {
+                Name = Name,
+                PhaseNum = PhaseNum,
+                Math_Psys = Math_Psys,
+                Math_Vin = Math_Vin,
+                IsInputVoltageVariation = IsInputVoltageVariation,
+                Math_Vg = Math_Vg,
+                Math_Vo = Math_Vo,
+                Math_fg = Math_fg,
+                Math_Ma_min = Math_Ma_min,
+                Math_Ma_max = Math_Ma_max,
+                Math_φ = Math_φ
+            };
+        }
+
+        /// <summary>
         /// 创建拓扑（此前需保证变换器的参数已配置好）
         /// </summary>
         /// <param name="name">拓扑名</param>

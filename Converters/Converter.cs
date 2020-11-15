@@ -204,6 +204,12 @@ namespace PV_analysis.Converters
         }
 
         /// <summary>
+        /// 复制当前变换器，保留设计条件
+        /// </summary>
+        /// <returns>复制结果</returns>
+        public abstract Converter Clone();
+
+        /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
         public abstract void Optimize(MainForm form);

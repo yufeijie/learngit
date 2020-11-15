@@ -238,6 +238,12 @@ namespace PV_analysis.Structures
         }
 
         /// <summary>
+        /// 复制当前架构，保留设计条件
+        /// </summary>
+        /// <returns>复制结果</returns>
+        public abstract Structure Clone();
+
+        /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
         public abstract void Optimize(MainForm form);
