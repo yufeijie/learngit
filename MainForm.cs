@@ -38,7 +38,7 @@ namespace PV_analysis
         //评估过程
         private Thread evaluationThread; //评估线程
         private readonly bool IS_PRINT_DEBUG = true; //是否打印Debug信息
-        private readonly short PRINT_LEVEL = 3; //允许打印的详细信息等级
+        private readonly short PRINT_LEVEL = 4; //允许打印的详细信息等级
 
         //展示对象
         private bool isStructureDisplay; //是否为架构展示（若为false，则为变换单元）
@@ -675,48 +675,140 @@ namespace PV_analysis
         /// </summary>
         private void Display_Show_Add(IConverterDesignData[] data)
         {
+            double x;
+            double y;
+            double[] dataX = new double[data.Length];
+            double[] dataY = new double[data.Length];
+            List<double> paretoX = new List<double>();
+            List<double> paretoY = new List<double>();
+
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
             switch (Display_Show_GraphCategory_ComboBox.Text)
             {
                 case "成本-效率":
                     for (int i = 0; i < data.Length; i++)
                     {
-                        values.Add(new ObservablePoint(data[i].Cost / 1e4, data[i].Efficiency * 100));
+                        x = data[i].Cost / 1e4;
+                        y = data[i].Efficiency * 100;
+                        values.Add(new ObservablePoint(x, y));
+
+                        //排序
+                        int j;
+                        for (j = i - 1; j >= 0; j--)
+                        {
+                            if (x < dataX[j] || (x == dataX[j] && y > dataY[j]))
+                            {
+                                dataX[j + 1] = dataX[j];
+                                dataY[j + 1] = dataY[j];
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        dataX[j + 1] = x;
+                        dataY[j + 1] = y;
+                    }
+                    //Pareto最优求解
+                    for (int i = 0; i < dataX.Length; i++)
+                    {
+                        if (paretoY.Count == 0 || dataY[i] > paretoY[paretoY.Count - 1])
+                        {
+                            paretoX.Add(dataX[i]);
+                            paretoY.Add(dataY[i]);
+                        }
                     }
                     break;
                 case "体积-效率":
                     for (int i = 0; i < data.Length; i++)
                     {
-                        values.Add(new ObservablePoint(data[i].Volume, data[i].Efficiency * 100));
+                        x = data[i].Volume;
+                        y = data[i].Efficiency * 100;
+                        values.Add(new ObservablePoint(x, y));
+                        //排序
+                        int j;
+                        for (j = i - 1; j >= 0; j--)
+                        {
+                            if (x < dataX[j] || (x == dataX[j] && y > dataY[j]))
+                            {
+                                dataX[j + 1] = dataX[j];
+                                dataY[j + 1] = dataY[j];
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        dataX[j + 1] = x;
+                        dataY[j + 1] = y;
+                    }
+                    //Pareto最优求解
+                    for (int i = 0; i < dataX.Length; i++)
+                    {
+                        if (paretoY.Count == 0 || dataY[i] > paretoY[paretoY.Count - 1])
+                        {
+                            paretoX.Add(dataX[i]);
+                            paretoY.Add(dataY[i]);
+                        }
                     }
                     break;
                 case "成本-体积":
                     for (int i = 0; i < data.Length; i++)
                     {
-                        values.Add(new ObservablePoint(data[i].Cost / 1e4, data[i].Volume));
+                        x = data[i].Cost / 1e4;
+                        y = data[i].Volume;
+                        values.Add(new ObservablePoint(x, y));
+                        //排序
+                        int j;
+                        for (j = i - 1; j >= 0; j--)
+                        {
+                            if (x < dataX[j] || (x == dataX[j] && y < dataY[j]))
+                            {
+                                dataX[j + 1] = dataX[j];
+                                dataY[j + 1] = dataY[j];
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        dataX[j + 1] = x;
+                        dataY[j + 1] = y;
+                    }
+                    //Pareto最优求解
+                    for (int i = 0; i < dataX.Length; i++)
+                    {
+                        if (paretoY.Count == 0 || dataY[i] < paretoY[paretoY.Count - 1])
+                        {
+                            paretoX.Add(dataX[i]);
+                            paretoY.Add(dataY[i]);
+                        }
                     }
                     break;
             }
             Display_Show_Graph_CartesianChart.Series.Add(new GScatterSeries
             {
-                Title = (++displayNum).ToString(),
+                Name = "Series_"+(++displayNum).ToString(),
                 Values = values.AsGearedValues().WithQuality(Quality.Low),
                 Fill = Brushes.Transparent,
                 StrokeThickness = .5,
                 PointGeometry = null //use a null geometry when you have many series
             });
+
             //Pareto前沿
-            //values = new ChartValues<ObservablePoint>();
-            //for (int i = 0; i < 20; i++)
-            //{
-            //    values.Add(new ObservablePoint(resultList.cost[i], resultList.efficiency[i]));
-            //}
-            //cartesianChart1.Series.Add(new LineSeries
-            //{
-            //    Values = values,
-            //    LineSmoothness = 0,
-            //    PointGeometry = null
-            //});
+            values = new ChartValues<ObservablePoint>();
+            for (int i = 0; i < paretoX.Count; i++)
+            {
+                values.Add(new ObservablePoint(paretoX[i], paretoY[i]));
+            }
+            Display_Show_Graph_CartesianChart.Series.Add(new LineSeries
+            {
+                Name = null,
+                Values = values.AsGearedValues().WithQuality(Quality.Low),
+                Fill = Brushes.Transparent,
+                LineSmoothness = 0,
+                PointGeometry = null
+            });
         }
 
         /// <summary>
@@ -974,9 +1066,15 @@ namespace PV_analysis
         /// <param name="chartPoint">点击的点</param>
         private void Chart_OnDataClick(object sender, ChartPoint chartPoint)
         {
+            Series series = (Series)chartPoint.SeriesView;
+            if (series.Name == null)
+            {
+                return;
+            }
+            int n = int.Parse(series.Name.Substring(7)) - 1;
             if (isStructureDisplay)
             {
-                Structure structure = structureListForDisplay[int.Parse(chartPoint.SeriesView.Title) - 1]; //获取当前选取的架构
+                Structure structure = structureListForDisplay[n]; //获取当前选取的架构
                 selectedStructure = structure.Clone(); //将复制用于比较和详情展示
                 string[] configs = structure.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
                 int index = 0;
@@ -984,7 +1082,7 @@ namespace PV_analysis
             }
             else
             {
-                Converter converter = converterListForDisplay[int.Parse(chartPoint.SeriesView.Title) - 1]; //获取当前选取的变换单元
+                Converter converter = converterListForDisplay[n]; //获取当前选取的变换单元
                 selectedConverter = converter.Clone(); //将复制用于比较和详情展示
                 string[] configs = converter.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
                 int index = 0;
