@@ -40,6 +40,7 @@ namespace PV_analysis
         private readonly bool isPrintDetails = false; //是否打印详细信息（若否，则在Debug中输出）
 
         //展示对象
+        private bool isStructureDisplay; //是否为架构展示（若为false，则为变换单元）
         private int displayNum = 0; //展示的数量（记录已在图像中绘制出的展示总数）
         private List<Structure> structureListForDisplay; //用于展示的架构
         private List<Converter> converterListForDisplay; //用于展示的变换单元
@@ -609,7 +610,7 @@ namespace PV_analysis
                 }
 
                 //评估对象不符（架构/变换单元）则无法读取
-                if ((structureListForDisplay.Count > 0 && !isStructure) || (converterListForDisplay.Count > 0 && isStructure))
+                if ((structureListForDisplay.Count > 0 && !isStructure) || (converterListForDisplay.Count > 0 && isStructure)) //这里isStructureDisplay可能未初始化，用List的数量进行判断
                 {
                     MessageBox.Show("与现在展示的评估对象不符（架构/变换单元）！");
                     return;
@@ -637,6 +638,7 @@ namespace PV_analysis
                     }
                     converterListForDisplay.Add(converter);
                 }
+                isStructureDisplay = isStructure;
 
                 Display_Show_Display(); //更新图像显示
             }
@@ -757,7 +759,7 @@ namespace PV_analysis
 
             displayNum = 0;
             //获取数据
-            if (structureListForDisplay.Count > 0)
+            if (isStructureDisplay)
             {
                 for (int n = 0; n < structureListForDisplay.Count; n++)
                 {
@@ -853,23 +855,14 @@ namespace PV_analysis
         }
 
         /// <summary>
-        /// 评估图像点的点击事件
-        /// 载入该点对应设计方案，并更新预览面板
+        /// 根据当前选择的设计，显示预览信息
         /// </summary>
-        /// <param name="sender">事件源</param>
-        /// <param name="chartPoint">点击的点</param>
-        private void Chart_OnDataClick(object sender, ChartPoint chartPoint)
+        private void Display_Show_Preview()
         {
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
 
-            if (structureListForDisplay.Count > 0)
+            if (isStructureDisplay)
             {
-                Structure structure = structureListForDisplay[int.Parse(chartPoint.SeriesView.Title)-1]; //获取当前选取的架构
-                selectedStructure = structure.Clone(); //将复制用于比较和详情展示
-                string[] configs = structure.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
-                int index = 0;
-                selectedStructure.Load(configs, ref index); //读取设计方案
-
                 //生成预览面板显示信息
                 panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
                 panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedStructure.EfficiencyCGC * 100).ToString("f2") + "%"));
@@ -915,12 +908,6 @@ namespace PV_analysis
             }
             else
             {
-                Converter converter = converterListForDisplay[int.Parse(chartPoint.SeriesView.Title)-1]; //获取当前选取的变换单元
-                selectedConverter = converter.Clone(); //将复制用于比较和详情展示
-                string[] configs = converter.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
-                int index = 0;
-                selectedConverter.Load(configs, ref index); //读取设计方案
-
                 //生成预览面板显示信息
                 panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
                 panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedConverter.EfficiencyCGC * 100).ToString("f2") + "%"));
@@ -951,6 +938,33 @@ namespace PV_analysis
             //更新控件可用状态
             Display_Show_Select_Button.Enabled = true;
             Display_Show_Detail_Button.Enabled = true;
+        }
+
+        /// <summary>
+        /// 评估图像点的点击事件
+        /// 载入该点对应设计方案，并更新预览面板
+        /// </summary>
+        /// <param name="sender">事件源</param>
+        /// <param name="chartPoint">点击的点</param>
+        private void Chart_OnDataClick(object sender, ChartPoint chartPoint)
+        {
+            if (isStructureDisplay)
+            {
+                Structure structure = structureListForDisplay[int.Parse(chartPoint.SeriesView.Title)-1]; //获取当前选取的架构
+                selectedStructure = structure.Clone(); //将复制用于比较和详情展示
+                string[] configs = structure.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
+                int index = 0;
+                selectedStructure.Load(configs, ref index); //读取设计方案
+            }
+            else
+            {
+                Converter converter = converterListForDisplay[int.Parse(chartPoint.SeriesView.Title)-1]; //获取当前选取的变换单元
+                selectedConverter = converter.Clone(); //将复制用于比较和详情展示
+                string[] configs = converter.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
+                int index = 0;
+                selectedConverter.Load(configs, ref index); //读取设计方案
+            }
+            Display_Show_Preview();
         }
 
         /// <summary>
@@ -1271,7 +1285,7 @@ namespace PV_analysis
             double load = Display_Detail_Load_TrackBar.Value / 100.0;
             double Vin = Display_Detail_Vin_TrackBar.Value;
 
-            if (structureListForDisplay.Count > 0)
+            if (isStructureDisplay)
             {
                 //生成数据
                 selectedStructure.Operate(load, Vin);
@@ -2082,7 +2096,7 @@ namespace PV_analysis
         private void Estimate_Result_AddDisplay_Button_Click(object sender, EventArgs e)
         {
             //评估对象不符（架构/变换单元）则无法加入
-            if ((structureListForDisplay.Count > 0 && !isStructureEvaluation) || (converterListForDisplay.Count > 0 && isStructureEvaluation))
+            if ((structureListForDisplay.Count > 0 && !isStructureEvaluation) || (converterListForDisplay.Count > 0 && isStructureEvaluation)) //这里isStructureDisplay可能未初始化，用List的数量进行判断
             {
                 MessageBox.Show("与现在展示的评估对象不符（架构/变换单元）！");
                 return;
@@ -2120,6 +2134,43 @@ namespace PV_analysis
             Display_Show_Load();
             Display_Show_Contrast_Button.Enabled = false;
             Display_Show_Clear_Button.Enabled = false;
+        }
+
+        private void Display_Show_SelectYmax_Button_Click(object sender, EventArgs e)
+        {
+            if (isStructureDisplay)
+            {
+                //查找效率最高设计方案
+                string[] configs = new string[1];
+                for (int i = 0; i < structureListForDisplay.Count; i++)
+                {
+                    string[] con = structureListForDisplay[i].AllDesignList.GetMaxEfficiencyConfigs();
+                    if (i == 0 || double.Parse(con[0]) > double.Parse(configs[0]))
+                    {
+                        configs = con;
+                        selectedStructure = structureListForDisplay[i].Clone();
+                    }
+                }
+                int index = 0;
+                selectedStructure.Load(configs, ref index); //读取设计方案
+            }
+            else
+            {
+                //查找效率最高设计方案
+                string[] configs = new string[1];
+                for (int i = 0; i < converterListForDisplay.Count; i++)
+                {
+                    string[] con = converterListForDisplay[i].AllDesignList.GetMaxEfficiencyConfigs();
+                    if (i == 0 || double.Parse(con[0]) > double.Parse(configs[0]))
+                    {
+                        configs = con;
+                        selectedConverter = converterListForDisplay[i].Clone();
+                    }
+                }
+                int index = 0;
+                selectedConverter.Load(configs, ref index); //读取设计方案
+            }
+            Display_Show_Preview();
         }
 
         /// <summary>
@@ -2248,7 +2299,7 @@ namespace PV_analysis
         {
             int m;
             int row;
-            if (structureListForDisplay.Count > 0)
+            if (isStructureDisplay)
             {
                 m = structureListForContrast.Count;
                 for (int i = 1; i < m; i++)
@@ -2672,7 +2723,7 @@ namespace PV_analysis
             }
             Display_Show_Clear_Button.Enabled = true;
 
-            if (structureListForDisplay.Count > 0)
+            if (isStructureDisplay)
             {
                 structureListForContrast.Add(selectedStructure);
             }
@@ -2686,7 +2737,7 @@ namespace PV_analysis
         {
             Display_Detail_TabControl.Controls.Clear(); //清除所有控件以隐藏
 
-            if (structureListForDisplay.Count > 0)
+            if (isStructureDisplay)
             {
                 //生成数据
                 selectedStructure.Evaluate();
@@ -2790,7 +2841,7 @@ namespace PV_analysis
             //损耗分布图像
             Display_Detail_Load_TrackBar.Value = 100;
             Display_Detail_Load_Value_Label.Text = Display_Detail_Load_TrackBar.Value.ToString() + "%";
-            if (structureListForDisplay.Count > 0)
+            if (isStructureDisplay)
             {
                 Display_Detail_Vin_TrackBar.Visible = true;
                 Display_Detail_Vin_TrackBar.Minimum = (int)selectedStructure.Math_Vpv_min;

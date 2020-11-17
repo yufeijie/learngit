@@ -70,6 +70,29 @@ namespace PV_analysis
         }
 
         /// <summary>
+        /// 得到效率最高设计的配置信息
+        /// </summary>
+        /// <returns>配置信息</returns>
+        public string[] GetMaxEfficiencyConfigs()
+        {
+            if (size <= 0)
+            {
+                return null;
+            }
+            ConverterDesignData max = head;
+            ConverterDesignData now = max.Next;
+            while (now != null)
+            {
+                if (now.Efficiency > max.Efficiency)
+                {
+                    max = now;
+                }
+                now = now.Next;
+            }
+            return max.Configs;
+        }
+
+        /// <summary>
         /// 添加一个设计，并进行Pareto改进
         /// </summary>
         /// <param name="efficiency">效率</param>
