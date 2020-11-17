@@ -37,7 +37,8 @@ namespace PV_analysis
 
         //评估过程
         private Thread evaluationThread; //评估线程
-        private readonly bool isPrintDetails = false; //是否打印详细信息（若否，则在Debug中输出）
+        private readonly bool IS_PRINT_DEBUG = true; //是否打印Debug信息
+        private readonly short PRINT_LEVEL = 3; //允许打印的详细信息等级
 
         //展示对象
         private bool isStructureDisplay; //是否为架构展示（若为false，则为变换单元）
@@ -113,18 +114,21 @@ namespace PV_analysis
 
         /// <summary>
         /// 打印详细信息
-        /// 由isPrintDetails进行判断是否需要打印
+        /// 由信息等级决定是否需要打印
+        /// 由IS_PRINT_DEBUG判断是否需要打印Debug信息
         /// </summary>
+        /// <param name="level">信息等级</param>
         /// <param name="text">文字内容</param>
-        public void PrintDetails(string text = "")
+        public void PrintDetails(int level, string text = "")
         {
-            if (isPrintDetails)
-            {
-                PrintMsg(text);
-            }
-            else
+            if (IS_PRINT_DEBUG)
             {
                 Console.WriteLine(text);
+            }
+
+            if (level >= PRINT_LEVEL)
+            {
+                PrintMsg(text);
             }
         }
 
@@ -182,10 +186,32 @@ namespace PV_analysis
         }
 
         /// <summary>
+        /// 评估结果步骤，设置进度条百分比
+        /// </summary>
+        /// <param name="percent">百分比</param>
+        public void Estimate_Result_ProgressBar_Set(double percent)
+        {
+            percent = percent > 100 ? 100 : percent;
+            percent = percent < 0 ? 0 : percent;
+            if (Thread.CurrentThread.IsBackground)
+            {
+                BeginInvoke(new EventHandler(delegate
+                {
+                    Estimate_Result_ProgressBar.Value = (int)Math.Ceiling(percent / 100 * (Estimate_Result_ProgressBar.Maximum - Estimate_Result_ProgressBar.Minimum)) + Estimate_Result_ProgressBar.Minimum;
+                }));
+            }
+            else
+            {
+                Estimate_Result_ProgressBar.Value = (int)Math.Ceiling(percent / 100 * (Estimate_Result_ProgressBar.Maximum - Estimate_Result_ProgressBar.Minimum)) + Estimate_Result_ProgressBar.Minimum;
+            }
+        }
+
+        /// <summary>
         /// 评估结果步骤，开始评估
         /// </summary>
         private void Estimate_Result_Evaluate()
         {
+            Estimate_Result_ProgressBar_Set(0);
             PrintMsg("初始化……");
             //更新开关器件可用状态
             foreach (Control control in Estimate_Step4_Semiconductor_FlowLayoutPanel.Controls)
@@ -443,17 +469,17 @@ namespace PV_analysis
 
             if (isStructureEvaluation)
             {
-                structureForEvaluation.Optimize(this);
+                structureForEvaluation.Optimize(this, 0, 100);
             }
             else
             {
-                converterForEvaluation.Optimize(this);
+                converterForEvaluation.Optimize(this, 0, 100);
             }
+            Estimate_Result_ProgressBar_Set(100);
+            PrintMsg("完成评估！");
 
             BeginInvoke(new EventHandler(delegate
             {
-                PrintMsg("完成评估！");
-
                 //按钮状态设置
                 Estimate_Result_End_Button.Visible = false;
                 Estimate_Result_End_Button.Enabled = false;
@@ -950,7 +976,7 @@ namespace PV_analysis
         {
             if (isStructureDisplay)
             {
-                Structure structure = structureListForDisplay[int.Parse(chartPoint.SeriesView.Title)-1]; //获取当前选取的架构
+                Structure structure = structureListForDisplay[int.Parse(chartPoint.SeriesView.Title) - 1]; //获取当前选取的架构
                 selectedStructure = structure.Clone(); //将复制用于比较和详情展示
                 string[] configs = structure.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
                 int index = 0;
@@ -958,7 +984,7 @@ namespace PV_analysis
             }
             else
             {
-                Converter converter = converterListForDisplay[int.Parse(chartPoint.SeriesView.Title)-1]; //获取当前选取的变换单元
+                Converter converter = converterListForDisplay[int.Parse(chartPoint.SeriesView.Title) - 1]; //获取当前选取的变换单元
                 selectedConverter = converter.Clone(); //将复制用于比较和详情展示
                 string[] configs = converter.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
                 int index = 0;
@@ -2220,7 +2246,7 @@ namespace PV_analysis
                 Dock = DockStyle.Fill,
                 Margin = new Padding(0)
             };
-            Label label= new Label
+            Label label = new Label
             {
                 AutoSize = false,
                 Dock = DockStyle.Fill,

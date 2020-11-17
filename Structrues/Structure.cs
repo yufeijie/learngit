@@ -246,7 +246,7 @@ namespace PV_analysis.Structures
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
-        public abstract void Optimize(MainForm form);
+        public abstract void Optimize(MainForm form, double progressMin, double progressMax);
 
         /// <summary>
         /// 保存设计结果

@@ -1,5 +1,4 @@
 ﻿using PV_analysis.Topologys;
-using System;
 
 namespace PV_analysis.Converters
 {
@@ -126,8 +125,10 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
-        public override void Optimize(MainForm form)
+        public override void Optimize(MainForm form, double progressMin, double progressMax)
         {
+            double progress = progressMin;
+            double dp = (progressMax - progressMin) / NumberRange.Length / FrequencyRange.Length / TopologyRange.Length;
             foreach (int n in NumberRange) //模块数变化
             {
                 Number = n;
@@ -137,8 +138,10 @@ namespace PV_analysis.Converters
                     foreach (string tp in TopologyRange) //拓扑变化
                     {
                         CreateTopology(tp);
-                        form.PrintDetails("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
+                        form.PrintDetails(2, "Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fs / 1e3) + "kHz");
                         Design(form);
+                        progress += dp;
+                        form.Estimate_Result_ProgressBar_Set(progress);
                     }
                 }
             }

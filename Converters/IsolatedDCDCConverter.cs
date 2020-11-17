@@ -187,8 +187,10 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
-        public override void Optimize(MainForm form)
+        public override void Optimize(MainForm form, double progressMin, double progressMax)
         {
+            double progress = progressMin;
+            double dp = (progressMax - progressMin) / NumberRange.Length / FrequencyRange.Length / SecondaryRange.Length / TopologyRange.Length;
             foreach (int n in NumberRange) //模块数变化
             {
                 Number = n;
@@ -203,17 +205,19 @@ namespace PV_analysis.Converters
                             CreateTopology(tp);
                             if (tp.Equals("SRC")) //目前多输出仅支持SRC
                             {
-                                form.PrintDetails("Now topology=" + tp + ", No=" + No + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
+                                form.PrintDetails(2, "Now topology=" + tp + ", No=" + No + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
                                 Design(form);
                             }
                             else
                             {
                                 if (No == 1)
                                 {
-                                    form.PrintDetails("Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
+                                    form.PrintDetails(2, "Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
                                     Design(form);
                                 }
                             }
+                            progress += dp;
+                            form.Estimate_Result_ProgressBar_Set(progress);
                         }
                     }
                 }

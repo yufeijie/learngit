@@ -102,17 +102,19 @@ namespace PV_analysis.Structures
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
-        public override void Optimize(MainForm form)
+        public override void Optimize(MainForm form, double progressMin, double progressMax)
         {
+            double progress = progressMin;
+            double dp = (progressMax - progressMin) / Math_VinvRange.Length / IsolatedDCDC_secondaryRange.Length / IsolatedDCDC_numberRange.Length;
             foreach (double Vinv in Math_VinvRange) //逆变直流侧电压变化
             {
-                form.PrintDetails("Now Inv DC voltage = " + Vinv + ":");
-                form.PrintDetails("-------------------------");
+                form.PrintDetails(3, "Now Inv DC voltage = " + Vinv + ":");
+                form.PrintDetails(3, "-------------------------");
                 foreach (int n in IsolatedDCDC_numberRange)
                 {
                     //逆变器设计
-                    form.PrintDetails("-------------------------");
-                    form.PrintDetails("Inverters design...");
+                    form.PrintDetails(3, "-------------------------");
+                    form.PrintDetails(3, "Inverters design...");
                     DCAC = new DCACConverter()
                     {
                         PhaseNum = 3,
@@ -129,15 +131,17 @@ namespace PV_analysis.Structures
                         ModulationRange = DCAC_modulationRange,
                         FrequencyRange = DCAC_frequencyRange,
                     };
-                    DCAC.Optimize(form);
+                    DCAC.Optimize(form, progress, progress + dp * 0.3);
+                    progress += dp * 0.3;
                     if (DCAC.AllDesignList.Size <= 0)
                     {
+                        progress += dp * 0.7;
                         continue;
                     }
 
                     //隔离DC/DC变换器设计
-                    form.PrintDetails("-------------------------");
-                    form.PrintDetails("Isolated DC/DC converters design...");
+                    form.PrintDetails(3, "-------------------------");
+                    form.PrintDetails(3, "Isolated DC/DC converters design...");
                     IsolatedDCDC = new IsolatedDCDCConverter()
                     {
                         PhaseNum = 3,
@@ -152,21 +156,25 @@ namespace PV_analysis.Structures
                         TopologyRange = IsolatedDCDC_topologyRange,
                         FrequencyRange = IsolatedDCDC_resonanceFrequencyRange
                     };
-                    IsolatedDCDC.Optimize(form);
+                    IsolatedDCDC.Optimize(form, progress, progress + dp * 0.3);
+                    progress += dp * 0.3;
                     if (IsolatedDCDC.AllDesignList.Size <= 0)
                     {
+                        progress += dp * 0.4;
                         continue;
                     }
 
                     //整合得到最终结果
-                    form.PrintDetails("-------------------------");
-                    form.PrintDetails("Inv num=" + n + ", Combining...");
+                    form.PrintDetails(3, "-------------------------");
+                    form.PrintDetails(3, "Inv num=" + n + ", Combining...");
                     ConverterDesignList newDesignList = new ConverterDesignList();
                     newDesignList.Combine(IsolatedDCDC.ParetoDesignList);
                     newDesignList.Combine(DCAC.ParetoDesignList);
                     newDesignList.Transfer(new string[] { DCAC.Math_Vin.ToString() });
                     ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
                     AllDesignList.Merge(newDesignList); //记录所有设计
+                    progress += dp * 0.4;
+                    form.Estimate_Result_ProgressBar_Set(progress);
                 }
             }
         }

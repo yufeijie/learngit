@@ -224,7 +224,6 @@
             this.Estimate_Result_Operation_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Result_AddDisplay_Button = new System.Windows.Forms.Button();
             this.Estimate_Result_End_Button = new System.Windows.Forms.Button();
-            this.Estimate_Result_ProgressBar = new System.Windows.Forms.ProgressBar();
             this.Estimate_Result_QuickSave_Button = new System.Windows.Forms.Button();
             this.Estimate_Result_Restart_Button = new System.Windows.Forms.Button();
             this.Estimate_Result_Save_Button = new System.Windows.Forms.Button();
@@ -237,6 +236,7 @@
             this.Display_Show_Panel = new System.Windows.Forms.Panel();
             this.Display_Show_Main_Panel = new System.Windows.Forms.Panel();
             this.Display_Show_Graph_Panel = new System.Windows.Forms.Panel();
+            this.Display_Show_SelectYmax_Button = new System.Windows.Forms.Button();
             this.Display_Show_GraphCategory_ComboBox = new System.Windows.Forms.ComboBox();
             this.Display_Show_Graph_CartesianChart = new LiveCharts.WinForms.CartesianChart();
             this.Display_Show_ChartControl_Button = new System.Windows.Forms.Button();
@@ -392,7 +392,7 @@
             this.Display_Contrast_Vin_Value_Label = new System.Windows.Forms.Label();
             this.Display_Contrast_Load_Label = new System.Windows.Forms.Label();
             this.Display_Contrast_Load_Value_Label = new System.Windows.Forms.Label();
-            this.Display_Show_SelectYmax_Button = new System.Windows.Forms.Button();
+            this.Estimate_Result_ProgressBar = new System.Windows.Forms.ProgressBar();
             this.Home_Panel.SuspendLayout();
             this.Home_Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).BeginInit();
@@ -2802,13 +2802,6 @@
             this.Estimate_Result_End_Button.UseVisualStyleBackColor = true;
             this.Estimate_Result_End_Button.Click += new System.EventHandler(this.Estimate_Result_End_Button_Click);
             // 
-            // Estimate_Result_ProgressBar
-            // 
-            this.Estimate_Result_ProgressBar.Location = new System.Drawing.Point(144, 9);
-            this.Estimate_Result_ProgressBar.Name = "Estimate_Result_ProgressBar";
-            this.Estimate_Result_ProgressBar.Size = new System.Drawing.Size(800, 32);
-            this.Estimate_Result_ProgressBar.TabIndex = 4;
-            // 
             // Estimate_Result_QuickSave_Button
             // 
             this.Estimate_Result_QuickSave_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2951,6 +2944,16 @@
             this.Display_Show_Graph_Panel.Name = "Display_Show_Graph_Panel";
             this.Display_Show_Graph_Panel.Size = new System.Drawing.Size(1080, 807);
             this.Display_Show_Graph_Panel.TabIndex = 6;
+            // 
+            // Display_Show_SelectYmax_Button
+            // 
+            this.Display_Show_SelectYmax_Button.Location = new System.Drawing.Point(67, 29);
+            this.Display_Show_SelectYmax_Button.Name = "Display_Show_SelectYmax_Button";
+            this.Display_Show_SelectYmax_Button.Size = new System.Drawing.Size(41, 23);
+            this.Display_Show_SelectYmax_Button.TabIndex = 4;
+            this.Display_Show_SelectYmax_Button.Text = "Max";
+            this.Display_Show_SelectYmax_Button.UseVisualStyleBackColor = true;
+            this.Display_Show_SelectYmax_Button.Click += new System.EventHandler(this.Display_Show_SelectYmax_Button_Click);
             // 
             // Display_Show_GraphCategory_ComboBox
             // 
@@ -4714,26 +4717,24 @@
             this.Display_Contrast_Load_Value_Label.Text = "100%";
             this.Display_Contrast_Load_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // Display_Show_SelectYmax_Button
+            // Estimate_Result_ProgressBar
             // 
-            this.Display_Show_SelectYmax_Button.Location = new System.Drawing.Point(67, 29);
-            this.Display_Show_SelectYmax_Button.Name = "Display_Show_SelectYmax_Button";
-            this.Display_Show_SelectYmax_Button.Size = new System.Drawing.Size(41, 23);
-            this.Display_Show_SelectYmax_Button.TabIndex = 4;
-            this.Display_Show_SelectYmax_Button.Text = "Max";
-            this.Display_Show_SelectYmax_Button.UseVisualStyleBackColor = true;
-            this.Display_Show_SelectYmax_Button.Click += new System.EventHandler(this.Display_Show_SelectYmax_Button_Click);
+            this.Estimate_Result_ProgressBar.Location = new System.Drawing.Point(144, 9);
+            this.Estimate_Result_ProgressBar.Maximum = 10000;
+            this.Estimate_Result_ProgressBar.Name = "Estimate_Result_ProgressBar";
+            this.Estimate_Result_ProgressBar.Size = new System.Drawing.Size(800, 32);
+            this.Estimate_Result_ProgressBar.TabIndex = 4;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.Estimate_Result_Panel);
             this.Controls.Add(this.Display_Show_Panel);
             this.Controls.Add(this.Display_Detail_Panel);
             this.Controls.Add(this.Display_Contrast_Panel);
             this.Controls.Add(this.Estimate_Step3_Panel);
-            this.Controls.Add(this.Estimate_Result_Panel);
             this.Controls.Add(this.Estimate_Step3B_Panel);
             this.Controls.Add(this.Home_Panel);
             this.Controls.Add(this.Estimate_Step2_Panel);
@@ -5287,7 +5288,6 @@
         private System.Windows.Forms.TextBox Estimate_Step3B_Mamax_TextBox;
         private System.Windows.Forms.Panel Estimate_Result_Operation_Panel;
         private System.Windows.Forms.Button Estimate_Result_End_Button;
-        private System.Windows.Forms.ProgressBar Estimate_Result_ProgressBar;
         private System.Windows.Forms.Button Estimate_Result_QuickSave_Button;
         private System.Windows.Forms.Button Estimate_Result_Restart_Button;
         private System.Windows.Forms.Button Estimate_Result_Save_Button;
@@ -5308,6 +5308,7 @@
         private System.Windows.Forms.Label Display_Contrast_Load_Label;
         private System.Windows.Forms.Label Display_Contrast_Load_Value_Label;
         private System.Windows.Forms.Button Display_Show_SelectYmax_Button;
+        private System.Windows.Forms.ProgressBar Estimate_Result_ProgressBar;
     }
 }
 

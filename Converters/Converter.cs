@@ -246,7 +246,7 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 根据给定的条件，对变换器进行优化设计
         /// </summary>
-        public abstract void Optimize(MainForm form);
+        public abstract void Optimize(MainForm form, double progressMin, double progressMax);
 
         /// <summary>
         /// 自动设计，整合设计结果（不会覆盖之前的设计结果）
@@ -262,11 +262,11 @@ namespace PV_analysis.Converters
                 {
                     if (component.Name != null)
                     {
-                        form.PrintDetails(component.Name + "设计失败！");
+                        form.PrintDetails(1, component.Name + "设计失败！");
                     }
                     else
                     {
-                        form.PrintDetails(component.GetType().Name + "设计失败！");
+                        form.PrintDetails(1, component.GetType().Name + "设计失败！");
                     }
                     break;
                 }
