@@ -579,7 +579,7 @@
             this.Tab_Home_Button.Dock = System.Windows.Forms.DockStyle.Top;
             this.Tab_Home_Button.FlatAppearance.BorderSize = 0;
             this.Tab_Home_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Tab_Home_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Tab_Home_Button.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Tab_Home_Button.Location = new System.Drawing.Point(0, 0);
             this.Tab_Home_Button.Name = "Tab_Home_Button";
             this.Tab_Home_Button.Size = new System.Drawing.Size(148, 80);
@@ -594,7 +594,7 @@
             this.Tab_Estimate_Button.Dock = System.Windows.Forms.DockStyle.Top;
             this.Tab_Estimate_Button.FlatAppearance.BorderSize = 0;
             this.Tab_Estimate_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Tab_Estimate_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Tab_Estimate_Button.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Tab_Estimate_Button.Location = new System.Drawing.Point(0, 80);
             this.Tab_Estimate_Button.Name = "Tab_Estimate_Button";
             this.Tab_Estimate_Button.Size = new System.Drawing.Size(148, 80);
@@ -609,7 +609,7 @@
             this.Tab_Display_Button.Dock = System.Windows.Forms.DockStyle.Top;
             this.Tab_Display_Button.FlatAppearance.BorderSize = 0;
             this.Tab_Display_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Tab_Display_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Tab_Display_Button.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Tab_Display_Button.Location = new System.Drawing.Point(0, 160);
             this.Tab_Display_Button.Name = "Tab_Display_Button";
             this.Tab_Display_Button.Size = new System.Drawing.Size(148, 80);
@@ -624,7 +624,7 @@
             this.Tab_Admin_Button.Dock = System.Windows.Forms.DockStyle.Top;
             this.Tab_Admin_Button.FlatAppearance.BorderSize = 0;
             this.Tab_Admin_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Tab_Admin_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Tab_Admin_Button.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Tab_Admin_Button.Location = new System.Drawing.Point(0, 240);
             this.Tab_Admin_Button.Name = "Tab_Admin_Button";
             this.Tab_Admin_Button.Size = new System.Drawing.Size(148, 80);
@@ -654,7 +654,7 @@
             this.Tab_Test_Button.Dock = System.Windows.Forms.DockStyle.Top;
             this.Tab_Test_Button.FlatAppearance.BorderSize = 0;
             this.Tab_Test_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Tab_Test_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Tab_Test_Button.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Tab_Test_Button.Location = new System.Drawing.Point(0, 320);
             this.Tab_Test_Button.Name = "Tab_Test_Button";
             this.Tab_Test_Button.Size = new System.Drawing.Size(148, 80);
@@ -3300,7 +3300,7 @@
             // Display_Detail_System_LoadVsEfficiency_CartesianChart
             // 
             this.Display_Detail_System_LoadVsEfficiency_CartesianChart.BackColor = System.Drawing.Color.White;
-            this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Font = new System.Drawing.Font("宋体", 9F);
+            this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 450);
             this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Name = "Display_Detail_System_LoadVsEfficiency_CartesianChart";
             this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Size = new System.Drawing.Size(800, 600);
@@ -3418,6 +3418,7 @@
             // Display_Detail_DCDC_LoadVsEfficiency_CartesianChart
             // 
             this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.BackColor = System.Drawing.Color.White;
+            this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.Font = new System.Drawing.Font("宋体", 12F);
             this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 450);
             this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.Name = "Display_Detail_DCDC_LoadVsEfficiency_CartesianChart";
             this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.Size = new System.Drawing.Size(800, 600);
@@ -3535,6 +3536,7 @@
             // Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart
             // 
             this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.BackColor = System.Drawing.Color.White;
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.Font = new System.Drawing.Font("宋体", 12F);
             this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 450);
             this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.Name = "Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart";
             this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.Size = new System.Drawing.Size(800, 600);
@@ -3652,6 +3654,7 @@
             // Display_Detail_DCAC_LoadVsEfficiency_CartesianChart
             // 
             this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.BackColor = System.Drawing.Color.White;
+            this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.Font = new System.Drawing.Font("宋体", 12F);
             this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 450);
             this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.Name = "Display_Detail_DCAC_LoadVsEfficiency_CartesianChart";
             this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.Size = new System.Drawing.Size(800, 600);
@@ -4754,15 +4757,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
-            this.Controls.Add(this.Estimate_Step2_Panel);
-            this.Controls.Add(this.Estimate_Step3_Panel);
+            this.Controls.Add(this.Display_Detail_Panel);
             this.Controls.Add(this.Display_Show_Panel);
             this.Controls.Add(this.Estimate_Result_Panel);
-            this.Controls.Add(this.Display_Detail_Panel);
+            this.Controls.Add(this.Estimate_Step4_Panel);
+            this.Controls.Add(this.Estimate_Step2_Panel);
+            this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Display_Contrast_Panel);
             this.Controls.Add(this.Estimate_Step3B_Panel);
             this.Controls.Add(this.Home_Panel);
-            this.Controls.Add(this.Estimate_Step4_Panel);
             this.Controls.Add(this.Estimate_Step1B_Panel);
             this.Controls.Add(this.Estimate_Step1_Panel);
             this.Controls.Add(this.Estimate_Ready_Panel);

@@ -804,7 +804,7 @@ namespace PV_analysis
             Display_Show_Graph_CartesianChart.Series.Add(new LineSeries
             {
                 Name = null,
-                Title = "评估结果" + displayNum.ToString()+ "（Pareto前沿）",
+                Title = "评估结果" + displayNum.ToString() + "（Pareto前沿）",
                 Values = values.AsGearedValues().WithQuality(Quality.Low),
                 Fill = Brushes.Transparent,
                 LineSmoothness = 0,
@@ -824,22 +824,29 @@ namespace PV_analysis
             {
                 BackColor = System.Drawing.Color.White,
                 DisableAnimations = true,
+                Font = new System.Drawing.Font("宋体", 12F),
                 Location = new System.Drawing.Point(67, 88),
                 Size = new System.Drawing.Size(946, 665),
-                TabIndex = 2,
-            };
+                Zoom = ZoomingOptions.Xy,
+                LegendLocation = LegendLocation.Right
+            };            
+            Display_Show_Graph_CartesianChart.DataClick += Chart_OnDataClick; //添加评估图像点的点击事件
+
             Display_Show_Graph_Panel.Controls.Add(Display_Show_Graph_CartesianChart);
             Display_Show_Graph_Panel.Visible = false; //解决底色变黑
             Display_Show_Graph_Panel.Visible = true;
             switch (Display_Show_GraphCategory_ComboBox.Text) //设置横纵轴
             {
                 case "成本-效率":
+
                     Display_Show_Graph_CartesianChart.AxisX.Add(new Axis
                     {
+                        FontSize = 18F,
                         Title = "成本（万元）"
                     });
                     Display_Show_Graph_CartesianChart.AxisY.Add(new Axis
                     {
+                        FontSize = 18F,
                         LabelFormatter = value => Math.Round(value, 8).ToString(),
                         Title = "中国效率（%）"
                     });
@@ -847,11 +854,12 @@ namespace PV_analysis
                 case "体积-效率":
                     Display_Show_Graph_CartesianChart.AxisX.Add(new Axis
                     {
-
+                        FontSize = 18F,
                         Title = "体积（dm^3）"
                     });
                     Display_Show_Graph_CartesianChart.AxisY.Add(new Axis
                     {
+                        FontSize = 18F,
                         LabelFormatter = value => Math.Round(value, 8).ToString(),
                         Title = "中国效率（%）"
                     });
@@ -859,17 +867,16 @@ namespace PV_analysis
                 case "成本-体积":
                     Display_Show_Graph_CartesianChart.AxisX.Add(new Axis
                     {
+                        FontSize = 18F,
                         Title = "成本（万元）"
                     });
                     Display_Show_Graph_CartesianChart.AxisY.Add(new Axis
                     {
+                        FontSize = 18F,
                         Title = "体积（dm^3）"
                     });
                     break;
             }
-            Display_Show_Graph_CartesianChart.Zoom = ZoomingOptions.Xy;
-            Display_Show_Graph_CartesianChart.LegendLocation = LegendLocation.Right;
-            Display_Show_Graph_CartesianChart.DataClick += Chart_OnDataClick; //添加评估图像点的点击事件
 
             //释放当前选取的点
             Display_Show_Preview_Main_Panel.Controls.Clear(); //清空预览面板显示
@@ -1190,13 +1197,16 @@ namespace PV_analysis
                 new LineSeries
                 {
                     Title = "Vin=" + selectedStructure.Math_Vpv_min + "V",
-                    Values = values
+                    Fill = Brushes.Transparent,
+                    Values = values,
+                    PointGeometry = null
                 }
             };
             Display_Detail_System_LoadVsEfficiency_CartesianChart.AxisX = new AxesCollection
             {
                 new Axis
                 {
+                    FontSize = 18F,
                     Title = "负载（%）"
                 }
             };
@@ -1204,6 +1214,7 @@ namespace PV_analysis
             {
                 new Axis
                 {
+                    FontSize = 18F,
                     LabelFormatter = value => Math.Round(value, 8).ToString(),
                     Title = "效率（%）"
                 }
@@ -1252,13 +1263,16 @@ namespace PV_analysis
                 new LineSeries
                 {
                     Title = "Vin=" + ((DCDCConverter)selectedConverter).Math_Vin_min + "V",
-                    Values = values
+                    Fill = Brushes.Transparent,
+                    Values = values,
+                    PointGeometry = null
                 }
             };
             Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.AxisX = new AxesCollection
             {
                 new Axis
                 {
+                    FontSize = 18F,
                     Title = "负载（%）"
                 }
             };
@@ -1266,6 +1280,7 @@ namespace PV_analysis
             {
                 new Axis
                 {
+                    FontSize = 18F,
                     LabelFormatter = value => Math.Round(value, 8).ToString(),
                     Title = "效率（%）"
                 }
@@ -1315,14 +1330,16 @@ namespace PV_analysis
             {
                 new LineSeries
                 {
-                    Title = "Vin=" + ((IsolatedDCDCConverter)selectedConverter).Math_Vin + "V",
-                    Values = values
+                    Fill = Brushes.Transparent,
+                    Values = values,
+                    PointGeometry = null
                 }
             };
             Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.AxisX = new AxesCollection
             {
                 new Axis
                 {
+                    FontSize = 18F,
                     Title = "负载（%）"
                 }
             };
@@ -1330,6 +1347,7 @@ namespace PV_analysis
             {
                 new Axis
                 {
+                    FontSize = 18F,
                     LabelFormatter = value => Math.Round(value, 8).ToString(),
                     Title = "效率（%）"
                 }
@@ -1377,14 +1395,16 @@ namespace PV_analysis
             {
                 new LineSeries
                 {
-                    Title = "Vin=" + ((DCACConverter)selectedConverter).Math_Vin + "V", //TODO 这里显示什么标签？
-                    Values = values
+                    Fill = Brushes.Transparent,
+                    Values = values,
+                    PointGeometry = null
                 }
             };
             Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.AxisX = new AxesCollection
             {
                 new Axis
                 {
+                    FontSize = 18F,
                     Title = "负载（%）"
                 }
             };
@@ -1392,6 +1412,7 @@ namespace PV_analysis
             {
                 new Axis
                 {
+                    FontSize = 18F,
                     LabelFormatter = value => Math.Round(value, 8).ToString(),
                     Title = "效率（%）"
                 }
@@ -2634,13 +2655,15 @@ namespace PV_analysis
             {
                 BackColor = System.Drawing.Color.White,
                 Location = new System.Drawing.Point(300, 0),
-                Font = new System.Drawing.Font("宋体", 9F),
-                Size = new System.Drawing.Size(600, 400)
+                Font = new System.Drawing.Font("宋体", 10.5F),
+                Size = new System.Drawing.Size(600, 400),
+                LegendLocation = LegendLocation.Right
             };
             chartAll.AxisX = new AxesCollection
             {
                 new Axis
                 {
+                    FontSize = 16F,
                     Title = "负载（%）"
                 }
             };
@@ -2648,11 +2671,11 @@ namespace PV_analysis
             {
                 new Axis
                 {
+                    FontSize = 16F,
                     LabelFormatter = value => Math.Round(value, 8).ToString(),
                     Title = "效率（%）"
                 }
             };
-            chartAll.LegendLocation = LegendLocation.Right;
             Display_Show_Contrast_InsertRow(table, row, chartAll);
             row++;
             Display_Show_Contrast_InsertCell(table, 0, row, "前级DC/DC", 400);
@@ -2660,13 +2683,15 @@ namespace PV_analysis
             {
                 BackColor = System.Drawing.Color.White,
                 Location = new System.Drawing.Point(300, 0),
-                Font = new System.Drawing.Font("宋体", 9F),
-                Size = new System.Drawing.Size(600, 400)
+                Font = new System.Drawing.Font("宋体", 10.5F),
+                Size = new System.Drawing.Size(600, 400),
+                LegendLocation = LegendLocation.Right
             };
             chartDCDC.AxisX = new AxesCollection
             {
                 new Axis
                 {
+                    FontSize = 16F,
                     Title = "负载（%）"
                 }
             };
@@ -2674,11 +2699,11 @@ namespace PV_analysis
             {
                 new Axis
                 {
+                    FontSize = 16F,
                     LabelFormatter = value => Math.Round(value, 8).ToString(),
                     Title = "效率（%）"
                 }
             };
-            chartDCDC.LegendLocation = LegendLocation.Right;
             Display_Show_Contrast_InsertRow(table, row, chartDCDC);
             row++;
             Display_Show_Contrast_InsertCell(table, 0, row, "隔离DC/DC", 400);
@@ -2686,13 +2711,15 @@ namespace PV_analysis
             {
                 BackColor = System.Drawing.Color.White,
                 Location = new System.Drawing.Point(300, 0),
-                Font = new System.Drawing.Font("宋体", 9F),
-                Size = new System.Drawing.Size(600, 400)
+                Font = new System.Drawing.Font("宋体", 10.5F),
+                Size = new System.Drawing.Size(600, 400),
+                LegendLocation = LegendLocation.Right
             };
             chartIsolatedDCDC.AxisX = new AxesCollection
             {
                 new Axis
                 {
+                    FontSize = 16F,
                     Title = "负载（%）"
                 }
             };
@@ -2700,11 +2727,11 @@ namespace PV_analysis
             {
                 new Axis
                 {
+                    FontSize = 16F,
                     LabelFormatter = value => Math.Round(value, 8).ToString(),
                     Title = "效率（%）"
                 }
             };
-            chartIsolatedDCDC.LegendLocation = LegendLocation.Right;
             Display_Show_Contrast_InsertRow(table, row, chartIsolatedDCDC);
             row++;
             Display_Show_Contrast_InsertCell(table, 0, row, "逆变", 400);
@@ -2712,13 +2739,15 @@ namespace PV_analysis
             {
                 BackColor = System.Drawing.Color.White,
                 Location = new System.Drawing.Point(300, 0),
-                Font = new System.Drawing.Font("宋体", 9F),
-                Size = new System.Drawing.Size(600, 400)
+                Font = new System.Drawing.Font("宋体", 10.5F),
+                Size = new System.Drawing.Size(600, 400),
+                LegendLocation = LegendLocation.Right
             };
             chartDCAC.AxisX = new AxesCollection
             {
                 new Axis
                 {
+                    FontSize = 16F,
                     Title = "负载（%）"
                 }
             };
@@ -2726,11 +2755,11 @@ namespace PV_analysis
             {
                 new Axis
                 {
+                    FontSize = 16F,
                     LabelFormatter = value => Math.Round(value, 8).ToString(),
                     Title = "效率（%）"
                 }
             };
-            chartDCAC.LegendLocation = LegendLocation.Right;
             Display_Show_Contrast_InsertRow(table, row, chartDCAC);
             for (int i = 0; i < m; i++)
             {
@@ -2750,22 +2779,28 @@ namespace PV_analysis
                 chartAll.Series.Add(new LineSeries
                 {
                     Title = "Vin=" + structureListForContrast[i].Math_Vpv_min + "_" + (i + 1),
-                    Values = valuesAll
+                    Fill = Brushes.Transparent,
+                    Values = valuesAll,
+                    PointGeometry = null
                 });
                 chartDCDC.Series.Add(new LineSeries
                 {
                     Title = "Vin=" + structureListForContrast[i].Math_Vpv_min + "_" + (i + 1),
-                    Values = valuesDCDC
+                    Fill = Brushes.Transparent,
+                    Values = valuesDCDC,
+                    PointGeometry = null
                 });
                 chartIsolatedDCDC.Series.Add(new LineSeries
                 {
-                    Title = "Vin=" + structureListForContrast[i].Math_Vpv_min + "_" + (i + 1),
-                    Values = valuesIsolatedDCDC
+                    Fill = Brushes.Transparent,
+                    Values = valuesIsolatedDCDC,
+                    PointGeometry = null
                 });
                 chartDCAC.Series.Add(new LineSeries
                 {
-                    Title = "Vin=" + structureListForContrast[i].Math_Vpv_min + "_" + (i + 1),
-                    Values = valuesDCAC
+                    Fill = Brushes.Transparent,
+                    Values = valuesDCAC,
+                    PointGeometry = null
                 });
             }
 
