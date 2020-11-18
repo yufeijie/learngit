@@ -788,11 +788,11 @@ namespace PV_analysis
             }
             Display_Show_Graph_CartesianChart.Series.Add(new GScatterSeries
             {
-                Name = "Series_"+(++displayNum).ToString(),
+                Name = "Series_" + (++displayNum).ToString(),
+                Title = "评估结果" + displayNum.ToString(),
                 Values = values.AsGearedValues().WithQuality(Quality.Low),
-                Fill = Brushes.Transparent,
-                StrokeThickness = .5,
-                PointGeometry = null //use a null geometry when you have many series
+                StrokeThickness = 0.5,
+                PointGeometry = null
             });
 
             //Pareto前沿
@@ -804,6 +804,7 @@ namespace PV_analysis
             Display_Show_Graph_CartesianChart.Series.Add(new LineSeries
             {
                 Name = null,
+                Title = "评估结果" + displayNum.ToString()+ "（Pareto前沿）",
                 Values = values.AsGearedValues().WithQuality(Quality.Low),
                 Fill = Brushes.Transparent,
                 LineSmoothness = 0,

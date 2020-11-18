@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.Home_Panel = new System.Windows.Forms.Panel();
             this.Home_Main_Panel = new System.Windows.Forms.Panel();
-            this.Home_PictureBox = new System.Windows.Forms.PictureBox();
             this.Home_Label = new System.Windows.Forms.Label();
             this.Tab_Home_Button = new System.Windows.Forms.Button();
             this.Tab_Estimate_Button = new System.Windows.Forms.Button();
@@ -47,10 +46,8 @@
             this.Estimate_Step1_Main_Right_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1_Item2_panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1_Item2_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step1_Item2_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step1_Item1_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1_Item1_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step1_Item1_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step1_Main_Left_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1_CheckedListBox = new System.Windows.Forms.CheckedListBox();
             this.Estimate_Step1_Title_Panel = new System.Windows.Forms.Panel();
@@ -63,28 +60,20 @@
             this.Estimate_Step2_Main_Right_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group3_Item1_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group3_Item1_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step2_Group3_Item1_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Group2_Item4_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group2_Item4_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step2_Group2_Item4_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Group2_Item3_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group2_Item3_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step2_Group2_Item3_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Group2_Item2_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group2_Item2_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step2_Group2_Item2_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Group2_Item1_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group2_Item1_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step2_Group2_Item1_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Group1_Item3_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group1_Item3_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step2_Group1_Item3_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Group1_Item2_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group1_Item2_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step2_Group1_Item2_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Group1_Item1_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group1_Item1_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step2_Group1_Item1_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Main_Left_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group3_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group3_Item1_Left_CheckBox = new System.Windows.Forms.CheckBox();
@@ -224,6 +213,7 @@
             this.Estimate_Result_Operation_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Result_AddDisplay_Button = new System.Windows.Forms.Button();
             this.Estimate_Result_End_Button = new System.Windows.Forms.Button();
+            this.Estimate_Result_ProgressBar = new System.Windows.Forms.ProgressBar();
             this.Estimate_Result_QuickSave_Button = new System.Windows.Forms.Button();
             this.Estimate_Result_Restart_Button = new System.Windows.Forms.Button();
             this.Estimate_Result_Save_Button = new System.Windows.Forms.Button();
@@ -239,7 +229,6 @@
             this.Display_Show_SelectYmax_Button = new System.Windows.Forms.Button();
             this.Display_Show_GraphCategory_ComboBox = new System.Windows.Forms.ComboBox();
             this.Display_Show_Graph_CartesianChart = new LiveCharts.WinForms.CartesianChart();
-            this.Display_Show_ChartControl_Button = new System.Windows.Forms.Button();
             this.Display_Show_Preview_Panel = new System.Windows.Forms.Panel();
             this.Display_Show_Preview_Main_Panel = new System.Windows.Forms.Panel();
             this.Display_Show_Preview_Title_Panel = new System.Windows.Forms.Panel();
@@ -314,16 +303,12 @@
             this.Estimate_Step1B_Main_Right_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1B_Item4_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1B_Item4_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step1B_Item4_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step1B_Item3_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1B_Item3_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step1B_Item3_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step1B_Item2_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1B_Item2_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step1B_Item2_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step1B_Item1_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1B_Item1_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Estimate_Step1B_Item1_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step1B_Main_Left_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step1B_CheckedListBox = new System.Windows.Forms.CheckedListBox();
             this.Estimate_Step1B_Title_Panel = new System.Windows.Forms.Panel();
@@ -392,19 +377,31 @@
             this.Display_Contrast_Vin_Value_Label = new System.Windows.Forms.Label();
             this.Display_Contrast_Load_Label = new System.Windows.Forms.Label();
             this.Display_Contrast_Load_Value_Label = new System.Windows.Forms.Label();
-            this.Estimate_Result_ProgressBar = new System.Windows.Forms.ProgressBar();
+            this.Display_Show_ChartControl_Button = new System.Windows.Forms.Button();
+            this.Home_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step2_Group3_Item1_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step2_Group2_Item4_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step2_Group2_Item3_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step2_Group2_Item2_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step2_Group2_Item1_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step2_Group1_Item3_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step2_Group1_Item2_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step2_Group1_Item1_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step1B_Item4_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step1B_Item3_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step1B_Item2_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step1B_Item1_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step1_Item2_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step1_Item1_PictureBox = new System.Windows.Forms.PictureBox();
             this.Home_Panel.SuspendLayout();
             this.Home_Main_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).BeginInit();
             this.Tab_Panel.SuspendLayout();
             this.Estimate_Ready_Panel.SuspendLayout();
             this.Estimate_Step1_Panel.SuspendLayout();
             this.Estimate_Step1_Main_Panel.SuspendLayout();
             this.Estimate_Step1_Main_Right_Panel.SuspendLayout();
             this.Estimate_Step1_Item2_panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item2_PictureBox)).BeginInit();
             this.Estimate_Step1_Item1_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item1_PictureBox)).BeginInit();
             this.Estimate_Step1_Main_Left_Panel.SuspendLayout();
             this.Estimate_Step1_Title_Panel.SuspendLayout();
             this.Estimate_Step1_Operation_Panel.SuspendLayout();
@@ -412,21 +409,13 @@
             this.Estimate_Step2_Main_Panel.SuspendLayout();
             this.Estimate_Step2_Main_Right_Panel.SuspendLayout();
             this.Estimate_Step2_Group3_Item1_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group3_Item1_PictureBox)).BeginInit();
             this.Estimate_Step2_Group2_Item4_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item4_PictureBox)).BeginInit();
             this.Estimate_Step2_Group2_Item3_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item3_PictureBox)).BeginInit();
             this.Estimate_Step2_Group2_Item2_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item2_PictureBox)).BeginInit();
             this.Estimate_Step2_Group2_Item1_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item1_PictureBox)).BeginInit();
             this.Estimate_Step2_Group1_Item3_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item3_PictureBox)).BeginInit();
             this.Estimate_Step2_Group1_Item2_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item2_PictureBox)).BeginInit();
             this.Estimate_Step2_Group1_Item1_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item1_PictureBox)).BeginInit();
             this.Estimate_Step2_Main_Left_Panel.SuspendLayout();
             this.Estimate_Step2_Group3_Panel.SuspendLayout();
             this.Estimate_Step2_Group2_Panel.SuspendLayout();
@@ -497,13 +486,9 @@
             this.Estimate_Step1B_Main_Panel.SuspendLayout();
             this.Estimate_Step1B_Main_Right_Panel.SuspendLayout();
             this.Estimate_Step1B_Item4_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item4_PictureBox)).BeginInit();
             this.Estimate_Step1B_Item3_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item3_PictureBox)).BeginInit();
             this.Estimate_Step1B_Item2_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item2_PictureBox)).BeginInit();
             this.Estimate_Step1B_Item1_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item1_PictureBox)).BeginInit();
             this.Estimate_Step1B_Main_Left_Panel.SuspendLayout();
             this.Estimate_Step1B_Title_Panel.SuspendLayout();
             this.Estimate_Step1B_Operation_Panel.SuspendLayout();
@@ -525,6 +510,21 @@
             this.Display_Contrast_Operation_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Display_Contrast_Load_TrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Display_Contrast_Vin_TrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group3_Item1_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item4_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item3_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item2_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item1_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item3_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item2_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item1_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item4_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item3_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item2_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item1_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item2_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item1_PictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // Home_Panel
@@ -547,17 +547,6 @@
             this.Home_Main_Panel.Name = "Home_Main_Panel";
             this.Home_Main_Panel.Size = new System.Drawing.Size(1432, 859);
             this.Home_Main_Panel.TabIndex = 3;
-            // 
-            // Home_PictureBox
-            // 
-            this.Home_PictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Home_PictureBox.Image = global::PV_analysis.Properties.Resources.SG3125HV_MV;
-            this.Home_PictureBox.Location = new System.Drawing.Point(0, 0);
-            this.Home_PictureBox.Name = "Home_PictureBox";
-            this.Home_PictureBox.Size = new System.Drawing.Size(1430, 597);
-            this.Home_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.Home_PictureBox.TabIndex = 3;
-            this.Home_PictureBox.TabStop = false;
             // 
             // Home_Label
             // 
@@ -752,17 +741,6 @@
             this.Estimate_Step1_Item2_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step1_Item2_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step1_Item2_CheckBox_CheckedChanged);
             // 
-            // Estimate_Step1_Item2_PictureBox
-            // 
-            this.Estimate_Step1_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step1_Item2_PictureBox.Image = global::PV_analysis.Properties.Resources.两级拓扑;
-            this.Estimate_Step1_Item2_PictureBox.Location = new System.Drawing.Point(376, 79);
-            this.Estimate_Step1_Item2_PictureBox.Name = "Estimate_Step1_Item2_PictureBox";
-            this.Estimate_Step1_Item2_PictureBox.Size = new System.Drawing.Size(360, 243);
-            this.Estimate_Step1_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step1_Item2_PictureBox.TabIndex = 0;
-            this.Estimate_Step1_Item2_PictureBox.TabStop = false;
-            // 
             // Estimate_Step1_Item1_Panel
             // 
             this.Estimate_Step1_Item1_Panel.Controls.Add(this.Estimate_Step1_Item1_CheckBox);
@@ -785,17 +763,6 @@
             this.Estimate_Step1_Item1_CheckBox.Text = "三级架构";
             this.Estimate_Step1_Item1_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step1_Item1_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step1_Item1_CheckBox_CheckedChanged);
-            // 
-            // Estimate_Step1_Item1_PictureBox
-            // 
-            this.Estimate_Step1_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step1_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.三级拓扑;
-            this.Estimate_Step1_Item1_PictureBox.Location = new System.Drawing.Point(342, 79);
-            this.Estimate_Step1_Item1_PictureBox.Name = "Estimate_Step1_Item1_PictureBox";
-            this.Estimate_Step1_Item1_PictureBox.Size = new System.Drawing.Size(428, 243);
-            this.Estimate_Step1_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step1_Item1_PictureBox.TabIndex = 0;
-            this.Estimate_Step1_Item1_PictureBox.TabStop = false;
             // 
             // Estimate_Step1_Main_Left_Panel
             // 
@@ -946,17 +913,6 @@
             this.Estimate_Step2_Group3_Item1_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group3_Item1_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group3_Item1_CheckBox_CheckedChanged);
             // 
-            // Estimate_Step2_Group3_Item1_PictureBox
-            // 
-            this.Estimate_Step2_Group3_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group3_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.CHB;
-            this.Estimate_Step2_Group3_Item1_PictureBox.Location = new System.Drawing.Point(404, 40);
-            this.Estimate_Step2_Group3_Item1_PictureBox.Name = "Estimate_Step2_Group3_Item1_PictureBox";
-            this.Estimate_Step2_Group3_Item1_PictureBox.Size = new System.Drawing.Size(304, 513);
-            this.Estimate_Step2_Group3_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group3_Item1_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group3_Item1_PictureBox.TabStop = false;
-            // 
             // Estimate_Step2_Group2_Item4_Panel
             // 
             this.Estimate_Step2_Group2_Item4_Panel.AutoSize = true;
@@ -980,17 +936,6 @@
             this.Estimate_Step2_Group2_Item4_CheckBox.Text = "DTC-SRC";
             this.Estimate_Step2_Group2_Item4_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group2_Item4_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item4_CheckBox_CheckedChanged);
-            // 
-            // Estimate_Step2_Group2_Item4_PictureBox
-            // 
-            this.Estimate_Step2_Group2_Item4_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group2_Item4_PictureBox.Image = global::PV_analysis.Properties.Resources.DTC_SRC;
-            this.Estimate_Step2_Group2_Item4_PictureBox.Location = new System.Drawing.Point(247, 40);
-            this.Estimate_Step2_Group2_Item4_PictureBox.Name = "Estimate_Step2_Group2_Item4_PictureBox";
-            this.Estimate_Step2_Group2_Item4_PictureBox.Size = new System.Drawing.Size(620, 249);
-            this.Estimate_Step2_Group2_Item4_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group2_Item4_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group2_Item4_PictureBox.TabStop = false;
             // 
             // Estimate_Step2_Group2_Item3_Panel
             // 
@@ -1016,17 +961,6 @@
             this.Estimate_Step2_Group2_Item3_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group2_Item3_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item3_CheckBox_CheckedChanged);
             // 
-            // Estimate_Step2_Group2_Item3_PictureBox
-            // 
-            this.Estimate_Step2_Group2_Item3_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group2_Item3_PictureBox.Image = global::PV_analysis.Properties.Resources.DTC_SRC;
-            this.Estimate_Step2_Group2_Item3_PictureBox.Location = new System.Drawing.Point(247, 40);
-            this.Estimate_Step2_Group2_Item3_PictureBox.Name = "Estimate_Step2_Group2_Item3_PictureBox";
-            this.Estimate_Step2_Group2_Item3_PictureBox.Size = new System.Drawing.Size(620, 249);
-            this.Estimate_Step2_Group2_Item3_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group2_Item3_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group2_Item3_PictureBox.TabStop = false;
-            // 
             // Estimate_Step2_Group2_Item2_Panel
             // 
             this.Estimate_Step2_Group2_Item2_Panel.AutoSize = true;
@@ -1050,17 +984,6 @@
             this.Estimate_Step2_Group2_Item2_CheckBox.Text = "LLC";
             this.Estimate_Step2_Group2_Item2_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group2_Item2_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item2_CheckBox_CheckedChanged);
-            // 
-            // Estimate_Step2_Group2_Item2_PictureBox
-            // 
-            this.Estimate_Step2_Group2_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group2_Item2_PictureBox.Image = global::PV_analysis.Properties.Resources.SRC;
-            this.Estimate_Step2_Group2_Item2_PictureBox.Location = new System.Drawing.Point(247, 40);
-            this.Estimate_Step2_Group2_Item2_PictureBox.Name = "Estimate_Step2_Group2_Item2_PictureBox";
-            this.Estimate_Step2_Group2_Item2_PictureBox.Size = new System.Drawing.Size(619, 249);
-            this.Estimate_Step2_Group2_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group2_Item2_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group2_Item2_PictureBox.TabStop = false;
             // 
             // Estimate_Step2_Group2_Item1_Panel
             // 
@@ -1086,17 +1009,6 @@
             this.Estimate_Step2_Group2_Item1_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group2_Item1_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item1_CheckBox_CheckedChanged);
             // 
-            // Estimate_Step2_Group2_Item1_PictureBox
-            // 
-            this.Estimate_Step2_Group2_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group2_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.SRC;
-            this.Estimate_Step2_Group2_Item1_PictureBox.Location = new System.Drawing.Point(247, 40);
-            this.Estimate_Step2_Group2_Item1_PictureBox.Name = "Estimate_Step2_Group2_Item1_PictureBox";
-            this.Estimate_Step2_Group2_Item1_PictureBox.Size = new System.Drawing.Size(619, 249);
-            this.Estimate_Step2_Group2_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group2_Item1_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group2_Item1_PictureBox.TabStop = false;
-            // 
             // Estimate_Step2_Group1_Item3_Panel
             // 
             this.Estimate_Step2_Group1_Item3_Panel.AutoSize = true;
@@ -1120,17 +1032,6 @@
             this.Estimate_Step2_Group1_Item3_CheckBox.Text = "交错并联Boost";
             this.Estimate_Step2_Group1_Item3_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group1_Item3_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group1_Item3_CheckBox_CheckedChanged);
-            // 
-            // Estimate_Step2_Group1_Item3_PictureBox
-            // 
-            this.Estimate_Step2_Group1_Item3_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group1_Item3_PictureBox.Image = global::PV_analysis.Properties.Resources.交错并联Boost;
-            this.Estimate_Step2_Group1_Item3_PictureBox.Location = new System.Drawing.Point(363, 40);
-            this.Estimate_Step2_Group1_Item3_PictureBox.Name = "Estimate_Step2_Group1_Item3_PictureBox";
-            this.Estimate_Step2_Group1_Item3_PictureBox.Size = new System.Drawing.Size(386, 199);
-            this.Estimate_Step2_Group1_Item3_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group1_Item3_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group1_Item3_PictureBox.TabStop = false;
             // 
             // Estimate_Step2_Group1_Item2_Panel
             // 
@@ -1156,17 +1057,6 @@
             this.Estimate_Step2_Group1_Item2_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group1_Item2_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group1_Item2_CheckBox_CheckedChanged);
             // 
-            // Estimate_Step2_Group1_Item2_PictureBox
-            // 
-            this.Estimate_Step2_Group1_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group1_Item2_PictureBox.Image = global::PV_analysis.Properties.Resources.两电平Boost;
-            this.Estimate_Step2_Group1_Item2_PictureBox.Location = new System.Drawing.Point(422, 40);
-            this.Estimate_Step2_Group1_Item2_PictureBox.Name = "Estimate_Step2_Group1_Item2_PictureBox";
-            this.Estimate_Step2_Group1_Item2_PictureBox.Size = new System.Drawing.Size(268, 199);
-            this.Estimate_Step2_Group1_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group1_Item2_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group1_Item2_PictureBox.TabStop = false;
-            // 
             // Estimate_Step2_Group1_Item1_Panel
             // 
             this.Estimate_Step2_Group1_Item1_Panel.AutoSize = true;
@@ -1190,17 +1080,6 @@
             this.Estimate_Step2_Group1_Item1_CheckBox.Text = "三电平Boost";
             this.Estimate_Step2_Group1_Item1_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group1_Item1_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group1_Item1_CheckBox_CheckedChanged);
-            // 
-            // Estimate_Step2_Group1_Item1_PictureBox
-            // 
-            this.Estimate_Step2_Group1_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group1_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.三电平Boost;
-            this.Estimate_Step2_Group1_Item1_PictureBox.Location = new System.Drawing.Point(422, 40);
-            this.Estimate_Step2_Group1_Item1_PictureBox.Name = "Estimate_Step2_Group1_Item1_PictureBox";
-            this.Estimate_Step2_Group1_Item1_PictureBox.Size = new System.Drawing.Size(268, 201);
-            this.Estimate_Step2_Group1_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step2_Group1_Item1_PictureBox.TabIndex = 0;
-            this.Estimate_Step2_Group1_Item1_PictureBox.TabStop = false;
             // 
             // Estimate_Step2_Main_Left_Panel
             // 
@@ -2802,6 +2681,14 @@
             this.Estimate_Result_End_Button.UseVisualStyleBackColor = true;
             this.Estimate_Result_End_Button.Click += new System.EventHandler(this.Estimate_Result_End_Button_Click);
             // 
+            // Estimate_Result_ProgressBar
+            // 
+            this.Estimate_Result_ProgressBar.Location = new System.Drawing.Point(144, 9);
+            this.Estimate_Result_ProgressBar.Maximum = 10000;
+            this.Estimate_Result_ProgressBar.Name = "Estimate_Result_ProgressBar";
+            this.Estimate_Result_ProgressBar.Size = new System.Drawing.Size(800, 32);
+            this.Estimate_Result_ProgressBar.TabIndex = 4;
+            // 
             // Estimate_Result_QuickSave_Button
             // 
             this.Estimate_Result_QuickSave_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2978,15 +2865,6 @@
             this.Display_Show_Graph_CartesianChart.Size = new System.Drawing.Size(946, 665);
             this.Display_Show_Graph_CartesianChart.TabIndex = 2;
             this.Display_Show_Graph_CartesianChart.Text = "cartesianChart1";
-            // 
-            // Display_Show_ChartControl_Button
-            // 
-            this.Display_Show_ChartControl_Button.Image = global::PV_analysis.Properties.Resources.设置;
-            this.Display_Show_ChartControl_Button.Location = new System.Drawing.Point(974, 29);
-            this.Display_Show_ChartControl_Button.Name = "Display_Show_ChartControl_Button";
-            this.Display_Show_ChartControl_Button.Size = new System.Drawing.Size(75, 23);
-            this.Display_Show_ChartControl_Button.TabIndex = 1;
-            this.Display_Show_ChartControl_Button.UseVisualStyleBackColor = true;
             // 
             // Display_Show_Preview_Panel
             // 
@@ -3825,17 +3703,6 @@
             this.Estimate_Step1B_Item4_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step1B_Item4_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step1B_Item4_CheckBox_CheckedChanged);
             // 
-            // Estimate_Step1B_Item4_PictureBox
-            // 
-            this.Estimate_Step1B_Item4_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step1B_Item4_PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("Estimate_Step1B_Item4_PictureBox.Image")));
-            this.Estimate_Step1B_Item4_PictureBox.Location = new System.Drawing.Point(345, 79);
-            this.Estimate_Step1B_Item4_PictureBox.Name = "Estimate_Step1B_Item4_PictureBox";
-            this.Estimate_Step1B_Item4_PictureBox.Size = new System.Drawing.Size(422, 239);
-            this.Estimate_Step1B_Item4_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step1B_Item4_PictureBox.TabIndex = 0;
-            this.Estimate_Step1B_Item4_PictureBox.TabStop = false;
-            // 
             // Estimate_Step1B_Item3_Panel
             // 
             this.Estimate_Step1B_Item3_Panel.Controls.Add(this.Estimate_Step1B_Item3_CheckBox);
@@ -3858,17 +3725,6 @@
             this.Estimate_Step1B_Item3_CheckBox.Text = "隔离DC/DC变换单元_两级";
             this.Estimate_Step1B_Item3_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step1B_Item3_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step1B_Item3_CheckBox_CheckedChanged);
-            // 
-            // Estimate_Step1B_Item3_PictureBox
-            // 
-            this.Estimate_Step1B_Item3_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step1B_Item3_PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("Estimate_Step1B_Item3_PictureBox.Image")));
-            this.Estimate_Step1B_Item3_PictureBox.Location = new System.Drawing.Point(378, 79);
-            this.Estimate_Step1B_Item3_PictureBox.Name = "Estimate_Step1B_Item3_PictureBox";
-            this.Estimate_Step1B_Item3_PictureBox.Size = new System.Drawing.Size(356, 239);
-            this.Estimate_Step1B_Item3_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step1B_Item3_PictureBox.TabIndex = 0;
-            this.Estimate_Step1B_Item3_PictureBox.TabStop = false;
             // 
             // Estimate_Step1B_Item2_Panel
             // 
@@ -3893,17 +3749,6 @@
             this.Estimate_Step1B_Item2_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step1B_Item2_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step1B_Item2_CheckBox_CheckedChanged);
             // 
-            // Estimate_Step1B_Item2_PictureBox
-            // 
-            this.Estimate_Step1B_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step1B_Item2_PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("Estimate_Step1B_Item2_PictureBox.Image")));
-            this.Estimate_Step1B_Item2_PictureBox.Location = new System.Drawing.Point(345, 79);
-            this.Estimate_Step1B_Item2_PictureBox.Name = "Estimate_Step1B_Item2_PictureBox";
-            this.Estimate_Step1B_Item2_PictureBox.Size = new System.Drawing.Size(422, 239);
-            this.Estimate_Step1B_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step1B_Item2_PictureBox.TabIndex = 0;
-            this.Estimate_Step1B_Item2_PictureBox.TabStop = false;
-            // 
             // Estimate_Step1B_Item1_Panel
             // 
             this.Estimate_Step1B_Item1_Panel.Controls.Add(this.Estimate_Step1B_Item1_CheckBox);
@@ -3926,17 +3771,6 @@
             this.Estimate_Step1B_Item1_CheckBox.Text = "前级DC/DC变换单元_三级";
             this.Estimate_Step1B_Item1_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step1B_Item1_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step1B_Item1_CheckBox_CheckedChanged);
-            // 
-            // Estimate_Step1B_Item1_PictureBox
-            // 
-            this.Estimate_Step1B_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step1B_Item1_PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("Estimate_Step1B_Item1_PictureBox.Image")));
-            this.Estimate_Step1B_Item1_PictureBox.Location = new System.Drawing.Point(345, 79);
-            this.Estimate_Step1B_Item1_PictureBox.Name = "Estimate_Step1B_Item1_PictureBox";
-            this.Estimate_Step1B_Item1_PictureBox.Size = new System.Drawing.Size(422, 239);
-            this.Estimate_Step1B_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.Estimate_Step1B_Item1_PictureBox.TabIndex = 0;
-            this.Estimate_Step1B_Item1_PictureBox.TabStop = false;
             // 
             // Estimate_Step1B_Main_Left_Panel
             // 
@@ -4717,13 +4551,179 @@
             this.Display_Contrast_Load_Value_Label.Text = "100%";
             this.Display_Contrast_Load_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // Estimate_Result_ProgressBar
+            // Display_Show_ChartControl_Button
             // 
-            this.Estimate_Result_ProgressBar.Location = new System.Drawing.Point(144, 9);
-            this.Estimate_Result_ProgressBar.Maximum = 10000;
-            this.Estimate_Result_ProgressBar.Name = "Estimate_Result_ProgressBar";
-            this.Estimate_Result_ProgressBar.Size = new System.Drawing.Size(800, 32);
-            this.Estimate_Result_ProgressBar.TabIndex = 4;
+            this.Display_Show_ChartControl_Button.Image = global::PV_analysis.Properties.Resources.设置;
+            this.Display_Show_ChartControl_Button.Location = new System.Drawing.Point(974, 29);
+            this.Display_Show_ChartControl_Button.Name = "Display_Show_ChartControl_Button";
+            this.Display_Show_ChartControl_Button.Size = new System.Drawing.Size(75, 23);
+            this.Display_Show_ChartControl_Button.TabIndex = 1;
+            this.Display_Show_ChartControl_Button.UseVisualStyleBackColor = true;
+            // 
+            // Home_PictureBox
+            // 
+            this.Home_PictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Home_PictureBox.Image = global::PV_analysis.Properties.Resources.SG3125HV_MV;
+            this.Home_PictureBox.Location = new System.Drawing.Point(0, 0);
+            this.Home_PictureBox.Name = "Home_PictureBox";
+            this.Home_PictureBox.Size = new System.Drawing.Size(1430, 597);
+            this.Home_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.Home_PictureBox.TabIndex = 3;
+            this.Home_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step2_Group3_Item1_PictureBox
+            // 
+            this.Estimate_Step2_Group3_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group3_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.CHB;
+            this.Estimate_Step2_Group3_Item1_PictureBox.Location = new System.Drawing.Point(404, 40);
+            this.Estimate_Step2_Group3_Item1_PictureBox.Name = "Estimate_Step2_Group3_Item1_PictureBox";
+            this.Estimate_Step2_Group3_Item1_PictureBox.Size = new System.Drawing.Size(304, 513);
+            this.Estimate_Step2_Group3_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group3_Item1_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group3_Item1_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step2_Group2_Item4_PictureBox
+            // 
+            this.Estimate_Step2_Group2_Item4_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group2_Item4_PictureBox.Image = global::PV_analysis.Properties.Resources.DTC_SRC;
+            this.Estimate_Step2_Group2_Item4_PictureBox.Location = new System.Drawing.Point(247, 40);
+            this.Estimate_Step2_Group2_Item4_PictureBox.Name = "Estimate_Step2_Group2_Item4_PictureBox";
+            this.Estimate_Step2_Group2_Item4_PictureBox.Size = new System.Drawing.Size(620, 249);
+            this.Estimate_Step2_Group2_Item4_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group2_Item4_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group2_Item4_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step2_Group2_Item3_PictureBox
+            // 
+            this.Estimate_Step2_Group2_Item3_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group2_Item3_PictureBox.Image = global::PV_analysis.Properties.Resources.DTC_SRC;
+            this.Estimate_Step2_Group2_Item3_PictureBox.Location = new System.Drawing.Point(247, 40);
+            this.Estimate_Step2_Group2_Item3_PictureBox.Name = "Estimate_Step2_Group2_Item3_PictureBox";
+            this.Estimate_Step2_Group2_Item3_PictureBox.Size = new System.Drawing.Size(620, 249);
+            this.Estimate_Step2_Group2_Item3_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group2_Item3_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group2_Item3_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step2_Group2_Item2_PictureBox
+            // 
+            this.Estimate_Step2_Group2_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group2_Item2_PictureBox.Image = global::PV_analysis.Properties.Resources.SRC;
+            this.Estimate_Step2_Group2_Item2_PictureBox.Location = new System.Drawing.Point(247, 40);
+            this.Estimate_Step2_Group2_Item2_PictureBox.Name = "Estimate_Step2_Group2_Item2_PictureBox";
+            this.Estimate_Step2_Group2_Item2_PictureBox.Size = new System.Drawing.Size(619, 249);
+            this.Estimate_Step2_Group2_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group2_Item2_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group2_Item2_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step2_Group2_Item1_PictureBox
+            // 
+            this.Estimate_Step2_Group2_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group2_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.SRC;
+            this.Estimate_Step2_Group2_Item1_PictureBox.Location = new System.Drawing.Point(247, 40);
+            this.Estimate_Step2_Group2_Item1_PictureBox.Name = "Estimate_Step2_Group2_Item1_PictureBox";
+            this.Estimate_Step2_Group2_Item1_PictureBox.Size = new System.Drawing.Size(619, 249);
+            this.Estimate_Step2_Group2_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group2_Item1_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group2_Item1_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step2_Group1_Item3_PictureBox
+            // 
+            this.Estimate_Step2_Group1_Item3_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group1_Item3_PictureBox.Image = global::PV_analysis.Properties.Resources.交错并联Boost;
+            this.Estimate_Step2_Group1_Item3_PictureBox.Location = new System.Drawing.Point(363, 40);
+            this.Estimate_Step2_Group1_Item3_PictureBox.Name = "Estimate_Step2_Group1_Item3_PictureBox";
+            this.Estimate_Step2_Group1_Item3_PictureBox.Size = new System.Drawing.Size(386, 199);
+            this.Estimate_Step2_Group1_Item3_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group1_Item3_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group1_Item3_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step2_Group1_Item2_PictureBox
+            // 
+            this.Estimate_Step2_Group1_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group1_Item2_PictureBox.Image = global::PV_analysis.Properties.Resources.两电平Boost;
+            this.Estimate_Step2_Group1_Item2_PictureBox.Location = new System.Drawing.Point(422, 40);
+            this.Estimate_Step2_Group1_Item2_PictureBox.Name = "Estimate_Step2_Group1_Item2_PictureBox";
+            this.Estimate_Step2_Group1_Item2_PictureBox.Size = new System.Drawing.Size(268, 199);
+            this.Estimate_Step2_Group1_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group1_Item2_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group1_Item2_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step2_Group1_Item1_PictureBox
+            // 
+            this.Estimate_Step2_Group1_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group1_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.三电平Boost;
+            this.Estimate_Step2_Group1_Item1_PictureBox.Location = new System.Drawing.Point(422, 40);
+            this.Estimate_Step2_Group1_Item1_PictureBox.Name = "Estimate_Step2_Group1_Item1_PictureBox";
+            this.Estimate_Step2_Group1_Item1_PictureBox.Size = new System.Drawing.Size(268, 201);
+            this.Estimate_Step2_Group1_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group1_Item1_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group1_Item1_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step1B_Item4_PictureBox
+            // 
+            this.Estimate_Step1B_Item4_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step1B_Item4_PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("Estimate_Step1B_Item4_PictureBox.Image")));
+            this.Estimate_Step1B_Item4_PictureBox.Location = new System.Drawing.Point(345, 79);
+            this.Estimate_Step1B_Item4_PictureBox.Name = "Estimate_Step1B_Item4_PictureBox";
+            this.Estimate_Step1B_Item4_PictureBox.Size = new System.Drawing.Size(422, 239);
+            this.Estimate_Step1B_Item4_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step1B_Item4_PictureBox.TabIndex = 0;
+            this.Estimate_Step1B_Item4_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step1B_Item3_PictureBox
+            // 
+            this.Estimate_Step1B_Item3_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step1B_Item3_PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("Estimate_Step1B_Item3_PictureBox.Image")));
+            this.Estimate_Step1B_Item3_PictureBox.Location = new System.Drawing.Point(378, 79);
+            this.Estimate_Step1B_Item3_PictureBox.Name = "Estimate_Step1B_Item3_PictureBox";
+            this.Estimate_Step1B_Item3_PictureBox.Size = new System.Drawing.Size(356, 239);
+            this.Estimate_Step1B_Item3_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step1B_Item3_PictureBox.TabIndex = 0;
+            this.Estimate_Step1B_Item3_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step1B_Item2_PictureBox
+            // 
+            this.Estimate_Step1B_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step1B_Item2_PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("Estimate_Step1B_Item2_PictureBox.Image")));
+            this.Estimate_Step1B_Item2_PictureBox.Location = new System.Drawing.Point(345, 79);
+            this.Estimate_Step1B_Item2_PictureBox.Name = "Estimate_Step1B_Item2_PictureBox";
+            this.Estimate_Step1B_Item2_PictureBox.Size = new System.Drawing.Size(422, 239);
+            this.Estimate_Step1B_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step1B_Item2_PictureBox.TabIndex = 0;
+            this.Estimate_Step1B_Item2_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step1B_Item1_PictureBox
+            // 
+            this.Estimate_Step1B_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step1B_Item1_PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("Estimate_Step1B_Item1_PictureBox.Image")));
+            this.Estimate_Step1B_Item1_PictureBox.Location = new System.Drawing.Point(345, 79);
+            this.Estimate_Step1B_Item1_PictureBox.Name = "Estimate_Step1B_Item1_PictureBox";
+            this.Estimate_Step1B_Item1_PictureBox.Size = new System.Drawing.Size(422, 239);
+            this.Estimate_Step1B_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step1B_Item1_PictureBox.TabIndex = 0;
+            this.Estimate_Step1B_Item1_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step1_Item2_PictureBox
+            // 
+            this.Estimate_Step1_Item2_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step1_Item2_PictureBox.Image = global::PV_analysis.Properties.Resources.两级拓扑;
+            this.Estimate_Step1_Item2_PictureBox.Location = new System.Drawing.Point(376, 79);
+            this.Estimate_Step1_Item2_PictureBox.Name = "Estimate_Step1_Item2_PictureBox";
+            this.Estimate_Step1_Item2_PictureBox.Size = new System.Drawing.Size(360, 243);
+            this.Estimate_Step1_Item2_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step1_Item2_PictureBox.TabIndex = 0;
+            this.Estimate_Step1_Item2_PictureBox.TabStop = false;
+            // 
+            // Estimate_Step1_Item1_PictureBox
+            // 
+            this.Estimate_Step1_Item1_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step1_Item1_PictureBox.Image = global::PV_analysis.Properties.Resources.三级拓扑;
+            this.Estimate_Step1_Item1_PictureBox.Location = new System.Drawing.Point(342, 79);
+            this.Estimate_Step1_Item1_PictureBox.Name = "Estimate_Step1_Item1_PictureBox";
+            this.Estimate_Step1_Item1_PictureBox.Size = new System.Drawing.Size(428, 243);
+            this.Estimate_Step1_Item1_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step1_Item1_PictureBox.TabIndex = 0;
+            this.Estimate_Step1_Item1_PictureBox.TabStop = false;
             // 
             // MainForm
             // 
@@ -4746,13 +4746,13 @@
             this.Controls.Add(this.Admin_Panel);
             this.Controls.Add(this.Tab_Panel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "光伏中压电力电子装置效率分析与计算软件";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Home_Panel.ResumeLayout(false);
             this.Home_Main_Panel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).EndInit();
             this.Tab_Panel.ResumeLayout(false);
             this.Estimate_Ready_Panel.ResumeLayout(false);
             this.Estimate_Step1_Panel.ResumeLayout(false);
@@ -4760,10 +4760,8 @@
             this.Estimate_Step1_Main_Right_Panel.ResumeLayout(false);
             this.Estimate_Step1_Item2_panel.ResumeLayout(false);
             this.Estimate_Step1_Item2_panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item2_PictureBox)).EndInit();
             this.Estimate_Step1_Item1_Panel.ResumeLayout(false);
             this.Estimate_Step1_Item1_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item1_PictureBox)).EndInit();
             this.Estimate_Step1_Main_Left_Panel.ResumeLayout(false);
             this.Estimate_Step1_Title_Panel.ResumeLayout(false);
             this.Estimate_Step1_Operation_Panel.ResumeLayout(false);
@@ -4773,28 +4771,20 @@
             this.Estimate_Step2_Main_Right_Panel.PerformLayout();
             this.Estimate_Step2_Group3_Item1_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group3_Item1_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group3_Item1_PictureBox)).EndInit();
             this.Estimate_Step2_Group2_Item4_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group2_Item4_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item4_PictureBox)).EndInit();
             this.Estimate_Step2_Group2_Item3_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group2_Item3_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item3_PictureBox)).EndInit();
             this.Estimate_Step2_Group2_Item2_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group2_Item2_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item2_PictureBox)).EndInit();
             this.Estimate_Step2_Group2_Item1_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group2_Item1_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item1_PictureBox)).EndInit();
             this.Estimate_Step2_Group1_Item3_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group1_Item3_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item3_PictureBox)).EndInit();
             this.Estimate_Step2_Group1_Item2_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group1_Item2_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item2_PictureBox)).EndInit();
             this.Estimate_Step2_Group1_Item1_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group1_Item1_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item1_PictureBox)).EndInit();
             this.Estimate_Step2_Main_Left_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group3_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group3_Panel.PerformLayout();
@@ -4897,16 +4887,12 @@
             this.Estimate_Step1B_Main_Right_Panel.ResumeLayout(false);
             this.Estimate_Step1B_Item4_Panel.ResumeLayout(false);
             this.Estimate_Step1B_Item4_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item4_PictureBox)).EndInit();
             this.Estimate_Step1B_Item3_Panel.ResumeLayout(false);
             this.Estimate_Step1B_Item3_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item3_PictureBox)).EndInit();
             this.Estimate_Step1B_Item2_Panel.ResumeLayout(false);
             this.Estimate_Step1B_Item2_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item2_PictureBox)).EndInit();
             this.Estimate_Step1B_Item1_Panel.ResumeLayout(false);
             this.Estimate_Step1B_Item1_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item1_PictureBox)).EndInit();
             this.Estimate_Step1B_Main_Left_Panel.ResumeLayout(false);
             this.Estimate_Step1B_Title_Panel.ResumeLayout(false);
             this.Estimate_Step1B_Operation_Panel.ResumeLayout(false);
@@ -4939,6 +4925,21 @@
             this.Display_Contrast_Operation_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Display_Contrast_Load_TrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Display_Contrast_Vin_TrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group3_Item1_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item4_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item3_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item2_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item1_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item3_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item2_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group1_Item1_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item4_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item3_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item2_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1B_Item1_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item2_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step1_Item1_PictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
