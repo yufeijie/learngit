@@ -260,6 +260,7 @@
     <None Include="Resources\sun.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\LLC.png" />
     <Content Include="sun.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

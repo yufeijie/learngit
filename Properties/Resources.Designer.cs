@@ -83,6 +83,16 @@ namespace PV_analysis.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap LLC {
+            get {
+                object obj = ResourceManager.GetObject("LLC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap SG3125HV_MV {
             get {
                 object obj = ResourceManager.GetObject("SG3125HV-MV", resourceCulture);
