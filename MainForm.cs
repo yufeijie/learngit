@@ -1442,14 +1442,14 @@ namespace PV_analysis
                 switch (selectedStructure.Name)
                 {
                     case "三级架构":
-                        DisplayPieChart(Display_Detail_DCDC_LossBreakdown_PieChart, ((ThreeLevelStructure)selectedStructure).DCDC.GetLossBreakdown()); //前级DC/DC损耗分布饼图
-                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.GetLossBreakdown()); //隔离DC/DC损耗分布信息
-                        DisplayPieChart(Display_Detail_DCAC_LossBreakdown_PieChart, ((ThreeLevelStructure)selectedStructure).DCAC.GetLossBreakdown()); //DC/AC损耗分布信息
+                        DisplayPieChart(Display_Detail_DCDC_LossBreakdown_PieChart, ((ThreeLevelStructure)selectedStructure).DCDC.GetModuleLossBreakdown()); //前级DC/DC损耗分布饼图
+                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.GetModuleLossBreakdown()); //隔离DC/DC损耗分布信息
+                        DisplayPieChart(Display_Detail_DCAC_LossBreakdown_PieChart, ((ThreeLevelStructure)selectedStructure).DCAC.GetModuleLossBreakdown()); //DC/AC损耗分布信息
                         break;
 
                     case "两级架构":
-                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, ((TwoLevelStructure)selectedStructure).IsolatedDCDC.GetLossBreakdown()); //隔离DC/DC损耗分布信息
-                        DisplayPieChart(Display_Detail_DCAC_LossBreakdown_PieChart, ((TwoLevelStructure)selectedStructure).DCAC.GetLossBreakdown()); //DC/AC损耗分布信息
+                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, ((TwoLevelStructure)selectedStructure).IsolatedDCDC.GetModuleLossBreakdown()); //隔离DC/DC损耗分布信息
+                        DisplayPieChart(Display_Detail_DCAC_LossBreakdown_PieChart, ((TwoLevelStructure)selectedStructure).DCAC.GetModuleLossBreakdown()); //DC/AC损耗分布信息
                         break;
                 }
             }
@@ -1460,19 +1460,19 @@ namespace PV_analysis
                 {
                     case "前级DC/DC变换单元_三级":
                         selectedConverter.Operate(load, Vin);
-                        DisplayPieChart(Display_Detail_DCDC_LossBreakdown_PieChart, selectedConverter.GetLossBreakdown()); //前级DC/DC损耗分布饼图
+                        DisplayPieChart(Display_Detail_DCDC_LossBreakdown_PieChart, selectedConverter.GetModuleLossBreakdown()); //前级DC/DC损耗分布饼图
                         break;
                     case "隔离DC/DC变换单元_三级":
                         selectedConverter.Operate(load);
-                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, selectedConverter.GetLossBreakdown()); //隔离DC/DC损耗分布饼图
+                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, selectedConverter.GetModuleLossBreakdown()); //隔离DC/DC损耗分布饼图
                         break;
                     case "隔离DC/DC变换单元_两级":
                         selectedConverter.Operate(load, Vin);
-                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, selectedConverter.GetLossBreakdown()); //隔离DC/DC损耗分布饼图
+                        DisplayPieChart(Display_Detail_IsolatedDCDC_LossBreakdown_PieChart, selectedConverter.GetModuleLossBreakdown()); //隔离DC/DC损耗分布饼图
                         break;
                     case "逆变单元":
                         selectedConverter.Operate(load);
-                        DisplayPieChart(Display_Detail_DCAC_LossBreakdown_PieChart, selectedConverter.GetLossBreakdown()); //逆变损耗分布饼图
+                        DisplayPieChart(Display_Detail_DCAC_LossBreakdown_PieChart, selectedConverter.GetModuleLossBreakdown()); //逆变损耗分布饼图
                         break;
                 }
             }
@@ -1548,7 +1548,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item1_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item2_CheckBox.Enabled = true;
-                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item4_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Enabled = true;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = true;
@@ -1556,7 +1556,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = true;
-                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item4_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = true;
 
@@ -1565,7 +1565,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item1_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item2_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item3_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item3_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item4_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Checked = true;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = true;
@@ -1573,7 +1573,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item4_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = true;
                         break;
@@ -1679,7 +1679,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item1_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item2_CheckBox.Enabled = true;
-                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item4_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
@@ -1687,7 +1687,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = true;
-                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = true;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item4_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = false;
 
@@ -1696,7 +1696,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item1_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item2_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item3_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item3_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item4_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
@@ -1704,7 +1704,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item4_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = false;
                         break;
@@ -2827,7 +2827,7 @@ namespace PV_analysis
                     Dock = DockStyle.Fill,
                     Font = new System.Drawing.Font("宋体", 9F)
                 };
-                DisplayPieChart(pieChart, ((ThreeLevelStructure)structureListForContrast[i]).DCDC.GetLossBreakdown());
+                DisplayPieChart(pieChart, ((ThreeLevelStructure)structureListForContrast[i]).DCDC.GetTotalLossBreakdown());
                 Display_Show_Contrast_InsertCell(table, i + 1, row, pieChart);
             }
             row++;
@@ -2839,7 +2839,7 @@ namespace PV_analysis
                     Dock = DockStyle.Fill,
                     Font = new System.Drawing.Font("宋体", 9F)
                 };
-                DisplayPieChart(pieChart, ((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.GetLossBreakdown());
+                DisplayPieChart(pieChart, ((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.GetTotalLossBreakdown());
                 Display_Show_Contrast_InsertCell(table, i + 1, row, pieChart);
             }
             row++;
@@ -2851,7 +2851,7 @@ namespace PV_analysis
                     Dock = DockStyle.Fill,
                     Font = new System.Drawing.Font("宋体", 9F)
                 };
-                DisplayPieChart(pieChart, ((ThreeLevelStructure)structureListForContrast[i]).DCAC.GetLossBreakdown());
+                DisplayPieChart(pieChart, ((ThreeLevelStructure)structureListForContrast[i]).DCAC.GetTotalLossBreakdown());
                 Display_Show_Contrast_InsertCell(table, i + 1, row, pieChart);
             }
 

@@ -8,8 +8,8 @@ namespace PV_analysis
 {
     internal class Item
     {
-        public string Name { get; }
-        public double Value { get; }
+        public string Name { get; set; }
+        public double Value { get; set; }
 
         public Item(string name, double value)
         {

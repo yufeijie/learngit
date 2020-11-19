@@ -179,10 +179,29 @@ namespace PV_analysis.Converters
         protected abstract string[] GetConditions();
 
         /// <summary>
-        /// 获取损耗分布（元器件）
+        /// 获取总损耗分布（元器件）
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public List<Item> GetLossBreakdown()
+        public List<Item> GetTotalLossBreakdown()
+        {
+            List<Item> list = new List<Item>();
+            foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
+            {
+                List<Item> lossList = component.GetLossBreakdown();
+                foreach (Item item in lossList)
+                {
+                    item.Value *= Number;                    
+                }
+                list.AddRange(lossList);
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// 获取模块损耗分布（元器件）
+        /// </summary>
+        /// <returns>损耗分布信息</returns>
+        public List<Item> GetModuleLossBreakdown()
         {
             List<Item> list = new List<Item>();
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
