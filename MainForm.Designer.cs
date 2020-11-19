@@ -239,10 +239,16 @@
             this.Display_Show_Graph_Panel = new System.Windows.Forms.Panel();
             this.Display_Show_ToolStrip = new System.Windows.Forms.ToolStrip();
             this.Display_Show_ToolStripLabel = new System.Windows.Forms.ToolStripLabel();
-            this.Display_Show_SelectYmax_Button = new System.Windows.Forms.Button();
-            this.Display_Show_GraphCategory_ComboBox = new System.Windows.Forms.ComboBox();
+            this.Display_Show_ToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.Display_Show_GraphCategory_ToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.Display_Show_ToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.Display_Show_Refresh_ToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.Display_Show_ChartControl_ToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.Display_Show_All_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Display_Show_Pareto_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Display_Show_ToolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.Display_Show_SelectYmax_ToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.Display_Show_Graph_CartesianChart = new LiveCharts.WinForms.CartesianChart();
-            this.Display_Show_ChartControl_Button = new System.Windows.Forms.Button();
             this.Display_Show_Preview_Panel = new System.Windows.Forms.Panel();
             this.Display_Show_Preview_Main_Panel = new System.Windows.Forms.Panel();
             this.Display_Show_Preview_Title_Panel = new System.Windows.Forms.Panel();
@@ -2950,10 +2956,7 @@
             // Display_Show_Graph_Panel
             // 
             this.Display_Show_Graph_Panel.Controls.Add(this.Display_Show_ToolStrip);
-            this.Display_Show_Graph_Panel.Controls.Add(this.Display_Show_SelectYmax_Button);
-            this.Display_Show_Graph_Panel.Controls.Add(this.Display_Show_GraphCategory_ComboBox);
             this.Display_Show_Graph_Panel.Controls.Add(this.Display_Show_Graph_CartesianChart);
-            this.Display_Show_Graph_Panel.Controls.Add(this.Display_Show_ChartControl_Button);
             this.Display_Show_Graph_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Display_Show_Graph_Panel.Location = new System.Drawing.Point(0, 0);
             this.Display_Show_Graph_Panel.Name = "Display_Show_Graph_Panel";
@@ -2964,43 +2967,99 @@
             // 
             this.Display_Show_ToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.Display_Show_ToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Display_Show_ToolStripLabel});
+            this.Display_Show_ToolStripLabel,
+            this.Display_Show_ToolStripSeparator1,
+            this.Display_Show_GraphCategory_ToolStripComboBox,
+            this.Display_Show_ToolStripSeparator2,
+            this.Display_Show_Refresh_ToolStripButton,
+            this.Display_Show_ChartControl_ToolStripDropDownButton,
+            this.Display_Show_ToolStripSeparator3,
+            this.Display_Show_SelectYmax_ToolStripButton});
             this.Display_Show_ToolStrip.Location = new System.Drawing.Point(0, 0);
             this.Display_Show_ToolStrip.Name = "Display_Show_ToolStrip";
-            this.Display_Show_ToolStrip.Size = new System.Drawing.Size(1080, 25);
+            this.Display_Show_ToolStrip.Size = new System.Drawing.Size(1080, 28);
             this.Display_Show_ToolStrip.TabIndex = 5;
             this.Display_Show_ToolStrip.Text = "toolStrip1";
             // 
             // Display_Show_ToolStripLabel
             // 
             this.Display_Show_ToolStripLabel.Name = "Display_Show_ToolStripLabel";
-            this.Display_Show_ToolStripLabel.Size = new System.Drawing.Size(72, 22);
-            this.Display_Show_ToolStripLabel.Text = "                ";
+            this.Display_Show_ToolStripLabel.Size = new System.Drawing.Size(64, 25);
+            this.Display_Show_ToolStripLabel.Text = "              ";
             // 
-            // Display_Show_SelectYmax_Button
+            // Display_Show_ToolStripSeparator1
             // 
-            this.Display_Show_SelectYmax_Button.Location = new System.Drawing.Point(67, 29);
-            this.Display_Show_SelectYmax_Button.Name = "Display_Show_SelectYmax_Button";
-            this.Display_Show_SelectYmax_Button.Size = new System.Drawing.Size(41, 23);
-            this.Display_Show_SelectYmax_Button.TabIndex = 4;
-            this.Display_Show_SelectYmax_Button.Text = "Max";
-            this.Display_Show_SelectYmax_Button.UseVisualStyleBackColor = true;
-            this.Display_Show_SelectYmax_Button.Click += new System.EventHandler(this.Display_Show_SelectYmax_Button_Click);
+            this.Display_Show_ToolStripSeparator1.Name = "Display_Show_ToolStripSeparator1";
+            this.Display_Show_ToolStripSeparator1.Size = new System.Drawing.Size(6, 28);
             // 
-            // Display_Show_GraphCategory_ComboBox
+            // Display_Show_GraphCategory_ToolStripComboBox
             // 
-            this.Display_Show_GraphCategory_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Display_Show_GraphCategory_ComboBox.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Show_GraphCategory_ComboBox.FormattingEnabled = true;
-            this.Display_Show_GraphCategory_ComboBox.Items.AddRange(new object[] {
+            this.Display_Show_GraphCategory_ToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Display_Show_GraphCategory_ToolStripComboBox.Font = new System.Drawing.Font("微软雅黑", 10.5F);
+            this.Display_Show_GraphCategory_ToolStripComboBox.Items.AddRange(new object[] {
             "成本-效率",
             "体积-效率",
             "成本-体积"});
-            this.Display_Show_GraphCategory_ComboBox.Location = new System.Drawing.Point(883, 28);
-            this.Display_Show_GraphCategory_ComboBox.Name = "Display_Show_GraphCategory_ComboBox";
-            this.Display_Show_GraphCategory_ComboBox.Size = new System.Drawing.Size(85, 25);
-            this.Display_Show_GraphCategory_ComboBox.TabIndex = 3;
-            this.Display_Show_GraphCategory_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Display_Show_GraphCategory_ComboBox_SelectedIndexChanged);
+            this.Display_Show_GraphCategory_ToolStripComboBox.Name = "Display_Show_GraphCategory_ToolStripComboBox";
+            this.Display_Show_GraphCategory_ToolStripComboBox.Size = new System.Drawing.Size(100, 28);
+            this.Display_Show_GraphCategory_ToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.Display_Show_GraphCategory_ToolStripComboBox_SelectedIndexChanged);
+            // 
+            // Display_Show_ToolStripSeparator2
+            // 
+            this.Display_Show_ToolStripSeparator2.Name = "Display_Show_ToolStripSeparator2";
+            this.Display_Show_ToolStripSeparator2.Size = new System.Drawing.Size(6, 28);
+            // 
+            // Display_Show_Refresh_ToolStripButton
+            // 
+            this.Display_Show_Refresh_ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Display_Show_Refresh_ToolStripButton.Image = global::PV_analysis.Properties.Resources.刷新;
+            this.Display_Show_Refresh_ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Display_Show_Refresh_ToolStripButton.Name = "Display_Show_Refresh_ToolStripButton";
+            this.Display_Show_Refresh_ToolStripButton.Size = new System.Drawing.Size(23, 25);
+            this.Display_Show_Refresh_ToolStripButton.Text = "toolStripButton2";
+            this.Display_Show_Refresh_ToolStripButton.Click += new System.EventHandler(this.Display_Show_Refresh_ToolStripButton_Click);
+            // 
+            // Display_Show_ChartControl_ToolStripDropDownButton
+            // 
+            this.Display_Show_ChartControl_ToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Display_Show_ChartControl_ToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Display_Show_All_ToolStripMenuItem,
+            this.Display_Show_Pareto_ToolStripMenuItem});
+            this.Display_Show_ChartControl_ToolStripDropDownButton.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Display_Show_ChartControl_ToolStripDropDownButton.Image = global::PV_analysis.Properties.Resources.设置;
+            this.Display_Show_ChartControl_ToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Display_Show_ChartControl_ToolStripDropDownButton.Name = "Display_Show_ChartControl_ToolStripDropDownButton";
+            this.Display_Show_ChartControl_ToolStripDropDownButton.Size = new System.Drawing.Size(29, 25);
+            this.Display_Show_ChartControl_ToolStripDropDownButton.Text = "toolStripDropDownButton1";
+            // 
+            // Display_Show_All_ToolStripMenuItem
+            // 
+            this.Display_Show_All_ToolStripMenuItem.Name = "Display_Show_All_ToolStripMenuItem";
+            this.Display_Show_All_ToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
+            this.Display_Show_All_ToolStripMenuItem.Text = "隐藏评估结果";
+            this.Display_Show_All_ToolStripMenuItem.Click += new System.EventHandler(this.Display_Show_All_ToolStripMenuItem_Click);
+            // 
+            // Display_Show_Pareto_ToolStripMenuItem
+            // 
+            this.Display_Show_Pareto_ToolStripMenuItem.Name = "Display_Show_Pareto_ToolStripMenuItem";
+            this.Display_Show_Pareto_ToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
+            this.Display_Show_Pareto_ToolStripMenuItem.Text = "隐藏Pareto前沿";
+            this.Display_Show_Pareto_ToolStripMenuItem.Click += new System.EventHandler(this.Display_Show_Pareto_ToolStripMenuItem_Click);
+            // 
+            // Display_Show_ToolStripSeparator3
+            // 
+            this.Display_Show_ToolStripSeparator3.Name = "Display_Show_ToolStripSeparator3";
+            this.Display_Show_ToolStripSeparator3.Size = new System.Drawing.Size(6, 28);
+            // 
+            // Display_Show_SelectYmax_ToolStripButton
+            // 
+            this.Display_Show_SelectYmax_ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.Display_Show_SelectYmax_ToolStripButton.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F);
+            this.Display_Show_SelectYmax_ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Display_Show_SelectYmax_ToolStripButton.Name = "Display_Show_SelectYmax_ToolStripButton";
+            this.Display_Show_SelectYmax_ToolStripButton.Size = new System.Drawing.Size(42, 25);
+            this.Display_Show_SelectYmax_ToolStripButton.Text = "Max";
+            this.Display_Show_SelectYmax_ToolStripButton.Click += new System.EventHandler(this.Display_Show_SelectYmax_ToolStripButton_Click);
             // 
             // Display_Show_Graph_CartesianChart
             // 
@@ -3010,15 +3069,6 @@
             this.Display_Show_Graph_CartesianChart.Size = new System.Drawing.Size(946, 665);
             this.Display_Show_Graph_CartesianChart.TabIndex = 2;
             this.Display_Show_Graph_CartesianChart.Text = "cartesianChart1";
-            // 
-            // Display_Show_ChartControl_Button
-            // 
-            this.Display_Show_ChartControl_Button.Image = global::PV_analysis.Properties.Resources.设置;
-            this.Display_Show_ChartControl_Button.Location = new System.Drawing.Point(974, 29);
-            this.Display_Show_ChartControl_Button.Name = "Display_Show_ChartControl_Button";
-            this.Display_Show_ChartControl_Button.Size = new System.Drawing.Size(75, 23);
-            this.Display_Show_ChartControl_Button.TabIndex = 1;
-            this.Display_Show_ChartControl_Button.UseVisualStyleBackColor = true;
             // 
             // Display_Show_Preview_Panel
             // 
@@ -3229,9 +3279,9 @@
             // Display_Detail_System_CostBreakdown_PieChart
             // 
             this.Display_Detail_System_CostBreakdown_PieChart.Font = new System.Drawing.Font("宋体", 9F);
-            this.Display_Detail_System_CostBreakdown_PieChart.Location = new System.Drawing.Point(376, 80);
+            this.Display_Detail_System_CostBreakdown_PieChart.Location = new System.Drawing.Point(376, 60);
             this.Display_Detail_System_CostBreakdown_PieChart.Name = "Display_Detail_System_CostBreakdown_PieChart";
-            this.Display_Detail_System_CostBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_System_CostBreakdown_PieChart.Size = new System.Drawing.Size(300, 400);
             this.Display_Detail_System_CostBreakdown_PieChart.TabIndex = 153;
             this.Display_Detail_System_CostBreakdown_PieChart.Text = "pieChart3";
             // 
@@ -3271,18 +3321,18 @@
             // Display_Detail_System_VolumeBreakdown_PieChart
             // 
             this.Display_Detail_System_VolumeBreakdown_PieChart.Font = new System.Drawing.Font("宋体", 9F);
-            this.Display_Detail_System_VolumeBreakdown_PieChart.Location = new System.Drawing.Point(719, 80);
+            this.Display_Detail_System_VolumeBreakdown_PieChart.Location = new System.Drawing.Point(719, 60);
             this.Display_Detail_System_VolumeBreakdown_PieChart.Name = "Display_Detail_System_VolumeBreakdown_PieChart";
-            this.Display_Detail_System_VolumeBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_System_VolumeBreakdown_PieChart.Size = new System.Drawing.Size(300, 400);
             this.Display_Detail_System_VolumeBreakdown_PieChart.TabIndex = 152;
             this.Display_Detail_System_VolumeBreakdown_PieChart.Text = "pieChart2";
             // 
             // Display_Detail_System_LossBreakdown_PieChart
             // 
             this.Display_Detail_System_LossBreakdown_PieChart.Font = new System.Drawing.Font("宋体", 9F);
-            this.Display_Detail_System_LossBreakdown_PieChart.Location = new System.Drawing.Point(31, 80);
+            this.Display_Detail_System_LossBreakdown_PieChart.Location = new System.Drawing.Point(31, 60);
             this.Display_Detail_System_LossBreakdown_PieChart.Name = "Display_Detail_System_LossBreakdown_PieChart";
-            this.Display_Detail_System_LossBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_System_LossBreakdown_PieChart.Size = new System.Drawing.Size(300, 400);
             this.Display_Detail_System_LossBreakdown_PieChart.TabIndex = 168;
             this.Display_Detail_System_LossBreakdown_PieChart.Text = "pieChart1";
             // 
@@ -3301,7 +3351,7 @@
             // 
             this.Display_Detail_System_LoadVsEfficiency_CartesianChart.BackColor = System.Drawing.Color.White;
             this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 450);
+            this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 480);
             this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Name = "Display_Detail_System_LoadVsEfficiency_CartesianChart";
             this.Display_Detail_System_LoadVsEfficiency_CartesianChart.Size = new System.Drawing.Size(800, 600);
             this.Display_Detail_System_LoadVsEfficiency_CartesianChart.TabIndex = 160;
@@ -3349,9 +3399,9 @@
             // 
             // Display_Detail_DCDC_CostBreakdown_PieChart
             // 
-            this.Display_Detail_DCDC_CostBreakdown_PieChart.Location = new System.Drawing.Point(376, 80);
+            this.Display_Detail_DCDC_CostBreakdown_PieChart.Location = new System.Drawing.Point(376, 60);
             this.Display_Detail_DCDC_CostBreakdown_PieChart.Name = "Display_Detail_DCDC_CostBreakdown_PieChart";
-            this.Display_Detail_DCDC_CostBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_DCDC_CostBreakdown_PieChart.Size = new System.Drawing.Size(300, 400);
             this.Display_Detail_DCDC_CostBreakdown_PieChart.TabIndex = 171;
             this.Display_Detail_DCDC_CostBreakdown_PieChart.Text = "pieChart3";
             // 
@@ -3390,17 +3440,17 @@
             // 
             // Display_Detail_DCDC_VolumeBreakdown_PieChart
             // 
-            this.Display_Detail_DCDC_VolumeBreakdown_PieChart.Location = new System.Drawing.Point(719, 80);
+            this.Display_Detail_DCDC_VolumeBreakdown_PieChart.Location = new System.Drawing.Point(719, 60);
             this.Display_Detail_DCDC_VolumeBreakdown_PieChart.Name = "Display_Detail_DCDC_VolumeBreakdown_PieChart";
-            this.Display_Detail_DCDC_VolumeBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_DCDC_VolumeBreakdown_PieChart.Size = new System.Drawing.Size(300, 400);
             this.Display_Detail_DCDC_VolumeBreakdown_PieChart.TabIndex = 170;
             this.Display_Detail_DCDC_VolumeBreakdown_PieChart.Text = "pieChart2";
             // 
             // Display_Detail_DCDC_LossBreakdown_PieChart
             // 
-            this.Display_Detail_DCDC_LossBreakdown_PieChart.Location = new System.Drawing.Point(31, 80);
+            this.Display_Detail_DCDC_LossBreakdown_PieChart.Location = new System.Drawing.Point(31, 60);
             this.Display_Detail_DCDC_LossBreakdown_PieChart.Name = "Display_Detail_DCDC_LossBreakdown_PieChart";
-            this.Display_Detail_DCDC_LossBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_DCDC_LossBreakdown_PieChart.Size = new System.Drawing.Size(300, 400);
             this.Display_Detail_DCDC_LossBreakdown_PieChart.TabIndex = 176;
             this.Display_Detail_DCDC_LossBreakdown_PieChart.Text = "pieChart1";
             // 
@@ -3419,7 +3469,7 @@
             // 
             this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.BackColor = System.Drawing.Color.White;
             this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.Font = new System.Drawing.Font("宋体", 12F);
-            this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 450);
+            this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 480);
             this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.Name = "Display_Detail_DCDC_LoadVsEfficiency_CartesianChart";
             this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.Size = new System.Drawing.Size(800, 600);
             this.Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.TabIndex = 174;
@@ -3467,9 +3517,9 @@
             // 
             // Display_Detail_IsolatedDCDC_CostBreakdown_PieChart
             // 
-            this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart.Location = new System.Drawing.Point(376, 80);
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart.Location = new System.Drawing.Point(376, 60);
             this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart.Name = "Display_Detail_IsolatedDCDC_CostBreakdown_PieChart";
-            this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart.Size = new System.Drawing.Size(300, 400);
             this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart.TabIndex = 179;
             this.Display_Detail_IsolatedDCDC_CostBreakdown_PieChart.Text = "pieChart3";
             // 
@@ -3508,17 +3558,17 @@
             // 
             // Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart
             // 
-            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart.Location = new System.Drawing.Point(719, 80);
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart.Location = new System.Drawing.Point(719, 60);
             this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart.Name = "Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart";
-            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart.Size = new System.Drawing.Size(300, 400);
             this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart.TabIndex = 178;
             this.Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart.Text = "pieChart5";
             // 
             // Display_Detail_IsolatedDCDC_LossBreakdown_PieChart
             // 
-            this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart.Location = new System.Drawing.Point(31, 80);
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart.Location = new System.Drawing.Point(31, 60);
             this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart.Name = "Display_Detail_IsolatedDCDC_LossBreakdown_PieChart";
-            this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart.Size = new System.Drawing.Size(300, 400);
             this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart.TabIndex = 184;
             this.Display_Detail_IsolatedDCDC_LossBreakdown_PieChart.Text = "pieChart1";
             // 
@@ -3537,7 +3587,7 @@
             // 
             this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.BackColor = System.Drawing.Color.White;
             this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.Font = new System.Drawing.Font("宋体", 12F);
-            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 450);
+            this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 480);
             this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.Name = "Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart";
             this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.Size = new System.Drawing.Size(800, 600);
             this.Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.TabIndex = 182;
@@ -3585,9 +3635,9 @@
             // 
             // Display_Detail_DCAC_CostBreakdown_PieChart
             // 
-            this.Display_Detail_DCAC_CostBreakdown_PieChart.Location = new System.Drawing.Point(376, 80);
+            this.Display_Detail_DCAC_CostBreakdown_PieChart.Location = new System.Drawing.Point(376, 60);
             this.Display_Detail_DCAC_CostBreakdown_PieChart.Name = "Display_Detail_DCAC_CostBreakdown_PieChart";
-            this.Display_Detail_DCAC_CostBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_DCAC_CostBreakdown_PieChart.Size = new System.Drawing.Size(300, 400);
             this.Display_Detail_DCAC_CostBreakdown_PieChart.TabIndex = 179;
             this.Display_Detail_DCAC_CostBreakdown_PieChart.Text = "pieChart3";
             // 
@@ -3626,17 +3676,17 @@
             // 
             // Display_Detail_DCAC_VolumeBreakdown_PieChart
             // 
-            this.Display_Detail_DCAC_VolumeBreakdown_PieChart.Location = new System.Drawing.Point(719, 80);
+            this.Display_Detail_DCAC_VolumeBreakdown_PieChart.Location = new System.Drawing.Point(719, 60);
             this.Display_Detail_DCAC_VolumeBreakdown_PieChart.Name = "Display_Detail_DCAC_VolumeBreakdown_PieChart";
-            this.Display_Detail_DCAC_VolumeBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_DCAC_VolumeBreakdown_PieChart.Size = new System.Drawing.Size(300, 400);
             this.Display_Detail_DCAC_VolumeBreakdown_PieChart.TabIndex = 178;
             this.Display_Detail_DCAC_VolumeBreakdown_PieChart.Text = "pieChart8";
             // 
             // Display_Detail_DCAC_LossBreakdown_PieChart
             // 
-            this.Display_Detail_DCAC_LossBreakdown_PieChart.Location = new System.Drawing.Point(31, 80);
+            this.Display_Detail_DCAC_LossBreakdown_PieChart.Location = new System.Drawing.Point(31, 60);
             this.Display_Detail_DCAC_LossBreakdown_PieChart.Name = "Display_Detail_DCAC_LossBreakdown_PieChart";
-            this.Display_Detail_DCAC_LossBreakdown_PieChart.Size = new System.Drawing.Size(300, 300);
+            this.Display_Detail_DCAC_LossBreakdown_PieChart.Size = new System.Drawing.Size(300, 400);
             this.Display_Detail_DCAC_LossBreakdown_PieChart.TabIndex = 184;
             this.Display_Detail_DCAC_LossBreakdown_PieChart.Text = "pieChart1";
             // 
@@ -3655,7 +3705,7 @@
             // 
             this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.BackColor = System.Drawing.Color.White;
             this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.Font = new System.Drawing.Font("宋体", 12F);
-            this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 450);
+            this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.Location = new System.Drawing.Point(126, 480);
             this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.Name = "Display_Detail_DCAC_LoadVsEfficiency_CartesianChart";
             this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.Size = new System.Drawing.Size(800, 600);
             this.Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.TabIndex = 182;
@@ -5123,7 +5173,6 @@
         private System.Windows.Forms.Label Estimate_Step4_Semiconductor_Label;
         private System.Windows.Forms.Panel Display_Show_Graph_Panel;
         private System.Windows.Forms.Panel Display_Show_Preview_Panel;
-        private System.Windows.Forms.Button Display_Show_ChartControl_Button;
         private LiveCharts.WinForms.CartesianChart Display_Show_Graph_CartesianChart;
         private System.Windows.Forms.Button Tab_Test_Button;
         private LiveCharts.WinForms.PieChart Display_Detail_System_CostBreakdown_PieChart;
@@ -5137,7 +5186,6 @@
         private System.Windows.Forms.CheckBox Estimate_Step2_Group1_Item2_Left_CheckBox;
         private System.Windows.Forms.CheckBox Estimate_Step2_Group1_Item1_Left_CheckBox;
         private System.Windows.Forms.FlowLayoutPanel Estimate_Step4_Capacitor_FlowLayoutPanel;
-        private System.Windows.Forms.ComboBox Display_Show_GraphCategory_ComboBox;
         private System.Windows.Forms.Label Estimate_Step3_DCACNumber_Symbol_Label;
         private System.Windows.Forms.Label Estimate_Step3_IsolatedDCDCNumber_Symbol_Label;
         private System.Windows.Forms.Label Estimate_Step3_DCDCNumber_Symbol_Label;
@@ -5335,7 +5383,6 @@
         private System.Windows.Forms.Label Display_Contrast_Vin_Value_Label;
         private System.Windows.Forms.Label Display_Contrast_Load_Label;
         private System.Windows.Forms.Label Display_Contrast_Load_Value_Label;
-        private System.Windows.Forms.Button Display_Show_SelectYmax_Button;
         private System.Windows.Forms.ProgressBar Estimate_Result_ProgressBar;
         private System.Windows.Forms.ToolStrip Display_Show_ToolStrip;
         private System.Windows.Forms.ToolStripLabel Display_Show_ToolStripLabel;
@@ -5343,6 +5390,15 @@
         private System.Windows.Forms.Panel Estimate_Step2_Group2_Item3_Panel;
         private System.Windows.Forms.CheckBox Estimate_Step2_Group2_Item3_CheckBox;
         private System.Windows.Forms.PictureBox Estimate_Step2_Group2_Item3_PictureBox;
+        private System.Windows.Forms.ToolStripSeparator Display_Show_ToolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton Display_Show_SelectYmax_ToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator Display_Show_ToolStripSeparator2;
+        private System.Windows.Forms.ToolStripComboBox Display_Show_GraphCategory_ToolStripComboBox;
+        private System.Windows.Forms.ToolStripDropDownButton Display_Show_ChartControl_ToolStripDropDownButton;
+        private System.Windows.Forms.ToolStripMenuItem Display_Show_All_ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Display_Show_Pareto_ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton Display_Show_Refresh_ToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator Display_Show_ToolStripSeparator3;
     }
 }
 
