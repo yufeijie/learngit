@@ -54,6 +54,7 @@ namespace PV_analysis
         private Converter selectedConverter; //展示图像中选中的变换单元
 
         //对比对象
+        private bool isComponentInfoDisplay = true; //是否展示器件的设计信息
         private List<Structure> structureListForContrast; //用于对比的架构
         private List<Converter> converterListForContrast; //用于对比的变换单元
 
@@ -847,7 +848,7 @@ namespace PV_analysis
                 Size = new System.Drawing.Size(946, 665),
                 Zoom = ZoomingOptions.Xy,
                 LegendLocation = LegendLocation.Bottom
-            };            
+            };
             Display_Show_Graph_CartesianChart.DataClick += Chart_OnDataClick; //添加评估图像点的点击事件
 
             Display_Show_Graph_Panel.Controls.Add(Display_Show_Graph_CartesianChart);
@@ -955,7 +956,7 @@ namespace PV_analysis
             {
                 AutoSize = false,
                 Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134))),
-                Location = new System.Drawing.Point(48, 0),
+                Location = new System.Drawing.Point(12, 0),
                 Size = new System.Drawing.Size(200, 60),
                 Text = text,
                 TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -981,8 +982,8 @@ namespace PV_analysis
             {
                 AutoSize = false,
                 Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134))),
-                Location = new System.Drawing.Point(48, 0),
-                Size = new System.Drawing.Size(150, 40),
+                Location = new System.Drawing.Point(10, 0),
+                Size = new System.Drawing.Size(164, 40),
                 Text = title,
                 TextAlign = System.Drawing.ContentAlignment.MiddleLeft
             });
@@ -990,8 +991,8 @@ namespace PV_analysis
             {
                 AutoSize = false,
                 Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134))),
-                Location = new System.Drawing.Point(198, 0),
-                Size = new System.Drawing.Size(150, 40),
+                Location = new System.Drawing.Point(184, 0),
+                Size = new System.Drawing.Size(164, 40),
                 Text = text,
                 TextAlign = System.Drawing.ContentAlignment.MiddleLeft
             });
@@ -1032,6 +1033,7 @@ namespace PV_analysis
                         panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
                         panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectedStructure).DCAC.Number.ToString()));
                         panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectedStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
+                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectedStructure).DCAC.Topology.GetName()));
                         panelList.Add(Display_Show_Preview_CreateInfo("调制方式：", ((ThreeLevelStructure)selectedStructure).DCAC.Modulation.ToString()));
                         break;
 
@@ -1046,6 +1048,7 @@ namespace PV_analysis
                         panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
                         panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)selectedStructure).DCAC.Number.ToString()));
                         panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)selectedStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
+                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)selectedStructure).DCAC.Topology.GetName()));
                         panelList.Add(Display_Show_Preview_CreateInfo("调制方式：", ((TwoLevelStructure)selectedStructure).DCAC.Modulation.ToString()));
                         break;
                 }
@@ -1070,6 +1073,10 @@ namespace PV_analysis
                     panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (selectedConverter.Math_fs / 1e3).ToString("f1") + "kHz"));
                 }
                 panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectedConverter.Topology.GetName()));
+                if (selectedConverter.Name.Equals("逆变单元"))
+                {
+                    panelList.Add(Display_Show_Preview_CreateInfo("调制方式：", ((DCACConverter)selectedConverter).Modulation.ToString()));
+                }
             }
 
             //更新预览面板显示
@@ -1239,7 +1246,7 @@ namespace PV_analysis
                     Title = "效率（%）"
                 }
             };
-            Display_Detail_System_LoadVsEfficiency_CartesianChart.LegendLocation = LegendLocation.Right;
+            Display_Detail_System_LoadVsEfficiency_CartesianChart.LegendLocation = LegendLocation.Bottom;
 
             //更新控件状态以显示
             Display_Detail_TabControl.Controls.Add(Display_Detail_System_TabPage);
@@ -1261,6 +1268,16 @@ namespace PV_analysis
             panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectedConverter.Number.ToString()));
             panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (selectedConverter.Math_fs / 1e3).ToString("f1") + "kHz"));
             panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectedConverter.Topology.GetName()));
+            string[] configTitles = selectedConverter.GetComponentConfigTitles();
+            string[] configs = selectedConverter.GetComponentConfigs();
+            if (isComponentInfoDisplay)
+            {
+                for (int i = 0; i < configs.Length; i++)
+                {
+                    panelList.Add(Display_Show_Preview_CreateInfo(configTitles[i] + "：", configs[i]));
+                }
+            }
+
             //更新面板显示
             Display_Detail_DCDC_Right_Panel.Controls.Clear(); //清空原有控件
             for (int i = panelList.Count - 1; i >= 0; i--) //逆序添加控件，以正常显示
@@ -1305,7 +1322,7 @@ namespace PV_analysis
                     Title = "效率（%）"
                 }
             };
-            Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.LegendLocation = LegendLocation.Right;
+            Display_Detail_DCDC_LoadVsEfficiency_CartesianChart.LegendLocation = LegendLocation.Bottom;
 
             //更新控件状态以显示
             Display_Detail_TabControl.Controls.Add(Display_Detail_DCDC_TabPage);
@@ -1328,6 +1345,16 @@ namespace PV_analysis
             panelList.Add(Display_Show_Preview_CreateInfo("副边个数：", ((IsolatedDCDCConverter)selectedConverter).Math_No.ToString()));
             panelList.Add(Display_Show_Preview_CreateInfo("品质因数：", ((IsolatedDCDCConverter)selectedConverter).Math_Q.ToString()));
             panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((IsolatedDCDCConverter)selectedConverter).Math_fr / 1e3).ToString("f1") + "kHz"));
+            string[] configTitles = selectedConverter.GetComponentConfigTitles();
+            string[] configs = selectedConverter.GetComponentConfigs();
+            if (isComponentInfoDisplay)
+            {
+                for (int i = 0; i < configs.Length; i++)
+                {
+                    panelList.Add(Display_Show_Preview_CreateInfo(configTitles[i] + "：", configs[i]));
+                }
+            }
+
             panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectedConverter.Topology.GetName()));
             //更新面板显示
             Display_Detail_IsolatedDCDC_Right_Panel.Controls.Clear(); //清空原有控件
@@ -1372,7 +1399,7 @@ namespace PV_analysis
                     Title = "效率（%）"
                 }
             };
-            Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.LegendLocation = LegendLocation.Right;
+            Display_Detail_IsolatedDCDC_LoadVsEfficiency_CartesianChart.LegendLocation = LegendLocation.Bottom;
 
             //更新控件状态以显示
             Display_Detail_TabControl.Controls.Add(Display_Detail_IsolatedDCDC_TabPage);
@@ -1394,6 +1421,17 @@ namespace PV_analysis
             panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectedConverter.Number.ToString()));
             panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (selectedConverter.Math_fs / 1e3).ToString("f1") + "kHz"));
             panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectedConverter.Topology.GetName()));
+            panelList.Add(Display_Show_Preview_CreateInfo("调制方式：", ((DCACConverter)selectedConverter).Modulation.ToString()));
+            string[] configTitles = selectedConverter.GetComponentConfigTitles();
+            string[] configs = selectedConverter.GetComponentConfigs();
+            if (isComponentInfoDisplay)
+            {
+                for (int i = 0; i < configs.Length; i++)
+                {
+                    panelList.Add(Display_Show_Preview_CreateInfo(configTitles[i] + "：", configs[i]));
+                }
+            }
+
             //更新面板显示
             Display_Detail_DCAC_Right_Panel.Controls.Clear(); //清空原有控件
             for (int i = panelList.Count - 1; i >= 0; i--) //逆序添加控件，以正常显示
@@ -1437,7 +1475,7 @@ namespace PV_analysis
                     Title = "效率（%）"
                 }
             };
-            Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.LegendLocation = LegendLocation.Right;
+            Display_Detail_DCAC_LoadVsEfficiency_CartesianChart.LegendLocation = LegendLocation.Bottom;
 
             //更新控件状态以显示
             Display_Detail_TabControl.Controls.Add(Display_Detail_DCAC_TabPage);
@@ -2308,7 +2346,7 @@ namespace PV_analysis
             Display_Show_Contrast_Button.Enabled = false;
             Display_Show_Clear_Button.Enabled = false;
         }
-        
+
         private void Display_Show_Refresh_ToolStripButton_Click(object sender, EventArgs e)
         {
             Display_Show_Display();
@@ -2485,7 +2523,7 @@ namespace PV_analysis
         /// <param name="row">行</param>
         /// <param name="control">控件</param>
         /// <param name="height">行高</param>
-        private void Display_Show_Contrast_InsertRow(TableLayoutPanel table, int row, Control control, float height = 400)
+        private void Display_Show_Contrast_InsertRow(TableLayoutPanel table, int row, Control control, float height = 450)
         {
             while (table.RowCount <= row)
             {
@@ -2551,6 +2589,12 @@ namespace PV_analysis
             row = 0;
             Display_Show_Contrast_InsertTitle(table, "性能表现");
             row++;
+            Display_Show_Contrast_InsertCell(table, 0, row, "");
+            for (int i = 0; i < m; i++)
+            {
+                Display_Show_Contrast_InsertCell(table, i + 1, row, "设计"+(i+1));
+            }
+            row++;
             Display_Show_Contrast_InsertCell(table, 0, row, "中国效率（%）");
             for (int i = 0; i < m; i++)
             {
@@ -2610,18 +2654,21 @@ namespace PV_analysis
             }
             string[][] configTitles = new string[m][];
             string[][] configs = new string[m][];
-            for (int i = 0; i < m; i++)
+            if (isComponentInfoDisplay)
             {
-                configTitles[i] = ((ThreeLevelStructure)structureListForContrast[i]).DCDC.GetComponentConfigTitles();
-                configs[i] = ((ThreeLevelStructure)structureListForContrast[i]).DCDC.GetComponentConfigs();
-            }
-            for (int k = 0; k < configs[0].Length; k++)
-            {
-                row++;
-                Display_Show_Contrast_InsertCell(table, 0, row, configTitles[0][k]);
                 for (int i = 0; i < m; i++)
                 {
-                    Display_Show_Contrast_InsertCell(table, i + 1, row, configs[i][k]);
+                    configTitles[i] = ((ThreeLevelStructure)structureListForContrast[i]).DCDC.GetComponentConfigTitles();
+                    configs[i] = ((ThreeLevelStructure)structureListForContrast[i]).DCDC.GetComponentConfigs();
+                }
+                for (int k = 0; k < configs[0].Length; k++)
+                {
+                    row++;
+                    Display_Show_Contrast_InsertCell(table, 0, row, configTitles[0][k]);
+                    for (int i = 0; i < m; i++)
+                    {
+                        Display_Show_Contrast_InsertCell(table, i + 1, row, configs[i][k]);
+                    }
                 }
             }
             row++;
@@ -2658,18 +2705,21 @@ namespace PV_analysis
             }
             configTitles = new string[m][];
             configs = new string[m][];
-            for (int i = 0; i < m; i++)
+            if (isComponentInfoDisplay)
             {
-                configTitles[i] = ((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.GetComponentConfigTitles();
-                configs[i] = ((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.GetComponentConfigs();
-            }
-            for (int k = 0; k < configs[0].Length; k++)
-            {
-                row++;
-                Display_Show_Contrast_InsertCell(table, 0, row, configTitles[0][k]);
                 for (int i = 0; i < m; i++)
                 {
-                    Display_Show_Contrast_InsertCell(table, i + 1, row, configs[i][k]);
+                    configTitles[i] = ((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.GetComponentConfigTitles();
+                    configs[i] = ((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.GetComponentConfigs();
+                }
+                for (int k = 0; k < configs[0].Length; k++)
+                {
+                    row++;
+                    Display_Show_Contrast_InsertCell(table, 0, row, configTitles[0][k]);
+                    for (int i = 0; i < m; i++)
+                    {
+                        Display_Show_Contrast_InsertCell(table, i + 1, row, configs[i][k]);
+                    }
                 }
             }
             row++;
@@ -2687,6 +2737,12 @@ namespace PV_analysis
                 Display_Show_Contrast_InsertCell(table, i + 1, row, (((ThreeLevelStructure)structureListForContrast[i]).DCAC.Math_fs / 1e3).ToString("f1"));
             }
             row++;
+            Display_Show_Contrast_InsertCell(table, 0, row, "拓扑");
+            for (int i = 0; i < m; i++)
+            {
+                Display_Show_Contrast_InsertCell(table, i + 1, row, ((ThreeLevelStructure)structureListForContrast[i]).DCAC.Topology.GetName());
+            }
+            row++;
             Display_Show_Contrast_InsertCell(table, 0, row, "调制方式");
             for (int i = 0; i < m; i++)
             {
@@ -2694,32 +2750,35 @@ namespace PV_analysis
             }
             configTitles = new string[m][];
             configs = new string[m][];
-            for (int i = 0; i < m; i++)
+            if (isComponentInfoDisplay)
             {
-                configTitles[i] = ((ThreeLevelStructure)structureListForContrast[i]).DCAC.GetComponentConfigTitles();
-                configs[i] = ((ThreeLevelStructure)structureListForContrast[i]).DCAC.GetComponentConfigs();
-            }
-            for (int k = 0; k < configs[0].Length; k++)
-            {
-                row++;
-                Display_Show_Contrast_InsertCell(table, 0, row, configTitles[0][k]);
                 for (int i = 0; i < m; i++)
                 {
-                    Display_Show_Contrast_InsertCell(table, i + 1, row, configs[i][k]);
+                    configTitles[i] = ((ThreeLevelStructure)structureListForContrast[i]).DCAC.GetComponentConfigTitles();
+                    configs[i] = ((ThreeLevelStructure)structureListForContrast[i]).DCAC.GetComponentConfigs();
+                }
+                for (int k = 0; k < configs[0].Length; k++)
+                {
+                    row++;
+                    Display_Show_Contrast_InsertCell(table, 0, row, configTitles[0][k]);
+                    for (int i = 0; i < m; i++)
+                    {
+                        Display_Show_Contrast_InsertCell(table, i + 1, row, configs[i][k]);
+                    }
                 }
             }
 
             row++;
             Display_Show_Contrast_InsertTitle(table, "负载-效率曲线");
             row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "整体", 400);
+            Display_Show_Contrast_InsertCell(table, 0, row, "整体", 450);
             LiveCharts.WinForms.CartesianChart chartAll = new LiveCharts.WinForms.CartesianChart()
             {
                 BackColor = System.Drawing.Color.White,
                 Location = new System.Drawing.Point(300, 0),
                 Font = new System.Drawing.Font("宋体", 10.5F),
-                Size = new System.Drawing.Size(600, 400),
-                LegendLocation = LegendLocation.Right
+                Size = new System.Drawing.Size(600, 450),
+                LegendLocation = LegendLocation.Bottom
             };
             chartAll.AxisX = new AxesCollection
             {
@@ -2740,14 +2799,14 @@ namespace PV_analysis
             };
             Display_Show_Contrast_InsertRow(table, row, chartAll);
             row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "前级DC/DC", 400);
+            Display_Show_Contrast_InsertCell(table, 0, row, "前级DC/DC", 450);
             LiveCharts.WinForms.CartesianChart chartDCDC = new LiveCharts.WinForms.CartesianChart()
             {
                 BackColor = System.Drawing.Color.White,
                 Location = new System.Drawing.Point(300, 0),
                 Font = new System.Drawing.Font("宋体", 10.5F),
-                Size = new System.Drawing.Size(600, 400),
-                LegendLocation = LegendLocation.Right
+                Size = new System.Drawing.Size(600, 450),
+                LegendLocation = LegendLocation.Bottom
             };
             chartDCDC.AxisX = new AxesCollection
             {
@@ -2768,14 +2827,14 @@ namespace PV_analysis
             };
             Display_Show_Contrast_InsertRow(table, row, chartDCDC);
             row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "隔离DC/DC", 400);
+            Display_Show_Contrast_InsertCell(table, 0, row, "隔离DC/DC", 450);
             LiveCharts.WinForms.CartesianChart chartIsolatedDCDC = new LiveCharts.WinForms.CartesianChart()
             {
                 BackColor = System.Drawing.Color.White,
                 Location = new System.Drawing.Point(300, 0),
                 Font = new System.Drawing.Font("宋体", 10.5F),
-                Size = new System.Drawing.Size(600, 400),
-                LegendLocation = LegendLocation.Right
+                Size = new System.Drawing.Size(600, 450),
+                LegendLocation = LegendLocation.Bottom
             };
             chartIsolatedDCDC.AxisX = new AxesCollection
             {
@@ -2796,14 +2855,14 @@ namespace PV_analysis
             };
             Display_Show_Contrast_InsertRow(table, row, chartIsolatedDCDC);
             row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "逆变", 400);
+            Display_Show_Contrast_InsertCell(table, 0, row, "逆变", 450);
             LiveCharts.WinForms.CartesianChart chartDCAC = new LiveCharts.WinForms.CartesianChart()
             {
                 BackColor = System.Drawing.Color.White,
                 Location = new System.Drawing.Point(300, 0),
                 Font = new System.Drawing.Font("宋体", 10.5F),
-                Size = new System.Drawing.Size(600, 400),
-                LegendLocation = LegendLocation.Right
+                Size = new System.Drawing.Size(600, 450),
+                LegendLocation = LegendLocation.Bottom
             };
             chartDCAC.AxisX = new AxesCollection
             {
@@ -2840,26 +2899,28 @@ namespace PV_analysis
                 }
                 chartAll.Series.Add(new LineSeries
                 {
-                    Title = "Vin=" + structureListForContrast[i].Math_Vpv_min + "_" + (i + 1),
+                    Title = "设计" + (i + 1) + "_Vin=" + structureListForContrast[i].Math_Vpv_min,
                     Fill = Brushes.Transparent,
                     Values = valuesAll,
                     PointGeometry = null
                 });
                 chartDCDC.Series.Add(new LineSeries
                 {
-                    Title = "Vin=" + structureListForContrast[i].Math_Vpv_min + "_" + (i + 1),
+                    Title = "设计" + (i + 1) + "_Vin=" + structureListForContrast[i].Math_Vpv_min,
                     Fill = Brushes.Transparent,
                     Values = valuesDCDC,
                     PointGeometry = null
                 });
                 chartIsolatedDCDC.Series.Add(new LineSeries
                 {
+                    Title = "设计" + (i + 1),
                     Fill = Brushes.Transparent,
                     Values = valuesIsolatedDCDC,
                     PointGeometry = null
                 });
                 chartDCAC.Series.Add(new LineSeries
                 {
+                    Title = "设计" + (i + 1),
                     Fill = Brushes.Transparent,
                     Values = valuesDCAC,
                     PointGeometry = null
