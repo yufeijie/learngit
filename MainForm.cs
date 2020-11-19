@@ -42,7 +42,10 @@ namespace PV_analysis
 
         //展示对象
         private bool isStructureDisplay; //是否为架构展示（若为false，则为变换单元）
+        private bool isAllDisplay = true; //是否展示所有结果
+        private bool isParetoDisplay = true; //是否展示Pareto前沿
         private int displayNum = 0; //展示的数量（记录已在图像中绘制出的展示总数）
+        private List<string> seriesNameList; //展示图像中的系列名
         private List<Structure> structureListForDisplay; //用于展示的架构
         private List<Converter> converterListForDisplay; //用于展示的变换单元
 
@@ -497,6 +500,7 @@ namespace PV_analysis
         /// </summary>
         private void Estimate_Result_Display()
         {
+            seriesNameList.Add("评估结果");
             if (isStructureEvaluation)
             {
                 structureListForDisplay.Add(structureForEvaluation);
@@ -525,6 +529,7 @@ namespace PV_analysis
                 Converter converter = new DCDCConverter();
                 bool isStructure; //读取的对象是否为架构
                 string filePath = openFileDialog.FileName; //取得文件路径及文件名
+                string name = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName); //取得文件名
                 string[][] info = Data.Load(filePath); //读取数据
                 string[] conditions = info[0];
                 string obj = conditions[0];
@@ -642,6 +647,7 @@ namespace PV_analysis
                     return;
                 }
 
+                seriesNameList.Add(name);
                 if (isStructure)
                 {
                     for (int i = 1; i < info.Length; i++) //i=0为标题行
@@ -675,6 +681,11 @@ namespace PV_analysis
         /// </summary>
         private void Display_Show_Add(IConverterDesignData[] data)
         {
+            if (!isAllDisplay && !isParetoDisplay)
+            {
+                return;
+            }
+
             double x;
             double y;
             double[] dataX = new double[data.Length];
@@ -683,7 +694,7 @@ namespace PV_analysis
             List<double> paretoY = new List<double>();
 
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
-            switch (Display_Show_GraphCategory_ComboBox.Text)
+            switch (Display_Show_GraphCategory_ToolStripComboBox.Text)
             {
                 case "成本-效率":
                     for (int i = 0; i < data.Length; i++)
@@ -786,30 +797,37 @@ namespace PV_analysis
                     }
                     break;
             }
-            Display_Show_Graph_CartesianChart.Series.Add(new GScatterSeries
+
+            if (isAllDisplay)
             {
-                Name = "Series_" + (++displayNum).ToString(),
-                Title = "评估结果" + displayNum.ToString(),
-                Values = values.AsGearedValues().WithQuality(Quality.Low),
-                StrokeThickness = 0.5,
-                PointGeometry = null
-            });
+                Display_Show_Graph_CartesianChart.Series.Add(new GScatterSeries
+                {
+                    Name = "Series_" + (displayNum + 1).ToString(),
+                    Title = seriesNameList[displayNum],
+                    Values = values.AsGearedValues().WithQuality(Quality.Low),
+                    StrokeThickness = 0.5,
+                    PointGeometry = null
+                });
+            }
 
             //Pareto前沿
-            values = new ChartValues<ObservablePoint>();
-            for (int i = 0; i < paretoX.Count; i++)
+            if (isParetoDisplay)
             {
-                values.Add(new ObservablePoint(paretoX[i], paretoY[i]));
+                values = new ChartValues<ObservablePoint>();
+                for (int i = 0; i < paretoX.Count; i++)
+                {
+                    values.Add(new ObservablePoint(paretoX[i], paretoY[i]));
+                }
+                Display_Show_Graph_CartesianChart.Series.Add(new LineSeries
+                {
+                    Name = null,
+                    Title = seriesNameList[displayNum++] + "_Pareto前沿",
+                    Values = values.AsGearedValues().WithQuality(Quality.Low),
+                    Fill = Brushes.Transparent,
+                    LineSmoothness = 0,
+                    PointGeometry = null
+                });
             }
-            Display_Show_Graph_CartesianChart.Series.Add(new LineSeries
-            {
-                Name = null,
-                Title = "评估结果" + displayNum.ToString() + "（Pareto前沿）",
-                Values = values.AsGearedValues().WithQuality(Quality.Low),
-                Fill = Brushes.Transparent,
-                LineSmoothness = 0,
-                PointGeometry = null
-            });
         }
 
         /// <summary>
@@ -828,14 +846,14 @@ namespace PV_analysis
                 Location = new System.Drawing.Point(67, 88),
                 Size = new System.Drawing.Size(946, 665),
                 Zoom = ZoomingOptions.Xy,
-                LegendLocation = LegendLocation.Right
+                LegendLocation = LegendLocation.Bottom
             };            
             Display_Show_Graph_CartesianChart.DataClick += Chart_OnDataClick; //添加评估图像点的点击事件
 
             Display_Show_Graph_Panel.Controls.Add(Display_Show_Graph_CartesianChart);
             Display_Show_Graph_Panel.Visible = false; //解决底色变黑
             Display_Show_Graph_Panel.Visible = true;
-            switch (Display_Show_GraphCategory_ComboBox.Text) //设置横纵轴
+            switch (Display_Show_GraphCategory_ToolStripComboBox.Text) //设置横纵轴
             {
                 case "成本-效率":
 
@@ -907,13 +925,13 @@ namespace PV_analysis
         private void Display_Show_Display()
         {
             //更新控件、图像
-            if (Display_Show_GraphCategory_ComboBox.SelectedIndex >= 0)
+            if (Display_Show_GraphCategory_ToolStripComboBox.SelectedIndex >= 0)
             {
                 Display_Show_Draw();
             }
             else
             {
-                Display_Show_GraphCategory_ComboBox.SelectedIndex = 0;
+                Display_Show_GraphCategory_ToolStripComboBox.SelectedIndex = 0;
             }
 
             //页面切换
@@ -1106,7 +1124,7 @@ namespace PV_analysis
         /// <param name="dataList">数据</param>
         private void DisplayPieChart(LiveCharts.WinForms.PieChart pieChart, List<Item> dataList)
         {
-            string labelPoint(ChartPoint chartPoint) => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation); //饼图数据标签显示格式
+            //string labelPoint(ChartPoint chartPoint) => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation); //饼图数据标签显示格式
             SeriesCollection series = new SeriesCollection();
             for (int i = 0; i < dataList.Count; i++)
             {
@@ -1114,14 +1132,16 @@ namespace PV_analysis
                 {
                     series.Add(new PieSeries
                     {
+                        FontSize = 12,
                         Title = dataList[i].Name,
                         Values = new ChartValues<double> { dataList[i].Value },
                         DataLabels = true,
-                        LabelPoint = labelPoint
+                        //LabelPoint = labelPoint
                     });
                 }
             }
             pieChart.Series = series;
+            pieChart.Font = new System.Drawing.Font("宋体", 10.5F);
             pieChart.StartingRotationAngle = 0;
             pieChart.LegendLocation = LegendLocation.Bottom;
         }
@@ -2252,6 +2272,7 @@ namespace PV_analysis
 
         private void Estimate_Result_NewDisplay_Button_Click(object sender, EventArgs e)
         {
+            seriesNameList = new List<string>();
             structureListForDisplay = new List<Structure>();
             converterListForDisplay = new List<Converter>();
             structureListForContrast = new List<Structure>();
@@ -2271,8 +2292,14 @@ namespace PV_analysis
             Display_Show_Load();
         }
 
+        private void Display_Show_GraphCategory_ToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Display_Show_Draw();
+        }
+
         private void Display_Ready_Load_Button_Click(object sender, EventArgs e)
         {
+            seriesNameList = new List<string>();
             structureListForDisplay = new List<Structure>();
             converterListForDisplay = new List<Converter>();
             structureListForContrast = new List<Structure>();
@@ -2281,8 +2308,43 @@ namespace PV_analysis
             Display_Show_Contrast_Button.Enabled = false;
             Display_Show_Clear_Button.Enabled = false;
         }
+        
+        private void Display_Show_Refresh_ToolStripButton_Click(object sender, EventArgs e)
+        {
+            Display_Show_Display();
+        }
 
-        private void Display_Show_SelectYmax_Button_Click(object sender, EventArgs e)
+        private void Display_Show_All_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isAllDisplay)
+            {
+                isAllDisplay = false;
+                Display_Show_All_ToolStripMenuItem.Text = "显示评估结果";
+            }
+            else
+            {
+                isAllDisplay = true;
+                Display_Show_All_ToolStripMenuItem.Text = "隐藏评估结果";
+            }
+            Display_Show_Display();
+        }
+
+        private void Display_Show_Pareto_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isParetoDisplay)
+            {
+                isParetoDisplay = false;
+                Display_Show_Pareto_ToolStripMenuItem.Text = "显示Pareto前沿";
+            }
+            else
+            {
+                isParetoDisplay = true;
+                Display_Show_Pareto_ToolStripMenuItem.Text = "隐藏Pareto前沿";
+            }
+            Display_Show_Display();
+        }
+
+        private void Display_Show_SelectYmax_ToolStripButton_Click(object sender, EventArgs e)
         {
             if (isStructureDisplay)
             {
@@ -2399,7 +2461,7 @@ namespace PV_analysis
         /// <param name="row">行</param>
         /// <param name="control">控件</param>
         /// <param name="height">行高</param>
-        private void Display_Show_Contrast_InsertCell(TableLayoutPanel table, int column, int row, Control control, float height = 300)
+        private void Display_Show_Contrast_InsertCell(TableLayoutPanel table, int column, int row, Control control, float height = 400)
         {
             while (table.RowCount <= row)
             {
@@ -2807,49 +2869,45 @@ namespace PV_analysis
             row++;
             Display_Show_Contrast_InsertTitle(table, "损耗分布");
             row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "整体", 300);
+            Display_Show_Contrast_InsertCell(table, 0, row, "整体", 400);
             for (int i = 0; i < m; i++)
             {
                 LiveCharts.WinForms.PieChart pieChart = new LiveCharts.WinForms.PieChart()
                 {
-                    Dock = DockStyle.Fill,
-                    Font = new System.Drawing.Font("宋体", 9F)
+                    Dock = DockStyle.Fill
                 };
                 DisplayPieChart(pieChart, structureListForContrast[i].GetLossBreakdown());
                 Display_Show_Contrast_InsertCell(table, i + 1, row, pieChart);
             }
             row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "前级DC/DC", 300);
+            Display_Show_Contrast_InsertCell(table, 0, row, "前级DC/DC", 400);
             for (int i = 0; i < m; i++)
             {
                 LiveCharts.WinForms.PieChart pieChart = new LiveCharts.WinForms.PieChart()
                 {
-                    Dock = DockStyle.Fill,
-                    Font = new System.Drawing.Font("宋体", 9F)
+                    Dock = DockStyle.Fill
                 };
                 DisplayPieChart(pieChart, ((ThreeLevelStructure)structureListForContrast[i]).DCDC.GetTotalLossBreakdown());
                 Display_Show_Contrast_InsertCell(table, i + 1, row, pieChart);
             }
             row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "隔离DC/DC", 300);
+            Display_Show_Contrast_InsertCell(table, 0, row, "隔离DC/DC", 400);
             for (int i = 0; i < m; i++)
             {
                 LiveCharts.WinForms.PieChart pieChart = new LiveCharts.WinForms.PieChart()
                 {
-                    Dock = DockStyle.Fill,
-                    Font = new System.Drawing.Font("宋体", 9F)
+                    Dock = DockStyle.Fill
                 };
                 DisplayPieChart(pieChart, ((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.GetTotalLossBreakdown());
                 Display_Show_Contrast_InsertCell(table, i + 1, row, pieChart);
             }
             row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "逆变", 300);
+            Display_Show_Contrast_InsertCell(table, 0, row, "逆变", 400);
             for (int i = 0; i < m; i++)
             {
                 LiveCharts.WinForms.PieChart pieChart = new LiveCharts.WinForms.PieChart()
                 {
-                    Dock = DockStyle.Fill,
-                    Font = new System.Drawing.Font("宋体", 9F)
+                    Dock = DockStyle.Fill
                 };
                 DisplayPieChart(pieChart, ((ThreeLevelStructure)structureListForContrast[i]).DCAC.GetTotalLossBreakdown());
                 Display_Show_Contrast_InsertCell(table, i + 1, row, pieChart);
@@ -3211,11 +3269,6 @@ namespace PV_analysis
         private void Estimate_Step3_IsolatedDCDCMaxNumber_TextBox_TextChanged(object sender, EventArgs e)
         {
             Estimate_Step3_DCACMaxNumber_TextBox.Text = (int.Parse(Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text) * int.Parse(Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox.Text)).ToString();
-        }
-
-        private void Display_Show_GraphCategory_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Display_Show_Draw();
         }
     }
 }
