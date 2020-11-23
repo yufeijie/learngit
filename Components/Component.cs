@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PV_analysis.Informations;
+using System.Collections.Generic;
 
 namespace PV_analysis.Components
 {
@@ -70,11 +71,13 @@ namespace PV_analysis.Components
         /// </summary>
         public ComponentDesignList DesignList { get { return designList; } }
 
+
         /// <summary>
         /// 获取设计方案的配置信息标题
         /// </summary>
         /// <returns>配置信息标题</returns>
         public abstract string[] GetConfigTitles();
+
 
         /// <summary>
         /// 获取设计方案的配置信息
@@ -83,22 +86,28 @@ namespace PV_analysis.Components
         public abstract string[] GetConfigs();
 
         /// <summary>
+        /// 获取设计方案的配置信息（包括标题）
+        /// </summary>
+        /// <returns>配置信息</returns>
+        public abstract InfoList GetConfigInfo();
+
+        /// <summary>
         /// 获取损耗分布
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public abstract List<Item> GetLossBreakdown();
+        public abstract InfoList GetLossBreakdown();
 
         /// <summary>
         /// 获取成本分布
         /// </summary>
         /// <returns>成本分布信息</returns>
-        public abstract List<Item> GetCostBreakdown();
+        public abstract InfoList GetCostBreakdown();
 
         /// <summary>
         /// 获取体积分布
         /// </summary>
         /// <returns>体积分布信息</returns>
-        public abstract List<Item> GetVolumeBreakdown();
+        public abstract InfoList GetVolumeBreakdown();
 
         /// <summary>
         /// 读取配置信息
@@ -124,8 +133,8 @@ namespace PV_analysis.Components
         /// </summary>
         public void Evaluate()
         {
-            int m = Config.CGC_VOLTAGE_RATIO.Length;
-            int n = Config.CGC_POWER_RATIO.Length;
+            int m = Configuration.CGC_VOLTAGE_RATIO.Length;
+            int n = Configuration.CGC_POWER_RATIO.Length;
 
             if (!VoltageVariable) //输入电压不变
             {
@@ -141,7 +150,7 @@ namespace PV_analysis.Components
                     CalcPowerLoss(); //计算对应条件下的损耗
                     if (PowerVariable)
                     {
-                        powerLossEvaluation += powerLoss * Config.CGC_POWER_WEIGHT[j] / Config.CGC_POWER_RATIO[j]; //计算损耗评估值
+                        powerLossEvaluation += powerLoss * Configuration.CGC_POWER_WEIGHT[j] / Configuration.CGC_POWER_RATIO[j]; //计算损耗评估值
                     }
                     else //若负载不变，则只评估满载
                     {

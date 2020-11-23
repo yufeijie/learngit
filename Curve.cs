@@ -78,8 +78,8 @@ namespace PV_analysis
             {
                 case "Sine":
                 case "Triangle":
-                    double dt = (end - start) / Config.DEGREE;
-                    for (int i = 0; i <= Config.DEGREE; i++)
+                    double dt = (end - start) / Configuration.DEGREE;
+                    for (int i = 0; i <= Configuration.DEGREE; i++)
                     {
                         double t = start + dt * i;
                         Add(t, GetValue(t));

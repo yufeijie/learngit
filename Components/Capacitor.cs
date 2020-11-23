@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PV_analysis.Informations;
+using System;
 using System.Collections.Generic;
 
 namespace PV_analysis.Components
@@ -58,7 +59,6 @@ namespace PV_analysis.Components
             device = -1;
         }
 
-
         /// <summary>
         /// 获取设计方案的配置信息标题
         /// </summary>
@@ -80,15 +80,26 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 获取设计方案的配置信息（包括标题）
+        /// </summary>
+        /// <returns>配置信息</returns>
+        public override InfoList GetConfigInfo()
+        {
+            InfoList list = new InfoList(Name);
+            list.Add(new Info("型号", GetDeviceType()));
+            list.Add(new Info("串联数", numberSeriesConnected.ToString()));
+            list.Add(new Info("并联数", numberParallelConnected.ToString()));
+            return list;
+        }
+
+        /// <summary>
         /// 获取损耗分布
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public override List<Item> GetLossBreakdown()
+        public override InfoList GetLossBreakdown()
         {
-            List<Item> list = new List<Item>
-            {
-                new Item(Name, Math.Round(PowerLoss, 2))
-            };
+            InfoList list = new InfoList(Name);
+            list.Add(new Info(Name, Math.Round(PowerLoss, 2)));
             return list;
         }
 
@@ -96,12 +107,10 @@ namespace PV_analysis.Components
         /// 获取成本分布
         /// </summary>
         /// <returns>成本分布信息</returns>
-        public override List<Item> GetCostBreakdown()
+        public override InfoList GetCostBreakdown()
         {
-            List<Item> list = new List<Item>
-            {
-                new Item(Name, Math.Round(Cost, 2))
-            };
+            InfoList list = new InfoList(Name);
+            list.Add(new Info(Name, Math.Round(Cost, 2)));
             return list;
         }
 
@@ -109,12 +118,10 @@ namespace PV_analysis.Components
         /// 获取体积分布
         /// </summary>
         /// <returns>体积分布信息</returns>
-        public override List<Item> GetVolumeBreakdown()
+        public override InfoList GetVolumeBreakdown()
         {
-            List<Item> list = new List<Item>
-            {
-                new Item(Name, Math.Round(Volume, 2))
-            };
+            InfoList list = new InfoList(Name);
+            list.Add(new Info(Name, Math.Round(Volume, 2)));
             return list;
         }
 

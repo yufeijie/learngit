@@ -296,11 +296,11 @@ namespace PV_analysis.Topologys
             DesignCircuitParam();
             semiconductor.SetConstants(math_fg, math_VSmax, math_Mf, math_Ton_igbt, math_Ton_diode);
 
-            int n = Config.CGC_POWER_RATIO.Length;
+            int n = Configuration.CGC_POWER_RATIO.Length;
 
             for (int j = 0; j < n; j++)
             {
-                math_P = math_Pfull * Config.CGC_POWER_RATIO[j]; //改变负载
+                math_P = math_Pfull * Configuration.CGC_POWER_RATIO[j]; //改变负载
                 Simulate();
                 //Graph graph = new Graph();
                 //graph.Add(currentSwitch_P, "iP");

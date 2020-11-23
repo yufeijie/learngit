@@ -1,5 +1,6 @@
 ﻿using PV_analysis.Components;
 using PV_analysis.Converters;
+using PV_analysis.Informations;
 using PV_analysis.Topologys;
 using System;
 using System.Collections.Generic;
@@ -199,12 +200,12 @@ namespace PV_analysis.Structures
         /// 获取损耗分布（变换器）
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public List<Item> GetLossBreakdown()
+        public InfoList GetLossBreakdown()
         {
-            List<Item> list = new List<Item>();
+            InfoList list = new InfoList(Name);
             foreach (Converter converter in Converters)
             {
-                list.Add(new Item(converter.GetCategory(), Math.Round(converter.PowerLoss, 2)));
+                list.Add(new Info(converter.GetCategory(), Math.Round(converter.PowerLoss, 2)));
             }
             return list;
         }
@@ -213,12 +214,12 @@ namespace PV_analysis.Structures
         /// 获取成本分布（变换器）
         /// </summary>
         /// <returns>成本分布信息</returns>
-        public List<Item> GetCostBreakdown()
+        public InfoList GetCostBreakdown()
         {
-            List<Item> list = new List<Item>();
+            InfoList list = new InfoList(Name);
             foreach (Converter converter in Converters)
             {
-                list.Add(new Item(converter.GetCategory(), Math.Round(converter.Cost / 1e4, 2)));
+                list.Add(new Info(converter.GetCategory(), Math.Round(converter.Cost / 1e4, 2)));
             }
             return list;
         }
@@ -227,12 +228,12 @@ namespace PV_analysis.Structures
         /// 获取体积分布（变换器）
         /// </summary>
         /// <returns>体积分布信息</returns>
-        public List<Item> GetVolumeBreakdown()
+        public InfoList GetVolumeBreakdown()
         {
-            List<Item> list = new List<Item>();
+            InfoList list = new InfoList(Name);
             foreach (Converter converter in Converters)
             {
-                list.Add(new Item(converter.GetCategory(), Math.Round(converter.Volume, 2)));
+                list.Add(new Info(converter.GetCategory(), Math.Round(converter.Volume, 2)));
             }
             return list;
         }

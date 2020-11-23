@@ -205,9 +205,9 @@ namespace PV_analysis.Topologys
             curve_vCr = new Curve();
             double startTime = 0;
             double endTime = Ts;
-            double dt = (endTime - startTime) / Config.DEGREE;
+            double dt = (endTime - startTime) / Configuration.DEGREE;
             double t;
-            for (int i = 0; i <= Config.DEGREE; i++)
+            for (int i = 0; i <= Configuration.DEGREE; i++)
             {
                 t = startTime + dt * i;
                 double vab = Formula.SRC_vab(t, Ts, Vin);
@@ -278,11 +278,11 @@ namespace PV_analysis.Topologys
             double VCrmax = 0; //谐振电容电压最大值
             double ICfrms_max = 0; //滤波电容电流有效值最大值
             
-            int n = Config.CGC_POWER_RATIO.Length;
+            int n = Configuration.CGC_POWER_RATIO.Length;
 
             for (int j = 0; j < n; j++)
             {
-                math_P = math_Pfull * Config.CGC_POWER_RATIO[j]; //改变负载
+                math_P = math_Pfull * Configuration.CGC_POWER_RATIO[j]; //改变负载
                 Simulate(); //进行对应负载下的波形模拟
                 //Graph graph = new Graph();
                 //graph.Add(curve_iSp, "iP");

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PV_analysis.Informations;
+using System;
 using System.Collections.Generic;
 using static PV_analysis.Curve;
 
@@ -104,32 +105,43 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 获取设计方案的配置信息（包括标题）
+        /// </summary>
+        /// <returns>配置信息</returns>
+        public override InfoList GetConfigInfo()
+        {
+            InfoList list = new InfoList(Name);
+            list.Add(new Info("型号", GetDeviceType()));
+            return list;
+        }
+
+        /// <summary>
         /// 获取损耗分布
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public override List<Item> GetLossBreakdown()
+        public override InfoList GetLossBreakdown()
         {
-            List<Item> list = new List<Item>();
+            InfoList list = new InfoList(Name);
             if (isPowerLossBalance)
             {
-                list.Add(new Item(Name + "(PTcon)", Math.Round(number * math_PTcon[0] * 2, 2)));
-                list.Add(new Item(Name + "(Pon)", Math.Round(number * math_Pon[0] * 2, 2)));
-                list.Add(new Item(Name + "(Poff)", Math.Round(number * math_Poff[0] * 2, 2)));
-                list.Add(new Item(Name + "(PDcon)", Math.Round(number * math_PDcon[0] * 2, 2)));
-                list.Add(new Item(Name + "(Prr)", Math.Round(number * math_Prr[0] * 2, 2)));
+                list.Add(new Info(Name + "(PTcon)", Math.Round(number * math_PTcon[0] * 2, 2)));
+                list.Add(new Info(Name + "(Pon)", Math.Round(number * math_Pon[0] * 2, 2)));
+                list.Add(new Info(Name + "(Poff)", Math.Round(number * math_Poff[0] * 2, 2)));
+                list.Add(new Info(Name + "(PDcon)", Math.Round(number * math_PDcon[0] * 2, 2)));
+                list.Add(new Info(Name + "(Prr)", Math.Round(number * math_Prr[0] * 2, 2)));
             }
             else
             {
-                list.Add(new Item(Name_Up + "(PTcon)", Math.Round(number * math_PTcon[0], 2)));
-                list.Add(new Item(Name_Up + "(Pon)", Math.Round(number * math_Pon[0], 2)));
-                list.Add(new Item(Name_Up + "(Poff)", Math.Round(number * math_Poff[0], 2)));
-                list.Add(new Item(Name_Up + "(PDcon)", Math.Round(number * math_PDcon[0], 2)));
-                list.Add(new Item(Name_Up + "(Prr)", Math.Round(number * math_Prr[0], 2)));
-                list.Add(new Item(Name_Down + "(PTcon)", Math.Round(number * math_PTcon[1], 2)));
-                list.Add(new Item(Name_Down + "(Pon)", Math.Round(number * math_Pon[1], 2)));
-                list.Add(new Item(Name_Down + "(Poff)", Math.Round(number * math_Poff[1], 2)));
-                list.Add(new Item(Name_Down + "(PDcon)", Math.Round(number * math_PDcon[1], 2)));
-                list.Add(new Item(Name_Down + "(Prr)", Math.Round(number * math_Prr[1], 2)));
+                list.Add(new Info(Name_Up + "(PTcon)", Math.Round(number * math_PTcon[0], 2)));
+                list.Add(new Info(Name_Up + "(Pon)", Math.Round(number * math_Pon[0], 2)));
+                list.Add(new Info(Name_Up + "(Poff)", Math.Round(number * math_Poff[0], 2)));
+                list.Add(new Info(Name_Up + "(PDcon)", Math.Round(number * math_PDcon[0], 2)));
+                list.Add(new Info(Name_Up + "(Prr)", Math.Round(number * math_Prr[0], 2)));
+                list.Add(new Info(Name_Down + "(PTcon)", Math.Round(number * math_PTcon[1], 2)));
+                list.Add(new Info(Name_Down + "(Pon)", Math.Round(number * math_Pon[1], 2)));
+                list.Add(new Info(Name_Down + "(Poff)", Math.Round(number * math_Poff[1], 2)));
+                list.Add(new Info(Name_Down + "(PDcon)", Math.Round(number * math_PDcon[1], 2)));
+                list.Add(new Info(Name_Down + "(Prr)", Math.Round(number * math_Prr[1], 2)));
             }
             return list;
         }

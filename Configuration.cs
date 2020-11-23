@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PV_analysis
+﻿namespace PV_analysis
 {
-    internal static class Config
+    internal static class Configuration
     {
 		//常数
 		public static int DEGREE = (int)1e3; //精度

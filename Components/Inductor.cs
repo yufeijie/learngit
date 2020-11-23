@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PV_analysis.Informations;
+using System;
 using System.Collections.Generic;
 
 namespace PV_analysis.Components
@@ -61,16 +62,29 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 获取设计方案的配置信息（包括标题）
+        /// </summary>
+        /// <returns>配置信息</returns>
+        public override InfoList GetConfigInfo()
+        {
+            InfoList list = new InfoList(Name);
+            list.Add(new Info("磁芯型号", GetCoreType()));
+            list.Add(new Info("磁芯数", numberCore.ToString()));
+            list.Add(new Info("气隙长度(cm)", lg.ToString()));
+            list.Add(new Info("绕线型号", GetWireType(wire)));
+            list.Add(new Info("匝数", N.ToString()));
+            return list;
+        }
+
+        /// <summary>
         /// 获取损耗分布
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public override List<Item> GetLossBreakdown()
+        public override InfoList GetLossBreakdown()
         {
-            List<Item> list = new List<Item>
-            {
-                new Item(Name + "(Cu)", Math.Round(number * powerLossCu, 2)),
-                new Item(Name + "(Fe)", Math.Round(number * powerLossFe, 2))
-            };
+            InfoList list = new InfoList(Name);
+            list.Add(new Info(Name + "(Cu)", Math.Round(number * powerLossCu, 2)));
+            list.Add(new Info(Name + "(Fe)", Math.Round(number * powerLossFe, 2)));
             return list;
         }
 

@@ -1,4 +1,5 @@
 ﻿using PV_analysis.Components;
+using PV_analysis.Informations;
 using PV_analysis.Topologys;
 using System;
 using System.Collections.Generic;
@@ -126,37 +127,17 @@ namespace PV_analysis.Converters
         public abstract string GetCategory();
 
         /// <summary>
-        /// 获取设计方案的元器件配置信息标题
-        /// </summary>
-        /// <returns>配置信息</returns>
-        public string[] GetComponentConfigTitles()
-        {
-            List<string> comConfigs = new List<string>();
-            foreach (Component com in Topology.ComponentGroups[Topology.GroupIndex])
-            {
-                foreach (string configs in com.GetConfigTitles())
-                {
-                    comConfigs.Add("["+com.Name + "]" + configs);
-                }
-            }
-            return comConfigs.ToArray();
-        }
-
-        /// <summary>
         /// 获取设计方案的元器件配置信息
         /// </summary>
         /// <returns>配置信息</returns>
-        public string[] GetComponentConfigs()
+        public InfoPackage GetComponentConfigInfo()
         {
-            List<string> comConfigs = new List<string>();
+            InfoPackage package = new InfoPackage(Name);
             foreach (Component com in Topology.ComponentGroups[Topology.GroupIndex])
             {
-                foreach (string configs in com.GetConfigs())
-                {
-                    comConfigs.Add(configs);
-                }
+                package.Add(com.GetConfigInfo());
             }
-            return comConfigs.ToArray();
+            return package;
         }
 
         /// <summary>
@@ -164,7 +145,6 @@ namespace PV_analysis.Converters
         /// </summary>
         /// <returns>配置信息</returns>
         public abstract string[] GetConfigs();
-
 
         /// <summary>
         /// 获取设计条件标题
@@ -182,17 +162,17 @@ namespace PV_analysis.Converters
         /// 获取总损耗分布（元器件）
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public List<Item> GetTotalLossBreakdown()
+        public InfoList GetTotalLossBreakdown()
         {
-            List<Item> list = new List<Item>();
+            InfoList list = new InfoList(Name);
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
-                List<Item> lossList = component.GetLossBreakdown();
-                foreach (Item item in lossList)
+                InfoList comList = component.GetLossBreakdown();
+                for (int i = 0; i < comList.Size; i++)
                 {
-                    item.Value *= Number;                    
+                    comList[i].Content = (double)comList[i].Content * Number;
                 }
-                list.AddRange(lossList);
+                list.AddRange(comList);
             }
             return list;
         }
@@ -201,9 +181,9 @@ namespace PV_analysis.Converters
         /// 获取模块损耗分布（元器件）
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public List<Item> GetModuleLossBreakdown()
+        public InfoList GetModuleLossBreakdown()
         {
-            List<Item> list = new List<Item>();
+            InfoList list = new InfoList(Name);
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
                 list.AddRange(component.GetLossBreakdown());
@@ -215,29 +195,27 @@ namespace PV_analysis.Converters
         /// 获取成本分布（元器件）
         /// </summary>
         /// <returns>成本分布信息</returns>
-        public List<Item> GetCostBreakdown()
+        public InfoList GetCostBreakdown()
         {
-            List<Item> listAll = new List<Item>();
+            InfoList list = new InfoList(Name);
+            double costDriver = 0;
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
-                listAll.AddRange(component.GetCostBreakdown());
-            }
-            //整合驱动成本
-            List<Item> list = new List<Item>();
-            double costDriver = 0;
-            foreach (Item item in listAll)
-            {
-                if (item.Name != null && item.Name.Equals("驱动"))
+                InfoList comList = component.GetCostBreakdown();
+                for (int i = 0; i < comList.Size; i++)
                 {
-                    costDriver += item.Value;
-                }
-                else
-                {
-                    list.Add(item);
+                    if (comList[i].Title != null && comList[i].Title.Equals("驱动"))
+                    {
+                        costDriver += (double)comList[i].Content;
+                    }
+                    else
+                    {
+                        list.Add(comList[i]);
+                    }
                 }
             }
-            list.Add(new Item("驱动&控制芯片", Math.Round(costDriver + costDSP, 2)));
-            list.Add(new Item("散热器", Math.Round(costHeatsink, 2)));
+            list.Add(new Info("驱动&控制芯片", Math.Round(costDriver + costDSP, 2)));
+            list.Add(new Info("散热器", Math.Round(costHeatsink, 2)));
             return list;
         }
 
@@ -245,14 +223,14 @@ namespace PV_analysis.Converters
         /// 获取体积分布（元器件）
         /// </summary>
         /// <returns>体积分布信息</returns>
-        public List<Item> GetVolumeBreakdown()
+        public InfoList GetVolumeBreakdown()
         {
-            List<Item> list = new List<Item>();
+            InfoList list = new InfoList(Name);
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
                 list.AddRange(component.GetVolumeBreakdown());
             }
-            list.Add(new Item("散热器", Math.Round(volumeHeatsink, 2)));
+            list.Add(new Info("散热器", Math.Round(volumeHeatsink, 2)));
             return list;
         }
 
@@ -429,9 +407,9 @@ namespace PV_analysis.Converters
         public void DesignAuxComponent()
         {
             //评估散热器
-            double Rh = (Config.MAX_HEATSINK_TEMPERATURE - Config.AMBIENT_TEMPERATURE) / Math_Peval; //此处应采用损耗最大值
-            volumeHeatsink = 1 / (Config.CSPI * Rh);
-            costHeatsink = volumeHeatsink * Config.HEATSINK_UNIT_PRICE;
+            double Rh = (Configuration.MAX_HEATSINK_TEMPERATURE - Configuration.AMBIENT_TEMPERATURE) / Math_Peval; //此处应采用损耗最大值
+            volumeHeatsink = 1 / (Configuration.CSPI * Rh);
+            costHeatsink = volumeHeatsink * Configuration.HEATSINK_UNIT_PRICE;
             Volume += volumeHeatsink;
             Cost += costHeatsink;
 

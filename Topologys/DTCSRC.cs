@@ -200,8 +200,8 @@ namespace PV_analysis.Topologys
             curve_vCr = new Curve();
             double startTime = 0;
             double endTime = 1;
-            double dt = (endTime - startTime) / Config.DEGREE;
-            for (int i = 0; i <= Config.DEGREE; i++)
+            double dt = (endTime - startTime) / Configuration.DEGREE;
+            for (int i = 0; i <= Configuration.DEGREE; i++)
             {
                 double t = startTime + dt * i;
                 double iLr = Formula.DTC_SRC_ilr(t, Td_base, fs_base, Q, M, mode);
@@ -245,8 +245,8 @@ namespace PV_analysis.Topologys
         {
             //计算电路参数
             DesignCircuitParam();
-            int m = Config.CGC_VOLTAGE_RATIO.Length;
-            int n = Config.CGC_POWER_RATIO.Length;
+            int m = Configuration.CGC_VOLTAGE_RATIO.Length;
+            int n = Configuration.CGC_POWER_RATIO.Length;
 
             double ILmax = 0;
             double ILrms_max = 0;
@@ -258,10 +258,10 @@ namespace PV_analysis.Topologys
             //得到用于效率评估的不同输入电压与不同功率点的电路参数
             for (int i = 0; i < m; i++)
             {
-                math_Vin = math_Vinmin + (math_Vinmax - math_Vinmin) * Config.CGC_VOLTAGE_RATIO[i];
+                math_Vin = math_Vinmin + (math_Vinmax - math_Vinmin) * Configuration.CGC_VOLTAGE_RATIO[i];
                 for (int j = 0; j < n; j++)
                 {
-                    math_P = math_Pfull * Config.CGC_POWER_RATIO[j]; //改变负载
+                    math_P = math_Pfull * Configuration.CGC_POWER_RATIO[j]; //改变负载
                     Simulate();
                     //Graph graph = new Graph();
                     //graph.Add(curve_iL, "iL");

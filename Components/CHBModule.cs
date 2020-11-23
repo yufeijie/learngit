@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PV_analysis.Informations;
+using System;
 using System.Collections.Generic;
 
 namespace PV_analysis.Components
@@ -96,11 +97,23 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 获取设计方案的配置信息（包括标题）
+        /// </summary>
+        /// <returns>配置信息</returns>
+        public override InfoList GetConfigInfo()
+        {
+            InfoList list = new InfoList(Name);
+            list.Add(new Info("型号", GetDeviceType()));
+            return list;
+        }
+
+        /// <summary>
         /// 获取损耗分布
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public override List<Item> GetLossBreakdown()
+        public override InfoList GetLossBreakdown()
         {
+            InfoList list = new InfoList(Name);
             double PTcon_ave = 0;
             double Pon_ave = 0;
             double Poff_ave = 0;
@@ -123,14 +136,11 @@ namespace PV_analysis.Components
             PDcon_ave /= MultiNumber;
             Prr_ave /= MultiNumber;
 
-            List<Item> list = new List<Item>
-            {
-                new Item(Name + "(PTcon)", Math.Round(number * PTcon_ave, 2)),
-                new Item(Name + "(Pon)", Math.Round(number * Pon_ave, 2)),
-                new Item(Name + "(Poff)", Math.Round(number * Poff_ave, 2)),
-                new Item(Name + "(PDcon)", Math.Round(number * PDcon_ave, 2)),
-                new Item(Name + "(Prr)", Math.Round(number * Prr_ave, 2))
-            };
+            list.Add(new Info(Name + "(PTcon)", Math.Round(number * PTcon_ave, 2)));
+            list.Add(new Info(Name + "(Pon)", Math.Round(number * Pon_ave, 2)));
+            list.Add(new Info(Name + "(Poff)", Math.Round(number * Poff_ave, 2)));
+            list.Add(new Info(Name + "(PDcon)", Math.Round(number * PDcon_ave, 2)));
+            list.Add(new Info(Name + "(Prr)", Math.Round(number * Prr_ave, 2)));
             return list;
         }
 

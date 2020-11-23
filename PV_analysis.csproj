@@ -120,7 +120,7 @@
     <Compile Include="Components\Magnetics.cs" />
     <Compile Include="Components\Semiconductor.cs" />
     <Compile Include="Components\Transformer.cs" />
-    <Compile Include="Config.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Converters\Converter.cs" />
     <Compile Include="Converters\DCACConverter.cs" />
     <Compile Include="Converters\DCDCConverter.cs" />
@@ -131,7 +131,9 @@
     <Compile Include="Formula.cs" />
     <Compile Include="IConverterDesignData.cs" />
     <Compile Include="IComponentDesignData.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="Informations\Info.cs" />
+    <Compile Include="Informations\InfoList.cs" />
+    <Compile Include="Informations\InfoPackage.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

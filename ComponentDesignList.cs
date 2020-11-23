@@ -123,9 +123,9 @@ namespace PV_analysis
             while (now != null)
             {
                 //设计散热器
-                double Rh = (Config.MAX_HEATSINK_TEMPERATURE - Config.AMBIENT_TEMPERATURE) / now.PowerLoss; //此处应采用损耗最大值
-                double Vh = 1 / (Config.CSPI * Rh);
-                double Ch = Vh * Config.HEATSINK_UNIT_PRICE;
+                double Rh = (Configuration.MAX_HEATSINK_TEMPERATURE - Configuration.AMBIENT_TEMPERATURE) / now.PowerLoss; //此处应采用损耗最大值
+                double Vh = 1 / (Configuration.CSPI * Rh);
+                double Ch = Vh * Configuration.HEATSINK_UNIT_PRICE;
                 now.Volume += Vh;
                 now.Cost += Ch;
 
