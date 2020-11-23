@@ -23,5 +23,9 @@
 		//散热器设计
 		public const double CSPI = 15; //cooling system performance index 冷却系统性能指标(W/K*dm^3)
 		public const double HEATSINK_UNIT_PRICE = 35 + 15; //单位体积散热器成本(RMB/dm^3)
+
+		//界面显示
+		public const bool IS_PRINT_DEBUG = true; //是否打印Debug信息
+		public const bool IS_COM_INFO_DISPLAYED = true; //是否展示器件的设计信息
 	}
 }

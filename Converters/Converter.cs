@@ -127,20 +127,6 @@ namespace PV_analysis.Converters
         public abstract string GetCategory();
 
         /// <summary>
-        /// 获取设计方案的元器件配置信息
-        /// </summary>
-        /// <returns>配置信息</returns>
-        public InfoPackage GetComponentConfigInfo()
-        {
-            InfoPackage package = new InfoPackage(Name);
-            foreach (Component com in Topology.ComponentGroups[Topology.GroupIndex])
-            {
-                package.Add(com.GetConfigInfo());
-            }
-            return package;
-        }
-
-        /// <summary>
         /// 获取设计方案的配置信息
         /// </summary>
         /// <returns>配置信息</returns>
@@ -157,6 +143,26 @@ namespace PV_analysis.Converters
         /// </summary>
         /// <returns>设计条件</returns>
         protected abstract string[] GetConditions();
+
+        /// <summary>
+        /// 获取设计方案的元器件配置信息
+        /// </summary>
+        /// <returns>配置信息</returns>
+        public InfoPackage GetComponentConfigInfo()
+        {
+            InfoPackage package = new InfoPackage(Name);
+            foreach (Component com in Topology.ComponentGroups[Topology.GroupIndex])
+            {
+                package.Add(com.GetConfigInfo());
+            }
+            return package;
+        }
+
+        /// <summary>
+        /// 获取展示信息
+        /// </summary>
+        /// <returns>展示信息</returns>
+        public abstract InfoPackage GetDisplayInfo();
 
         /// <summary>
         /// 获取总损耗分布（元器件）

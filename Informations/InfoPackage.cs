@@ -22,6 +22,11 @@ namespace PV_analysis.Informations
             content.Add(infoSection);
         }
 
+        public void AddRange(InfoPackage infoPackage)
+        {
+            content.AddRange(infoPackage.content);
+        }
+
         public InfoList this[int index]
         {
             get

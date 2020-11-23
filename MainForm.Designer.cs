@@ -40,6 +40,7 @@
             this.Tab_Panel = new System.Windows.Forms.Panel();
             this.Tab_Test_Button = new System.Windows.Forms.Button();
             this.Estimate_Ready_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Ready_Manual_CheckBox = new System.Windows.Forms.CheckBox();
             this.Estimate_Ready_System_button = new System.Windows.Forms.Button();
             this.Estimate_Ready_Converter_button = new System.Windows.Forms.Button();
             this.Estimate_Step1_Panel = new System.Windows.Forms.Panel();
@@ -401,6 +402,13 @@
             this.Display_Contrast_Vin_Value_Label = new System.Windows.Forms.Label();
             this.Display_Contrast_Load_Label = new System.Windows.Forms.Label();
             this.Display_Contrast_Load_Value_Label = new System.Windows.Forms.Label();
+            this.Estimate_Manual_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Manual_Main_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Manual_Title_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Manual_Title_Label = new System.Windows.Forms.Label();
+            this.Estimate_Manual_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Manual_Prev_Button = new System.Windows.Forms.Button();
+            this.Estimate_Manual_Next_Button = new System.Windows.Forms.Button();
             this.Home_Panel.SuspendLayout();
             this.Home_Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).BeginInit();
@@ -534,6 +542,9 @@
             this.Display_Contrast_Operation_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Display_Contrast_Load_TrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Display_Contrast_Vin_TrackBar)).BeginInit();
+            this.Estimate_Manual_Panel.SuspendLayout();
+            this.Estimate_Manual_Title_Panel.SuspendLayout();
+            this.Estimate_Manual_Operation_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // Home_Panel
@@ -668,10 +679,12 @@
             this.Tab_Test_Button.Text = "测试";
             this.Tab_Test_Button.UseVisualStyleBackColor = false;
             this.Tab_Test_Button.Visible = false;
+            this.Tab_Test_Button.Click += new System.EventHandler(this.Tab_Test_Button_Click);
             // 
             // Estimate_Ready_Panel
             // 
             this.Estimate_Ready_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Ready_Panel.Controls.Add(this.Estimate_Ready_Manual_CheckBox);
             this.Estimate_Ready_Panel.Controls.Add(this.Estimate_Ready_System_button);
             this.Estimate_Ready_Panel.Controls.Add(this.Estimate_Ready_Converter_button);
             this.Estimate_Ready_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -680,6 +693,18 @@
             this.Estimate_Ready_Panel.Size = new System.Drawing.Size(1434, 861);
             this.Estimate_Ready_Panel.TabIndex = 3;
             this.Estimate_Ready_Panel.Visible = false;
+            // 
+            // Estimate_Ready_Manual_CheckBox
+            // 
+            this.Estimate_Ready_Manual_CheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Ready_Manual_CheckBox.AutoSize = true;
+            this.Estimate_Ready_Manual_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Ready_Manual_CheckBox.Location = new System.Drawing.Point(1183, 762);
+            this.Estimate_Ready_Manual_CheckBox.Name = "Estimate_Ready_Manual_CheckBox";
+            this.Estimate_Ready_Manual_CheckBox.Size = new System.Drawing.Size(107, 29);
+            this.Estimate_Ready_Manual_CheckBox.TabIndex = 2;
+            this.Estimate_Ready_Manual_CheckBox.Text = "手动评估";
+            this.Estimate_Ready_Manual_CheckBox.UseVisualStyleBackColor = true;
             // 
             // Estimate_Ready_System_button
             // 
@@ -4802,13 +4827,98 @@
             this.Display_Contrast_Load_Value_Label.Text = "100%";
             this.Display_Contrast_Load_Value_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // Estimate_Manual_Panel
+            // 
+            this.Estimate_Manual_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Manual_Panel.Controls.Add(this.Estimate_Manual_Main_Panel);
+            this.Estimate_Manual_Panel.Controls.Add(this.Estimate_Manual_Title_Panel);
+            this.Estimate_Manual_Panel.Controls.Add(this.Estimate_Manual_Operation_Panel);
+            this.Estimate_Manual_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Estimate_Manual_Panel.Location = new System.Drawing.Point(150, 0);
+            this.Estimate_Manual_Panel.Name = "Estimate_Manual_Panel";
+            this.Estimate_Manual_Panel.Size = new System.Drawing.Size(1434, 861);
+            this.Estimate_Manual_Panel.TabIndex = 17;
+            this.Estimate_Manual_Panel.Visible = false;
+            // 
+            // Estimate_Manual_Main_Panel
+            // 
+            this.Estimate_Manual_Main_Panel.AutoScroll = true;
+            this.Estimate_Manual_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Manual_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Estimate_Manual_Main_Panel.Location = new System.Drawing.Point(0, 50);
+            this.Estimate_Manual_Main_Panel.Margin = new System.Windows.Forms.Padding(0);
+            this.Estimate_Manual_Main_Panel.Name = "Estimate_Manual_Main_Panel";
+            this.Estimate_Manual_Main_Panel.Size = new System.Drawing.Size(1432, 759);
+            this.Estimate_Manual_Main_Panel.TabIndex = 4;
+            // 
+            // Estimate_Manual_Title_Panel
+            // 
+            this.Estimate_Manual_Title_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Manual_Title_Panel.Controls.Add(this.Estimate_Manual_Title_Label);
+            this.Estimate_Manual_Title_Panel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Estimate_Manual_Title_Panel.Location = new System.Drawing.Point(0, 0);
+            this.Estimate_Manual_Title_Panel.Name = "Estimate_Manual_Title_Panel";
+            this.Estimate_Manual_Title_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Estimate_Manual_Title_Panel.TabIndex = 3;
+            // 
+            // Estimate_Manual_Title_Label
+            // 
+            this.Estimate_Manual_Title_Label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Estimate_Manual_Title_Label.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Manual_Title_Label.Location = new System.Drawing.Point(0, 0);
+            this.Estimate_Manual_Title_Label.Name = "Estimate_Manual_Title_Label";
+            this.Estimate_Manual_Title_Label.Size = new System.Drawing.Size(1430, 48);
+            this.Estimate_Manual_Title_Label.TabIndex = 0;
+            this.Estimate_Manual_Title_Label.Text = "3.设定参数";
+            this.Estimate_Manual_Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Estimate_Manual_Operation_Panel
+            // 
+            this.Estimate_Manual_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Estimate_Manual_Operation_Panel.Controls.Add(this.Estimate_Manual_Prev_Button);
+            this.Estimate_Manual_Operation_Panel.Controls.Add(this.Estimate_Manual_Next_Button);
+            this.Estimate_Manual_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Estimate_Manual_Operation_Panel.Location = new System.Drawing.Point(0, 809);
+            this.Estimate_Manual_Operation_Panel.Name = "Estimate_Manual_Operation_Panel";
+            this.Estimate_Manual_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Estimate_Manual_Operation_Panel.TabIndex = 1;
+            // 
+            // Estimate_Manual_Prev_Button
+            // 
+            this.Estimate_Manual_Prev_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Estimate_Manual_Prev_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Manual_Prev_Button.Location = new System.Drawing.Point(1198, 8);
+            this.Estimate_Manual_Prev_Button.Name = "Estimate_Manual_Prev_Button";
+            this.Estimate_Manual_Prev_Button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Manual_Prev_Button.TabIndex = 1;
+            this.Estimate_Manual_Prev_Button.Text = "上一步";
+            this.Estimate_Manual_Prev_Button.UseVisualStyleBackColor = true;
+            this.Estimate_Manual_Prev_Button.Click += new System.EventHandler(this.Estimate_Manual_Prev_Button_Click);
+            // 
+            // Estimate_Manual_Next_Button
+            // 
+            this.Estimate_Manual_Next_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Estimate_Manual_Next_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Manual_Next_Button.Location = new System.Drawing.Point(1319, 8);
+            this.Estimate_Manual_Next_Button.Name = "Estimate_Manual_Next_Button";
+            this.Estimate_Manual_Next_Button.Size = new System.Drawing.Size(100, 34);
+            this.Estimate_Manual_Next_Button.TabIndex = 0;
+            this.Estimate_Manual_Next_Button.Text = "开始评估";
+            this.Estimate_Manual_Next_Button.UseVisualStyleBackColor = true;
+            this.Estimate_Manual_Next_Button.Click += new System.EventHandler(this.Estimate_Manual_Next_Button_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
-            this.Controls.Add(this.Display_Show_Panel);
             this.Controls.Add(this.Estimate_Step3_Panel);
+            this.Controls.Add(this.Estimate_Ready_Panel);
+            this.Controls.Add(this.Estimate_Manual_Panel);
+            this.Controls.Add(this.Admin_Panel);
+            this.Controls.Add(this.Display_Show_Panel);
             this.Controls.Add(this.Estimate_Step1_Panel);
             this.Controls.Add(this.Display_Detail_Panel);
             this.Controls.Add(this.Estimate_Result_Panel);
@@ -4818,9 +4928,7 @@
             this.Controls.Add(this.Estimate_Step3B_Panel);
             this.Controls.Add(this.Home_Panel);
             this.Controls.Add(this.Estimate_Step1B_Panel);
-            this.Controls.Add(this.Estimate_Ready_Panel);
             this.Controls.Add(this.Display_Ready_Panel);
-            this.Controls.Add(this.Admin_Panel);
             this.Controls.Add(this.Tab_Panel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -4833,6 +4941,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).EndInit();
             this.Tab_Panel.ResumeLayout(false);
             this.Estimate_Ready_Panel.ResumeLayout(false);
+            this.Estimate_Ready_Panel.PerformLayout();
             this.Estimate_Step1_Panel.ResumeLayout(false);
             this.Estimate_Step1_Main_Panel.ResumeLayout(false);
             this.Estimate_Step1_Main_Right_Panel.ResumeLayout(false);
@@ -5021,6 +5130,9 @@
             this.Display_Contrast_Operation_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Display_Contrast_Load_TrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Display_Contrast_Vin_TrackBar)).EndInit();
+            this.Estimate_Manual_Panel.ResumeLayout(false);
+            this.Estimate_Manual_Title_Panel.ResumeLayout(false);
+            this.Estimate_Manual_Operation_Panel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -5399,6 +5511,14 @@
         private System.Windows.Forms.ToolStripMenuItem Display_Show_Pareto_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton Display_Show_Refresh_ToolStripButton;
         private System.Windows.Forms.ToolStripSeparator Display_Show_ToolStripSeparator3;
+        private System.Windows.Forms.Panel Estimate_Manual_Panel;
+        private System.Windows.Forms.Panel Estimate_Manual_Main_Panel;
+        private System.Windows.Forms.Panel Estimate_Manual_Title_Panel;
+        private System.Windows.Forms.Label Estimate_Manual_Title_Label;
+        private System.Windows.Forms.Panel Estimate_Manual_Operation_Panel;
+        private System.Windows.Forms.Button Estimate_Manual_Prev_Button;
+        private System.Windows.Forms.Button Estimate_Manual_Next_Button;
+        private System.Windows.Forms.CheckBox Estimate_Ready_Manual_CheckBox;
     }
 }
 

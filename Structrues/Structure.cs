@@ -197,6 +197,19 @@ namespace PV_analysis.Structures
         public abstract string[] GetConditions();
 
         /// <summary>
+        /// 获取手动设计信息
+        /// </summary>
+        /// <returns>手动设计信息</returns>
+        public abstract InfoPackage GetManualInfo();
+
+        /// <summary>
+        /// 获取展示信息
+        /// </summary>
+        /// <param name="isAll">若为否，则不获取各变换单元信息，默认不获取</param>
+        /// <returns>展示信息</returns>
+        public abstract InfoPackage GetDisplayInfo(bool isAll = false);
+
+        /// <summary>
         /// 获取损耗分布（变换器）
         /// </summary>
         /// <returns>损耗分布信息</returns>

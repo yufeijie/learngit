@@ -21,7 +21,7 @@ namespace PV_analysis
     internal partial class MainForm : Form
     {
         //页面切换、侧边栏
-        private readonly Panel[] panelNow = new Panel[5]; //下标0——当前显示页面，下标1-4——各类页面的当前子页面
+        private readonly Panel[] panelNow = new Panel[6]; //下标0——当前显示页面，下标1-5——各类页面的当前子页面
         private System.Drawing.Color activeColor; //左侧边栏按钮，当前选中颜色
         private System.Drawing.Color inactiveColor; //左侧边栏按钮，未选中颜色
 
@@ -38,7 +38,6 @@ namespace PV_analysis
 
         //评估过程
         private Thread evaluationThread; //评估线程
-        private readonly bool IS_PRINT_DEBUG = true; //是否打印Debug信息
         private readonly short PRINT_LEVEL = 4; //允许打印的详细信息等级
 
         //展示对象
@@ -55,7 +54,6 @@ namespace PV_analysis
         private Converter selectedConverter; //展示图像中选中的变换单元
 
         //对比对象
-        private bool isComponentInfoDisplay = true; //是否展示器件的设计信息
         private List<Structure> structureListForContrast; //用于对比的架构
         private List<Converter> converterListForContrast; //用于对比的变换单元
 
@@ -77,31 +75,28 @@ namespace PV_analysis
             panelNow[0] = panelNow[index];
             panelNow[0].Visible = true;
 
+            Tab_Home_Button.BackColor = inactiveColor;
+            Tab_Estimate_Button.BackColor = inactiveColor;
+            Tab_Display_Button.BackColor = inactiveColor;
+            Tab_Admin_Button.BackColor = inactiveColor;
+            Tab_Test_Button.BackColor = inactiveColor;
+
             switch (index)
             {
                 case 1:
                     Tab_Home_Button.BackColor = activeColor;
-                    Tab_Estimate_Button.BackColor = inactiveColor;
-                    Tab_Display_Button.BackColor = inactiveColor;
-                    Tab_Admin_Button.BackColor = inactiveColor;
                     break;
                 case 2:
-                    Tab_Home_Button.BackColor = inactiveColor;
                     Tab_Estimate_Button.BackColor = activeColor;
-                    Tab_Display_Button.BackColor = inactiveColor;
-                    Tab_Admin_Button.BackColor = inactiveColor;
                     break;
                 case 3:
-                    Tab_Home_Button.BackColor = inactiveColor;
-                    Tab_Estimate_Button.BackColor = inactiveColor;
                     Tab_Display_Button.BackColor = activeColor;
-                    Tab_Admin_Button.BackColor = inactiveColor;
                     break;
                 case 4:
-                    Tab_Home_Button.BackColor = inactiveColor;
-                    Tab_Estimate_Button.BackColor = inactiveColor;
-                    Tab_Display_Button.BackColor = inactiveColor;
                     Tab_Admin_Button.BackColor = activeColor;
+                    break;
+                case 5:
+                    Tab_Test_Button.BackColor = activeColor;
                     break;
             }
         }
@@ -126,7 +121,7 @@ namespace PV_analysis
         /// <param name="text">文字内容</param>
         public void PrintDetails(int level, string text = "")
         {
-            if (IS_PRINT_DEBUG)
+            if (Configuration.IS_PRINT_DEBUG)
             {
                 Console.WriteLine(text);
             }
@@ -154,6 +149,117 @@ namespace PV_analysis
             {
                 Estimate_Result_Print_RichTextBox.AppendText(text + "\r\n");
             }
+        }
+
+        /// <summary>
+        /// 手动设计，生成标题行，用Panel包装
+        /// </summary>
+        /// <param name="text">标题文字</param>
+        private Panel Estimate_Manual_Create_Title(string text)
+        {
+            Panel panel = new Panel
+            {
+                Dock = DockStyle.Top,
+                Location = new System.Drawing.Point(0, 320),
+                Margin = new Padding(0),
+                Size = new System.Drawing.Size(1413, 50)
+            };
+
+            Label label = new Label
+            {
+                AutoSize = true,
+                Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold),
+                Location = new System.Drawing.Point(128, 12),
+                Size = new System.Drawing.Size(134, 26),
+                Text = text,
+                TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+            };
+
+            panel.Controls.Add(label);
+            return panel;
+        }
+
+        /// <summary>
+        /// 手动设计，生成输入框，用Panel包装
+        /// </summary>
+        /// <param name="title">标题</param>
+        /// <param name="value">默认值</param>
+        private Panel Estimate_Manual_Create_TextBox(string title, string value = "")
+        {
+            Panel panel = new Panel
+            {
+                Dock = DockStyle.Top,
+                Location = new System.Drawing.Point(0, 370),
+                Margin = new Padding(0),
+                Size = new System.Drawing.Size(1413, 45)
+            };
+
+            Label label = new Label
+            {
+                AutoSize = true,
+                Font = new System.Drawing.Font("微软雅黑", 14.25F),
+                Location = new System.Drawing.Point(166, 10),
+                Size = new System.Drawing.Size(88, 25),
+                Text = title,
+                TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+            };
+
+            TextBox textBox = new TextBox
+            {
+                Font = new System.Drawing.Font("Times New Roman", 14.25F),
+                Location = new System.Drawing.Point(380, 8),
+                Size = new System.Drawing.Size(100, 29),
+                Text = value,
+                TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+            };
+
+            panel.Controls.Add(label);
+            panel.Controls.Add(textBox);
+            return panel;
+        }
+
+        /// <summary>
+        /// 手动设计，生成下拉选择框，用Panel包装
+        /// </summary>
+        /// <param name="title">标题</param>
+        /// <param name="items">可选项目</param>
+        /// <param name="value">默认值</param>
+        private Panel Estimate_Manual_Create_ComboBox(string title, string[] items, string value = "")
+        {
+            Panel panel = new Panel
+            {
+                Dock = DockStyle.Top,
+                Location = new System.Drawing.Point(0, 370),
+                Margin = new Padding(0),
+                Size = new System.Drawing.Size(1413, 45)
+            };
+
+            Label label = new Label
+            {
+                AutoSize = true,
+                Font = new System.Drawing.Font("微软雅黑", 14.25F),
+                Location = new System.Drawing.Point(166, 10),
+                Size = new System.Drawing.Size(88, 25),
+                Text = title,
+                TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+            };
+
+            ComboBox comboBox = new ComboBox
+            {
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Font = new System.Drawing.Font("Times New Roman", 14.25F),
+                Location = new System.Drawing.Point(380, 8),
+                Size = new System.Drawing.Size(200, 29),
+                Text = value
+            };
+            foreach (string item in items)
+            {
+                comboBox.Items.Add(item);
+            }
+
+            panel.Controls.Add(label);
+            panel.Controls.Add(comboBox);
+            return panel;
         }
 
         /// <summary>
@@ -1006,77 +1112,32 @@ namespace PV_analysis
         private void Display_Show_Preview()
         {
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
-
+            
+            //生成预览面板显示信息
             if (isStructureDisplay)
             {
-                //生成预览面板显示信息
-                panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-                panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedStructure.EfficiencyCGC * 100).ToString("f2") + "%"));
-                panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectedStructure.Cost / 1e4).ToString("f2") + "万元"));
-                panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectedStructure.Volume.ToString("f2") + "dm^3"));
-                panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-                panelList.Add(Display_Show_Preview_CreateInfo("架构：", selectedStructure.Name));
-                switch (selectedStructure.Name)
+                InfoPackage package = selectedStructure.GetDisplayInfo();
+                for (int i = 0; i < package.Size; i++)
                 {
-                    case "三级架构":
-                        panelList.Add(Display_Show_Preview_CreateInfo("母线电压：", selectedStructure.Math_Vbus.ToString() + "V"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("逆变直流侧电压：", selectedStructure.DCAC_Vinv.ToString() + "V"));
-                        panelList.Add(Display_Show_Preview_CreateTitle("前级DC/DC："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectedStructure).DCDC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectedStructure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectedStructure).DCDC.Topology.GetName()));
-                        panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("副边个数：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Math_No.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("品质因数：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Math_Q.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Topology.GetName()));
-                        panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectedStructure).DCAC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectedStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectedStructure).DCAC.Topology.GetName()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("调制方式：", ((ThreeLevelStructure)selectedStructure).DCAC.Modulation.ToString()));
-                        break;
-
-                    case "两级架构":
-                        panelList.Add(Display_Show_Preview_CreateInfo("逆变直流侧电压：", selectedStructure.DCAC_Vinv.ToString() + "V"));
-                        panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("副边个数：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Math_No.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("品质因数：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Math_Q.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((TwoLevelStructure)selectedStructure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Topology.GetName()));
-                        panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
-                        panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)selectedStructure).DCAC.Number.ToString()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)selectedStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                        panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)selectedStructure).DCAC.Topology.GetName()));
-                        panelList.Add(Display_Show_Preview_CreateInfo("调制方式：", ((TwoLevelStructure)selectedStructure).DCAC.Modulation.ToString()));
-                        break;
+                    InfoList list = package[i];
+                    panelList.Add(Display_Show_Preview_CreateTitle(list.Title));
+                    for (int j = 0; j < list.Size; j++)
+                    {
+                        panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title, (string)list[j].Content));
+                    }
                 }
             }
             else
             {
-                //生成预览面板显示信息
-                panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-                panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedConverter.EfficiencyCGC * 100).ToString("f2") + "%"));
-                panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectedConverter.Cost / 1e4).ToString("f2") + "万元"));
-                panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectedConverter.Volume.ToString("f2") + "dm^3"));
-                panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-                panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectedConverter.Number.ToString()));
-                if (selectedConverter.Name.Equals("隔离DC/DC变换单元_三级") || selectedConverter.Name.Equals("隔离DC/DC变换单元_两级"))
+                InfoPackage package = selectedConverter.GetDisplayInfo();
+                for (int i = 0; i < package.Size; i++)
                 {
-                    panelList.Add(Display_Show_Preview_CreateInfo("副边个数：", ((IsolatedDCDCConverter)selectedConverter).Math_No.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("品质因数：", ((IsolatedDCDCConverter)selectedConverter).Math_Q.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((IsolatedDCDCConverter)selectedConverter).Math_fr / 1e3).ToString("f1") + "kHz"));
-                }
-                else
-                {
-                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (selectedConverter.Math_fs / 1e3).ToString("f1") + "kHz"));
-                }
-                panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectedConverter.Topology.GetName()));
-                if (selectedConverter.Name.Equals("逆变单元"))
-                {
-                    panelList.Add(Display_Show_Preview_CreateInfo("调制方式：", ((DCACConverter)selectedConverter).Modulation.ToString()));
+                    InfoList list = package[i];
+                    panelList.Add(Display_Show_Preview_CreateTitle(list.Title));
+                    for (int j = 0; j < list.Size; j++)
+                    {
+                        panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title, (string)list[j].Content));
+                    }
                 }
             }
 
@@ -1162,47 +1223,17 @@ namespace PV_analysis
         {
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
-            panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-            panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedStructure.EfficiencyCGC * 100).ToString("f2") + "%"));
-            panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectedStructure.Cost / 1e4).ToString("f2") + "万元"));
-            panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectedStructure.Volume.ToString("f2") + "dm^3"));
-            panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-            panelList.Add(Display_Show_Preview_CreateInfo("架构：", selectedStructure.Name));
-            switch (selectedStructure.Name)
+            InfoPackage package = selectedStructure.GetDisplayInfo();
+            for (int i = 0; i < package.Size; i++)
             {
-                case "三级架构":
-                    panelList.Add(Display_Show_Preview_CreateInfo("母线电压：", selectedStructure.Math_Vbus.ToString() + "V"));
-                    panelList.Add(Display_Show_Preview_CreateInfo("逆变直流侧电压：", selectedStructure.DCAC_Vinv.ToString() + "V"));
-                    panelList.Add(Display_Show_Preview_CreateTitle("前级DC/DC："));
-                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectedStructure).DCDC.Number.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectedStructure).DCDC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectedStructure).DCDC.Topology.GetName()));
-                    panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC："));
-                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Number.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("副边个数：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Math_No.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("品质因数：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Math_Q.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
-                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Topology.GetName()));
-                    panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
-                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((ThreeLevelStructure)selectedStructure).DCAC.Number.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((ThreeLevelStructure)selectedStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((ThreeLevelStructure)selectedStructure).DCAC.Modulation.ToString()));
-                    break;
-
-                case "两级架构":
-                    panelList.Add(Display_Show_Preview_CreateInfo("逆变直流侧电压：", selectedStructure.DCAC_Vinv.ToString() + "V"));
-                    panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC："));
-                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Number.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("副边个数：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Math_No.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("品质因数：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Math_Q.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)selectedStructure).IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
-                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Topology.GetName()));
-                    panelList.Add(Display_Show_Preview_CreateTitle("逆变："));
-                    panelList.Add(Display_Show_Preview_CreateInfo("模块数：", ((TwoLevelStructure)selectedStructure).DCAC.Number.ToString()));
-                    panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (((TwoLevelStructure)selectedStructure).DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
-                    panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", ((TwoLevelStructure)selectedStructure).DCAC.Modulation.ToString()));
-                    break;
+                InfoList list = package[i];
+                panelList.Add(Display_Show_Preview_CreateTitle(list.Title));
+                for (int j = 0; j < list.Size; j++)
+                {
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title, (string)list[j].Content));
+                }
             }
+
             //更新面板显示
             Display_Detail_System_Right_Panel.Controls.Clear(); //清空原有控件
             for (int i = panelList.Count - 1; i >= 0; i--) //逆序添加控件，以正常显示
@@ -1261,25 +1292,14 @@ namespace PV_analysis
         {
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
-            panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-            panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedConverter.EfficiencyCGC * 100).ToString("f2") + "%"));
-            panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectedConverter.Cost / 1e4).ToString("f2") + "万元"));
-            panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectedConverter.Volume.ToString("f2") + "dm^3"));
-            panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-            panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectedConverter.Number.ToString()));
-            panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (selectedConverter.Math_fs / 1e3).ToString("f1") + "kHz"));
-            panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectedConverter.Topology.GetName()));
-            if (isComponentInfoDisplay)
+            InfoPackage package = selectedConverter.GetDisplayInfo();
+            for (int i = 0; i < package.Size; i++)
             {
-                InfoPackage info = selectedConverter.GetComponentConfigInfo();
-                for (int i = 0; i < info.Size; i++)
+                InfoList list = package[i];
+                panelList.Add(Display_Show_Preview_CreateTitle(list.Title));
+                for (int j = 0; j < list.Size; j++)
                 {
-                    InfoList list = info[i];
-                    panelList.Add(Display_Show_Preview_CreateTitle(list.Title + "："));
-                    for (int j = 0; j < list.Size; j++)
-                    {
-                        panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title + "：", (string)list[j].Content));
-                    }
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title, (string)list[j].Content));
                 }
             }
 
@@ -1341,30 +1361,17 @@ namespace PV_analysis
         {
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
-            panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-            panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedConverter.EfficiencyCGC * 100).ToString("f2") + "%"));
-            panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectedConverter.Cost / 1e4).ToString("f2") + "万元"));
-            panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectedConverter.Volume.ToString("f2") + "dm^3"));
-            panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-            panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectedConverter.Number.ToString()));
-            panelList.Add(Display_Show_Preview_CreateInfo("副边个数：", ((IsolatedDCDCConverter)selectedConverter).Math_No.ToString()));
-            panelList.Add(Display_Show_Preview_CreateInfo("品质因数：", ((IsolatedDCDCConverter)selectedConverter).Math_Q.ToString()));
-            panelList.Add(Display_Show_Preview_CreateInfo("谐振频率：", (((IsolatedDCDCConverter)selectedConverter).Math_fr / 1e3).ToString("f1") + "kHz"));
-            if (isComponentInfoDisplay)
+            InfoPackage package = selectedConverter.GetDisplayInfo();
+            for (int i = 0; i < package.Size; i++)
             {
-                InfoPackage info = selectedConverter.GetComponentConfigInfo();
-                for (int i = 0; i < info.Size; i++)
+                InfoList list = package[i];
+                panelList.Add(Display_Show_Preview_CreateTitle(list.Title));
+                for (int j = 0; j < list.Size; j++)
                 {
-                    InfoList list = info[i];
-                    panelList.Add(Display_Show_Preview_CreateTitle(list.Title + "："));
-                    for (int j = 0; j < list.Size; j++)
-                    {
-                        panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title + "：", (string)list[j].Content));
-                    }
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title, (string)list[j].Content));
                 }
             }
 
-            panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectedConverter.Topology.GetName()));
             //更新面板显示
             Display_Detail_IsolatedDCDC_Right_Panel.Controls.Clear(); //清空原有控件
             for (int i = panelList.Count - 1; i >= 0; i--) //逆序添加控件，以正常显示
@@ -1422,26 +1429,14 @@ namespace PV_analysis
         {
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
-            panelList.Add(Display_Show_Preview_CreateTitle("性能表现："));
-            panelList.Add(Display_Show_Preview_CreateInfo("中国效率：", (selectedConverter.EfficiencyCGC * 100).ToString("f2") + "%"));
-            panelList.Add(Display_Show_Preview_CreateInfo("成本：", (selectedConverter.Cost / 1e4).ToString("f2") + "万元"));
-            panelList.Add(Display_Show_Preview_CreateInfo("体积：", selectedConverter.Volume.ToString("f2") + "dm^3"));
-            panelList.Add(Display_Show_Preview_CreateTitle("设计参数："));
-            panelList.Add(Display_Show_Preview_CreateInfo("模块数：", selectedConverter.Number.ToString()));
-            panelList.Add(Display_Show_Preview_CreateInfo("开关频率：", (selectedConverter.Math_fs / 1e3).ToString("f1") + "kHz"));
-            panelList.Add(Display_Show_Preview_CreateInfo("拓扑：", selectedConverter.Topology.GetName()));
-            panelList.Add(Display_Show_Preview_CreateInfo("调制方式：", ((DCACConverter)selectedConverter).Modulation.ToString()));
-            if (isComponentInfoDisplay)
+            InfoPackage package = selectedConverter.GetDisplayInfo();
+            for (int i = 0; i < package.Size; i++)
             {
-                InfoPackage info = selectedConverter.GetComponentConfigInfo();
-                for (int i = 0; i < info.Size; i++)
+                InfoList list = package[i];
+                panelList.Add(Display_Show_Preview_CreateTitle(list.Title));
+                for (int j = 0; j < list.Size; j++)
                 {
-                    InfoList list = info[i];
-                    panelList.Add(Display_Show_Preview_CreateTitle(list.Title + "："));
-                    for (int j = 0; j < list.Size; j++)
-                    {
-                        panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title + "：", (string)list[j].Content));
-                    }
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title, (string)list[j].Content));
                 }
             }
 
@@ -1556,6 +1551,7 @@ namespace PV_analysis
             panelNow[2] = Estimate_Ready_Panel;
             panelNow[3] = Display_Ready_Panel;
             panelNow[4] = Admin_Panel;
+            panelNow[5] = Home_Panel;
 
             activeColor = Tab_Home_Button.BackColor;
             inactiveColor = Tab_Estimate_Button.BackColor;
@@ -1579,6 +1575,11 @@ namespace PV_analysis
         private void Tab_Admin_Button_Click(object sender, EventArgs e)
         {
             ChangePanel(4);
+        }
+
+        private void Tab_Test_Button_Click(object sender, EventArgs e)
+        {
+            ChangePanel(5);
         }
 
         private void Estimate_Ready_System_button_Click(object sender, EventArgs e)
@@ -1925,7 +1926,39 @@ namespace PV_analysis
                     MessageBox.Show("请至少选择一项逆变拓扑");
                     return;
                 }
-                else
+                else if (Estimate_Ready_Manual_CheckBox.Checked && (DCDC_topologyList.Count > 1 || isolatedDCDC_topologyList.Count > 1 || DCAC_topologyList.Count > 1))
+                {
+                    MessageBox.Show("手动评估时，每种变换单元只能选择一项逆变拓扑");
+                    return;
+                }
+            }
+            else
+            {
+                if (evaluationObjectName.Equals("前级DC/DC变换单元_三级") && DCDC_topologyList.Count == 0)
+                {
+                    MessageBox.Show("请至少选择一项前级DC/DC拓扑");
+                    return;
+                }
+                else if ((evaluationObjectName.Equals("隔离DC/DC变换单元_三级") || evaluationObjectName.Equals("隔离DC/DC变换单元_两级")) && isolatedDCDC_topologyList.Count == 0)
+                {
+                    MessageBox.Show("请至少选择一项隔离DC/DC拓扑");
+                    return;
+                }
+                else if (evaluationObjectName.Equals("逆变单元") && DCAC_topologyList.Count == 0)
+                {
+                    MessageBox.Show("请至少选择一项逆变拓扑");
+                    return;
+                }
+                else if (Estimate_Ready_Manual_CheckBox.Checked && (DCDC_topologyList.Count > 1 || isolatedDCDC_topologyList.Count > 1 || DCAC_topologyList.Count > 1))
+                {
+                    MessageBox.Show("手动评估时，只能选择一项逆变拓扑");
+                    return;
+                }
+            }
+
+            if (!Estimate_Ready_Manual_CheckBox.Checked)
+            {
+                if (isStructureEvaluation)
                 {
                     switch (evaluationObjectName)
                     {
@@ -1989,24 +2022,6 @@ namespace PV_analysis
                     DCAC_topologyRange = DCAC_topologyList.ToArray();
 
                     ChangePanel(2, Estimate_Step3_Panel);
-                }
-            }
-            else
-            {
-                if (evaluationObjectName.Equals("前级DC/DC变换单元_三级") && DCDC_topologyList.Count == 0)
-                {
-                    MessageBox.Show("请至少选择一项前级DC/DC拓扑");
-                    return;
-                }
-                else if ((evaluationObjectName.Equals("隔离DC/DC变换单元_三级") || evaluationObjectName.Equals("隔离DC/DC变换单元_两级")) && isolatedDCDC_topologyList.Count == 0)
-                {
-                    MessageBox.Show("请至少选择一项隔离DC/DC拓扑");
-                    return;
-                }
-                else if (evaluationObjectName.Equals("逆变单元") && DCAC_topologyList.Count == 0)
-                {
-                    MessageBox.Show("请至少选择一项逆变拓扑");
-                    return;
                 }
                 else
                 {
@@ -2100,6 +2115,57 @@ namespace PV_analysis
                     }
                     ChangePanel(2, Estimate_Step3B_Panel);
                 }
+            }
+            else
+            {
+                List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
+
+                List<string> semiconductorList = new List<string>();
+                foreach (Data.Semiconductor semiconductor in Data.SemiconductorList)
+                {
+                    semiconductorList.Add(semiconductor.Type);
+                }
+                List<string> coreList = new List<string>();
+                foreach (Data.Core core in Data.CoreList)
+                {
+                    coreList.Add(core.Type);
+                }
+                List<string> wireList = new List<string>();
+                foreach (Data.Wire wire in Data.WireList)
+                {
+                    wireList.Add(wire.Type);
+                }
+                List<string> capacitorList = new List<string>();
+                foreach (Data.Capacitor capacitor in Data.CapacitorList)
+                {
+                    capacitorList.Add(capacitor.Type);
+                }
+                selectedStructure = new ThreeLevelStructure();
+                InfoPackage package = selectedStructure.GetManualInfo();
+                for (int i = 0; i < package.Size; i++)
+                {
+                    InfoList list = package[i];
+                    panelList.Add(Estimate_Manual_Create_Title(list.Title));
+                    for (int j = 0; j < list.Size; j++)
+                    {
+                        panelList.Add(Estimate_Manual_Create_TextBox(list[j].Title, (string)list[j].Content));
+                    }
+                }
+
+                panelList.Add(Estimate_Manual_Create_Title("开关器件"));
+                panelList.Add(Estimate_Manual_Create_ComboBox("型号：", semiconductorList.ToArray()));
+                panelList.Add(Estimate_Manual_Create_TextBox("数量：", "2"));
+
+                panelList.Add(Estimate_Manual_Create_Title("开关器件2"));
+                panelList.Add(Estimate_Manual_Create_ComboBox("型号：", semiconductorList.ToArray()));
+                panelList.Add(Estimate_Manual_Create_TextBox("数量2：", "2"));
+
+                Estimate_Manual_Main_Panel.Controls.Clear(); //清空原有控件
+                for (int i = panelList.Count - 1; i >= 0; i--) //逆序添加控件，以正常显示
+                {
+                    Estimate_Manual_Main_Panel.Controls.Add(panelList[i]);
+                }
+                ChangePanel(2, Estimate_Manual_Panel);
             }
         }
 
@@ -2209,6 +2275,16 @@ namespace PV_analysis
         private void Estimate_Step3B_Next_Button_Click(object sender, EventArgs e)
         {
             Estimate_Step3_Next_Button_Click(sender, e);
+        }
+
+        private void Estimate_Manual_Prev_Button_Click(object sender, EventArgs e)
+        {
+            ChangePanel(2, Estimate_Step2_Panel);
+        }
+
+        private void Estimate_Manual_Next_Button_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void Estimate_Step4_Prev_Button_Click(object sender, EventArgs e)
@@ -2599,211 +2675,35 @@ namespace PV_analysis
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 21F));
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 21F));
             table.RowCount = 0;
-            row = 0;
-            Display_Show_Contrast_InsertTitle(table, "性能表现");
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "");
-            for (int i = 0; i < m; i++)
+            row = -1;
+
+            InfoPackage[] info = new InfoPackage[m];
+            for (int k = 0; k < m; k++)
             {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, "设计"+(i+1));
+                info[k] = structureListForContrast[k].GetDisplayInfo(true);
             }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "中国效率（%）");
-            for (int i = 0; i < m; i++)
+
+            for (int i = 0; i < info[0].Size; i++)
             {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, (structureListForContrast[i].EfficiencyCGC * 100).ToString("f2"));
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "成本（万元）");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, (structureListForContrast[i].Cost / 1e4).ToString("f2"));
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "体积（dm^3）");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, structureListForContrast[i].Volume.ToString("f2"));
-            }
-            row++;
-            Display_Show_Contrast_InsertTitle(table, "设计参数");
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "架构");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, structureListForContrast[i].Name);
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "母线电压（V）");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, structureListForContrast[i].Math_Vbus.ToString());
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "逆变直流侧电压（V）");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, structureListForContrast[i].DCAC_Vinv.ToString());
-            }
-            row++;
-            Display_Show_Contrast_InsertTitle(table, "前级DC/DC");
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "模块数");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, ((ThreeLevelStructure)structureListForContrast[i]).DCDC.Number.ToString());
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "开关频率（kHz）");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, (((ThreeLevelStructure)structureListForContrast[i]).DCDC.Math_fs / 1e3).ToString("f1"));
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "拓扑");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, ((ThreeLevelStructure)structureListForContrast[i]).DCDC.Topology.GetName());
-            }
-            if (isComponentInfoDisplay)
-            {
-                InfoPackage[] info = new InfoPackage[m];
+                InfoList[] list = new InfoList[m];
                 for (int k = 0; k < m; k++)
                 {
-                    info[k] = ((ThreeLevelStructure)structureListForContrast[k]).DCDC.GetComponentConfigInfo();
+                    list[k] = info[k][i];
                 }
-                
-                for (int i = 0; i < info[0].Size; i++)
+
+                row++;
+                Display_Show_Contrast_InsertTitle(table, list[0].Title);
+                for (int j = 0; j < list[0].Size; j++)
                 {
-                    InfoList[] list = new InfoList[m];
+                    row++;
+                    Display_Show_Contrast_InsertCell(table, 0, row, list[0][j].Title);
                     for (int k = 0; k < m; k++)
                     {
-                        list[k] = info[k][i];
-                    }
-                    
-                    for (int j = 0; j < list[0].Size; j++)
-                    {
-                        row++;
-                        Display_Show_Contrast_InsertCell(table, 0, row, "[" + list[0].Title + "]" + list[0][j].Title);
-                        for (int k = 0; k < m; k++)
-                        {
-                            Display_Show_Contrast_InsertCell(table, k + 1, row, (string)list[k][j].Content);
-                        }
+                        Display_Show_Contrast_InsertCell(table, k + 1, row, (string)list[k][j].Content);
                     }
                 }
             }
-            row++;
-            Display_Show_Contrast_InsertTitle(table, "隔离DC/DC");
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "模块数");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, ((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.Number.ToString());
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "副边个数");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, ((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.Math_No.ToString());
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "品质因数");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, ((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.Math_Q.ToString());
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "谐振频率（kHz）");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, (((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.Math_fr / 1e3).ToString("f1"));
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "拓扑");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, ((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.Topology.GetName());
-            }
-            if (isComponentInfoDisplay)
-            {
-                InfoPackage[] info = new InfoPackage[m];
-                for (int k = 0; k < m; k++)
-                {
-                    info[k] = ((ThreeLevelStructure)structureListForContrast[k]).IsolatedDCDC.GetComponentConfigInfo();
-                }
 
-                for (int i = 0; i < info[0].Size; i++)
-                {
-                    InfoList[] list = new InfoList[m];
-                    for (int k = 0; k < m; k++)
-                    {
-                        list[k] = info[k][i];
-                    }
-
-                    for (int j = 0; j < list[0].Size; j++)
-                    {
-                        row++;
-                        Display_Show_Contrast_InsertCell(table, 0, row, "[" + list[0].Title + "]" + list[0][j].Title);
-                        for (int k = 0; k < m; k++)
-                        {
-                            Display_Show_Contrast_InsertCell(table, k + 1, row, (string)list[k][j].Content);
-                        }
-                    }
-                }
-            }
-            row++;
-            Display_Show_Contrast_InsertTitle(table, "逆变");
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "模块数");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, ((ThreeLevelStructure)structureListForContrast[i]).DCAC.Number.ToString());
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "开关频率（kHz）");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, (((ThreeLevelStructure)structureListForContrast[i]).DCAC.Math_fs / 1e3).ToString("f1"));
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "拓扑");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, ((ThreeLevelStructure)structureListForContrast[i]).DCAC.Topology.GetName());
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "调制方式");
-            for (int i = 0; i < m; i++)
-            {
-                Display_Show_Contrast_InsertCell(table, i + 1, row, ((ThreeLevelStructure)structureListForContrast[i]).DCAC.Modulation.ToString());
-            }
-            if (isComponentInfoDisplay)
-            {
-                InfoPackage[] info = new InfoPackage[m];
-                for (int k = 0; k < m; k++)
-                {
-                    info[k] = ((ThreeLevelStructure)structureListForContrast[k]).DCAC.GetComponentConfigInfo();
-                }
-
-                for (int i = 0; i < info[0].Size; i++)
-                {
-                    InfoList[] list = new InfoList[m];
-                    for (int k = 0; k < m; k++)
-                    {
-                        list[k] = info[k][i];
-                    }
-
-                    for (int j = 0; j < list[0].Size; j++)
-                    {
-                        row++;
-                        Display_Show_Contrast_InsertCell(table, 0, row, "[" + list[0].Title + "]" + list[0][j].Title);
-                        for (int k = 0; k < m; k++)
-                        {
-                            Display_Show_Contrast_InsertCell(table, k + 1, row, (string)list[k][j].Content);
-                        }
-                    }
-                }
-            }
             row++;
             Display_Show_Contrast_InsertTitle(table, "负载-效率曲线");
             row++;

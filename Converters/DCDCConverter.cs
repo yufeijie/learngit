@@ -1,4 +1,5 @@
-﻿using PV_analysis.Topologys;
+﻿using PV_analysis.Informations;
+using PV_analysis.Topologys;
 
 namespace PV_analysis.Converters
 {
@@ -79,6 +80,30 @@ namespace PV_analysis.Converters
                 Function.DoubleArrayToString(FrequencyRange)
             };
             return conditions;
+        }
+
+        /// <summary>
+        /// 获取展示信息
+        /// </summary>
+        /// <returns>展示信息</returns>
+        public override InfoPackage GetDisplayInfo()
+        {
+            InfoPackage package = new InfoPackage(Name);
+            InfoList infoList = new InfoList("性能表现");
+            infoList.Add(new Info("中国效率", (EfficiencyCGC * 100).ToString("f2") + "%"));
+            infoList.Add(new Info("成本", (Cost / 1e4).ToString("f2") + "万元"));
+            infoList.Add(new Info("体积", Volume.ToString("f2") + "dm^3"));
+            package.Add(infoList);
+            infoList = new InfoList("设计参数");
+            infoList.Add(new Info("模块数", Number.ToString()));
+            infoList.Add(new Info("开关频率", (Math_fs / 1e3).ToString("f1") + "kHz"));
+            infoList.Add(new Info("拓扑", Topology.GetName()));
+            package.Add(infoList);
+            if (Configuration.IS_COM_INFO_DISPLAYED)
+            {
+                package.AddRange(GetComponentConfigInfo());
+            }
+            return package;
         }
 
         /// <summary>
