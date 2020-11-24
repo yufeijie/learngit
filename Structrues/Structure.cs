@@ -19,6 +19,10 @@ namespace PV_analysis.Structures
         /// </summary>
         public Converter[] Converters { get; protected set; }
 
+        public DCDCConverter DCDC { get; protected set; }
+        public IsolatedDCDCConverter IsolatedDCDC { get; protected set; }
+        public DCACConverter DCAC { get; protected set; }
+
         //---整体参数---
         /// <summary>
         /// 架构总功率
@@ -161,32 +165,25 @@ namespace PV_analysis.Structures
         /// <returns>设计条件</returns>
         public abstract string[] GetConditions();
 
-        /// <summary>
-        /// 获取手动设计信息
-        /// </summary>
-        /// <returns>手动设计信息</returns>
-        public abstract InfoPackage GetManualInfo();
+        ///// <summary>
+        ///// 获取手动设计信息
+        ///// </summary>
+        ///// <returns>手动设计信息</returns>
+        //public abstract List<Info> GetManualInfo();
 
         /// <summary>
         /// 获取设计参数信息
         /// </summary>
         /// <returns>获取设计参数信息</returns>
-        public abstract InfoPackage GetDesignInfo();
-
-        /// <summary>
-        /// 获取展示信息
-        /// </summary>
-        /// <param name="isAll">若为否，则不获取各变换单元信息，默认不获取</param>
-        /// <returns>展示信息</returns>
-        public abstract InfoPackage GetDisplayInfo();
+        public abstract List<Info> GetConfigInfo();
 
         /// <summary>
         /// 获取损耗分布（变换器）
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public InfoList GetLossBreakdown()
+        public List<Info> GetLossBreakdown()
         {
-            InfoList list = new InfoList(Name);
+            List<Info> list = new List<Info>();
             foreach (Converter converter in Converters)
             {
                 list.Add(new Info(converter.GetCategory(), Math.Round(converter.PowerLoss, 2)));
@@ -198,9 +195,9 @@ namespace PV_analysis.Structures
         /// 获取成本分布（变换器）
         /// </summary>
         /// <returns>成本分布信息</returns>
-        public InfoList GetCostBreakdown()
+        public List<Info> GetCostBreakdown()
         {
-            InfoList list = new InfoList(Name);
+            List<Info> list = new List<Info>();
             foreach (Converter converter in Converters)
             {
                 list.Add(new Info(converter.GetCategory(), Math.Round(converter.Cost / 1e4, 2)));
@@ -212,9 +209,9 @@ namespace PV_analysis.Structures
         /// 获取体积分布（变换器）
         /// </summary>
         /// <returns>体积分布信息</returns>
-        public InfoList GetVolumeBreakdown()
+        public List<Info> GetVolumeBreakdown()
         {
-            InfoList list = new InfoList(Name);
+            List<Info> list = new List<Info>();
             foreach (Converter converter in Converters)
             {
                 list.Add(new Info(converter.GetCategory(), Math.Round(converter.Volume, 2)));

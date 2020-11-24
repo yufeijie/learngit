@@ -1,5 +1,6 @@
 ﻿using PV_analysis.Informations;
 using System;
+using System.Collections.Generic;
 
 namespace PV_analysis
 {
@@ -52,12 +53,14 @@ namespace PV_analysis
         /// 获取性能表现信息
         /// </summary>
         /// <returns>性能表现信息</returns>
-        public InfoList GetPerformanceInfo()
+        public List<Info> GetPerformanceInfo()
         {
-            InfoList list = new InfoList("性能表现");
-            list.Add(new Info("中国效率", (EfficiencyCGC * 100).ToString("f2") + "%"));
-            list.Add(new Info("成本", (Cost / 1e4).ToString("f2") + "万元"));
-            list.Add(new Info("体积", Volume.ToString("f2") + "dm^3"));
+            List<Info> list = new List<Info>
+            {
+                new Info("中国效率", (EfficiencyCGC * 100).ToString("f2") + "%"),
+                new Info("成本", (Cost / 1e4).ToString("f2") + "万元"),
+                new Info("体积", Volume.ToString("f2") + "dm^3")
+            };
             return list;
         }
 

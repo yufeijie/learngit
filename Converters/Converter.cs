@@ -105,48 +105,22 @@ namespace PV_analysis.Converters
         protected abstract string[] GetConditions();
 
         /// <summary>
-        /// 获取设计方案的元器件配置信息
+        /// 获取配置信息
         /// </summary>
-        /// <returns>配置信息</returns>
-        public InfoPackage GetComponentConfigInfo()
-        {
-            InfoPackage package = new InfoPackage(Name);
-            foreach (Component com in Topology.ComponentGroups[Topology.GroupIndex])
-            {
-                package.Add(com.GetConfigInfo());
-            }
-            return package;
-        }
-
-        /// <summary>
-        /// 获取设计参数信息
-        /// </summary>
-        /// <returns>获取设计参数信息</returns>
-        public abstract InfoPackage GetDesignInfo();
-
-        /// <summary>
-        /// 获取展示信息
-        /// </summary>
-        /// <returns>展示信息</returns>
-        public InfoPackage GetDisplayInfo()
-        {
-            InfoPackage package = new InfoPackage(Name);
-            package.Add(GetPerformanceInfo());
-            package.AddRange(GetDesignInfo());
-            return package;
-        }
+        /// <returns>获取配置信息</returns>
+        public abstract List<Info> GetConfigInfo();
 
         /// <summary>
         /// 获取总损耗分布（元器件）
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public InfoList GetTotalLossBreakdown()
+        public List<Info> GetTotalLossBreakdown()
         {
-            InfoList list = new InfoList(Name);
+            List<Info> list = new List<Info>();
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
-                InfoList comList = component.GetLossBreakdown();
-                for (int i = 0; i < comList.Size; i++)
+                List<Info> comList = component.GetLossBreakdown();
+                for (int i = 0; i < comList.Count; i++)
                 {
                     comList[i].Content = (double)comList[i].Content * Number;
                 }
@@ -159,9 +133,9 @@ namespace PV_analysis.Converters
         /// 获取模块损耗分布（元器件）
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public InfoList GetModuleLossBreakdown()
+        public List<Info> GetModuleLossBreakdown()
         {
-            InfoList list = new InfoList(Name);
+            List<Info> list = new List<Info>();
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
                 list.AddRange(component.GetLossBreakdown());
@@ -173,14 +147,14 @@ namespace PV_analysis.Converters
         /// 获取成本分布（元器件）
         /// </summary>
         /// <returns>成本分布信息</returns>
-        public InfoList GetCostBreakdown()
+        public List<Info> GetCostBreakdown()
         {
-            InfoList list = new InfoList(Name);
+            List<Info> list = new List<Info>();
             double costDriver = 0;
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
-                InfoList comList = component.GetCostBreakdown();
-                for (int i = 0; i < comList.Size; i++)
+                List<Info> comList = component.GetCostBreakdown();
+                for (int i = 0; i < comList.Count; i++)
                 {
                     if (comList[i].Title != null && comList[i].Title.Equals("驱动"))
                     {
@@ -201,9 +175,9 @@ namespace PV_analysis.Converters
         /// 获取体积分布（元器件）
         /// </summary>
         /// <returns>体积分布信息</returns>
-        public InfoList GetVolumeBreakdown()
+        public List<Info> GetVolumeBreakdown()
         {
-            InfoList list = new InfoList(Name);
+            List<Info> list = new List<Info>();
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
             {
                 list.AddRange(component.GetVolumeBreakdown());

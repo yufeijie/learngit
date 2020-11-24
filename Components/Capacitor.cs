@@ -1,4 +1,5 @@
-﻿using PV_analysis.Informations;
+﻿
+using PV_analysis.Informations;
 using System;
 using System.Collections.Generic;
 
@@ -83,12 +84,14 @@ namespace PV_analysis.Components
         /// 获取设计方案的配置信息（包括标题）
         /// </summary>
         /// <returns>配置信息</returns>
-        public override InfoList GetConfigInfo()
+        public override List<Info> GetConfigInfo()
         {
-            InfoList list = new InfoList(Name);
-            list.Add(new Info("型号", GetDeviceType()));
-            list.Add(new Info("串联数", numberSeriesConnected.ToString()));
-            list.Add(new Info("并联数", numberParallelConnected.ToString()));
+            List<Info> list = new List<Info>
+            {
+                new Info("型号", GetDeviceType()),
+                new Info("串联数", numberSeriesConnected),
+                new Info("并联数", numberParallelConnected)
+            };
             return list;
         }
 
@@ -96,10 +99,12 @@ namespace PV_analysis.Components
         /// 获取损耗分布
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public override InfoList GetLossBreakdown()
+        public override List<Info> GetLossBreakdown()
         {
-            InfoList list = new InfoList(Name);
-            list.Add(new Info(Name, Math.Round(PowerLoss, 2)));
+            List<Info> list = new List<Info>
+            {
+                new Info(Name, Math.Round(PowerLoss, 2))
+            };
             return list;
         }
 
@@ -107,10 +112,12 @@ namespace PV_analysis.Components
         /// 获取成本分布
         /// </summary>
         /// <returns>成本分布信息</returns>
-        public override InfoList GetCostBreakdown()
+        public override List<Info> GetCostBreakdown()
         {
-            InfoList list = new InfoList(Name);
-            list.Add(new Info(Name, Math.Round(Cost, 2)));
+            List<Info> list = new List<Info>
+            {
+                new Info(Name, Math.Round(Cost, 2))
+            };
             return list;
         }
 
@@ -118,10 +125,12 @@ namespace PV_analysis.Components
         /// 获取体积分布
         /// </summary>
         /// <returns>体积分布信息</returns>
-        public override InfoList GetVolumeBreakdown()
+        public override List<Info> GetVolumeBreakdown()
         {
-            InfoList list = new InfoList(Name);
-            list.Add(new Info(Name, Math.Round(Volume, 2)));
+            List<Info> list = new List<Info>
+            {
+                new Info(Name, Math.Round(Volume, 2))
+            };
             return list;
         }
 

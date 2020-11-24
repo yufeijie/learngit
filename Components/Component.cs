@@ -89,25 +89,25 @@ namespace PV_analysis.Components
         /// 获取设计方案的配置信息（包括标题）
         /// </summary>
         /// <returns>配置信息</returns>
-        public abstract InfoList GetConfigInfo();
+        public abstract List<Info> GetConfigInfo();
 
         /// <summary>
         /// 获取损耗分布
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public abstract InfoList GetLossBreakdown();
+        public abstract List<Info> GetLossBreakdown();
 
         /// <summary>
         /// 获取成本分布
         /// </summary>
         /// <returns>成本分布信息</returns>
-        public abstract InfoList GetCostBreakdown();
+        public abstract List<Info> GetCostBreakdown();
 
         /// <summary>
         /// 获取体积分布
         /// </summary>
         /// <returns>体积分布信息</returns>
-        public abstract InfoList GetVolumeBreakdown();
+        public abstract List<Info> GetVolumeBreakdown();
 
         /// <summary>
         /// 读取配置信息

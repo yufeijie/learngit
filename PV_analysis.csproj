@@ -132,9 +132,7 @@
     <Compile Include="Formula.cs" />
     <Compile Include="IConverterDesignData.cs" />
     <Compile Include="IComponentDesignData.cs" />
-    <Compile Include="Informations\Info.cs" />
-    <Compile Include="Informations\InfoList.cs" />
-    <Compile Include="Informations\InfoPackage.cs" />
+    <Compile Include="Info.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

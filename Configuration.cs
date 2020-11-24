@@ -26,6 +26,5 @@
 
 		//界面显示
 		public const bool IS_PRINT_DEBUG = true; //是否打印Debug信息
-		public const bool IS_COM_INFO_DISPLAYED = true; //是否展示器件的设计信息
 	}
 }

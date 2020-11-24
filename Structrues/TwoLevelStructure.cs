@@ -1,14 +1,12 @@
 ﻿using PV_analysis.Converters;
 using PV_analysis.Informations;
 using System;
+using System.Collections.Generic;
 
 namespace PV_analysis.Structures
 {
     internal class TwoLevelStructure : Structure
     {
-        public IsolatedDCDCConverter IsolatedDCDC { get; private set; }
-        public DCACConverter DCAC { get; private set; }
-
         /// <summary>
         /// 获取架构名
         /// </summary>
@@ -78,59 +76,45 @@ namespace PV_analysis.Structures
             return conditions;
         }
 
-        /// <summary>
-        /// 获取手动设计信息
-        /// </summary>
-        /// <returns>手动设计信息</returns>
-        public override InfoPackage GetManualInfo()
-        {
-            InfoPackage package = new InfoPackage(Name);
-            InfoList infoList = new InfoList("整体系统");
-            infoList.Add(new Info("系统总功率", ""));
-            infoList.Add(new Info("光伏MPPT最小电压", ""));
-            infoList.Add(new Info("光伏MPPT最大电压", ""));
-            infoList.Add(new Info("并网电压", ""));
-            infoList.Add(new Info("逆变直流侧电压", ""));
-            package.Add(infoList);
-            infoList = new InfoList("隔离DC/DC");
-            infoList.Add(new Info("模块数", ""));
-            infoList.Add(new Info("副边个数", ""));
-            infoList.Add(new Info("品质因数", ""));
-            infoList.Add(new Info("谐振频率", ""));
-            package.Add(infoList);
-            infoList = new InfoList("逆变");
-            infoList.Add(new Info("模块数", ""));
-            infoList.Add(new Info("开关频率", ""));
-            package.Add(infoList);
-            return package;
-        }
+        ///// <summary>
+        ///// 获取手动设计信息
+        ///// </summary>
+        ///// <returns>手动设计信息</returns>
+        //public override InfoPackage GetManualInfo()
+        //{
+        //    InfoPackage package = new InfoPackage(Name);
+        //    InfoList infoList = new InfoList("整体系统");
+        //    infoList.Add(new Info("系统总功率", ""));
+        //    infoList.Add(new Info("光伏MPPT最小电压", ""));
+        //    infoList.Add(new Info("光伏MPPT最大电压", ""));
+        //    infoList.Add(new Info("并网电压", ""));
+        //    infoList.Add(new Info("逆变直流侧电压", ""));
+        //    package.Add(infoList);
+        //    infoList = new InfoList("隔离DC/DC");
+        //    infoList.Add(new Info("模块数", ""));
+        //    infoList.Add(new Info("副边个数", ""));
+        //    infoList.Add(new Info("品质因数", ""));
+        //    infoList.Add(new Info("谐振频率", ""));
+        //    package.Add(infoList);
+        //    infoList = new InfoList("逆变");
+        //    infoList.Add(new Info("模块数", ""));
+        //    infoList.Add(new Info("开关频率", ""));
+        //    package.Add(infoList);
+        //    return package;
+        //}
 
         /// <summary>
         /// 获取设计参数信息
         /// </summary>
         /// <returns>设计参数信息</returns>
-        public override InfoPackage GetDesignInfo()
+        public override List<Info> GetConfigInfo()
         {
-            InfoPackage package = new InfoPackage(Name);
-            InfoList list = new InfoList("设计参数");
-            list.Add(new Info("架构", Name));
-            list.Add(new Info("逆变直流侧电压", DCAC_Vinv.ToString() + "V"));
-            package.Add(list);
-            return package;
-        }
-
-        /// <summary>
-        /// 获取展示信息
-        /// </summary>
-        /// <returns>展示信息</returns>
-        public override InfoPackage GetDisplayInfo()
-        {
-            InfoPackage package = new InfoPackage(Name);
-            package.Add(GetPerformanceInfo());
-            package.AddRange(GetDesignInfo());
-            package.AddRange(IsolatedDCDC.GetDesignInfo());
-            package.AddRange(DCAC.GetDesignInfo());
-            return package;
+            List<Info> list = new List<Info>
+            {
+                new Info("架构", Name),
+                new Info("逆变直流侧电压", DCAC_Vinv.ToString() + "V")
+            };
+            return list;
         }
 
         /// <summary>

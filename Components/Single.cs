@@ -98,11 +98,13 @@ namespace PV_analysis.Components
         /// 获取设计方案的配置信息（包括标题）
         /// </summary>
         /// <returns>配置信息</returns>
-        public override InfoList GetConfigInfo()
+        public override List<Info> GetConfigInfo()
         {
-            InfoList list = new InfoList(Name);
-            list.Add(new Info("型号", GetDeviceType()));
-            list.Add(new Info("并联数", paralleledNum.ToString()));
+            List<Info> list = new List<Info>()
+            {
+                new Info("型号", GetDeviceType()),
+                new Info("并联数", paralleledNum)
+            };
             return list;
         }
 
@@ -110,14 +112,16 @@ namespace PV_analysis.Components
         /// 获取损耗分布
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public override InfoList GetLossBreakdown()
+        public override List<Info> GetLossBreakdown()
         {
-            InfoList list = new InfoList(Name);
-            list.Add(new Info(Name + "(PTcon)", Math.Round(number * math_PTcon, 2)));
-            list.Add(new Info(Name + "(Pon)", Math.Round(number * math_Pon, 2)));
-            list.Add(new Info(Name + "(Poff)", Math.Round(number * math_Poff, 2)));
-            list.Add(new Info(Name + "(PDcon)", Math.Round(number * math_PDcon, 2)));
-            list.Add(new Info(Name + "(Prr)", Math.Round(number * math_Prr, 2)));
+            List<Info> list = new List<Info>()
+            {
+                new Info(Name + "(PTcon)", Math.Round(number * math_PTcon, 2)),
+                new Info(Name + "(Pon)", Math.Round(number * math_Pon, 2)),
+                new Info(Name + "(Poff)", Math.Round(number * math_Poff, 2)),
+                new Info(Name + "(PDcon)", Math.Round(number * math_PDcon, 2)),
+                new Info(Name + "(Prr)", Math.Round(number * math_Prr, 2))
+            };
             return list;
         }
 
@@ -240,7 +244,7 @@ namespace PV_analysis.Components
             {
                 return false;
             }
-            
+
             //验证器件是否可用
             if (!Data.SemiconductorList[device].Available)
             {

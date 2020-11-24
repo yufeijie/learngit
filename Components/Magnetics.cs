@@ -81,10 +81,12 @@ namespace PV_analysis.Components
         /// 获取成本分布
         /// </summary>
         /// <returns>成本分布信息</returns>
-        public override InfoList GetCostBreakdown()
+        public override List<Info> GetCostBreakdown()
         {
-            InfoList list = new InfoList(Name);
-            list.Add(new Info(Name, Math.Round(number * (costCore + costWire), 2)));
+            List<Info> list = new List<Info>()
+            {
+                new Info(Name, Math.Round(number * (costCore + costWire), 2))
+            };
             return list;
         }
 
@@ -92,10 +94,12 @@ namespace PV_analysis.Components
         /// 获取体积分布
         /// </summary>
         /// <returns>体积分布信息</returns>
-        public override InfoList GetVolumeBreakdown()
+        public override List<Info> GetVolumeBreakdown()
         {
-            InfoList list = new InfoList(Name);
-            list.Add(new Info(Name, Math.Round(Volume, 2)));
+            List<Info> list = new List<Info>()
+            {
+                new Info(Name, Math.Round(Volume, 2))
+            };
             return list;
         }
 

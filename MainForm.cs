@@ -2,6 +2,7 @@
 using LiveCharts.Defaults;
 using LiveCharts.Geared;
 using LiveCharts.Wpf;
+using PV_analysis.Components;
 using PV_analysis.Converters;
 using PV_analysis.Informations;
 using PV_analysis.Structures;
@@ -1112,32 +1113,58 @@ namespace PV_analysis
         private void Display_Show_Preview()
         {
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
-            
+            List<Info> list;
+
             //生成预览面板显示信息
             if (isStructureDisplay)
             {
-                InfoPackage package = selectedStructure.GetDisplayInfo();
-                for (int i = 0; i < package.Size; i++)
+                panelList.Add(Display_Show_Preview_CreateTitle("性能表现"));
+                list = selectedStructure.GetPerformanceInfo();
+                for (int i = 0; i < list.Count; i++)
                 {
-                    InfoList list = package[i];
-                    panelList.Add(Display_Show_Preview_CreateTitle(list.Title));
-                    for (int j = 0; j < list.Size; j++)
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
+                }
+                panelList.Add(Display_Show_Preview_CreateTitle("整体系统"));
+                list = selectedStructure.GetConfigInfo();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
+                }
+                if (selectedStructure.Name.Equals("三级架构"))
+                {
+                    panelList.Add(Display_Show_Preview_CreateTitle("前级DC/DC"));
+                    list = selectedStructure.DCDC.GetConfigInfo();
+                    for (int i = 0; i < list.Count; i++)
                     {
-                        panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title, (string)list[j].Content));
+                        panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
                     }
+                }
+                panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC"));
+                list = selectedStructure.IsolatedDCDC.GetConfigInfo();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
+                }
+                panelList.Add(Display_Show_Preview_CreateTitle("逆变"));
+                list = selectedStructure.DCAC.GetConfigInfo();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
                 }
             }
             else
             {
-                InfoPackage package = selectedConverter.GetDisplayInfo();
-                for (int i = 0; i < package.Size; i++)
+                panelList.Add(Display_Show_Preview_CreateTitle("性能表现"));
+                list = selectedConverter.GetPerformanceInfo();
+                for (int i = 0; i < list.Count; i++)
                 {
-                    InfoList list = package[i];
-                    panelList.Add(Display_Show_Preview_CreateTitle(list.Title));
-                    for (int j = 0; j < list.Size; j++)
-                    {
-                        panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title, (string)list[j].Content));
-                    }
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
+                }
+                panelList.Add(Display_Show_Preview_CreateTitle("设计参数"));
+                list = selectedConverter.GetConfigInfo();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
                 }
             }
 
@@ -1191,19 +1218,19 @@ namespace PV_analysis
         /// </summary>
         /// <param name="pieChart">操作的饼图对象</param>
         /// <param name="dataList">数据</param>
-        private void DisplayPieChart(LiveCharts.WinForms.PieChart pieChart, InfoList info)
+        private void DisplayPieChart(LiveCharts.WinForms.PieChart pieChart, List<Info> list)
         {
             //string labelPoint(ChartPoint chartPoint) => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation); //饼图数据标签显示格式
             SeriesCollection series = new SeriesCollection();
-            for (int i = 0; i < info.Size; i++)
+            for (int i = 0; i < list.Count; i++)
             {
-                if (Math.Round((double)info[i].Content, 2) > 0)
+                if (Math.Round((double)list[i].Content, 2) > 0)
                 {
                     series.Add(new PieSeries
                     {
                         FontSize = 12,
-                        Title = info[i].Title,
-                        Values = new ChartValues<double> { (double)info[i].Content },
+                        Title = list[i].Title,
+                        Values = new ChartValues<double> { (double)list[i].Content },
                         DataLabels = true,
                         //LabelPoint = labelPoint
                     });
@@ -1223,15 +1250,38 @@ namespace PV_analysis
         {
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
-            InfoPackage package = selectedStructure.GetDisplayInfo();
-            for (int i = 0; i < package.Size; i++)
+            panelList.Add(Display_Show_Preview_CreateTitle("性能表现"));
+            List<Info> list = selectedStructure.GetPerformanceInfo();
+            for (int i = 0; i < list.Count; i++)
             {
-                InfoList list = package[i];
-                panelList.Add(Display_Show_Preview_CreateTitle(list.Title));
-                for (int j = 0; j < list.Size; j++)
+                panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
+            }
+            panelList.Add(Display_Show_Preview_CreateTitle("整体系统"));
+            list = selectedStructure.GetConfigInfo();
+            for (int i = 0; i < list.Count; i++)
+            {
+                panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
+            }
+            if (selectedStructure.Name.Equals("三级架构"))
+            {
+                panelList.Add(Display_Show_Preview_CreateTitle("前级DC/DC"));
+                list = selectedStructure.DCDC.GetConfigInfo();
+                for (int i = 0; i < list.Count; i++)
                 {
-                    panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title, (string)list[j].Content));
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
                 }
+            }
+            panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC"));
+            list = selectedStructure.IsolatedDCDC.GetConfigInfo();
+            for (int i = 0; i < list.Count; i++)
+            {
+                panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
+            }
+            panelList.Add(Display_Show_Preview_CreateTitle("逆变"));
+            list = selectedStructure.DCAC.GetConfigInfo();
+            for (int i = 0; i < list.Count; i++)
+            {
+                panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
             }
 
             //更新面板显示
@@ -1292,14 +1342,25 @@ namespace PV_analysis
         {
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
-            InfoPackage package = selectedConverter.GetDisplayInfo();
-            for (int i = 0; i < package.Size; i++)
+            panelList.Add(Display_Show_Preview_CreateTitle("性能表现"));
+            List<Info> list = selectedConverter.GetPerformanceInfo();
+            for (int i = 0; i < list.Count; i++)
             {
-                InfoList list = package[i];
-                panelList.Add(Display_Show_Preview_CreateTitle(list.Title));
-                for (int j = 0; j < list.Size; j++)
+                panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
+            }
+            panelList.Add(Display_Show_Preview_CreateTitle("设计参数"));
+            list = selectedConverter.GetConfigInfo();
+            for (int i = 0; i < list.Count; i++)
+            {
+                panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
+            }
+            foreach (Component com in selectedConverter.Topology.ComponentGroups[selectedConverter.Topology.GroupIndex])
+            {
+                panelList.Add(Display_Show_Preview_CreateTitle(com.Name));
+                list = com.GetConfigInfo();
+                for (int i = 0; i < list.Count; i++)
                 {
-                    panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title, (string)list[j].Content));
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
                 }
             }
 
@@ -1361,14 +1422,25 @@ namespace PV_analysis
         {
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
-            InfoPackage package = selectedConverter.GetDisplayInfo();
-            for (int i = 0; i < package.Size; i++)
+            panelList.Add(Display_Show_Preview_CreateTitle("性能表现"));
+            List<Info> list = selectedConverter.GetPerformanceInfo();
+            for (int i = 0; i < list.Count; i++)
             {
-                InfoList list = package[i];
-                panelList.Add(Display_Show_Preview_CreateTitle(list.Title));
-                for (int j = 0; j < list.Size; j++)
+                panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
+            }
+            panelList.Add(Display_Show_Preview_CreateTitle("设计参数"));
+            list = selectedConverter.GetConfigInfo();
+            for (int i = 0; i < list.Count; i++)
+            {
+                panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
+            }
+            foreach (Component com in selectedConverter.Topology.ComponentGroups[selectedConverter.Topology.GroupIndex])
+            {
+                panelList.Add(Display_Show_Preview_CreateTitle(com.Name));
+                list = com.GetConfigInfo();
+                for (int i = 0; i < list.Count; i++)
                 {
-                    panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title, (string)list[j].Content));
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
                 }
             }
 
@@ -1429,14 +1501,25 @@ namespace PV_analysis
         {
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
-            InfoPackage package = selectedConverter.GetDisplayInfo();
-            for (int i = 0; i < package.Size; i++)
+            panelList.Add(Display_Show_Preview_CreateTitle("性能表现"));
+            List<Info> list = selectedConverter.GetPerformanceInfo();
+            for (int i = 0; i < list.Count; i++)
             {
-                InfoList list = package[i];
-                panelList.Add(Display_Show_Preview_CreateTitle(list.Title));
-                for (int j = 0; j < list.Size; j++)
+                panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
+            }
+            panelList.Add(Display_Show_Preview_CreateTitle("设计参数"));
+            list = selectedConverter.GetConfigInfo();
+            for (int i = 0; i < list.Count; i++)
+            {
+                panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
+            }
+            foreach (Component com in selectedConverter.Topology.ComponentGroups[selectedConverter.Topology.GroupIndex])
+            {
+                panelList.Add(Display_Show_Preview_CreateTitle(com.Name));
+                list = com.GetConfigInfo();
+                for (int i = 0; i < list.Count; i++)
                 {
-                    panelList.Add(Display_Show_Preview_CreateInfo(list[j].Title, (string)list[j].Content));
+                    panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
                 }
             }
 
@@ -2141,16 +2224,16 @@ namespace PV_analysis
                     capacitorList.Add(capacitor.Type);
                 }
                 selectedStructure = new ThreeLevelStructure();
-                InfoPackage package = selectedStructure.GetManualInfo();
-                for (int i = 0; i < package.Size; i++)
-                {
-                    InfoList list = package[i];
-                    panelList.Add(Estimate_Manual_Create_Title(list.Title));
-                    for (int j = 0; j < list.Size; j++)
-                    {
-                        panelList.Add(Estimate_Manual_Create_TextBox(list[j].Title, (string)list[j].Content));
-                    }
-                }
+                //InfoPackage package = selectedStructure.GetManualInfo();
+                //for (int i = 0; i < package.Size; i++)
+                //{
+                //    InfoList list = package[i];
+                //    panelList.Add(Estimate_Manual_Create_Title(list.Title));
+                //    for (int j = 0; j < list.Size; j++)
+                //    {
+                //        panelList.Add(Estimate_Manual_Create_TextBox(list[j].Title, list[j].Content.ToString()));
+                //    }
+                //}
 
                 panelList.Add(Estimate_Manual_Create_Title("开关器件"));
                 panelList.Add(Estimate_Manual_Create_ComboBox("型号：", semiconductorList.ToArray()));
@@ -2633,7 +2716,6 @@ namespace PV_analysis
         private void Display_Show_Contrast_Button_Click(object sender, EventArgs e)
         {
             int m;
-            int row;
             if (isStructureDisplay)
             {
                 m = structureListForContrast.Count;
@@ -2675,35 +2757,82 @@ namespace PV_analysis
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 21F));
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 21F));
             table.RowCount = 0;
-            row = -1;
-
-            InfoPackage[] info = new InfoPackage[m];
+            List<Info>[] list = new List<Info>[m];
+            int row = 0;
+            Display_Show_Contrast_InsertTitle(table, "性能表现");
             for (int k = 0; k < m; k++)
             {
-                info[k] = structureListForContrast[k].GetDisplayInfo(true);
+                list[k] = structureListForContrast[k].GetPerformanceInfo();
             }
-
-            for (int i = 0; i < info[0].Size; i++)
+            for (int i = 0; i < list[0].Count; i++)
             {
-                InfoList[] list = new InfoList[m];
+                row++;
+                Display_Show_Contrast_InsertCell(table, 0, row, list[0][i].Title);
                 for (int k = 0; k < m; k++)
                 {
-                    list[k] = info[k][i];
-                }
-
-                row++;
-                Display_Show_Contrast_InsertTitle(table, list[0].Title);
-                for (int j = 0; j < list[0].Size; j++)
-                {
-                    row++;
-                    Display_Show_Contrast_InsertCell(table, 0, row, list[0][j].Title);
-                    for (int k = 0; k < m; k++)
-                    {
-                        Display_Show_Contrast_InsertCell(table, k + 1, row, (string)list[k][j].Content);
-                    }
+                    Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
                 }
             }
-
+            row++;
+            Display_Show_Contrast_InsertTitle(table, "整体系统");
+            for (int k = 0; k < m; k++)
+            {
+                list[k] = structureListForContrast[k].GetConfigInfo();
+            }
+            for (int i = 0; i < list[0].Count; i++)
+            {
+                row++;
+                Display_Show_Contrast_InsertCell(table, 0, row, list[0][i].Title);
+                for (int k = 0; k < m; k++)
+                {
+                    Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
+                }
+            }
+            row++;
+            Display_Show_Contrast_InsertTitle(table, "前级DC/DC");
+            for (int k = 0; k < m; k++)
+            {
+                list[k] = structureListForContrast[k].DCDC.GetConfigInfo();
+            }
+            for (int i = 0; i < list[0].Count; i++)
+            {
+                row++;
+                Display_Show_Contrast_InsertCell(table, 0, row, list[0][i].Title);
+                for (int k = 0; k < m; k++)
+                {
+                    Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
+                }
+            }
+            row++;
+            Display_Show_Contrast_InsertTitle(table, "隔离DC/DC");
+            for (int k = 0; k < m; k++)
+            {
+                list[k] = structureListForContrast[k].IsolatedDCDC.GetConfigInfo();
+            }
+            for (int i = 0; i < list[0].Count; i++)
+            {
+                row++;
+                Display_Show_Contrast_InsertCell(table, 0, row, list[0][i].Title);
+                for (int k = 0; k < m; k++)
+                {
+                    Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
+                }
+            }
+            row++;
+            Display_Show_Contrast_InsertTitle(table, "逆变");
+            for (int k = 0; k < m; k++)
+            {
+                list[k] = structureListForContrast[k].DCAC.GetConfigInfo();
+            }
+            for (int i = 0; i < list[0].Count; i++)
+            {
+                row++;
+                Display_Show_Contrast_InsertCell(table, 0, row, list[0][i].Title);
+                for (int k = 0; k < m; k++)
+                {
+                    Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
+                }
+            }
             row++;
             Display_Show_Contrast_InsertTitle(table, "负载-效率曲线");
             row++;

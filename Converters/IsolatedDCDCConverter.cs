@@ -1,6 +1,7 @@
 ﻿using PV_analysis.Informations;
 using PV_analysis.Topologys;
 using System;
+using System.Collections.Generic;
 
 namespace PV_analysis.Converters
 {
@@ -143,24 +144,20 @@ namespace PV_analysis.Converters
         }
 
         /// <summary>
-        /// 获取设计参数信息
+        /// 获取配置信息
         /// </summary>
-        /// <returns>设计参数信息</returns>
-        public override InfoPackage GetDesignInfo()
+        /// <returns>配置信息</returns>
+        public override List<Info> GetConfigInfo()
         {
-            InfoPackage package = new InfoPackage(Name);
-            InfoList list = new InfoList("设计参数");
-            list.Add(new Info("模块数", Number.ToString()));
-            list.Add(new Info("副边个数", Math_No.ToString()));
-            list.Add(new Info("品质因数", Math_Q.ToString()));
-            list.Add(new Info("谐振频率", (Math_fr / 1e3).ToString("f1") + "kHz"));
-            list.Add(new Info("拓扑", Topology.GetName()));
-            package.Add(list);
-            if (Configuration.IS_COM_INFO_DISPLAYED)
+            List<Info> list = new List<Info>
             {
-                package.AddRange(GetComponentConfigInfo());
-            }
-            return package;
+                new Info("模块数", Number),
+                new Info("副边个数", Math_No),
+                new Info("品质因数", Math_Q),
+                new Info("谐振频率", (Math_fr / 1e3).ToString("f1") + "kHz"),
+                new Info("拓扑", Topology.GetName())
+            };
+            return list;
         }
 
         /// <summary>

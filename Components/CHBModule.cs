@@ -100,10 +100,12 @@ namespace PV_analysis.Components
         /// 获取设计方案的配置信息（包括标题）
         /// </summary>
         /// <returns>配置信息</returns>
-        public override InfoList GetConfigInfo()
+        public override List<Info> GetConfigInfo()
         {
-            InfoList list = new InfoList(Name);
-            list.Add(new Info("型号", GetDeviceType()));
+            List<Info> list = new List<Info>()
+            {
+                new Info("型号", GetDeviceType())
+            };
             return list;
         }
 
@@ -111,9 +113,9 @@ namespace PV_analysis.Components
         /// 获取损耗分布
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public override InfoList GetLossBreakdown()
+        public override List<Info> GetLossBreakdown()
         {
-            InfoList list = new InfoList(Name);
+            List<Info> list = new List<Info>();
             double PTcon_ave = 0;
             double Pon_ave = 0;
             double Poff_ave = 0;

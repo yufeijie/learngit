@@ -1,5 +1,6 @@
 ﻿using PV_analysis.Informations;
 using System;
+using System.Collections.Generic;
 
 namespace PV_analysis.Components
 {
@@ -61,15 +62,17 @@ namespace PV_analysis.Components
         /// 获取设计方案的配置信息（包括标题）
         /// </summary>
         /// <returns>配置信息</returns>
-        public override InfoList GetConfigInfo()
+        public override List<Info> GetConfigInfo()
         {
-            InfoList list = new InfoList(Name);
-            list.Add(new Info("磁芯型号", GetCoreType()));
-            list.Add(new Info("磁芯数", numberCore.ToString()));
-            list.Add(new Info("原边绕线型号", GetWireType(wire_p)));
-            list.Add(new Info("原边匝数", Np.ToString()));
-            list.Add(new Info("副边绕线型号", GetWireType(wire_s)));
-            list.Add(new Info("副边匝数", Ns.ToString()));
+            List<Info> list = new List<Info>
+            {
+                new Info("磁芯型号", GetCoreType()),
+                new Info("磁芯数", numberCore),
+                new Info("原边绕线型号", GetWireType(wire_p)),
+                new Info("原边匝数", Np),
+                new Info("副边绕线型号", GetWireType(wire_s)),
+                new Info("副边匝数", Ns)
+            };
             return list;
         }
 
@@ -77,11 +80,13 @@ namespace PV_analysis.Components
         /// 获取损耗分布
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public override InfoList GetLossBreakdown()
+        public override List<Info> GetLossBreakdown()
         {
-            InfoList list = new InfoList(Name);
-            list.Add(new Info(Name + "(Cu)", Math.Round(number * powerLossCu, 2)));
-            list.Add(new Info(Name + "(Fe)", Math.Round(number * powerLossFe, 2)));
+            List<Info> list = new List<Info>
+            {
+                new Info(Name + "(Cu)", Math.Round(number * powerLossCu, 2)),
+                new Info(Name + "(Fe)", Math.Round(number * powerLossFe, 2))
+            };
             return list;
         }
 
