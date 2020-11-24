@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace PV_analysis.Structures
 {
-    internal abstract class Structure
+    internal abstract class Structure : EvaluationObject
     {
         /// <summary>
         /// 架构名
@@ -144,41 +144,6 @@ namespace PV_analysis.Structures
         public double[] DCAC_frequencyRange { get; set; }
 
         /// <summary>
-        /// 中国效率
-        /// </summary>
-        public double EfficiencyCGC { get; protected set; }
-
-        /// <summary>
-        /// 损耗
-        /// </summary>
-        public double PowerLoss { get; protected set; }
-
-        /// <summary>
-        /// 成本
-        /// </summary>
-        public double Cost { get; protected set; }
-
-        /// <summary>
-        /// 体积
-        /// </summary>
-        public double Volume { get; protected set; }
-
-        /// <summary>
-        /// 效率
-        /// </summary>
-        public double Efficiency { get; protected set; }
-
-        /// <summary>
-        /// Pareto最优设计方案
-        /// </summary>
-        public ConverterDesignList ParetoDesignList { get; } = new ConverterDesignList();
-
-        /// <summary>
-        /// 所有设计方案
-        /// </summary>
-        public ConverterDesignList AllDesignList { get; } = new ConverterDesignList { IsAll = true };
-
-        /// <summary>
         /// 获取架构类型
         /// </summary>
         /// <returns>架构类型</returns>
@@ -203,11 +168,17 @@ namespace PV_analysis.Structures
         public abstract InfoPackage GetManualInfo();
 
         /// <summary>
+        /// 获取设计参数信息
+        /// </summary>
+        /// <returns>获取设计参数信息</returns>
+        public abstract InfoPackage GetDesignInfo();
+
+        /// <summary>
         /// 获取展示信息
         /// </summary>
         /// <param name="isAll">若为否，则不获取各变换单元信息，默认不获取</param>
         /// <returns>展示信息</returns>
-        public abstract InfoPackage GetDisplayInfo(bool isAll = false);
+        public abstract InfoPackage GetDisplayInfo();
 
         /// <summary>
         /// 获取损耗分布（变换器）

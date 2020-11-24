@@ -106,43 +106,30 @@ namespace PV_analysis.Structures
         }
 
         /// <summary>
-        /// 获取展示信息
+        /// 获取设计参数信息
         /// </summary>
-        /// <param name="isAll">若为否，则不获取各变换单元信息，默认不获取</param>
-        /// <returns>展示信息</returns>
-        public override InfoPackage GetDisplayInfo(bool isAll = false)
+        /// <returns>设计参数信息</returns>
+        public override InfoPackage GetDesignInfo()
         {
             InfoPackage package = new InfoPackage(Name);
-            InfoList infoList = new InfoList("性能表现");
-            infoList.Add(new Info("中国效率", (EfficiencyCGC * 100).ToString("f2") + "%"));
-            infoList.Add(new Info("成本", (Cost / 1e4).ToString("f2") + "万元"));
-            infoList.Add(new Info("体积", Volume.ToString("f2") + "dm^3"));
-            package.Add(infoList);
-            infoList = new InfoList("设计参数");
-            infoList.Add(new Info("架构", Name));
-            infoList.Add(new Info("逆变直流侧电压", DCAC_Vinv.ToString() + "V"));
-            package.Add(infoList);
-            infoList = new InfoList("隔离DC/DC");
-            infoList.Add(new Info("模块数", IsolatedDCDC.Number.ToString()));
-            infoList.Add(new Info("副边个数", IsolatedDCDC.Math_No.ToString()));
-            infoList.Add(new Info("品质因数", IsolatedDCDC.Math_Q.ToString()));
-            infoList.Add(new Info("谐振频率", (IsolatedDCDC.Math_fr / 1e3).ToString("f1") + "kHz"));
-            infoList.Add(new Info("拓扑", IsolatedDCDC.Topology.GetName()));
-            package.Add(infoList);
-            if (isAll)
-            {
-                package.AddRange(IsolatedDCDC.GetComponentConfigInfo());
-            }
-            infoList = new InfoList("逆变");
-            infoList.Add(new Info("模块数", DCAC.Number.ToString()));
-            infoList.Add(new Info("开关频率", (DCAC.Math_fs / 1e3).ToString("f1") + "kHz"));
-            infoList.Add(new Info("拓扑", DCAC.Topology.GetName()));
-            infoList.Add(new Info("调制方式", DCAC.Modulation.ToString()));
-            package.Add(infoList);
-            if (isAll)
-            {
-                package.AddRange(DCAC.GetComponentConfigInfo());
-            }
+            InfoList list = new InfoList("设计参数");
+            list.Add(new Info("架构", Name));
+            list.Add(new Info("逆变直流侧电压", DCAC_Vinv.ToString() + "V"));
+            package.Add(list);
+            return package;
+        }
+
+        /// <summary>
+        /// 获取展示信息
+        /// </summary>
+        /// <returns>展示信息</returns>
+        public override InfoPackage GetDisplayInfo()
+        {
+            InfoPackage package = new InfoPackage(Name);
+            package.Add(GetPerformanceInfo());
+            package.AddRange(GetDesignInfo());
+            package.AddRange(IsolatedDCDC.GetDesignInfo());
+            package.AddRange(DCAC.GetDesignInfo());
             return package;
         }
 

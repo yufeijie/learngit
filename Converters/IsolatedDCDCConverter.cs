@@ -143,24 +143,19 @@ namespace PV_analysis.Converters
         }
 
         /// <summary>
-        /// 获取展示信息
+        /// 获取设计参数信息
         /// </summary>
-        /// <returns>展示信息</returns>
-        public override InfoPackage GetDisplayInfo()
+        /// <returns>设计参数信息</returns>
+        public override InfoPackage GetDesignInfo()
         {
             InfoPackage package = new InfoPackage(Name);
-            InfoList infoList = new InfoList("性能表现");
-            infoList.Add(new Info("中国效率", (EfficiencyCGC * 100).ToString("f2") + "%"));
-            infoList.Add(new Info("成本", (Cost / 1e4).ToString("f2") + "万元"));
-            infoList.Add(new Info("体积", Volume.ToString("f2") + "dm^3"));
-            package.Add(infoList);
-            infoList = new InfoList("设计参数：");
-            infoList.Add(new Info("模块数", Number.ToString()));
-            infoList.Add(new Info("副边个数", Math_No.ToString()));
-            infoList.Add(new Info("品质因数", Math_Q.ToString()));
-            infoList.Add(new Info("谐振频率", (Math_fr / 1e3).ToString("f1") + "kHz"));
-            infoList.Add(new Info("拓扑", Topology.GetName()));
-            package.Add(infoList);
+            InfoList list = new InfoList("设计参数");
+            list.Add(new Info("模块数", Number.ToString()));
+            list.Add(new Info("副边个数", Math_No.ToString()));
+            list.Add(new Info("品质因数", Math_Q.ToString()));
+            list.Add(new Info("谐振频率", (Math_fr / 1e3).ToString("f1") + "kHz"));
+            list.Add(new Info("拓扑", Topology.GetName()));
+            package.Add(list);
             if (Configuration.IS_COM_INFO_DISPLAYED)
             {
                 package.AddRange(GetComponentConfigInfo());

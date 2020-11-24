@@ -9,7 +9,7 @@ namespace PV_analysis.Converters
     /// <summary>
     /// 变换器抽象类，用于描述变换器的共有特征
     /// </summary>
-    internal abstract class Converter
+    internal abstract class Converter : EvaluationObject
     {
         //优化与评估
         protected static readonly bool isRecordResult = true; //是否记录单级变换器评估结果
@@ -81,46 +81,6 @@ namespace PV_analysis.Converters
         public Topology Topology { get; protected set; }
 
         /// <summary>
-        /// 中国效率
-        /// </summary>
-        public double EfficiencyCGC { get; protected set; }
-
-        /// <summary>
-        /// 损耗评估值
-        /// </summary>
-        public double Math_Peval { get; protected set; }
-
-        /// <summary>
-        /// 损耗
-        /// </summary>
-        public double PowerLoss { get; protected set; }
-
-        /// <summary>
-        /// 成本
-        /// </summary>
-        public double Cost { get; protected set; }
-
-        /// <summary>
-        /// 体积
-        /// </summary>
-        public double Volume { get; protected set; }
-
-        /// <summary>
-        /// 效率
-        /// </summary>
-        public double Efficiency { get; protected set; }
-
-        /// <summary>
-        /// Pareto最优设计方案
-        /// </summary>
-        public ConverterDesignList ParetoDesignList { get; } = new ConverterDesignList();
-
-        /// <summary>
-        /// 所有设计方案
-        /// </summary>
-        public ConverterDesignList AllDesignList { get; } = new ConverterDesignList { IsAll = true };
-
-        /// <summary>
         /// 获取变换单元名
         /// </summary>
         /// <returns>变换单元名</returns>
@@ -159,10 +119,22 @@ namespace PV_analysis.Converters
         }
 
         /// <summary>
+        /// 获取设计参数信息
+        /// </summary>
+        /// <returns>获取设计参数信息</returns>
+        public abstract InfoPackage GetDesignInfo();
+
+        /// <summary>
         /// 获取展示信息
         /// </summary>
         /// <returns>展示信息</returns>
-        public abstract InfoPackage GetDisplayInfo();
+        public InfoPackage GetDisplayInfo()
+        {
+            InfoPackage package = new InfoPackage(Name);
+            package.Add(GetPerformanceInfo());
+            package.AddRange(GetDesignInfo());
+            return package;
+        }
 
         /// <summary>
         /// 获取总损耗分布（元器件）
