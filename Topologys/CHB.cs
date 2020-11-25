@@ -68,7 +68,7 @@ namespace PV_analysis.Topologys
             //初始化元器件
             semiconductor = new CHBModule(1)
             {
-                Name = "开关管",
+                Name = "开关器件",
                 VoltageVariable = false,
                 MultiNumber = number
             };

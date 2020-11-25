@@ -105,19 +105,6 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
-        /// 获取设计方案的配置信息（包括标题）
-        /// </summary>
-        /// <returns>配置信息</returns>
-        public override List<Info> GetConfigInfo()
-        {
-            List<Info> list = new List<Info>()
-            {
-                new Info("型号", GetDeviceType())
-            };
-            return list;
-        }
-
-        /// <summary>
         /// 获取损耗分布
         /// </summary>
         /// <returns>损耗分布信息</returns>

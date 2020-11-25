@@ -62,23 +62,6 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
-        /// 获取设计方案的配置信息（包括标题）
-        /// </summary>
-        /// <returns>配置信息</returns>
-        public override List<Info> GetConfigInfo()
-        {
-            List<Info> list = new List<Info>()
-            {
-                new Info("磁芯型号", GetCoreType()),
-                new Info("磁芯数", numberCore),
-                new Info("气隙长度(cm)", lg),
-                new Info("绕线型号", GetWireType(wire)),
-                new Info("匝数", N)
-            };
-            return list;
-        }
-
-        /// <summary>
         /// 获取损耗分布
         /// </summary>
         /// <returns>损耗分布信息</returns>

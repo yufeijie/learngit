@@ -2741,6 +2741,7 @@ namespace PV_analysis
                 }
             }
 
+            //生成表格
             TableLayoutPanel table = new TableLayoutPanel()
             {
                 AutoScroll = true,
@@ -2803,6 +2804,25 @@ namespace PV_analysis
                     Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
                 }
             }
+            for (int i = 0; i < structureListForContrast[0].DCDC.Topology.ComponentGroups[structureListForContrast[0].DCDC.Topology.GroupIndex].Length; i++)
+            {
+                row++;
+                Display_Show_Contrast_InsertTitle(table, structureListForContrast[0].DCDC.Topology.ComponentGroups[structureListForContrast[0].DCDC.Topology.GroupIndex][i].Name);
+                List<Info>[] comInfoList = new List<Info>[m];
+                for (int k = 0; k < m; k++)
+                {
+                    comInfoList[k] = structureListForContrast[k].DCDC.Topology.ComponentGroups[structureListForContrast[k].DCDC.Topology.GroupIndex][i].GetConfigInfo();
+                }
+                for (int j = 0; j < comInfoList[0].Count; j++)
+                {
+                    row++;
+                    Display_Show_Contrast_InsertCell(table, 0, row, comInfoList[0][j].Title);
+                    for (int k = 0; k < m; k++)
+                    {
+                        Display_Show_Contrast_InsertCell(table, k + 1, row, comInfoList[k][j].Content.ToString());
+                    }
+                }
+            }
             row++;
             Display_Show_Contrast_InsertTitle(table, "隔离DC/DC");
             for (int k = 0; k < m; k++)
@@ -2818,6 +2838,25 @@ namespace PV_analysis
                     Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
                 }
             }
+            for (int i = 0; i < structureListForContrast[0].IsolatedDCDC.Topology.ComponentGroups[structureListForContrast[0].IsolatedDCDC.Topology.GroupIndex].Length; i++)
+            {
+                row++;
+                Display_Show_Contrast_InsertTitle(table, structureListForContrast[0].IsolatedDCDC.Topology.ComponentGroups[structureListForContrast[0].IsolatedDCDC.Topology.GroupIndex][i].Name);
+                List<Info>[] comInfoList = new List<Info>[m];
+                for (int k = 0; k < m; k++)
+                {
+                    comInfoList[k] = structureListForContrast[k].IsolatedDCDC.Topology.ComponentGroups[structureListForContrast[k].IsolatedDCDC.Topology.GroupIndex][i].GetConfigInfo();
+                }
+                for (int j = 0; j < comInfoList[0].Count; j++)
+                {
+                    row++;
+                    Display_Show_Contrast_InsertCell(table, 0, row, comInfoList[0][j].Title);
+                    for (int k = 0; k < m; k++)
+                    {
+                        Display_Show_Contrast_InsertCell(table, k + 1, row, comInfoList[k][j].Content.ToString());
+                    }
+                }
+            }
             row++;
             Display_Show_Contrast_InsertTitle(table, "逆变");
             for (int k = 0; k < m; k++)
@@ -2831,6 +2870,25 @@ namespace PV_analysis
                 for (int k = 0; k < m; k++)
                 {
                     Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
+                }
+            }
+            for (int i = 0; i < structureListForContrast[0].DCAC.Topology.ComponentGroups[structureListForContrast[0].DCAC.Topology.GroupIndex].Length; i++)
+            {
+                row++;
+                Display_Show_Contrast_InsertTitle(table, structureListForContrast[0].DCAC.Topology.ComponentGroups[structureListForContrast[0].DCAC.Topology.GroupIndex][i].Name);
+                List<Info>[] comInfoList = new List<Info>[m];
+                for (int k = 0; k < m; k++)
+                {
+                    comInfoList[k] = structureListForContrast[k].DCAC.Topology.ComponentGroups[structureListForContrast[k].DCAC.Topology.GroupIndex][i].GetConfigInfo();
+                }
+                for (int j = 0; j < comInfoList[0].Count; j++)
+                {
+                    row++;
+                    Display_Show_Contrast_InsertCell(table, 0, row, comInfoList[0][j].Title);
+                    for (int k = 0; k < m; k++)
+                    {
+                        Display_Show_Contrast_InsertCell(table, k + 1, row, comInfoList[k][j].Content.ToString());
+                    }
                 }
             }
             row++;

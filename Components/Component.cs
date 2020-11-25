@@ -89,7 +89,17 @@ namespace PV_analysis.Components
         /// 获取设计方案的配置信息（包括标题）
         /// </summary>
         /// <returns>配置信息</returns>
-        public abstract List<Info> GetConfigInfo();
+        public List<Info> GetConfigInfo()
+        {
+            List<Info> list = new List<Info>();
+            string[] titles = GetConfigTitles();
+            string[] configs = GetConfigs();
+            for (int i = 0; i < titles.Length; i++)
+            {
+                list.Add(new Info(titles[i], configs[i]));
+            }
+            return list;
+        }
 
         /// <summary>
         /// 获取损耗分布
