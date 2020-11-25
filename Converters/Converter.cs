@@ -9,7 +9,7 @@ namespace PV_analysis.Converters
     /// <summary>
     /// 变换器抽象类，用于描述变换器的共有特征
     /// </summary>
-    internal abstract class Converter : EvaluationObject
+    internal abstract class Converter : Equipment
     {
         //优化与评估
         protected static readonly bool isRecordResult = true; //是否记录单级变换器评估结果
@@ -18,11 +18,6 @@ namespace PV_analysis.Converters
         private double costHeatsink;
         private double volumeHeatsink;
         private double costDSP;
-
-        /// <summary>
-        /// 变换单元名
-        /// </summary>
-        public string Name { get; set; }
 
         /// <summary>
         /// 系统功率
@@ -81,10 +76,10 @@ namespace PV_analysis.Converters
         public Topology Topology { get; protected set; }
 
         /// <summary>
-        /// 获取变换单元名
+        /// 判断评估对象是否为架构
         /// </summary>
-        /// <returns>变换单元名</returns>
-        public abstract string GetCategory();
+        /// <returns>判断结果</returns>
+        public override bool IsStructure() { return false; }
 
         /// <summary>
         /// 获取设计方案的配置信息
@@ -93,28 +88,10 @@ namespace PV_analysis.Converters
         public abstract string[] GetConfigs();
 
         /// <summary>
-        /// 获取设计条件标题
-        /// </summary>
-        /// <returns>设计条件标题</returns>
-        protected abstract string[] GetConditionTitles();
-
-        /// <summary>
-        /// 获取设计条件
-        /// </summary>
-        /// <returns>设计条件</returns>
-        protected abstract string[] GetConditions();
-
-        /// <summary>
-        /// 获取配置信息
-        /// </summary>
-        /// <returns>获取配置信息</returns>
-        public abstract List<Info> GetConfigInfo();
-
-        /// <summary>
         /// 获取总损耗分布（元器件）
         /// </summary>
         /// <returns>损耗分布信息</returns>
-        public List<Info> GetTotalLossBreakdown()
+        public override List<Info> GetTotalLossBreakdown()
         {
             List<Info> list = new List<Info>();
             foreach (Component component in Topology.ComponentGroups[Topology.GroupIndex])
@@ -187,17 +164,6 @@ namespace PV_analysis.Converters
         }
 
         /// <summary>
-        /// 复制当前变换器，保留设计条件
-        /// </summary>
-        /// <returns>复制结果</returns>
-        public abstract Converter Clone();
-
-        /// <summary>
-        /// 根据给定的条件，对变换器进行优化设计
-        /// </summary>
-        public abstract void Optimize(MainForm form, double progressMin, double progressMax);
-
-        /// <summary>
         /// 自动设计，整合设计结果（不会覆盖之前的设计结果）
         /// </summary>
         public void Design(MainForm form)
@@ -252,7 +218,7 @@ namespace PV_analysis.Converters
         /// <summary>
         /// 保存设计结果
         /// </summary>
-        public void Save()
+        public override void Save()
         {
             Save(GetType().Name);
         }
@@ -261,7 +227,7 @@ namespace PV_analysis.Converters
         /// 保存设计结果
         /// </summary>
         /// <param name="name">文件名</param>
-        public void Save(string name)
+        public override void Save(string name)
         {
             string[] conditionTitles = GetConditionTitles();
             string[] conditions = GetConditions();
@@ -274,7 +240,7 @@ namespace PV_analysis.Converters
         /// </summary>
         /// <param name="path">路径</param>
         /// <param name="name">文件名</param>
-        public void Save(string path, string name)
+        public override void Save(string path, string name)
         {
             string[] conditionTitles = GetConditionTitles();
             string[] conditions = GetConditions();
@@ -283,16 +249,9 @@ namespace PV_analysis.Converters
         }
 
         /// <summary>
-        /// 读取配置信息
-        /// </summary>
-        /// <param name="configs">配置信息</param>
-        /// <param name="index">当前下标</param>
-        public abstract void Load(string[] configs, ref int index);
-
-        /// <summary>
         /// 评估，得到中国效率、体积、成本
         /// </summary>
-        public void Evaluate()
+        public override void Evaluate()
         {
             Topology.Prepare();
             Math_Peval = 0;
@@ -302,7 +261,7 @@ namespace PV_analysis.Converters
             {
                 if (component.GetType().BaseType.Name.Equals("Semiconductor"))
                 {
-                    component.Evaluate(); //此时调用的是父类的方法
+                    component.Evaluate(); //此时调用的是父类的方法（不会调用Semiconductor中new的Evaluate方法）
                     Math_Peval += component.Math_Peval;
                     Cost += component.Cost;
                     Volume += component.Volume;
@@ -346,7 +305,7 @@ namespace PV_analysis.Converters
         /// 模拟变换器运行，得到相应负载、输入电压下的效率
         /// </summary>
         /// <param name="load">负载</param>
-        public void Operate(double load, double Vin)
+        public override void Operate(double load, double Vin)
         {
             Math_Vin = Vin;
             Operate(load);

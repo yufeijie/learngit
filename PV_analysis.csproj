@@ -109,7 +109,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EvaluationObject.cs" />
+    <Compile Include="Equipment.cs" />
     <Compile Include="Components\ResonantCapacitor.cs" />
     <Compile Include="Components\FilteringCapacitor.cs" />
     <Compile Include="Components\Capacitor.cs" />

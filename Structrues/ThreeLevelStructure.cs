@@ -8,10 +8,10 @@ namespace PV_analysis.Structures
     internal class ThreeLevelStructure : Structure
     {
         /// <summary>
-        /// 获取架构名
+        /// 获取类型名
         /// </summary>
-        /// <returns>架构名</returns>
-        public override string GetCategory()
+        /// <returns>类型名</returns>
+        public override string GetTypeName()
         {
             return "三级架构";
         }
@@ -135,7 +135,7 @@ namespace PV_analysis.Structures
         /// 复制当前架构，保留设计条件
         /// </summary>
         /// <returns>复制结果</returns>
-        public override Structure Clone()
+        public override Equipment Clone()
         {
             return new ThreeLevelStructure()
             {
@@ -154,7 +154,7 @@ namespace PV_analysis.Structures
         }
 
         /// <summary>
-        /// 根据给定的条件，对变换器进行优化设计
+        /// 根据给定的条件进行优化设计
         /// </summary>
         public override void Optimize(MainForm form, double progressMin, double progressMax)
         {

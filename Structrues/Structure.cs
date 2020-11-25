@@ -7,20 +7,17 @@ using System.Collections.Generic;
 
 namespace PV_analysis.Structures
 {
-    internal abstract class Structure : EvaluationObject
+    internal abstract class Structure : Equipment
     {
-        /// <summary>
-        /// 架构名
-        /// </summary>
-        public string Name { get; set; }
-
         /// <summary>
         /// 包含的变换器
         /// </summary>
         public Converter[] Converters { get; protected set; }
 
         public DCDCConverter DCDC { get; protected set; }
+
         public IsolatedDCDCConverter IsolatedDCDC { get; protected set; }
+
         public DCACConverter DCAC { get; protected set; }
 
         //---整体参数---
@@ -148,34 +145,25 @@ namespace PV_analysis.Structures
         public double[] DCAC_frequencyRange { get; set; }
 
         /// <summary>
-        /// 获取架构类型
+        /// 判断评估对象是否为架构
         /// </summary>
-        /// <returns>架构类型</returns>
-        public abstract string GetCategory();
+        /// <returns>判断结果</returns>
+        public override bool IsStructure() { return true; }
 
         /// <summary>
-        /// 获取设计条件标题
+        /// 获取总损耗分布（变换器）
         /// </summary>
-        /// <returns>设计条件标题</returns>
-        public abstract string[] GetConditionTitles();
-
-        /// <summary>
-        /// 获取设计条件
-        /// </summary>
-        /// <returns>设计条件</returns>
-        public abstract string[] GetConditions();
-
-        ///// <summary>
-        ///// 获取手动设计信息
-        ///// </summary>
-        ///// <returns>手动设计信息</returns>
-        //public abstract List<Info> GetManualInfo();
-
-        /// <summary>
-        /// 获取设计参数信息
-        /// </summary>
-        /// <returns>获取设计参数信息</returns>
-        public abstract List<Info> GetConfigInfo();
+        /// <returns>总损耗分布信息</returns>
+        public override List<Info> GetTotalLossBreakdown()
+        {
+            List<Info> list = new List<Info>();
+            foreach (Converter converter in Converters)
+            {
+                list.Add(new Info(converter.GetTypeName(), Math.Round(converter.PowerLoss, 2)));
+            }
+            return list;
+            
+        }
 
         /// <summary>
         /// 获取损耗分布（变换器）
@@ -183,12 +171,7 @@ namespace PV_analysis.Structures
         /// <returns>损耗分布信息</returns>
         public List<Info> GetLossBreakdown()
         {
-            List<Info> list = new List<Info>();
-            foreach (Converter converter in Converters)
-            {
-                list.Add(new Info(converter.GetCategory(), Math.Round(converter.PowerLoss, 2)));
-            }
-            return list;
+            return GetTotalLossBreakdown();
         }
 
         /// <summary>
@@ -200,7 +183,7 @@ namespace PV_analysis.Structures
             List<Info> list = new List<Info>();
             foreach (Converter converter in Converters)
             {
-                list.Add(new Info(converter.GetCategory(), Math.Round(converter.Cost / 1e4, 2)));
+                list.Add(new Info(converter.GetTypeName(), Math.Round(converter.Cost / 1e4, 2)));
             }
             return list;
         }
@@ -214,26 +197,15 @@ namespace PV_analysis.Structures
             List<Info> list = new List<Info>();
             foreach (Converter converter in Converters)
             {
-                list.Add(new Info(converter.GetCategory(), Math.Round(converter.Volume, 2)));
+                list.Add(new Info(converter.GetTypeName(), Math.Round(converter.Volume, 2)));
             }
             return list;
         }
 
         /// <summary>
-        /// 复制当前架构，保留设计条件
-        /// </summary>
-        /// <returns>复制结果</returns>
-        public abstract Structure Clone();
-
-        /// <summary>
-        /// 根据给定的条件，对变换器进行优化设计
-        /// </summary>
-        public abstract void Optimize(MainForm form, double progressMin, double progressMax);
-
-        /// <summary>
         /// 保存设计结果
         /// </summary>
-        public void Save()
+        public override void Save()
         {
             Save(GetType().Name);
         }
@@ -242,7 +214,7 @@ namespace PV_analysis.Structures
         /// 保存设计结果
         /// </summary>
         /// <param name="name">文件名</param>
-        public void Save(string name)
+        public override void Save(string name)
         {
             string[] conditionTitles = GetConditionTitles();
             string[] conditions = GetConditions();
@@ -255,7 +227,7 @@ namespace PV_analysis.Structures
         /// </summary>
         /// <param name="path">路径</param>
         /// <param name="name">文件名</param>
-        public void Save(string path, string name)
+        public override void Save(string path, string name)
         {
             string[] conditionTitles = GetConditionTitles();
             string[] conditions = GetConditions();
@@ -264,16 +236,9 @@ namespace PV_analysis.Structures
         }
 
         /// <summary>
-        /// 读取配置信息
-        /// </summary>
-        /// <param name="configs">配置信息</param>
-        /// <param name="index">当前下标</param>
-        public abstract void Load(string[] configs, ref int index);
-
-        /// <summary>
         /// 评估，得到中国效率、体积、成本
         /// </summary>
-        public void Evaluate()
+        public override void Evaluate()
         {
             EfficiencyCGC = 1;
             Cost = 0;
@@ -291,7 +256,7 @@ namespace PV_analysis.Structures
         /// 模拟变换器运行，得到相应负载下的效率
         /// </summary>
         /// <param name="load">负载</param>
-        public void Operate(double load, double Vin)
+        public override void Operate(double load, double Vin)
         {
             PowerLoss = 0;
             foreach (Converter converter in Converters)

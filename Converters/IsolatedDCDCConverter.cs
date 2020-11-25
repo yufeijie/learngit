@@ -43,10 +43,10 @@ namespace PV_analysis.Converters
         public double[] FrequencyRange { get; set; }
 
         /// <summary>
-        /// 获取变换单元名
+        /// 获取类型名
         /// </summary>
-        /// <returns>变换单元名</returns>
-        public override string GetCategory()
+        /// <returns>类型名</returns>
+        public override string GetTypeName()
         {
             return "隔离DC/DC变换单元";
         }
@@ -65,7 +65,7 @@ namespace PV_analysis.Converters
         /// 获取设计条件标题
         /// </summary>
         /// <returns>设计条件标题</returns>
-        protected override string[] GetConditionTitles()
+        public override string[] GetConditionTitles()
         {
             string[] conditionTitles;
             if (IsInputVoltageVariation)
@@ -106,7 +106,7 @@ namespace PV_analysis.Converters
         /// 获取设计条件
         /// </summary>
         /// <returns>设计条件</returns>
-        protected override string[] GetConditions()
+        public override string[] GetConditions()
         {
             string[] conditions;
             if (IsInputVoltageVariation)
@@ -164,7 +164,7 @@ namespace PV_analysis.Converters
         /// 复制当前变换器，保留设计条件
         /// </summary>
         /// <returns>复制结果</returns>
-        public override Converter Clone()
+        public override Equipment Clone()
         {
             return new IsolatedDCDCConverter()
             {
@@ -204,7 +204,7 @@ namespace PV_analysis.Converters
         }
 
         /// <summary>
-        /// 根据给定的条件，对变换器进行优化设计
+        /// 根据给定的条件进行优化设计
         /// </summary>
         public override void Optimize(MainForm form, double progressMin, double progressMax)
         {

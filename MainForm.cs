@@ -26,40 +26,29 @@ namespace PV_analysis
         private System.Drawing.Color activeColor; //左侧边栏按钮，当前选中颜色
         private System.Drawing.Color inactiveColor; //左侧边栏按钮，未选中颜色
 
-        //评估对象
-        private bool isStructureEvaluation; //是否为架构评估（若为false，则为变换单元）
-        private string evaluationObjectName; //评估的对象名
-        private Structure structureForEvaluation; //用于评估的架构
-        private Converter converterForEvaluation; //用于评估的变换单元
-
+        //评估
         //可用拓扑序列
         private string[] DCDC_topologyRange;
         private string[] isolatedDCDC_topologyRange;
         private string[] DCAC_topologyRange;
-
         //评估过程
         private Thread evaluationThread; //评估线程
         private readonly short PRINT_LEVEL = 4; //允许打印的详细信息等级
+        //负载-效率曲线
+        private readonly int div = 100; //空载到满载划分精度
+        //对象
+        private bool isStructureEvaluation; //是否为架构评估（若为false，则为变换单元）
+        private string evaluationEquipmentName; //评估的装置名
+        private Equipment evaluationEquipment; //待评估的装置
 
-        //展示对象
-        private bool isStructureDisplay; //是否为架构展示（若为false，则为变换单元）
+        //展示
         private bool isAllDisplay = true; //是否展示所有结果
         private bool isParetoDisplay = true; //是否展示Pareto前沿
         private int displayNum = 0; //展示的数量（记录已在图像中绘制出的展示总数）
         private List<string> seriesNameList; //展示图像中的系列名
-        private List<Structure> structureListForDisplay; //用于展示的架构
-        private List<Converter> converterListForDisplay; //用于展示的变换单元
-
-        //选择对象
-        private Structure selectedStructure; //展示图像中选中的架构
-        private Converter selectedConverter; //展示图像中选中的变换单元
-
-        //对比对象
-        private List<Structure> structureListForContrast; //用于对比的架构
-        private List<Converter> converterListForContrast; //用于对比的变换单元
-
-        //负载-效率曲线
-        private readonly int div = 100; //空载到满载划分精度
+        private List<Equipment> displayEquipmentList; //当前展示的装置
+        private Equipment selectedEquipment; //展示图像中选中的装置
+        private List<Equipment> contrastEquipmentList; //当前对比的装置
 
         public MainForm()
         {
@@ -413,15 +402,15 @@ namespace PV_analysis
                 double[] DCAC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCACMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCACMaxFrequency_TextBox.Text) * 1e3); //DC/AC开关谐振频率序列
 
                 Formula.Init();
-                switch (evaluationObjectName)
+                switch (evaluationEquipmentName)
                 {
                     case "三级架构":
                         VbusRange = Function.GenerateVbusRange(int.Parse(Estimate_Step3_Vbusmin_TextBox.Text), int.Parse(Estimate_Step3_Vbusmax_TextBox.Text));
                         DCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_DCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_DCDCMaxNumber_TextBox.Text));
                         DCDC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCDCMaxFrequency_TextBox.Text) * 1e3);
-                        structureForEvaluation = new ThreeLevelStructure
+                        evaluationEquipment = new ThreeLevelStructure
                         {
-                            Name = evaluationObjectName,
+                            Name = evaluationEquipmentName,
                             Math_Psys = Psys,
                             Math_Vpv_min = Vpv_min,
                             Math_Vpv_max = Vpv_max,
@@ -447,9 +436,9 @@ namespace PV_analysis
                         };
                         break;
                     case "两级架构":
-                        structureForEvaluation = new TwoLevelStructure
+                        evaluationEquipment = new TwoLevelStructure
                         {
-                            Name = evaluationObjectName,
+                            Name = evaluationEquipmentName,
                             Math_Psys = Psys,
                             Math_Vpv_min = Vpv_min,
                             Math_Vpv_max = Vpv_max,
@@ -482,16 +471,16 @@ namespace PV_analysis
                 int[] numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3B_MinNumber_TextBox.Text), int.Parse(Estimate_Step3B_MaxNumber_TextBox.Text));
                 double[] frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3B_MinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3B_MaxFrequency_TextBox.Text) * 1e3);
 
-                switch (evaluationObjectName)
+                switch (evaluationEquipmentName)
                 {
                     case "前级DC/DC变换单元_三级":
                         double Psys = double.Parse(Estimate_Step3B_Psys_TextBox.Text) * 1e6;
                         double Vin_min = double.Parse(Estimate_Step3B_Vinmin_TextBox.Text);
                         double Vin_max = double.Parse(Estimate_Step3B_Vinmax_TextBox.Text);
                         double Vo = double.Parse(Estimate_Step3B_Vo_TextBox.Text);
-                        converterForEvaluation = new DCDCConverter()
+                        evaluationEquipment = new DCDCConverter()
                         {
-                            Name = evaluationObjectName,
+                            Name = evaluationEquipmentName,
                             PhaseNum = 1,
                             Math_Psys = Psys,
                             Math_Vin_min = Vin_min,
@@ -509,9 +498,9 @@ namespace PV_analysis
                         double Vin = double.Parse(Estimate_Step3B_Vin_TextBox.Text);
                         Vo = double.Parse(Estimate_Step3B_Vo_TextBox.Text);
                         double Q = double.Parse(Estimate_Step3B_Q_TextBox.Text);
-                        converterForEvaluation = new IsolatedDCDCConverter()
+                        evaluationEquipment = new IsolatedDCDCConverter()
                         {
-                            Name = evaluationObjectName,
+                            Name = evaluationEquipmentName,
                             PhaseNum = 3,
                             Math_Psys = Psys,
                             Math_Vin = Vin,
@@ -531,9 +520,9 @@ namespace PV_analysis
                         Vin_max = double.Parse(Estimate_Step3B_Vinmax_TextBox.Text);
                         Vo = double.Parse(Estimate_Step3B_Vo_TextBox.Text);
                         Q = double.Parse(Estimate_Step3B_Q_TextBox.Text);
-                        converterForEvaluation = new IsolatedDCDCConverter()
+                        evaluationEquipment = new IsolatedDCDCConverter()
                         {
-                            Name = evaluationObjectName,
+                            Name = evaluationEquipmentName,
                             PhaseNum = 3,
                             Math_Psys = Psys,
                             Math_Vin_min = Vin_min,
@@ -556,9 +545,9 @@ namespace PV_analysis
                         double Ma_max = double.Parse(Estimate_Step3B_Mamax_TextBox.Text);
                         double φ = 0; //功率因数角(rad)
                         string[] modulationRange = { "PSPWM", "LSPWM" };
-                        converterForEvaluation = new DCACConverter()
+                        evaluationEquipment = new DCACConverter()
                         {
-                            Name = evaluationObjectName,
+                            Name = evaluationEquipmentName,
                             PhaseNum = 3,
                             Math_Psys = Psys,
                             Math_Vin = Vin,
@@ -579,14 +568,7 @@ namespace PV_analysis
             }
             PrintMsg("开始评估！");
 
-            if (isStructureEvaluation)
-            {
-                structureForEvaluation.Optimize(this, 0, 100);
-            }
-            else
-            {
-                converterForEvaluation.Optimize(this, 0, 100);
-            }
+            evaluationEquipment.Optimize(this, 0, 100);
             Estimate_Result_ProgressBar_Set(100);
             PrintMsg("完成评估！");
 
@@ -605,24 +587,6 @@ namespace PV_analysis
         }
 
         /// <summary>
-        /// 评估结果步骤，显示评估结果图像
-        /// </summary>
-        private void Estimate_Result_Display()
-        {
-            seriesNameList.Add("评估结果");
-            if (isStructureEvaluation)
-            {
-                structureListForDisplay.Add(structureForEvaluation);
-            }
-            else
-            {
-                converterListForDisplay.Add(converterForEvaluation);
-            }
-
-            Display_Show_Display(); //更新结果图像显示
-        }
-
-        /// <summary>
         /// 展示页面，读取评估结果
         /// </summary>
         private void Display_Show_Load()
@@ -634,9 +598,7 @@ namespace PV_analysis
             };
             if (openFileDialog.ShowDialog() == DialogResult.OK) //如果选定了文件
             {
-                Structure structure = new ThreeLevelStructure();
-                Converter converter = new DCDCConverter();
-                bool isStructure; //读取的对象是否为架构
+                Equipment equipment;
                 string filePath = openFileDialog.FileName; //取得文件路径及文件名
                 string name = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName); //取得文件名
                 string[][] info = Data.Load(filePath); //读取数据
@@ -645,8 +607,7 @@ namespace PV_analysis
                 switch (obj)
                 {
                     case "DCDCConverter":
-                        isStructure = false;
-                        converter = new DCDCConverter()
+                        equipment = new DCDCConverter()
                         {
                             Name = "前级DC/DC变换单元_三级",
                             PhaseNum = 1,
@@ -660,8 +621,7 @@ namespace PV_analysis
 
                     case "IsolatedDCDCConverter":
                         Formula.Init();
-                        isStructure = false;
-                        converter = new IsolatedDCDCConverter()
+                        equipment = new IsolatedDCDCConverter()
                         {
                             Name = "隔离DC/DC变换单元_三级",
                             PhaseNum = 3,
@@ -675,8 +635,7 @@ namespace PV_analysis
 
                     case "IsolatedDCDCConverter_TwoStage":
                         Formula.Init();
-                        isStructure = false;
-                        converter = new IsolatedDCDCConverter()
+                        equipment = new IsolatedDCDCConverter()
                         {
                             Name = "隔离DC/DC变换单元_两级",
                             PhaseNum = 3,
@@ -690,8 +649,7 @@ namespace PV_analysis
                         break;
 
                     case "DCACConverter":
-                        isStructure = false;
-                        converter = new DCACConverter()
+                        equipment = new DCACConverter()
                         {
                             Name = "逆变单元",
                             PhaseNum = 3,
@@ -709,8 +667,7 @@ namespace PV_analysis
 
                     case "ThreeLevelStructure":
                         Formula.Init();
-                        isStructure = true;
-                        structure = new ThreeLevelStructure()
+                        equipment = new ThreeLevelStructure()
                         {
                             Name = "三级架构",
                             Math_Psys = double.Parse(conditions[1]),
@@ -728,8 +685,7 @@ namespace PV_analysis
 
                     case "TwoLevelStructure":
                         Formula.Init();
-                        isStructure = true;
-                        structure = new TwoLevelStructure()
+                        equipment = new TwoLevelStructure()
                         {
                             Name = "两级架构",
                             Math_Psys = double.Parse(conditions[1]),
@@ -749,37 +705,15 @@ namespace PV_analysis
                         return;
                 }
 
-                //评估对象不符（架构/变换单元）则无法读取
-                if ((structureListForDisplay.Count > 0 && !isStructure) || (converterListForDisplay.Count > 0 && isStructure)) //这里isStructureDisplay可能未初始化，用List的数量进行判断
-                {
-                    MessageBox.Show("与现在展示的评估对象不符（架构/变换单元）！");
-                    return;
-                }
-
                 seriesNameList.Add(name);
-                if (isStructure)
+                for (int i = 1; i < info.Length; i++) //i=0为标题行
                 {
-                    for (int i = 1; i < info.Length; i++) //i=0为标题行
-                    {
-                        double efficiency = double.Parse(info[i][0]);
-                        double volume = double.Parse(info[i][1]);
-                        double cost = double.Parse(info[i][2]);
-                        structure.AllDesignList.Add(efficiency, volume, cost, info[i]);
-                    }
-                    structureListForDisplay.Add(structure);
+                    double efficiency = double.Parse(info[i][0]);
+                    double volume = double.Parse(info[i][1]);
+                    double cost = double.Parse(info[i][2]);
+                    equipment.AllDesignList.Add(efficiency, volume, cost, info[i]);
                 }
-                else
-                {
-                    for (int i = 1; i < info.Length; i++) //i=0为标题行
-                    {
-                        double efficiency = double.Parse(info[i][0]);
-                        double volume = double.Parse(info[i][1]);
-                        double cost = double.Parse(info[i][2]);
-                        converter.AllDesignList.Add(efficiency, volume, cost, info[i]);
-                    }
-                    converterListForDisplay.Add(converter);
-                }
-                isStructureDisplay = isStructure;
+                displayEquipmentList.Add(equipment);
 
                 Display_Show_Display(); //更新图像显示
             }
@@ -1012,19 +946,9 @@ namespace PV_analysis
 
             displayNum = 0;
             //获取数据
-            if (isStructureDisplay)
+            for (int n = 0; n < displayEquipmentList.Count; n++)
             {
-                for (int n = 0; n < structureListForDisplay.Count; n++)
-                {
-                    Display_Show_Add(structureListForDisplay[n].AllDesignList.GetData());
-                }
-            }
-            else
-            {
-                for (int n = 0; n < converterListForDisplay.Count; n++)
-                {
-                    Display_Show_Add(converterListForDisplay[n].AllDesignList.GetData());
-                }
+                Display_Show_Add(displayEquipmentList[n].AllDesignList.GetData());
             }
         }
 
@@ -1116,8 +1040,9 @@ namespace PV_analysis
             List<Info> list;
 
             //生成预览面板显示信息
-            if (isStructureDisplay)
+            if (selectedEquipment.IsStructure())
             {
+                Structure selectedStructure = (Structure)selectedEquipment;
                 panelList.Add(Display_Show_Preview_CreateTitle("性能表现"));
                 list = selectedStructure.GetPerformanceInfo();
                 for (int i = 0; i < list.Count; i++)
@@ -1154,6 +1079,7 @@ namespace PV_analysis
             }
             else
             {
+                Converter selectedConverter = (Converter)selectedEquipment;
                 panelList.Add(Display_Show_Preview_CreateTitle("性能表现"));
                 list = selectedConverter.GetPerformanceInfo();
                 for (int i = 0; i < list.Count; i++)
@@ -1194,22 +1120,11 @@ namespace PV_analysis
                 return;
             }
             int n = int.Parse(series.Name.Substring(7)) - 1;
-            if (isStructureDisplay)
-            {
-                Structure structure = structureListForDisplay[n]; //获取当前选取的架构
-                selectedStructure = structure.Clone(); //将复制用于比较和详情展示
-                string[] configs = structure.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
-                int index = 0;
-                selectedStructure.Load(configs, ref index); //读取设计方案
-            }
-            else
-            {
-                Converter converter = converterListForDisplay[n]; //获取当前选取的变换单元
-                selectedConverter = converter.Clone(); //将复制用于比较和详情展示
-                string[] configs = converter.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
-                int index = 0;
-                selectedConverter.Load(configs, ref index); //读取设计方案
-            }
+            Equipment equipment = displayEquipmentList[n]; //获取当前选取的变换单元
+            selectedEquipment = equipment.Clone(); //将复制用于比较和详情展示
+            string[] configs = equipment.AllDesignList.GetConfigs(chartPoint.Key); //查找对应设计方案
+            int index = 0;
+            selectedEquipment.Load(configs, ref index); //读取设计方案
             Display_Show_Preview();
         }
 
@@ -1246,39 +1161,39 @@ namespace PV_analysis
         /// 详情页面，整体系统子页面显示（不包括损耗分布图像显示）
         /// </summary>
         /// <param name="data">负载-效率曲线数据</param>
-        private void Display_Show_Detail_System_Display(double[,] data)
+        private void Display_Show_Detail_System_Display(Structure structure, double[,] data)
         {
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
             panelList.Add(Display_Show_Preview_CreateTitle("性能表现"));
-            List<Info> list = selectedStructure.GetPerformanceInfo();
+            List<Info> list = structure.GetPerformanceInfo();
             for (int i = 0; i < list.Count; i++)
             {
                 panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
             }
             panelList.Add(Display_Show_Preview_CreateTitle("整体系统"));
-            list = selectedStructure.GetConfigInfo();
+            list = structure.GetConfigInfo();
             for (int i = 0; i < list.Count; i++)
             {
                 panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
             }
-            if (selectedStructure.Name.Equals("三级架构"))
+            if (structure.Name.Equals("三级架构"))
             {
                 panelList.Add(Display_Show_Preview_CreateTitle("前级DC/DC"));
-                list = selectedStructure.DCDC.GetConfigInfo();
+                list = structure.DCDC.GetConfigInfo();
                 for (int i = 0; i < list.Count; i++)
                 {
                     panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
                 }
             }
             panelList.Add(Display_Show_Preview_CreateTitle("隔离DC/DC"));
-            list = selectedStructure.IsolatedDCDC.GetConfigInfo();
+            list = structure.IsolatedDCDC.GetConfigInfo();
             for (int i = 0; i < list.Count; i++)
             {
                 panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
             }
             panelList.Add(Display_Show_Preview_CreateTitle("逆变"));
-            list = selectedStructure.DCAC.GetConfigInfo();
+            list = structure.DCAC.GetConfigInfo();
             for (int i = 0; i < list.Count; i++)
             {
                 panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
@@ -1292,8 +1207,8 @@ namespace PV_analysis
             }
 
             //生成图像
-            DisplayPieChart(Display_Detail_System_CostBreakdown_PieChart, selectedStructure.GetCostBreakdown()); //成本分布饼图
-            DisplayPieChart(Display_Detail_System_VolumeBreakdown_PieChart, selectedStructure.GetVolumeBreakdown()); //体积分布饼图
+            DisplayPieChart(Display_Detail_System_CostBreakdown_PieChart, structure.GetCostBreakdown()); //成本分布饼图
+            DisplayPieChart(Display_Detail_System_VolumeBreakdown_PieChart, structure.GetVolumeBreakdown()); //体积分布饼图
 
             //负载-效率图像
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
@@ -1305,7 +1220,7 @@ namespace PV_analysis
             {
                 new LineSeries
                 {
-                    Title = "Vin=" + selectedStructure.Math_Vpv_min + "V",
+                    Title = "Vin=" + structure.Math_Vpv_min + "V",
                     Fill = Brushes.Transparent,
                     Values = values,
                     PointGeometry = null
@@ -1338,23 +1253,23 @@ namespace PV_analysis
         /// 详情页面，前级DCDC子页面显示（不包括损耗分布图像显示）
         /// </summary>
         /// <param name="data">负载-效率曲线数据</param>
-        private void Display_Show_Detail_DCDC_Display(double[,] data)
+        private void Display_Show_Detail_DCDC_Display(Converter converter, double[,] data)
         {
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
             panelList.Add(Display_Show_Preview_CreateTitle("性能表现"));
-            List<Info> list = selectedConverter.GetPerformanceInfo();
+            List<Info> list = converter.GetPerformanceInfo();
             for (int i = 0; i < list.Count; i++)
             {
                 panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
             }
             panelList.Add(Display_Show_Preview_CreateTitle("设计参数"));
-            list = selectedConverter.GetConfigInfo();
+            list = converter.GetConfigInfo();
             for (int i = 0; i < list.Count; i++)
             {
                 panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
             }
-            foreach (Component com in selectedConverter.Topology.ComponentGroups[selectedConverter.Topology.GroupIndex])
+            foreach (Component com in converter.Topology.ComponentGroups[converter.Topology.GroupIndex])
             {
                 panelList.Add(Display_Show_Preview_CreateTitle(com.Name));
                 list = com.GetConfigInfo();
@@ -1372,8 +1287,8 @@ namespace PV_analysis
             }
 
             //生成图像
-            DisplayPieChart(Display_Detail_DCDC_CostBreakdown_PieChart, selectedConverter.GetCostBreakdown()); //成本分布饼图
-            DisplayPieChart(Display_Detail_DCDC_VolumeBreakdown_PieChart, selectedConverter.GetVolumeBreakdown()); //体积分布饼图
+            DisplayPieChart(Display_Detail_DCDC_CostBreakdown_PieChart, converter.GetCostBreakdown()); //成本分布饼图
+            DisplayPieChart(Display_Detail_DCDC_VolumeBreakdown_PieChart, converter.GetVolumeBreakdown()); //体积分布饼图
 
             //负载-效率图像
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
@@ -1385,7 +1300,7 @@ namespace PV_analysis
             {
                 new LineSeries
                 {
-                    Title = "Vin=" + ((DCDCConverter)selectedConverter).Math_Vin_min + "V",
+                    Title = "Vin=" + ((DCDCConverter)converter).Math_Vin_min + "V",
                     Fill = Brushes.Transparent,
                     Values = values,
                     PointGeometry = null
@@ -1418,23 +1333,23 @@ namespace PV_analysis
         /// 详情页面，隔离DCDC子页面显示（不包括损耗分布图像显示）
         /// </summary>
         /// <param name="data">负载-效率曲线数据</param>
-        private void Display_Show_Detail_IsolatedDCDC_Display(double[,] data)
+        private void Display_Show_Detail_IsolatedDCDC_Display(Converter converter, double[,] data)
         {
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
             panelList.Add(Display_Show_Preview_CreateTitle("性能表现"));
-            List<Info> list = selectedConverter.GetPerformanceInfo();
+            List<Info> list = converter.GetPerformanceInfo();
             for (int i = 0; i < list.Count; i++)
             {
                 panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
             }
             panelList.Add(Display_Show_Preview_CreateTitle("设计参数"));
-            list = selectedConverter.GetConfigInfo();
+            list = converter.GetConfigInfo();
             for (int i = 0; i < list.Count; i++)
             {
                 panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
             }
-            foreach (Component com in selectedConverter.Topology.ComponentGroups[selectedConverter.Topology.GroupIndex])
+            foreach (Component com in converter.Topology.ComponentGroups[converter.Topology.GroupIndex])
             {
                 panelList.Add(Display_Show_Preview_CreateTitle(com.Name));
                 list = com.GetConfigInfo();
@@ -1452,8 +1367,8 @@ namespace PV_analysis
             }
 
             //生成图像
-            DisplayPieChart(Display_Detail_IsolatedDCDC_CostBreakdown_PieChart, selectedConverter.GetCostBreakdown()); //成本分布饼图
-            DisplayPieChart(Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart, selectedConverter.GetVolumeBreakdown()); //体积分布饼图
+            DisplayPieChart(Display_Detail_IsolatedDCDC_CostBreakdown_PieChart, converter.GetCostBreakdown()); //成本分布饼图
+            DisplayPieChart(Display_Detail_IsolatedDCDC_VolumeBreakdown_PieChart, converter.GetVolumeBreakdown()); //体积分布饼图
 
             //负载-效率图像
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
@@ -1497,23 +1412,23 @@ namespace PV_analysis
         /// 详情页面，逆变子页面显示（不包括损耗分布图像显示）
         /// </summary>
         /// <param name="data">负载-效率曲线数据</param>
-        private void Display_Show_Detail_DCAC_Display(double[,] data)
+        private void Display_Show_Detail_DCAC_Display(Converter converter, double[,] data)
         {
             //生成文字信息
             List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
             panelList.Add(Display_Show_Preview_CreateTitle("性能表现"));
-            List<Info> list = selectedConverter.GetPerformanceInfo();
+            List<Info> list = converter.GetPerformanceInfo();
             for (int i = 0; i < list.Count; i++)
             {
                 panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
             }
             panelList.Add(Display_Show_Preview_CreateTitle("设计参数"));
-            list = selectedConverter.GetConfigInfo();
+            list = converter.GetConfigInfo();
             for (int i = 0; i < list.Count; i++)
             {
                 panelList.Add(Display_Show_Preview_CreateInfo(list[i].Title, list[i].Content.ToString()));
             }
-            foreach (Component com in selectedConverter.Topology.ComponentGroups[selectedConverter.Topology.GroupIndex])
+            foreach (Component com in converter.Topology.ComponentGroups[converter.Topology.GroupIndex])
             {
                 panelList.Add(Display_Show_Preview_CreateTitle(com.Name));
                 list = com.GetConfigInfo();
@@ -1531,8 +1446,8 @@ namespace PV_analysis
             }
 
             //生成图像
-            DisplayPieChart(Display_Detail_DCAC_CostBreakdown_PieChart, selectedConverter.GetCostBreakdown()); //成本分布饼图
-            DisplayPieChart(Display_Detail_DCAC_VolumeBreakdown_PieChart, selectedConverter.GetVolumeBreakdown()); //体积分布饼图
+            DisplayPieChart(Display_Detail_DCAC_CostBreakdown_PieChart, converter.GetCostBreakdown()); //成本分布饼图
+            DisplayPieChart(Display_Detail_DCAC_VolumeBreakdown_PieChart, converter.GetVolumeBreakdown()); //体积分布饼图
 
             //负载-效率图像
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
@@ -1580,14 +1495,15 @@ namespace PV_analysis
             double load = Display_Detail_Load_TrackBar.Value / 100.0;
             double Vin = Display_Detail_Vin_TrackBar.Value;
 
-            if (isStructureDisplay)
+            if (selectedEquipment.IsStructure())
             {
+                Structure selectedStructure = (Structure)selectedEquipment;
                 //生成数据
                 selectedStructure.Operate(load, Vin);
 
                 //更新显示
                 //更新图像
-                DisplayPieChart(Display_Detail_System_LossBreakdown_PieChart, selectedStructure.GetLossBreakdown()); //整体系统损耗分布饼图
+                DisplayPieChart(Display_Detail_System_LossBreakdown_PieChart, selectedStructure.GetTotalLossBreakdown()); //整体系统损耗分布饼图
                 switch (selectedStructure.Name)
                 {
                     case "三级架构":
@@ -1604,6 +1520,7 @@ namespace PV_analysis
             }
             else
             {
+                Converter selectedConverter = (Converter)selectedEquipment;
                 //更新显示                
                 switch (selectedConverter.Name)
                 {
@@ -1694,8 +1611,8 @@ namespace PV_analysis
             }
             else
             {
-                evaluationObjectName = Estimate_Step1_CheckedListBox.GetItemText(Estimate_Step1_CheckedListBox.CheckedItems[0]);
-                switch (evaluationObjectName)
+                evaluationEquipmentName = Estimate_Step1_CheckedListBox.GetItemText(Estimate_Step1_CheckedListBox.CheckedItems[0]);
+                switch (evaluationEquipmentName)
                 {
                     case "三级架构":
                         Estimate_Step2_Group1_Item1_CheckBox.Enabled = true;
@@ -1789,8 +1706,8 @@ namespace PV_analysis
             }
             else
             {
-                evaluationObjectName = Estimate_Step1B_CheckedListBox.GetItemText(Estimate_Step1B_CheckedListBox.CheckedItems[0]);
-                switch (evaluationObjectName)
+                evaluationEquipmentName = Estimate_Step1B_CheckedListBox.GetItemText(Estimate_Step1B_CheckedListBox.CheckedItems[0]);
+                switch (evaluationEquipmentName)
                 {
                     case "前级DC/DC变换单元_三级":
                         Estimate_Step2_Group1_Item1_CheckBox.Enabled = true;
@@ -1994,7 +1911,7 @@ namespace PV_analysis
 
             if (isStructureEvaluation)
             {
-                if (evaluationObjectName.Equals("三级架构") && DCDC_topologyList.Count == 0)
+                if (evaluationEquipmentName.Equals("三级架构") && DCDC_topologyList.Count == 0)
                 {
                     MessageBox.Show("请至少选择一项前级DC/DC拓扑");
                     return;
@@ -2017,17 +1934,17 @@ namespace PV_analysis
             }
             else
             {
-                if (evaluationObjectName.Equals("前级DC/DC变换单元_三级") && DCDC_topologyList.Count == 0)
+                if (evaluationEquipmentName.Equals("前级DC/DC变换单元_三级") && DCDC_topologyList.Count == 0)
                 {
                     MessageBox.Show("请至少选择一项前级DC/DC拓扑");
                     return;
                 }
-                else if ((evaluationObjectName.Equals("隔离DC/DC变换单元_三级") || evaluationObjectName.Equals("隔离DC/DC变换单元_两级")) && isolatedDCDC_topologyList.Count == 0)
+                else if ((evaluationEquipmentName.Equals("隔离DC/DC变换单元_三级") || evaluationEquipmentName.Equals("隔离DC/DC变换单元_两级")) && isolatedDCDC_topologyList.Count == 0)
                 {
                     MessageBox.Show("请至少选择一项隔离DC/DC拓扑");
                     return;
                 }
-                else if (evaluationObjectName.Equals("逆变单元") && DCAC_topologyList.Count == 0)
+                else if (evaluationEquipmentName.Equals("逆变单元") && DCAC_topologyList.Count == 0)
                 {
                     MessageBox.Show("请至少选择一项逆变拓扑");
                     return;
@@ -2043,7 +1960,7 @@ namespace PV_analysis
             {
                 if (isStructureEvaluation)
                 {
-                    switch (evaluationObjectName)
+                    switch (evaluationEquipmentName)
                     {
                         case "三级架构":
                             Estimate_Step3_Vbusmin_TextBox.Enabled = true;
@@ -2108,8 +2025,8 @@ namespace PV_analysis
                 }
                 else
                 {
-                    Estimate_Step3B_Converter_Label.Text = evaluationObjectName;
-                    switch (evaluationObjectName)
+                    Estimate_Step3B_Converter_Label.Text = evaluationEquipmentName;
+                    switch (evaluationEquipmentName)
                     {
                         case "前级DC/DC变换单元_三级":
                             Estimate_Step3B_VinRange_Panel.Visible = true;
@@ -2223,7 +2140,7 @@ namespace PV_analysis
                 {
                     capacitorList.Add(capacitor.Type);
                 }
-                selectedStructure = new ThreeLevelStructure();
+                //selectedStructure = new ThreeLevelStructure();
                 //InfoPackage package = selectedStructure.GetManualInfo();
                 //for (int i = 0; i < package.Size; i++)
                 //{
@@ -2430,14 +2347,7 @@ namespace PV_analysis
 
         private void Estimate_Result_QuickSave_Button_Click(object sender, EventArgs e)
         {
-            if (isStructureEvaluation)
-            {
-                structureForEvaluation.Save();
-            }
-            else
-            {
-                converterForEvaluation.Save();
-            }
+            evaluationEquipment.Save();
         }
 
         private void Estimate_Result_Save_Button_Click(object sender, EventArgs e)
@@ -2458,36 +2368,25 @@ namespace PV_analysis
                 string filePath = saveFileDialog.FileName.ToString(); //获得文件路径 
                 name = filePath.Substring(filePath.LastIndexOf("\\") + 1, filePath.LastIndexOf(".xlsx") - (filePath.LastIndexOf("\\") + 1)); //获取文件名，不带路径
                 path = filePath.Substring(0, filePath.LastIndexOf("\\")) + "\\"; //获取文件路径，不带文件名
-                if (isStructureEvaluation)
-                {
-                    structureForEvaluation.Save(path, name);
-                }
-                else
-                {
-                    converterForEvaluation.Save(path, name);
-                }
+                evaluationEquipment.Save(path, name);
             }
         }
 
         private void Estimate_Result_AddDisplay_Button_Click(object sender, EventArgs e)
         {
-            //评估对象不符（架构/变换单元）则无法加入
-            if ((structureListForDisplay.Count > 0 && !isStructureEvaluation) || (converterListForDisplay.Count > 0 && isStructureEvaluation)) //这里isStructureDisplay可能未初始化，用List的数量进行判断
-            {
-                MessageBox.Show("与现在展示的评估对象不符（架构/变换单元）！");
-                return;
-            }
-            Estimate_Result_Display();
+            seriesNameList.Add("评估结果");
+            displayEquipmentList.Add((Converter)evaluationEquipment);
+            Display_Show_Display(); //更新结果图像显示
         }
 
         private void Estimate_Result_NewDisplay_Button_Click(object sender, EventArgs e)
         {
             seriesNameList = new List<string>();
-            structureListForDisplay = new List<Structure>();
-            converterListForDisplay = new List<Converter>();
-            structureListForContrast = new List<Structure>();
-            converterListForContrast = new List<Converter>();
-            Estimate_Result_Display();
+            displayEquipmentList = new List<Equipment>();
+            contrastEquipmentList = new List<Equipment>();
+            seriesNameList.Add("评估结果");
+            displayEquipmentList.Add((Converter)evaluationEquipment);
+            Display_Show_Display(); //更新结果图像显示
             Display_Show_Contrast_Button.Enabled = false;
             Display_Show_Clear_Button.Enabled = false;
         }
@@ -2510,10 +2409,8 @@ namespace PV_analysis
         private void Display_Ready_Load_Button_Click(object sender, EventArgs e)
         {
             seriesNameList = new List<string>();
-            structureListForDisplay = new List<Structure>();
-            converterListForDisplay = new List<Converter>();
-            structureListForContrast = new List<Structure>();
-            converterListForContrast = new List<Converter>();
+            displayEquipmentList = new List<Equipment>();
+            contrastEquipmentList = new List<Equipment>();
             Display_Show_Load();
             Display_Show_Contrast_Button.Enabled = false;
             Display_Show_Clear_Button.Enabled = false;
@@ -2556,38 +2453,19 @@ namespace PV_analysis
 
         private void Display_Show_SelectYmax_ToolStripButton_Click(object sender, EventArgs e)
         {
-            if (isStructureDisplay)
+            //查找效率最高设计方案
+            string[] configs = new string[1];
+            for (int i = 0; i < displayEquipmentList.Count; i++)
             {
-                //查找效率最高设计方案
-                string[] configs = new string[1];
-                for (int i = 0; i < structureListForDisplay.Count; i++)
+                string[] con = displayEquipmentList[i].AllDesignList.GetMaxEfficiencyConfigs();
+                if (i == 0 || double.Parse(con[0]) > double.Parse(configs[0]))
                 {
-                    string[] con = structureListForDisplay[i].AllDesignList.GetMaxEfficiencyConfigs();
-                    if (i == 0 || double.Parse(con[0]) > double.Parse(configs[0]))
-                    {
-                        configs = con;
-                        selectedStructure = structureListForDisplay[i].Clone();
-                    }
+                    configs = con;
+                    selectedEquipment = displayEquipmentList[i].Clone();
                 }
-                int index = 0;
-                selectedStructure.Load(configs, ref index); //读取设计方案
             }
-            else
-            {
-                //查找效率最高设计方案
-                string[] configs = new string[1];
-                for (int i = 0; i < converterListForDisplay.Count; i++)
-                {
-                    string[] con = converterListForDisplay[i].AllDesignList.GetMaxEfficiencyConfigs();
-                    if (i == 0 || double.Parse(con[0]) > double.Parse(configs[0]))
-                    {
-                        configs = con;
-                        selectedConverter = converterListForDisplay[i].Clone();
-                    }
-                }
-                int index = 0;
-                selectedConverter.Load(configs, ref index); //读取设计方案
-            }
+            int index = 0;
+            selectedEquipment.Load(configs, ref index); //读取设计方案
             Display_Show_Preview();
         }
 
@@ -2713,33 +2591,97 @@ namespace PV_analysis
             table.Controls.Add(panel, 1, row);
         }
 
+        private void Display_Show_Contrast_CreateConverterPart(TableLayoutPanel table, ref int row, Converter[] converterList)
+        {
+            int m = converterList.Length;
+            List<Info>[] list = new List<Info>[m];
+            row++;
+            Display_Show_Contrast_InsertTitle(table, converterList[0].GetTypeName());
+            for (int k = 0; k < m; k++)
+            {
+                list[k] = converterList[k].GetConfigInfo();
+            }
+            for (int i = 0; i < list[0].Count; i++)
+            {
+                row++;
+                Display_Show_Contrast_InsertCell(table, 0, row, list[0][i].Title);
+                for (int k = 0; k < m; k++)
+                {
+                    Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
+                }
+            }
+            for (int i = 0; i < converterList[0].Topology.ComponentGroups[converterList[0].Topology.GroupIndex].Length; i++)
+            {
+                row++;
+                Display_Show_Contrast_InsertTitle(table, converterList[0].Topology.ComponentGroups[converterList[0].Topology.GroupIndex][i].Name);
+                for (int k = 0; k < m; k++)
+                {
+                    list[k] = converterList[k].Topology.ComponentGroups[converterList[k].Topology.GroupIndex][i].GetConfigInfo();
+                }
+                for (int j = 0; j < list[0].Count; j++)
+                {
+                    row++;
+                    Display_Show_Contrast_InsertCell(table, 0, row, list[0][j].Title);
+                    for (int k = 0; k < m; k++)
+                    {
+                        Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][j].Content.ToString());
+                    }
+                }
+            }
+        }
+
+        private LiveCharts.WinForms.CartesianChart Display_Show_Contrast_CreateCurve(TableLayoutPanel table, ref int row, string title)
+        {
+            row++;
+            Display_Show_Contrast_InsertCell(table, 0, row, title, 450);
+            LiveCharts.WinForms.CartesianChart chart = new LiveCharts.WinForms.CartesianChart()
+            {
+                BackColor = System.Drawing.Color.White,
+                Location = new System.Drawing.Point(300, 0),
+                Font = new System.Drawing.Font("宋体", 10.5F),
+                Size = new System.Drawing.Size(600, 450),
+                LegendLocation = LegendLocation.Bottom
+            };
+            chart.AxisX = new AxesCollection
+            {
+                new Axis
+                {
+                    FontSize = 16F,
+                    Title = "负载（%）"
+                }
+            };
+            chart.AxisY = new AxesCollection
+            {
+                new Axis
+                {
+                    FontSize = 16F,
+                    LabelFormatter = value => Math.Round(value, 8).ToString(),
+                    Title = "效率（%）"
+                }
+            };
+            Display_Show_Contrast_InsertRow(table, row, chart);
+            return chart;
+        }
+
+        private void Display_Show_Contrast_CreatePieChart(TableLayoutPanel table, ref int row, string title, Equipment[] equipmentList)
+        {
+            int m = equipmentList.Length;
+            row++;
+            Display_Show_Contrast_InsertCell(table, 0, row, title, 400);
+            for (int i = 0; i < m; i++)
+            {
+                LiveCharts.WinForms.PieChart pieChart = new LiveCharts.WinForms.PieChart()
+                {
+                    Dock = DockStyle.Fill
+                };
+                DisplayPieChart(pieChart, equipmentList[i].GetTotalLossBreakdown());
+                Display_Show_Contrast_InsertCell(table, i + 1, row, pieChart);
+            }
+        }
+
         private void Display_Show_Contrast_Button_Click(object sender, EventArgs e)
         {
-            int m;
-            if (isStructureDisplay)
-            {
-                m = structureListForContrast.Count;
-                for (int i = 1; i < m; i++)
-                {
-                    if (!structureListForContrast[0].Name.Equals(structureListForContrast[i].Name))
-                    {
-                        MessageBox.Show("当前只能进行同种架构的比较！");
-                        return;
-                    }
-                }
-            }
-            else
-            {
-                m = converterListForContrast.Count;
-                for (int i = 1; i < m; i++)
-                {
-                    if (!converterListForContrast[0].Name.Equals(converterListForContrast[i].Name))
-                    {
-                        MessageBox.Show("当前只能进行同种变换单元的比较！");
-                        return;
-                    }
-                }
-            }
+            int m = contrastEquipmentList.Count;
 
             //生成表格
             TableLayoutPanel table = new TableLayoutPanel()
@@ -2763,7 +2705,7 @@ namespace PV_analysis
             Display_Show_Contrast_InsertTitle(table, "性能表现");
             for (int k = 0; k < m; k++)
             {
-                list[k] = structureListForContrast[k].GetPerformanceInfo();
+                list[k] = contrastEquipmentList[k].GetPerformanceInfo();
             }
             for (int i = 0; i < list[0].Count; i++)
             {
@@ -2774,327 +2716,188 @@ namespace PV_analysis
                     Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
                 }
             }
-            row++;
-            Display_Show_Contrast_InsertTitle(table, "整体系统");
-            for (int k = 0; k < m; k++)
-            {
-                list[k] = structureListForContrast[k].GetConfigInfo();
-            }
-            for (int i = 0; i < list[0].Count; i++)
+            if (contrastEquipmentList[0].IsStructure())
             {
                 row++;
-                Display_Show_Contrast_InsertCell(table, 0, row, list[0][i].Title);
+                Display_Show_Contrast_InsertTitle(table, "整体系统");
                 for (int k = 0; k < m; k++)
                 {
-                    Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
+                    list[k] = contrastEquipmentList[k].GetConfigInfo();
                 }
-            }
-            row++;
-            Display_Show_Contrast_InsertTitle(table, "前级DC/DC");
-            for (int k = 0; k < m; k++)
-            {
-                list[k] = structureListForContrast[k].DCDC.GetConfigInfo();
-            }
-            for (int i = 0; i < list[0].Count; i++)
-            {
-                row++;
-                Display_Show_Contrast_InsertCell(table, 0, row, list[0][i].Title);
-                for (int k = 0; k < m; k++)
-                {
-                    Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
-                }
-            }
-            for (int i = 0; i < structureListForContrast[0].DCDC.Topology.ComponentGroups[structureListForContrast[0].DCDC.Topology.GroupIndex].Length; i++)
-            {
-                row++;
-                Display_Show_Contrast_InsertTitle(table, structureListForContrast[0].DCDC.Topology.ComponentGroups[structureListForContrast[0].DCDC.Topology.GroupIndex][i].Name);
-                List<Info>[] comInfoList = new List<Info>[m];
-                for (int k = 0; k < m; k++)
-                {
-                    comInfoList[k] = structureListForContrast[k].DCDC.Topology.ComponentGroups[structureListForContrast[k].DCDC.Topology.GroupIndex][i].GetConfigInfo();
-                }
-                for (int j = 0; j < comInfoList[0].Count; j++)
+                for (int i = 0; i < list[0].Count; i++)
                 {
                     row++;
-                    Display_Show_Contrast_InsertCell(table, 0, row, comInfoList[0][j].Title);
+                    Display_Show_Contrast_InsertCell(table, 0, row, list[0][i].Title);
                     for (int k = 0; k < m; k++)
                     {
-                        Display_Show_Contrast_InsertCell(table, k + 1, row, comInfoList[k][j].Content.ToString());
+                        Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
                     }
                 }
-            }
-            row++;
-            Display_Show_Contrast_InsertTitle(table, "隔离DC/DC");
-            for (int k = 0; k < m; k++)
-            {
-                list[k] = structureListForContrast[k].IsolatedDCDC.GetConfigInfo();
-            }
-            for (int i = 0; i < list[0].Count; i++)
-            {
-                row++;
-                Display_Show_Contrast_InsertCell(table, 0, row, list[0][i].Title);
-                for (int k = 0; k < m; k++)
+                Converter[] converterList = new Converter[m];
+                if (contrastEquipmentList[0].GetType() == typeof(ThreeLevelStructure))
                 {
-                    Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
-                }
-            }
-            for (int i = 0; i < structureListForContrast[0].IsolatedDCDC.Topology.ComponentGroups[structureListForContrast[0].IsolatedDCDC.Topology.GroupIndex].Length; i++)
-            {
-                row++;
-                Display_Show_Contrast_InsertTitle(table, structureListForContrast[0].IsolatedDCDC.Topology.ComponentGroups[structureListForContrast[0].IsolatedDCDC.Topology.GroupIndex][i].Name);
-                List<Info>[] comInfoList = new List<Info>[m];
-                for (int k = 0; k < m; k++)
-                {
-                    comInfoList[k] = structureListForContrast[k].IsolatedDCDC.Topology.ComponentGroups[structureListForContrast[k].IsolatedDCDC.Topology.GroupIndex][i].GetConfigInfo();
-                }
-                for (int j = 0; j < comInfoList[0].Count; j++)
-                {
-                    row++;
-                    Display_Show_Contrast_InsertCell(table, 0, row, comInfoList[0][j].Title);
                     for (int k = 0; k < m; k++)
                     {
-                        Display_Show_Contrast_InsertCell(table, k + 1, row, comInfoList[k][j].Content.ToString());
+                        converterList[k] = ((Structure)contrastEquipmentList[k]).DCDC;
                     }
+                    Display_Show_Contrast_CreateConverterPart(table, ref row, converterList);
                 }
-            }
-            row++;
-            Display_Show_Contrast_InsertTitle(table, "逆变");
-            for (int k = 0; k < m; k++)
-            {
-                list[k] = structureListForContrast[k].DCAC.GetConfigInfo();
-            }
-            for (int i = 0; i < list[0].Count; i++)
-            {
-                row++;
-                Display_Show_Contrast_InsertCell(table, 0, row, list[0][i].Title);
                 for (int k = 0; k < m; k++)
                 {
-                    Display_Show_Contrast_InsertCell(table, k + 1, row, list[k][i].Content.ToString());
+                    converterList[k] = ((Structure)contrastEquipmentList[k]).IsolatedDCDC;
                 }
-            }
-            for (int i = 0; i < structureListForContrast[0].DCAC.Topology.ComponentGroups[structureListForContrast[0].DCAC.Topology.GroupIndex].Length; i++)
-            {
-                row++;
-                Display_Show_Contrast_InsertTitle(table, structureListForContrast[0].DCAC.Topology.ComponentGroups[structureListForContrast[0].DCAC.Topology.GroupIndex][i].Name);
-                List<Info>[] comInfoList = new List<Info>[m];
+                Display_Show_Contrast_CreateConverterPart(table, ref row, converterList);
                 for (int k = 0; k < m; k++)
                 {
-                    comInfoList[k] = structureListForContrast[k].DCAC.Topology.ComponentGroups[structureListForContrast[k].DCAC.Topology.GroupIndex][i].GetConfigInfo();
+                    converterList[k] = ((Structure)contrastEquipmentList[k]).DCAC;
                 }
-                for (int j = 0; j < comInfoList[0].Count; j++)
-                {
-                    row++;
-                    Display_Show_Contrast_InsertCell(table, 0, row, comInfoList[0][j].Title);
-                    for (int k = 0; k < m; k++)
-                    {
-                        Display_Show_Contrast_InsertCell(table, k + 1, row, comInfoList[k][j].Content.ToString());
-                    }
-                }
+                Display_Show_Contrast_CreateConverterPart(table, ref row, converterList);
             }
+            else
+            {
+                Converter[] converterList = new Converter[m];
+                for (int k = 0; k < m; k++)
+                {
+                    converterList[k] = (Converter)contrastEquipmentList[k];
+                }
+                Display_Show_Contrast_CreateConverterPart(table, ref row, converterList);
+            }
+
             row++;
             Display_Show_Contrast_InsertTitle(table, "负载-效率曲线");
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "整体", 450);
-            LiveCharts.WinForms.CartesianChart chartAll = new LiveCharts.WinForms.CartesianChart()
+            if (contrastEquipmentList[0].IsStructure())
             {
-                BackColor = System.Drawing.Color.White,
-                Location = new System.Drawing.Point(300, 0),
-                Font = new System.Drawing.Font("宋体", 10.5F),
-                Size = new System.Drawing.Size(600, 450),
-                LegendLocation = LegendLocation.Bottom
-            };
-            chartAll.AxisX = new AxesCollection
-            {
-                new Axis
+                LiveCharts.WinForms.CartesianChart chartAll = Display_Show_Contrast_CreateCurve(table, ref row, "整体系统");
+                LiveCharts.WinForms.CartesianChart chartDCDC = new LiveCharts.WinForms.CartesianChart();
+                if (contrastEquipmentList[0].GetType() == typeof(ThreeLevelStructure))
                 {
-                    FontSize = 16F,
-                    Title = "负载（%）"
+                    chartDCDC = Display_Show_Contrast_CreateCurve(table, ref row, "前级DC/DC");
                 }
-            };
-            chartAll.AxisY = new AxesCollection
-            {
-                new Axis
+                LiveCharts.WinForms.CartesianChart chartIsolatedDCDC = Display_Show_Contrast_CreateCurve(table, ref row, "隔离DC/DC");
+                LiveCharts.WinForms.CartesianChart chartDCAC = Display_Show_Contrast_CreateCurve(table, ref row, "逆变");
+                //生成数据
+                for (int i = 0; i < m; i++)
                 {
-                    FontSize = 16F,
-                    LabelFormatter = value => Math.Round(value, 8).ToString(),
-                    Title = "效率（%）"
+                    contrastEquipmentList[i].Evaluate();
+                    ChartValues<ObservablePoint> valuesAll = new ChartValues<ObservablePoint>();
+                    ChartValues<ObservablePoint> valuesDCDC = new ChartValues<ObservablePoint>();
+                    ChartValues<ObservablePoint> valuesIsolatedDCDC = new ChartValues<ObservablePoint>();
+                    ChartValues<ObservablePoint> valuesDCAC = new ChartValues<ObservablePoint>();
+                    for (int j = 1; j <= div; j++)
+                    {
+                        contrastEquipmentList[i].Operate(1.0 * j / div, ((Structure)contrastEquipmentList[i]).Math_Vpv_min);
+                        valuesAll.Add(new ObservablePoint(100 * j / div, contrastEquipmentList[i].Efficiency * 100));
+                        if (contrastEquipmentList[0].GetType() == typeof(Structure))
+                        {
+                            valuesDCDC.Add(new ObservablePoint(100 * j / div, ((Structure)contrastEquipmentList[i]).DCDC.Efficiency * 100));
+                        }
+                        valuesIsolatedDCDC.Add(new ObservablePoint(100 * j / div, ((Structure)contrastEquipmentList[i]).IsolatedDCDC.Efficiency * 100));
+                        valuesDCAC.Add(new ObservablePoint(100 * j / div, ((Structure)contrastEquipmentList[i]).DCAC.Efficiency * 100));
+                    }
+                    chartAll.Series.Add(new LineSeries
+                    {
+                        Title = "设计" + (i + 1) + "_Vin=" + ((Structure)contrastEquipmentList[i]).Math_Vpv_min,
+                        Fill = Brushes.Transparent,
+                        Values = valuesAll,
+                        PointGeometry = null
+                    });
+                    if (contrastEquipmentList[0].GetType() == typeof(Structure))
+                    {
+                        chartDCDC.Series.Add(new LineSeries
+                        {
+                            Title = "设计" + (i + 1) + "_Vin=" + ((Structure)contrastEquipmentList[i]).Math_Vpv_min,
+                            Fill = Brushes.Transparent,
+                            Values = valuesDCDC,
+                            PointGeometry = null
+                        });
+                    }
+                    chartIsolatedDCDC.Series.Add(new LineSeries
+                    {
+                        Title = "设计" + (i + 1),
+                        Fill = Brushes.Transparent,
+                        Values = valuesIsolatedDCDC,
+                        PointGeometry = null
+                    });
+                    chartDCAC.Series.Add(new LineSeries
+                    {
+                        Title = "设计" + (i + 1),
+                        Fill = Brushes.Transparent,
+                        Values = valuesDCAC,
+                        PointGeometry = null
+                    });
                 }
-            };
-            Display_Show_Contrast_InsertRow(table, row, chartAll);
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "前级DC/DC", 450);
-            LiveCharts.WinForms.CartesianChart chartDCDC = new LiveCharts.WinForms.CartesianChart()
+            }
+            else
             {
-                BackColor = System.Drawing.Color.White,
-                Location = new System.Drawing.Point(300, 0),
-                Font = new System.Drawing.Font("宋体", 10.5F),
-                Size = new System.Drawing.Size(600, 450),
-                LegendLocation = LegendLocation.Bottom
-            };
-            chartDCDC.AxisX = new AxesCollection
-            {
-                new Axis
+                LiveCharts.WinForms.CartesianChart chart = Display_Show_Contrast_CreateCurve(table, ref row, contrastEquipmentList[0].GetTypeName());
+                //生成数据
+                for (int i = 0; i < m; i++)
                 {
-                    FontSize = 16F,
-                    Title = "负载（%）"
+                    contrastEquipmentList[i].Evaluate();
+                    ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
+                    for (int j = 1; j <= div; j++)
+                    {
+                        if (((Converter)contrastEquipmentList[i]).IsInputVoltageVariation)
+                        {
+                            contrastEquipmentList[i].Operate(1.0 * j / div, ((Converter)contrastEquipmentList[i]).Math_Vin_min);
+                        }
+                        else
+                        {
+                            contrastEquipmentList[i].Operate(1.0 * j / div, ((Converter)contrastEquipmentList[i]).Math_Vin);
+                        }                        
+                        values.Add(new ObservablePoint(100 * j / div, contrastEquipmentList[i].Efficiency * 100));
+                    }
+                    if (((Converter)contrastEquipmentList[i]).IsInputVoltageVariation)
+                    {
+                        chart.Series.Add(new LineSeries
+                        {
+                            Title = "设计" + (i + 1) +"_Vin=" + ((Converter)contrastEquipmentList[i]).Math_Vin_min,
+                            Fill = Brushes.Transparent,
+                            Values = values,
+                            PointGeometry = null
+                        });
+                    }
+                    else
+                    {
+                        chart.Series.Add(new LineSeries
+                        {
+                            Title = "设计" + (i + 1),
+                            Fill = Brushes.Transparent,
+                            Values = values,
+                            PointGeometry = null
+                        });
+                    }
                 }
-            };
-            chartDCDC.AxisY = new AxesCollection
-            {
-                new Axis
-                {
-                    FontSize = 16F,
-                    LabelFormatter = value => Math.Round(value, 8).ToString(),
-                    Title = "效率（%）"
-                }
-            };
-            Display_Show_Contrast_InsertRow(table, row, chartDCDC);
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "隔离DC/DC", 450);
-            LiveCharts.WinForms.CartesianChart chartIsolatedDCDC = new LiveCharts.WinForms.CartesianChart()
-            {
-                BackColor = System.Drawing.Color.White,
-                Location = new System.Drawing.Point(300, 0),
-                Font = new System.Drawing.Font("宋体", 10.5F),
-                Size = new System.Drawing.Size(600, 450),
-                LegendLocation = LegendLocation.Bottom
-            };
-            chartIsolatedDCDC.AxisX = new AxesCollection
-            {
-                new Axis
-                {
-                    FontSize = 16F,
-                    Title = "负载（%）"
-                }
-            };
-            chartIsolatedDCDC.AxisY = new AxesCollection
-            {
-                new Axis
-                {
-                    FontSize = 16F,
-                    LabelFormatter = value => Math.Round(value, 8).ToString(),
-                    Title = "效率（%）"
-                }
-            };
-            Display_Show_Contrast_InsertRow(table, row, chartIsolatedDCDC);
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "逆变", 450);
-            LiveCharts.WinForms.CartesianChart chartDCAC = new LiveCharts.WinForms.CartesianChart()
-            {
-                BackColor = System.Drawing.Color.White,
-                Location = new System.Drawing.Point(300, 0),
-                Font = new System.Drawing.Font("宋体", 10.5F),
-                Size = new System.Drawing.Size(600, 450),
-                LegendLocation = LegendLocation.Bottom
-            };
-            chartDCAC.AxisX = new AxesCollection
-            {
-                new Axis
-                {
-                    FontSize = 16F,
-                    Title = "负载（%）"
-                }
-            };
-            chartDCAC.AxisY = new AxesCollection
-            {
-                new Axis
-                {
-                    FontSize = 16F,
-                    LabelFormatter = value => Math.Round(value, 8).ToString(),
-                    Title = "效率（%）"
-                }
-            };
-            Display_Show_Contrast_InsertRow(table, row, chartDCAC);
-            for (int i = 0; i < m; i++)
-            {
-                structureListForContrast[i].Evaluate();
-                ChartValues<ObservablePoint> valuesAll = new ChartValues<ObservablePoint>();
-                ChartValues<ObservablePoint> valuesDCDC = new ChartValues<ObservablePoint>();
-                ChartValues<ObservablePoint> valuesIsolatedDCDC = new ChartValues<ObservablePoint>();
-                ChartValues<ObservablePoint> valuesDCAC = new ChartValues<ObservablePoint>();
-                for (int j = 1; j <= div; j++)
-                {
-                    structureListForContrast[i].Operate(1.0 * j / div, structureListForContrast[i].Math_Vpv_min);
-                    valuesAll.Add(new ObservablePoint(100 * j / div, structureListForContrast[i].Efficiency * 100));
-                    valuesDCDC.Add(new ObservablePoint(100 * j / div, ((ThreeLevelStructure)structureListForContrast[i]).DCDC.Efficiency * 100));
-                    valuesIsolatedDCDC.Add(new ObservablePoint(100 * j / div, ((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.Efficiency * 100));
-                    valuesDCAC.Add(new ObservablePoint(100 * j / div, ((ThreeLevelStructure)structureListForContrast[i]).DCAC.Efficiency * 100));
-                }
-                chartAll.Series.Add(new LineSeries
-                {
-                    Title = "设计" + (i + 1) + "_Vin=" + structureListForContrast[i].Math_Vpv_min,
-                    Fill = Brushes.Transparent,
-                    Values = valuesAll,
-                    PointGeometry = null
-                });
-                chartDCDC.Series.Add(new LineSeries
-                {
-                    Title = "设计" + (i + 1) + "_Vin=" + structureListForContrast[i].Math_Vpv_min,
-                    Fill = Brushes.Transparent,
-                    Values = valuesDCDC,
-                    PointGeometry = null
-                });
-                chartIsolatedDCDC.Series.Add(new LineSeries
-                {
-                    Title = "设计" + (i + 1),
-                    Fill = Brushes.Transparent,
-                    Values = valuesIsolatedDCDC,
-                    PointGeometry = null
-                });
-                chartDCAC.Series.Add(new LineSeries
-                {
-                    Title = "设计" + (i + 1),
-                    Fill = Brushes.Transparent,
-                    Values = valuesDCAC,
-                    PointGeometry = null
-                });
             }
 
             row++;
             Display_Show_Contrast_InsertTitle(table, "损耗分布");
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "整体", 400);
-            for (int i = 0; i < m; i++)
+            if (contrastEquipmentList[0].IsStructure())
             {
-                LiveCharts.WinForms.PieChart pieChart = new LiveCharts.WinForms.PieChart()
+                Display_Show_Contrast_CreatePieChart(table, ref row, "整体", contrastEquipmentList.ToArray());
+                Converter[] converterList = new Converter[m];
+                if (contrastEquipmentList[0].GetType() == typeof(ThreeLevelStructure))
                 {
-                    Dock = DockStyle.Fill
-                };
-                DisplayPieChart(pieChart, structureListForContrast[i].GetLossBreakdown());
-                Display_Show_Contrast_InsertCell(table, i + 1, row, pieChart);
+                    for (int k = 0; k < m; k++)
+                    {
+                        converterList[k] = ((Structure)contrastEquipmentList[k]).DCDC;
+                    }
+                    Display_Show_Contrast_CreatePieChart(table, ref row, "前级DC/DC", converterList);
+                }
+                for (int k = 0; k < m; k++)
+                {
+                    converterList[k] = ((Structure)contrastEquipmentList[k]).IsolatedDCDC;
+                }
+                Display_Show_Contrast_CreatePieChart(table, ref row, "隔离DC/DC", converterList);
+                for (int k = 0; k < m; k++)
+                {
+                    converterList[k] = ((Structure)contrastEquipmentList[k]).DCAC;
+                }
+                Display_Show_Contrast_CreatePieChart(table, ref row, "逆变", converterList);
             }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "前级DC/DC", 400);
-            for (int i = 0; i < m; i++)
+            else
             {
-                LiveCharts.WinForms.PieChart pieChart = new LiveCharts.WinForms.PieChart()
-                {
-                    Dock = DockStyle.Fill
-                };
-                DisplayPieChart(pieChart, ((ThreeLevelStructure)structureListForContrast[i]).DCDC.GetTotalLossBreakdown());
-                Display_Show_Contrast_InsertCell(table, i + 1, row, pieChart);
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "隔离DC/DC", 400);
-            for (int i = 0; i < m; i++)
-            {
-                LiveCharts.WinForms.PieChart pieChart = new LiveCharts.WinForms.PieChart()
-                {
-                    Dock = DockStyle.Fill
-                };
-                DisplayPieChart(pieChart, ((ThreeLevelStructure)structureListForContrast[i]).IsolatedDCDC.GetTotalLossBreakdown());
-                Display_Show_Contrast_InsertCell(table, i + 1, row, pieChart);
-            }
-            row++;
-            Display_Show_Contrast_InsertCell(table, 0, row, "逆变", 400);
-            for (int i = 0; i < m; i++)
-            {
-                LiveCharts.WinForms.PieChart pieChart = new LiveCharts.WinForms.PieChart()
-                {
-                    Dock = DockStyle.Fill
-                };
-                DisplayPieChart(pieChart, ((ThreeLevelStructure)structureListForContrast[i]).DCAC.GetTotalLossBreakdown());
-                Display_Show_Contrast_InsertCell(table, i + 1, row, pieChart);
+                Display_Show_Contrast_CreatePieChart(table, ref row, contrastEquipmentList[0].GetTypeName(), contrastEquipmentList.ToArray());
             }
 
             Display_Contrast_Main_Panel.Controls.Clear();
@@ -3105,137 +2908,136 @@ namespace PV_analysis
 
         private void Display_Show_Clear_Button_Click(object sender, EventArgs e)
         {
-            structureListForContrast = new List<Structure>();
-            converterListForContrast = new List<Converter>();
+            contrastEquipmentList = new List<Equipment>();
             Display_Show_Contrast_Button.Enabled = false;
             Display_Show_Clear_Button.Enabled = false;
         }
 
         private void Display_Show_Select_Button_Click(object sender, EventArgs e)
         {
-            if (structureListForContrast.Count >= 4 || converterListForContrast.Count >= 4)
+            int m = contrastEquipmentList.Count;
+            if (m >= 4)
             {
                 MessageBox.Show("最多只能选择四个进行比较！");
                 return;
             }
+            else
+            {
+                for (int i = 0; i < m; i++)
+                {
+                    if (!selectedEquipment.Name.Equals(contrastEquipmentList[i].Name))
+                    {
+                        MessageBox.Show("当前只能进行同种架构的比较！");
+                        return;
+                    }
+                }
+            }
 
-            if (structureListForContrast.Count >= 1 || converterListForContrast.Count >= 1)
+            if (contrastEquipmentList.Count >= 1)
             {
                 Display_Show_Contrast_Button.Enabled = true;
             }
             Display_Show_Clear_Button.Enabled = true;
-
-            if (isStructureDisplay)
-            {
-                structureListForContrast.Add(selectedStructure);
-            }
-            else
-            {
-                converterListForContrast.Add(selectedConverter);
-            }
+            contrastEquipmentList.Add(selectedEquipment);
         }
 
         private void Display_Show_Detail_Button_Click(object sender, EventArgs e)
         {
             Display_Detail_TabControl.Controls.Clear(); //清除所有控件以隐藏
 
-            if (isStructureDisplay)
+            if (selectedEquipment.IsStructure())
             {
+                Structure structure = (Structure)selectedEquipment;
+
                 //生成数据
-                selectedStructure.Evaluate();
+                structure.Evaluate();
                 double[,] systemData = new double[div, 2]; //记录负载-效率曲线数据
                 double[,] DCDCData = new double[div, 2];
                 double[,] isolatedDCDCData = new double[div, 2];
                 double[,] DCACData = new double[div, 2];
                 for (int i = 1; i <= div; i++)
                 {
-                    selectedStructure.Operate(1.0 * i / div, selectedStructure.Math_Vpv_min);
+                    structure.Operate(1.0 * i / div, structure.Math_Vpv_min);
                     //记录负载-效率曲线数据
                     systemData[i - 1, 0] = 100 * i / div; //负载点(%)
-                    systemData[i - 1, 1] = selectedStructure.Efficiency * 100; //整体架构效率(%)
-                    switch (selectedStructure.Name)
+                    systemData[i - 1, 1] = structure.Efficiency * 100; //整体架构效率(%)
+                    switch (structure.Name)
                     {
                         case "三级架构":
                             DCDCData[i - 1, 0] = 100 * i / div; //负载点(%)
-                            DCDCData[i - 1, 1] = ((ThreeLevelStructure)selectedStructure).DCDC.Efficiency * 100; //前级DCDC效率(%)
+                            DCDCData[i - 1, 1] = ((ThreeLevelStructure)structure).DCDC.Efficiency * 100; //前级DCDC效率(%)
                             isolatedDCDCData[i - 1, 0] = 100 * i / div; //负载点(%)
-                            isolatedDCDCData[i - 1, 1] = ((ThreeLevelStructure)selectedStructure).IsolatedDCDC.Efficiency * 100; //隔离DCDC效率(%)
+                            isolatedDCDCData[i - 1, 1] = ((ThreeLevelStructure)structure).IsolatedDCDC.Efficiency * 100; //隔离DCDC效率(%)
                             DCACData[i - 1, 0] = 100 * i / div; //负载点(%)
-                            DCACData[i - 1, 1] = ((ThreeLevelStructure)selectedStructure).DCAC.Efficiency * 100; //逆变效率(%)
+                            DCACData[i - 1, 1] = ((ThreeLevelStructure)structure).DCAC.Efficiency * 100; //逆变效率(%)
                             break;
 
                         case "两级架构":
                             isolatedDCDCData[i - 1, 0] = 100 * i / div; //负载点(%)
-                            isolatedDCDCData[i - 1, 1] = ((TwoLevelStructure)selectedStructure).IsolatedDCDC.Efficiency * 100; //隔离DCDC效率(%)
+                            isolatedDCDCData[i - 1, 1] = ((TwoLevelStructure)structure).IsolatedDCDC.Efficiency * 100; //隔离DCDC效率(%)
                             DCACData[i - 1, 0] = 100 * i / div; //负载点(%)
-                            DCACData[i - 1, 1] = ((TwoLevelStructure)selectedStructure).DCAC.Efficiency * 100; //逆变效率(%)
+                            DCACData[i - 1, 1] = ((TwoLevelStructure)structure).DCAC.Efficiency * 100; //逆变效率(%)
                             break;
                     }
                 }
 
                 //更新显示
-                Display_Show_Detail_System_Display(systemData);
-                switch (selectedStructure.Name)
+                Display_Show_Detail_System_Display(structure, systemData);
+                switch (structure.Name)
                 {
                     case "三级架构":
-                        selectedConverter = ((ThreeLevelStructure)selectedStructure).DCDC;
-                        Display_Show_Detail_DCDC_Display(DCDCData);
-                        selectedConverter = ((ThreeLevelStructure)selectedStructure).IsolatedDCDC;
-                        Display_Show_Detail_IsolatedDCDC_Display(isolatedDCDCData);
-                        selectedConverter = ((ThreeLevelStructure)selectedStructure).DCAC;
-                        Display_Show_Detail_DCAC_Display(DCACData);
-                        selectedConverter = null;
+                        Display_Show_Detail_DCDC_Display(((ThreeLevelStructure)structure).DCDC, DCDCData);
+                        Display_Show_Detail_IsolatedDCDC_Display(((ThreeLevelStructure)structure).IsolatedDCDC, isolatedDCDCData);
+                        Display_Show_Detail_DCAC_Display(((ThreeLevelStructure)structure).DCAC, DCACData);
                         break;
 
                     case "两级架构":
-                        selectedConverter = ((TwoLevelStructure)selectedStructure).IsolatedDCDC;
-                        Display_Show_Detail_IsolatedDCDC_Display(isolatedDCDCData);
-                        selectedConverter = ((TwoLevelStructure)selectedStructure).DCAC;
-                        Display_Show_Detail_DCAC_Display(DCACData);
-                        selectedConverter = null;
+                        Display_Show_Detail_IsolatedDCDC_Display(((TwoLevelStructure)structure).IsolatedDCDC, isolatedDCDCData);
+                        Display_Show_Detail_DCAC_Display(((TwoLevelStructure)structure).DCAC, DCACData);
                         break;
                 }
             }
             else
             {
+                Converter converter = (Converter)selectedEquipment;
                 //生成数据
-                selectedConverter.Evaluate();
+                converter.Evaluate();
                 double[,] data = new double[div, 2]; //记录负载-效率曲线数据
                 for (int i = 1; i <= div; i++)
                 {
-                    switch (selectedConverter.Name)
+                    switch (converter.Name)
                     {
                         case "前级DC/DC变换单元_三级":
-                            selectedConverter.Operate(1.0 * i / div, ((DCDCConverter)selectedConverter).Math_Vin_min);
+                            converter.Operate(1.0 * i / div, ((DCDCConverter)converter).Math_Vin_min);
                             break;
                         case "隔离DC/DC变换单元_三级":
-                            selectedConverter.Operate(1.0 * i / div, ((IsolatedDCDCConverter)selectedConverter).Math_Vin);
+                            converter.Operate(1.0 * i / div, ((IsolatedDCDCConverter)converter).Math_Vin);
                             break;
                         case "隔离DC/DC变换单元_两级":
-                            selectedConverter.Operate(1.0 * i / div, ((IsolatedDCDCConverter)selectedConverter).Math_Vin_min);
+                            converter.Operate(1.0 * i / div, ((IsolatedDCDCConverter)converter).Math_Vin_min);
                             break;
                         case "逆变单元":
-                            selectedConverter.Operate(1.0 * i / div, ((DCACConverter)selectedConverter).Math_Vin);
+                            converter.Operate(1.0 * i / div, ((DCACConverter)converter).Math_Vin);
                             break;
                     }
                     //记录负载-效率曲线数据
                     data[i - 1, 0] = 100 * i / div; //负载点(%)
-                    data[i - 1, 1] = selectedConverter.Efficiency * 100; //整体架构效率(%)
-                                                                         //Console.WriteLine(data[i - 1, 1]);
+                    data[i - 1, 1] = converter.Efficiency * 100; //整体架构效率(%)
+                    //Console.WriteLine(data[i - 1, 1]);
                 }
 
                 //更新显示                
-                switch (selectedConverter.Name)
+                switch (converter.Name)
                 {
                     case "前级DC/DC变换单元_三级":
-                        Display_Show_Detail_DCDC_Display(data);
+                        Display_Show_Detail_DCDC_Display(converter, data);
                         break;
                     case "隔离DC/DC变换单元_三级":
                     case "隔离DC/DC变换单元_两级":
-                        Display_Show_Detail_IsolatedDCDC_Display(data);
+                        Display_Show_Detail_IsolatedDCDC_Display(converter, data);
                         break;
                     case "逆变单元":
-                        Display_Show_Detail_DCAC_Display(data);
+                        Display_Show_Detail_DCAC_Display(converter, data);
                         break;
                 }
             }
@@ -3243,24 +3045,27 @@ namespace PV_analysis
             //损耗分布图像
             Display_Detail_Load_TrackBar.Value = 100;
             Display_Detail_Load_Value_Label.Text = Display_Detail_Load_TrackBar.Value.ToString() + "%";
-            if (isStructureDisplay)
+            if (selectedEquipment.IsStructure())
             {
+                Structure structure = (Structure)selectedEquipment;
                 Display_Detail_Vin_TrackBar.Visible = true;
-                Display_Detail_Vin_TrackBar.Minimum = (int)selectedStructure.Math_Vpv_min;
-                Display_Detail_Vin_TrackBar.Maximum = (int)selectedStructure.Math_Vpv_max;
-                Display_Detail_Vin_TrackBar.Value = (int)selectedStructure.Math_Vpv_min;
+                Display_Detail_Vin_TrackBar.Minimum = (int)structure.Math_Vpv_min;
+                Display_Detail_Vin_TrackBar.Maximum = (int)structure.Math_Vpv_max;
+                Display_Detail_Vin_TrackBar.Value = (int)structure.Math_Vpv_min;
+                Display_Detail_Vin_Value_Label.Text = Display_Detail_Vin_TrackBar.Value.ToString() + "V";
             }
             else
             {
-                switch (selectedConverter.Name)
+                Converter converter = (Converter)selectedEquipment;
+                switch (converter.Name)
                 {
                     case "前级DC/DC变换单元_三级":
                         Display_Detail_Vin_TrackBar.Visible = true;
                         Display_Detail_Vin_Label.Visible = true;
                         Display_Detail_Vin_Value_Label.Visible = true;
-                        Display_Detail_Vin_TrackBar.Minimum = (int)((DCDCConverter)selectedConverter).Math_Vin_min;
-                        Display_Detail_Vin_TrackBar.Maximum = (int)((DCDCConverter)selectedConverter).Math_Vin_max;
-                        Display_Detail_Vin_TrackBar.Value = (int)((DCDCConverter)selectedConverter).Math_Vin_min;
+                        Display_Detail_Vin_TrackBar.Minimum = (int)((DCDCConverter)converter).Math_Vin_min;
+                        Display_Detail_Vin_TrackBar.Maximum = (int)((DCDCConverter)converter).Math_Vin_max;
+                        Display_Detail_Vin_TrackBar.Value = (int)((DCDCConverter)converter).Math_Vin_min;
                         Display_Detail_Vin_Value_Label.Text = Display_Detail_Vin_TrackBar.Value.ToString() + "V";
                         break;
                     case "隔离DC/DC变换单元_三级":
@@ -3272,9 +3077,9 @@ namespace PV_analysis
                         Display_Detail_Vin_TrackBar.Visible = true;
                         Display_Detail_Vin_Label.Visible = true;
                         Display_Detail_Vin_Value_Label.Visible = true;
-                        Display_Detail_Vin_TrackBar.Minimum = (int)((IsolatedDCDCConverter)selectedConverter).Math_Vin_min;
-                        Display_Detail_Vin_TrackBar.Maximum = (int)((IsolatedDCDCConverter)selectedConverter).Math_Vin_max;
-                        Display_Detail_Vin_TrackBar.Value = (int)((IsolatedDCDCConverter)selectedConverter).Math_Vin_min;
+                        Display_Detail_Vin_TrackBar.Minimum = (int)((IsolatedDCDCConverter)converter).Math_Vin_min;
+                        Display_Detail_Vin_TrackBar.Maximum = (int)((IsolatedDCDCConverter)converter).Math_Vin_max;
+                        Display_Detail_Vin_TrackBar.Value = (int)((IsolatedDCDCConverter)converter).Math_Vin_min;
                         Display_Detail_Vin_Value_Label.Text = Display_Detail_Vin_TrackBar.Value.ToString() + "V";
                         break;
                     case "逆变单元":
