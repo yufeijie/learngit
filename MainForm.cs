@@ -21,6 +21,16 @@ namespace PV_analysis
     /// </summary>
     internal partial class MainForm : Form
     {
+        public enum ControlType
+        {
+            Title,
+            Text,
+            Semiconductor,
+            Core,
+            Wire,
+            Capacitor
+        }
+
         //页面切换、侧边栏
         private readonly Panel[] panelNow = new Panel[6]; //下标0——当前显示页面，下标1-5——各类页面的当前子页面
         private System.Drawing.Color activeColor; //左侧边栏按钮，当前选中颜色
@@ -2140,25 +2150,77 @@ namespace PV_analysis
                 {
                     capacitorList.Add(capacitor.Type);
                 }
-                //selectedStructure = new ThreeLevelStructure();
-                //InfoPackage package = selectedStructure.GetManualInfo();
-                //for (int i = 0; i < package.Size; i++)
-                //{
-                //    InfoList list = package[i];
-                //    panelList.Add(Estimate_Manual_Create_Title(list.Title));
-                //    for (int j = 0; j < list.Size; j++)
-                //    {
-                //        panelList.Add(Estimate_Manual_Create_TextBox(list[j].Title, list[j].Content.ToString()));
-                //    }
-                //}
+                Structure structure = new ThreeLevelStructure();
+                if (isStructureEvaluation)
+                {
+                    switch (evaluationEquipmentName)
+                    {
+                        case "三级架构":
+                            structure = new ThreeLevelStructure
+                            {
+                                DCDC = new DCDCConverter(),
+                                IsolatedDCDC = new IsolatedDCDCConverter(),
+                                DCAC = new DCACConverter()
+                            };
+                            structure.DCDC.CreateTopology(DCDC_topologyList[0]);
+                            structure.IsolatedDCDC.CreateTopology(isolatedDCDC_topologyList[0]);
+                            structure.DCAC.CreateTopology(DCAC_topologyList[0]);
+                            break;
+                        case "两级架构":
+                            structure = new TwoLevelStructure
+                            {
+                                IsolatedDCDC = new IsolatedDCDCConverter(),
+                                DCAC = new DCACConverter()
+                            };
+                            structure.IsolatedDCDC.CreateTopology(isolatedDCDC_topologyList[0]);
+                            structure.DCAC.CreateTopology(DCAC_topologyList[0]);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (evaluationEquipmentName)
+                    {
+                        case "前级DC/DC变换单元_三级":
 
-                panelList.Add(Estimate_Manual_Create_Title("开关器件"));
-                panelList.Add(Estimate_Manual_Create_ComboBox("型号：", semiconductorList.ToArray()));
-                panelList.Add(Estimate_Manual_Create_TextBox("数量：", "2"));
+                            break;
+                        case "隔离DC/DC变换单元_三级":
 
-                panelList.Add(Estimate_Manual_Create_Title("开关器件2"));
-                panelList.Add(Estimate_Manual_Create_ComboBox("型号：", semiconductorList.ToArray()));
-                panelList.Add(Estimate_Manual_Create_TextBox("数量2：", "2"));
+                            break;
+                        case "隔离DC/DC变换单元_两级":
+
+                            break;
+                        case "逆变单元":
+
+                            break;
+                    }
+                }
+
+                List<(ControlType Type, string Text)> list = structure.GetManualInfo();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    switch (list[i].Type)
+                    {
+                        case ControlType.Title:
+                            panelList.Add(Estimate_Manual_Create_Title(list[i].Text));
+                            break;
+                        case ControlType.Text:
+                            panelList.Add(Estimate_Manual_Create_TextBox(list[i].Text));
+                            break;
+                        case ControlType.Semiconductor:
+                            panelList.Add(Estimate_Manual_Create_ComboBox(list[i].Text, semiconductorList.ToArray()));
+                            break;
+                        case ControlType.Core:
+                            panelList.Add(Estimate_Manual_Create_ComboBox(list[i].Text, coreList.ToArray()));
+                            break;
+                        case ControlType.Wire:
+                            panelList.Add(Estimate_Manual_Create_ComboBox(list[i].Text, wireList.ToArray()));
+                            break;
+                        case ControlType.Capacitor:
+                            panelList.Add(Estimate_Manual_Create_ComboBox(list[i].Text, capacitorList.ToArray()));
+                            break;
+                    }
+                }
 
                 Estimate_Manual_Main_Panel.Controls.Clear(); //清空原有控件
                 for (int i = panelList.Count - 1; i >= 0; i--) //逆序添加控件，以正常显示
@@ -2284,7 +2346,17 @@ namespace PV_analysis
 
         private void Estimate_Manual_Next_Button_Click(object sender, EventArgs e)
         {
-
+            List<string> inputList = new List<string>();
+            foreach (Control panel in Estimate_Manual_Main_Panel.Controls)
+            {
+                foreach (Control control in panel.Controls)
+                {
+                    if (control.GetType() == typeof(TextBox) || control.GetType() == typeof(ComboBox))
+                    {
+                        inputList.Add(control.Text);
+                    }
+                }
+            }
         }
 
         private void Estimate_Step4_Prev_Button_Click(object sender, EventArgs e)
@@ -2787,7 +2859,7 @@ namespace PV_analysis
                     {
                         contrastEquipmentList[i].Operate(1.0 * j / div, ((Structure)contrastEquipmentList[i]).Math_Vpv_min);
                         valuesAll.Add(new ObservablePoint(100 * j / div, contrastEquipmentList[i].Efficiency * 100));
-                        if (contrastEquipmentList[0].GetType() == typeof(Structure))
+                        if (contrastEquipmentList[0].GetType() == typeof(ThreeLevelStructure))
                         {
                             valuesDCDC.Add(new ObservablePoint(100 * j / div, ((Structure)contrastEquipmentList[i]).DCDC.Efficiency * 100));
                         }
@@ -2801,7 +2873,7 @@ namespace PV_analysis
                         Values = valuesAll,
                         PointGeometry = null
                     });
-                    if (contrastEquipmentList[0].GetType() == typeof(Structure))
+                    if (contrastEquipmentList[0].GetType() == typeof(ThreeLevelStructure))
                     {
                         chartDCDC.Series.Add(new LineSeries
                         {

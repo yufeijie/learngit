@@ -76,7 +76,7 @@ namespace PV_analysis
         ///// 获取手动设计信息
         ///// </summary>
         ///// <returns>手动设计信息</returns>
-        //public abstract List<Info> GetManualInfo();
+        //public abstract List<(MainForm.ContorlType, string)> GetManualInfo();
 
         /// <summary>
         /// 获取设计参数信息

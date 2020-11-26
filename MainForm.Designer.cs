@@ -4914,9 +4914,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.Estimate_Manual_Panel);
             this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Estimate_Ready_Panel);
-            this.Controls.Add(this.Estimate_Manual_Panel);
             this.Controls.Add(this.Admin_Panel);
             this.Controls.Add(this.Display_Show_Panel);
             this.Controls.Add(this.Estimate_Step1_Panel);

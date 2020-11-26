@@ -84,38 +84,6 @@ namespace PV_analysis.Structures
             return conditions;
         }
 
-        ///// <summary>
-        ///// 获取手动设计信息
-        ///// </summary>
-        ///// <returns>手动设计信息</returns>
-        //public override InfoPackage GetManualInfo()
-        //{
-        //    InfoPackage package = new InfoPackage(Name);
-        //    InfoList infoList = new InfoList("整体系统");
-        //    infoList.Add(new Info("系统总功率", 0));
-        //    infoList.Add(new Info("光伏MPPT最小电压", 0));
-        //    infoList.Add(new Info("光伏MPPT最大电压", 0));
-        //    infoList.Add(new Info("并网电压", 0));
-        //    infoList.Add(new Info("母线电压", 0));
-        //    infoList.Add(new Info("逆变直流侧电压", 0));
-        //    package.Add(infoList);
-        //    infoList = new InfoList("前级DC/DC");
-        //    infoList.Add(new Info("模块数", 0));
-        //    infoList.Add(new Info("开关频率", 0));
-        //    package.Add(infoList);
-        //    infoList = new InfoList("隔离DC/DC");
-        //    infoList.Add(new Info("模块数", 0));
-        //    infoList.Add(new Info("副边个数", 0));
-        //    infoList.Add(new Info("品质因数", 0));
-        //    infoList.Add(new Info("谐振频率", 0));
-        //    package.Add(infoList);
-        //    infoList = new InfoList("逆变");
-        //    infoList.Add(new Info("模块数", 0));
-        //    infoList.Add(new Info("开关频率", 0));
-        //    package.Add(infoList);
-        //    return package;
-        //}
-
         /// <summary>
         /// 获取设计参数信息
         /// </summary>
@@ -128,6 +96,31 @@ namespace PV_analysis.Structures
                 new Info("母线电压", Math_Vbus.ToString() + "V"),
                 new Info("逆变直流侧电压", DCAC_Vinv.ToString() + "V")
             };
+            return list;
+        }
+
+        /// <summary>
+        /// 获取手动设计信息
+        /// </summary>
+        /// <returns>手动设计信息</returns>
+        public override List<(MainForm.ControlType, string)> GetManualInfo()
+        {
+            List<(MainForm.ControlType, string)> list = new List<(MainForm.ControlType, string)>()
+            {
+                (MainForm.ControlType.Title, "整体系统"),
+                (MainForm.ControlType.Text, "系统总功率"),
+                (MainForm.ControlType.Text, "光伏MPPT最小电压"),
+                (MainForm.ControlType.Text, "光伏MPPT最大电压"),
+                (MainForm.ControlType.Text, "并网电压"),
+                (MainForm.ControlType.Text, "母线电压"),
+                (MainForm.ControlType.Text, "逆变直流侧电压"),
+            };
+            list.Add((MainForm.ControlType.Title, "前级DC/DC"));
+            list.AddRange(DCDC.GetManualInfo());
+            list.Add((MainForm.ControlType.Title, "隔离DC/DC"));
+            list.AddRange(IsolatedDCDC.GetManualInfo());
+            list.Add((MainForm.ControlType.Title, "逆变"));
+            list.AddRange(DCAC.GetManualInfo());
             return list;
         }
 

@@ -1,4 +1,5 @@
-﻿using PV_analysis.Informations;
+﻿using PV_analysis.Components;
+using PV_analysis.Informations;
 using PV_analysis.Topologys;
 using System.Collections.Generic;
 
@@ -95,6 +96,25 @@ namespace PV_analysis.Converters
                 new Info("开关频率", (Math_fs / 1e3).ToString("f1") + "kHz"),
                 new Info("拓扑", Topology.GetName())
             };
+            return list;
+        }
+
+        /// <summary>
+        /// 获取手动设计信息
+        /// </summary>
+        /// <returns>手动设计信息</returns>
+        public List<(MainForm.ControlType, string)> GetManualInfo()
+        {
+            List<(MainForm.ControlType, string)> list = new List<(MainForm.ControlType, string)>()
+            {
+                (MainForm.ControlType.Text, "模块数"),
+                (MainForm.ControlType.Text, "开关频率"),
+            };
+            foreach (Component com in Topology.ComponentGroups[Topology.GroupIndex])
+            {
+                list.Add((MainForm.ControlType.Title, com.Name));
+                list.AddRange(com.GetManualInfo());
+            }
             return list;
         }
 

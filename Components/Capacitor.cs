@@ -81,6 +81,21 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 获取手动设计信息
+        /// </summary>
+        /// <returns>手动设计信息</returns>
+        public override List<(MainForm.ControlType, string)> GetManualInfo()
+        {
+            List<(MainForm.ControlType, string)> list = new List<(MainForm.ControlType, string)>()
+            {
+                (MainForm.ControlType.Capacitor, "型号"),
+                (MainForm.ControlType.Text, "串联数"),
+                (MainForm.ControlType.Text, "并联数"),
+            };
+            return list;
+        }
+
+        /// <summary>
         /// 获取损耗分布
         /// </summary>
         /// <returns>损耗分布信息</returns>

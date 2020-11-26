@@ -14,11 +14,11 @@ namespace PV_analysis.Structures
         /// </summary>
         public Converter[] Converters { get; protected set; }
 
-        public DCDCConverter DCDC { get; protected set; }
+        public DCDCConverter DCDC { get; set; }
 
-        public IsolatedDCDCConverter IsolatedDCDC { get; protected set; }
+        public IsolatedDCDCConverter IsolatedDCDC { get; set; }
 
-        public DCACConverter DCAC { get; protected set; }
+        public DCACConverter DCAC { get; set; }
 
         //---整体参数---
         /// <summary>
@@ -149,6 +149,12 @@ namespace PV_analysis.Structures
         /// </summary>
         /// <returns>判断结果</returns>
         public override bool IsStructure() { return true; }
+
+        /// <summary>
+        /// 获取手动设计信息
+        /// </summary>
+        /// <returns>手动设计信息</returns>
+        public abstract List<(MainForm.ControlType, string)> GetManualInfo();
 
         /// <summary>
         /// 获取总损耗分布（变换器）

@@ -71,13 +71,11 @@ namespace PV_analysis.Components
         /// </summary>
         public ComponentDesignList DesignList { get { return designList; } }
 
-
         /// <summary>
         /// 获取设计方案的配置信息标题
         /// </summary>
         /// <returns>配置信息标题</returns>
         public abstract string[] GetConfigTitles();
-
 
         /// <summary>
         /// 获取设计方案的配置信息
@@ -100,6 +98,12 @@ namespace PV_analysis.Components
             }
             return list;
         }
+
+        /// <summary>
+        /// 获取手动设计信息
+        /// </summary>
+        /// <returns>手动设计信息</returns>
+        public abstract List<(MainForm.ControlType, string)> GetManualInfo();
 
         /// <summary>
         /// 获取损耗分布

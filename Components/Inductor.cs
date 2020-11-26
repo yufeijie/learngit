@@ -76,6 +76,23 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 获取手动设计信息
+        /// </summary>
+        /// <returns>手动设计信息</returns>
+        public override List<(MainForm.ControlType, string)> GetManualInfo()
+        {
+            List<(MainForm.ControlType, string)> list = new List<(MainForm.ControlType, string)>()
+            {
+                (MainForm.ControlType.Core, "磁芯型号"),
+                (MainForm.ControlType.Text, "磁芯数"),
+                (MainForm.ControlType.Text, "气隙长度(cm)"),
+                (MainForm.ControlType.Wire, "绕线型号"),
+                (MainForm.ControlType.Text, "匝数")
+            };
+            return list;
+        }
+
+        /// <summary>
         /// 读取配置信息
         /// </summary>
         /// <param name="configs">配置信息</param>
