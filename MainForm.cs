@@ -4,6 +4,7 @@ using LiveCharts.Geared;
 using LiveCharts.Wpf;
 using PV_analysis.Components;
 using PV_analysis.Converters;
+using PV_analysis.FormControls;
 using PV_analysis.Informations;
 using PV_analysis.Structures;
 using System;
@@ -30,9 +31,6 @@ namespace PV_analysis
             Wire,
             Capacitor
         }
-
-        //用于记录展开/折叠按钮对应的Panel
-        private Dictionary<Button, List<Panel>> foldControlDict = new Dictionary<Button, List<Panel>>();
 
         //页面切换、侧边栏
         private readonly Panel[] panelNow = new Panel[6]; //下标0——当前显示页面，下标1-5——各类页面的当前子页面
@@ -158,9 +156,9 @@ namespace PV_analysis
         /// 手动设计，生成折叠按钮
         /// </summary>
         /// <param name="title">标题</param>
-        private Button Estimate_Manual_Create_FoldButton(string title)
+        private FoldButton Estimate_Manual_Create_FoldButton(string title)
         {
-            Button button = new Button
+            FoldButton button = new FoldButton
             {
                 Dock = DockStyle.Top,
                 FlatStyle = FlatStyle.Flat,
@@ -170,18 +168,7 @@ namespace PV_analysis
                 Text = title,
                 UseVisualStyleBackColor = true
             };
-            button.Click += Fold_Button_Click;
-            foldControlDict.Add(button, new List<Panel>());
             return button;
-        }
-
-        private void Fold_Button_Click(object sender, EventArgs e)
-        {
-            List<Panel> panelList = foldControlDict[(Button)sender];
-            foreach (Panel panel in panelList)
-            {
-                panel.Visible = !panel.Visible;
-            }
         }
 
         /// <summary>
@@ -2249,14 +2236,14 @@ namespace PV_analysis
                 List<Control> panelList = new List<Control>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
                 Panel panel;
 
-                Button button = Estimate_Manual_Create_FoldButton("整体系统");
+                FoldButton button = Estimate_Manual_Create_FoldButton("整体系统");
                 panelList.Add(button);
                 List<(ControlType Type, string Text)> list = structure.GetManualInfo();
                 for (int i = 0; i < list.Count; i++)
                 {
                     panel = mySwitch(list[i]);
                     panelList.Add(panel);
-                    foldControlDict[button].Add(panel);
+                    button.Add(panel);
                 }
                 button = Estimate_Manual_Create_FoldButton("前级DC/DC");
                 panelList.Add(button);
@@ -2265,19 +2252,19 @@ namespace PV_analysis
                 {
                     panel = mySwitch(list[i]);
                     panelList.Add(panel);
-                    foldControlDict[button].Add(panel);
+                    button.Add(panel);
                 }
                 foreach (Component com in structure.DCDC.Topology.ComponentGroups[structure.DCDC.Topology.GroupIndex])
                 {
                     list = com.GetManualInfo();
                     panel = Estimate_Manual_Create_Title(com.Name);
                     panelList.Add(panel);
-                    foldControlDict[button].Add(panel);
+                    button.Add(panel);
                     for (int i = 0; i < list.Count; i++)
                     {
                         panel = mySwitch(list[i]);
                         panelList.Add(panel);
-                        foldControlDict[button].Add(panel);
+                        button.Add(panel);
                     }
                 }
                 button = Estimate_Manual_Create_FoldButton("隔离DC/DC");
@@ -2287,19 +2274,19 @@ namespace PV_analysis
                 {
                     panel = mySwitch(list[i]);
                     panelList.Add(panel);
-                    foldControlDict[button].Add(panel);
+                    button.Add(panel);
                 }
                 foreach (Component com in structure.IsolatedDCDC.Topology.ComponentGroups[structure.IsolatedDCDC.Topology.GroupIndex])
                 {
                     list = com.GetManualInfo();
                     panel = Estimate_Manual_Create_Title(com.Name);
                     panelList.Add(panel);
-                    foldControlDict[button].Add(panel);
+                    button.Add(panel);
                     for (int i = 0; i < list.Count; i++)
                     {
                         panel = mySwitch(list[i]);
                         panelList.Add(panel);
-                        foldControlDict[button].Add(panel);
+                        button.Add(panel);
                     }
                 }
                 button = Estimate_Manual_Create_FoldButton("逆变");
@@ -2309,19 +2296,19 @@ namespace PV_analysis
                 {
                     panel = mySwitch(list[i]);
                     panelList.Add(panel);
-                    foldControlDict[button].Add(panel);
+                    button.Add(panel);
                 }
                 foreach (Component com in structure.DCAC.Topology.ComponentGroups[structure.DCAC.Topology.GroupIndex])
                 {
                     list = com.GetManualInfo();
                     panel = Estimate_Manual_Create_Title(com.Name);
                     panelList.Add(panel);
-                    foldControlDict[button].Add(panel);
+                    button.Add(panel);
                     for (int i = 0; i < list.Count; i++)
                     {
                         panel = mySwitch(list[i]);
                         panelList.Add(panel);
-                        foldControlDict[button].Add(panel);
+                        button.Add(panel);
                     }
                 }
 
