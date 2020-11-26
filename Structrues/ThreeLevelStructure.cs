@@ -107,7 +107,6 @@ namespace PV_analysis.Structures
         {
             List<(MainForm.ControlType, string)> list = new List<(MainForm.ControlType, string)>()
             {
-                (MainForm.ControlType.Title, "整体系统"),
                 (MainForm.ControlType.Text, "系统总功率"),
                 (MainForm.ControlType.Text, "光伏MPPT最小电压"),
                 (MainForm.ControlType.Text, "光伏MPPT最大电压"),
@@ -115,12 +114,6 @@ namespace PV_analysis.Structures
                 (MainForm.ControlType.Text, "母线电压"),
                 (MainForm.ControlType.Text, "逆变直流侧电压"),
             };
-            list.Add((MainForm.ControlType.Title, "前级DC/DC"));
-            list.AddRange(DCDC.GetManualInfo());
-            list.Add((MainForm.ControlType.Title, "隔离DC/DC"));
-            list.AddRange(IsolatedDCDC.GetManualInfo());
-            list.Add((MainForm.ControlType.Title, "逆变"));
-            list.AddRange(DCAC.GetManualInfo());
             return list;
         }
 

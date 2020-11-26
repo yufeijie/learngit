@@ -110,11 +110,6 @@ namespace PV_analysis.Converters
                 (MainForm.ControlType.Text, "模块数"),
                 (MainForm.ControlType.Text, "开关频率"),
             };
-            foreach (Component com in Topology.ComponentGroups[Topology.GroupIndex])
-            {
-                list.Add((MainForm.ControlType.Title, com.Name));
-                list.AddRange(com.GetManualInfo());
-            }
             return list;
         }
 

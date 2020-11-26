@@ -31,6 +31,9 @@ namespace PV_analysis
             Capacitor
         }
 
+        //用于记录展开/折叠按钮对应的Panel
+        private Dictionary<Button, List<Panel>> foldControlDict = new Dictionary<Button, List<Panel>>();
+
         //页面切换、侧边栏
         private readonly Panel[] panelNow = new Panel[6]; //下标0——当前显示页面，下标1-5——各类页面的当前子页面
         private System.Drawing.Color activeColor; //左侧边栏按钮，当前选中颜色
@@ -148,6 +151,36 @@ namespace PV_analysis
             else
             {
                 Estimate_Result_Print_RichTextBox.AppendText(text + "\r\n");
+            }
+        }
+
+        /// <summary>
+        /// 手动设计，生成折叠按钮
+        /// </summary>
+        /// <param name="title">标题</param>
+        private Button Estimate_Manual_Create_FoldButton(string title)
+        {
+            Button button = new Button
+            {
+                Dock = DockStyle.Top,
+                FlatStyle = FlatStyle.Flat,
+                Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Bold),
+                Height = 50,
+                Margin = new Padding(0),
+                Text = title,
+                UseVisualStyleBackColor = true
+            };
+            button.Click += Fold_Button_Click;
+            foldControlDict.Add(button, new List<Panel>());
+            return button;
+        }
+
+        private void Fold_Button_Click(object sender, EventArgs e)
+        {
+            List<Panel> panelList = foldControlDict[(Button)sender];
+            foreach (Panel panel in panelList)
+            {
+                panel.Visible = !panel.Visible;
             }
         }
 
@@ -2128,8 +2161,6 @@ namespace PV_analysis
             }
             else
             {
-                List<Panel> panelList = new List<Panel>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
-
                 List<string> semiconductorList = new List<string>();
                 foreach (Data.Semiconductor semiconductor in Data.SemiconductorList)
                 {
@@ -2196,29 +2227,101 @@ namespace PV_analysis
                     }
                 }
 
+                Panel mySwitch((ControlType Type, string Text) info)
+                {
+                    switch (info.Type)
+                    {
+                        case ControlType.Text:
+                            return Estimate_Manual_Create_TextBox(info.Text);
+                        case ControlType.Semiconductor:
+                            return Estimate_Manual_Create_ComboBox(info.Text, semiconductorList.ToArray());
+                        case ControlType.Core:
+                            return Estimate_Manual_Create_ComboBox(info.Text, coreList.ToArray());
+                        case ControlType.Wire:
+                            return Estimate_Manual_Create_ComboBox(info.Text, wireList.ToArray());
+                        case ControlType.Capacitor:
+                            return Estimate_Manual_Create_ComboBox(info.Text, capacitorList.ToArray());
+                        default:
+                            return null;
+                    }
+                }
+
+                List<Control> panelList = new List<Control>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
+                Panel panel;
+
+                Button button = Estimate_Manual_Create_FoldButton("整体系统");
+                panelList.Add(button);
                 List<(ControlType Type, string Text)> list = structure.GetManualInfo();
                 for (int i = 0; i < list.Count; i++)
                 {
-                    switch (list[i].Type)
+                    panel = mySwitch(list[i]);
+                    panelList.Add(panel);
+                    foldControlDict[button].Add(panel);
+                }
+                button = Estimate_Manual_Create_FoldButton("前级DC/DC");
+                panelList.Add(button);
+                list = structure.DCDC.GetManualInfo();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    panel = mySwitch(list[i]);
+                    panelList.Add(panel);
+                    foldControlDict[button].Add(panel);
+                }
+                foreach (Component com in structure.DCDC.Topology.ComponentGroups[structure.DCDC.Topology.GroupIndex])
+                {
+                    list = com.GetManualInfo();
+                    panel = Estimate_Manual_Create_Title(com.Name);
+                    panelList.Add(panel);
+                    foldControlDict[button].Add(panel);
+                    for (int i = 0; i < list.Count; i++)
                     {
-                        case ControlType.Title:
-                            panelList.Add(Estimate_Manual_Create_Title(list[i].Text));
-                            break;
-                        case ControlType.Text:
-                            panelList.Add(Estimate_Manual_Create_TextBox(list[i].Text));
-                            break;
-                        case ControlType.Semiconductor:
-                            panelList.Add(Estimate_Manual_Create_ComboBox(list[i].Text, semiconductorList.ToArray()));
-                            break;
-                        case ControlType.Core:
-                            panelList.Add(Estimate_Manual_Create_ComboBox(list[i].Text, coreList.ToArray()));
-                            break;
-                        case ControlType.Wire:
-                            panelList.Add(Estimate_Manual_Create_ComboBox(list[i].Text, wireList.ToArray()));
-                            break;
-                        case ControlType.Capacitor:
-                            panelList.Add(Estimate_Manual_Create_ComboBox(list[i].Text, capacitorList.ToArray()));
-                            break;
+                        panel = mySwitch(list[i]);
+                        panelList.Add(panel);
+                        foldControlDict[button].Add(panel);
+                    }
+                }
+                button = Estimate_Manual_Create_FoldButton("隔离DC/DC");
+                panelList.Add(button);
+                list = structure.IsolatedDCDC.GetManualInfo();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    panel = mySwitch(list[i]);
+                    panelList.Add(panel);
+                    foldControlDict[button].Add(panel);
+                }
+                foreach (Component com in structure.IsolatedDCDC.Topology.ComponentGroups[structure.IsolatedDCDC.Topology.GroupIndex])
+                {
+                    list = com.GetManualInfo();
+                    panel = Estimate_Manual_Create_Title(com.Name);
+                    panelList.Add(panel);
+                    foldControlDict[button].Add(panel);
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        panel = mySwitch(list[i]);
+                        panelList.Add(panel);
+                        foldControlDict[button].Add(panel);
+                    }
+                }
+                button = Estimate_Manual_Create_FoldButton("逆变");
+                panelList.Add(button);
+                list = structure.DCAC.GetManualInfo();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    panel = mySwitch(list[i]);
+                    panelList.Add(panel);
+                    foldControlDict[button].Add(panel);
+                }
+                foreach (Component com in structure.DCAC.Topology.ComponentGroups[structure.DCAC.Topology.GroupIndex])
+                {
+                    list = com.GetManualInfo();
+                    panel = Estimate_Manual_Create_Title(com.Name);
+                    panelList.Add(panel);
+                    foldControlDict[button].Add(panel);
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        panel = mySwitch(list[i]);
+                        panelList.Add(panel);
+                        foldControlDict[button].Add(panel);
                     }
                 }
 
