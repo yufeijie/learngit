@@ -2,14 +2,13 @@
 using PV_analysis.Components;
 using PV_analysis.Converters;
 using System;
-using static PV_analysis.Curve;
 
 namespace PV_analysis.Topologys
 {
     /// <summary>
-    /// LLC拓扑
+    /// 半桥三电平LLC拓扑
     /// </summary>
-    internal class LLC : Topology
+    internal class HB_TL_LLC : Topology
     {
         private IsolatedDCDCConverter converter; //所属变换器
 
@@ -21,8 +20,10 @@ namespace PV_analysis.Topologys
         //基本电路参数
         private double math_Vin; //输入电压
         private double math_Vo; //输出电压预设值
+        private int math_No; //副边个数
         private double math_Q; //品质因数
-        private double math_k; //=Lm/Lr
+        private double math_k; //电感比Lm/Lr
+        private double math_Cs; //开关管并联电容
         private double math_fr; //谐振频率
         private double math_fs; //开关频率
 
@@ -34,9 +35,9 @@ namespace PV_analysis.Topologys
         private double math_Lr; //谐振电感值
         private double math_Lm; //励磁电感值
         private double math_ILrrms; //谐振电感电流有效值
-        private double math_ILrp; //谐振电感电流峰值
+        private double math_ILrmax; //谐振电感电流峰值
         private double math_Cr; //谐振电容值
-        private double math_VCrp; //谐振电容电压峰值
+        private double math_VCrmax; //谐振电容电压峰值
         private double math_VCfmax; //电容电压应力
         private double math_ICfrms; //滤波电容电流有效值
 
@@ -61,16 +62,18 @@ namespace PV_analysis.Topologys
         /// 初始化
         /// </summary>
         /// <param name="converter">所属变换器</param>
-        public LLC(IsolatedDCDCConverter converter)
+        public HB_TL_LLC(IsolatedDCDCConverter converter)
         {
             //获取设计规格
             this.converter = converter;
             math_Pfull = converter.Math_Psys / converter.PhaseNum / converter.Number;
             math_Vin = converter.Math_Vin;
             math_Vo = converter.Math_Vo;
+            math_No = converter.Math_No;
             math_fr = converter.Math_fr;
             math_Q = converter.Math_Q;
             math_k = 5;
+            math_Cs = 0.85e-9;
 
             //初始化元器件
             primaryDualModule = new DualModule(2)
@@ -78,7 +81,7 @@ namespace PV_analysis.Topologys
                 Name = "原边开关管",
                 VoltageVariable = false
             };
-            secondaryDualModule = new DualModule(2)
+            secondaryDualModule = new DualModule(2 * math_No)
             {
                 Name = "副边二极管",
                 VoltageVariable = false
@@ -98,7 +101,7 @@ namespace PV_analysis.Topologys
                 Name = "谐振电容",
                 VoltageVariable = false,
             };
-            filteringCapacitor = new FilteringCapacitor(1)
+            filteringCapacitor = new FilteringCapacitor(math_No)
             {
                 Name = "滤波电容",
                 VoltageVariable = false,
@@ -123,7 +126,7 @@ namespace PV_analysis.Topologys
         /// <returns>拓扑名</returns>
         public override string GetName()
         {
-            return "LLC";
+            return "半桥三电平LLC";
         }
 
         /// <summary>
@@ -134,28 +137,35 @@ namespace PV_analysis.Topologys
             double P = math_Pfull;
             double Vin = math_Vin;
             double Vo = math_Vo;
+            double No = math_No;
             double Q = math_Q;
             double k = math_k;
+            double Cs = math_Cs;
             double fr = math_fr;
 
+            double RL = No * Vo * Vo / P; //负载等效电阻
+            double n = Vin / Vo / 2; //变比
             double Tr = 1 / fr; //谐振周期
-            double Td = Tr / 50; //死区时间
-            double Ts = Tr + Td; //开关周期
-            double fs = 1 / Ts; //开关频率
             double wr = 2 * Math.PI * fr; //谐振角速度
-            double RL = Math.Pow(Vo, 2) / P; //负载等效电阻
-            double n = Vin / Vo; //变比
-            double Zr = Q * 8 * Math.Pow(n / Math.PI, 2) * RL; //谐振阻抗
+            double Req = 8 * Math.Pow(n / Math.PI, 2) * RL / No; //谐振腔等效电阻
+            double Zr = Req * Q; //谐振阻抗
+            double Lr = Zr / wr;
+            double Cr = 1 / Zr / wr;
+            double Lm = k * Lr;
+            double Td = 8 * Lm * Cr * Cs / (Tr * (Cr + Cs)); //死区时间
+            double Vo_act = Vo * (Cr + Cs) / Cr; //实际输出电压
+            double Ts = Tr + 2 * Td; //开关周期
+            double fs = 1 / Ts; //开关频率
 
             math_fs = fs;
             math_n = n;
-            math_Lr = Zr / wr;
-            math_Lm = k * math_Lr;
-            math_Cr = 1 / Zr / wr;
-            math_ψ = 0.5 * Vo * n * Tr; //TODO 修正：实际上在不同负载下，输出电压会变化
-            math_VSpmax = Vin;
-            math_VSsmax = Vo;
-            math_VCfmax = Vo;
+            math_Lr = Lr;
+            math_Lm = Lm;
+            math_Cr = Cr;
+            math_ψ = 0.5 * Tr * n * Vo_act; //TODO 修正：实际上在不同负载下，输出电压会变化
+            math_VSpmax = Vin / 2;
+            math_VSsmax = Vo_act;
+            math_VCfmax = Vo_act;
         }
 
         /// <summary>
@@ -165,35 +175,39 @@ namespace PV_analysis.Topologys
         {
             double P = math_P;
             double Vin = math_Vin;
-            double Vo_ref = math_Vo;
+            double Vo = math_Vo;
+            double No = math_No;
             double fr = math_fr;
             double fs = math_fs;
             double n = math_n;
             double Lr = math_Lr;
             double Lm = math_Lm;
             double Cr = math_Cr;
+            double Cs = math_Cs;
 
             double k = Lm / Lr;
             double wr = 2 * Math.PI * fr; //谐振角速度
             double Zr = Math.Sqrt(Lr / Cr); //谐振阻抗
             double Tr = 1 / fr; //谐振周期
             double Ts = 1 / fs; //开关周期
-            double Td = Ts - Tr; //死区时间
+            double Td = (Ts - Tr) / 2; //死区时间
 
             curve_iLr = new Curve();
             Curve curve_iLm = new Curve();
             Curve curve_io = new Curve();
             curve_vCr = new Curve();
 
-            double VCr0 = -P * Ts / (4 * n * Cr * Vo_ref);
-            if ((Vin - VCr0) * k / (k + 1) >= Vo_ref)
+            double VCr0 = -P * Ts / (4 * n * Cr * Vo);
+            if ((Vin - VCr0) * k / (k + 1) >= Vo)
             {
-                double Vo = Vin / (n * (1 - Math.PI / (8 * Lm) * Zr * Td)); //实际输出电压
-                double Io = P / Vo; //输出电流平均值
-                double ILrp = Math.Sqrt(Math.Pow(P * wr * Ts / (4 * n * Vo), 2) + Math.Pow(n * Vo * Tr / (4 * Lm), 2));
-                double VCrp = -Vin + n * Vo + Zr * ILrp;
-                double ILm = n * Vo * Tr / (4 * Lm); //环流时，认为励磁电感电流不变
-                double φ = Math.Atan(-n * n * Vo * Vo * Tr / (P * wr * Lm * Ts));
+                double Vo_act = Vo * (Cr + Cs) / Cr; //实际输出电压
+                double Io = P / Vo / No; //输出电流平均值
+                double Vab = Vin / 2; //原边逆变桥臂输出电压
+                double Vtp = n * Vo_act; //变压器原边电压
+                double ILrmax = Math.Sqrt(Math.Pow(Vtp * Tr / (4 * Lm), 2) + Math.Pow(Io * wr * Ts / (4 * n), 2)); //谐振电感电流最大值
+                double φ = Math.Atan(-n * n * Vo * Vo * Tr / (P * wr * Lm * Ts)); //谐振电感电流相角
+                double ILmmax = Vtp * Tr / (4 * Lm); //死区时间内，认为励磁电感电流不变
+                double VCrmax = ILrmax * Zr - Vab + Vtp; //谐振电容电压最大值
 
                 double startTime = 0;
                 double endTime = Ts;
@@ -214,17 +228,17 @@ namespace PV_analysis.Topologys
                     }
                     if (t <= Tr / 2)
                     {
-                        iLm = -ILm + n * Vo / Lm * t;
-                        iLr = ILrp * Math.Sin(wr * t + φ);
-                        vCr = Vin - n * Vo - Zr * ILrp * Math.Cos(wr * t + φ);
+                        iLm = -ILmmax + Vtp / Lm * t;
+                        iLr = ILrmax * Math.Sin(wr * t + φ);
+                        vCr = Vab - Vtp - ILrmax * Zr * Math.Cos(wr * t + φ);
                     }
                     else
                     {
-                        iLm = ILm;
-                        iLr = ILm;
-                        vCr = Vin - n * Vo + P * Ts / (4 * n * Cr * Vo) + Math.PI * n * Vo * Zr / (2 * Lm) * (t - Tr / 2);
+                        iLm = ILmmax;
+                        iLr = ILmmax;
+                        vCr = Vab - Vtp + Io * Ts / (4 * n * Cr) + Vtp * Tr / (4 * Lm * Cr) * (t - Tr / 2);
                     }
-                    io = n * (iLr - iLm);
+                    io = n / No * (iLr - iLm);
                     iLm *= p;
                     iLr *= p;
                     vCr *= p;
@@ -236,11 +250,9 @@ namespace PV_analysis.Topologys
                     curve_vCr.Add(t, vCr);
                 }
                 //补充特殊点（保证现有的开关器件损耗计算方法正确）
-                double t0 = -φ / wr;
-                curve_iLr.Order(t0, 0);
-                curve_iLr.Order(t0 + Ts / 2, 0);
-                curve_vCr.Order(t0, -VCrp);
-                curve_vCr.Order(t0 + Ts / 2, VCrp);
+                double t1 = -φ / wr;
+                curve_iLr.Order(t1, 0);
+                curve_iLr.Order(t1 + Ts / 2, 0);
                 //生成主电路元件波形
                 curve_iSp = curve_iLr.Cut(0, Ts / 2, 1);
                 curve_iSs = curve_io.Cut(0, Ts / 2, 1);
@@ -251,13 +263,12 @@ namespace PV_analysis.Topologys
                 math_ILrrms = curve_iLr.CalcRMS();
                 math_ICfrms = curve_iCf.CalcRMS();
 
-                math_VCrp = VCrp;
-                math_ILrp = ILrp;
+                math_VCrmax = VCrmax;
+                math_ILrmax = ILrmax;
             }
             else //谐振电容电压不连续
             {
-                double Vo = Vo_ref; //实际输出电压
-                double Io = P / Vo; //输出电流平均值                
+                double Io = P / Vo /No; //输出电流平均值                
                 double t1 = Ts / 4 - Math.Sqrt(Ts * Ts / 16 + 2 * Lm * (Io * Ts / (4 * n * Vin) - Cr / k));
                 double ILrp = -Math.Sqrt(Math.Pow(Vin / (k * Zr), 2) + Math.Pow(Vin / (4 * Lm) * (4 * t1 - Ts), 2));
                 double φ = Math.Atan(k * Zr / Lm * (t1 - Ts / 4)) - wr * t1;
@@ -307,7 +318,7 @@ namespace PV_analysis.Topologys
                         iLr = iLm;
                         vCr = -VCr0 + (2 * Vin * t * t - Vin * Ts * t) / (4 * Lm * Cr);
                     }
-                    io = n * (iLr - iLm);
+                    io = n/No * (iLr - iLm);
                     iLm *= p;
                     iLr *= p;
                     vCr *= p;
@@ -342,8 +353,8 @@ namespace PV_analysis.Topologys
                 math_ILrrms = curve_iLr.CalcRMS();
                 math_ICfrms = curve_iCf.CalcRMS();
 
-                math_VCrp = VCrp;
-                math_ILrp = -ILrp;
+                math_VCrmax = VCrp;
+                math_ILrmax = -ILrp;
             }
             //Graph graph = new Graph();
             //graph.Add(curve_vCr, "vCr");
@@ -415,17 +426,17 @@ namespace PV_analysis.Topologys
                 //graph.Add(currentSwitch_P, "iP");
                 //graph.Add(currentSwitch_S, "iS");
                 //graph.Draw();
-                ILrmax = Math.Max(ILrmax, math_ILrp);
+                ILrmax = Math.Max(ILrmax, math_ILrmax);
                 ILrrms_max = Math.Max(ILrrms_max, math_ILrrms);
-                VCrmax = Math.Max(VCrmax, math_VCrp);
+                VCrmax = Math.Max(VCrmax, math_VCrmax);
                 ICfrms_max = Math.Max(ICfrms_max, math_ICfrms);
 
                 //设置元器件的电路参数（用于评估）
                 primaryDualModule.AddEvalParameters(0, j, math_vSp, curve_iSp, curve_iSp);
                 Curve iD = curve_iSs.Copy(-1);
                 secondaryDualModule.AddEvalParameters(0, j, math_vSs, iD, iD);
-                resonantInductor.AddEvalParameters(0, j, math_ILrrms, math_ILrp * 2);
-                transformer.AddEvalParameters(0, j, math_ILrrms, math_ILrp * 2);
+                resonantInductor.AddEvalParameters(0, j, math_ILrrms, math_ILrmax * 2);
+                transformer.AddEvalParameters(0, j, math_ILrrms, math_ILrmax * 2);
                 resonantCapacitor.AddEvalParameters(0, j, math_ILrrms);
                 filteringCapacitor.AddEvalParameters(0, j, math_ICfrms);
             }
@@ -440,7 +451,7 @@ namespace PV_analysis.Topologys
             primaryDualModule.SetConditions(math_VSpmax, ILrmax, math_fs);
             secondaryDualModule.SetConditions(math_VSsmax, math_n * ILrmax, math_fs);
             resonantInductor.SetConditions(math_Lr, ILrmax, math_fs);
-            transformer.SetConditions(math_P, ILrmax, math_fs, math_n, 1, math_ψ); //FIXME 磁链是否会变化？
+            transformer.SetConditions(math_P, ILrmax, math_fs, math_n, math_No, math_ψ); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(math_Cr, VCrmax, ILrrms_max);
             filteringCapacitor.SetConditions(200 * 1e-6, math_VCfmax, ICfrms_max); //TODO 滤波电容的设计
         }
@@ -456,8 +467,8 @@ namespace PV_analysis.Topologys
             primaryDualModule.SetParameters(math_vSp, curve_iSp, curve_iSp, math_fs);
             Curve iD = curve_iSs.Copy(-1);
             secondaryDualModule.SetParameters(math_vSs, iD, iD, math_fs);
-            resonantInductor.SetParameters(math_ILrrms, math_ILrp * 2, math_fs);
-            transformer.SetParameters(math_ILrrms, math_ILrp * 2, math_fs, math_ψ);
+            resonantInductor.SetParameters(math_ILrrms, math_ILrmax * 2, math_fs);
+            transformer.SetParameters(math_ILrrms, math_ILrmax * 2, math_fs, math_ψ);
             resonantCapacitor.SetParameters(math_ILrrms);
             filteringCapacitor.SetParameters(math_ICfrms);
         }

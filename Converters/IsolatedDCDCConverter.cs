@@ -211,6 +211,9 @@ namespace PV_analysis.Converters
                 case "LLC":
                     Topology = new LLC(this);
                     break;
+                case "HB_TL_LLC":
+                    Topology = new HB_TL_LLC(this);
+                    break;
                 case "DTCSRC":
                     Topology = new DTCSRC(this);
                     break;
@@ -239,7 +242,7 @@ namespace PV_analysis.Converters
                         foreach (string tp in TopologyRange) //拓扑变化
                         {
                             CreateTopology(tp);
-                            if (tp.Equals("SRC")) //目前多输出仅支持SRC
+                            if (tp.Equals("SRC") || tp.Equals("HB_TL_LLC")) //目前多输出仅支持SRC
                             {
                                 form.PrintDetails(2, "Now topology=" + tp + ", No=" + No + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
                                 Design(form);

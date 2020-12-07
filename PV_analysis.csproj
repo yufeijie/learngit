@@ -149,6 +149,7 @@
     <Compile Include="Structrues\ThreeLevelStructure.cs" />
     <Compile Include="Structrues\TwoLevelStructure.cs" />
     <Compile Include="Topologys\DTCSRC.cs" />
+    <Compile Include="Topologys\HB_TL_LLC.cs" />
     <Compile Include="Topologys\MultiInputSoftSwitchBoost.cs" />
     <Compile Include="Topologys\InterleavedBoost.cs" />
     <Compile Include="Topologys\CHB.cs" />
@@ -264,6 +265,7 @@
   <ItemGroup>
     <None Include="Resources\LLC.png" />
     <None Include="Resources\刷新.png" />
+    <None Include="Resources\半桥三电平LLC.png" />
     <Content Include="sun.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

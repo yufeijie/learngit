@@ -1650,7 +1650,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item1_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item2_CheckBox.Enabled = true;
-                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item4_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Enabled = true;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = true;
@@ -1658,7 +1658,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = true;
-                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item4_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = true;
 
@@ -1667,7 +1667,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item1_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item2_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item3_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item3_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item4_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Checked = true;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = true;
@@ -1675,7 +1675,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item4_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = true;
                         break;
@@ -1781,7 +1781,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item1_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item2_CheckBox.Enabled = true;
-                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item3_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item4_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Enabled = false;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Enabled = false;
@@ -1789,7 +1789,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item2_Left_CheckBox.Enabled = true;
-                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = false;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = true;
                         Estimate_Step2_Group2_Item4_Left_CheckBox.Enabled = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Enabled = false;
 
@@ -1798,7 +1798,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item1_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item2_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item3_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item3_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item4_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item1_Left_CheckBox.Checked = false;
@@ -1806,7 +1806,7 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = true;
                         Estimate_Step2_Group2_Item4_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = false;
                         break;
@@ -1926,7 +1926,7 @@ namespace PV_analysis
             }
             if (Estimate_Step2_Group2_Item3_Left_CheckBox.Checked)
             {
-                isolatedDCDC_topologyList.Add("DAB");
+                isolatedDCDC_topologyList.Add("HB_TL_LLC");
             }
             if (Estimate_Step2_Group2_Item4_Left_CheckBox.Checked)
             {
@@ -2537,7 +2537,7 @@ namespace PV_analysis
         private void Estimate_Result_AddDisplay_Button_Click(object sender, EventArgs e)
         {
             seriesNameList.Add("评估结果");
-            displayEquipmentList.Add((Converter)evaluationEquipment);
+            displayEquipmentList.Add(evaluationEquipment);
             Display_Show_Display(); //更新结果图像显示
         }
 
@@ -2547,7 +2547,7 @@ namespace PV_analysis
             displayEquipmentList = new List<Equipment>();
             contrastEquipmentList = new List<Equipment>();
             seriesNameList.Add("评估结果");
-            displayEquipmentList.Add((Converter)evaluationEquipment);
+            displayEquipmentList.Add(evaluationEquipment);
             Display_Show_Display(); //更新结果图像显示
             Display_Show_Contrast_Button.Enabled = false;
             Display_Show_Clear_Button.Enabled = false;
