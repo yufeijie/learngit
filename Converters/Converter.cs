@@ -183,7 +183,7 @@ namespace PV_analysis.Converters
                     {
                         form.PrintDetails(1, component.GetType().Name + "设计失败！");
                     }
-                    break;
+                    return;
                 }
             }
             int n = 0; //用于记录当前元器件组合的序号
@@ -325,7 +325,7 @@ namespace PV_analysis.Converters
             Cost += costHeatsink;
 
             //评估DSP
-            costDSP = 157.296; //每个变换器模块用一个DSP，型号：TMS320F28335PGFA TI 100 Mouser FIXM
+            costDSP = Configuration.DSP_PRICE; //每个变换器模块用一个DSP
             Cost += costDSP;
         }
     }

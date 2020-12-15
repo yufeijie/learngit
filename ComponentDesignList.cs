@@ -130,7 +130,7 @@ namespace PV_analysis
                 now.Cost += Ch;
 
                 //设计DSP
-                now.Cost += 157.296; //每个变换器模块用一个DSP，型号：TMS320F28335PGFA TI 100 Mouser FIXM
+                now.Cost += Configuration.DSP_PRICE; //每个变换器模块用一个DSP
 
                 now = now.Next;
             }

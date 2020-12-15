@@ -24,6 +24,9 @@
 		public const double CSPI = 15; //cooling system performance index 冷却系统性能指标(W/K*dm^3)
 		public const double HEATSINK_UNIT_PRICE = 35 + 15; //单位体积散热器成本(RMB/dm^3)
 
+		//DSP成本
+		public const double DSP_PRICE = 157.296; //型号：TMS320F28335PGFA TI 100 Mouser FIXM
+
 		//界面显示
 		public const bool IS_PRINT_DEBUG = true; //是否打印Debug信息
 	}
