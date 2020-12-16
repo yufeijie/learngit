@@ -21,10 +21,11 @@ namespace PV_analysis.Topologys
         //基本电路参数
         private double math_Vin; //输入电压
         private double math_Vo; //输出电压预设值
-        private double math_Q; //品质因数
-        private double math_k; //=Lm/Lr
         private double math_fr; //谐振频率
         private double math_fs; //开关频率
+        private double math_Q; //品质因数
+        private double math_k; //电感比Lm/Lr
+        private double math_Cs; //开关管并联电容
 
         //主电路元件参数
         private double math_VSpmax; //原边开关器件电压应力
@@ -70,7 +71,8 @@ namespace PV_analysis.Topologys
             math_Vo = converter.Math_Vo;
             math_fr = converter.Math_fr;
             math_Q = converter.Math_Q;
-            math_k = 5;
+            math_k = converter.Math_k;
+            math_Cs = converter.Math_Cs;
 
             //初始化元器件
             primaryDualModule = new DualModule(2)

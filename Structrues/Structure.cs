@@ -89,11 +89,6 @@ namespace PV_analysis.Structures
 
         //---隔离DC/DC参数---
         /// <summary>
-        /// 隔离DCDC品质因数预设值
-        /// </summary>
-        public double IsolatedDCDC_Q { get; set; }
-
-        /// <summary>
         /// 隔离DCDC可用副边个数序列
         /// </summary>
         public int[] IsolatedDCDC_secondaryRange { get; set; }
@@ -112,6 +107,21 @@ namespace PV_analysis.Structures
         /// 隔离DCDC可用谐振频率序列
         /// </summary>
         public double[] IsolatedDCDC_resonanceFrequencyRange { get; set; }
+
+        /// <summary>
+        /// 隔离DCDC可用品质因数序列
+        /// </summary>
+        public double[] IsolatedDCDC_Math_Q_Range { get; set; }
+
+        /// <summary>
+        /// 隔离DCDC可用电感比序列
+        /// </summary>
+        public double[] IsolatedDCDC_Math_k_Range { get; set; }
+
+        /// <summary>
+        /// 隔离DCDC可用开关管并联电容序列
+        /// </summary>
+        public double[] IsolatedDCDC_Math_Cs_Range { get; set; }
 
         //---DC/AC参数---
         /// <summary>

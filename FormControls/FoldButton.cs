@@ -4,7 +4,9 @@ using System.Windows.Forms;
 
 namespace PV_analysis.FormControls
 {
-    //折叠按钮
+    /// <summary>
+    /// 折叠按钮
+    /// </summary>
     internal class FoldButton : Button
     {
         List<Control> controlList = new List<Control>();

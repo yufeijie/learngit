@@ -120,7 +120,7 @@ namespace PV_analysis.Converters
                 Function.IntArrayToString(NumberRange),
                 Function.StringArrayToString(TopologyRange),
                 Function.StringArrayToString(ModulationRange),
-                Function.DoubleArrayToString(FrequencyRange)
+                Function.DoubleArrayToString(FrequencyRange, 1e-3)
             };
             return conditions;
         }

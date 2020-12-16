@@ -129,6 +129,9 @@
     <Compile Include="Curve.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="ConverterDesignList.cs" />
+    <Compile Include="FormControls\RangeInputPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FormControls\FoldButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -270,5 +273,6 @@
     <None Include="Resources\半桥三电平LLC.png" />
     <Content Include="sun.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

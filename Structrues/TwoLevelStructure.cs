@@ -30,7 +30,6 @@ namespace PV_analysis.Structures
                 "光伏MPPT电压最大值",
                 "并网电压",
                 "并网频率(Hz)",
-                "隔离DCDC品质因数",
                 "DCAC最小电压调制比",
                 "DCAC最大电压调制比",
                 "DCAC功率因数角(rad)",
@@ -39,6 +38,9 @@ namespace PV_analysis.Structures
                 "隔离DCDC模块数范围",
                 "隔离DCDC拓扑范围",
                 "隔离DCDC谐振频率范围(kHz)",
+                "隔离DCDC品质因数范围",
+                "隔离DCDC电感比范围",
+                "隔离DCDC开关管并联电容范围(nF)",
                 "DCAC拓扑范围",
                 "DCAC调制方式范围",
                 "DCAC频率范围(kHz)"
@@ -60,7 +62,6 @@ namespace PV_analysis.Structures
                 Math_Vpv_max.ToString(),
                 Math_Vg.ToString(),
                 Math_fg.ToString(),
-                IsolatedDCDC_Q.ToString(),
                 DCAC_Ma_min.ToString(),
                 DCAC_Ma_max.ToString(),
                 DCAC_φ.ToString(),
@@ -69,6 +70,9 @@ namespace PV_analysis.Structures
                 Function.IntArrayToString(IsolatedDCDC_numberRange),
                 Function.StringArrayToString(IsolatedDCDC_topologyRange),
                 Function.DoubleArrayToString(IsolatedDCDC_resonanceFrequencyRange, 1e-3),
+                Function.DoubleArrayToString(IsolatedDCDC_Math_Q_Range),
+                Function.DoubleArrayToString(IsolatedDCDC_Math_k_Range),
+                Function.DoubleArrayToString(IsolatedDCDC_Math_Cs_Range, 1e9),
                 Function.StringArrayToString(DCAC_topologyRange),
                 Function.StringArrayToString(DCAC_modulationRange),
                 Function.DoubleArrayToString(DCAC_frequencyRange, 1e-3)
@@ -122,7 +126,6 @@ namespace PV_analysis.Structures
                 Math_Vg = Math_Vg,
                 Math_Vo = Math_Vo,
                 Math_fg = Math_fg,
-                IsolatedDCDC_Q = IsolatedDCDC_Q,
                 DCAC_Ma_min = DCAC_Ma_min,
                 DCAC_Ma_max = DCAC_Ma_max,
                 DCAC_φ = DCAC_φ
@@ -180,11 +183,13 @@ namespace PV_analysis.Structures
                         Math_Vin_max = Math_Vpv_max,
                         IsInputVoltageVariation = true,
                         Math_Vo = Vinv,
-                        Math_Q = IsolatedDCDC_Q,
-                        SecondaryRange = IsolatedDCDC_secondaryRange,
+                        Math_No_Range = IsolatedDCDC_secondaryRange,
                         NumberRange = new int[] { n },
                         TopologyRange = IsolatedDCDC_topologyRange,
-                        FrequencyRange = IsolatedDCDC_resonanceFrequencyRange
+                        FrequencyRange = IsolatedDCDC_resonanceFrequencyRange,
+                        Math_Q_Range = IsolatedDCDC_Math_Q_Range,
+                        Math_k_Range = IsolatedDCDC_Math_k_Range,
+                        Math_Cs_Range = IsolatedDCDC_Math_Cs_Range
                     };
                     IsolatedDCDC.Optimize(form, progress, progress + dp * 0.3);
                     progress += dp * 0.3;
@@ -227,8 +232,7 @@ namespace PV_analysis.Structures
                 Math_Vin_min = Math_Vpv_min,
                 Math_Vin_max = Math_Vpv_max,
                 IsInputVoltageVariation = true,
-                Math_Vo = DCAC_Vinv,
-                Math_Q = IsolatedDCDC_Q
+                Math_Vo = DCAC_Vinv
             };
             IsolatedDCDC.Load(configs, ref index);
             DCAC = new DCACConverter()

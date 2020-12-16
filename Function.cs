@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace PV_analysis
 {
@@ -139,19 +140,19 @@ namespace PV_analysis
             while (f <= max)
             {
                 frequencyRange.Add(f);
-                if (f < 20e3)
+                if (f < 20)
                 {
-                    f += 1e3;
+                    f += 1;
                 }
                 else
                 {
-                    if (f < 100e3)
+                    if (f < 100)
                     {
-                        f += 5e3;
+                        f += 5;
                     }
                     else
                     {
-                        f += 10e3;
+                        f += 10;
                     }
                 }
             }
@@ -159,86 +160,22 @@ namespace PV_analysis
         }
 
         /// <summary>
-        /// 生成可用频率序列
+        /// 生成字符串形式的double序列
         /// </summary>
-        /// <param name="min">最低频率</param>
-        /// <param name="max">最高频率</param>
-        /// <param name="step">间隔</param>
-        /// <returns>可用频率序列</returns>
-        public static double[] GenerateFrequencyRange(double min, double max, double step)
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值</param>
+        /// <param name="step">步长</param>
+        /// <returns>字符串形式的double序列</returns>
+        public static string GenerateRangeToString(double min, double max, double step)
         {
-            List<double> frequencyRange = new List<double>();
-            double f = min;
-            while (f <= max)
-            {
-                frequencyRange.Add(f);
-                f += step;
-            }
-            return frequencyRange.ToArray();
-        }
-
-        /// <summary>
-        /// 生成可用母线电压序列
-        /// </summary>
-        /// <param name="min">母线电压最小值</param>
-        /// <param name="max">母线电压最大值</param>
-        /// <returns>可用母线电压序列</returns>
-        public static double[] GenerateVbusRange(double min, double max)
-        {
-            return GenerateVbusRange(min, max, 50);
-        }
-
-        /// <summary>
-        /// 生成可用母线电压序列
-        /// </summary>
-        /// <param name="min">母线电压最小值</param>
-        /// <param name="max">母线电压最大值</param>
-        /// <param name="step">间隔</param>
-        /// <returns>可用母线电压序列</returns>
-        public static double[] GenerateVbusRange(double min, double max, double step)
-        {
-            List<double> VbusRange = new List<double>();
+            string str = "";
             double v = min;
             while (v <= max)
             {
-                VbusRange.Add(v);
+                str += v.ToString() + ",";
                 v += step;
             }
-            if (v - step != max)
-            {
-                VbusRange.Add(max);
-            }
-            return VbusRange.ToArray();
-        }
-
-        /// <summary>
-        /// 生成可用逆变直流侧电压序列
-        /// </summary>
-        /// <param name="min">逆变直流侧电压最小值</param>
-        /// <param name="max">逆变直流侧电压最大值</param>
-        /// <returns>可用逆变直流侧电压序列</returns>
-        public static double[] GenerateVinvRange(double min, double max)
-        {
-            return GenerateVinvRange(min, max, 100);
-        }
-
-        /// <summary>
-        /// 生成可用逆变直流侧电压序列
-        /// </summary>
-        /// <param name="min">逆变直流侧电压最小值</param>
-        /// <param name="max">逆变直流侧电压最大值</param>
-        /// <param name="step">间隔</param>
-        /// <returns>可用逆变直流侧电压序列</returns>
-        public static double[] GenerateVinvRange(double min, double max, double step)
-        {
-            List<double> VinvRange = new List<double>();
-            double v = Math.Ceiling(min / 100) * 100;
-            while (v <= max)
-            {
-                VinvRange.Add(v);
-                v += step;
-            }
-            return VinvRange.ToArray();
+            return string.IsNullOrEmpty(str) ? null : str.Substring(0, str.Length - 1); //删掉最后多余的逗号
         }
 
         /// <summary>
@@ -264,7 +201,7 @@ namespace PV_analysis
         /// <returns>对应字符串</returns>
         public static string StringArrayToString(string[] topologyRange)
         {
-            String str = "";
+            string str = "";
             if (topologyRange.Length != 0)
             {
                 foreach (string to in topologyRange)
@@ -280,17 +217,62 @@ namespace PV_analysis
         /// double序列转化为字符串
         /// </summary>
         /// <param name="array">序列</param>
-        /// <param name="k">比例</param>
+        /// <param name="ratio">比例</param>
         /// <returns>对应字符串</returns>
-        public static string DoubleArrayToString(double[] array, double k = 1)
+        public static string DoubleArrayToString(double[] array, double ratio = 1)
         {
-            String str = "";
+            string str = "";
             foreach (double a in array)
             {
-                str = str + (a * k).ToString() + ",";
+                str += (a * ratio).ToString() + ",";
             }
-            str = str.Substring(0, str.Length - 1);
-            return str;
+            return string.IsNullOrEmpty(str) ? null : str.Substring(0, str.Length - 1); //删掉最后多余的逗号
+        }
+
+        /// <summary>
+        /// 将字符串转化为double序列
+        /// </summary>
+        /// <param name="str">字符串形式的double序列</param>
+        /// <param name="ratio">放大比例</param>
+        /// <returns>double序列</returns>
+        public static double[] StringToDoubleArray(string str, double ratio = 1)
+        {
+            string[] s = str.Split(','); //根据逗号进行分割
+            double[] array = new double[s.Length];
+            for (int i = 0; i < s.Length; i++)
+            {
+                array[i] = double.Parse(s[i]) * ratio;
+            }
+            return array;
+        }
+
+        /// <summary>
+        /// 将字符串转化为int序列
+        /// </summary>
+        /// <param name="str">字符串形式的int序列</param>
+        /// <returns>int序列</returns>
+        public static int[] StringToIntArray(string str)
+        {
+            string[] s = str.Split(','); //根据逗号进行分割
+            int[] array = new int[s.Length];
+            for (int i = 0; i < s.Length; i++)
+            {
+                array[i] = int.Parse(s[i]);
+            }
+            return array;
+        }
+
+        /// <summary>
+        /// 判断字符串是否是数字
+        /// </summary>
+        /// <param name="str">待判断的字符串</param>
+        /// <returns>判断结果</returns>
+        public static bool IsNumber(string str)
+        {
+            if (string.IsNullOrWhiteSpace(str)) return false;
+            const string pattern = "^[0-9]*$";
+            Regex rx = new Regex(pattern);
+            return rx.IsMatch(str);
         }
 
     }

@@ -64,6 +64,25 @@ namespace PV_analysis
         public MainForm()
         {
             InitializeComponent();
+
+            //生成范围输入辅助面板
+            Estimate_Step3_Vbus_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_Vbus_TextBox));
+            Estimate_Step3_Vinv_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_Vinv_TextBox));
+            Estimate_Step3_DCDCNumber_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_DCDCNumber_TextBox));
+            Estimate_Step3_DCDCFrequency_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_DCDCFrequency_TextBox));
+            Estimate_Step3_IsolatedDCDCSecondary_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCSecondary_TextBox));
+            Estimate_Step3_IsolatedDCDCNumber_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCNumber_TextBox));
+            Estimate_Step3_IsolatedDCDCFrequency_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCFrequency_TextBox));
+            Estimate_Step3_IsolatedDCDCQ_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCQ_TextBox));
+            Estimate_Step3_IsolatedDCDCk_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCk_TextBox));
+            Estimate_Step3_IsolatedDCDCCs_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCCs_TextBox));
+            Estimate_Step3_DCACFrequency_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_DCACFrequency_TextBox));
+            Estimate_Step3B_Secondary_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Secondary_TextBox));
+            Estimate_Step3B_Number_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Number_TextBox));
+            Estimate_Step3B_Frequency_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Frequency_TextBox));
+            Estimate_Step3B_Q_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Q_TextBox));
+            Estimate_Step3B_k_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_k_TextBox));
+            Estimate_Step3B_Cs_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Cs_TextBox));
         }
 
         /// <summary>
@@ -418,26 +437,28 @@ namespace PV_analysis
                 double Vo = Vg / Math.Sqrt(3); //输出电压（并网相电压）
                 double fg = 50; //并网频率
                 double[] VbusRange; //母线电压范围
-                double[] VinvRange = Function.GenerateVinvRange(int.Parse(Estimate_Step3_Vinvmin_TextBox.Text), int.Parse(Estimate_Step3_Vinvmax_TextBox.Text)); //逆变直流侧电压范围
+                double[] VinvRange = Function.StringToDoubleArray(Estimate_Step3_Vinv_TextBox.Text); //逆变直流侧电压范围
                 int[] DCDC_numberRange; //DC/DC可用模块数序列
                 double[] DCDC_frequencyRange; //DC/DC可用开关频率序列
-                double isolatedDCDC_Q = double.Parse(Estimate_Step3_IsolatedDCDCQ_TextBox.Text); //品质因数    
-                int[] isolatedDCDC_secondaryRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinSecondary_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox.Text)); //隔离DC/DC可用副边个数序列
-                int[] isolatedDCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text)); //隔离DC/DC可用模块数序列
-                double[] isolatedDCDC_resonanceFrequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text) * 1e3); //隔离DC/DC可用谐振频率序列
+                int[] isolatedDCDC_secondaryRange = Function.StringToIntArray(Estimate_Step3_IsolatedDCDCSecondary_TextBox.Text); //隔离DC/DC可用副边个数序列
+                int[] isolatedDCDC_numberRange = Function.StringToIntArray(Estimate_Step3_IsolatedDCDCNumber_TextBox.Text); //隔离DC/DC可用模块数序列
+                double[] isolatedDCDC_resonanceFrequencyRange = Function.StringToDoubleArray(Estimate_Step3_IsolatedDCDCFrequency_TextBox.Text, 1e3); //隔离DC/DC可用谐振频率序列
+                double[] isolatedDCDC_Math_Q_Range = Function.StringToDoubleArray(Estimate_Step3_IsolatedDCDCQ_TextBox.Text); //品质因数
+                double[] isolatedDCDC_Math_k_Range = Function.StringToDoubleArray(Estimate_Step3_IsolatedDCDCk_TextBox.Text); //品质因数
+                double[] isolatedDCDC_Math_Cs_Range = Function.StringToDoubleArray(Estimate_Step3_IsolatedDCDCCs_TextBox.Text, 1e-9); //品质因数
                 double DCAC_Ma_min = double.Parse(Estimate_Step3_DCACMamin_TextBox.Text); //最小电压调制比
                 double DCAC_Ma_max = double.Parse(Estimate_Step3_DCACMamax_TextBox.Text); //最大电压调制比
                 double DCAC_φ = 0; //功率因数角(rad)
                 string[] DCAC_modulationRange = { "PSPWM", "LSPWM" }; //DC/AC可用调制方式序列
-                double[] DCAC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCACMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCACMaxFrequency_TextBox.Text) * 1e3); //DC/AC开关谐振频率序列
+                double[] DCAC_frequencyRange = Function.StringToDoubleArray(Estimate_Step3_DCACFrequency_TextBox.Text, 1e3); //DC/AC开关谐振频率序列
 
                 Formula.Init();
                 switch (evaluationEquipmentName)
                 {
                     case "三级架构":
-                        VbusRange = Function.GenerateVbusRange(int.Parse(Estimate_Step3_Vbusmin_TextBox.Text), int.Parse(Estimate_Step3_Vbusmax_TextBox.Text));
-                        DCDC_numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3_DCDCMinNumber_TextBox.Text), int.Parse(Estimate_Step3_DCDCMaxNumber_TextBox.Text));
-                        DCDC_frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3_DCDCMinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3_DCDCMaxFrequency_TextBox.Text) * 1e3);
+                        VbusRange = Function.StringToDoubleArray(Estimate_Step3_Vbus_TextBox.Text);
+                        DCDC_numberRange = Function.StringToIntArray(Estimate_Step3_DCDCNumber_TextBox.Text);
+                        DCDC_frequencyRange = Function.StringToDoubleArray(Estimate_Step3_DCDCFrequency_TextBox.Text, 1e3);
                         evaluationEquipment = new ThreeLevelStructure
                         {
                             Name = evaluationEquipmentName,
@@ -452,11 +473,13 @@ namespace PV_analysis
                             DCDC_numberRange = DCDC_numberRange,
                             DCDC_topologyRange = DCDC_topologyRange,
                             DCDC_frequencyRange = DCDC_frequencyRange,
-                            IsolatedDCDC_Q = isolatedDCDC_Q,
                             IsolatedDCDC_secondaryRange = isolatedDCDC_secondaryRange,
                             IsolatedDCDC_numberRange = isolatedDCDC_numberRange,
                             IsolatedDCDC_topologyRange = isolatedDCDC_topologyRange,
                             IsolatedDCDC_resonanceFrequencyRange = isolatedDCDC_resonanceFrequencyRange,
+                            IsolatedDCDC_Math_Q_Range = isolatedDCDC_Math_Q_Range,
+                            IsolatedDCDC_Math_k_Range = isolatedDCDC_Math_k_Range,
+                            IsolatedDCDC_Math_Cs_Range = isolatedDCDC_Math_Cs_Range,
                             DCAC_Ma_min = DCAC_Ma_min,
                             DCAC_Ma_max = DCAC_Ma_max,
                             DCAC_φ = DCAC_φ,
@@ -476,11 +499,13 @@ namespace PV_analysis
                             Math_Vo = Vo,
                             Math_fg = fg,
                             Math_VinvRange = VinvRange,
-                            IsolatedDCDC_Q = isolatedDCDC_Q,
                             IsolatedDCDC_secondaryRange = isolatedDCDC_secondaryRange,
                             IsolatedDCDC_numberRange = isolatedDCDC_numberRange,
                             IsolatedDCDC_topologyRange = isolatedDCDC_topologyRange,
                             IsolatedDCDC_resonanceFrequencyRange = isolatedDCDC_resonanceFrequencyRange,
+                            IsolatedDCDC_Math_Q_Range = isolatedDCDC_Math_Q_Range,
+                            IsolatedDCDC_Math_k_Range = isolatedDCDC_Math_k_Range,
+                            IsolatedDCDC_Math_Cs_Range = isolatedDCDC_Math_Cs_Range,
                             DCAC_Ma_min = DCAC_Ma_min,
                             DCAC_Ma_max = DCAC_Ma_max,
                             DCAC_φ = DCAC_φ,
@@ -494,12 +519,12 @@ namespace PV_analysis
             else
             {
                 int[] secondaryRange = new int[0];
-                if (!Estimate_Step3B_MinSecondary_TextBox.Text.Equals(""))
+                if (!Estimate_Step3B_Secondary_TextBox.Text.Equals(""))
                 {
-                    secondaryRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3B_MinSecondary_TextBox.Text), int.Parse(Estimate_Step3B_MaxSecondary_TextBox.Text));
+                    secondaryRange = Function.StringToIntArray(Estimate_Step3B_Secondary_TextBox.Text);
                 }
-                int[] numberRange = Function.GenerateNumberRange(int.Parse(Estimate_Step3B_MinNumber_TextBox.Text), int.Parse(Estimate_Step3B_MaxNumber_TextBox.Text));
-                double[] frequencyRange = Function.GenerateFrequencyRange(double.Parse(Estimate_Step3B_MinFrequency_TextBox.Text) * 1e3, double.Parse(Estimate_Step3B_MaxFrequency_TextBox.Text) * 1e3);
+                int[] numberRange = Function.StringToIntArray(Estimate_Step3B_Number_TextBox.Text);
+                double[] frequencyRange = Function.StringToDoubleArray(Estimate_Step3B_Frequency_TextBox.Text, 1e3);
 
                 switch (evaluationEquipmentName)
                 {
@@ -527,7 +552,9 @@ namespace PV_analysis
                         Psys = double.Parse(Estimate_Step3B_Psys_TextBox.Text) * 1e6;
                         double Vin = double.Parse(Estimate_Step3B_Vin_TextBox.Text);
                         Vo = double.Parse(Estimate_Step3B_Vo_TextBox.Text);
-                        double Q = double.Parse(Estimate_Step3B_Q_TextBox.Text);
+                        double[] Q_Range = Function.StringToDoubleArray(Estimate_Step3B_Q_TextBox.Text);
+                        double[] k_Range = Function.StringToDoubleArray(Estimate_Step3B_k_TextBox.Text);
+                        double[] Cs_Range = Function.StringToDoubleArray(Estimate_Step3B_Cs_TextBox.Text, 1e-9);
                         evaluationEquipment = new IsolatedDCDCConverter()
                         {
                             Name = evaluationEquipmentName,
@@ -536,11 +563,13 @@ namespace PV_analysis
                             Math_Vin = Vin,
                             IsInputVoltageVariation = false,
                             Math_Vo = Vo,
-                            Math_Q = Q,
-                            SecondaryRange = secondaryRange,
+                            Math_No_Range = secondaryRange,
                             NumberRange = numberRange,
                             TopologyRange = isolatedDCDC_topologyRange,
-                            FrequencyRange = frequencyRange
+                            FrequencyRange = frequencyRange,
+                            Math_Q_Range = Q_Range,
+                            Math_k_Range = k_Range,
+                            Math_Cs_Range = Cs_Range,
                         };
                         break;
                     case "隔离DC/DC变换单元_两级":
@@ -549,7 +578,9 @@ namespace PV_analysis
                         Vin_min = double.Parse(Estimate_Step3B_Vinmin_TextBox.Text);
                         Vin_max = double.Parse(Estimate_Step3B_Vinmax_TextBox.Text);
                         Vo = double.Parse(Estimate_Step3B_Vo_TextBox.Text);
-                        Q = double.Parse(Estimate_Step3B_Q_TextBox.Text);
+                        Q_Range = Function.StringToDoubleArray(Estimate_Step3B_Q_TextBox.Text);
+                        k_Range = Function.StringToDoubleArray(Estimate_Step3B_k_TextBox.Text);
+                        Cs_Range = Function.StringToDoubleArray(Estimate_Step3B_Cs_TextBox.Text, 1e-9);
                         evaluationEquipment = new IsolatedDCDCConverter()
                         {
                             Name = evaluationEquipmentName,
@@ -559,11 +590,13 @@ namespace PV_analysis
                             Math_Vin_max = Vin_max,
                             IsInputVoltageVariation = true,
                             Math_Vo = Vo,
-                            Math_Q = Q,
-                            SecondaryRange = secondaryRange,
+                            Math_No_Range = secondaryRange,
                             NumberRange = numberRange,
                             TopologyRange = isolatedDCDC_topologyRange,
-                            FrequencyRange = frequencyRange
+                            FrequencyRange = frequencyRange,
+                            Math_Q_Range = Q_Range,
+                            Math_k_Range = k_Range,
+                            Math_Cs_Range = Cs_Range,
                         };
                         break;
                     case "逆变单元":
@@ -658,8 +691,7 @@ namespace PV_analysis
                             Math_Psys = double.Parse(conditions[1]),
                             Math_Vin = double.Parse(conditions[2]),
                             IsInputVoltageVariation = false,
-                            Math_Vo = double.Parse(conditions[3]),
-                            Math_Q = double.Parse(conditions[4]),
+                            Math_Vo = double.Parse(conditions[3])
                         };
                         break;
 
@@ -673,8 +705,7 @@ namespace PV_analysis
                             Math_Vin_min = double.Parse(conditions[2]),
                             Math_Vin_max = double.Parse(conditions[3]),
                             IsInputVoltageVariation = true,
-                            Math_Vo = double.Parse(conditions[4]),
-                            Math_Q = double.Parse(conditions[5]),
+                            Math_Vo = double.Parse(conditions[4])
                         };
                         break;
 
@@ -706,10 +737,9 @@ namespace PV_analysis
                             Math_Vg = double.Parse(conditions[4]),
                             Math_Vo = double.Parse(conditions[4]) / Math.Sqrt(3),
                             Math_fg = double.Parse(conditions[5]),
-                            IsolatedDCDC_Q = double.Parse(conditions[6]),
-                            DCAC_Ma_min = double.Parse(conditions[7]),
-                            DCAC_Ma_max = double.Parse(conditions[8]),
-                            DCAC_φ = double.Parse(conditions[9])
+                            DCAC_Ma_min = double.Parse(conditions[6]),
+                            DCAC_Ma_max = double.Parse(conditions[7]),
+                            DCAC_φ = double.Parse(conditions[8])
                         };
                         break;
 
@@ -724,10 +754,9 @@ namespace PV_analysis
                             Math_Vg = double.Parse(conditions[4]),
                             Math_Vo = double.Parse(conditions[4]) / Math.Sqrt(3),
                             Math_fg = double.Parse(conditions[5]),
-                            IsolatedDCDC_Q = double.Parse(conditions[6]),
-                            DCAC_Ma_min = double.Parse(conditions[7]),
-                            DCAC_Ma_max = double.Parse(conditions[8]),
-                            DCAC_φ = double.Parse(conditions[9])
+                            DCAC_Ma_min = double.Parse(conditions[6]),
+                            DCAC_Ma_max = double.Parse(conditions[7]),
+                            DCAC_φ = double.Parse(conditions[8])
                         };
                         break;
 
@@ -1993,58 +2022,39 @@ namespace PV_analysis
                     switch (evaluationEquipmentName)
                     {
                         case "三级架构":
-                            Estimate_Step3_Vbusmin_TextBox.Enabled = true;
-                            Estimate_Step3_Vbusmax_TextBox.Enabled = true;
-                            Estimate_Step3_DCDCMinNumber_TextBox.Enabled = true;
-                            Estimate_Step3_DCDCMaxNumber_TextBox.Enabled = true;
-                            Estimate_Step3_DCDCMinFrequency_TextBox.Enabled = true;
-                            Estimate_Step3_DCDCMaxFrequency_TextBox.Enabled = true;
-                            Estimate_Step3_Vbusmin_TextBox.Text = "1300";
-                            Estimate_Step3_Vbusmax_TextBox.Text = "1500";
-                            Estimate_Step3_DCDCMinNumber_TextBox.Text = "1";
-                            Estimate_Step3_DCDCMaxNumber_TextBox.Text = "120";
-                            Estimate_Step3_DCDCMinFrequency_TextBox.Text = "1";
-                            Estimate_Step3_DCDCMaxFrequency_TextBox.Text = "100";
-                            Estimate_Step3_IsolatedDCDCQ_TextBox.Text = "1";
-                            Estimate_Step3_IsolatedDCDCMinSecondary_TextBox.Text = "1";
-                            Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox.Text = "1";
-                            Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text = "1";
-                            Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text = "40";
-                            Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text = "1";
-                            Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text = "100";
+                            Estimate_Step3_Vbus_Panel.Visible = true;
+                            Estimate_Step3_DCDCFrequency_Panel.Visible = true; //倒序设置，顺序显示
+                            Estimate_Step3_DCDCNumber_Panel.Visible = true;
+                            Estimate_Step3_DCDC_Panel.Visible = true;
+                            Estimate_Step3_Vbus_TextBox.Text = Function.GenerateRangeToString(1300, 1500, 50);
+                            Estimate_Step3_Vinv_TextBox.Text = Function.GenerateRangeToString(600, 2000, 100);
+                            Estimate_Step3_DCDCNumber_TextBox.Text = Function.GenerateRangeToString(1, 120, 1);
+                            Estimate_Step3_DCDCFrequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 100));
+                            Estimate_Step3_IsolatedDCDCSecondary_TextBox.Text = Function.GenerateRangeToString(1, 4, 1);
+                            Estimate_Step3_IsolatedDCDCNumber_TextBox.Text = Function.GenerateRangeToString(1, 40, 1);
+                            Estimate_Step3_IsolatedDCDCFrequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 100));
+                            Estimate_Step3_IsolatedDCDCQ_TextBox.Text = "0.5";
+                            Estimate_Step3_IsolatedDCDCk_TextBox.Text = "5";
+                            Estimate_Step3_IsolatedDCDCCs_TextBox.Text = "0.85";
                             Estimate_Step3_DCACMamin_TextBox.Text = "0.7";
                             Estimate_Step3_DCACMamax_TextBox.Text = "0.9";
-                            Estimate_Step3_DCACMinNumber_TextBox.Text = "1";
-                            Estimate_Step3_DCACMaxNumber_TextBox.Text = "40";
-                            Estimate_Step3_DCACMinFrequency_TextBox.Text = "10";
-                            Estimate_Step3_DCACMaxFrequency_TextBox.Text = "10";
+                            Estimate_Step3_DCACFrequency_TextBox.Text = "10";
                             break;
                         case "两级架构":
-                            Estimate_Step3_Vbusmin_TextBox.Enabled = false;
-                            Estimate_Step3_Vbusmax_TextBox.Enabled = false;
-                            Estimate_Step3_DCDCMinNumber_TextBox.Enabled = false;
-                            Estimate_Step3_DCDCMaxNumber_TextBox.Enabled = false;
-                            Estimate_Step3_DCDCMinFrequency_TextBox.Enabled = false;
-                            Estimate_Step3_DCDCMaxFrequency_TextBox.Enabled = false;
-                            Estimate_Step3_Vbusmin_TextBox.Text = "";
-                            Estimate_Step3_Vbusmax_TextBox.Text = "";
-                            Estimate_Step3_DCDCMinNumber_TextBox.Text = "";
-                            Estimate_Step3_DCDCMaxNumber_TextBox.Text = "";
-                            Estimate_Step3_DCDCMinFrequency_TextBox.Text = "";
-                            Estimate_Step3_DCDCMaxFrequency_TextBox.Text = "";
+                            Estimate_Step3_Vbus_Panel.Visible = false;
+                            Estimate_Step3_DCDC_Panel.Visible = false;
+                            Estimate_Step3_DCDCNumber_Panel.Visible = false;
+                            Estimate_Step3_DCDCFrequency_Panel.Visible = false;
+                            Estimate_Step3_Vinv_TextBox.Text = Function.GenerateRangeToString(600, 2000, 100);
+                            Estimate_Step3_IsolatedDCDCSecondary_TextBox.Text = "1";
+                            Estimate_Step3_IsolatedDCDCNumber_TextBox.Text = Function.GenerateRangeToString(1, 40, 1);
+                            Estimate_Step3_IsolatedDCDCFrequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 100));
                             Estimate_Step3_IsolatedDCDCQ_TextBox.Text = "1";
-                            Estimate_Step3_IsolatedDCDCMinSecondary_TextBox.Text = "1";
-                            Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox.Text = "1";
-                            Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text = "20";
-                            Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text = "20";
-                            Estimate_Step3_IsolatedDCDCMinFrequency_TextBox.Text = "25";
-                            Estimate_Step3_IsolatedDCDCMaxFrequency_TextBox.Text = "25";
-                            Estimate_Step3_DCACMamin_TextBox.Text = "0.95";
-                            Estimate_Step3_DCACMamax_TextBox.Text = "0.95";
-                            Estimate_Step3_DCACMinNumber_TextBox.Text = "20";
-                            Estimate_Step3_DCACMaxNumber_TextBox.Text = "20";
-                            Estimate_Step3_DCACMinFrequency_TextBox.Text = "10";
-                            Estimate_Step3_DCACMaxFrequency_TextBox.Text = "10";
+                            Estimate_Step3_IsolatedDCDCk_TextBox.Text = "";
+                            Estimate_Step3_IsolatedDCDCCs_TextBox.Text = "";
+                            Estimate_Step3_DCACMamin_TextBox.Text = "0.7";
+                            Estimate_Step3_DCACMamax_TextBox.Text = "0.9";
+                            Estimate_Step3_DCACFrequency_TextBox.Text = "10";
                             break;
                     }
                     DCDC_topologyRange = DCDC_topologyList.ToArray();
@@ -2061,72 +2071,78 @@ namespace PV_analysis
                         case "前级DC/DC变换单元_三级":
                             Estimate_Step3B_VinRange_Panel.Visible = true;
                             Estimate_Step3B_Vin_Panel.Visible = false;
-                            Estimate_Step3B_Q_Panel.Visible = false;
-                            Estimate_Step3B_Secondary_Panel.Visible = false;
                             Estimate_Step3B_Ma_Panel.Visible = false;
+                            Estimate_Step3B_Secondary_Panel.Visible = false;
+                            Estimate_Step3B_Q_Panel.Visible = false;
+                            Estimate_Step3B_k_Panel.Visible = false;
+                            Estimate_Step3B_Cs_Panel.Visible = false;
 
                             Estimate_Step3B_Vinmin_TextBox.Text = "860";
                             Estimate_Step3B_Vinmax_TextBox.Text = "1300";
                             Estimate_Step3B_Vo_Label.Text = "输出电压";
                             Estimate_Step3B_Vo_TextBox.Text = "1300";
                             Estimate_Step3B_Vo_Unit_Label.Text = "V";
-                            Estimate_Step3B_MinNumber_TextBox.Text = "1";
-                            Estimate_Step3B_MaxNumber_TextBox.Text = "120";
+                            Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 120, 1);
                             Estimate_Step3B_Frequency_Label.Text = "开关频率";
-                            Estimate_Step3B_MinFrequency_TextBox.Text = "1";
-                            Estimate_Step3B_MaxFrequency_TextBox.Text = "100";
+                            Estimate_Step3B_Frequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 100));
 
                             DCDC_topologyRange = DCDC_topologyList.ToArray();
                             break;
                         case "隔离DC/DC变换单元_三级":
                             Estimate_Step3B_VinRange_Panel.Visible = false;
                             Estimate_Step3B_Vin_Panel.Visible = true;
-                            Estimate_Step3B_Q_Panel.Visible = true;
-                            Estimate_Step3B_Secondary_Panel.Visible = true;
                             Estimate_Step3B_Ma_Panel.Visible = false;
+                            Estimate_Step3B_Secondary_Panel.Visible = true;
+                            Estimate_Step3B_Cs_Panel.Visible = true; //倒序设置，顺序显示
+                            Estimate_Step3B_k_Panel.Visible = true;
+                            Estimate_Step3B_Q_Panel.Visible = true;
 
                             Estimate_Step3B_Vin_TextBox.Text = "1300";
                             Estimate_Step3B_Vo_Label.Text = "输出电压";
                             Estimate_Step3B_Vo_TextBox.Text = "1300";
                             Estimate_Step3B_Vo_Unit_Label.Text = "V";
-                            Estimate_Step3B_Q_TextBox.Text = "1";
-                            Estimate_Step3B_MinSecondary_TextBox.Text = "1";
-                            Estimate_Step3B_MaxSecondary_TextBox.Text = "1";
-                            Estimate_Step3B_MinNumber_TextBox.Text = "1";
-                            Estimate_Step3B_MaxNumber_TextBox.Text = "40";
+                            Estimate_Step3B_Secondary_TextBox.Text = "1";
+                            Estimate_Step3B_Q_TextBox.Text = "0.5";
+                            Estimate_Step3B_k_TextBox.Text = "5";
+                            Estimate_Step3B_Cs_TextBox.Text = "0.85";
+                            Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 40, 1);
                             Estimate_Step3B_Frequency_Label.Text = "谐振频率";
-                            Estimate_Step3B_MinFrequency_TextBox.Text = "1";
-                            Estimate_Step3B_MaxFrequency_TextBox.Text = "100";
+                            Estimate_Step3B_Frequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 100));
 
                             isolatedDCDC_topologyRange = isolatedDCDC_topologyList.ToArray();
                             break;
                         case "隔离DC/DC变换单元_两级":
                             Estimate_Step3B_VinRange_Panel.Visible = true;
                             Estimate_Step3B_Vin_Panel.Visible = false;
-                            Estimate_Step3B_Q_Panel.Visible = true;
-                            Estimate_Step3B_Secondary_Panel.Visible = false;
                             Estimate_Step3B_Ma_Panel.Visible = false;
+                            Estimate_Step3B_Secondary_Panel.Visible = false;
+                            Estimate_Step3B_Cs_Panel.Visible = true; //倒序设置，顺序显示
+                            Estimate_Step3B_k_Panel.Visible = true;
+                            Estimate_Step3B_Q_Panel.Visible = true;
 
                             Estimate_Step3B_Vinmin_TextBox.Text = "860";
                             Estimate_Step3B_Vinmax_TextBox.Text = "1300";
                             Estimate_Step3B_Vo_Label.Text = "输出电压";
                             Estimate_Step3B_Vo_TextBox.Text = "1300";
                             Estimate_Step3B_Vo_Unit_Label.Text = "V";
+                            Estimate_Step3B_Secondary_TextBox.Text = "";
                             Estimate_Step3B_Q_TextBox.Text = "1";
-                            Estimate_Step3B_MinNumber_TextBox.Text = "20";
-                            Estimate_Step3B_MaxNumber_TextBox.Text = "20";
+                            Estimate_Step3B_k_TextBox.Text = "";
+                            Estimate_Step3B_Cs_TextBox.Text = "";
+                            Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 40, 1);
                             Estimate_Step3B_Frequency_Label.Text = "谐振频率";
-                            Estimate_Step3B_MinFrequency_TextBox.Text = "25";
-                            Estimate_Step3B_MaxFrequency_TextBox.Text = "25";
+                            Estimate_Step3B_Frequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 100));
 
                             isolatedDCDC_topologyRange = isolatedDCDC_topologyList.ToArray();
                             break;
                         case "逆变单元":
                             Estimate_Step3B_VinRange_Panel.Visible = false;
                             Estimate_Step3B_Vin_Panel.Visible = true;
-                            Estimate_Step3B_Q_Panel.Visible = false;
-                            Estimate_Step3B_Secondary_Panel.Visible = false;
                             Estimate_Step3B_Ma_Panel.Visible = true;
+                            Estimate_Step3B_Secondary_Panel.Visible = false;
+                            Estimate_Step3B_Q_Panel.Visible = false;
+                            Estimate_Step3B_k_Panel.Visible = false;
+                            Estimate_Step3B_Cs_Panel.Visible = false;
 
                             Estimate_Step3B_Vin_TextBox.Text = "1000";
                             Estimate_Step3B_Vo_Label.Text = "并网电压";
@@ -2134,11 +2150,9 @@ namespace PV_analysis
                             Estimate_Step3B_Vo_Unit_Label.Text = "kV";
                             Estimate_Step3B_Mamin_TextBox.Text = "0.7";
                             Estimate_Step3B_Mamax_TextBox.Text = "0.9";
-                            Estimate_Step3B_MinNumber_TextBox.Text = "1";
-                            Estimate_Step3B_MaxNumber_TextBox.Text = "40";
+                            Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 40, 1);
                             Estimate_Step3B_Frequency_Label.Text = "开关频率";
-                            Estimate_Step3B_MinFrequency_TextBox.Text = "10";
-                            Estimate_Step3B_MaxFrequency_TextBox.Text = "10";
+                            Estimate_Step3B_Frequency_TextBox.Text = "10";
 
                             DCAC_topologyRange = DCAC_topologyList.ToArray();
                             break;
@@ -3400,26 +3414,6 @@ namespace PV_analysis
         private void Estimate_Step2_Group3_Item1_Left_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Estimate_Step2_Group3_Item1_CheckBox.Checked = Estimate_Step2_Group3_Item1_Left_CheckBox.Checked;
-        }
-
-        private void Estimate_Step3_IsolatedDCDCMinSecondary_TextBox_TextChanged(object sender, EventArgs e)
-        {
-            Estimate_Step3_DCACMinNumber_TextBox.Text = (int.Parse(Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text) * int.Parse(Estimate_Step3_IsolatedDCDCMinSecondary_TextBox.Text)).ToString();
-        }
-
-        private void Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox_TextChanged(object sender, EventArgs e)
-        {
-            Estimate_Step3_DCACMaxNumber_TextBox.Text = (int.Parse(Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text) * int.Parse(Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox.Text)).ToString();
-        }
-
-        private void Estimate_Step3_IsolatedDCDCMinNumber_TextBox_TextChanged(object sender, EventArgs e)
-        {
-            Estimate_Step3_DCACMinNumber_TextBox.Text = (int.Parse(Estimate_Step3_IsolatedDCDCMinNumber_TextBox.Text) * int.Parse(Estimate_Step3_IsolatedDCDCMinSecondary_TextBox.Text)).ToString();
-        }
-
-        private void Estimate_Step3_IsolatedDCDCMaxNumber_TextBox_TextChanged(object sender, EventArgs e)
-        {
-            Estimate_Step3_DCACMaxNumber_TextBox.Text = (int.Parse(Estimate_Step3_IsolatedDCDCMaxNumber_TextBox.Text) * int.Parse(Estimate_Step3_IsolatedDCDCMaxSecondary_TextBox.Text)).ToString();
         }
     }
 }

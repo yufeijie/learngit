@@ -1,7 +1,5 @@
-﻿using PV_analysis.Components;
-using PV_analysis.Informations;
+﻿using PV_analysis.Informations;
 using PV_analysis.Topologys;
-using System;
 using System.Collections.Generic;
 
 namespace PV_analysis.Converters
@@ -14,19 +12,24 @@ namespace PV_analysis.Converters
         public int Math_No { get; set; }
 
         /// <summary>
-        /// 品质因数
-        /// </summary>
-        public double Math_Q { get; set; }
-
-        /// <summary>
         /// 谐振频率
         /// </summary>
         public double Math_fr { get; set; }
 
         /// <summary>
-        /// 副边个数范围
+        /// 品质因数
         /// </summary>
-        public int[] SecondaryRange { get; set; }
+        public double Math_Q { get; set; }
+
+        /// <summary>
+        /// 电感比
+        /// </summary>
+        public double Math_k { get; set; }
+
+        /// <summary>
+        /// 开关管并联电容
+        /// </summary>
+        public double Math_Cs { get; set; }
 
         /// <summary>
         /// 模块数范围
@@ -39,9 +42,29 @@ namespace PV_analysis.Converters
         public string[] TopologyRange { get; set; }
 
         /// <summary>
-        /// 开关频率范围
+        /// 谐振频率范围
         /// </summary>
         public double[] FrequencyRange { get; set; }
+
+        /// <summary>
+        /// 副边个数范围
+        /// </summary>
+        public int[] Math_No_Range { get; set; }
+
+        /// <summary>
+        /// 品质因数范围
+        /// </summary>
+        public double[] Math_Q_Range { get; set; }
+
+        /// <summary>
+        /// 电感比范围
+        /// </summary>
+        public double[] Math_k_Range { get; set; }
+
+        /// <summary>
+        /// 开关管并联电容范围
+        /// </summary>
+        public double[] Math_Cs_Range { get; set; }
 
         /// <summary>
         /// 获取类型名
@@ -58,7 +81,7 @@ namespace PV_analysis.Converters
         /// <returns>配置信息</returns>
         public override string[] GetConfigs()
         {
-            string[] data = { Math_No.ToString(), Number.ToString(), Math_fr.ToString(), Topology.GetType().Name };
+            string[] data = { Math_No.ToString(), Number.ToString(), Math_fr.ToString(), Math_Q.ToString(), Math_k.ToString(), Math_Cs.ToString(), Topology.GetType().Name };
             return data;
         }
 
@@ -78,11 +101,13 @@ namespace PV_analysis.Converters
                     "输入电压最小值",
                     "输入电压最大值",
                     "输出电压",
-                    "品质因数",
                     "副边个数范围",
                     "模块数范围",
                     "拓扑范围",
-                    "谐振频率范围(kHz)"
+                    "谐振频率范围(kHz)",
+                    "品质因数范围",
+                    "电感比范围",
+                    "开关管并联电容范围(nF)",
                 };
             }
             else
@@ -93,11 +118,13 @@ namespace PV_analysis.Converters
                     "总功率",
                     "输入电压",
                     "输出电压",
-                    "品质因数",
                     "副边个数范围",
                     "模块数范围",
                     "拓扑范围",
-                    "谐振频率范围(kHz)"
+                    "谐振频率范围(kHz)",
+                    "品质因数范围",
+                    "电感比范围",
+                    "开关管并联电容范围(nF)",
                 };
             }
             return conditionTitles;
@@ -119,11 +146,13 @@ namespace PV_analysis.Converters
                     Math_Vin_min.ToString(),
                     Math_Vin_max.ToString(),
                     Math_Vo.ToString(),
-                    Math_Q.ToString(),
-                    Function.IntArrayToString(SecondaryRange),
+                    Function.IntArrayToString(Math_No_Range),
                     Function.IntArrayToString(NumberRange),
                     Function.StringArrayToString(TopologyRange),
-                    Function.DoubleArrayToString(FrequencyRange)
+                    Function.DoubleArrayToString(FrequencyRange, 1e-3),
+                    Function.DoubleArrayToString(Math_Q_Range),
+                    Function.DoubleArrayToString(Math_k_Range),
+                    Function.DoubleArrayToString(Math_Cs_Range, 1e9),
                 };
             }
             else
@@ -134,11 +163,13 @@ namespace PV_analysis.Converters
                     Math_Psys.ToString(),
                     Math_Vin.ToString(),
                     Math_Vo.ToString(),
-                    Math_Q.ToString(),
-                    Function.IntArrayToString(SecondaryRange),
+                    Function.IntArrayToString(Math_No_Range),
                     Function.IntArrayToString(NumberRange),
                     Function.StringArrayToString(TopologyRange),
-                    Function.DoubleArrayToString(FrequencyRange)
+                    Function.DoubleArrayToString(FrequencyRange, 1e-3),
+                    Function.DoubleArrayToString(Math_Q_Range),
+                    Function.DoubleArrayToString(Math_k_Range),
+                    Function.DoubleArrayToString(Math_Cs_Range, 1e9),
                 };
             }
             return conditions;
@@ -151,11 +182,13 @@ namespace PV_analysis.Converters
         public override List<Info> GetConfigInfo()
         {
             List<Info> list = new List<Info>
-            {
-                new Info("品质因数", Math_Q),
+            {                
                 new Info("副边个数", Math_No),
                 new Info("模块数", Number),
                 new Info("谐振频率", (Math_fr / 1e3).ToString("f1") + "kHz"),
+                new Info("品质因数", Math_Q),
+                new Info("电感比", Math_k),
+                new Info("开关管并联电容", (Math_Cs * 1e9).ToString("f2") + "nF"),
                 new Info("拓扑", Topology.GetName())
             };
             return list;
@@ -168,11 +201,13 @@ namespace PV_analysis.Converters
         public List<(MainForm.ControlType, string)> GetManualInfo()
         {
             List<(MainForm.ControlType, string)> list = new List<(MainForm.ControlType, string)>()
-            {
-                (MainForm.ControlType.Text, "品质因数"),
+            {                
                 (MainForm.ControlType.Text, "副边个数"),
                 (MainForm.ControlType.Text, "模块数"),
                 (MainForm.ControlType.Text, "谐振频率"),
+                (MainForm.ControlType.Text, "品质因数"),
+                (MainForm.ControlType.Text, "电感比"),
+                (MainForm.ControlType.Text, "开关管并联电容"),
             };
             return list;
         }
@@ -193,7 +228,6 @@ namespace PV_analysis.Converters
                 Math_Vin = Math_Vin,
                 IsInputVoltageVariation = IsInputVoltageVariation,
                 Math_Vo = Math_Vo,
-                Math_Q = Math_Q
             };
         }
 
@@ -229,34 +263,58 @@ namespace PV_analysis.Converters
         public override void Optimize(MainForm form, double progressMin, double progressMax)
         {
             double progress = progressMin;
-            double dp = (progressMax - progressMin) / NumberRange.Length / FrequencyRange.Length / SecondaryRange.Length / TopologyRange.Length;
+            double dp = (progressMax - progressMin) / NumberRange.Length / FrequencyRange.Length / Math_No_Range.Length / TopologyRange.Length;
             foreach (int n in NumberRange) //模块数变化
             {
                 Number = n;
                 foreach (double fr in FrequencyRange) //谐振频率变化
                 {
                     Math_fr = fr;
-                    foreach (int No in SecondaryRange) //副边个数变化
+                    foreach (int No in Math_No_Range) //副边个数变化
                     {
                         Math_No = No;
-                        foreach (string tp in TopologyRange) //拓扑变化
+                        foreach (double Q in Math_Q_Range) //品质因数变化
                         {
-                            CreateTopology(tp);
-                            if (tp.Equals("SRC") || tp.Equals("HB_TL_LLC")) //目前多输出仅支持SRC
+                            Math_Q = Q;
+                            if (Math_k_Range == null || Math_k_Range.Length == 0)
                             {
-                                form.PrintDetails(2, "Now topology=" + tp + ", No=" + No + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
-                                Design(form);
+                                Math_k_Range = new double[] { 0 };
                             }
-                            else
+                            foreach (double k in Math_k_Range) //电感比变化
                             {
-                                if (No == 1)
+                                Math_k = k;
+                                if (Math_Cs_Range == null || Math_Cs_Range.Length == 0)
                                 {
-                                    form.PrintDetails(2, "Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
-                                    Design(form);
+                                    Math_Cs_Range = new double[] { 0 };
+                                }
+                                foreach (double Cs in Math_Cs_Range) //开关管并联电容变化
+                                {
+                                    Math_Cs = Cs;
+                                    foreach (string tp in TopologyRange) //拓扑变化
+                                    {
+                                        if ((tp.Equals("HB_TL_LLC") || tp.Equals("LLC")) && (Math_k <= 0 || Math_Cs <= 0))
+                                        {
+                                            break;
+                                        }
+                                        CreateTopology(tp);
+                                        if (tp.Equals("SRC") || tp.Equals("HB_TL_LLC")) //目前多输出仅支持SRC
+                                        {
+                                            form.PrintDetails(2, "Now topology=" + tp + ", No=" + No + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
+                                            Design(form);
+                                        }
+                                        else
+                                        {
+                                            if (No == 1)
+                                            {
+                                                form.PrintDetails(2, "Now topology=" + tp + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
+                                                Design(form);
+                                            }
+                                        }
+                                        progress += dp;
+                                        form.Estimate_Result_ProgressBar_Set(progress);
+                                    }
                                 }
                             }
-                            progress += dp;
-                            form.Estimate_Result_ProgressBar_Set(progress);
                         }
                     }
                 }
@@ -276,6 +334,9 @@ namespace PV_analysis.Converters
             Math_No = int.Parse(configs[index++]);
             Number = int.Parse(configs[index++]);
             Math_fr = double.Parse(configs[index++]);
+            Math_Q = double.Parse(configs[index++]);
+            Math_k = double.Parse(configs[index++]);
+            Math_Cs = double.Parse(configs[index++]);
             CreateTopology(configs[index++]);
             Topology.Load(configs, ref index);
         }
