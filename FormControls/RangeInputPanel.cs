@@ -133,7 +133,7 @@ namespace PV_analysis.FormControls
                 Text = "添加",
                 UseVisualStyleBackColor = true
             };
-            addRangeButton.Click += Add_Range_Click;
+            addRangeButton.Click += AddRange_Click;
 
             Controls.Add(clearButton);
             Controls.Add(leftSplitLineLabel);
@@ -148,7 +148,7 @@ namespace PV_analysis.FormControls
 
         private void Add_Click(object sender, EventArgs e)
         {
-            if (!(Function.IsNumber(singleTextBox.Text)))
+            if (!(Function.IsNumeric(singleTextBox.Text)))
             {
                 return;
             }
@@ -160,9 +160,9 @@ namespace PV_analysis.FormControls
             inputBox.Text += singleTextBox.Text;
         }
 
-        private void Add_Range_Click(object sender, EventArgs e)
+        private void AddRange_Click(object sender, EventArgs e)
         {
-            if (!(Function.IsNumber(minTextBox.Text) && Function.IsNumber(maxTextBox.Text) && Function.IsNumber(stepTextBox.Text)))
+            if (!(Function.IsNumeric(minTextBox.Text) && Function.IsNumeric(maxTextBox.Text) && Function.IsNumeric(stepTextBox.Text)))
             {
                 return;
             }

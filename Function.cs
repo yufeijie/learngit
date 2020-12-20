@@ -267,12 +267,10 @@ namespace PV_analysis
         /// </summary>
         /// <param name="str">待判断的字符串</param>
         /// <returns>判断结果</returns>
-        public static bool IsNumber(string str)
+        public static bool IsNumeric(string str)
         {
             if (string.IsNullOrWhiteSpace(str)) return false;
-            const string pattern = "^[0-9]*$";
-            Regex rx = new Regex(pattern);
-            return rx.IsMatch(str);
+            return Regex.IsMatch(str, @"^[+-]?\d*[.]?\d*$");
         }
 
     }

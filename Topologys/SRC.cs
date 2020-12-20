@@ -48,7 +48,7 @@ namespace PV_analysis.Topologys
 
         //元器件
         private DualModule primaryDualModule;
-        private DualModule secondaryDualModule; //TODO 此处应为二极管
+        private DualDiodeModule secondaryDualDiodeModule;
         private Inductor resonantInductor;
         private Transformer transformer;
         private Capacitor resonantCapacitor;
@@ -75,7 +75,7 @@ namespace PV_analysis.Topologys
                 Name = "原边开关管",
                 VoltageVariable = false
             };
-            secondaryDualModule = new DualModule(2 * math_No)
+            secondaryDualDiodeModule = new DualDiodeModule(2 * math_No)
             {
                 Name = "副边二极管",
                 VoltageVariable = false
@@ -104,13 +104,13 @@ namespace PV_analysis.Topologys
             componentGroups = new Component[1][];
             if (isLeakageInductanceIntegrated)
             {
-                components = new Component[] { primaryDualModule, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
-                componentGroups[0] = new Component[] { primaryDualModule, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
+                components = new Component[] { primaryDualModule, secondaryDualDiodeModule, transformer, resonantCapacitor, filteringCapacitor };
+                componentGroups[0] = new Component[] { primaryDualModule, secondaryDualDiodeModule, transformer, resonantCapacitor, filteringCapacitor };
             }
             else
             {
-                components = new Component[] { primaryDualModule, secondaryDualModule, resonantInductor, transformer, resonantCapacitor, filteringCapacitor };
-                componentGroups[0] = new Component[] { primaryDualModule, secondaryDualModule, resonantInductor, transformer, resonantCapacitor, filteringCapacitor };
+                components = new Component[] { primaryDualModule, secondaryDualDiodeModule, resonantInductor, transformer, resonantCapacitor, filteringCapacitor };
+                componentGroups[0] = new Component[] { primaryDualModule, secondaryDualDiodeModule, resonantInductor, transformer, resonantCapacitor, filteringCapacitor };
             }
         }
 
@@ -296,7 +296,7 @@ namespace PV_analysis.Topologys
                 //设置元器件的电路参数（用于评估）
                 primaryDualModule.AddEvalParameters(0, j, math_vSp, curve_iSp, curve_iSp);
                 Curve iD = curve_iSs.Copy(-1);
-                secondaryDualModule.AddEvalParameters(0, j, math_vSs, iD, iD);
+                secondaryDualDiodeModule.AddEvalParameters(0, j, math_vSs, curve_iSs, curve_iSs);
                 resonantInductor.AddEvalParameters(0, j, math_ILrms, math_ILp * 2);
                 transformer.AddEvalParameters(0, j, math_ILrms, math_ILp * 2);
                 resonantCapacitor.AddEvalParameters(0, j, math_ILrms);
@@ -311,7 +311,7 @@ namespace PV_analysis.Topologys
 
             //设置元器件的设计条件
             primaryDualModule.SetConditions(math_VSpmax, ILmax, math_fs);
-            secondaryDualModule.SetConditions(math_VSsmax, math_n * ILmax, math_fs);
+            secondaryDualDiodeModule.SetConditions(math_VSsmax, math_n * ILmax, math_fs);
             resonantInductor.SetConditions(math_Lr, ILmax, math_fs);
             transformer.SetConditions(math_Pfull, ILmax, math_fs, math_n, math_No, math_ψ); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(math_Cr, VCrmax, ILrms_max);
@@ -328,7 +328,7 @@ namespace PV_analysis.Topologys
             //设置元器件的电路参数
             primaryDualModule.SetParameters(math_vSp, curve_iSp, curve_iSp, math_fs);
             Curve iD = curve_iSs.Copy(-1);
-            secondaryDualModule.SetParameters(math_vSs, iD, iD, math_fs);
+            secondaryDualDiodeModule.SetParameters(math_vSs, curve_iSs, curve_iSs, math_fs);
             resonantInductor.SetParameters(math_ILrms, math_ILp * 2, math_fs);
             transformer.SetParameters(math_ILrms, math_ILp * 2, math_fs, math_ψ);
             resonantCapacitor.SetParameters(math_ILrms);

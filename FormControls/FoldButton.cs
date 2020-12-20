@@ -9,11 +9,11 @@ namespace PV_analysis.FormControls
     /// </summary>
     internal class FoldButton : Button
     {
-        List<Control> controlList = new List<Control>();
+        private List<Control> controlList = new List<Control>();
 
         public FoldButton()
         {
-            Click += Fold_Button_Click;
+            Click += FoldButton_Click;
         }
 
         public void Add(Control control)
@@ -21,7 +21,7 @@ namespace PV_analysis.FormControls
             controlList.Add(control);
         }
 
-        private void Fold_Button_Click(object sender, EventArgs e)
+        private void FoldButton_Click(object sender, EventArgs e)
         {
             foreach (Control control in controlList)
             {

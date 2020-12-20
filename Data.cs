@@ -74,6 +74,10 @@ namespace PV_analysis
             public double Math_Vgs_l { get; } //反向驱动电压(V)
             public double Math_Rg_drive { get; } //驱动电阻(Ohm)
 
+            //Diode模块Vf曲线
+            public double Curve_Vf_V0 { get; } //Vf曲线给定点的电压
+            public double Curve_Vf_I0 { get; } //Vf曲线给定点的电流
+
             //损耗曲线编号
             public int Id_Vce { get; } //IGBT导通压降曲线编号
             public int Id_Vds { get; } //MOSFET正向导通压降曲线编号
@@ -140,6 +144,12 @@ namespace PV_analysis
                         Math_Vgs_h = row.GetCell(30).NumericCellValue;
                         Math_Vgs_l = row.GetCell(31).NumericCellValue;
                         Math_Rg_drive = row.GetCell(32).NumericCellValue;
+                        break;
+                    case "Diode-Module (No Vf curve)":
+                        Curve_Vf_I0 = row.GetCell(7).NumericCellValue;
+                        Curve_Vf_V0 = row.GetCell(8).NumericCellValue;
+                        Diode_RthJC = row.GetCell(14).NumericCellValue;
+                        Module_RthCH = row.GetCell(16).NumericCellValue;
                         break;
                 }
             }

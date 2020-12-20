@@ -46,7 +46,7 @@ namespace PV_analysis.Topologys
         //元器件
         private DualModule primaryDualModule;
         private Single single;
-        private DualModule secondaryDualModule; //TODO 此处应为二极管
+        private DualDiodeModule secondaryDualDiodeModule;
         private Inductor resonantInductor;
         private Transformer transformer;
         private Capacitor resonantCapacitor;
@@ -76,7 +76,7 @@ namespace PV_analysis.Topologys
             {
                 Name = "副边开关管"
             };
-            secondaryDualModule = new DualModule(1)
+            secondaryDualDiodeModule = new DualDiodeModule(1)
             {
                 Name = "副边二极管"
             };
@@ -96,16 +96,18 @@ namespace PV_analysis.Topologys
             {
                 Name = "滤波电容"
             };
+            componentGroups = new Component[1][];
+            
             if (isLeakageInductanceIntegrated)
             {
-                components = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
+                componentGroups[0] = new Component[] { primaryDualModule, single, secondaryDualDiodeModule, transformer, resonantCapacitor, filteringCapacitor };
+                components = new Component[] { primaryDualModule, single, secondaryDualDiodeModule, transformer, resonantCapacitor, filteringCapacitor };
             }
             else
             {
-                components = new Component[] { primaryDualModule, single, secondaryDualModule, resonantInductor, transformer, resonantCapacitor, filteringCapacitor };
+                componentGroups[0] = new Component[] { primaryDualModule, single, secondaryDualDiodeModule, resonantInductor, transformer, resonantCapacitor, filteringCapacitor };
+                components = new Component[] { primaryDualModule, single, secondaryDualDiodeModule, resonantInductor, transformer, resonantCapacitor, filteringCapacitor };
             }
-            componentGroups = new Component[1][];
-            componentGroups[0] = new Component[] { primaryDualModule, single, secondaryDualModule, transformer, resonantCapacitor, filteringCapacitor };
         }
 
         /// <summary>
@@ -280,8 +282,7 @@ namespace PV_analysis.Topologys
                     //设置元器件的电路参数（用于评估）
                     primaryDualModule.AddEvalParameters(i, j, math_vSp, curve_iSp, curve_iSp, math_fs);
                     single.AddEvalParameters(i, j, math_vSs, curve_iSs, math_fs);
-                    Curve iD = curve_iDs.Copy(-1);
-                    secondaryDualModule.AddEvalParameters(i, j, math_vDs, iD, iD, math_fs);
+                    secondaryDualDiodeModule.AddEvalParameters(i, j, math_vDs, curve_iDs, curve_iDs, math_fs);
                     resonantInductor.AddEvalParameters(i, j, math_ILrms, math_ILp * 2, math_fs);
                     transformer.AddEvalParameters(i, j, math_ILrms, math_ILp * 2, math_fs, math_ψ);
                     resonantCapacitor.AddEvalParameters(i, j, math_ILrms);
@@ -298,7 +299,7 @@ namespace PV_analysis.Topologys
             //设置元器件的设计条件
             primaryDualModule.SetConditions(math_Vinmax, ILmax, fsmax); //TODO 电流取RMS最大值 or 最大值？
             single.SetConditions(math_Vo, math_n * ILmax, fsmax);
-            secondaryDualModule.SetConditions(math_Vo, math_n * ILmax, fsmax);
+            secondaryDualDiodeModule.SetConditions(math_Vo, math_n * ILmax, fsmax);
             resonantInductor.SetConditions(math_Lr, ILmax, fsmax);
             transformer.SetConditions(math_P, ILmax, fsmax, math_n, 1, ψmax); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(math_Cr, VCrmax, ILrms_max);
@@ -316,8 +317,7 @@ namespace PV_analysis.Topologys
             //设置元器件的电路参数
             primaryDualModule.SetParameters(math_vSp, curve_iSp, curve_iSp, math_fs);
             single.SetParameters(math_vSs, curve_iSs, math_fs);
-            Curve iD = curve_iDs.Copy(-1);
-            secondaryDualModule.SetParameters(math_vDs, iD, iD, math_fs);
+            secondaryDualDiodeModule.SetParameters(math_vDs, curve_iDs, curve_iDs, math_fs);
             resonantInductor.SetParameters(math_ILrms, math_ILp * 2, math_fs);
             transformer.SetParameters(math_ILrms, math_ILp * 2, math_fs, math_ψ);
             resonantCapacitor.SetParameters(math_ILrms);

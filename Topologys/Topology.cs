@@ -11,7 +11,7 @@ namespace PV_analysis.Topologys
     {
         protected Component[][] componentGroups; //可行元器件组合
         protected Component[] components; //可行元件组合中出现的所有元器件（待设计的元器件）
-        protected int groupIndex; //元器件组合序号
+        protected int groupIndex; //当前元器件组合序号
 
         //电路参数
         protected double math_Pfull; //满载功率

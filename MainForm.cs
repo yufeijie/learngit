@@ -302,19 +302,20 @@ namespace PV_analysis
         }
 
         /// <summary>
-        /// 选择器件步骤，创建器件组名标签
+        /// 选择器件步骤，创建器件组选项
         /// </summary>
         /// <param name="text">器件组名</param>
-        /// <returns>创建的Label</returns>
-        private Label Estimate_Step4_CreateLabel(string text)
+        /// <returns>创建的SeriesCheckBox</returns>
+        private SeriesCheckBox Estimate_Step4_CreateSeriesCheckBox(string text)
         {
-            return new Label
+            return new SeriesCheckBox
             {
-                Dock = System.Windows.Forms.DockStyle.Top,
-                Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold),
                 Size = new System.Drawing.Size(1240, 30),
                 Text = text,
-                TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+                TextAlign = System.Drawing.ContentAlignment.MiddleLeft,
+                UseVisualStyleBackColor = true,
+                Checked = true
             };
         }
 
@@ -327,7 +328,7 @@ namespace PV_analysis
         {
             return new CheckBox
             {
-                Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular),
                 Size = new System.Drawing.Size(150, 25),
                 Text = text,
                 UseVisualStyleBackColor = true,
@@ -444,8 +445,8 @@ namespace PV_analysis
                 int[] isolatedDCDC_numberRange = Function.StringToIntArray(Estimate_Step3_IsolatedDCDCNumber_TextBox.Text); //隔离DC/DC可用模块数序列
                 double[] isolatedDCDC_resonanceFrequencyRange = Function.StringToDoubleArray(Estimate_Step3_IsolatedDCDCFrequency_TextBox.Text, 1e3); //隔离DC/DC可用谐振频率序列
                 double[] isolatedDCDC_Math_Q_Range = Function.StringToDoubleArray(Estimate_Step3_IsolatedDCDCQ_TextBox.Text); //品质因数
-                double[] isolatedDCDC_Math_k_Range = Function.StringToDoubleArray(Estimate_Step3_IsolatedDCDCk_TextBox.Text); //品质因数
-                double[] isolatedDCDC_Math_Cs_Range = Function.StringToDoubleArray(Estimate_Step3_IsolatedDCDCCs_TextBox.Text, 1e-9); //品质因数
+                double[] isolatedDCDC_Math_k_Range = Function.StringToDoubleArray(Estimate_Step3_IsolatedDCDCk_TextBox.Text); //电感比
+                double[] isolatedDCDC_Math_Cs_Range = Function.StringToDoubleArray(Estimate_Step3_IsolatedDCDCCs_TextBox.Text, 1e-9); //开关管并联电容
                 double DCAC_Ma_min = double.Parse(Estimate_Step3_DCACMamin_TextBox.Text); //最小电压调制比
                 double DCAC_Ma_max = double.Parse(Estimate_Step3_DCACMamax_TextBox.Text); //最大电压调制比
                 double DCAC_φ = 0; //功率因数角(rad)
@@ -2050,8 +2051,8 @@ namespace PV_analysis
                             Estimate_Step3_IsolatedDCDCNumber_TextBox.Text = Function.GenerateRangeToString(1, 40, 1);
                             Estimate_Step3_IsolatedDCDCFrequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 100));
                             Estimate_Step3_IsolatedDCDCQ_TextBox.Text = "1";
-                            Estimate_Step3_IsolatedDCDCk_TextBox.Text = "";
-                            Estimate_Step3_IsolatedDCDCCs_TextBox.Text = "";
+                            Estimate_Step3_IsolatedDCDCk_TextBox.Text = "0";
+                            Estimate_Step3_IsolatedDCDCCs_TextBox.Text = "0";
                             Estimate_Step3_DCACMamin_TextBox.Text = "0.7";
                             Estimate_Step3_DCACMamax_TextBox.Text = "0.9";
                             Estimate_Step3_DCACFrequency_TextBox.Text = "10";
@@ -2115,7 +2116,7 @@ namespace PV_analysis
                             Estimate_Step3B_VinRange_Panel.Visible = true;
                             Estimate_Step3B_Vin_Panel.Visible = false;
                             Estimate_Step3B_Ma_Panel.Visible = false;
-                            Estimate_Step3B_Secondary_Panel.Visible = false;
+                            Estimate_Step3B_Secondary_Panel.Visible = true;
                             Estimate_Step3B_Cs_Panel.Visible = true; //倒序设置，顺序显示
                             Estimate_Step3B_k_Panel.Visible = true;
                             Estimate_Step3B_Q_Panel.Visible = true;
@@ -2125,10 +2126,10 @@ namespace PV_analysis
                             Estimate_Step3B_Vo_Label.Text = "输出电压";
                             Estimate_Step3B_Vo_TextBox.Text = "1300";
                             Estimate_Step3B_Vo_Unit_Label.Text = "V";
-                            Estimate_Step3B_Secondary_TextBox.Text = "";
-                            Estimate_Step3B_Q_TextBox.Text = "1";
-                            Estimate_Step3B_k_TextBox.Text = "";
-                            Estimate_Step3B_Cs_TextBox.Text = "";
+                            Estimate_Step3B_Secondary_TextBox.Text = "1";
+                            Estimate_Step3B_Q_TextBox.Text = "0.5";
+                            Estimate_Step3B_k_TextBox.Text = "0";
+                            Estimate_Step3B_Cs_TextBox.Text = "0";
                             Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 40, 1);
                             Estimate_Step3B_Frequency_Label.Text = "谐振频率";
                             Estimate_Step3B_Frequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 100));
@@ -2347,6 +2348,12 @@ namespace PV_analysis
 
         private void Estimate_Step3_Next_Button_Click(object sender, EventArgs e)
         {
+            //清空上一次产生的选项
+            Estimate_Step4_Semiconductor_FlowLayoutPanel.Controls.Clear();
+            Estimate_Step4_Core_FlowLayoutPanel.Controls.Clear();
+            Estimate_Step4_Wire_FlowLayoutPanel.Controls.Clear();
+            Estimate_Step4_Capacitor_FlowLayoutPanel.Controls.Clear();
+
             //开关器件
             //检查所有厂家
             List<string> manufacturerList = new List<string>();
@@ -2359,12 +2366,15 @@ namespace PV_analysis
             }
             foreach (string manufacturer in manufacturerList)
             {
-                Estimate_Step4_Semiconductor_FlowLayoutPanel.Controls.Add(Estimate_Step4_CreateLabel(manufacturer + ":"));
+                SeriesCheckBox seriesCheckBox = Estimate_Step4_CreateSeriesCheckBox(manufacturer + ":");
+                Estimate_Step4_Semiconductor_FlowLayoutPanel.Controls.Add(seriesCheckBox);
                 foreach (Data.Semiconductor semiconductor in Data.SemiconductorList)
                 {
                     if (semiconductor.Manufacturer.Equals(manufacturer))
                     {
-                        Estimate_Step4_Semiconductor_FlowLayoutPanel.Controls.Add(Estimate_Step4_CreateCheckBox(semiconductor.Type));
+                        CheckBox checkBox = Estimate_Step4_CreateCheckBox(semiconductor.Type);
+                        seriesCheckBox.Add(checkBox);
+                        Estimate_Step4_Semiconductor_FlowLayoutPanel.Controls.Add(checkBox);
                     }
                 }
             }
@@ -2381,12 +2391,15 @@ namespace PV_analysis
             }
             foreach (string manufacturer in manufacturerList)
             {
-                Estimate_Step4_Core_FlowLayoutPanel.Controls.Add(Estimate_Step4_CreateLabel(manufacturer + ":"));
+                SeriesCheckBox seriesCheckBox = Estimate_Step4_CreateSeriesCheckBox(manufacturer + ":");
+                Estimate_Step4_Core_FlowLayoutPanel.Controls.Add(seriesCheckBox);
                 foreach (Data.Core core in Data.CoreList)
                 {
                     if (core.Manufacturer.Equals(manufacturer))
                     {
-                        Estimate_Step4_Core_FlowLayoutPanel.Controls.Add(Estimate_Step4_CreateCheckBox(core.Type));
+                        CheckBox checkBox = Estimate_Step4_CreateCheckBox(core.Type);
+                        seriesCheckBox.Add(checkBox);
+                        Estimate_Step4_Core_FlowLayoutPanel.Controls.Add(checkBox);
                     }
                 }
             }
@@ -2403,12 +2416,15 @@ namespace PV_analysis
             }
             foreach (string category in categoryList)
             {
-                Estimate_Step4_Wire_FlowLayoutPanel.Controls.Add(Estimate_Step4_CreateLabel(category + ":"));
+                SeriesCheckBox seriesCheckBox = Estimate_Step4_CreateSeriesCheckBox(category + ":");
+                Estimate_Step4_Wire_FlowLayoutPanel.Controls.Add(seriesCheckBox);
                 foreach (Data.Wire wire in Data.WireList)
                 {
                     if (wire.Category.Equals(category))
                     {
-                        Estimate_Step4_Wire_FlowLayoutPanel.Controls.Add(Estimate_Step4_CreateCheckBox(wire.Type));
+                        CheckBox checkBox = Estimate_Step4_CreateCheckBox(wire.Type);
+                        seriesCheckBox.Add(checkBox);
+                        Estimate_Step4_Wire_FlowLayoutPanel.Controls.Add(checkBox);
                     }
                 }
             }
@@ -2425,12 +2441,15 @@ namespace PV_analysis
             }
             foreach (string category in categoryList)
             {
-                Estimate_Step4_Capacitor_FlowLayoutPanel.Controls.Add(Estimate_Step4_CreateLabel(category + ":"));
+                SeriesCheckBox seriesCheckBox = Estimate_Step4_CreateSeriesCheckBox(category + ":");
+                Estimate_Step4_Capacitor_FlowLayoutPanel.Controls.Add(seriesCheckBox);
                 foreach (Data.Capacitor capacitor in Data.CapacitorList)
                 {
                     if (capacitor.Category.Equals(category))
                     {
-                        Estimate_Step4_Capacitor_FlowLayoutPanel.Controls.Add(Estimate_Step4_CreateCheckBox(capacitor.Type));
+                        CheckBox checkBox = Estimate_Step4_CreateCheckBox(capacitor.Type);
+                        seriesCheckBox.Add(checkBox);
+                        Estimate_Step4_Capacitor_FlowLayoutPanel.Controls.Add(checkBox);
                     }
                 }
             }

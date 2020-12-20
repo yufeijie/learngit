@@ -172,7 +172,7 @@ namespace PV_analysis.Converters
             foreach (Component component in Topology.Components)
             {
                 component.Design();
-                //若没有设计结果，则设计失败，退出
+                //若没有设计结果，则设计失败
                 if (component.DesignList.Size == 0)
                 {
                     if (component.Name != null)
@@ -182,13 +182,27 @@ namespace PV_analysis.Converters
                     else
                     {
                         form.PrintDetails(1, component.GetType().Name + "设计失败！");
-                    }
-                    return;
+                    }                    
                 }
             }
             int n = 0; //用于记录当前元器件组合的序号
             foreach (Component[] components in Topology.ComponentGroups)
             {
+                //设计结果检查
+                bool check = true;
+                foreach (Component component in components)
+                {
+                    if (component.DesignList.Size == 0)
+                    {
+                        check = false;
+                        break;
+                    }
+                }
+                if (!check)
+                {
+                    break;
+                }
+
                 //组合并记录
                 ComponentDesignList designCombinationList = new ComponentDesignList();
                 foreach (Component component in components) //组合各个器件的设计方案

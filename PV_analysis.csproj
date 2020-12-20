@@ -109,6 +109,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\DualDiodeModule.cs" />
     <Compile Include="Equipment.cs" />
     <Compile Include="Components\ResonantCapacitor.cs" />
     <Compile Include="Components\FilteringCapacitor.cs" />
@@ -129,6 +130,9 @@
     <Compile Include="Curve.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="ConverterDesignList.cs" />
+    <Compile Include="FormControls\SeriesCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FormControls\RangeInputPanel.cs">
       <SubType>Component</SubType>
     </Compile>
