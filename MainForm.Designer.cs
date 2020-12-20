@@ -39,6 +39,7 @@
             this.Tab_Admin_Button = new System.Windows.Forms.Button();
             this.Tab_Panel = new System.Windows.Forms.Panel();
             this.Tab_Test_Button = new System.Windows.Forms.Button();
+            this.Tab_Setting_Button = new System.Windows.Forms.Button();
             this.Estimate_Ready_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Ready_Manual_CheckBox = new System.Windows.Forms.CheckBox();
             this.Estimate_Ready_System_button = new System.Windows.Forms.Button();
@@ -396,6 +397,13 @@
             this.Estimate_Manual_Operation_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Manual_Prev_Button = new System.Windows.Forms.Button();
             this.Estimate_Manual_Next_Button = new System.Windows.Forms.Button();
+            this.Setting_Panel = new System.Windows.Forms.Panel();
+            this.Setting_Main_Panel = new System.Windows.Forms.Panel();
+            this.Setting_Title_Panel = new System.Windows.Forms.Panel();
+            this.Setting_Title_Label = new System.Windows.Forms.Label();
+            this.Setting_Operation_Panel = new System.Windows.Forms.Panel();
+            this.Setting_Reset_Button = new System.Windows.Forms.Button();
+            this.Setting_Save_Button = new System.Windows.Forms.Button();
             this.Home_Panel.SuspendLayout();
             this.Home_Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Home_PictureBox)).BeginInit();
@@ -535,6 +543,9 @@
             this.Estimate_Manual_Panel.SuspendLayout();
             this.Estimate_Manual_Title_Panel.SuspendLayout();
             this.Estimate_Manual_Operation_Panel.SuspendLayout();
+            this.Setting_Panel.SuspendLayout();
+            this.Setting_Title_Panel.SuspendLayout();
+            this.Setting_Operation_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // Home_Panel
@@ -632,7 +643,7 @@
             this.Tab_Admin_Button.FlatAppearance.BorderSize = 0;
             this.Tab_Admin_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Tab_Admin_Button.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Tab_Admin_Button.Location = new System.Drawing.Point(0, 240);
+            this.Tab_Admin_Button.Location = new System.Drawing.Point(0, 320);
             this.Tab_Admin_Button.Name = "Tab_Admin_Button";
             this.Tab_Admin_Button.Size = new System.Drawing.Size(148, 80);
             this.Tab_Admin_Button.TabIndex = 3;
@@ -646,6 +657,7 @@
             this.Tab_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Tab_Panel.Controls.Add(this.Tab_Test_Button);
             this.Tab_Panel.Controls.Add(this.Tab_Admin_Button);
+            this.Tab_Panel.Controls.Add(this.Tab_Setting_Button);
             this.Tab_Panel.Controls.Add(this.Tab_Display_Button);
             this.Tab_Panel.Controls.Add(this.Tab_Estimate_Button);
             this.Tab_Panel.Controls.Add(this.Tab_Home_Button);
@@ -662,7 +674,7 @@
             this.Tab_Test_Button.FlatAppearance.BorderSize = 0;
             this.Tab_Test_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Tab_Test_Button.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Tab_Test_Button.Location = new System.Drawing.Point(0, 320);
+            this.Tab_Test_Button.Location = new System.Drawing.Point(0, 400);
             this.Tab_Test_Button.Name = "Tab_Test_Button";
             this.Tab_Test_Button.Size = new System.Drawing.Size(148, 80);
             this.Tab_Test_Button.TabIndex = 4;
@@ -670,6 +682,21 @@
             this.Tab_Test_Button.UseVisualStyleBackColor = false;
             this.Tab_Test_Button.Visible = false;
             this.Tab_Test_Button.Click += new System.EventHandler(this.Tab_Test_Button_Click);
+            // 
+            // Tab_Setting_Button
+            // 
+            this.Tab_Setting_Button.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.Tab_Setting_Button.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Tab_Setting_Button.FlatAppearance.BorderSize = 0;
+            this.Tab_Setting_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Tab_Setting_Button.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Tab_Setting_Button.Location = new System.Drawing.Point(0, 240);
+            this.Tab_Setting_Button.Name = "Tab_Setting_Button";
+            this.Tab_Setting_Button.Size = new System.Drawing.Size(148, 80);
+            this.Tab_Setting_Button.TabIndex = 5;
+            this.Tab_Setting_Button.Text = "设置";
+            this.Tab_Setting_Button.UseVisualStyleBackColor = false;
+            this.Tab_Setting_Button.Click += new System.EventHandler(this.Tab_Setting_Button_Click);
             // 
             // Estimate_Ready_Panel
             // 
@@ -4754,11 +4781,92 @@
             this.Estimate_Manual_Next_Button.UseVisualStyleBackColor = true;
             this.Estimate_Manual_Next_Button.Click += new System.EventHandler(this.Estimate_Manual_Next_Button_Click);
             // 
+            // Setting_Panel
+            // 
+            this.Setting_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Setting_Panel.Controls.Add(this.Setting_Main_Panel);
+            this.Setting_Panel.Controls.Add(this.Setting_Title_Panel);
+            this.Setting_Panel.Controls.Add(this.Setting_Operation_Panel);
+            this.Setting_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Setting_Panel.Location = new System.Drawing.Point(150, 0);
+            this.Setting_Panel.Name = "Setting_Panel";
+            this.Setting_Panel.Size = new System.Drawing.Size(1434, 861);
+            this.Setting_Panel.TabIndex = 18;
+            this.Setting_Panel.Visible = false;
+            // 
+            // Setting_Main_Panel
+            // 
+            this.Setting_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Setting_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Setting_Main_Panel.Location = new System.Drawing.Point(0, 50);
+            this.Setting_Main_Panel.Name = "Setting_Main_Panel";
+            this.Setting_Main_Panel.Size = new System.Drawing.Size(1432, 759);
+            this.Setting_Main_Panel.TabIndex = 4;
+            // 
+            // Setting_Title_Panel
+            // 
+            this.Setting_Title_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Setting_Title_Panel.Controls.Add(this.Setting_Title_Label);
+            this.Setting_Title_Panel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Setting_Title_Panel.Location = new System.Drawing.Point(0, 0);
+            this.Setting_Title_Panel.Name = "Setting_Title_Panel";
+            this.Setting_Title_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Setting_Title_Panel.TabIndex = 3;
+            // 
+            // Setting_Title_Label
+            // 
+            this.Setting_Title_Label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Setting_Title_Label.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Setting_Title_Label.Location = new System.Drawing.Point(0, 0);
+            this.Setting_Title_Label.Name = "Setting_Title_Label";
+            this.Setting_Title_Label.Size = new System.Drawing.Size(1430, 48);
+            this.Setting_Title_Label.TabIndex = 0;
+            this.Setting_Title_Label.Text = "设置页面";
+            this.Setting_Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Setting_Operation_Panel
+            // 
+            this.Setting_Operation_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Setting_Operation_Panel.Controls.Add(this.Setting_Reset_Button);
+            this.Setting_Operation_Panel.Controls.Add(this.Setting_Save_Button);
+            this.Setting_Operation_Panel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Setting_Operation_Panel.Location = new System.Drawing.Point(0, 809);
+            this.Setting_Operation_Panel.Name = "Setting_Operation_Panel";
+            this.Setting_Operation_Panel.Size = new System.Drawing.Size(1432, 50);
+            this.Setting_Operation_Panel.TabIndex = 1;
+            // 
+            // Setting_Reset_Button
+            // 
+            this.Setting_Reset_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Setting_Reset_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Setting_Reset_Button.Location = new System.Drawing.Point(1198, 8);
+            this.Setting_Reset_Button.Name = "Setting_Reset_Button";
+            this.Setting_Reset_Button.Size = new System.Drawing.Size(100, 34);
+            this.Setting_Reset_Button.TabIndex = 1;
+            this.Setting_Reset_Button.Text = "恢复默认";
+            this.Setting_Reset_Button.UseVisualStyleBackColor = true;
+            this.Setting_Reset_Button.Click += new System.EventHandler(this.Setting_Reset_Button_Click);
+            // 
+            // Setting_Save_Button
+            // 
+            this.Setting_Save_Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Setting_Save_Button.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Setting_Save_Button.Location = new System.Drawing.Point(1319, 8);
+            this.Setting_Save_Button.Name = "Setting_Save_Button";
+            this.Setting_Save_Button.Size = new System.Drawing.Size(100, 34);
+            this.Setting_Save_Button.TabIndex = 0;
+            this.Setting_Save_Button.Text = "保存";
+            this.Setting_Save_Button.UseVisualStyleBackColor = true;
+            this.Setting_Save_Button.Click += new System.EventHandler(this.Setting_Save_Button_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.Setting_Panel);
             this.Controls.Add(this.Estimate_Step3B_Panel);
             this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Estimate_Ready_Panel);
@@ -4983,6 +5091,9 @@
             this.Estimate_Manual_Panel.ResumeLayout(false);
             this.Estimate_Manual_Title_Panel.ResumeLayout(false);
             this.Estimate_Manual_Operation_Panel.ResumeLayout(false);
+            this.Setting_Panel.ResumeLayout(false);
+            this.Setting_Title_Panel.ResumeLayout(false);
+            this.Setting_Operation_Panel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -5356,6 +5467,14 @@
         private System.Windows.Forms.Panel Estimate_Step3_IsolatedDCDCk_Panel;
         private System.Windows.Forms.TextBox Estimate_Step3_IsolatedDCDCk_TextBox;
         private System.Windows.Forms.Label Estimate_Step3_IsolatedDCDCk_Label;
+        private System.Windows.Forms.Button Tab_Setting_Button;
+        private System.Windows.Forms.Panel Setting_Panel;
+        private System.Windows.Forms.Panel Setting_Main_Panel;
+        private System.Windows.Forms.Panel Setting_Title_Panel;
+        private System.Windows.Forms.Label Setting_Title_Label;
+        private System.Windows.Forms.Panel Setting_Operation_Panel;
+        private System.Windows.Forms.Button Setting_Reset_Button;
+        private System.Windows.Forms.Button Setting_Save_Button;
     }
 }
 

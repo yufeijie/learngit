@@ -13,7 +13,15 @@ namespace PV_analysis.Components
     {
         //限制条件
         protected static bool selectSiC = true; //SiC器件选用开关，true为可选用
-        protected static readonly double margin = 0.2; //裕量
+
+        //器件参数
+        protected int device; //开关器件编号
+
+        //设计条件
+        //TODO 选取器件时考虑fsmax
+        protected double math_Vmax; //电压应力
+        protected double math_Imax; //电流应力
+        protected double math_fs_max; //最大开关频率
 
         //成本参数（同类器件中其中一个的损耗）
         protected double semiconductorCost; //开关器件成本
@@ -94,5 +102,30 @@ namespace PV_analysis.Components
         /// </summary>
         /// <returns>是否验证通过</returns>
         protected abstract bool CheckTemperature();
+
+        /// <summary>
+        /// 验证电压、电流条件是否满足
+        /// </summary>
+        /// <param name="paralleledNum">并联数量</param>
+        /// <returns></returns>
+        protected bool ValidateVoltageAndCurrent(int paralleledNum = 1)
+        {
+            //电压应力检查
+            if (Data.SemiconductorList[device].Math_Vmax * (1 - Properties.Settings.Default.开关器件电压裕量) < math_Vmax) return false;
+
+            //电流应力检查
+            if (paralleledNum * Data.SemiconductorList[device].Math_Imax * (1 - Properties.Settings.Default.开关器件电流裕量) < math_Imax) return false;
+
+            //容量过剩检查
+            if (isCheckExcess)
+            {
+                //电压容量过剩检查
+                if (Data.SemiconductorList[device].Math_Vmax * (1 - Properties.Settings.Default.开关器件电压裕量) > math_Vmax * (1 + excess)) return false;
+
+                //电流容量过剩检查
+                if (paralleledNum * Data.SemiconductorList[device].Math_Imax * (1 - Properties.Settings.Default.开关器件电流裕量) > math_Imax * (1 + excess)) return false;
+            }
+            return true;
+        }
     }
 }

@@ -8,14 +8,7 @@ namespace PV_analysis.Components
     internal class DualModule : Semiconductor
     {
         //器件参数
-        private int device; //开关器件编号
         private bool isPowerLossBalance; //损耗是否均衡，若均衡则只需计算上管的损耗，默认为均衡
-
-        //设计条件
-        //TODO 选取器件时考虑fsmax
-        private double math_Vmax; //电压应力
-        private double math_Imax; //电流应力
-        private double math_fs_max; //最大开关频率
 
         //电路参数
         private double math_Vsw; //开通/关断电压
@@ -265,49 +258,22 @@ namespace PV_analysis.Components
         private bool Validate()
         {
             //验证编号是否合法
-            if (device < 0 || device >= Data.SemiconductorList.Count)
-            {
-                return false;
-            }
+            if (device < 0 || device >= Data.SemiconductorList.Count) return false;
 
             //验证器件是否可用
-            if (!Data.SemiconductorList[device].Available)
-            {
-                return false;
-            }
+            if (!Data.SemiconductorList[device].Available) return false;
 
             //验证器件类型是否符合
-            if (!Data.SemiconductorList[device].Category.Equals("IGBT-Module") && !Data.SemiconductorList[device].Category.Equals("SiC-Module"))
-            {
-                return false;
-            }
+            if (!Data.SemiconductorList[device].Category.Equals("IGBT-Module") && !Data.SemiconductorList[device].Category.Equals("SiC-Module")) return false;
 
             //验证器件结构是否符合
-            if (!Data.SemiconductorList[device].Configuration.Equals("Dual"))
-            {
-                return false;
-            }
+            if (!Data.SemiconductorList[device].Configuration.Equals("Dual")) return false;
 
             //验证SiC器件的选用是否符合限制条件
-            if ((Data.SemiconductorList[device].Category.Equals("SiC-Module")) && (!selectSiC || math_fs_max < 50e3))
-            {
-                return false;
-            }
+            if ((Data.SemiconductorList[device].Category.Equals("SiC-Module")) && (!selectSiC || math_fs_max < 50e3)) return false;
 
-            //验证电压、电流应力是否满足
-            if (Data.SemiconductorList[device].Math_Vmax * (1 - margin) < math_Vmax || Data.SemiconductorList[device].Math_Imax * (1 - margin) < math_Imax)
-            {
-                return false;
-            }
-
-            //容量过剩检查
-            if (isCheckExcess)
-            {
-                if (Data.SemiconductorList[device].Math_Vmax * (1 - margin) > math_Vmax * (1 + excess) || Data.SemiconductorList[device].Math_Imax * (1 - margin) > math_Imax * (1 + excess))
-                {
-                    return false;
-                }
-            }
+            //验证电压、电流条件是否满足
+            if (!ValidateVoltageAndCurrent()) return false;
 
             return true;
         }

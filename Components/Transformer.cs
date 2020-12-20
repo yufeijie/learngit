@@ -204,7 +204,7 @@ namespace PV_analysis.Components
 
             //参数初始化
             double ratioWaveform = 4; //波形系数（方波4.0，正弦波4.44）
-            double ratioWindowUtilization = 0.4; //窗口利用系数
+            double ratioWindowUtilization = Properties.Settings.Default.变压器窗口利用系数; //窗口利用系数
             double magneticFluxDensityMax = 0.4; //最大工作磁密(T)
             double currentDensity = 400; //电流密度(A/cm^2)
             double S3 = 0.75; //有效窗口系数

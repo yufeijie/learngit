@@ -33,7 +33,7 @@ namespace PV_analysis
         }
 
         //页面切换、侧边栏
-        private readonly Panel[] panelNow = new Panel[6]; //下标0——当前显示页面，下标1-5——各类页面的当前子页面
+        private readonly Panel[] panelNow = new Panel[7]; //下标0——当前显示页面，下标1-6——各类页面的当前子页面
         private System.Drawing.Color activeColor; //左侧边栏按钮，当前选中颜色
         private System.Drawing.Color inactiveColor; //左侧边栏按钮，未选中颜色
 
@@ -83,6 +83,54 @@ namespace PV_analysis
             Estimate_Step3B_Q_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Q_TextBox));
             Estimate_Step3B_k_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_k_TextBox));
             Estimate_Step3B_Cs_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Cs_TextBox));
+
+            //初始化设置页面
+            Panel CreatePanel(string name, string unit = null)
+            {
+                Panel panel = new Panel
+                {
+                    Dock = DockStyle.Top,
+                    Margin = new Padding(0),
+                    Size = new System.Drawing.Size(1430, 45)
+                };
+                Label label = new Label
+                {
+                    AutoSize = true,
+                    Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular),
+                    Location = new System.Drawing.Point(166, 10),
+                    Size = new System.Drawing.Size(107, 25),
+                    Text = name,
+                    TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+                };
+                panel.Controls.Add(label);
+                TextBox textBox = new TextBox
+                {
+                    Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                    Location = new System.Drawing.Point(380, 8),
+                    Size = new System.Drawing.Size(100, 29),
+                    TextAlign = HorizontalAlignment.Center
+                };
+                textBox.DataBindings.Add(new Binding("Text", Properties.Settings.Default, name));
+                panel.Controls.Add(textBox);
+                if (!string.IsNullOrEmpty(unit))
+                {
+                    Label unitLabel = new Label
+                    {
+                        AutoSize = true,
+                        Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                        Location = new System.Drawing.Point(500, 12),
+                        Size = new System.Drawing.Size(23, 21),
+                        Text = unit,
+                        TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+                    };
+                    panel.Controls.Add(unitLabel);
+                }
+                return panel;
+            }
+            foreach (System.Configuration.SettingsProperty property in Properties.Settings.Default.Properties)
+            {
+                Setting_Main_Panel.Controls.Add(CreatePanel(property.Name));
+            }
         }
 
         /// <summary>
@@ -1610,8 +1658,9 @@ namespace PV_analysis
             panelNow[1] = Home_Panel;
             panelNow[2] = Estimate_Ready_Panel;
             panelNow[3] = Display_Ready_Panel;
-            panelNow[4] = Admin_Panel;
-            panelNow[5] = Home_Panel;
+            panelNow[4] = Setting_Panel;
+            panelNow[5] = Admin_Panel;
+            panelNow[6] = Home_Panel;
 
             activeColor = Tab_Home_Button.BackColor;
             inactiveColor = Tab_Estimate_Button.BackColor;
@@ -1632,14 +1681,19 @@ namespace PV_analysis
             ChangePanel(3);
         }
 
-        private void Tab_Admin_Button_Click(object sender, EventArgs e)
+        private void Tab_Setting_Button_Click(object sender, EventArgs e)
         {
             ChangePanel(4);
         }
 
-        private void Tab_Test_Button_Click(object sender, EventArgs e)
+        private void Tab_Admin_Button_Click(object sender, EventArgs e)
         {
             ChangePanel(5);
+        }
+
+        private void Tab_Test_Button_Click(object sender, EventArgs e)
+        {
+            ChangePanel(6);
         }
 
         private void Estimate_Ready_System_button_Click(object sender, EventArgs e)
@@ -3433,6 +3487,16 @@ namespace PV_analysis
         private void Estimate_Step2_Group3_Item1_Left_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Estimate_Step2_Group3_Item1_CheckBox.Checked = Estimate_Step2_Group3_Item1_Left_CheckBox.Checked;
+        }
+
+        private void Setting_Reset_Button_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reset();
+        }
+
+        private void Setting_Save_Button_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }
