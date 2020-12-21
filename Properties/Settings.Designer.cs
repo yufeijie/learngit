@@ -58,5 +58,53 @@ namespace PV_analysis.Properties {
                 this["变压器窗口利用系数"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public double 电感最大气隙长度 {
+            get {
+                return ((double)(this["电感最大气隙长度"]));
+            }
+            set {
+                this["电感最大气隙长度"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public double 电容电压裕量 {
+            get {
+                return ((double)(this["电容电压裕量"]));
+            }
+            set {
+                this["电容电压裕量"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public double 电容电流裕量 {
+            get {
+                return ((double)(this["电容电流裕量"]));
+            }
+            set {
+                this["电容电流裕量"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public double 电流密度 {
+            get {
+                return ((double)(this["电流密度"]));
+            }
+            set {
+                this["电流密度"] = value;
+            }
+        }
     }
 }

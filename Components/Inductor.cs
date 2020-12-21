@@ -7,8 +7,7 @@ namespace PV_analysis.Components
     internal class Inductor : Magnetics
     {
         //限制条件
-        private static readonly double lgDesignMax = 1; //气隙长度设计允许最大值(cm)
-        private static readonly double lgDelta = 1e-4; //气隙长度精度(cm)
+        private static readonly double math_lgD = Configuration.AIR_GAP_LENGTH_DELTA;
 
         //器件参数
         private int wire; //绕线编号
@@ -195,7 +194,7 @@ namespace PV_analysis.Components
             //参数初始化
             double ratioWindowUtilization = 0.4; //窗口利用系数
             double magneticFluxDensityMax = 0.4; //最大工作磁密(T)
-            double currentDensity = 400; //电流密度(A/cm^2)
+            double currentDensity = Properties.Settings.Default.电流密度; //电流密度(A/cm^2)
             double S3 = 0.75; //有效窗口系数
             double S2 = 0.6; //填充系数
             double energyMax = 0.5 * inductance * Math.Pow(currentPeakMax, 2);
@@ -203,7 +202,7 @@ namespace PV_analysis.Components
             double Axbmin = currentPeakMax / currentDensity; //满足电流密度所需裸线面积(cm^2)
 
             //选取磁芯
-            for (int j = 1; j <= numberCoreMax; j++) //采用不同的磁芯数量
+            for (int j = 1; j <= Configuration.MAX_CORE_NUM; j++) //采用不同的磁芯数量
             {
                 numberCore = j;
                 for (int i = 0; i < Data.CoreList.Count; i++) //搜寻库中所有磁芯型号
@@ -227,7 +226,7 @@ namespace PV_analysis.Components
                         double Aecc = j * Data.CoreList[i].Math_Ae * 1e-2; //等效磁芯面积(cm^2)
 
                         //选取绕线
-                        double delta = Math.Sqrt(lowCu / (Math.PI * miu0 * miuCu * frequencyMax)) * 1e2; //集肤深度(cm)
+                        double delta = Math.Sqrt(math_ρCu / (Math.PI * math_μ0 * math_μCu * frequencyMax)) * 1e2; //集肤深度(cm)
                         for (int w = 0; w < Data.WireList.Count; w++)
                         {
                             //集肤深度验证
@@ -256,7 +255,7 @@ namespace PV_analysis.Components
                                 double lgMax = FindLgMax(Nmax, length, Aecc); //通过二分查找满绕下对应的最大气隙长度，取其与变量lgMax中的最小值作为气隙长度最大值，提高运算速度
 
                                 //优化
-                                if (lgMax < lgDelta)
+                                if (lgMax < math_lgD)
                                 {
                                     break; //若满绕匝数对应的气隙长度小于精度，则退出并绕股数设计
                                 }
@@ -294,11 +293,11 @@ namespace PV_analysis.Components
         private double FindLgBest(double lgMax, double G, double Aecc, double magneticFluxDensityMax)
         {
             //二分查找，在lgDelta(cm)~lgMax(cm)范围内寻找
-            int l = 1, r = (int)(lgMax / lgDelta); //将lgDelta(cm)~lgMax(cm)映射到对应整数中
+            int l = 1, r = (int)(lgMax / math_lgD); //将lgDelta(cm)~lgMax(cm)映射到对应整数中
             while (l < r)
             {
                 int mid = (l + r) / 2; //二分取中值（向上取整）
-                double magneticFluxDensityPeak = CalcMagneticFluxDensityPeak((double)mid * lgDelta, G, Aecc); //磁通密度峰值(T)
+                double magneticFluxDensityPeak = CalcMagneticFluxDensityPeak((double)mid * math_lgD, G, Aecc); //磁通密度峰值(T)
                                                                                                               //System.out.println(l+" "+r+" "+magneticFluxDensityPeak+" "+magneticFluxDensityMax);
                 if (magneticFluxDensityPeak > magneticFluxDensityMax)
                 {
@@ -310,7 +309,7 @@ namespace PV_analysis.Components
                 }
             }
             //得到最佳气隙长度
-            return (double)l * lgDelta;
+            return (double)l * math_lgD;
         }
 
         /// <summary>
@@ -326,11 +325,11 @@ namespace PV_analysis.Components
             int N; //匝数
 
             //二分查找，在lgDelta(cm)~lgDesignMax(cm)范围内寻找
-            int l = 1, r = (int)(lgDesignMax / lgDelta); //将lgDelta(cm)~lgDesignMax(cm)映射到对应整数中
+            int l = 1, r = (int)(Properties.Settings.Default.电感最大气隙长度 / math_lgD); //将lgDelta(cm)~lgDesignMax(cm)映射到对应整数中
             while (l < r)
             {
                 int mid = (l + r + 1) / 2; //二分取中值（向上取整）
-                N = CalcN((double)mid * lgDelta, G, Aecc); //将变量mid映射成对应气隙长度，计算此时的匝数
+                N = CalcN((double)mid * math_lgD, G, Aecc); //将变量mid映射成对应气隙长度，计算此时的匝数
                                                            //System.out.println(l+" "+r+" "+N+" "+Nmax);
                 if (N <= Nmax)
                 {
@@ -343,7 +342,7 @@ namespace PV_analysis.Components
             }
 
             //得到气隙长度最大值并验算
-            lg = (double)l * lgDelta;
+            lg = (double)l * math_lgD;
             N = CalcN(lg, G, Aecc);
             if (N > Nmax)
             {
@@ -406,7 +405,7 @@ namespace PV_analysis.Components
             {
                 return false;
             }
-            if (lg <= 0 || lg > lgDesignMax)
+            if (lg <= 0 || lg > Properties.Settings.Default.电感最大气隙长度)
             {
                 return false;
             }
@@ -470,13 +469,13 @@ namespace PV_analysis.Components
             double Axb = Data.WireList[wire].Math_Ab * 1e-3; //绕线裸线面积(cm^2)
             double C = Data.CoreList[core].Math_C * 0.1; //(cm)
             double MLT = (numberCore - 1) * C * 2 + Data.CoreList[core].Math_MLT * 0.1; //一匝绕线长度(cm) 
-            double Rwire = lowCu * MLT * 1e-2 * N / (Axb * 1e-4); //单根绕线电阻(ohm)
+            double Rwire = math_ρCu * MLT * 1e-2 * N / (Axb * 1e-4); //单根绕线电阻(ohm)
             powerLossCu = Math.Pow(currentAverage, 2) * Rwire; //计算铜损
             if (IsAC)
             {
-                Rwire = lowCu * MLT * 1e-2 * N / (Axb * 1e-4); //直流电阻
+                Rwire = math_ρCu * MLT * 1e-2 * N / (Axb * 1e-4); //直流电阻
                 double r = Data.WireList[wire].Math_Db / 2 * 0.1;
-                double delta = Math.Sqrt(lowCu / (Math.PI * miu0 * miuCu * frequency)) * 1e2; //集肤深度(cm)
+                double delta = Math.Sqrt(math_ρCu / (Math.PI * math_μ0 * math_μCu * frequency)) * 1e2; //集肤深度(cm)
                 double Rwire1; //开关频率下的电阻 FIXME
                 if (r <= delta)
                 {

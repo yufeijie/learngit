@@ -206,7 +206,7 @@ namespace PV_analysis.Components
             double ratioWaveform = 4; //波形系数（方波4.0，正弦波4.44）
             double ratioWindowUtilization = Properties.Settings.Default.变压器窗口利用系数; //窗口利用系数
             double magneticFluxDensityMax = 0.4; //最大工作磁密(T)
-            double currentDensity = 400; //电流密度(A/cm^2)
+            double currentDensity = Properties.Settings.Default.电流密度; //电流密度(A/cm^2)
             double S3 = 0.75; //有效窗口系数
             double S2 = 0.6; //填充系数
             double APmin = 2 * power * 1e4 / (ratioWaveform * ratioWindowUtilization * magneticFluxDensityMax * currentDensity * frequencyMax); //所需磁芯面积积最小值(cm^4)
@@ -214,7 +214,7 @@ namespace PV_analysis.Components
             double Axbmin_s = currentPeakMax * turnRatio / secondaryNumber / currentDensity; //副边满足电流密度所需裸线面积(cm^2)
 
             //选取磁芯（视在功率需具体计算）
-            for (int j = 1; j <= numberCoreMax; j++) //采用不同的磁芯数量
+            for (int j = 1; j <= Configuration.MAX_CORE_NUM; j++) //采用不同的磁芯数量
             {
                 numberCore = j;
                 for (int i = 0; i < Data.CoreList.Count; i++)//搜寻库中所有磁芯型号
@@ -233,7 +233,7 @@ namespace PV_analysis.Components
                         double Aecc = j * Data.CoreList[i].Math_Ae * 1e-2; //等效磁芯面积(cm^2)
 
                         //选取原边绕线
-                        double delta = Math.Sqrt(lowCu / (Math.PI * miu0 * miuCu * frequencyMax)) * 1e2; //集肤深度(cm)
+                        double delta = Math.Sqrt(math_ρCu / (Math.PI * math_μ0 * math_μCu * frequencyMax)) * 1e2; //集肤深度(cm)
                         for (int wp = 0; wp < Data.WireList.Count; wp++)
                         {
                             //集肤深度验证
@@ -424,9 +424,9 @@ namespace PV_analysis.Components
             double Axb_s = Data.WireList[wire_s].Math_Ab * 1e-3; //副边绕线裸线面积(cm^2)
             double C = Data.CoreList[core].Math_C * 0.1; //(cm)
             double MLT = (numberCore - 1) * C * 2 + Data.CoreList[core].Math_MLT * 0.1; //一匝绕线长度(cm) 
-            double Rwire_p = lowCu * MLT * 1e-2 * Np / (Axb_p * 1e-4); //原边单根绕线电阻(ohm)
+            double Rwire_p = math_ρCu * MLT * 1e-2 * Np / (Axb_p * 1e-4); //原边单根绕线电阻(ohm)
             double Pp = Math.Pow(currentAverage, 2) * Rwire_p; //原边铜损
-            double Rwire_s = lowCu * MLT * 1e-2 * Ns / (Axb_s * 1e-4); //副边单根绕线电阻
+            double Rwire_s = math_ρCu * MLT * 1e-2 * Ns / (Axb_s * 1e-4); //副边单根绕线电阻
             double Ps = secondaryNumber * Math.Pow(currentAverage * turnRatio / secondaryNumber, 2) * Rwire_s; //副边铜损
             powerLossCu = Pp + Ps; //计算铜损
         }

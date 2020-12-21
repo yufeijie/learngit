@@ -4,7 +4,6 @@ namespace PV_analysis.Components
 {
     internal class FilteringCapacitor : Capacitor
     {
-
         /// <summary>
         /// 初始化
         /// </summary>
@@ -17,10 +16,10 @@ namespace PV_analysis.Components
         public override void Design()
         {
             //尽量使用少的器件进行设计
-            for (int M = 1; M <= numberMax; M++)
+            for (int M = 1; M <= maxNumber; M++)
             {
                 numberSeriesConnected = M;
-                for (int N = 1; M * N <= numberMax; N++)
+                for (int N = 1; M * N <= maxNumber; N++)
                 {
                     numberParallelConnected = N;
                     for (int i = 0; i < Data.CapacitorList.Count; i++) //搜寻库中所有电容型号
@@ -28,8 +27,8 @@ namespace PV_analysis.Components
                         device = i; //选用当前型号电容
                         if (Validate()) //验证该电容是否可用
                         {
-                            M = numberMax; //若得到设计方案，则不再考虑使用更多的器件
-                            N = numberMax;
+                            M = maxNumber; //若得到设计方案，则不再考虑使用更多的器件
+                            N = maxNumber;
                             Evaluate();
                             designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
                         }

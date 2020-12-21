@@ -9,7 +9,7 @@ namespace PV_analysis.Components
     {
         //限制条件
         //private bool isSoftOff = false; //是否以软关断的方式进行计算(仅在符合条件时为true)
-        private static readonly double paralleledNumMax = 10; //最大并联数
+        private static readonly int paralleledNumMax = Configuration.MAX_SEMICONDUCTOR_NUM; //最大并联数
 
         //器件参数
         private int paralleledNum; //并联数量
@@ -28,10 +28,6 @@ namespace PV_analysis.Components
         private double math_Poff; //主管关断损耗
         private double math_PDcon; //反并二极管通态损耗
         private double math_Prr; //反并二极管反向恢复损耗
-
-        //温度参数(℃)
-        private static readonly double math_Th_max = 60; //散热器允许最高温度
-        private static readonly double math_Tj_max = 110;//最高结温
 
         /// <summary>
         /// 初始化

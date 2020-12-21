@@ -8,10 +8,6 @@ namespace PV_analysis.Components
     /// </summary>
     internal abstract class Component
     {
-        //限制条件
-        protected bool isCheckExcess = false; //是否检查过剩容量
-        protected static readonly double excess = 1; //允许过剩容量
-
         //特殊参数
         protected bool frequencyVariable = false; //开关频率是否变化（默认不变）
 

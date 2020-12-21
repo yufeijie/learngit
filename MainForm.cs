@@ -34,8 +34,6 @@ namespace PV_analysis
 
         //页面切换、侧边栏
         private readonly Panel[] panelNow = new Panel[7]; //下标0——当前显示页面，下标1-6——各类页面的当前子页面
-        private System.Drawing.Color activeColor; //左侧边栏按钮，当前选中颜色
-        private System.Drawing.Color inactiveColor; //左侧边栏按钮，未选中颜色
 
         //评估
         //可用拓扑序列
@@ -44,7 +42,6 @@ namespace PV_analysis
         private string[] DCAC_topologyRange;
         //评估过程
         private Thread evaluationThread; //评估线程
-        private readonly short PRINT_LEVEL = 4; //允许打印的详细信息等级
         //负载-效率曲线
         private readonly int div = 100; //空载到满载划分精度
         //对象
@@ -65,27 +62,19 @@ namespace PV_analysis
         {
             InitializeComponent();
 
-            //生成范围输入辅助面板
-            Estimate_Step3_Vbus_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_Vbus_TextBox));
-            Estimate_Step3_Vinv_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_Vinv_TextBox));
-            Estimate_Step3_DCDCNumber_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_DCDCNumber_TextBox));
-            Estimate_Step3_DCDCFrequency_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_DCDCFrequency_TextBox));
-            Estimate_Step3_IsolatedDCDCSecondary_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCSecondary_TextBox));
-            Estimate_Step3_IsolatedDCDCNumber_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCNumber_TextBox));
-            Estimate_Step3_IsolatedDCDCFrequency_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCFrequency_TextBox));
-            Estimate_Step3_IsolatedDCDCQ_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCQ_TextBox));
-            Estimate_Step3_IsolatedDCDCk_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCk_TextBox));
-            Estimate_Step3_IsolatedDCDCCs_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCCs_TextBox));
-            Estimate_Step3_DCACFrequency_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_DCACFrequency_TextBox));
-            Estimate_Step3B_Secondary_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Secondary_TextBox));
-            Estimate_Step3B_Number_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Number_TextBox));
-            Estimate_Step3B_Frequency_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Frequency_TextBox));
-            Estimate_Step3B_Q_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Q_TextBox));
-            Estimate_Step3B_k_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_k_TextBox));
-            Estimate_Step3B_Cs_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Cs_TextBox));
+            //初始化侧边栏
+            panelNow[0] = Home_Panel;
+            panelNow[1] = Home_Panel;
+            panelNow[2] = Estimate_Ready_Panel;
+            panelNow[3] = Display_Ready_Panel;
+            panelNow[4] = Setting_Panel;
+            panelNow[5] = Admin_Panel;
+            panelNow[6] = Home_Panel;
 
             //初始化设置页面
-            Panel CreatePanel(string name, string unit = null)
+            List<Control> controlList = new List<Control>();
+            FoldButton foldButton;
+            void AddPanel(string name, string unit = null)
             {
                 Panel panel = new Panel
                 {
@@ -125,12 +114,50 @@ namespace PV_analysis
                     };
                     panel.Controls.Add(unitLabel);
                 }
-                return panel;
-            }
-            foreach (System.Configuration.SettingsProperty property in Properties.Settings.Default.Properties)
+                controlList.Add(panel);
+                foldButton.Add(panel);
+            }            
+            foldButton = Create_FoldButton("开关器件");
+            controlList.Add(foldButton);
+            AddPanel("开关器件电压裕量");
+            AddPanel("开关器件电流裕量");
+            foldButton = Create_FoldButton("磁性元件");
+            controlList.Add(foldButton);
+            AddPanel("电流密度", "A/cm^2");
+            AddPanel("电感最大气隙长度", "cm");
+            AddPanel("变压器窗口利用系数");
+            foldButton = Create_FoldButton("电容");
+            controlList.Add(foldButton);
+            AddPanel("电容电压裕量");
+            AddPanel("电容电流裕量");
+            foldButton = Create_FoldButton("谐振电感");
+            controlList.Add(foldButton);
+            foldButton = Create_FoldButton("谐振电容");
+            controlList.Add(foldButton);
+
+            for (int i = controlList.Count - 1; i >= 0; i--)
             {
-                Setting_Main_Panel.Controls.Add(CreatePanel(property.Name));
+                Setting_Main_Panel.Controls.Add(controlList[i]);
             }
+
+            //初始化范围输入辅助面板
+            Estimate_Step3_Vbus_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_Vbus_TextBox));
+            Estimate_Step3_Vinv_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_Vinv_TextBox));
+            Estimate_Step3_DCDCNumber_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_DCDCNumber_TextBox));
+            Estimate_Step3_DCDCFrequency_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_DCDCFrequency_TextBox));
+            Estimate_Step3_IsolatedDCDCSecondary_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCSecondary_TextBox));
+            Estimate_Step3_IsolatedDCDCNumber_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCNumber_TextBox));
+            Estimate_Step3_IsolatedDCDCFrequency_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCFrequency_TextBox));
+            Estimate_Step3_IsolatedDCDCQ_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCQ_TextBox));
+            Estimate_Step3_IsolatedDCDCk_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCk_TextBox));
+            Estimate_Step3_IsolatedDCDCCs_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_IsolatedDCDCCs_TextBox));
+            Estimate_Step3_DCACFrequency_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3_DCACFrequency_TextBox));
+            Estimate_Step3B_Secondary_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Secondary_TextBox));
+            Estimate_Step3B_Number_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Number_TextBox));
+            Estimate_Step3B_Frequency_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Frequency_TextBox));
+            Estimate_Step3B_Q_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Q_TextBox));
+            Estimate_Step3B_k_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_k_TextBox));
+            Estimate_Step3B_Cs_Panel.Controls.Add(new RangeInputPanel(Estimate_Step3B_Cs_TextBox));
         }
 
         /// <summary>
@@ -143,28 +170,32 @@ namespace PV_analysis
             panelNow[0] = panelNow[index];
             panelNow[0].Visible = true;
 
-            Tab_Home_Button.BackColor = inactiveColor;
-            Tab_Estimate_Button.BackColor = inactiveColor;
-            Tab_Display_Button.BackColor = inactiveColor;
-            Tab_Admin_Button.BackColor = inactiveColor;
-            Tab_Test_Button.BackColor = inactiveColor;
+            Tab_Home_Button.BackColor = Configuration.COLOR_INACTIVE;
+            Tab_Estimate_Button.BackColor = Configuration.COLOR_INACTIVE;
+            Tab_Display_Button.BackColor = Configuration.COLOR_INACTIVE;
+            Tab_Setting_Button.BackColor = Configuration.COLOR_INACTIVE;
+            Tab_Admin_Button.BackColor = Configuration.COLOR_INACTIVE;
+            Tab_Test_Button.BackColor = Configuration.COLOR_INACTIVE;
 
             switch (index)
             {
                 case 1:
-                    Tab_Home_Button.BackColor = activeColor;
+                    Tab_Home_Button.BackColor = Configuration.COLOR_ACTIVE;
                     break;
                 case 2:
-                    Tab_Estimate_Button.BackColor = activeColor;
+                    Tab_Estimate_Button.BackColor = Configuration.COLOR_ACTIVE;
                     break;
                 case 3:
-                    Tab_Display_Button.BackColor = activeColor;
+                    Tab_Display_Button.BackColor = Configuration.COLOR_ACTIVE;
                     break;
                 case 4:
-                    Tab_Admin_Button.BackColor = activeColor;
+                    Tab_Setting_Button.BackColor = Configuration.COLOR_ACTIVE;
                     break;
                 case 5:
-                    Tab_Test_Button.BackColor = activeColor;
+                    Tab_Admin_Button.BackColor = Configuration.COLOR_ACTIVE;
+                    break;
+                case 6:
+                    Tab_Test_Button.BackColor = Configuration.COLOR_ACTIVE;
                     break;
             }
         }
@@ -194,7 +225,7 @@ namespace PV_analysis
                 Console.WriteLine(text);
             }
 
-            if (level >= PRINT_LEVEL)
+            if (level >= Configuration.PRINT_LEVEL)
             {
                 PrintMsg(text);
             }
@@ -223,7 +254,7 @@ namespace PV_analysis
         /// 手动设计，生成折叠按钮
         /// </summary>
         /// <param name="title">标题</param>
-        private FoldButton Estimate_Manual_Create_FoldButton(string title)
+        private FoldButton Create_FoldButton(string title)
         {
             FoldButton button = new FoldButton
             {
@@ -484,7 +515,7 @@ namespace PV_analysis
                 double Vpv_peak = double.Parse(Estimate_Step3_Vpvpeak_TextBox.Text); //光伏输出电压最大值
                 double Vg = double.Parse(Estimate_Step3_Vgrid_TextBox.Text) * 1e3; //并网电压（线电压）
                 double Vo = Vg / Math.Sqrt(3); //输出电压（并网相电压）
-                double fg = 50; //并网频率
+                double fg = Configuration.GRID_FREQUENCY; //并网频率
                 double[] VbusRange; //母线电压范围
                 double[] VinvRange = Function.StringToDoubleArray(Estimate_Step3_Vinv_TextBox.Text); //逆变直流侧电压范围
                 int[] DCDC_numberRange; //DC/DC可用模块数序列
@@ -497,7 +528,7 @@ namespace PV_analysis
                 double[] isolatedDCDC_Math_Cs_Range = Function.StringToDoubleArray(Estimate_Step3_IsolatedDCDCCs_TextBox.Text, 1e-9); //开关管并联电容
                 double DCAC_Ma_min = double.Parse(Estimate_Step3_DCACMamin_TextBox.Text); //最小电压调制比
                 double DCAC_Ma_max = double.Parse(Estimate_Step3_DCACMamax_TextBox.Text); //最大电压调制比
-                double DCAC_φ = 0; //功率因数角(rad)
+                double DCAC_φ = Configuration.POWER_FACTOR_ANGLE; //功率因数角(rad)
                 string[] DCAC_modulationRange = { "PSPWM", "LSPWM" }; //DC/AC可用调制方式序列
                 double[] DCAC_frequencyRange = Function.StringToDoubleArray(Estimate_Step3_DCACFrequency_TextBox.Text, 1e3); //DC/AC开关谐振频率序列
 
@@ -652,10 +683,10 @@ namespace PV_analysis
                         Psys = double.Parse(Estimate_Step3B_Psys_TextBox.Text) * 1e6;
                         Vin = double.Parse(Estimate_Step3B_Vin_TextBox.Text);
                         double Vg = double.Parse(Estimate_Step3B_Vo_TextBox.Text) * 1e3;
-                        double fg = 50; //并网频率
+                        double fg = Configuration.GRID_FREQUENCY; //并网频率
                         double Ma_min = double.Parse(Estimate_Step3B_Mamin_TextBox.Text);
                         double Ma_max = double.Parse(Estimate_Step3B_Mamax_TextBox.Text);
-                        double φ = 0; //功率因数角(rad)
+                        double φ = Configuration.POWER_FACTOR_ANGLE; //功率因数角(rad)
                         string[] modulationRange = { "PSPWM", "LSPWM" };
                         evaluationEquipment = new DCACConverter()
                         {
@@ -1654,16 +1685,7 @@ namespace PV_analysis
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            panelNow[0] = Home_Panel;
-            panelNow[1] = Home_Panel;
-            panelNow[2] = Estimate_Ready_Panel;
-            panelNow[3] = Display_Ready_Panel;
-            panelNow[4] = Setting_Panel;
-            panelNow[5] = Admin_Panel;
-            panelNow[6] = Home_Panel;
 
-            activeColor = Tab_Home_Button.BackColor;
-            inactiveColor = Tab_Estimate_Button.BackColor;
         }
 
         private void Tab_Home_Button_Click(object sender, EventArgs e)
@@ -2305,7 +2327,7 @@ namespace PV_analysis
                 List<Control> panelList = new List<Control>(); //用于记录将要在预览面板中显示的信息（因为显示时设置了Dock=Top，而后生成的信息将显示在上方，所以在此处记录后，逆序添加控件）
                 Panel panel;
 
-                FoldButton button = Estimate_Manual_Create_FoldButton("整体系统");
+                FoldButton button = Create_FoldButton("整体系统");
                 panelList.Add(button);
                 List<(ControlType Type, string Text)> list = structure.GetManualInfo();
                 for (int i = 0; i < list.Count; i++)
@@ -2314,7 +2336,7 @@ namespace PV_analysis
                     panelList.Add(panel);
                     button.Add(panel);
                 }
-                button = Estimate_Manual_Create_FoldButton("前级DC/DC");
+                button = Create_FoldButton("前级DC/DC");
                 panelList.Add(button);
                 list = structure.DCDC.GetManualInfo();
                 for (int i = 0; i < list.Count; i++)
@@ -2336,7 +2358,7 @@ namespace PV_analysis
                         button.Add(panel);
                     }
                 }
-                button = Estimate_Manual_Create_FoldButton("隔离DC/DC");
+                button = Create_FoldButton("隔离DC/DC");
                 panelList.Add(button);
                 list = structure.IsolatedDCDC.GetManualInfo();
                 for (int i = 0; i < list.Count; i++)
@@ -2358,7 +2380,7 @@ namespace PV_analysis
                         button.Add(panel);
                     }
                 }
-                button = Estimate_Manual_Create_FoldButton("逆变");
+                button = Create_FoldButton("逆变");
                 panelList.Add(button);
                 list = structure.DCAC.GetManualInfo();
                 for (int i = 0; i < list.Count; i++)

@@ -15,13 +15,6 @@ namespace PV_analysis
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
-
-            //OptimizeDCDCConverter();
-            //OptimizeIsolatedDCDCConverter();
-            //OptimizeIsolatedDCDCConverter_TwoStage();
-            //OptimizeDCACConverter();
-
-            //Load("TwoLevelStructure_Pareto_20200821_112116_772.xlsx", 1);
         }
     }
 }

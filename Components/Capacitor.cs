@@ -8,8 +8,7 @@ namespace PV_analysis.Components
     internal abstract class Capacitor : Component
     {
         //限制条件
-        protected static readonly double margin = 0.1; //裕量
-        protected static readonly int numberMax = 20; //最大器件数
+        protected static readonly int maxNumber = Configuration.MAX_CAPACITOR_NUM;
 
         //器件参数
         protected int device; //电容编号
@@ -214,18 +213,20 @@ namespace PV_analysis.Components
                 return false;
             }
 
+            double kV = Properties.Settings.Default.电容电压裕量;
+            double kI = Properties.Settings.Default.电容电流裕量;
             //验证电压电流应力是否满足
-            if (Data.CapacitorList[device].Math_Un * (1 - margin) * numberSeriesConnected < voltageMax
-                || Data.CapacitorList[device].Math_Irms * (1 - margin) * numberParallelConnected < currentRMSMax)
+            if (Data.CapacitorList[device].Math_Un * (1 - kV) * numberSeriesConnected < voltageMax
+                || Data.CapacitorList[device].Math_Irms * (1 - kI) * numberParallelConnected < currentRMSMax)
             {
                 return false;
             }
 
             //容量过剩检查
-            if (isCheckExcess)
+            if (Configuration.IS_CHECK_CAPACITOR_EXCESS)
             {
-                if (Data.CapacitorList[device].Math_Un * (1 - margin) * numberSeriesConnected > voltageMax * (1 + excess)
-                    || Data.CapacitorList[device].Math_Irms * (1 - margin) * numberParallelConnected > currentRMSMax * (1 + excess)
+                if (Data.CapacitorList[device].Math_Un * (1 - kV) * numberSeriesConnected > voltageMax * (1 + Configuration.EXCESS_RATIO)
+                    || Data.CapacitorList[device].Math_Irms * (1 - kI) * numberParallelConnected > currentRMSMax * (1 + Configuration.EXCESS_RATIO)
                     )
                 {
                     return false;

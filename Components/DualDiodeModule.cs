@@ -24,10 +24,6 @@ namespace PV_analysis.Components
         private double[] math_PDcon; //二极管通态损耗
         private double[] math_Prr; //二极管反向恢复损耗
 
-        //温度参数(℃)
-        private static readonly double math_Th_max = 60; //散热器允许最高温度
-        private static readonly double math_Tj_max = 110;//最高结温
-
         /// <summary>
         /// 上管名称
         /// </summary>

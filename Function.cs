@@ -6,9 +6,6 @@ namespace PV_analysis
 {
     internal static class Function
     {
-        public const double ERROR = 1e-12; //最小计算误差，小于该值则认为为0
-        public const double ERROR_BIG = 1e-8; //最小计算误差（数字较大），小于该值则认为为0
-
         /// <summary>
         /// 浮点数比较，判断两个变量是否相等
         /// </summary>
@@ -19,11 +16,11 @@ namespace PV_analysis
         {
             if (Math.Min(left, right) < 1e4)
             {
-                return Math.Abs(left - right) < ERROR;
+                return Math.Abs(left - right) < Configuration.ERROR;
             }
             else
             {
-                return Math.Abs(left - right) < ERROR_BIG;
+                return Math.Abs(left - right) < Configuration.ERROR_BIG;
             }
         }
 

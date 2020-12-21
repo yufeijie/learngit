@@ -11,9 +11,6 @@ namespace PV_analysis.Converters
     /// </summary>
     internal abstract class Converter : Equipment
     {
-        //优化与评估
-        protected static readonly bool isRecordResult = true; //是否记录单级变换器评估结果
-
         //散热器参数（单个模块）
         private double costHeatsink;
         private double volumeHeatsink;

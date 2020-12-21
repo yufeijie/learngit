@@ -12,7 +12,9 @@ namespace PV_analysis.Components
     internal abstract class Semiconductor : Component
     {
         //限制条件
-        protected static bool selectSiC = true; //SiC器件选用开关，true为可选用
+        protected static bool isSelectSiC = Configuration.IS_SELECT_SIC; //SiC器件选用开关，true为可选用
+        protected static readonly double math_Tj_max = Configuration.MAX_JUNCTION_TEMPERATURE;//最高结温
+        protected static readonly double math_Th_max = Configuration.MAX_HEATSINK_TEMPERATURE; //散热器允许最高温度
 
         //器件参数
         protected int device; //开关器件编号
@@ -110,20 +112,23 @@ namespace PV_analysis.Components
         /// <returns></returns>
         protected bool ValidateVoltageAndCurrent(int paralleledNum = 1)
         {
+            double kV = Properties.Settings.Default.开关器件电压裕量;
+            double kI = Properties.Settings.Default.开关器件电流裕量;
+
             //电压应力检查
-            if (Data.SemiconductorList[device].Math_Vmax * (1 - Properties.Settings.Default.开关器件电压裕量) < math_Vmax) return false;
+            if (Data.SemiconductorList[device].Math_Vmax * (1 - kV) < math_Vmax) return false;
 
             //电流应力检查
-            if (paralleledNum * Data.SemiconductorList[device].Math_Imax * (1 - Properties.Settings.Default.开关器件电流裕量) < math_Imax) return false;
+            if (paralleledNum * Data.SemiconductorList[device].Math_Imax * (1 - kI) < math_Imax) return false;
 
             //容量过剩检查
-            if (isCheckExcess)
+            if (Configuration.IS_CHECK_SEMICONDUCTOR_EXCESS)
             {
                 //电压容量过剩检查
-                if (Data.SemiconductorList[device].Math_Vmax * (1 - Properties.Settings.Default.开关器件电压裕量) > math_Vmax * (1 + excess)) return false;
+                if (Data.SemiconductorList[device].Math_Vmax * (1 - kV) > math_Vmax * (1 + Configuration.EXCESS_RATIO)) return false;
 
                 //电流容量过剩检查
-                if (paralleledNum * Data.SemiconductorList[device].Math_Imax * (1 - Properties.Settings.Default.开关器件电流裕量) > math_Imax * (1 + excess)) return false;
+                if (paralleledNum * Data.SemiconductorList[device].Math_Imax * (1 - kI) > math_Imax * (1 + Configuration.EXCESS_RATIO)) return false;
             }
             return true;
         }

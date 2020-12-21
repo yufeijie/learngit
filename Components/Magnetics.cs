@@ -7,12 +7,9 @@ namespace PV_analysis.Components
     internal abstract class Magnetics : Component
     {
         //常量
-        protected const double miu0 = 4 * Math.PI * 1e-7; //绝对磁导率(H/m) [MKS] or 1(Gs/Oe) [CGS]
-        protected const double lowCu = 1.724 * 1e-8; //铜电阻率
-        protected const double miuCu = 1; //铜相对磁导率 0.9999912
-
-        //限制条件
-        protected static readonly int numberCoreMax = 10; //磁芯数量最大值
+        protected static readonly double math_μ0 = Configuration.ABSOLUTE_PERMEABILITY; //绝对磁导率(H/m) [MKS] or 1(Gs/Oe) [CGS]
+        protected static readonly double math_ρCu = Configuration.COPPER_RESISTIVITY; //铜电阻率
+        protected static readonly double math_μCu = Configuration.COPPER_RELATIVE_PERMEABILITY; //铜相对磁导率 0.9999912
 
         //器件参数
         protected String material = "Ferrite"; //材料：铁氧体Ferrite，非晶Amorphous

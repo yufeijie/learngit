@@ -5,7 +5,6 @@ namespace PV_analysis.Components
 {
     internal class ResonantCapacitor : Capacitor
     {
-
         /// <summary>
         /// 初始化
         /// </summary>
@@ -20,11 +19,11 @@ namespace PV_analysis.Components
             for (int i = 0; i < Data.CapacitorList.Count; i++) //搜寻库中所有电容型号
             {
                 device = i; //选用当前型号电容
-                int numberSeriesConnectedMin = (int)Math.Ceiling(voltageMax / (Data.CapacitorList[device].Math_Un) * (1 - margin));
-                int numberParallelConnectedMin = (int)Math.Ceiling(currentRMSMax / (Data.CapacitorList[device].Math_Irms) * (1 - margin));
-                for (int M = numberSeriesConnectedMin; M <= numberMax; M++)
+                int numberSeriesConnectedMin = (int)Math.Ceiling(voltageMax / (Data.CapacitorList[device].Math_Un) * (1 - Properties.Settings.Default.电容电压裕量));
+                int numberParallelConnectedMin = (int)Math.Ceiling(currentRMSMax / (Data.CapacitorList[device].Math_Irms) * (1 - Properties.Settings.Default.电容电流裕量));
+                for (int M = numberSeriesConnectedMin; M <= maxNumber; M++)
                 {
-                    for (int N = numberParallelConnectedMin; M * N <= numberMax; N++)
+                    for (int N = numberParallelConnectedMin; M * N <= maxNumber; N++)
                     {
                         numberSeriesConnected = M;
                         numberParallelConnected = N;

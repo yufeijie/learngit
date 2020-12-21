@@ -11,5 +11,17 @@
     <Setting Name="变压器窗口利用系数" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.4</Value>
     </Setting>
+    <Setting Name="电感最大气隙长度" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="电容电压裕量" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="电容电流裕量" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="电流密度" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
