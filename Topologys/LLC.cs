@@ -245,7 +245,7 @@ namespace PV_analysis.Topologys
                 curve_vCr.Order(t0 + Ts / 2, VCrp);
                 //生成主电路元件波形
                 curve_iSp = curve_iLr.Cut(0, Ts / 2, 1);
-                curve_iSs = curve_io.Cut(0, Ts / 2, 1);
+                curve_iSs = curve_io.Cut(0, Ts / 2, n);
                 math_vSs = Vin;
                 math_vSp = Vo;
                 curve_iCf = curve_iSs.Copy(1, 0, -Io);
@@ -258,7 +258,7 @@ namespace PV_analysis.Topologys
             }
             else //谐振电容电压不连续
             {
-                double Vo = Vo_ref; //实际输出电压
+                double Vo = Vo_ref; //理想输出电压
                 double Io = P / Vo; //输出电流平均值                
                 double t1 = Ts / 4 - Math.Sqrt(Ts * Ts / 16 + 2 * Lm * (Io * Ts / (4 * n * Vin) - Cr / k));
                 double ILrp = -Math.Sqrt(Math.Pow(Vin / (k * Zr), 2) + Math.Pow(Vin / (4 * Lm) * (4 * t1 - Ts), 2));
@@ -336,7 +336,7 @@ namespace PV_analysis.Topologys
                 curve_iLr.Order(t0 + Ts / 2, 0);
                 //生成主电路元件波形
                 curve_iSp = curve_iLr.Cut(0, Ts / 2, 1);
-                curve_iSs = curve_io.Cut(0, Ts / 2, 1);
+                curve_iSs = curve_io.Cut(0, Ts / 2, n);
                 math_vSs = Vin;
                 math_vSp = Vo;
                 curve_iCf = curve_iSs.Copy(1, 0, -Io);

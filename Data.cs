@@ -145,9 +145,8 @@ namespace PV_analysis
                         Math_Vgs_l = row.GetCell(31).NumericCellValue;
                         Math_Rg_drive = row.GetCell(32).NumericCellValue;
                         break;
-                    case "Diode-Module (No Vf curve)":
-                        Curve_Vf_I0 = row.GetCell(7).NumericCellValue;
-                        Curve_Vf_V0 = row.GetCell(8).NumericCellValue;
+                    case "Diode-Module (No Err)":
+                        Id_Vf = (int)row.GetCell(8).NumericCellValue;
                         Diode_RthJC = row.GetCell(14).NumericCellValue;
                         Module_RthCH = row.GetCell(16).NumericCellValue;
                         break;

@@ -248,10 +248,10 @@ namespace PV_analysis.Components
             if (!Data.SemiconductorList[device].Available) return false;
 
             //验证器件类型是否符合
-            if (!Data.SemiconductorList[device].Category.Equals("Diode-Module") && !Data.SemiconductorList[device].Category.Equals("Diode-Module (No Vf curve)")) return false;
+            if (!Data.SemiconductorList[device].Category.Equals("Diode-Module") && !Data.SemiconductorList[device].Category.Equals("Diode-Module (No Err)")) return false;
 
             //验证器件结构是否符合
-            if (!Data.SemiconductorList[device].Configuration.Equals("Dual")) return false;
+            if (!Data.SemiconductorList[device].Configuration.Equals("Dual") && !Data.SemiconductorList[device].Configuration.Equals("Single")) return false;
 
             //验证电压、电流条件是否满足
             if (!ValidateVoltageAndCurrent()) return false;
@@ -362,9 +362,9 @@ namespace PV_analysis.Components
         /// <returns>计算结果</returns>
         private double CalcPrr_Module(double Ioff)
         {
-            if (Data.SemiconductorList[device].Category.Equals("Diode-Module (No Vf curve)"))
+            if (Data.SemiconductorList[device].Category.Equals("Diode-Module (No Err)"))
             {
-                Console.WriteLine("Diode-Module (No Vf curve)类器件无法计算反向恢复损耗！");
+                Console.WriteLine("Diode-Module (No Err)类器件无法计算反向恢复损耗！");
                 Environment.Exit(-1);
             }
 
@@ -383,6 +383,10 @@ namespace PV_analysis.Components
         protected override void CalcCost()
         {
             semiconductorCost = Data.SemiconductorList[device].Price;
+            if (Data.SemiconductorList[device].Configuration.Equals("Single"))
+            {
+                semiconductorCost *= 2;
+            }
             cost = semiconductorCost;
         }
 
@@ -392,6 +396,10 @@ namespace PV_analysis.Components
         protected override void CalcVolume()
         {
             volume = Data.SemiconductorList[device].Volume;
+            if (Data.SemiconductorList[device].Configuration.Equals("Single"))
+            {
+                volume *= 2;
+            }
         }
 
         /// <summary>

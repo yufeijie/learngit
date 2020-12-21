@@ -198,7 +198,7 @@ namespace PV_analysis.Topologys
                 System.Environment.Exit(-1);
             }
             double VCrp = Formula.SRC_Vcrp(n, Q, Vo, fr, fs);
-            double Io = Vo / RL;
+            double Io = Vo / RL / No;
 
             double ILp = 0;
             curve_iL = new Curve();
@@ -311,7 +311,7 @@ namespace PV_analysis.Topologys
 
             //设置元器件的设计条件
             primaryDualModule.SetConditions(math_VSpmax, ILmax, math_fs);
-            secondaryDualDiodeModule.SetConditions(math_VSsmax, math_n * ILmax, math_fs);
+            secondaryDualDiodeModule.SetConditions(math_VSsmax, math_n / math_No * ILmax, math_fs);
             resonantInductor.SetConditions(math_Lr, ILmax, math_fs);
             transformer.SetConditions(math_Pfull, ILmax, math_fs, math_n, math_No, math_ψ); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(math_Cr, VCrmax, ILrms_max);

@@ -190,22 +190,21 @@ namespace PV_analysis.Topologys
             double Zr = Math.Sqrt(Lr / Cr); //谐振阻抗
             double Tr = 1 / fr; //谐振周期
             double Ts = 1 / fs; //开关周期
-            double Td = (Ts - Tr) / 2; //死区时间
 
             curve_iLr = new Curve();
             Curve curve_iLm = new Curve();
             Curve curve_io = new Curve();
             curve_vCr = new Curve();
 
+            double Vab = Vin / 2; //原边逆变桥臂输出电压
             double VCr0 = -P * Ts / (4 * n * Cr * Vo);
             if ((Vin - VCr0) * k / (k + 1) >= Vo)
             {
                 double Vo_act = Vo * (Cr + Cs) / Cr; //实际输出电压
-                double Io = P / Vo / No; //输出电流平均值
-                double Vab = Vin / 2; //原边逆变桥臂输出电压
+                double Io_act = P / Vo_act / No; //输出电流平均值
                 double Vtp = n * Vo_act; //变压器原边电压
-                double ILrmax = Math.Sqrt(Math.Pow(Vtp * Tr / (4 * Lm), 2) + Math.Pow(Io * wr * Ts / (4 * n), 2)); //谐振电感电流最大值
-                double φ = Math.Atan(-n * n * Vo * Vo * Tr / (P * wr * Lm * Ts)); //谐振电感电流相角
+                double ILrmax = Math.Sqrt(Math.Pow(Vtp * Tr / (4 * Lm), 2) + Math.Pow(No * Io_act * wr * Ts / (4 * n), 2)); //谐振电感电流最大值
+                double φ = Math.Atan(-n * Vtp * Tr / (No * Io_act * wr * Ts * Lm)); //谐振电感电流相角
                 double ILmmax = Vtp * Tr / (4 * Lm); //死区时间内，认为励磁电感电流不变
                 double VCrmax = ILrmax * Zr - Vab + Vtp; //谐振电容电压最大值
 
@@ -236,9 +235,9 @@ namespace PV_analysis.Topologys
                     {
                         iLm = ILmmax;
                         iLr = ILmmax;
-                        vCr = Vab - Vtp + Io * Ts / (4 * n * Cr) + Vtp * Tr / (4 * Lm * Cr) * (t - Tr / 2);
+                        vCr = Vab - Vtp + No * Io_act * Ts / (4 * n * Cr) + Vtp * Tr / (4 * Lm * Cr) * (t - Tr / 2);
                     }
-                    io = n / No * (iLr - iLm);
+                    io = n / No * Math.Abs(iLr - iLm);
                     iLm *= p;
                     iLr *= p;
                     vCr *= p;
@@ -255,10 +254,10 @@ namespace PV_analysis.Topologys
                 curve_iLr.Order(t1 + Ts / 2, 0);
                 //生成主电路元件波形
                 curve_iSp = curve_iLr.Cut(0, Ts / 2, 1);
-                curve_iSs = curve_io.Cut(0, Ts / 2, 1);
-                math_vSs = Vin;
-                math_vSp = Vo;
-                curve_iCf = curve_iSs.Copy(1, 0, -Io);
+                curve_iSs = curve_io.Cut(0, Ts / 2, n / No);
+                math_vSs = Vab;
+                math_vSp = Vo_act;
+                curve_iCf = curve_iSs.Copy(1, 0, -Io_act);
                 //计算有效值
                 math_ILrrms = curve_iLr.CalcRMS();
                 math_ICfrms = curve_iCf.CalcRMS();
@@ -266,23 +265,25 @@ namespace PV_analysis.Topologys
                 math_VCrmax = VCrmax;
                 math_ILrmax = ILrmax;
             }
-            else //谐振电容电压不连续
+            else //TODO 谐振电容电压不连续
             {
                 double Io = P / Vo /No; //输出电流平均值                
-                double t1 = Ts / 4 - Math.Sqrt(Ts * Ts / 16 + 2 * Lm * (Io * Ts / (4 * n * Vin) - Cr / k));
-                double ILrp = -Math.Sqrt(Math.Pow(Vin / (k * Zr), 2) + Math.Pow(Vin / (4 * Lm) * (4 * t1 - Ts), 2));
+                double t1 = Ts / 4 - Math.Sqrt(Ts * Ts / 16 + 2 * Lm * (No * Io * Ts / (4 * n * Vab) - Cr / k));
+                double ILrp = -Math.Sqrt(Math.Pow(Vab / (k * Zr), 2) + Math.Pow(Vab / (4 * Lm) * (4 * t1 - Ts), 2));
                 double φ = Math.Atan(k * Zr / Lm * (t1 - Ts / 4)) - wr * t1;
+                
                 //求解t2
-                MWArray output = Formula.solve.solveLLC_t2(Vin, Ts, wr, Lm, ILrp, φ);
+                MWArray output = Formula.solve.solveLLC_t2(Vab, Ts, wr, Lm, ILrp, φ);
                 MWNumericArray result = (MWNumericArray)output;
                 double t2 = result.ToScalarDouble();
                 if (t2 < t1 || t2 > Ts / 2)
                 {
                     Console.WriteLine("Wrong t2!");
-                    System.Environment.Exit(-1);
+                    Environment.Exit(-1);
                 }
-                                
-                double VCrp = 0;
+
+                double ILrmax = 0;
+                double VCrmax = 0;
                 double startTime = 0;
                 double endTime = Ts;
                 double dt = (endTime - startTime) / Configuration.DEGREE;
@@ -302,23 +303,23 @@ namespace PV_analysis.Topologys
                     }
                     if (t <= t1)
                     {
-                        iLm = Vin / (4 * Lm) * (4 * t - Ts);
+                        iLm = Vab / (4 * Lm) * (4 * t - Ts);
                         iLr = iLm;
-                        vCr = VCr0 + (2 * Vin * t * t - Vin * Ts * t) / (4 * Lm * Cr);
+                        vCr = VCr0 + (2 * Vab * t * t - Vab * Ts * t) / (4 * Lm * Cr);
                     }
                     else if (t <= t2)
                     {
-                        iLm = Vin / (4 * Lm) * (4 * t - Ts);
+                        iLm = Vab / (4 * Lm) * (4 * t - Ts);
                         iLr = -ILrp * Math.Sin(wr * t + φ);
                         vCr = Zr * ILrp * Math.Cos(wr * t + φ);
                     }
                     else
                     {
-                        iLm = Vin / (4 * Lm) * (4 * t - Ts);
+                        iLm = Vab / (4 * Lm) * (4 * t - Ts);
                         iLr = iLm;
-                        vCr = -VCr0 + (2 * Vin * t * t - Vin * Ts * t) / (4 * Lm * Cr);
+                        vCr = -VCr0 + (2 * Vab * t * t - Vab * Ts * t) / (4 * Lm * Cr);
                     }
-                    io = n/No * (iLr - iLm);
+                    io = n / No * Math.Abs(iLr - iLm);
                     iLm *= p;
                     iLr *= p;
                     vCr *= p;
@@ -329,11 +330,12 @@ namespace PV_analysis.Topologys
                     curve_io.Add(t, io);
                     curve_vCr.Add(t, vCr);
 
-                    VCrp = Math.Max(VCrp, Math.Abs(vCr));
+                    ILrmax = Math.Max(ILrmax, Math.Abs(iLr));
+                    VCrmax = Math.Max(VCrmax, Math.Abs(vCr));
                 }
                 //补充特殊点（保证现有的开关器件损耗计算方法正确）
                 double t0;
-                if (Vin / (4 * Lm) * (4 * t1 - Ts) <= 0)
+                if (Vab / (4 * Lm) * (4 * t1 - Ts) <= 0)
                 {
                     t0 = -φ / wr;
                 }
@@ -345,16 +347,16 @@ namespace PV_analysis.Topologys
                 curve_iLr.Order(t0 + Ts / 2, 0);
                 //生成主电路元件波形
                 curve_iSp = curve_iLr.Cut(0, Ts / 2, 1);
-                curve_iSs = curve_io.Cut(0, Ts / 2, 1);
-                math_vSs = Vin;
+                curve_iSs = curve_io.Cut(0, Ts / 2, n / No);
+                math_vSs = Vab;
                 math_vSp = Vo;
                 curve_iCf = curve_iSs.Copy(1, 0, -Io);
                 //计算有效值
                 math_ILrrms = curve_iLr.CalcRMS();
                 math_ICfrms = curve_iCf.CalcRMS();
 
-                math_VCrmax = VCrp;
-                math_ILrmax = -ILrp;
+                math_VCrmax = VCrmax;
+                math_ILrmax = ILrmax;
             }
             //Graph graph = new Graph();
             //graph.Add(curve_vCr, "vCr");
@@ -448,7 +450,7 @@ namespace PV_analysis.Topologys
 
             //设置元器件的设计条件
             primaryDualModule.SetConditions(math_VSpmax, ILrmax, math_fs);
-            secondaryDualDiodeModule.SetConditions(math_VSsmax, math_n * ILrmax, math_fs);
+            secondaryDualDiodeModule.SetConditions(math_VSsmax, math_n / math_No * ILrmax, math_fs);
             resonantInductor.SetConditions(math_Lr, ILrmax, math_fs);
             transformer.SetConditions(math_P, ILrmax, math_fs, math_n, math_No, math_ψ); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(math_Cr, VCrmax, ILrrms_max);
