@@ -154,8 +154,8 @@ namespace PV_analysis.Topologys
             double Lr = Zr / wr;
             double Cr = 1 / Zr / wr;
             double Lm = k * Lr;
-            double Td = 8 * b * Lm * Cr * Cs / (Tr * (p * Cr + b * Cs)); //死区时间
-            double Vo_act = Vo * (1 + b * Cs / (p * Cr)); //实际输出电压
+            double Td = 8 * b * b * Lm * Cr * Cs / (Tr * (2 * p * Cr + b * b * Cs)); //死区时间
+            double Vo_act = Vo * (1 + b * b * Cs / (2 * p * Cr)); //实际输出电压
             double Ts = Tr + 2 * Td; //开关周期
             double fs = 1 / Ts; //开关频率
 
@@ -199,7 +199,7 @@ namespace PV_analysis.Topologys
             curve_iTs = new Curve();
             curve_vCr = new Curve();
 
-            double Vo_act = Vo * (1 + b * Cs / (p * Cr)); //实际输出电压
+            double Vo_act = Vo * (1 + b * b * Cs / (2 * p * Cr)); //实际输出电压
             double Io_act = P / Vo_act / No; //实际输出电流平均值
             double Vab = Vin / b; //原边逆变桥臂输出电压
             double Vtp = n * Vo_act; //变压器原边电压

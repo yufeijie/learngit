@@ -294,7 +294,6 @@ namespace PV_analysis.Topologys
 
                 //设置元器件的电路参数（用于评估）
                 primaryDualModule.AddEvalParameters(0, j, math_vSp, curve_iSp, curve_iSp);
-                Curve iD = curve_iSs.Copy(-1);
                 secondaryDualDiodeModule.AddEvalParameters(0, j, math_vSs, curve_iSs, curve_iSs);
                 resonantInductor.AddEvalParameters(0, j, math_ILrrms, math_ILrp * 2);
                 transformer.AddEvalParameters(0, j, math_ILrrms, math_ILrrms * math_n / math_No);
@@ -326,7 +325,6 @@ namespace PV_analysis.Topologys
             Simulate();
             //设置元器件的电路参数
             primaryDualModule.SetParameters(math_vSp, curve_iSp, curve_iSp, math_fs);
-            Curve iD = curve_iSs.Copy(-1);
             secondaryDualDiodeModule.SetParameters(math_vSs, curve_iSs, curve_iSs, math_fs);
             resonantInductor.SetParameters(math_ILrrms, math_ILrp * 2, math_fs);
             transformer.SetParameters(math_ILrrms, math_ILrrms * math_n / math_No, math_fs, math_ψ);
