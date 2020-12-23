@@ -294,6 +294,8 @@ namespace PV_analysis.Components
         {
             PDcon = 0;
             Prr = 0;
+            if (curve == null) return;
+
             Point[] data = curve.GetData();
             for (int i = 1; i < data.Length; i++)
             {

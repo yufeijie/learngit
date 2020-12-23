@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Documents;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using System.Windows.Media;
-using System.Xml.Serialization.Configuration;
 using LiveCharts;
 using LiveCharts.Defaults;
+using LiveCharts.Geared;
 using LiveCharts.Wpf;
 using static PV_analysis.Curve;
 
@@ -41,11 +38,12 @@ namespace PV_analysis
             {
                 values.Add(new ObservablePoint(data[i].X, data[i].Y));
             }
-            chart.Series.Add(new LineSeries
+            chart.Series.Add(new GLineSeries
             {
                 Title = name,
-                Values = values,
-                LineSmoothness = 0,
+                Values = values.AsGearedValues().WithQuality(Quality.Low),
+                Fill = Brushes.Transparent,
+                StrokeThickness = .5,
                 PointGeometry = null
             });
         }
