@@ -66,6 +66,9 @@
             this.Estimate_Step2_Group3_Item1_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group3_Item1_CheckBox = new System.Windows.Forms.CheckBox();
             this.Estimate_Step2_Group3_Item1_PictureBox = new System.Windows.Forms.PictureBox();
+            this.Estimate_Step2_Group2_Item5_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step2_Group2_Item5_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step2_Group2_Item5_PictureBox = new System.Windows.Forms.PictureBox();
             this.Estimate_Step2_Group2_Item4_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step2_Group2_Item4_CheckBox = new System.Windows.Forms.CheckBox();
             this.Estimate_Step2_Group2_Item4_PictureBox = new System.Windows.Forms.PictureBox();
@@ -92,6 +95,7 @@
             this.Estimate_Step2_Group3_Item1_Left_CheckBox = new System.Windows.Forms.CheckBox();
             this.Estimate_Step2_Group3_Title_Label = new System.Windows.Forms.Label();
             this.Estimate_Step2_Group2_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step2_Group2_Item5_Left_CheckBox = new System.Windows.Forms.CheckBox();
             this.Estimate_Step2_Group2_Item4_Left_CheckBox = new System.Windows.Forms.CheckBox();
             this.Estimate_Step2_Group2_Item2_Left_CheckBox = new System.Windows.Forms.CheckBox();
             this.Estimate_Step2_Group2_Item3_Left_CheckBox = new System.Windows.Forms.CheckBox();
@@ -422,6 +426,8 @@
             this.Estimate_Step2_Main_Right_Panel.SuspendLayout();
             this.Estimate_Step2_Group3_Item1_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group3_Item1_PictureBox)).BeginInit();
+            this.Estimate_Step2_Group2_Item5_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item5_PictureBox)).BeginInit();
             this.Estimate_Step2_Group2_Item4_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item4_PictureBox)).BeginInit();
             this.Estimate_Step2_Group2_Item3_Panel.SuspendLayout();
@@ -958,6 +964,7 @@
             // 
             this.Estimate_Step2_Main_Right_Panel.AutoScroll = true;
             this.Estimate_Step2_Main_Right_Panel.Controls.Add(this.Estimate_Step2_Group3_Item1_Panel);
+            this.Estimate_Step2_Main_Right_Panel.Controls.Add(this.Estimate_Step2_Group2_Item5_Panel);
             this.Estimate_Step2_Main_Right_Panel.Controls.Add(this.Estimate_Step2_Group2_Item4_Panel);
             this.Estimate_Step2_Main_Right_Panel.Controls.Add(this.Estimate_Step2_Group2_Item3_Panel);
             this.Estimate_Step2_Main_Right_Panel.Controls.Add(this.Estimate_Step2_Group2_Item2_Panel);
@@ -977,7 +984,7 @@
             this.Estimate_Step2_Group3_Item1_Panel.Controls.Add(this.Estimate_Step2_Group3_Item1_CheckBox);
             this.Estimate_Step2_Group3_Item1_Panel.Controls.Add(this.Estimate_Step2_Group3_Item1_PictureBox);
             this.Estimate_Step2_Group3_Item1_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step2_Group3_Item1_Panel.Location = new System.Drawing.Point(0, 2354);
+            this.Estimate_Step2_Group3_Item1_Panel.Location = new System.Drawing.Point(0, 2832);
             this.Estimate_Step2_Group3_Item1_Panel.Name = "Estimate_Step2_Group3_Item1_Panel";
             this.Estimate_Step2_Group3_Item1_Panel.Size = new System.Drawing.Size(1113, 605);
             this.Estimate_Step2_Group3_Item1_Panel.TabIndex = 5;
@@ -1006,6 +1013,41 @@
             this.Estimate_Step2_Group3_Item1_PictureBox.TabIndex = 0;
             this.Estimate_Step2_Group3_Item1_PictureBox.TabStop = false;
             // 
+            // Estimate_Step2_Group2_Item5_Panel
+            // 
+            this.Estimate_Step2_Group2_Item5_Panel.AutoSize = true;
+            this.Estimate_Step2_Group2_Item5_Panel.Controls.Add(this.Estimate_Step2_Group2_Item5_CheckBox);
+            this.Estimate_Step2_Group2_Item5_Panel.Controls.Add(this.Estimate_Step2_Group2_Item5_PictureBox);
+            this.Estimate_Step2_Group2_Item5_Panel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Estimate_Step2_Group2_Item5_Panel.Location = new System.Drawing.Point(0, 2490);
+            this.Estimate_Step2_Group2_Item5_Panel.Name = "Estimate_Step2_Group2_Item5_Panel";
+            this.Estimate_Step2_Group2_Item5_Panel.Size = new System.Drawing.Size(1113, 342);
+            this.Estimate_Step2_Group2_Item5_Panel.TabIndex = 8;
+            // 
+            // Estimate_Step2_Group2_Item5_CheckBox
+            // 
+            this.Estimate_Step2_Group2_Item5_CheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group2_Item5_CheckBox.AutoSize = true;
+            this.Estimate_Step2_Group2_Item5_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step2_Group2_Item5_CheckBox.Location = new System.Drawing.Point(498, 310);
+            this.Estimate_Step2_Group2_Item5_CheckBox.Name = "Estimate_Step2_Group2_Item5_CheckBox";
+            this.Estimate_Step2_Group2_Item5_CheckBox.Size = new System.Drawing.Size(113, 29);
+            this.Estimate_Step2_Group2_Item5_CheckBox.TabIndex = 1;
+            this.Estimate_Step2_Group2_Item5_CheckBox.Text = "DTC-SRC";
+            this.Estimate_Step2_Group2_Item5_CheckBox.UseVisualStyleBackColor = true;
+            this.Estimate_Step2_Group2_Item5_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item5_CheckBox_CheckedChanged);
+            // 
+            // Estimate_Step2_Group2_Item5_PictureBox
+            // 
+            this.Estimate_Step2_Group2_Item5_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group2_Item5_PictureBox.Image = global::PV_analysis.Properties.Resources.DTC_SRC;
+            this.Estimate_Step2_Group2_Item5_PictureBox.Location = new System.Drawing.Point(244, 38);
+            this.Estimate_Step2_Group2_Item5_PictureBox.Name = "Estimate_Step2_Group2_Item5_PictureBox";
+            this.Estimate_Step2_Group2_Item5_PictureBox.Size = new System.Drawing.Size(620, 249);
+            this.Estimate_Step2_Group2_Item5_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Estimate_Step2_Group2_Item5_PictureBox.TabIndex = 0;
+            this.Estimate_Step2_Group2_Item5_PictureBox.TabStop = false;
+            // 
             // Estimate_Step2_Group2_Item4_Panel
             // 
             this.Estimate_Step2_Group2_Item4_Panel.AutoSize = true;
@@ -1014,7 +1056,7 @@
             this.Estimate_Step2_Group2_Item4_Panel.Dock = System.Windows.Forms.DockStyle.Top;
             this.Estimate_Step2_Group2_Item4_Panel.Location = new System.Drawing.Point(0, 2013);
             this.Estimate_Step2_Group2_Item4_Panel.Name = "Estimate_Step2_Group2_Item4_Panel";
-            this.Estimate_Step2_Group2_Item4_Panel.Size = new System.Drawing.Size(1113, 341);
+            this.Estimate_Step2_Group2_Item4_Panel.Size = new System.Drawing.Size(1113, 477);
             this.Estimate_Step2_Group2_Item4_Panel.TabIndex = 4;
             // 
             // Estimate_Step2_Group2_Item4_CheckBox
@@ -1022,21 +1064,21 @@
             this.Estimate_Step2_Group2_Item4_CheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Estimate_Step2_Group2_Item4_CheckBox.AutoSize = true;
             this.Estimate_Step2_Group2_Item4_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step2_Group2_Item4_CheckBox.Location = new System.Drawing.Point(498, 309);
+            this.Estimate_Step2_Group2_Item4_CheckBox.Location = new System.Drawing.Point(475, 445);
             this.Estimate_Step2_Group2_Item4_CheckBox.Name = "Estimate_Step2_Group2_Item4_CheckBox";
-            this.Estimate_Step2_Group2_Item4_CheckBox.Size = new System.Drawing.Size(113, 29);
+            this.Estimate_Step2_Group2_Item4_CheckBox.Size = new System.Drawing.Size(159, 29);
             this.Estimate_Step2_Group2_Item4_CheckBox.TabIndex = 1;
-            this.Estimate_Step2_Group2_Item4_CheckBox.Text = "DTC-SRC";
+            this.Estimate_Step2_Group2_Item4_CheckBox.Text = "全桥三电平LLC";
             this.Estimate_Step2_Group2_Item4_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group2_Item4_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item4_CheckBox_CheckedChanged);
             // 
             // Estimate_Step2_Group2_Item4_PictureBox
             // 
             this.Estimate_Step2_Group2_Item4_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Estimate_Step2_Group2_Item4_PictureBox.Image = global::PV_analysis.Properties.Resources.DTC_SRC;
-            this.Estimate_Step2_Group2_Item4_PictureBox.Location = new System.Drawing.Point(245, 46);
+            this.Estimate_Step2_Group2_Item4_PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("Estimate_Step2_Group2_Item4_PictureBox.Image")));
+            this.Estimate_Step2_Group2_Item4_PictureBox.Location = new System.Drawing.Point(109, 48);
             this.Estimate_Step2_Group2_Item4_PictureBox.Name = "Estimate_Step2_Group2_Item4_PictureBox";
-            this.Estimate_Step2_Group2_Item4_PictureBox.Size = new System.Drawing.Size(620, 249);
+            this.Estimate_Step2_Group2_Item4_PictureBox.Size = new System.Drawing.Size(891, 368);
             this.Estimate_Step2_Group2_Item4_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.Estimate_Step2_Group2_Item4_PictureBox.TabIndex = 0;
             this.Estimate_Step2_Group2_Item4_PictureBox.TabStop = false;
@@ -1069,9 +1111,9 @@
             // 
             this.Estimate_Step2_Group2_Item3_PictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Estimate_Step2_Group2_Item3_PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("Estimate_Step2_Group2_Item3_PictureBox.Image")));
-            this.Estimate_Step2_Group2_Item3_PictureBox.Location = new System.Drawing.Point(206, 41);
+            this.Estimate_Step2_Group2_Item3_PictureBox.Location = new System.Drawing.Point(217, 41);
             this.Estimate_Step2_Group2_Item3_PictureBox.Name = "Estimate_Step2_Group2_Item3_PictureBox";
-            this.Estimate_Step2_Group2_Item3_PictureBox.Size = new System.Drawing.Size(696, 365);
+            this.Estimate_Step2_Group2_Item3_PictureBox.Size = new System.Drawing.Size(674, 368);
             this.Estimate_Step2_Group2_Item3_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.Estimate_Step2_Group2_Item3_PictureBox.TabIndex = 0;
             this.Estimate_Step2_Group2_Item3_PictureBox.TabStop = false;
@@ -1299,26 +1341,40 @@
             // Estimate_Step2_Group2_Panel
             // 
             this.Estimate_Step2_Group2_Panel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group2_Panel.Controls.Add(this.Estimate_Step2_Group2_Item5_Left_CheckBox);
             this.Estimate_Step2_Group2_Panel.Controls.Add(this.Estimate_Step2_Group2_Item4_Left_CheckBox);
             this.Estimate_Step2_Group2_Panel.Controls.Add(this.Estimate_Step2_Group2_Item2_Left_CheckBox);
             this.Estimate_Step2_Group2_Panel.Controls.Add(this.Estimate_Step2_Group2_Item3_Left_CheckBox);
             this.Estimate_Step2_Group2_Panel.Controls.Add(this.Estimate_Step2_Group2_Item1_Left_CheckBox);
             this.Estimate_Step2_Group2_Panel.Controls.Add(this.Estimate_Step2_Group2_Title_Label);
-            this.Estimate_Step2_Group2_Panel.Location = new System.Drawing.Point(73, 328);
+            this.Estimate_Step2_Group2_Panel.Location = new System.Drawing.Point(73, 307);
             this.Estimate_Step2_Group2_Panel.Name = "Estimate_Step2_Group2_Panel";
-            this.Estimate_Step2_Group2_Panel.Size = new System.Drawing.Size(162, 153);
+            this.Estimate_Step2_Group2_Panel.Size = new System.Drawing.Size(162, 191);
             this.Estimate_Step2_Group2_Panel.TabIndex = 3;
+            // 
+            // Estimate_Step2_Group2_Item5_Left_CheckBox
+            // 
+            this.Estimate_Step2_Group2_Item5_Left_CheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Estimate_Step2_Group2_Item5_Left_CheckBox.AutoSize = true;
+            this.Estimate_Step2_Group2_Item5_Left_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step2_Group2_Item5_Left_CheckBox.Location = new System.Drawing.Point(7, 158);
+            this.Estimate_Step2_Group2_Item5_Left_CheckBox.Name = "Estimate_Step2_Group2_Item5_Left_CheckBox";
+            this.Estimate_Step2_Group2_Item5_Left_CheckBox.Size = new System.Drawing.Size(113, 29);
+            this.Estimate_Step2_Group2_Item5_Left_CheckBox.TabIndex = 5;
+            this.Estimate_Step2_Group2_Item5_Left_CheckBox.Text = "DTC-SRC";
+            this.Estimate_Step2_Group2_Item5_Left_CheckBox.UseVisualStyleBackColor = true;
+            this.Estimate_Step2_Group2_Item5_Left_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item5_Left_CheckBox_CheckedChanged);
             // 
             // Estimate_Step2_Group2_Item4_Left_CheckBox
             // 
             this.Estimate_Step2_Group2_Item4_Left_CheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Estimate_Step2_Group2_Item4_Left_CheckBox.AutoSize = true;
             this.Estimate_Step2_Group2_Item4_Left_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step2_Group2_Item4_Left_CheckBox.Location = new System.Drawing.Point(7, 120);
+            this.Estimate_Step2_Group2_Item4_Left_CheckBox.Location = new System.Drawing.Point(7, 128);
             this.Estimate_Step2_Group2_Item4_Left_CheckBox.Name = "Estimate_Step2_Group2_Item4_Left_CheckBox";
-            this.Estimate_Step2_Group2_Item4_Left_CheckBox.Size = new System.Drawing.Size(113, 29);
+            this.Estimate_Step2_Group2_Item4_Left_CheckBox.Size = new System.Drawing.Size(159, 29);
             this.Estimate_Step2_Group2_Item4_Left_CheckBox.TabIndex = 2;
-            this.Estimate_Step2_Group2_Item4_Left_CheckBox.Text = "DTC-SRC";
+            this.Estimate_Step2_Group2_Item4_Left_CheckBox.Text = "全桥三电平LLC";
             this.Estimate_Step2_Group2_Item4_Left_CheckBox.UseVisualStyleBackColor = true;
             this.Estimate_Step2_Group2_Item4_Left_CheckBox.CheckedChanged += new System.EventHandler(this.Estimate_Step2_Group2_Item4_Left_CheckBox_CheckedChanged);
             // 
@@ -1327,7 +1383,7 @@
             this.Estimate_Step2_Group2_Item2_Left_CheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Estimate_Step2_Group2_Item2_Left_CheckBox.AutoSize = true;
             this.Estimate_Step2_Group2_Item2_Left_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Location = new System.Drawing.Point(7, 62);
+            this.Estimate_Step2_Group2_Item2_Left_CheckBox.Location = new System.Drawing.Point(7, 68);
             this.Estimate_Step2_Group2_Item2_Left_CheckBox.Name = "Estimate_Step2_Group2_Item2_Left_CheckBox";
             this.Estimate_Step2_Group2_Item2_Left_CheckBox.Size = new System.Drawing.Size(64, 29);
             this.Estimate_Step2_Group2_Item2_Left_CheckBox.TabIndex = 7;
@@ -1341,7 +1397,7 @@
             this.Estimate_Step2_Group2_Item3_Left_CheckBox.AutoSize = true;
             this.Estimate_Step2_Group2_Item3_Left_CheckBox.Enabled = false;
             this.Estimate_Step2_Group2_Item3_Left_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Location = new System.Drawing.Point(7, 91);
+            this.Estimate_Step2_Group2_Item3_Left_CheckBox.Location = new System.Drawing.Point(7, 98);
             this.Estimate_Step2_Group2_Item3_Left_CheckBox.Name = "Estimate_Step2_Group2_Item3_Left_CheckBox";
             this.Estimate_Step2_Group2_Item3_Left_CheckBox.Size = new System.Drawing.Size(159, 29);
             this.Estimate_Step2_Group2_Item3_Left_CheckBox.TabIndex = 5;
@@ -1354,7 +1410,7 @@
             this.Estimate_Step2_Group2_Item1_Left_CheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Estimate_Step2_Group2_Item1_Left_CheckBox.AutoSize = true;
             this.Estimate_Step2_Group2_Item1_Left_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Estimate_Step2_Group2_Item1_Left_CheckBox.Location = new System.Drawing.Point(7, 33);
+            this.Estimate_Step2_Group2_Item1_Left_CheckBox.Location = new System.Drawing.Point(7, 38);
             this.Estimate_Step2_Group2_Item1_Left_CheckBox.Name = "Estimate_Step2_Group2_Item1_Left_CheckBox";
             this.Estimate_Step2_Group2_Item1_Left_CheckBox.Size = new System.Drawing.Size(67, 29);
             this.Estimate_Step2_Group2_Item1_Left_CheckBox.TabIndex = 5;
@@ -4841,12 +4897,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.Estimate_Step2_Panel);
             this.Controls.Add(this.Setting_Panel);
             this.Controls.Add(this.Estimate_Step3B_Panel);
             this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Estimate_Ready_Panel);
             this.Controls.Add(this.Estimate_Step1B_Panel);
-            this.Controls.Add(this.Estimate_Step2_Panel);
             this.Controls.Add(this.Estimate_Step1_Panel);
             this.Controls.Add(this.Estimate_Manual_Panel);
             this.Controls.Add(this.Admin_Panel);
@@ -4889,6 +4945,9 @@
             this.Estimate_Step2_Group3_Item1_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group3_Item1_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group3_Item1_PictureBox)).EndInit();
+            this.Estimate_Step2_Group2_Item5_Panel.ResumeLayout(false);
+            this.Estimate_Step2_Group2_Item5_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item5_PictureBox)).EndInit();
             this.Estimate_Step2_Group2_Item4_Panel.ResumeLayout(false);
             this.Estimate_Step2_Group2_Item4_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Estimate_Step2_Group2_Item4_PictureBox)).EndInit();
@@ -5447,6 +5506,10 @@
         private System.Windows.Forms.Panel Setting_Operation_Panel;
         private System.Windows.Forms.Button Setting_Reset_Button;
         private System.Windows.Forms.Button Setting_Save_Button;
+        private System.Windows.Forms.Panel Estimate_Step2_Group2_Item5_Panel;
+        private System.Windows.Forms.CheckBox Estimate_Step2_Group2_Item5_CheckBox;
+        private System.Windows.Forms.PictureBox Estimate_Step2_Group2_Item5_PictureBox;
+        private System.Windows.Forms.CheckBox Estimate_Step2_Group2_Item5_Left_CheckBox;
     }
 }
 

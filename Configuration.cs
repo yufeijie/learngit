@@ -17,6 +17,9 @@ namespace PV_analysis
 		public const int DEGREE = (int)1e3; //精度
 		public const double ERROR = 1e-12; //最小计算误差，小于该值则认为为0
 		public const double ERROR_BIG = 1e-8; //最小计算误差（数字较大），小于该值则认为为0
+		//LLC谐振电感设计
+		//可选参数
+        public static readonly bool IS_RESONANT_INDUCTANCE_INTEGRATED = true; //是否认为谐振电感集成在变压器中
 		//开关器件设计
 		public static readonly bool IS_SELECT_SIC = true; //是否选用SiC器件
 		public const int MAX_SEMICONDUCTOR_NUM = 10; //开关器件并联数上限
