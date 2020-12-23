@@ -469,7 +469,7 @@ namespace PV_analysis.Components
             double Axb = Data.WireList[wire].Math_Ab * 1e-3; //绕线裸线面积(cm^2)
             double C = Data.CoreList[core].Math_C * 0.1; //(cm)
             double MLT = (numberCore - 1) * C * 2 + Data.CoreList[core].Math_MLT * 0.1; //一匝绕线长度(cm) 
-            double Rwire = math_ρCu * MLT * 1e-2 * N / (Axb * 1e-4); //单根绕线电阻(ohm)
+            double Rwire = math_ρCu * MLT * 1e-2 * N / (Axb * 1e-4); //绕线电阻(ohm)
             powerLossCu = Math.Pow(currentAverage, 2) * Rwire; //计算铜损
             if (IsAC)
             {

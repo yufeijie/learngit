@@ -237,9 +237,6 @@
     <None Include="Resources\DTC-SRC.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\SRC.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\评估结果.png" />
   </ItemGroup>
   <ItemGroup>
@@ -275,10 +272,11 @@
     <None Include="Resources\sun.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\LLC.png" />
     <None Include="Resources\刷新.png" />
     <None Include="Resources\半桥三电平LLC.png" />
     <None Include="Resources\全桥三电平LLC.png" />
+    <None Include="Resources\SRC.png" />
+    <None Include="Resources\LLC.png" />
     <Content Include="sun.ico" />
   </ItemGroup>
   <ItemGroup />

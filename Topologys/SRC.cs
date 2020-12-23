@@ -2,7 +2,6 @@
 using PV_analysis.Components;
 using PV_analysis.Converters;
 using System;
-using static PV_analysis.Curve;
 
 namespace PV_analysis.Topologys
 {
@@ -298,7 +297,7 @@ namespace PV_analysis.Topologys
                 Curve iD = curve_iSs.Copy(-1);
                 secondaryDualDiodeModule.AddEvalParameters(0, j, math_vSs, curve_iSs, curve_iSs);
                 resonantInductor.AddEvalParameters(0, j, math_ILrrms, math_ILrp * 2);
-                transformer.AddEvalParameters(0, j, math_ILrrms, math_ILrp * 2);
+                transformer.AddEvalParameters(0, j, math_ILrrms, math_ILrrms * math_n / math_No);
                 resonantCapacitor.AddEvalParameters(0, j, math_ILrrms);
                 filteringCapacitor.AddEvalParameters(0, j, math_ICfrms);
             }
@@ -313,9 +312,9 @@ namespace PV_analysis.Topologys
             primaryDualModule.SetConditions(math_VSpmax, ILrmax, math_fs);
             secondaryDualDiodeModule.SetConditions(math_VSsmax, math_n / math_No * ILrmax, math_fs);
             resonantInductor.SetConditions(math_Lr, ILrmax, math_fs);
-            transformer.SetConditions(math_Pfull, ILrmax, math_fs, math_n, math_No, math_ψ); //FIXME 磁链是否会变化？
+            transformer.SetConditions(math_Pfull, ILrmax, ILrmax * math_n / math_No, math_fs, math_n, math_No, math_ψ); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(math_Cr, VCrmax, ILrrms_max);
-            filteringCapacitor.SetConditions(200 * 1e-6, math_VCfmax, ICfrms_max); //TODO 滤波电容的设计
+            filteringCapacitor.SetConditions(200 * 1e-6, math_VCfmax, ICfrms_max); //TODO 容值
         }
 
         /// <summary>
@@ -330,7 +329,7 @@ namespace PV_analysis.Topologys
             Curve iD = curve_iSs.Copy(-1);
             secondaryDualDiodeModule.SetParameters(math_vSs, curve_iSs, curve_iSs, math_fs);
             resonantInductor.SetParameters(math_ILrrms, math_ILrp * 2, math_fs);
-            transformer.SetParameters(math_ILrrms, math_ILrp * 2, math_fs, math_ψ);
+            transformer.SetParameters(math_ILrrms, math_ILrrms * math_n / math_No, math_fs, math_ψ);
             resonantCapacitor.SetParameters(math_ILrrms);
             filteringCapacitor.SetParameters(math_ICfrms);
         }

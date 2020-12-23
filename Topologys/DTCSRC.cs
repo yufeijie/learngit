@@ -284,7 +284,7 @@ namespace PV_analysis.Topologys
                     single.AddEvalParameters(i, j, math_vSs, curve_iSs, math_fs);
                     secondaryDualDiodeModule.AddEvalParameters(i, j, math_vDs, curve_iDs, curve_iDs, math_fs);
                     resonantInductor.AddEvalParameters(i, j, math_ILrms, math_ILp * 2, math_fs);
-                    transformer.AddEvalParameters(i, j, math_ILrms, math_ILp * 2, math_fs, math_ψ);
+                    transformer.AddEvalParameters(i, j, math_ILrms, math_ILrms * math_n, math_fs, math_ψ);
                     resonantCapacitor.AddEvalParameters(i, j, math_ILrms);
                     filteringCapacitor.AddEvalParameters(i, j, math_ICfrms);
                 }
@@ -301,7 +301,7 @@ namespace PV_analysis.Topologys
             single.SetConditions(math_Vo, math_n * ILmax, fsmax);
             secondaryDualDiodeModule.SetConditions(math_Vo, math_n * ILmax, fsmax);
             resonantInductor.SetConditions(math_Lr, ILmax, fsmax);
-            transformer.SetConditions(math_P, ILmax, fsmax, math_n, 1, ψmax); //FIXME 磁链是否会变化？
+            transformer.SetConditions(math_P, ILmax, ILmax * math_n, fsmax, math_n, 1, ψmax); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(math_Cr, VCrmax, ILrms_max);
             filteringCapacitor.SetConditions(200 * 1e-6, math_Vo, ICfrms_max);
         }
@@ -319,7 +319,7 @@ namespace PV_analysis.Topologys
             single.SetParameters(math_vSs, curve_iSs, math_fs);
             secondaryDualDiodeModule.SetParameters(math_vDs, curve_iDs, curve_iDs, math_fs);
             resonantInductor.SetParameters(math_ILrms, math_ILp * 2, math_fs);
-            transformer.SetParameters(math_ILrms, math_ILp * 2, math_fs, math_ψ);
+            transformer.SetParameters(math_ILrms, math_ILrms * math_n, math_fs, math_ψ);
             resonantCapacitor.SetParameters(math_ILrms);
             filteringCapacitor.SetParameters(math_ICfrms);
         }

@@ -13,21 +13,22 @@ namespace PV_analysis.Components
         private int Ns; //副边匝数
 
         //设计条件
-        private double power; //功率(W)
-        private double currentPeakMax; //电流最大值(A)（原边电流最大值）
-        private double frequencyMax; //开关频率(Hz)
-        private double turnRatio; //变比
-        private double secondaryNumber; //副边个数
+        private double math_P; //功率(W)
+        private double math_Ip_max; //原边电流最大值(A)
+        private double math_Is_max; //副边电流最大值(A)
+        private double math_fs_max; //开关频率(Hz)
+        private double math_n; //变比
+        private double math_No; //副边个数
         private double fluxLinkageMax = 0; //最大磁链
 
         //电路参数
-        private double currentAverage; //电感平均电流(A) （有效值）
-        private double currentRipple; //电感电流纹波(A) （峰峰值）
-        private double frequency; //开关频率(Hz)
+        private double math_Ip_rms; //原边电流有效值(A)
+        private double math_Is_rms; //副边电流有效值(A)
+        private double math_fs; //开关频率(Hz)
         private double fluxLinkage; //磁链
-        private double[,] currentAverageForEvaluation = new double[5, 7]; //电感平均电流（用于评估）
-        private double[,] currentRippleForEvaluation = new double[5, 7]; //电感电流纹波（用于评估）
-        private double[,] frequencyForEvaluation = new double[5, 7]; //开关频率（用于评估）
+        private double[,] math_Ip_rms_eval = new double[5, 7]; //原边电流有效值（用于评估）
+        private double[,] math_Is_rms_eval = new double[5, 7]; //副边电流有效值（用于评估）
+        private double[,] math_fs_eval = new double[5, 7]; //开关频率（用于评估）
         private double[,] fluxLinkageForEvaluation = new double[5, 7]; //磁链（用于评估）
 
         /// <summary>
@@ -115,13 +116,14 @@ namespace PV_analysis.Components
         /// <param name="turnRatio">变比</param>
         /// <param name="secondaryNumber">副边个数</param>
         /// <param name="fluxLinkageMax">最大磁链</param>
-        public void SetConditions(double power, double currentPeakMax, double frequencyMax, double turnRatio, int secondaryNumber, double fluxLinkageMax)
+        public void SetConditions(double P, double Ip_max, double Is_max, double fs_max, double n, int No, double fluxLinkageMax)
         {
-            this.power = power;
-            this.frequencyMax = frequencyMax;
-            this.currentPeakMax = currentPeakMax;
-            this.turnRatio = turnRatio;
-            this.secondaryNumber = secondaryNumber;
+            math_P = P;
+            math_Ip_max = Ip_max;
+            math_Is_max = Is_max;
+            math_fs_max = fs_max;
+            math_n = n;
+            math_No = No;
             this.fluxLinkageMax = fluxLinkageMax;
         }
 
@@ -132,10 +134,10 @@ namespace PV_analysis.Components
         /// <param name="n">负载点对应编号</param>
         /// <param name="currentAverage">电感平均电流</param>
         /// <param name="currentRipple">电感电流纹波</param>
-        public void AddEvalParameters(int m, int n, double currentAverage, double currentRipple)
+        public void AddEvalParameters(int m, int n, double Ip_rms, double Is_rms)
         {
-            currentAverageForEvaluation[m, n] = currentAverage;
-            currentRippleForEvaluation[m, n] = currentRipple;
+            math_Ip_rms_eval[m, n] = Ip_rms;
+            math_Is_rms_eval[m, n] = Is_rms;
         }
 
         /// <summary>
@@ -147,12 +149,12 @@ namespace PV_analysis.Components
         /// <param name="currentRipple">电感电流纹波</param>
         /// <param name="frequency">开关频率</param>
         /// <param name="fluxLinkage">磁链</param>
-        public void AddEvalParameters(int m, int n, double currentAverage, double currentRipple, double frequency, double fluxLinkage)
+        public void AddEvalParameters(int m, int n, double Ip_rms, double Is_rms, double fs, double fluxLinkage)
         {
-            currentAverageForEvaluation[m, n] = currentAverage;
-            currentRippleForEvaluation[m, n] = currentRipple;
+            math_Ip_rms_eval[m, n] = Ip_rms;
+            math_Is_rms_eval[m, n] = Is_rms;
             frequencyVariable = true;
-            frequencyForEvaluation[m, n] = frequency;
+            math_fs_eval[m, n] = fs;
             fluxLinkageForEvaluation[m, n] = fluxLinkage;
         }
 
@@ -163,16 +165,16 @@ namespace PV_analysis.Components
         /// <param name="n">负载点对应编号</param>
         protected override void SelectParameters(int m, int n)
         {
-            currentAverage = currentAverageForEvaluation[m, n];
-            currentRipple = currentRippleForEvaluation[m, n];
+            math_Ip_rms = math_Ip_rms_eval[m, n];
+            math_Is_rms = math_Is_rms_eval[m, n];
             if (frequencyVariable)
             {
-                frequency = frequencyForEvaluation[m, n];
+                math_fs = math_fs_eval[m, n];
                 fluxLinkage = fluxLinkageForEvaluation[m, n];
             }
             else
             {
-                frequency = frequencyMax;
+                math_fs = math_fs_max;
                 fluxLinkage = fluxLinkageMax;
             }
         }
@@ -184,11 +186,11 @@ namespace PV_analysis.Components
         /// <param name="currentRipple">电感电流纹波</param>
         /// <param name="frequency">开关频率</param>
         /// <param name="fluxLinkage">磁链</param>
-        public void SetParameters(double currentAverage, double currentRipple, double frequency, double fluxLinkage)
+        public void SetParameters(double Ip_rms, double Is_rms, double fs, double fluxLinkage)
         {
-            this.currentAverage = currentAverage;
-            this.currentRipple = currentRipple;
-            this.frequency = frequency;
+            math_Ip_rms = Ip_rms;
+            math_Is_rms = Is_rms;
+            math_fs = fs;
             this.fluxLinkage = fluxLinkage;
         }
 
@@ -197,7 +199,7 @@ namespace PV_analysis.Components
         /// </summary>
         public override void Design()
         {
-            if (turnRatio == 0)
+            if (math_n == 0)
             {
                 return;
             }
@@ -209,9 +211,9 @@ namespace PV_analysis.Components
             double currentDensity = Properties.Settings.Default.电流密度; //电流密度(A/cm^2)
             double S3 = 0.75; //有效窗口系数
             double S2 = 0.6; //填充系数
-            double APmin = 2 * power * 1e4 / (ratioWaveform * ratioWindowUtilization * magneticFluxDensityMax * currentDensity * frequencyMax); //所需磁芯面积积最小值(cm^4)
-            double Axbmin_p = currentPeakMax / currentDensity; //原边满足电流密度所需裸线面积(cm^2)
-            double Axbmin_s = currentPeakMax * turnRatio / secondaryNumber / currentDensity; //副边满足电流密度所需裸线面积(cm^2)
+            double APmin = 2 * math_P * 1e4 / (ratioWaveform * ratioWindowUtilization * magneticFluxDensityMax * currentDensity * math_fs_max); //所需磁芯面积积最小值(cm^4)
+            double Axbmin_p = math_Ip_max / currentDensity; //原边满足电流密度所需裸线面积(cm^2)
+            double Axbmin_s = math_Is_max / currentDensity; //副边满足电流密度所需裸线面积(cm^2)
 
             //选取磁芯（视在功率需具体计算）
             for (int j = 1; j <= Configuration.MAX_CORE_NUM; j++) //采用不同的磁芯数量
@@ -233,7 +235,7 @@ namespace PV_analysis.Components
                         double Aecc = j * Data.CoreList[i].Math_Ae * 1e-2; //等效磁芯面积(cm^2)
 
                         //选取原边绕线
-                        double delta = Math.Sqrt(math_ρCu / (Math.PI * math_μ0 * math_μCu * frequencyMax)) * 1e2; //集肤深度(cm)
+                        double delta = Math.Sqrt(math_ρCu / (Math.PI * math_μ0 * math_μCu * math_fs_max)) * 1e2; //集肤深度(cm)
                         for (int wp = 0; wp < Data.WireList.Count; wp++)
                         {
                             //集肤深度验证
@@ -272,11 +274,11 @@ namespace PV_analysis.Components
                                         Console.WriteLine("Wrong Np!");
                                         System.Environment.Exit(-1);
                                     }
-                                    Ns = (int)Math.Round(Np / turnRatio); //这里会引起变比变化
+                                    Ns = (int)Math.Round(Np / math_n); //这里会引起变比变化
 
                                     //窗口系数检查
                                     double Awp = Np * Ax_p; //原边所占窗口面积(cm^2)
-                                    double Aws = Ns * Ax_s * secondaryNumber; //副边所占窗口面积(cm^2)
+                                    double Aws = Ns * Ax_s * math_No; //副边所占窗口面积(cm^2)
                                     double Ku = (Awp + Aws) / Aw;
                                     if (Ku > S2 * S3)
                                     {
@@ -284,7 +286,7 @@ namespace PV_analysis.Components
                                     }
 
                                     //匝比与变比精度检查，相对误差5%
-                                    if (Math.Abs((double)Np / Ns - turnRatio) / turnRatio > 0.05)
+                                    if (Math.Abs((double)Np / Ns - math_n) / math_n > 0.05)
                                     {
                                         continue;
                                     }
@@ -382,7 +384,7 @@ namespace PV_analysis.Components
             double C = Data.CoreList[core].Math_C * 0.1; //(cm)
             double MLT = (numberCore - 1) * C * 2 + Data.CoreList[core].Math_MLT * 0.1; //一匝绕线长度(cm) 
             double costWire_p = MLT * 1e-2 * Np * Data.WireList[wire_p].Price;
-            double costWire_s = secondaryNumber * MLT * 1e-2 * Ns * Data.WireList[wire_s].Price;
+            double costWire_s = math_No * MLT * 1e-2 * Ns * Data.WireList[wire_s].Price;
             costWire = costWire_p + costWire_s;
             cost = costCore + costWire;
         }
@@ -393,6 +395,7 @@ namespace PV_analysis.Components
         /// </summary>
         protected override void CalcVolume()
         {
+            //只考虑磁芯体积
             double length; //长(mm)
             double width; //宽(mm)
             double height; //高(mm)
@@ -400,7 +403,7 @@ namespace PV_analysis.Components
             double B = Data.CoreList[core].Math_B; //(mm)
             double C = Data.CoreList[core].Math_C; //(mm)
             length = A;
-            width = B * 2; //B（mm）
+            width = B * 2; //B（mm） 一对
             height = numberCore * C; //C*磁芯数量
             volume = length * width * height / 1e6;
         }
@@ -424,10 +427,10 @@ namespace PV_analysis.Components
             double Axb_s = Data.WireList[wire_s].Math_Ab * 1e-3; //副边绕线裸线面积(cm^2)
             double C = Data.CoreList[core].Math_C * 0.1; //(cm)
             double MLT = (numberCore - 1) * C * 2 + Data.CoreList[core].Math_MLT * 0.1; //一匝绕线长度(cm) 
-            double Rwire_p = math_ρCu * MLT * 1e-2 * Np / (Axb_p * 1e-4); //原边单根绕线电阻(ohm)
-            double Pp = Math.Pow(currentAverage, 2) * Rwire_p; //原边铜损
-            double Rwire_s = math_ρCu * MLT * 1e-2 * Ns / (Axb_s * 1e-4); //副边单根绕线电阻
-            double Ps = secondaryNumber * Math.Pow(currentAverage * turnRatio / secondaryNumber, 2) * Rwire_s; //副边铜损
+            double Rwire_p = math_ρCu * MLT * 1e-2 * Np / (Axb_p * 1e-4); //原边电阻(Ω)
+            double Pp = Math.Pow(math_Ip_rms, 2) * Rwire_p; //原边铜损
+            double Rwire_s = math_ρCu * MLT * 1e-2 * Ns / (Axb_s * 1e-4); //副边电阻(Ω)
+            double Ps = Math.Pow(math_Is_rms, 2) * Rwire_s * math_No; //副边铜损
             powerLossCu = Pp + Ps; //计算铜损
         }
 
@@ -438,7 +441,7 @@ namespace PV_analysis.Components
         {
             double Aecc = numberCore * Data.CoreList[core].Math_Ae * 1e-2; //等效磁芯面积(cm^2)
             double Bm = 0.5 * fluxLinkage / (Np * Aecc * 1e-4); //交流磁通密度(cm^2)
-            double prewV = GetInductanceFeLoss(frequency, Bm);// //单位体积铁损(W/m^3)
+            double prewV = GetInductanceFeLoss(math_fs, Bm);// //单位体积铁损(W/m^3)
             double volume = numberCore * Data.CoreList[core].Math_Ve * 1e-9; //磁芯体积(m^3) Datasheet中给出的即为一对磁芯的有效磁体积
             powerLossFe = prewV * volume; //计算铁损
         }
