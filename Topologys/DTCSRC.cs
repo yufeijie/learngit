@@ -2,7 +2,7 @@
 using PV_analysis.Components;
 using PV_analysis.Converters;
 using System;
-using Single = PV_analysis.Components.Single;
+using SingleMOS = PV_analysis.Components.SingleMOS;
 
 namespace PV_analysis.Topologys
 {
@@ -45,7 +45,7 @@ namespace PV_analysis.Topologys
 
         //元器件
         private DualModule primaryDualModule;
-        private Single single;
+        private SingleMOS single;
         private DualDiodeModule secondaryDualDiodeModule;
         private Inductor resonantInductor;
         private Transformer transformer;
@@ -72,7 +72,7 @@ namespace PV_analysis.Topologys
             {
                 Name = "原边开关管"
             };
-            single = new Single(2)
+            single = new SingleMOS(2)
             {
                 Name = "副边开关管"
             };

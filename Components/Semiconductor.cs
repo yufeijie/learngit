@@ -30,6 +30,32 @@ namespace PV_analysis.Components
         protected double driverCost; //驱动成本
 
         /// <summary>
+        /// 获取器件型号
+        /// </summary>
+        /// <returns>型号</returns>
+        protected string GetDeviceType()
+        {
+            return Data.SemiconductorList[device].Type;
+        }
+
+        /// <summary>
+        /// 设置器件型号
+        /// </summary>
+        /// <returns>型号</returns>
+        protected void SetDeviceType(string type)
+        {
+            for (int i = 0; i < Data.SemiconductorList.Count; i++)
+            {
+                if (type.Equals(Data.SemiconductorList[i].Type))
+                {
+                    device = i;
+                    return;
+                }
+            }
+            device = -1;
+        }
+
+        /// <summary>
         /// 获取成本分布
         /// </summary>
         /// <returns>成本分布信息</returns>

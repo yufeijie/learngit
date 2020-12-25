@@ -110,12 +110,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\DualDiodeModule.cs" />
+    <Compile Include="Components\SingleIGBT.cs" />
     <Compile Include="Equipment.cs" />
     <Compile Include="Components\ResonantCapacitor.cs" />
     <Compile Include="Components\FilteringCapacitor.cs" />
     <Compile Include="Components\Capacitor.cs" />
     <Compile Include="Components\CHBModule.cs" />
-    <Compile Include="Components\Single.cs" />
+    <Compile Include="Components\SingleMOS.cs" />
     <Compile Include="Components\DualModule.cs" />
     <Compile Include="Components\Component.cs" />
     <Compile Include="Components\Inductor.cs" />

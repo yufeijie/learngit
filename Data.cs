@@ -108,6 +108,15 @@ namespace PV_analysis
                 Math_Imax = row.GetCell(6).NumericCellValue;
                 switch (Category)
                 {
+                    case "IGBT":
+                        Id_Vce = (int)row.GetCell(7).NumericCellValue;
+                        Id_Vf = (int)row.GetCell(8).NumericCellValue;
+                        Id_Eon = (int)row.GetCell(9).NumericCellValue;
+                        Id_Eoff = (int)row.GetCell(10).NumericCellValue;
+                        IGBT_RthJC = row.GetCell(12).NumericCellValue;
+                        Diode_RthJC = row.GetCell(14).NumericCellValue;
+                        Module_RthCH = row.GetCell(16).NumericCellValue;
+                        break;
                     case "IGBT-Module":
                         Id_Vce = (int)row.GetCell(7).NumericCellValue;
                         Id_Vf = (int)row.GetCell(8).NumericCellValue;

@@ -46,6 +46,8 @@ namespace PV_analysis.Topologys
         //元器件
         private DualModule primaryDualModule;
         private DualDiodeModule secondaryDualDiodeModule;
+        private SingleIGBT primarySingleIGBT;
+        private SingleIGBT secondarySingleIGBT;
         private Inductor resonantInductor;
         private Transformer transformer;
         private Capacitor resonantCapacitor;
@@ -78,6 +80,16 @@ namespace PV_analysis.Topologys
                 Name = "副边二极管",
                 VoltageVariable = false
             };
+            primarySingleIGBT = new SingleIGBT(4)
+            {
+                Name = "原边开关管",
+                VoltageVariable = false
+            };
+            secondarySingleIGBT = new SingleIGBT(4 * math_No)
+            {
+                Name = "副边开关管",
+                VoltageVariable = false
+            };
             resonantInductor = new Inductor(1)
             {
                 Name = "谐振电感",
@@ -99,16 +111,18 @@ namespace PV_analysis.Topologys
                 VoltageVariable = false,
             };
 
-            componentGroups = new Component[1][];
+            componentGroups = new Component[2][];
             if (Configuration.IS_RESONANT_INDUCTANCE_INTEGRATED)
             {
-                components = new Component[] { primaryDualModule, secondaryDualDiodeModule, transformer, resonantCapacitor, filteringCapacitor };
+                components = new Component[] { primaryDualModule, secondaryDualDiodeModule, primarySingleIGBT, secondarySingleIGBT, transformer, resonantCapacitor, filteringCapacitor };
                 componentGroups[0] = new Component[] { primaryDualModule, secondaryDualDiodeModule, transformer, resonantCapacitor, filteringCapacitor };
+                componentGroups[1] = new Component[] { primarySingleIGBT, secondarySingleIGBT, transformer, resonantCapacitor, filteringCapacitor };
             }
             else
             {
-                components = new Component[] { primaryDualModule, secondaryDualDiodeModule, resonantInductor, transformer, resonantCapacitor, filteringCapacitor };
+                components = new Component[] { primaryDualModule, secondaryDualDiodeModule, primarySingleIGBT, secondarySingleIGBT, resonantInductor, transformer, resonantCapacitor, filteringCapacitor };
                 componentGroups[0] = new Component[] { primaryDualModule, secondaryDualDiodeModule, resonantInductor, transformer, resonantCapacitor, filteringCapacitor };
+                componentGroups[1] = new Component[] { primarySingleIGBT, secondarySingleIGBT, resonantInductor, transformer, resonantCapacitor, filteringCapacitor };
             }
         }
 
@@ -374,6 +388,8 @@ namespace PV_analysis.Topologys
                 //设置元器件的电路参数（用于评估）
                 primaryDualModule.AddEvalParameters(0, j, math_vSp, curve_iSp, curve_iSp);
                 secondaryDualDiodeModule.AddEvalParameters(0, j, math_vSs, curve_iSs, curve_iSs);
+                primarySingleIGBT.AddEvalParameters(0, j, math_vSp, curve_iSp);
+                secondarySingleIGBT.AddEvalParameters(0, j, math_vSs, curve_iSs.Copy(-1));
                 resonantInductor.AddEvalParameters(0, j, math_ILrrms, math_ILrmax * 2);
                 transformer.AddEvalParameters(0, j, math_ILrrms, math_ILrrms * math_n / math_No);
                 resonantCapacitor.AddEvalParameters(0, j, math_ILrrms);
@@ -392,6 +408,8 @@ namespace PV_analysis.Topologys
             //设置元器件的设计条件
             primaryDualModule.SetConditions(math_VSpmax, ILrmax, math_fs);
             secondaryDualDiodeModule.SetConditions(math_VSsmax, ILrmax * math_n / math_No, math_fs);
+            primarySingleIGBT.SetConditions(math_VSpmax, ILrmax, math_fs);
+            secondarySingleIGBT.SetConditions(math_VSsmax, ILrmax * math_n / math_No, math_fs);
             resonantInductor.SetConditions(math_Lr, ILrmax, math_fs);
             transformer.SetConditions(math_Pfull, ILrmax, ILrmax * math_n / math_No, math_fs, math_n, math_No, math_ψ); //FIXME 磁链是否会变化？
             resonantCapacitor.SetConditions(math_Cr, VCrmax, ILrrms_max);
@@ -408,6 +426,8 @@ namespace PV_analysis.Topologys
             //设置元器件的电路参数
             primaryDualModule.SetParameters(math_vSp, curve_iSp, curve_iSp, math_fs);
             secondaryDualDiodeModule.SetParameters(math_vSs, curve_iSs, curve_iSs, math_fs);
+            primarySingleIGBT.SetParameters(math_vSp, curve_iSp, math_fs);
+            secondarySingleIGBT.SetParameters(math_vSs, curve_iSs.Copy(-1), math_fs);
             resonantInductor.SetParameters(math_ILrrms, math_ILrmax * 2, math_fs);
             transformer.SetParameters(math_ILrrms, math_ILrrms * math_n / math_No, math_fs, math_ψ);
             resonantCapacitor.SetParameters(math_ILrrms);

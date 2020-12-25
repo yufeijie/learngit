@@ -1917,9 +1917,9 @@ namespace PV_analysis
                         Estimate_Step2_Group1_Item2_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group1_Item3_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item1_Left_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = true;
-                        Estimate_Step2_Group2_Item4_Left_CheckBox.Checked = true;
+                        Estimate_Step2_Group2_Item2_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item3_Left_CheckBox.Checked = false;
+                        Estimate_Step2_Group2_Item4_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group2_Item5_Left_CheckBox.Checked = false;
                         Estimate_Step2_Group3_Item1_Left_CheckBox.Checked = false;
                         break;
@@ -2188,15 +2188,25 @@ namespace PV_analysis
                             Estimate_Step3B_k_Panel.Visible = true;//倒序设置，顺序显示
                             Estimate_Step3B_Q_Panel.Visible = true;
 
-                            Estimate_Step3B_Vin_TextBox.Text = "1300";
+                            Estimate_Step3B_Psys_TextBox.Text = "0.015";
+                            Estimate_Step3B_Vin_TextBox.Text = "750";
                             Estimate_Step3B_Vo_Label.Text = "输出电压";
-                            Estimate_Step3B_Vo_TextBox.Text = "1300";
+                            Estimate_Step3B_Vo_TextBox.Text = "750";
                             Estimate_Step3B_Vo_Unit_Label.Text = "V";
                             Estimate_Step3B_Secondary_TextBox.Text = "1";
-                            Estimate_Step3B_Q_TextBox.Text = "0.5";
-                            Estimate_Step3B_k_TextBox.Text = "5";
-                            Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 40, 1);
-                            Estimate_Step3B_Frequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 100));
+                            Estimate_Step3B_Q_TextBox.Text = "0.3";
+                            Estimate_Step3B_k_TextBox.Text = "0";
+                            Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 1, 1);
+                            Estimate_Step3B_Frequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 10));
+                            //Estimate_Step3B_Vin_TextBox.Text = "1300";
+                            //Estimate_Step3B_Vo_Label.Text = "输出电压";
+                            //Estimate_Step3B_Vo_TextBox.Text = "1300";
+                            //Estimate_Step3B_Vo_Unit_Label.Text = "V";
+                            //Estimate_Step3B_Secondary_TextBox.Text = "1";
+                            //Estimate_Step3B_Q_TextBox.Text = "0.5";
+                            //Estimate_Step3B_k_TextBox.Text = "5";
+                            //Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 40, 1);
+                            //Estimate_Step3B_Frequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 100));
 
                             isolatedDCDC_topologyRange = isolatedDCDC_topologyList.ToArray();
                             break;
@@ -2592,12 +2602,12 @@ namespace PV_analysis
             //切换显示
             Estimate_Result_Print_RichTextBox.Text = "";
             ChangePanel(2, Estimate_Result_Panel);
-            evaluationThread = new Thread(new ThreadStart(Estimate_Result_Evaluate)) //多线程
-            {
-                IsBackground = true
-            };
-            evaluationThread.Start();
-            //Estimate_Result_Evaluate(); //不使用多线程
+            //evaluationThread = new Thread(new ThreadStart(Estimate_Result_Evaluate)) //多线程
+            //{
+            //    IsBackground = true
+            //};
+            //evaluationThread.Start();
+            Estimate_Result_Evaluate(); //不使用多线程
         }
 
         private void Estimate_Result_End_Button_Click(object sender, EventArgs e)

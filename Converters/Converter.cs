@@ -197,9 +197,10 @@ namespace PV_analysis.Converters
                     }                    
                 }
             }
-            int n = 0; //用于记录当前元器件组合的序号
-            foreach (Component[] components in Topology.ComponentGroups)
+
+            for(int i = 0; i < Topology.ComponentGroups.Length; i++) //用于记录当前元器件组合的序号
             {
+                Component[] components = Topology.ComponentGroups[i];
                 //设计结果检查
                 bool check = true;
                 foreach (Component component in components)
@@ -212,7 +213,7 @@ namespace PV_analysis.Converters
                 }
                 if (!check)
                 {
-                    break;
+                    continue;
                 }
 
                 //组合并记录
@@ -234,10 +235,9 @@ namespace PV_analysis.Converters
                 }
                 //TODO 控制芯片、散热器设计
                 ConverterDesignList newDesignList = new ConverterDesignList();
-                newDesignList.Transfer(designCombinationList, Math_Psys, Number, PhaseNum, n, GetConfigs()); //转化为变换器设计
+                newDesignList.Transfer(designCombinationList, Math_Psys, Number, PhaseNum, i, GetConfigs()); //转化为变换器设计
                 ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
                 AllDesignList.Merge(newDesignList); //记录所有设计
-                n++;
             }
         }
 

@@ -5,7 +5,10 @@ using static PV_analysis.Curve;
 
 namespace PV_analysis.Components
 {
-    internal class Single : Semiconductor
+    /// <summary>
+    /// MOS单管
+    /// </summary>
+    internal class SingleMOS : Semiconductor
     {
         //限制条件
         //private bool isSoftOff = false; //是否以软关断的方式进行计算(仅在符合条件时为true)
@@ -33,35 +36,9 @@ namespace PV_analysis.Components
         /// 初始化
         /// </summary>
         /// <param name="number">同类开关器件数量</param>
-        public Single(int number)
+        public SingleMOS(int number)
         {
             this.number = number;
-        }
-
-        /// <summary>
-        /// 获取器件型号
-        /// </summary>
-        /// <returns>型号</returns>
-        private string GetDeviceType()
-        {
-            return Data.SemiconductorList[device].Type;
-        }
-
-        /// <summary>
-        /// 设置器件型号
-        /// </summary>
-        /// <returns>型号</returns>
-        private void SetDeviceType(string type)
-        {
-            for (int i = 0; i < Data.SemiconductorList.Count; i++)
-            {
-                if (type.Equals(Data.SemiconductorList[i].Type))
-                {
-                    device = i;
-                    return;
-                }
-            }
-            device = -1;
         }
 
         /// <summary>
