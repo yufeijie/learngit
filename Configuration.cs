@@ -15,6 +15,7 @@ namespace PV_analysis
 		public static readonly double[] CGC_POWER_WEIGHT = { 0.02, 0.03, 0.06, 0.12, 0.25, 0.37, 0.15 }; //权重
 		//计算
 		public const int DEGREE = (int)1e3; //精度
+		public const double IGNORE = 1e-3; //小于该值则不计算开关损耗
 		public const double ERROR = 1e-12; //最小计算误差，小于该值则认为为0
 		public const double ERROR_BIG = 1e-8; //最小计算误差（数字较大），小于该值则认为为0
 		//LLC谐振电感设计

@@ -286,21 +286,17 @@ namespace PV_analysis.Converters
                             foreach (double k in Math_k_Range) //电感比变化
                             {
                                 Math_k = k;
-                                if (Math_Cs_Range == null || Math_Cs_Range.Length == 0)
-                                {
-                                    Math_Cs_Range = new double[] { 0 };
-                                }
                                 foreach (double Cs in Math_Cs_Range) //开关管并联电容变化
                                 {
                                     Math_Cs = Cs;
                                     foreach (string tp in TopologyRange) //拓扑变化
                                     {
-                                        if ((tp.Equals("HB_TL_LLC") || tp.Equals("LLC")) && (Math_k <= 0 || Math_Cs <= 0))
+                                        if (Math_k <= 0 && (tp.Equals("HB_TL_LLC") || tp.Equals("LLC")))
                                         {
                                             break;
                                         }
                                         CreateTopology(tp);
-                                        form.PrintDetails(2, "Now topology=" + tp + ", No=" + No + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz");
+                                        form.PrintDetails(2, "Now topology=" + tp + ", No=" + No + ", n=" + n + ", fs=" + string.Format("{0:N1}", fr / 1e3) + "kHz, Q=" + Q + ", k=" + k + ", Cs=" + string.Format("{0:N3}", Cs * 1e9) + "nF");
                                         Design(form);
                                         progress += dp;
                                         form.Estimate_Result_ProgressBar_Set(progress);

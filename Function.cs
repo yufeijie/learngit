@@ -69,6 +69,16 @@ namespace PV_analysis
         }
 
         /// <summary>
+        /// 判断一个数是否足够大，以计算开关损耗
+        /// </summary>
+        /// <param name="x">给定数</param>
+        /// <returns>判断结果</returns>
+        public static bool BigEnough(double x)
+        {
+            return x > Configuration.IGNORE;
+        }
+
+        /// <summary>
         /// 两个一次函数乘积的快速积分法（牛顿-莱布尼茨公式）
         /// </summary>
         /// <param name="x1">左边界x坐标</param>
