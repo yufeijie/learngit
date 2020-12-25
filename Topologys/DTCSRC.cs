@@ -65,7 +65,7 @@ namespace PV_analysis.Topologys
             math_Vinmax = converter.Math_Vin_max;
             math_Vo = converter.Math_Vo;
             math_Q = converter.Math_Q;
-            math_fr = converter.Math_fr;
+            math_fr = converter.Math_fs; //以开关频率作为谐振频率
 
             //初始化元器件
             primaryDualModule = new DualModule(2)

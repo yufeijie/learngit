@@ -37,13 +37,12 @@ namespace PV_analysis.Structures
                 "隔离DCDC副边个数范围",
                 "隔离DCDC模块数范围",
                 "隔离DCDC拓扑范围",
-                "隔离DCDC谐振频率范围(kHz)",
+                "隔离DCDC开关频率范围(kHz)",
                 "隔离DCDC品质因数范围",
                 "隔离DCDC电感比范围",
-                "隔离DCDC开关管并联电容范围(nF)",
                 "DCAC拓扑范围",
                 "DCAC调制方式范围",
-                "DCAC频率范围(kHz)"
+                "DCAC开关频率范围(kHz)"
             };
             return conditionTitles;
         }
@@ -69,10 +68,9 @@ namespace PV_analysis.Structures
                 Function.IntArrayToString(IsolatedDCDC_secondaryRange),
                 Function.IntArrayToString(IsolatedDCDC_numberRange),
                 Function.StringArrayToString(IsolatedDCDC_topologyRange),
-                Function.DoubleArrayToString(IsolatedDCDC_resonanceFrequencyRange, 1e-3),
+                Function.DoubleArrayToString(IsolatedDCDC_frequencyRange, 1e-3),
                 Function.DoubleArrayToString(IsolatedDCDC_Math_Q_Range),
                 Function.DoubleArrayToString(IsolatedDCDC_Math_k_Range),
-                Function.DoubleArrayToString(IsolatedDCDC_Math_Cs_Range, 1e9),
                 Function.StringArrayToString(DCAC_topologyRange),
                 Function.StringArrayToString(DCAC_modulationRange),
                 Function.DoubleArrayToString(DCAC_frequencyRange, 1e-3)
@@ -186,10 +184,9 @@ namespace PV_analysis.Structures
                         Math_No_Range = IsolatedDCDC_secondaryRange,
                         NumberRange = new int[] { n },
                         TopologyRange = IsolatedDCDC_topologyRange,
-                        FrequencyRange = IsolatedDCDC_resonanceFrequencyRange,
+                        FrequencyRange = IsolatedDCDC_frequencyRange,
                         Math_Q_Range = IsolatedDCDC_Math_Q_Range,
                         Math_k_Range = IsolatedDCDC_Math_k_Range,
-                        Math_Cs_Range = IsolatedDCDC_Math_Cs_Range
                     };
                     IsolatedDCDC.Optimize(form, progress, progress + dp * 0.3);
                     progress += dp * 0.3;

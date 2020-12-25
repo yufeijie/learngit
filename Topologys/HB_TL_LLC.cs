@@ -15,11 +15,10 @@ namespace PV_analysis.Topologys
         private double math_Vin; //输入电压
         private double math_Vo; //输出电压预设值
         private int math_No; //副边个数
-        private double math_fr; //谐振频率
         private double math_fs; //开关频率
+        private double math_Td; //死区时间
         private double math_Q; //品质因数
         private double math_k; //电感比Lm/Lr
-        private double math_Cs; //开关管并联电容
         private double math_b = 2; //桥臂系数，半桥为2，全桥为1
         private double math_p = 2; //电平系数，三电平为2，两电平为1
 
@@ -28,6 +27,7 @@ namespace PV_analysis.Topologys
         private double math_VSsmax; //副边开关器件电压应力
         private double math_n; //变压器变比
         private double math_ψ; //磁链
+        private double math_fr; //谐振频率
         private double math_Lr; //谐振电感值
         private double math_Lm; //励磁电感值
         private double math_ILrrms; //谐振电感电流有效值
@@ -72,10 +72,10 @@ namespace PV_analysis.Topologys
             math_Vin = converter.Math_Vin;
             math_Vo = converter.Math_Vo;
             math_No = converter.Math_No;
-            math_fr = converter.Math_fr;
+            math_fs = converter.Math_fs;
+            math_Td = 1 / math_fs / 50;
             math_Q = converter.Math_Q;
             math_k = converter.Math_k;
-            math_Cs = converter.Math_Cs;
 
             //初始化元器件
             primaryDualModule = new DualModule(2)
@@ -150,36 +150,34 @@ namespace PV_analysis.Topologys
             double Vin = math_Vin;
             double Vo = math_Vo;
             double No = math_No;
+            double fs = math_fs;
+            double Td = math_Td;
             double Q = math_Q;
             double k = math_k;
-            double Cs = math_Cs;
-            double fr = math_fr;
             double b = math_b;
             double p = math_p;
 
             double RL = No * Vo * Vo / P; //负载等效电阻
             double n = Vin / Vo / b; //变比
-            double Tr = 1 / fr; //谐振周期
+            double Ts = 1 / fs; //开关周期
+            double Tr = Ts - 2 * Td; //谐振周期
+            double fr = 1 / Tr; //谐振频率
             double wr = 2 * Math.PI * fr; //谐振角速度
             double Req = 8 * Math.Pow(n / Math.PI, 2) * RL / No; //谐振腔等效电阻
             double Zr = Req * Q; //谐振阻抗
             double Lr = Zr / wr;
             double Cr = 1 / Zr / wr;
             double Lm = k * Lr;
-            double Td = 8 * b * b * Lm * Cr * Cs / (Tr * (2 * p * Cr + b * b * Cs)); //死区时间
-            double Vo_act = Vo * (1 + b * b * Cs / (2 * p * Cr)); //实际输出电压
-            double Ts = Tr + 2 * Td; //开关周期
-            double fs = 1 / Ts; //开关频率
 
-            math_fs = fs;
             math_n = n;
+            math_fr = fr;
             math_Lr = Lr;
             math_Lm = Lm;
             math_Cr = Cr;
-            math_ψ = 0.5 * Tr * n * Vo_act; //TODO 修正：实际上在不同负载下，输出电压会变化
+            math_ψ = 0.5 * Tr * n * Vo; //TODO 修正：实际上在不同负载下，输出电压会变化
             math_VSpmax = Vin / p;
-            math_VSsmax = Vo_act;
-            math_VCfmax = Vo_act;
+            math_VSsmax = Vo;
+            math_VCfmax = Vo;
         }
 
         /// <summary>
@@ -191,15 +189,14 @@ namespace PV_analysis.Topologys
             double Vin = math_Vin;
             double Vo = math_Vo;
             double No = math_No;
-            double fr = math_fr;
             double fs = math_fs;
+            double Td = math_Td;
             double n = math_n;
+            double fr = math_fr;
             double Lr = math_Lr;
             double Lm = math_Lm;
             double Cr = math_Cr;
-            double Cs = math_Cs;
             double b = math_b;
-            double p = math_p;
 
             double wr = 2 * Math.PI * fr; //谐振角速度
             double Zr = Math.Sqrt(Lr / Cr); //谐振阻抗
@@ -211,7 +208,7 @@ namespace PV_analysis.Topologys
             curve_iTs = new Curve();
             curve_vCr = new Curve();
 
-            double Vo_act = Vo * (1 + b * b * Cs / (2 * p * Cr)); //实际输出电压
+            double Vo_act = Vo / (1 - Tr * Td / (8 * Lm * Cr)); //实际输出电压
             double Io_act = P / Vo_act / No; //实际输出电流平均值
             double Vab = Vin / b; //原边逆变桥臂输出电压
             double Vtp = n * Vo_act; //变压器原边电压

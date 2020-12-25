@@ -17,9 +17,8 @@ namespace PV_analysis.Topologys
         private double math_Vo; //输出电压预设值
         private int math_No; //副边个数
         private double math_fs; //开关频率
-        private double math_Q; //品质因数
-        private double math_Cs; //开关管并联电容
         private double math_Td; //死区时间
+        private double math_Q; //品质因数
 
         //主电路元件参数
         private double math_VSpmax; //原边开关器件电压应力
@@ -64,10 +63,9 @@ namespace PV_analysis.Topologys
             math_Vin = converter.Math_Vin;
             math_Vo = converter.Math_Vo;
             math_No = converter.Math_No;
-            math_fs = converter.Math_fr;
-            math_Q = converter.Math_Q;
-            math_Cs = converter.Math_Cs;
+            math_fs = converter.Math_fs;
             math_Td = 1 / math_fs / 50;
+            math_Q = converter.Math_Q;
 
             //初始化元器件
             primaryDualModule = new DualModule(2)
@@ -135,7 +133,6 @@ namespace PV_analysis.Topologys
             double fs = math_fs;
             double Td = math_Td;
             double Q = math_Q;
-            double Cs = math_Cs;
                         
             double RL = No * Math.Pow(Vo, 2) / P; //负载等效电阻
             double n = Vin / Vo; //变比
@@ -184,7 +181,6 @@ namespace PV_analysis.Topologys
             double fr = math_fr;
             double Lr = math_Lr;
             double Cr = math_Cr;
-            double Cs = math_Cs;
             double Td = math_Td;
 
             double Ts = 1 / fs; //开关周期

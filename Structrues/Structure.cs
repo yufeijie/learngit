@@ -104,9 +104,9 @@ namespace PV_analysis.Structures
         public string[] IsolatedDCDC_topologyRange { get; set; }
 
         /// <summary>
-        /// 隔离DCDC可用谐振频率序列
+        /// 隔离DCDC可用开关频率序列
         /// </summary>
-        public double[] IsolatedDCDC_resonanceFrequencyRange { get; set; }
+        public double[] IsolatedDCDC_frequencyRange { get; set; }
 
         /// <summary>
         /// 隔离DCDC可用品质因数序列

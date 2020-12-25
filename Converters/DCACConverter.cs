@@ -39,24 +39,9 @@ namespace PV_analysis.Converters
         public string Modulation { get; set; }
 
         /// <summary>
-        /// 模块数范围
-        /// </summary>
-        public int[] NumberRange { get; set; }
-
-        /// <summary>
-        /// 拓扑范围
-        /// </summary>
-        public string[] TopologyRange { get; set; }
-
-        /// <summary>
         /// 调制方式范围
         /// </summary>
         public string[] ModulationRange { get; set; }
-
-        /// <summary>
-        /// 开关频率范围
-        /// </summary>
-        public double[] FrequencyRange { get; set; }
 
         /// <summary>
         /// 获取类型名

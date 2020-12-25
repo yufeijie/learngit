@@ -11,21 +11,6 @@ namespace PV_analysis.Converters
     internal class DCDCConverter : Converter
     {
         /// <summary>
-        /// 模块数范围
-        /// </summary>
-        public int[] NumberRange { get; set; }
-
-        /// <summary>
-        /// 拓扑范围
-        /// </summary>
-        public string[] TopologyRange { get; set; }
-
-        /// <summary>
-        /// 开关频率范围
-        /// </summary>
-        public double[] FrequencyRange { get; set; }
-
-        /// <summary>
         /// 获取类型名
         /// </summary>
         /// <returns>类型名</returns>

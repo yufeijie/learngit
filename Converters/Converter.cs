@@ -73,6 +73,21 @@ namespace PV_analysis.Converters
         public Topology Topology { get; protected set; }
 
         /// <summary>
+        /// 模块数范围
+        /// </summary>
+        public int[] NumberRange { get; set; }
+
+        /// <summary>
+        /// 拓扑范围
+        /// </summary>
+        public string[] TopologyRange { get; set; }
+
+        /// <summary>
+        /// 开关频率范围
+        /// </summary>
+        public double[] FrequencyRange { get; set; }
+
+        /// <summary>
         /// 判断评估对象是否为架构
         /// </summary>
         /// <returns>判断结果</returns>
