@@ -20,10 +20,13 @@ namespace PV_analysis
 		public const double ERROR_BIG = 1e-8; //最小计算误差（数字较大），小于该值则认为为0
 		//LLC谐振电感设计
 		//可选参数
-        public static readonly bool IS_RESONANT_INDUCTANCE_INTEGRATED = true; //是否认为谐振电感集成在变压器中
+        public static readonly bool IS_RESONANT_INDUCTANCE_INTEGRATED = false; //是否认为谐振电感集成在变压器中
 		//开关器件设计
 		public static readonly bool IS_SELECT_SIC = true; //是否选用SiC器件
 		public const int MAX_SEMICONDUCTOR_NUM = 10; //开关器件并联数上限
+		public const double IGBT_DEAD_TIME = 1e-6; //IGBT死区时间1us
+		public const double MOSFET_DEAD_TIME = 200e-9; //MOS死区时间200ns
+		public const double SIC_SELECTION_FREQUENCY = 50e3; //选用SiC器件的最低频率
 		//磁性元件设计
 		public const double ABSOLUTE_PERMEABILITY = 4 * Math.PI * 1e-7; //绝对磁导率(H/m) [MKS] or 1(Gs/Oe) [CGS]
 		public const double COPPER_RESISTIVITY = 1.724 * 1e-8; //铜电阻率

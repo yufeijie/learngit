@@ -106,5 +106,125 @@ namespace PV_analysis.Properties {
                 this["电流密度"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool 给定谐振电感 {
+            get {
+                return ((bool)(this["给定谐振电感"]));
+            }
+            set {
+                this["给定谐振电感"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string 磁芯型号 {
+            get {
+                return ((string)(this["磁芯型号"]));
+            }
+            set {
+                this["磁芯型号"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int 磁芯数 {
+            get {
+                return ((int)(this["磁芯数"]));
+            }
+            set {
+                this["磁芯数"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double 气隙长度 {
+            get {
+                return ((double)(this["气隙长度"]));
+            }
+            set {
+                this["气隙长度"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string 绕线型号 {
+            get {
+                return ((string)(this["绕线型号"]));
+            }
+            set {
+                this["绕线型号"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int 匝数 {
+            get {
+                return ((int)(this["匝数"]));
+            }
+            set {
+                this["匝数"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool 给定谐振电容 {
+            get {
+                return ((bool)(this["给定谐振电容"]));
+            }
+            set {
+                this["给定谐振电容"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string 电容型号 {
+            get {
+                return ((string)(this["电容型号"]));
+            }
+            set {
+                this["电容型号"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int 电容串联数 {
+            get {
+                return ((int)(this["电容串联数"]));
+            }
+            set {
+                this["电容串联数"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int 电容并联数 {
+            get {
+                return ((int)(this["电容并联数"]));
+            }
+            set {
+                this["电容并联数"] = value;
+            }
+        }
     }
 }

@@ -2602,12 +2602,12 @@ namespace PV_analysis
             //切换显示
             Estimate_Result_Print_RichTextBox.Text = "";
             ChangePanel(2, Estimate_Result_Panel);
-            //evaluationThread = new Thread(new ThreadStart(Estimate_Result_Evaluate)) //多线程
-            //{
-            //    IsBackground = true
-            //};
-            //evaluationThread.Start();
-            Estimate_Result_Evaluate(); //不使用多线程
+            evaluationThread = new Thread(new ThreadStart(Estimate_Result_Evaluate)) //多线程
+            {
+                IsBackground = true
+            };
+            evaluationThread.Start();
+            //Estimate_Result_Evaluate(); //不使用多线程
         }
 
         private void Estimate_Result_End_Button_Click(object sender, EventArgs e)

@@ -216,7 +216,7 @@ namespace PV_analysis.Components
             if (!Data.SemiconductorList[device].Configuration.Equals("Dual") && !Data.SemiconductorList[device].Configuration.Equals("Fourpack")) return false;
 
             //验证SiC器件的选用是否符合限制条件
-            if ((Data.SemiconductorList[device].Category.Equals("SiC-Module")) && (!isSelectSiC || math_fs_max < 50e3)) return false;
+            if ((Data.SemiconductorList[device].Category.Equals("SiC-Module")) && (!isSelectSiC || math_fs_max < Configuration.SIC_SELECTION_FREQUENCY)) return false;
 
             //验证电压、电流条件是否满足
             if (!ValidateVoltageAndCurrent()) return false;

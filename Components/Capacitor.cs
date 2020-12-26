@@ -213,11 +213,11 @@ namespace PV_analysis.Components
                 return false;
             }
 
-            double kV = Properties.Settings.Default.电容电压裕量;
-            double kI = Properties.Settings.Default.电容电流裕量;
+            double kv = Properties.Settings.Default.电容电压裕量;
+            double ki = Properties.Settings.Default.电容电流裕量;
             //验证电压电流应力是否满足
-            if (Data.CapacitorList[device].Math_Un * (1 - kV) * numberSeriesConnected < voltageMax
-                || Data.CapacitorList[device].Math_Irms * (1 - kI) * numberParallelConnected < currentRMSMax)
+            if (Data.CapacitorList[device].Math_Un * (1 - kv) * numberSeriesConnected < voltageMax
+                || Data.CapacitorList[device].Math_Irms * (1 - ki) * numberParallelConnected < currentRMSMax)
             {
                 return false;
             }
@@ -225,8 +225,8 @@ namespace PV_analysis.Components
             //容量过剩检查
             if (Configuration.IS_CHECK_CAPACITOR_EXCESS)
             {
-                if (Data.CapacitorList[device].Math_Un * (1 - kV) * numberSeriesConnected > voltageMax * (1 + Configuration.EXCESS_RATIO)
-                    || Data.CapacitorList[device].Math_Irms * (1 - kI) * numberParallelConnected > currentRMSMax * (1 + Configuration.EXCESS_RATIO)
+                if (Data.CapacitorList[device].Math_Un * (1 - kv) * numberSeriesConnected > voltageMax * (1 + Configuration.EXCESS_RATIO)
+                    || Data.CapacitorList[device].Math_Irms * (1 - ki) * numberParallelConnected > currentRMSMax * (1 + Configuration.EXCESS_RATIO)
                     )
                 {
                     return false;

@@ -66,7 +66,7 @@ namespace PV_analysis.Topologys
             math_Vo = converter.Math_Vo;
             math_No = converter.Math_No;
             math_fs = converter.Math_fs;
-            math_Td = 1 / math_fs / 50;
+            math_Td = math_fs < Configuration.SIC_SELECTION_FREQUENCY ? Configuration.IGBT_DEAD_TIME : Configuration.MOSFET_DEAD_TIME;
             math_Q = converter.Math_Q;
 
             //初始化元器件
