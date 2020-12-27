@@ -7,11 +7,8 @@ namespace PV_analysis.Components
 {
     internal abstract class Capacitor : Component
     {
-        //限制条件
-        protected static readonly int maxNumber = Configuration.MAX_CAPACITOR_NUM;
-
         //器件参数
-        protected int device; //电容编号
+        protected int[] device; //电容编号
         protected int seriesConnectedNumber; //串联数量
         protected int parallelConnectedNumber; //并联数量
 
@@ -34,29 +31,28 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
-        /// 获取电容型号
+        /// 获取电容编号
         /// </summary>
-        /// <returns>型号</returns>
-        public string GetDeviceType()
-        {
-            return Data.CapacitorList[device].Type;
-        }
-
-        /// <summary>
-        /// 设置电容型号
-        /// </summary>
-        /// <returns>型号</returns>
-        protected void SetDeviceType(string type)
+        /// <returns>编号</returns>
+        protected int GetDeviceId(string type)
         {
             for (int i = 0; i < Data.CapacitorList.Count; i++)
             {
                 if (type.Equals(Data.CapacitorList[i].Type))
                 {
-                    device = i;
-                    return;
+                    return i;
                 }
             }
-            device = -1;
+            return -1;
+        }
+
+        /// <summary>
+        /// 获取电容型号
+        /// </summary>
+        /// <returns>型号</returns>
+        public string GetDeviceType(int id)
+        {
+            return Data.CapacitorList[id].Type;
         }
 
         /// <summary>
@@ -65,8 +61,16 @@ namespace PV_analysis.Components
         /// <returns>配置信息标题</returns>
         public override string[] GetConfigTitles()
         {
-            string[] data = { "同类器件数量", "型号", "串联数", "并联数" };
-            return data;
+            List<string> data = new List<string>();
+            data.Add("同类器件数量");
+            data.Add("不同型号个数");
+            for (int i = 1; i <= device.Length; i++)
+            {
+                data.Add("型号"+i);
+            }
+            data.Add("串联数");
+            data.Add("并联数");
+            return data.ToArray();
         }
 
         /// <summary>
@@ -75,8 +79,16 @@ namespace PV_analysis.Components
         /// <returns>配置信息</returns>
         public override string[] GetConfigs()
         {
-            string[] data = { number.ToString(), GetDeviceType(), seriesConnectedNumber.ToString(), parallelConnectedNumber.ToString() };
-            return data;
+            List<string> data = new List<string>();
+            data.Add(number.ToString());
+            data.Add(device.Length.ToString());
+            for (int i = 0; i < device.Length; i++)
+            {
+                data.Add(GetDeviceType(device[i]));
+            }
+            data.Add(seriesConnectedNumber.ToString());
+            data.Add(parallelConnectedNumber.ToString());
+            return data.ToArray();
         }
 
         /// <summary>
@@ -141,7 +153,12 @@ namespace PV_analysis.Components
         public override void Load(string[] configs, ref int index)
         {
             number = int.Parse(configs[index++]);
-            SetDeviceType(configs[index++]);
+            int n = int.Parse(configs[index++]);
+            device = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                device[i] = GetDeviceId(configs[index++]);
+            }
             seriesConnectedNumber = int.Parse(configs[index++]);
             parallelConnectedNumber = int.Parse(configs[index++]);
         }
@@ -195,29 +212,42 @@ namespace PV_analysis.Components
         /// <returns>验证结果，true为满足</returns>
         public bool Validate()
         {
-            //验证编号是否合法
-            if (device < 0 || device >= Data.CapacitorList.Count)
-            {
-                return false;
-            }
-
-            //验证器件是否可用
-            if (!Data.CapacitorList[device].Available)
-            {
-                return false;
-            }
-
             //验证当前参数组的参数是否已经给定
             if (voltageMax == 0 || capacitor == 0)
             {
                 return false;
             }
 
+            double Un = -1;
+            double Irms = 0;
+            foreach (int id in device)
+            {
+                //验证编号是否合法
+                if (id < 0 || id >= Data.CapacitorList.Count)
+                {
+                    return false;
+                }
+
+                //验证器件是否可用
+                if (!Data.CapacitorList[id].Available)
+                {
+                    return false;
+                }
+
+                //验证不同型号的耐压是否相同
+                if (Un != -1 && Un != Data.CapacitorList[id].Math_Un)
+                {
+                    return false;
+                }
+                Un = Data.CapacitorList[id].Math_Un;
+                Irms += Data.CapacitorList[id].Math_Irms;
+            }
+
             double kv = Properties.Settings.Default.电容电压裕量;
             double ki = Properties.Settings.Default.电容电流裕量;
             //验证电压电流应力是否满足
-            if (Data.CapacitorList[device].Math_Un * (1 - kv) * seriesConnectedNumber < voltageMax
-                || Data.CapacitorList[device].Math_Irms * (1 - ki) * parallelConnectedNumber < currentRMSMax)
+            if (Un * (1 - kv) * seriesConnectedNumber < voltageMax
+                || Irms * (1 - ki) * parallelConnectedNumber < currentRMSMax)
             {
                 return false;
             }
@@ -225,8 +255,8 @@ namespace PV_analysis.Components
             //容量过剩检查
             if (Configuration.IS_CHECK_CAPACITOR_EXCESS)
             {
-                if (Data.CapacitorList[device].Math_Un * (1 - kv) * seriesConnectedNumber > voltageMax * (1 + Configuration.EXCESS_RATIO)
-                    || Data.CapacitorList[device].Math_Irms * (1 - ki) * parallelConnectedNumber > currentRMSMax * (1 + Configuration.EXCESS_RATIO)
+                if (Un * (1 - kv) * seriesConnectedNumber > voltageMax * (1 + Configuration.EXCESS_RATIO)
+                    || Irms * (1 - ki) * parallelConnectedNumber > currentRMSMax * (1 + Configuration.EXCESS_RATIO)
                     )
                 {
                     return false;
@@ -241,7 +271,12 @@ namespace PV_analysis.Components
         /// </summary>
         public override void CalcPowerLoss()
         {
-            double ESR = Data.CapacitorList[device].Math_ESR * 1e-3; //获取等效串联电阻
+            double G = 0;
+            foreach (int id in device)
+            {
+                G += 1 / Data.CapacitorList[id].Math_ESR;
+            }
+            double ESR = 1 / G * 1e-3; //获取等效串联电阻
             powerLoss = Math.Pow(currentRMS, 2) * ESR * seriesConnectedNumber / parallelConnectedNumber;
         }
 
@@ -250,7 +285,12 @@ namespace PV_analysis.Components
         /// </summary>
         protected override void CalcCost()
         {
-            cost = seriesConnectedNumber * parallelConnectedNumber * Data.CapacitorList[device].Price;
+            double c = 0;
+            foreach (int id in device)
+            {
+                c += Data.CapacitorList[id].Price;
+            }
+            cost = seriesConnectedNumber * parallelConnectedNumber * c;
         }
 
         /// <summary>
@@ -258,7 +298,12 @@ namespace PV_analysis.Components
         /// </summary>
         protected override void CalcVolume()
         {
-            volume = seriesConnectedNumber * parallelConnectedNumber * Data.CapacitorList[device].Volume;
+            double v = 0;
+            foreach (int id in device)
+            {
+                v += Data.CapacitorList[id].Volume;
+            }
+            volume = seriesConnectedNumber * parallelConnectedNumber * v;
         }
     }
 }

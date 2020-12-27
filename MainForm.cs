@@ -211,6 +211,8 @@ namespace PV_analysis
             AddPanel("变压器窗口利用系数");
             foldButton = Create_FoldButton("电容");
             controlList.Add(foldButton);
+            AddPanel("电容总个数上限");
+            AddPanel("电容不同型号数量上限");
             AddPanel("电容电压裕量");
             AddPanel("电容电流裕量");
             foldButton = Create_FoldButton("谐振电感");
@@ -224,7 +226,9 @@ namespace PV_analysis
             foldButton = Create_FoldButton("谐振电容");
             controlList.Add(foldButton);
             AddPanel("给定谐振电容", 1);
-            AddPanel("电容型号", 5);
+            AddPanel("电容型号1", 5);
+            AddPanel("电容型号2", 5);
+            AddPanel("电容型号3", 5);
             AddPanel("电容串联数");
             AddPanel("电容并联数");
             foldButton = Create_FoldButton("变压器");

@@ -191,7 +191,7 @@ namespace PV_analysis.Components
                 return;
             }
 
-            if (Properties.Settings.Default.给定谐振电感)
+            if (Properties.Settings.Default.给定谐振电感) //未验证
             {
                 SetCoreType(Properties.Settings.Default.电感磁芯型号);
                 numberCore = Properties.Settings.Default.电感磁芯数;

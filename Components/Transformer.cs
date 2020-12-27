@@ -204,7 +204,7 @@ namespace PV_analysis.Components
                 return;
             }
 
-            if (Properties.Settings.Default.给定变压器)
+            if (Properties.Settings.Default.给定变压器) //未验证
             {
                 SetCoreType(Properties.Settings.Default.变压器磁芯型号);
                 numberCore = Properties.Settings.Default.变压器磁芯数;

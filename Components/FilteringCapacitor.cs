@@ -11,10 +11,11 @@ namespace PV_analysis.Components
         public FilteringCapacitor(int number) : base(number) { }
 
         /// <summary>
-        /// 自动设计
+        /// 自动设计，滤波电感只考虑用同一种型号
         /// </summary>
         public override void Design()
         {
+            int maxNumber = Properties.Settings.Default.电容总个数上限;
             //尽量使用少的器件进行设计
             for (int M = 1; M <= maxNumber; M++)
             {
@@ -24,7 +25,7 @@ namespace PV_analysis.Components
                     parallelConnectedNumber = N;
                     for (int i = 0; i < Data.CapacitorList.Count; i++) //搜寻库中所有电容型号
                     {
-                        device = i; //选用当前型号电容
+                        device = new int[] { i }; //选用当前型号电容
                         if (Validate()) //验证该电容是否可用
                         {
                             M = maxNumber; //若得到设计方案，则不再考虑使用更多的器件
@@ -49,7 +50,7 @@ namespace PV_analysis.Components
             }
 
             //容值检查
-            if (Data.CapacitorList[device].Math_C * parallelConnectedNumber / seriesConnectedNumber < capacitor * 1e6)
+            if (Data.CapacitorList[device[0]].Math_C * parallelConnectedNumber / seriesConnectedNumber < capacitor * 1e6)
             {
                 return false;
             }

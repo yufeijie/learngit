@@ -194,12 +194,12 @@ namespace PV_analysis.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string 电容型号 {
+        public string 电容型号1 {
             get {
-                return ((string)(this["电容型号"]));
+                return ((string)(this["电容型号1"]));
             }
             set {
-                this["电容型号"] = value;
+                this["电容型号1"] = value;
             }
         }
         
@@ -320,6 +320,54 @@ namespace PV_analysis.Properties {
             }
             set {
                 this["最大工作磁密"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int 电容总个数上限 {
+            get {
+                return ((int)(this["电容总个数上限"]));
+            }
+            set {
+                this["电容总个数上限"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int 电容不同型号数量上限 {
+            get {
+                return ((int)(this["电容不同型号数量上限"]));
+            }
+            set {
+                this["电容不同型号数量上限"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string 电容型号2 {
+            get {
+                return ((string)(this["电容型号2"]));
+            }
+            set {
+                this["电容型号2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string 电容型号3 {
+            get {
+                return ((string)(this["电容型号3"]));
+            }
+            set {
+                this["电容型号3"] = value;
             }
         }
     }

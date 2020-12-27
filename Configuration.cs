@@ -34,9 +34,6 @@ namespace PV_analysis
 		public const int MAX_CORE_NUM = 10; //磁芯数量最大值
 		//电感设计
 		public const double AIR_GAP_LENGTH_DELTA = 1e-4; //气隙长度精度(cm)
-		//电容设计
-		public const int MAX_CAPACITOR_NUM = 20; //一个电容设计中允许使用的器件个数上限
-		public const int MAX_DIFF_CAPACITOR_NUM = 3; //一个电容设计中允许组合使用的不同型号个数上限
 		//温度(℃)
 		public const double MAX_JUNCTION_TEMPERATURE = 110; //允许最高结温
 		public const double MAX_HEATSINK_TEMPERATURE = 60; //散热器允许最高温度
