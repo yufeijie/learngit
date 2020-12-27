@@ -12,8 +12,8 @@ namespace PV_analysis.Components
 
         //器件参数
         protected int device; //电容编号
-        protected int numberSeriesConnected; //串联数量
-        protected int numberParallelConnected; //并联数量
+        protected int seriesConnectedNumber; //串联数量
+        protected int parallelConnectedNumber; //并联数量
 
         //设计条件
         protected double capacitor; //电容值
@@ -75,7 +75,7 @@ namespace PV_analysis.Components
         /// <returns>配置信息</returns>
         public override string[] GetConfigs()
         {
-            string[] data = { number.ToString(), GetDeviceType(), numberSeriesConnected.ToString(), numberParallelConnected.ToString() };
+            string[] data = { number.ToString(), GetDeviceType(), seriesConnectedNumber.ToString(), parallelConnectedNumber.ToString() };
             return data;
         }
 
@@ -142,8 +142,8 @@ namespace PV_analysis.Components
         {
             number = int.Parse(configs[index++]);
             SetDeviceType(configs[index++]);
-            numberSeriesConnected = int.Parse(configs[index++]);
-            numberParallelConnected = int.Parse(configs[index++]);
+            seriesConnectedNumber = int.Parse(configs[index++]);
+            parallelConnectedNumber = int.Parse(configs[index++]);
         }
 
         /// <summary>
@@ -216,8 +216,8 @@ namespace PV_analysis.Components
             double kv = Properties.Settings.Default.电容电压裕量;
             double ki = Properties.Settings.Default.电容电流裕量;
             //验证电压电流应力是否满足
-            if (Data.CapacitorList[device].Math_Un * (1 - kv) * numberSeriesConnected < voltageMax
-                || Data.CapacitorList[device].Math_Irms * (1 - ki) * numberParallelConnected < currentRMSMax)
+            if (Data.CapacitorList[device].Math_Un * (1 - kv) * seriesConnectedNumber < voltageMax
+                || Data.CapacitorList[device].Math_Irms * (1 - ki) * parallelConnectedNumber < currentRMSMax)
             {
                 return false;
             }
@@ -225,8 +225,8 @@ namespace PV_analysis.Components
             //容量过剩检查
             if (Configuration.IS_CHECK_CAPACITOR_EXCESS)
             {
-                if (Data.CapacitorList[device].Math_Un * (1 - kv) * numberSeriesConnected > voltageMax * (1 + Configuration.EXCESS_RATIO)
-                    || Data.CapacitorList[device].Math_Irms * (1 - ki) * numberParallelConnected > currentRMSMax * (1 + Configuration.EXCESS_RATIO)
+                if (Data.CapacitorList[device].Math_Un * (1 - kv) * seriesConnectedNumber > voltageMax * (1 + Configuration.EXCESS_RATIO)
+                    || Data.CapacitorList[device].Math_Irms * (1 - ki) * parallelConnectedNumber > currentRMSMax * (1 + Configuration.EXCESS_RATIO)
                     )
                 {
                     return false;
@@ -242,7 +242,7 @@ namespace PV_analysis.Components
         public override void CalcPowerLoss()
         {
             double ESR = Data.CapacitorList[device].Math_ESR * 1e-3; //获取等效串联电阻
-            powerLoss = Math.Pow(currentRMS, 2) * ESR * numberSeriesConnected / numberParallelConnected;
+            powerLoss = Math.Pow(currentRMS, 2) * ESR * seriesConnectedNumber / parallelConnectedNumber;
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace PV_analysis.Components
         /// </summary>
         protected override void CalcCost()
         {
-            cost = numberSeriesConnected * numberParallelConnected * Data.CapacitorList[device].Price;
+            cost = seriesConnectedNumber * parallelConnectedNumber * Data.CapacitorList[device].Price;
         }
 
         /// <summary>
@@ -258,7 +258,7 @@ namespace PV_analysis.Components
         /// </summary>
         protected override void CalcVolume()
         {
-            volume = numberSeriesConnected * numberParallelConnected * Data.CapacitorList[device].Volume;
+            volume = seriesConnectedNumber * parallelConnectedNumber * Data.CapacitorList[device].Volume;
         }
     }
 }

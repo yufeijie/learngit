@@ -191,9 +191,21 @@ namespace PV_analysis.Components
                 return;
             }
 
+            if (Properties.Settings.Default.给定谐振电感)
+            {
+                SetCoreType(Properties.Settings.Default.电感磁芯型号);
+                numberCore = Properties.Settings.Default.电感磁芯数;
+                lg = Properties.Settings.Default.电感气隙长度;
+                wire = GetWireId(Properties.Settings.Default.电感绕线型号);
+                N = Properties.Settings.Default.电感绕线匝数;
+                Evaluate();
+                designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
+                return;
+            }
+
             //参数初始化
             double ratioWindowUtilization = 0.4; //窗口利用系数
-            double magneticFluxDensityMax = 0.4; //最大工作磁密(T)
+            double magneticFluxDensityMax = Properties.Settings.Default.最大工作磁密; //最大工作磁密(T) 
             double currentDensity = Properties.Settings.Default.电流密度; //电流密度(A/cm^2)
             double S3 = 0.75; //有效窗口系数
             double S2 = 0.6; //填充系数
@@ -500,9 +512,8 @@ namespace PV_analysis.Components
             double Aecc = numberCore * Data.CoreList[core].Math_Ae * 1e-2; //等效磁芯面积(cm^2)
             double FF = 1 + lg / Math.Sqrt(Aecc) * Math.Log(2 * length / lg); //边缘磁通系数
             double magneticFluxDensityAC = 0.4 * Math.PI * N * FF * currentRipple * 0.5 / lg * 1e-4; //交流磁通密度(T)
-            double prewV = GetInductanceFeLoss(frequency, magneticFluxDensityAC);// //单位体积铁损(W/m^3)
-            double volume = numberCore * Data.CoreList[core].Math_Ve * 1e-9; //磁芯体积(m^3)
-            powerLossFe = prewV * volume; //计算铁损
+            double volume = numberCore * Data.CoreList[core].Math_Ve * 1e-6; //有效磁芯体积(dm^3)
+            powerLossFe = GetInductanceFeLoss(frequency, magneticFluxDensityAC, volume); //计算铁损
         }
     }
 }

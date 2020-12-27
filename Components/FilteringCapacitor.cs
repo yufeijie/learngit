@@ -18,10 +18,10 @@ namespace PV_analysis.Components
             //尽量使用少的器件进行设计
             for (int M = 1; M <= maxNumber; M++)
             {
-                numberSeriesConnected = M;
+                seriesConnectedNumber = M;
                 for (int N = 1; M * N <= maxNumber; N++)
                 {
-                    numberParallelConnected = N;
+                    parallelConnectedNumber = N;
                     for (int i = 0; i < Data.CapacitorList.Count; i++) //搜寻库中所有电容型号
                     {
                         device = i; //选用当前型号电容
@@ -49,7 +49,7 @@ namespace PV_analysis.Components
             }
 
             //容值检查
-            if (Data.CapacitorList[device].Math_C * numberParallelConnected / numberSeriesConnected < capacitor * 1e6)
+            if (Data.CapacitorList[device].Math_C * parallelConnectedNumber / seriesConnectedNumber < capacitor * 1e6)
             {
                 return false;
             }

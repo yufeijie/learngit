@@ -26,19 +26,19 @@
     <Setting Name="给定谐振电感" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="磁芯型号" Type="System.String" Scope="User">
+    <Setting Name="电感磁芯型号" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="磁芯数" Type="System.Int32" Scope="User">
+    <Setting Name="电感磁芯数" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="气隙长度" Type="System.Double" Scope="User">
+    <Setting Name="电感气隙长度" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="绕线型号" Type="System.String" Scope="User">
+    <Setting Name="电感绕线型号" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="匝数" Type="System.Int32" Scope="User">
+    <Setting Name="电感绕线匝数" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="给定谐振电容" Type="System.Boolean" Scope="User">
@@ -52,6 +52,30 @@
     </Setting>
     <Setting Name="电容并联数" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="给定变压器" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="变压器磁芯型号" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="变压器磁芯数" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="变压器原边绕线型号" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="变压器原边匝数" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="变压器副边绕线型号" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="变压器副边匝数" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="最大工作磁密" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.3</Value>
     </Setting>
   </Settings>
 </SettingsFile>

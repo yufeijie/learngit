@@ -4746,6 +4746,7 @@
             // 
             // Setting_Main_Panel
             // 
+            this.Setting_Main_Panel.AutoScroll = true;
             this.Setting_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Setting_Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Setting_Main_Panel.Location = new System.Drawing.Point(0, 0);
@@ -4795,10 +4796,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.Setting_Panel);
             this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Estimate_Step3B_Panel);
             this.Controls.Add(this.Estimate_Step2_Panel);
-            this.Controls.Add(this.Setting_Panel);
             this.Controls.Add(this.Estimate_Ready_Panel);
             this.Controls.Add(this.Estimate_Step1B_Panel);
             this.Controls.Add(this.Estimate_Step1_Panel);

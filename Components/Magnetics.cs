@@ -12,7 +12,7 @@ namespace PV_analysis.Components
         protected static readonly double math_μCu = Configuration.COPPER_RELATIVE_PERMEABILITY; //铜相对磁导率 0.9999912
 
         //器件参数
-        protected String material = "Ferrite"; //材料：铁氧体Ferrite，非晶Amorphous
+        protected string material = "Ferrite"; //材料：铁氧体Ferrite，非晶Amorphous
         protected int core; //磁芯编号
         protected int numberCore; //磁芯数量(单位:对)
 
@@ -101,12 +101,33 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
+        /// 获取铁损（DMR95）
+        /// </summary>
+        /// <param name="f">开关频率(Hz)</param>
+        /// <param name="B">交流磁通密度(T)</param>
+        /// <param name="V">磁芯体积(dm^3)</param>
+        /// <returns>铁损(W)</returns>
+        protected double GetInductanceFeLoss(double f, double B, double V)
+        {
+            //Steinmetz方程
+            double Cm = 8.468305e-8;
+            double a = 1.8787258;
+            double b = 2.52072788;
+            double ct0 = 1.47462783;
+            double ct1 = 0.0149349514;
+            double ct2 = 0.000103236;
+            double T = 50; //温度(℃)
+            double ct = ct0 - ct1 * T + ct2 * T * T;
+            return ct * Cm * Math.Pow(f / 1e3, a) * Math.Pow(B * 1e3, b) * V;
+        }
+
+        /// <summary>
         /// 获取铁损（N27 20oC）
         /// </summary>
         /// <param name="f">开关频率(Hz)</param>
         /// <param name="B">交流磁通密度(T)</param>
         /// <returns>单位体积铁损(W/m^3)</returns>
-        protected double GetInductanceFeLoss(double f, double B)
+        protected double GetInductanceFeLoss_N27(double f, double B)
         {
             //磁芯损耗曲线拟合参数
             double k = 1.212;

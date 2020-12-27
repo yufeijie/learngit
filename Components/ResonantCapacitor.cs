@@ -25,8 +25,8 @@ namespace PV_analysis.Components
                 {
                     for (int N = numberParallelConnectedMin; M * N <= maxNumber; N++)
                     {
-                        numberSeriesConnected = M;
-                        numberParallelConnected = N;
+                        seriesConnectedNumber = M;
+                        parallelConnectedNumber = N;
                         if (Validate()) //验证该电容是否可用
                         {
                             Evaluate();
@@ -49,7 +49,7 @@ namespace PV_analysis.Components
             }
 
             //容值检查
-            if (Math.Abs(Data.CapacitorList[device].Math_C * numberParallelConnected / numberSeriesConnected - capacitor * 1e6) / (capacitor * 1e6) > 0.05)
+            if (Math.Abs(Data.CapacitorList[device].Math_C * parallelConnectedNumber / seriesConnectedNumber - capacitor * 1e6) / (capacitor * 1e6) > 0.05)
             {
                 return false;
             }

@@ -122,60 +122,60 @@ namespace PV_analysis.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string 磁芯型号 {
+        public string 电感磁芯型号 {
             get {
-                return ((string)(this["磁芯型号"]));
+                return ((string)(this["电感磁芯型号"]));
             }
             set {
-                this["磁芯型号"] = value;
+                this["电感磁芯型号"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int 磁芯数 {
+        public int 电感磁芯数 {
             get {
-                return ((int)(this["磁芯数"]));
+                return ((int)(this["电感磁芯数"]));
             }
             set {
-                this["磁芯数"] = value;
+                this["电感磁芯数"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public double 气隙长度 {
+        public double 电感气隙长度 {
             get {
-                return ((double)(this["气隙长度"]));
+                return ((double)(this["电感气隙长度"]));
             }
             set {
-                this["气隙长度"] = value;
+                this["电感气隙长度"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string 绕线型号 {
+        public string 电感绕线型号 {
             get {
-                return ((string)(this["绕线型号"]));
+                return ((string)(this["电感绕线型号"]));
             }
             set {
-                this["绕线型号"] = value;
+                this["电感绕线型号"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int 匝数 {
+        public int 电感绕线匝数 {
             get {
-                return ((int)(this["匝数"]));
+                return ((int)(this["电感绕线匝数"]));
             }
             set {
-                this["匝数"] = value;
+                this["电感绕线匝数"] = value;
             }
         }
         
@@ -224,6 +224,102 @@ namespace PV_analysis.Properties {
             }
             set {
                 this["电容并联数"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool 给定变压器 {
+            get {
+                return ((bool)(this["给定变压器"]));
+            }
+            set {
+                this["给定变压器"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string 变压器磁芯型号 {
+            get {
+                return ((string)(this["变压器磁芯型号"]));
+            }
+            set {
+                this["变压器磁芯型号"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int 变压器磁芯数 {
+            get {
+                return ((int)(this["变压器磁芯数"]));
+            }
+            set {
+                this["变压器磁芯数"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string 变压器原边绕线型号 {
+            get {
+                return ((string)(this["变压器原边绕线型号"]));
+            }
+            set {
+                this["变压器原边绕线型号"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int 变压器原边匝数 {
+            get {
+                return ((int)(this["变压器原边匝数"]));
+            }
+            set {
+                this["变压器原边匝数"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string 变压器副边绕线型号 {
+            get {
+                return ((string)(this["变压器副边绕线型号"]));
+            }
+            set {
+                this["变压器副边绕线型号"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int 变压器副边匝数 {
+            get {
+                return ((int)(this["变压器副边匝数"]));
+            }
+            set {
+                this["变压器副边匝数"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.3")]
+        public double 最大工作磁密 {
+            get {
+                return ((double)(this["最大工作磁密"]));
+            }
+            set {
+                this["最大工作磁密"] = value;
             }
         }
     }

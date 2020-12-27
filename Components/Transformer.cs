@@ -204,10 +204,25 @@ namespace PV_analysis.Components
                 return;
             }
 
+            if (Properties.Settings.Default.给定变压器)
+            {
+                SetCoreType(Properties.Settings.Default.变压器磁芯型号);
+                numberCore = Properties.Settings.Default.变压器磁芯数;
+                wire_p = GetWireId(Properties.Settings.Default.变压器原边绕线型号);
+                Np = Properties.Settings.Default.变压器原边匝数;
+                wire_s = GetWireId(Properties.Settings.Default.变压器副边绕线型号);
+                Ns = Properties.Settings.Default.变压器副边匝数;
+                if (Evaluate())
+                {
+                    designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
+                }
+                return;
+            }
+
             //参数初始化
             double ratioWaveform = 4; //波形系数（方波4.0，正弦波4.44）
             double ratioWindowUtilization = Properties.Settings.Default.变压器窗口利用系数; //窗口利用系数
-            double magneticFluxDensityMax = 0.4; //最大工作磁密(T)
+            double magneticFluxDensityMax = Properties.Settings.Default.最大工作磁密; //最大工作磁密(T)
             double currentDensity = Properties.Settings.Default.电流密度; //电流密度(A/cm^2)
             double S3 = 0.75; //有效窗口系数
             double S2 = 0.6; //填充系数
@@ -440,10 +455,9 @@ namespace PV_analysis.Components
         private void CalcPowerLossFe()
         {
             double Aecc = numberCore * Data.CoreList[core].Math_Ae * 1e-2; //等效磁芯面积(cm^2)
-            double Bm = 0.5 * fluxLinkage / (Np * Aecc * 1e-4); //交流磁通密度(cm^2)
-            double prewV = GetInductanceFeLoss(math_fs, Bm);// //单位体积铁损(W/m^3)
-            double volume = numberCore * Data.CoreList[core].Math_Ve * 1e-9; //磁芯体积(m^3) Datasheet中给出的即为一对磁芯的有效磁体积
-            powerLossFe = prewV * volume; //计算铁损
+            double Bm = 0.5 * fluxLinkage / (Np * Aecc * 1e-4); //交流磁通密度(T)
+            double volume = numberCore * Data.CoreList[core].Math_Ve * 1e-6; //有效磁芯体积(dm^3) Datasheet中给出的即为一对磁芯的有效磁体积
+            powerLossFe = GetInductanceFeLoss(math_fs, Bm, volume); //计算铁损
         }
 
         /// <summary>

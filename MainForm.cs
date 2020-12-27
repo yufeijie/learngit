@@ -74,7 +74,7 @@ namespace PV_analysis
             //初始化设置页面
             List<Control> controlList = new List<Control>();
             FoldButton foldButton;
-            void AddPanel(string name, string unit = null)
+            void AddPanel(string name, short category = 0, string unit = null)
             {
                 Panel panel = new Panel
                 {
@@ -82,6 +82,7 @@ namespace PV_analysis
                     Margin = new Padding(0),
                     Size = new System.Drawing.Size(1430, 45)
                 };
+
                 Label label = new Label
                 {
                     AutoSize = true,
@@ -92,21 +93,102 @@ namespace PV_analysis
                     TextAlign = System.Drawing.ContentAlignment.MiddleLeft
                 };
                 panel.Controls.Add(label);
-                TextBox textBox = new TextBox
+
+                switch (category)
                 {
-                    Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
-                    Location = new System.Drawing.Point(380, 8),
-                    Size = new System.Drawing.Size(100, 29),
-                    TextAlign = HorizontalAlignment.Center
-                };
-                textBox.DataBindings.Add(new Binding("Text", Properties.Settings.Default, name));
-                panel.Controls.Add(textBox);
+                    case 0:
+                        TextBox textBox = new TextBox
+                        {
+                            Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                            Location = new System.Drawing.Point(380, 8),
+                            Size = new System.Drawing.Size(100, 29),
+                            TextAlign = HorizontalAlignment.Center
+                        };
+                        textBox.DataBindings.Add(new Binding("Text", Properties.Settings.Default, name));
+                        panel.Controls.Add(textBox);
+                        break;
+                    case 1:
+                        CheckBox checkBox = new CheckBox
+                        {
+                            Location = new System.Drawing.Point(380, 12),
+                        };
+                        checkBox.DataBindings.Add(new Binding("Checked", Properties.Settings.Default, name));
+                        panel.Controls.Add(checkBox);
+                        break;
+                    case 2:
+                        ComboBox comboBox = new ComboBox
+                        {
+                            DropDownStyle = ComboBoxStyle.DropDownList,
+                            Font = new System.Drawing.Font("Times New Roman", 14.25F),
+                            Location = new System.Drawing.Point(380, 8),
+                            Size = new System.Drawing.Size(200, 29)
+                        };
+                        comboBox.Items.Add("");
+                        foreach (Data.Semiconductor semiconductor in Data.SemiconductorList)
+                        {
+                            comboBox.Items.Add(semiconductor.Type);
+                        }
+                        comboBox.DataBindings.Add(new Binding("SelectedItem", Properties.Settings.Default, name));
+                        panel.Controls.Add(comboBox);
+                        break;
+                    case 3:
+                        comboBox = new ComboBox
+                        {
+                            DropDownStyle = ComboBoxStyle.DropDownList,
+                            Font = new System.Drawing.Font("Times New Roman", 14.25F),
+                            Location = new System.Drawing.Point(380, 8),
+                            Size = new System.Drawing.Size(200, 29)
+                        };
+                        comboBox.Items.Add("");
+                        foreach (Data.Core core in Data.CoreList)
+                        {
+                            comboBox.Items.Add(core.Type);
+                        }
+                        comboBox.DataBindings.Add(new Binding("SelectedItem", Properties.Settings.Default, name));
+                        panel.Controls.Add(comboBox);
+                        break;
+                    case 4:
+                        comboBox = new ComboBox
+                        {
+                            DropDownStyle = ComboBoxStyle.DropDownList,
+                            Font = new System.Drawing.Font("Times New Roman", 14.25F),
+                            Location = new System.Drawing.Point(380, 8),
+                            Size = new System.Drawing.Size(200, 29)
+                        };
+                        comboBox.Items.Add("");
+                        foreach (Data.Wire wire in Data.WireList)
+                        {
+                            comboBox.Items.Add(wire.Type);
+                        }
+                        comboBox.DataBindings.Add(new Binding("SelectedItem", Properties.Settings.Default, name));
+                        panel.Controls.Add(comboBox);
+                        break;
+                    case 5:
+                        comboBox = new ComboBox
+                        {
+                            DropDownStyle = ComboBoxStyle.DropDownList,
+                            Font = new System.Drawing.Font("Times New Roman", 14.25F),
+                            Location = new System.Drawing.Point(380, 8),
+                            Size = new System.Drawing.Size(200, 29)
+                        };
+                        comboBox.Items.Add("");
+                        foreach (Data.Capacitor capacitor in Data.CapacitorList)
+                        {
+                            comboBox.Items.Add(capacitor.Type);
+                        }
+                        comboBox.DataBindings.Add(new Binding("SelectedItem", Properties.Settings.Default, name));
+                        panel.Controls.Add(comboBox);
+                        break;
+                    default:
+                        break;
+                }
+
                 if (!string.IsNullOrEmpty(unit))
                 {
                     Label unitLabel = new Label
                     {
                         AutoSize = true,
-                        Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                        Font = new System.Drawing.Font("Times New Roman", 14.25F),
                         Location = new System.Drawing.Point(500, 12),
                         Size = new System.Drawing.Size(23, 21),
                         Text = unit,
@@ -123,8 +205,9 @@ namespace PV_analysis
             AddPanel("开关器件电流裕量");
             foldButton = Create_FoldButton("磁性元件");
             controlList.Add(foldButton);
-            AddPanel("电流密度", "A/cm^2");
-            AddPanel("电感最大气隙长度", "cm");
+            AddPanel("最大工作磁密", 0, "T"); 
+            AddPanel("电流密度", 0, "A/cm^2");
+            AddPanel("电感最大气隙长度", 0, "cm");
             AddPanel("变压器窗口利用系数");
             foldButton = Create_FoldButton("电容");
             controlList.Add(foldButton);
@@ -132,8 +215,27 @@ namespace PV_analysis
             AddPanel("电容电流裕量");
             foldButton = Create_FoldButton("谐振电感");
             controlList.Add(foldButton);
+            AddPanel("给定谐振电感", 1);
+            AddPanel("电感磁芯型号", 3);
+            AddPanel("电感磁芯数", 0, "对");
+            AddPanel("电感气隙长度", 0, "cm");
+            AddPanel("电感绕线型号", 4);
+            AddPanel("电感绕线匝数");
             foldButton = Create_FoldButton("谐振电容");
             controlList.Add(foldButton);
+            AddPanel("给定谐振电容", 1);
+            AddPanel("电容型号", 5);
+            AddPanel("电容串联数");
+            AddPanel("电容并联数");
+            foldButton = Create_FoldButton("变压器");
+            controlList.Add(foldButton);
+            AddPanel("给定变压器", 1);
+            AddPanel("变压器磁芯型号", 3);
+            AddPanel("变压器磁芯数", 0, "对");
+            AddPanel("变压器原边绕线型号", 4);
+            AddPanel("变压器原边匝数");
+            AddPanel("变压器副边绕线型号", 4);
+            AddPanel("变压器副边匝数");
 
             for (int i = controlList.Count - 1; i >= 0; i--)
             {
@@ -1145,7 +1247,7 @@ namespace PV_analysis
                 AutoSize = false,
                 Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134))),
                 Location = new System.Drawing.Point(6, 0),
-                Size = new System.Drawing.Size(164, 40),
+                Size = new System.Drawing.Size(154, 40),
                 Text = title,
                 TextAlign = System.Drawing.ContentAlignment.MiddleLeft
             });
@@ -1153,8 +1255,8 @@ namespace PV_analysis
             {
                 AutoSize = false,
                 Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134))),
-                Location = new System.Drawing.Point(176, 0),
-                Size = new System.Drawing.Size(164, 40),
+                Location = new System.Drawing.Point(160, 0),
+                Size = new System.Drawing.Size(188, 40),
                 Text = text,
                 TextAlign = System.Drawing.ContentAlignment.MiddleLeft
             });

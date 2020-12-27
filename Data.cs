@@ -326,7 +326,7 @@ namespace PV_analysis
         }
 
         /// <summary>
-        /// 初始化，读取数据库到内存
+        /// 初始化，读取数据库到内存（程序启动时自动执行）
         /// </summary>
         static Data()
         {
