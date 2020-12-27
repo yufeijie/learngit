@@ -370,5 +370,17 @@ namespace PV_analysis.Properties {
                 this["电容型号3"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool 满载评估 {
+            get {
+                return ((bool)(this["满载评估"]));
+            }
+            set {
+                this["满载评估"] = value;
+            }
+        }
     }
 }

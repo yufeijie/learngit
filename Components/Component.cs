@@ -139,12 +139,12 @@ namespace PV_analysis.Components
         protected abstract void SelectParameters(int m, int n);
 
         /// <summary>
-        /// 评估，得到中国效率、体积、成本
+        /// 评估，得到效率、体积、成本
         /// </summary>
         public void Evaluate()
         {
-            int m = Configuration.CGC_VOLTAGE_RATIO.Length;
-            int n = Configuration.CGC_POWER_RATIO.Length;
+            int m = Configuration.voltageRatio.Length;
+            int n = Configuration.powerRatio.Length;
 
             if (!VoltageVariable) //输入电压不变
             {
@@ -160,7 +160,7 @@ namespace PV_analysis.Components
                     CalcPowerLoss(); //计算对应条件下的损耗
                     if (PowerVariable)
                     {
-                        powerLossEvaluation += powerLoss * Configuration.CGC_POWER_WEIGHT[j] / Configuration.CGC_POWER_RATIO[j]; //计算损耗评估值
+                        powerLossEvaluation += powerLoss * Configuration.powerWeight[j] / Configuration.powerRatio[j]; //计算损耗评估值
                     }
                     else //若负载不变，则只评估满载
                     {

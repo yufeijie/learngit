@@ -242,14 +242,14 @@ namespace PV_analysis.Topologys
             DesignCircuitParam();
 
             math_ICrms_max = 0;
-            int m = Configuration.CGC_VOLTAGE_RATIO.Length;
-            int n = Configuration.CGC_POWER_RATIO.Length;
+            int m = Configuration.voltageRatio.Length;
+            int n = Configuration.powerRatio.Length;
             for (int i = 0; i < m; i++)
             {
-                math_Vin = math_Vin_min + (math_Vin_max - math_Vin_min) * Configuration.CGC_VOLTAGE_RATIO[i];
+                math_Vin = math_Vin_min + (math_Vin_max - math_Vin_min) * Configuration.voltageRatio[i];
                 for (int j = 0; j < n; j++)
                 {
-                    math_P = math_Pfull * Configuration.CGC_POWER_RATIO[j]; //改变负载
+                    math_P = math_Pfull * Configuration.powerRatio[j]; //改变负载
                     Simulate();
                     //Graph graph = new Graph();
                     //graph.Add(curve_iS, "iS");

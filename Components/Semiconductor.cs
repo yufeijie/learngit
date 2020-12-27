@@ -83,13 +83,13 @@ namespace PV_analysis.Components
         }
 
         /// <summary>
-        /// 评估，得到中国效率、体积、成本，并进行温度检查
+        /// 评估，得到效率、体积、成本，并进行温度检查
         /// </summary>
         /// <returns>评估结果，若温度检查不通过则返回false</returns>
         protected new bool Evaluate()
         {
-            int m = Configuration.CGC_VOLTAGE_RATIO.Length;
-            int n = Configuration.CGC_POWER_RATIO.Length;
+            int m = Configuration.voltageRatio.Length;
+            int n = Configuration.powerRatio.Length;
 
             if (!VoltageVariable) //输入电压不变
             {
@@ -109,7 +109,7 @@ namespace PV_analysis.Components
                     }
                     if (PowerVariable)
                     {
-                        powerLossEvaluation += powerLoss * Configuration.CGC_POWER_WEIGHT[j] / Configuration.CGC_POWER_RATIO[j]; //计算损耗评估值
+                        powerLossEvaluation += powerLoss * Configuration.powerWeight[j] / Configuration.powerRatio[j]; //计算损耗评估值
                     }
                     else //若负载不变，则只评估满载
                     {

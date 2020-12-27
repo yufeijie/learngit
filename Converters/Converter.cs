@@ -275,7 +275,7 @@ namespace PV_analysis.Converters
         }
 
         /// <summary>
-        /// 评估，得到中国效率、体积、成本
+        /// 评估，得到效率、体积、成本
         /// </summary>
         public override void Evaluate()
         {
@@ -304,7 +304,7 @@ namespace PV_analysis.Converters
                     Volume += component.Volume;
                 }
             }
-            EfficiencyCGC = 1 - Math_Peval * Number * PhaseNum / Math_Psys;
+            EfficiencyEval = 1 - Math_Peval * Number * PhaseNum / Math_Psys;
             Cost *= Number * PhaseNum;
             Volume *= Number * PhaseNum;
         }

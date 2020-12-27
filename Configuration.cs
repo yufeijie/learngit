@@ -8,7 +8,14 @@ namespace PV_analysis
 		public const double GRID_FREQUENCY = 50; //并网频率(Hz)
 		public const double POWER_FACTOR_ANGLE = 0; //并网功率因数角(rad)
 
+		//整体
+		public static string effciencyText = "效率"; //效率提示文字，在中国效率评估下为“中国效率”
+
 		//评估过程
+		//评估参数
+		public static double[] voltageRatio = { 1 }; //输入电压变化系数
+		public static double[] powerRatio = { 1 }; //功率点
+		public static double[] powerWeight = { 1 }; //权重
 		//中国效率
 		public static readonly double[] CGC_VOLTAGE_RATIO = { 0, 0.3, 0.5, 0.7, 1.0 }; //输入电压变化系数
 		public static readonly double[] CGC_POWER_RATIO = { 0.05, 0.10, 0.20, 0.30, 0.50, 0.75, 1.00 }; //功率点

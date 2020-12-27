@@ -113,6 +113,10 @@ namespace PV_analysis
                             Location = new System.Drawing.Point(380, 12),
                         };
                         checkBox.DataBindings.Add(new Binding("Checked", Properties.Settings.Default, name));
+                        if (name == "满载评估")
+                        {
+                            checkBox.CheckedChanged += EvaluationModeChange;
+                        }
                         panel.Controls.Add(checkBox);
                         break;
                     case 2:
@@ -198,14 +202,37 @@ namespace PV_analysis
                 }
                 controlList.Add(panel);
                 foldButton.Add(panel);
-            }            
+            }
+            
+            void EvaluationModeChange(object sender, EventArgs e)
+            {
+                //评估参数设置
+                if (((CheckBox)sender).Checked)
+                {
+                    Configuration.effciencyText = "效率";
+                    Configuration.voltageRatio = new double[] { 1 };
+                    Configuration.powerRatio = new double[] { 1 };
+                    Configuration.powerWeight = new double[] { 1 };
+                }
+                else
+                {
+                    Configuration.effciencyText = "中国效率";
+                    Configuration.voltageRatio = Configuration.CGC_VOLTAGE_RATIO;
+                    Configuration.powerRatio = Configuration.CGC_POWER_RATIO;
+                    Configuration.powerWeight = Configuration.CGC_POWER_WEIGHT;
+                }
+            }
+
+            foldButton = Create_FoldButton("整体");
+            controlList.Add(foldButton);
+            AddPanel("满载评估", 1);
             foldButton = Create_FoldButton("开关器件");
             controlList.Add(foldButton);
             AddPanel("开关器件电压裕量");
             AddPanel("开关器件电流裕量");
             foldButton = Create_FoldButton("磁性元件");
             controlList.Add(foldButton);
-            AddPanel("最大工作磁密", 0, "T"); 
+            AddPanel("最大工作磁密", 0, "T");
             AddPanel("电流密度", 0, "A/cm^2");
             AddPanel("电感最大气隙长度", 0, "cm");
             AddPanel("变压器窗口利用系数");
@@ -1145,7 +1172,7 @@ namespace PV_analysis
                     {
                         FontSize = 18F,
                         LabelFormatter = value => Math.Round(value, 8).ToString(),
-                        Title = "中国效率（%）"
+                        Title = Configuration.effciencyText + "（%）"
                     });
                     break;
                 case "体积-效率":
@@ -1158,7 +1185,7 @@ namespace PV_analysis
                     {
                         FontSize = 18F,
                         LabelFormatter = value => Math.Round(value, 8).ToString(),
-                        Title = "中国效率（%）"
+                        Title = Configuration.effciencyText + "（%）"
                     });
                     break;
                 case "成本-体积":

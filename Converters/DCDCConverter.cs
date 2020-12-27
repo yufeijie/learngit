@@ -171,7 +171,7 @@ namespace PV_analysis.Converters
         /// <param name="index">当前下标</param>
         public override void Load(string[] configs, ref int index)
         {
-            EfficiencyCGC = double.Parse(configs[index++]);
+            EfficiencyEval = double.Parse(configs[index++]);
             Volume = double.Parse(configs[index++]);
             Cost = double.Parse(configs[index++]);
             Number = int.Parse(configs[index++]);

@@ -15,9 +15,9 @@ namespace PV_analysis
         public string Name { get; set; }
 
         /// <summary>
-        /// 中国效率
+        /// 效率评估值
         /// </summary>
-        public double EfficiencyCGC { get; protected set; }
+        public double EfficiencyEval { get; protected set; }
 
         /// <summary>
         /// 损耗评估值
@@ -98,7 +98,7 @@ namespace PV_analysis
         {
             List<Info> list = new List<Info>
             {
-                new Info("中国效率", (EfficiencyCGC * 100).ToString("f2") + "%"),
+                new Info(Configuration.effciencyText, (EfficiencyEval * 100).ToString("f2") + "%"),
                 new Info("成本", (Cost / 1e4).ToString("f2") + "万元"),
                 new Info("体积", Volume.ToString("f2") + "dm^3")
             };
@@ -123,7 +123,7 @@ namespace PV_analysis
         public abstract Equipment Clone();
 
         /// <summary>
-        /// 评估，得到中国效率、体积、成本
+        /// 评估，得到效率、体积、成本
         /// </summary>
         public abstract void Evaluate();
 

@@ -148,18 +148,23 @@ namespace PV_analysis
             {
                 ConverterDesignList newList = new ConverterDesignList();
                 ConverterDesignData p = head;
+                int i = 1;               
                 while (p != null)
                 {
+                    int j = 1;
                     ConverterDesignData q = designList.head;
                     while (q != null)
                     {
+                        Console.WriteLine(i + " " + j);
                         string[] configs = new string[p.Configs.Length + q.Configs.Length];
                         p.Configs.CopyTo(configs, 0);
                         q.Configs.CopyTo(configs, p.Configs.Length);
                         newList.Add(p.Efficiency + q.Efficiency - 1, p.Volume + q.Volume, p.Cost + q.Cost, configs);
                         q = q.Next;
+                        j++;
                     }
                     p = p.Next;
+                    i++;
                 }
                 head = newList.head;
                 size = newList.size;

@@ -247,8 +247,8 @@ namespace PV_analysis.Topologys
         {
             //计算电路参数
             DesignCircuitParam();
-            int m = Configuration.CGC_VOLTAGE_RATIO.Length;
-            int n = Configuration.CGC_POWER_RATIO.Length;
+            int m = Configuration.voltageRatio.Length;
+            int n = Configuration.powerRatio.Length;
 
             double ILmax = 0;
             double ILrms_max = 0;
@@ -260,10 +260,10 @@ namespace PV_analysis.Topologys
             //得到用于效率评估的不同输入电压与不同功率点的电路参数
             for (int i = 0; i < m; i++)
             {
-                math_Vin = math_Vinmin + (math_Vinmax - math_Vinmin) * Configuration.CGC_VOLTAGE_RATIO[i];
+                math_Vin = math_Vinmin + (math_Vinmax - math_Vinmin) * Configuration.voltageRatio[i];
                 for (int j = 0; j < n; j++)
                 {
-                    math_P = math_Pfull * Configuration.CGC_POWER_RATIO[j]; //改变负载
+                    math_P = math_Pfull * Configuration.powerRatio[j]; //改变负载
                     Simulate();
                     //Graph graph = new Graph();
                     //graph.Add(curve_iL, "iL");

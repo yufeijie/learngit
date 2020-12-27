@@ -234,8 +234,16 @@ namespace PV_analysis.Structures
         {
             string[] conditionTitles = GetConditionTitles();
             string[] conditions = GetConditions();
-            Data.Save(name + "_Pareto", conditionTitles, conditions, ParetoDesignList);
-            Data.Save(name + "_all", conditionTitles, conditions, AllDesignList);
+            if (Properties.Settings.Default.满载评估)
+            {
+                Data.Save(name + "_full_Pareto", conditionTitles, conditions, ParetoDesignList);
+                Data.Save(name + "_full_all", conditionTitles, conditions, AllDesignList);
+            }
+            else
+            {
+                Data.Save(name + "_Pareto", conditionTitles, conditions, ParetoDesignList);
+                Data.Save(name + "_all", conditionTitles, conditions, AllDesignList);
+            }
         }
 
         /// <summary>
@@ -247,22 +255,30 @@ namespace PV_analysis.Structures
         {
             string[] conditionTitles = GetConditionTitles();
             string[] conditions = GetConditions();
-            Data.Save(path, name + "_Pareto", conditionTitles, conditions, ParetoDesignList);
-            Data.Save(path, name + "_all", conditionTitles, conditions, AllDesignList);
+            if (Properties.Settings.Default.满载评估)
+            {
+                Data.Save(path, name + "_full_Pareto", conditionTitles, conditions, ParetoDesignList);
+                Data.Save(path, name + "_full_all", conditionTitles, conditions, AllDesignList);
+            }
+            else
+            {
+                Data.Save(path, name + "_Pareto", conditionTitles, conditions, ParetoDesignList);
+                Data.Save(path, name + "_all", conditionTitles, conditions, AllDesignList);
+            }
         }
 
         /// <summary>
-        /// 评估，得到中国效率、体积、成本
+        /// 评估，得到效率、体积、成本
         /// </summary>
         public override void Evaluate()
         {
-            EfficiencyCGC = 1;
+            EfficiencyEval = 1;
             Cost = 0;
             Volume = 0;
             foreach (Converter converter in Converters)
             {
                 converter.Evaluate();
-                EfficiencyCGC += converter.EfficiencyCGC - 1;
+                EfficiencyEval += converter.EfficiencyEval - 1;
                 Cost += converter.Cost;
                 Volume += converter.Volume;
             }

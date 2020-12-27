@@ -372,10 +372,10 @@ namespace PV_analysis.Topologys
             //Graph graph1 = new Graph();
             //Graph graph2 = new Graph();
             //Graph graph3 = new Graph();
-            int n = Configuration.CGC_POWER_RATIO.Length;
+            int n = Configuration.powerRatio.Length;
             for (int j = 0; j < n; j++)
             {
-                math_P = math_Pfull * Configuration.CGC_POWER_RATIO[j]; //改变负载
+                math_P = math_Pfull * Configuration.powerRatio[j]; //改变负载
                 Simulate(); //进行对应负载下的波形模拟
                 //graph1.Add(curve_vCr, "vCr_" + j);
                 //graph2.Add(curve_iLr, "iLr_" + j);
