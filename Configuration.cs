@@ -29,7 +29,7 @@ namespace PV_analysis
 		//可选参数
         public static readonly bool IS_RESONANT_INDUCTANCE_INTEGRATED = false; //是否认为谐振电感集成在变压器中
 		//开关器件设计
-		public static readonly bool IS_SELECT_SIC = true; //是否选用SiC器件
+		public static readonly bool CAN_SELECT_SIC = true; //是否选用SiC器件
 		public const int MAX_SEMICONDUCTOR_NUM = 10; //开关器件并联数上限
 		public const double IGBT_DEAD_TIME = 1e-6; //IGBT死区时间1us
 		public const double MOSFET_DEAD_TIME = 200e-9; //MOS死区时间200ns
@@ -38,7 +38,6 @@ namespace PV_analysis
 		public const double ABSOLUTE_PERMEABILITY = 4 * Math.PI * 1e-7; //绝对磁导率(H/m) [MKS] or 1(Gs/Oe) [CGS]
 		public const double COPPER_RESISTIVITY = 1.724 * 1e-8; //铜电阻率
 		public const double COPPER_RELATIVE_PERMEABILITY = 1; //铜相对磁导率 0.9999912
-		public const int MAX_CORE_NUM = 10; //磁芯数量最大值
 		//电感设计
 		public const double AIR_GAP_LENGTH_DELTA = 1e-4; //气隙长度精度(cm)
 		//温度(℃)
@@ -51,9 +50,14 @@ namespace PV_analysis
 		//DSP成本
 		public const double DSP_PRICE = 157.296; //型号：TMS320F28335PGFA TI 100 Mouser FIXM
 		//限制条件
-		public static readonly bool IS_CHECK_SEMICONDUCTOR_EXCESS = false; //是否检查开关器件过剩容量
-		public static readonly bool IS_CHECK_CAPACITOR_EXCESS = false; //是否检查电容过剩容量
-		public const double EXCESS_RATIO = 1; //允许过剩比例
+		public static readonly bool CAN_CHECK_SEMICONDUCTOR_EXCESS = true; //是否检查开关器件过剩容量
+		public static readonly bool CAN_CHECK_CORE_EXCESS = true; //是否检查磁芯面积积过剩容量
+		public static readonly bool CAN_CHECK_CAPACITOR_EXCESS = false; //是否检查电容过剩容量
+		public const double VOLTAGE_EXCESS_RATIO = 1; //电压允许过剩比例
+		public const double CURRENT_EXCESS_RATIO = 3; //电流允许过剩比例
+		public const double AREA_PRODUCT_EXCESS_RATIO = 4; //面积积允许过剩比例
+		public static readonly bool CAN_OPTIMIZE_WIRE = false; //是否优化绕线
+		public static readonly bool CAN_OPTIMIZE_RESONANT_CAPACITOR = false; //是否优化谐振电容
 
 		//评估结果限制
 		public const double MIN_EFFICIENCY = 0; //最低效率
@@ -61,7 +65,7 @@ namespace PV_analysis
 		public const double MAX_VOLUME = 1e9; //最大体积(dm^3)
 
 		//界面显示
-		public static readonly bool IS_PRINT_DEBUG = true; //是否打印Debug信息
+		public static readonly bool CAN_PRINT_DEBUG = true; //是否打印Debug信息
 		public const short PRINT_LEVEL = 4; //允许打印的详细信息等级
 		public static readonly System.Drawing.Color COLOR_ACTIVE = System.Drawing.SystemColors.ControlDarkDark; //左侧边栏按钮，当前选中颜色
 		public static readonly System.Drawing.Color COLOR_INACTIVE = System.Drawing.SystemColors.ButtonFace; //左侧边栏按钮，未选中颜色

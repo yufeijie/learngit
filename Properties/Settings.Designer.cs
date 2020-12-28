@@ -194,36 +194,36 @@ namespace PV_analysis.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string 电容型号1 {
+        public string 谐振电容型号1 {
             get {
-                return ((string)(this["电容型号1"]));
+                return ((string)(this["谐振电容型号1"]));
             }
             set {
-                this["电容型号1"] = value;
+                this["谐振电容型号1"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int 电容串联数 {
+        public int 谐振电容串联数 {
             get {
-                return ((int)(this["电容串联数"]));
+                return ((int)(this["谐振电容串联数"]));
             }
             set {
-                this["电容串联数"] = value;
+                this["谐振电容串联数"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int 电容并联数 {
+        public int 谐振电容并联数 {
             get {
-                return ((int)(this["电容并联数"]));
+                return ((int)(this["谐振电容并联数"]));
             }
             set {
-                this["电容并联数"] = value;
+                this["谐振电容并联数"] = value;
             }
         }
         
@@ -326,12 +326,12 @@ namespace PV_analysis.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("20")]
-        public int 电容总个数上限 {
+        public int 电容个数上限 {
             get {
-                return ((int)(this["电容总个数上限"]));
+                return ((int)(this["电容个数上限"]));
             }
             set {
-                this["电容总个数上限"] = value;
+                this["电容个数上限"] = value;
             }
         }
         
@@ -350,24 +350,24 @@ namespace PV_analysis.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string 电容型号2 {
+        public string 谐振电容型号2 {
             get {
-                return ((string)(this["电容型号2"]));
+                return ((string)(this["谐振电容型号2"]));
             }
             set {
-                this["电容型号2"] = value;
+                this["谐振电容型号2"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string 电容型号3 {
+        public string 谐振电容型号3 {
             get {
-                return ((string)(this["电容型号3"]));
+                return ((string)(this["谐振电容型号3"]));
             }
             set {
-                this["电容型号3"] = value;
+                this["谐振电容型号3"] = value;
             }
         }
         
@@ -380,6 +380,66 @@ namespace PV_analysis.Properties {
             }
             set {
                 this["满载评估"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int 磁芯数量上限 {
+            get {
+                return ((int)(this["磁芯数量上限"]));
+            }
+            set {
+                this["磁芯数量上限"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool 给定滤波电容 {
+            get {
+                return ((bool)(this["给定滤波电容"]));
+            }
+            set {
+                this["给定滤波电容"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string 滤波电容型号 {
+            get {
+                return ((string)(this["滤波电容型号"]));
+            }
+            set {
+                this["滤波电容型号"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int 滤波电容串联数 {
+            get {
+                return ((int)(this["滤波电容串联数"]));
+            }
+            set {
+                this["滤波电容串联数"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int 滤波电容并联数 {
+            get {
+                return ((int)(this["滤波电容并联数"]));
+            }
+            set {
+                this["滤波电容并联数"] = value;
             }
         }
     }

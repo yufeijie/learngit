@@ -232,13 +232,14 @@ namespace PV_analysis
             AddPanel("开关器件电流裕量");
             foldButton = Create_FoldButton("磁性元件");
             controlList.Add(foldButton);
+            AddPanel("磁芯数量上限");
             AddPanel("最大工作磁密", 0, "T");
             AddPanel("电流密度", 0, "A/cm^2");
             AddPanel("电感最大气隙长度", 0, "cm");
             AddPanel("变压器窗口利用系数");
             foldButton = Create_FoldButton("电容");
             controlList.Add(foldButton);
-            AddPanel("电容总个数上限");
+            AddPanel("电容个数上限");
             AddPanel("电容不同型号数量上限");
             AddPanel("电容电压裕量");
             AddPanel("电容电流裕量");
@@ -250,14 +251,6 @@ namespace PV_analysis
             AddPanel("电感气隙长度", 0, "cm");
             AddPanel("电感绕线型号", 4);
             AddPanel("电感绕线匝数");
-            foldButton = Create_FoldButton("谐振电容");
-            controlList.Add(foldButton);
-            AddPanel("给定谐振电容", 1);
-            AddPanel("电容型号1", 5);
-            AddPanel("电容型号2", 5);
-            AddPanel("电容型号3", 5);
-            AddPanel("电容串联数");
-            AddPanel("电容并联数");
             foldButton = Create_FoldButton("变压器");
             controlList.Add(foldButton);
             AddPanel("给定变压器", 1);
@@ -267,6 +260,20 @@ namespace PV_analysis
             AddPanel("变压器原边匝数");
             AddPanel("变压器副边绕线型号", 4);
             AddPanel("变压器副边匝数");
+            foldButton = Create_FoldButton("谐振电容");
+            controlList.Add(foldButton);
+            AddPanel("给定谐振电容", 1);
+            AddPanel("谐振电容型号1", 5);
+            AddPanel("谐振电容型号2", 5);
+            AddPanel("谐振电容型号3", 5);
+            AddPanel("谐振电容串联数");
+            AddPanel("谐振电容并联数");
+            foldButton = Create_FoldButton("滤波电容");
+            controlList.Add(foldButton);
+            AddPanel("给定滤波电容", 1);
+            AddPanel("滤波电容型号", 5);
+            AddPanel("滤波电容串联数");
+            AddPanel("滤波电容并联数");
 
             for (int i = controlList.Count - 1; i >= 0; i--)
             {
@@ -351,7 +358,7 @@ namespace PV_analysis
         /// <param name="text">文字内容</param>
         public void PrintDetails(int level, string text = "")
         {
-            if (Configuration.IS_PRINT_DEBUG)
+            if (Configuration.CAN_PRINT_DEBUG)
             {
                 Console.WriteLine(text);
             }

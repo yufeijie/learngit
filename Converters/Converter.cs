@@ -223,6 +223,19 @@ namespace PV_analysis.Converters
                     if (component.GetType().BaseType.Name.Equals("Semiconductor"))
                     {
                         designCombinationList.Combine(component.DesignList);
+                        //Console.WriteLine(component.Name);
+                        //IComponentDesignData[] data = component.DesignList.GetData();
+                        //foreach(IComponentDesignData design in data)
+                        //{
+                        //    Console.Write(design.PowerLoss + " ");
+                        //    Console.Write(design.Cost + " ");
+                        //    Console.Write(design.Volume + ", ");
+                        //    foreach (string config in design.Configs)
+                        //    {
+                        //        Console.Write(config + " ");
+                        //    }
+                        //    Console.WriteLine();
+                        //}
                     }
                 }
                 designCombinationList.DesignAuxComponent();
@@ -231,6 +244,19 @@ namespace PV_analysis.Converters
                     if (!component.GetType().BaseType.Name.Equals("Semiconductor"))
                     {
                         designCombinationList.Combine(component.DesignList);
+                        //Console.WriteLine(component.Name);
+                        //IComponentDesignData[] data = component.DesignList.GetData();
+                        //foreach (IComponentDesignData design in data)
+                        //{
+                        //    Console.Write(design.PowerLoss + " ");
+                        //    Console.Write(design.Cost + " ");
+                        //    Console.Write(design.Volume + ", ");
+                        //    foreach (string config in design.Configs)
+                        //    {
+                        //        Console.Write(config + " ");
+                        //    }
+                        //    Console.WriteLine();
+                        //}
                     }
                 }
                 //TODO 控制芯片、散热器设计

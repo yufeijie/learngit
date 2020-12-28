@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using static PV_analysis.ComponentDesignList;
 
 namespace PV_analysis.Components
 {
     internal class ResonantCapacitor : Capacitor
     {
         List<int> deviceGroup;
+        int[] designDevice;
+        int designS;
+        int designP;
+        double designC;
 
         /// <summary>
         /// 初始化
@@ -21,26 +26,38 @@ namespace PV_analysis.Components
             deviceGroup = new List<int>();
             if (Properties.Settings.Default.给定谐振电容)
             {
-                if (!string.IsNullOrEmpty(Properties.Settings.Default.电容型号1))
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.谐振电容型号1))
                 {
-                    deviceGroup.Add(GetDeviceId(Properties.Settings.Default.电容型号1));
+                    deviceGroup.Add(GetDeviceId(Properties.Settings.Default.谐振电容型号1));
                 }
-                if (!string.IsNullOrEmpty(Properties.Settings.Default.电容型号2))
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.谐振电容型号2))
                 {
-                    deviceGroup.Add(GetDeviceId(Properties.Settings.Default.电容型号2));
+                    deviceGroup.Add(GetDeviceId(Properties.Settings.Default.谐振电容型号2));
                 }
-                if (!string.IsNullOrEmpty(Properties.Settings.Default.电容型号3))
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.谐振电容型号3))
                 {
-                    deviceGroup.Add(GetDeviceId(Properties.Settings.Default.电容型号3));
+                    deviceGroup.Add(GetDeviceId(Properties.Settings.Default.谐振电容型号3));
                 }
                 device = deviceGroup.ToArray();
-                seriesConnectedNumber = Properties.Settings.Default.电容串联数;
-                parallelConnectedNumber = Properties.Settings.Default.电容并联数;
+                seriesConnectedNumber = Properties.Settings.Default.谐振电容串联数;
+                parallelConnectedNumber = Properties.Settings.Default.谐振电容并联数;
                 Evaluate();
                 designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
                 return;
             }
+            designC = -1;
             GroupDesign(0);
+            if (!Configuration.CAN_OPTIMIZE_RESONANT_CAPACITOR)
+            {
+                if (designC != -1)
+                {
+                    device = designDevice;
+                    seriesConnectedNumber = designS;
+                    parallelConnectedNumber = designP;
+                    Evaluate();
+                    designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
+                }
+            }
         }
 
         /// <summary>
@@ -66,7 +83,7 @@ namespace PV_analysis.Components
                         break;
                     }
                     Irms += Data.CapacitorList[id].Math_Irms;
-                    C += Data.CapacitorList[i].Math_C;
+                    C += Data.CapacitorList[id].Math_C;
                 }
                 //容值过大时，不使用当前型号
                 if (!ok || (C / 1e6 > capacitor && Math.Abs(C / 1e6 - capacitor) / capacitor > 0.05))
@@ -82,7 +99,7 @@ namespace PV_analysis.Components
                 }
 
                 //考虑组合后的串并联
-                int maxNumber = Properties.Settings.Default.电容总个数上限;
+                int maxNumber = Properties.Settings.Default.电容个数上限;
                 int numberSeriesConnectedMin = (int)Math.Ceiling(voltageMax * (1 - Properties.Settings.Default.电容电压裕量) / Un);
                 int numberParallelConnectedMin = (int)Math.Ceiling(currentRMSMax * (1 - Properties.Settings.Default.电容电流裕量) / Irms);
                 for (int M = numberSeriesConnectedMin; M * deviceGroup.Count <= maxNumber; M++)
@@ -94,8 +111,22 @@ namespace PV_analysis.Components
                         parallelConnectedNumber = N;
                         if (Validate()) //验证该电容是否可用
                         {
-                            Evaluate();
-                            designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
+                            if (!Configuration.CAN_OPTIMIZE_RESONANT_CAPACITOR)
+                            {
+                                //若不优化谐振电容，则仅保留与所需容值最接近的设计
+                                if (designC == -1 || Math.Abs(C * N / M - capacitor * 1e6) < Math.Abs(designC - capacitor * 1e6))
+                                {
+                                    designC = C * N / M;
+                                    designDevice = device;
+                                    designS = M;
+                                    designP = N;
+                                }
+                            }
+                            else
+                            {
+                                Evaluate();
+                                designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
+                            }
                         }
                     }
                 }
@@ -121,7 +152,8 @@ namespace PV_analysis.Components
             }
 
             //容值检查
-            if (Math.Abs(C * parallelConnectedNumber / seriesConnectedNumber - capacitor * 1e6) / (capacitor * 1e6) > 0.05)
+            //if (Math.Abs(C * parallelConnectedNumber / seriesConnectedNumber - capacitor * 1e6) / (capacitor * 1e6) > 0.05) //相对误差小于等于5%
+            if (Math.Abs(C * parallelConnectedNumber / seriesConnectedNumber - capacitor * 1e6) > 0.022) //绝对误差小于等于22nF（目前容值最小的器件）
             {
                 return false;
             }

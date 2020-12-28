@@ -15,7 +15,17 @@ namespace PV_analysis.Components
         /// </summary>
         public override void Design()
         {
-            int maxNumber = Properties.Settings.Default.电容总个数上限;
+            if (Properties.Settings.Default.给定滤波电容)
+            {
+                device = new int[] { GetDeviceId(Properties.Settings.Default.滤波电容型号) };
+                seriesConnectedNumber = Properties.Settings.Default.滤波电容串联数;
+                parallelConnectedNumber = Properties.Settings.Default.滤波电容并联数;
+                Evaluate();
+                designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
+                return;
+            }
+
+            int maxNumber = Properties.Settings.Default.电容个数上限;
             //尽量使用少的器件进行设计
             for (int M = 1; M <= maxNumber; M++)
             {
@@ -28,10 +38,9 @@ namespace PV_analysis.Components
                         device = new int[] { i }; //选用当前型号电容
                         if (Validate()) //验证该电容是否可用
                         {
-                            M = maxNumber; //若得到设计方案，则不再考虑使用更多的器件
-                            N = maxNumber;
                             Evaluate();
                             designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
+                            return; //若得到设计方案，则不再考虑其他设计
                         }
                     }
                 }

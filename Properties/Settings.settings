@@ -44,13 +44,13 @@
     <Setting Name="给定谐振电容" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="电容型号1" Type="System.String" Scope="User">
+    <Setting Name="谐振电容型号1" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="电容串联数" Type="System.Int32" Scope="User">
+    <Setting Name="谐振电容串联数" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="电容并联数" Type="System.Int32" Scope="User">
+    <Setting Name="谐振电容并联数" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="给定变压器" Type="System.Boolean" Scope="User">
@@ -77,20 +77,35 @@
     <Setting Name="最大工作磁密" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.3</Value>
     </Setting>
-    <Setting Name="电容总个数上限" Type="System.Int32" Scope="User">
+    <Setting Name="电容个数上限" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">20</Value>
     </Setting>
     <Setting Name="电容不同型号数量上限" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="电容型号2" Type="System.String" Scope="User">
+    <Setting Name="谐振电容型号2" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="电容型号3" Type="System.String" Scope="User">
+    <Setting Name="谐振电容型号3" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="满载评估" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="磁芯数量上限" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="给定滤波电容" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="滤波电容型号" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="滤波电容串联数" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="滤波电容并联数" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

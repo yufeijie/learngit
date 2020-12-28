@@ -231,7 +231,7 @@ namespace PV_analysis.Components
             double Axbmin_s = math_Is_max / currentDensity; //副边满足电流密度所需裸线面积(cm^2)
 
             //选取磁芯（视在功率需具体计算）
-            for (int j = 1; j <= Configuration.MAX_CORE_NUM; j++) //采用不同的磁芯数量
+            for (int j = 1; j <= Properties.Settings.Default.磁芯数量上限; j++) //采用不同的磁芯数量
             {
                 numberCore = j;
                 for (int i = 0; i < Data.CoreList.Count; i++)//搜寻库中所有磁芯型号
@@ -242,7 +242,12 @@ namespace PV_analysis.Components
                         continue;
                     }
                     core = i;
-                    double AP = j * Data.CoreList[i].Math_AP * 1e-4;//计算当前磁芯的面积积(cm^4)                           
+                    double AP = j * Data.CoreList[i].Math_AP * 1e-4;//计算当前磁芯的面积积(cm^4)
+                    //磁芯过剩容量检查
+                    if (Configuration.CAN_CHECK_CORE_EXCESS && AP > APmin * (1 + Configuration.AREA_PRODUCT_EXCESS_RATIO))
+                    {
+                        continue;
+                    }
                     if (AP > APmin) //磁芯面积积要大于所需最小值
                     {
                         //获取磁芯参数
@@ -310,6 +315,12 @@ namespace PV_analysis.Components
                                     if (Evaluate())
                                     {
                                         designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
+                                        //不优化绕线，则只选取设计成功的并绕股数最少的绕线
+                                        if (!Configuration.CAN_OPTIMIZE_WIRE)
+                                        {
+                                            ws = Data.WireList.Count;
+                                            break;
+                                        }
                                     }
                                 }
                             }
