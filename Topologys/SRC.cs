@@ -301,8 +301,8 @@ namespace PV_analysis.Topologys
             //生成主电路元件波形
             curve_iSp = curve_iLr.Cut(0, Ts / 2, 1);
             curve_iSs = curve_iLr.Cut(t1, t1 + Ts / 2, n / No);
-            math_vSs = Vin;
-            math_vSp = Vo;
+            math_vSp = Vin;
+            math_vSs = Vo_act;
             curve_iCf = curve_iSs.Copy(1, 0, -Io_act);
             //计算有效值
             math_ILrrms = curve_iLr.CalcRMS();

@@ -197,6 +197,7 @@ namespace PV_analysis.Topologys
             double Lm = math_Lm;
             double Cr = math_Cr;
             double b = math_b;
+            double p = math_p;
 
             double wr = 2 * Math.PI * fr; //谐振角速度
             double Zr = Math.Sqrt(Lr / Cr); //谐振阻抗
@@ -268,8 +269,8 @@ namespace PV_analysis.Topologys
             //生成主电路元件波形
             curve_iSp = curve_iLr.Cut(0, Ts / 2, 1);
             curve_iSs = curve_iTs.Cut(0, Ts / 2, 1);
-            math_vSs = Vab;
-            math_vSp = Vo_act;
+            math_vSp = Vin / p;
+            math_vSs = Vo_act;
             curve_iCf = curve_iSs.Copy(1, 0, -Io_act);
             //计算有效值
             math_ILrrms = curve_iLr.CalcRMS();
