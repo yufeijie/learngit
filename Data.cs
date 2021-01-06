@@ -305,7 +305,8 @@ namespace PV_analysis
             public double Volume { get; } //体积(dm^3)
 
             //参数
-            public double Math_Un { get; } //耐压(V)
+            public double Math_Un { get; } //DC耐压(V)
+            public double Math_Urms { get; } //AC电压有效值(V)
             public double Math_C { get; } //容值(uF)
             public double Math_Irms { get; } //最大电流有效值(A)
             public double Math_Ipeak { get; } //最大电流(A)
@@ -318,6 +319,7 @@ namespace PV_analysis
                 Price = row.GetCell(7).NumericCellValue;
                 Volume = row.GetCell(10).NumericCellValue;
                 Math_Un = row.GetCell(3).NumericCellValue;
+                Math_Urms = (row.GetCell(15) != null) ? row.GetCell(15).NumericCellValue : 0;
                 Math_C = row.GetCell(4).NumericCellValue;
                 Math_Irms = row.GetCell(5).NumericCellValue;
                 Math_Ipeak = (row.GetCell(14) != null) ? row.GetCell(14).NumericCellValue : 0;

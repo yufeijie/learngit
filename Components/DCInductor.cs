@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PV_analysis.Components
 {
-    internal class Inductor : Magnetics
+    internal class DCInductor : Magnetics
     {
         //限制条件
         private static readonly double math_lgD = Configuration.AIR_GAP_LENGTH_DELTA;
@@ -28,15 +28,10 @@ namespace PV_analysis.Components
         private double[,] frequencyForEvaluation = new double[5, 7]; //开关频率（用于评估）
 
         /// <summary>
-        /// 是否为交流电感
-        /// </summary>
-        public bool IsAC { get; set; } = false;
-
-        /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="number">同类电感数量</param>
-        public Inductor(int number)
+        public DCInductor(int number)
         {
             this.number = number;
         }
@@ -219,6 +214,7 @@ namespace PV_analysis.Components
                 numberCore = j;
                 for (int i = 0; i < Data.CoreList.Count; i++) //搜寻库中所有磁芯型号
                 {
+                    //只考虑EE型磁芯
                     if (!Data.CoreList[i].Shape.Equals("EE"))
                     {
                         continue;
@@ -493,22 +489,6 @@ namespace PV_analysis.Components
             double MLT = (numberCore - 1) * C * 2 + Data.CoreList[core].Math_MLT * 0.1; //一匝绕线长度(cm) 
             double Rwire = math_ρCu * MLT * 1e-2 * N / (Axb * 1e-4); //绕线电阻(ohm)
             powerLossCu = Math.Pow(currentAverage, 2) * Rwire; //计算铜损
-            if (IsAC)
-            {
-                Rwire = math_ρCu * MLT * 1e-2 * N / (Axb * 1e-4); //直流电阻
-                double r = Data.WireList[wire].Math_Db / 2 * 0.1;
-                double delta = Math.Sqrt(math_ρCu / (Math.PI * math_μ0 * math_μCu * frequency)) * 1e2; //集肤深度(cm)
-                double Rwire1; //开关频率下的电阻 FIXME
-                if (r <= delta)
-                {
-                    Rwire1 = Rwire;
-                }
-                else
-                {
-                    Rwire1 = Rwire * (r * r) / (delta * delta);
-                }
-                powerLossCu += Math.Pow(currentRipple, 2) * Rwire1; //计算纹波铜损
-            }
         }
 
         /// <summary>

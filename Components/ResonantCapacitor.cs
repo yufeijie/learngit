@@ -69,6 +69,11 @@ namespace PV_analysis.Components
         {
             for (int i = startId; i < Data.CapacitorList.Count; i++) //搜寻库中所有电容型号
             {
+                //验证电容类型
+                if (Data.CapacitorList[i].Category != "STD")
+                {
+                    continue;
+                }
                 string category = Data.CapacitorList[i].Category;
                 double Un = Data.CapacitorList[i].Math_Un;
                 double Irms = Data.CapacitorList[i].Math_Irms;
@@ -144,11 +149,25 @@ namespace PV_analysis.Components
             {
                 return false;
             }
-
+            
+            double Urms = -1;
             double C = 0;
             foreach (int id in device)
             {
                 C += Data.CapacitorList[id].Math_C;
+                //验证不同型号的交流电压有效值是否相同
+                if (Urms != -1 && Urms != Data.CapacitorList[id].Math_Urms)
+                {
+                    return false;
+                }
+                Urms = Data.CapacitorList[id].Math_Urms;
+            }
+
+            double kv = Properties.Settings.Default.电容电压裕量;
+            //验证交流电压有效值是否满足
+            if (Urms * (1 - kv) * Math.Sqrt(2) * seriesConnectedNumber < voltageMax)
+            {
+                return false;
             }
 
             //容值检查

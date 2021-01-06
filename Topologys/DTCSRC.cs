@@ -47,7 +47,7 @@ namespace PV_analysis.Topologys
         private DualModule primaryDualModule;
         private SingleMOS single;
         private DualDiodeModule secondaryDualDiodeModule;
-        private Inductor resonantInductor;
+        private DCInductor resonantInductor;
         private Transformer transformer;
         private Capacitor resonantCapacitor;
         private Capacitor filteringCapacitor;
@@ -80,7 +80,7 @@ namespace PV_analysis.Topologys
             {
                 Name = "副边二极管"
             };
-            resonantInductor = new Inductor(1)
+            resonantInductor = new DCInductor(1)
             {
                 Name = "谐振电感"
             };

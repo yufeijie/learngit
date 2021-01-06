@@ -42,7 +42,7 @@ namespace PV_analysis.Topologys
 
         //元器件
         private CHBModule semiconductor;
-        private Inductor inductor;
+        private DCInductor inductor;
 
         /// <summary>
         /// 初始化
@@ -72,7 +72,7 @@ namespace PV_analysis.Topologys
                 VoltageVariable = false,
                 MultiNumber = number
             };
-            inductor = new Inductor(1)
+            inductor = new DCInductor(1)
             {
                 Name = "滤波电感",
                 VoltageVariable = false
@@ -154,21 +154,23 @@ namespace PV_analysis.Topologys
                 phi -= Math.PI / number;
             }
 
-            //Point[] data = curveVoltageOutputTotal.GetData();
-            //Console.WriteLine("-----------" + curveVoltageOutputTotal.Name + "_x------------");
+            //Point[] data = curve_Votot.GetData();
+            //Console.WriteLine("-----------" + curve_Votot.Name + "_x------------");
             //for (int i = 0; i < data.Length; i++)
             //{
             //    Console.WriteLine(data[i].X);
             //}
 
-            //Console.WriteLine("-----------" + curveVoltageOutputTotal.Name + "_y------------");
+            //Console.WriteLine("-----------" + curve_Votot.Name + "_y------------");
             //for (int i = 0; i < data.Length; i++)
             //{
             //    Console.WriteLine(data[i].Y);
             //}
 
             //Graph graph = new Graph();
-            //graph.Add(curveVoltageOutputTotal);
+            //graph.Add(curve_Votot, "Vo_tot");
+            //curve_Vg.Produce(0, 1 / math_fg);
+            //graph.Add(curve_Vg, "Vo");
             //graph.Draw();
 
             //得到输出电压波形与滤波电感感值

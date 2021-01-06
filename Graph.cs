@@ -43,6 +43,7 @@ namespace PV_analysis
                 Title = name,
                 Values = values.AsGearedValues().WithQuality(Quality.Low),
                 Fill = Brushes.Transparent,
+                LineSmoothness = 0, //0对应纯直线，若为1则是插件自动生成的顺滑曲线
                 StrokeThickness = .5,
                 PointGeometry = null
             });

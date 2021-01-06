@@ -39,7 +39,7 @@ namespace PV_analysis.Topologys
 
         //元器件
         private DualModule dualModule;
-        private Inductor inductor;
+        private DCInductor inductor;
         private Capacitor capacitor;
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace PV_analysis.Topologys
                 Name_Up = "二极管",
                 Name_Down = "开关管"
             };
-            inductor = new Inductor(1)
+            inductor = new DCInductor(1)
             {
                 Name = "滤波电感"
             };

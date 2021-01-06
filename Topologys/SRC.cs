@@ -48,7 +48,7 @@ namespace PV_analysis.Topologys
         private DualDiodeModule secondaryDualDiodeModule;
         private SingleIGBT primarySingleIGBT;
         private SingleIGBT secondarySingleIGBT;
-        private Inductor resonantInductor;
+        private DCInductor resonantInductor;
         private Transformer transformer;
         private Capacitor resonantCapacitor;
         private Capacitor filteringCapacitor;
@@ -90,7 +90,7 @@ namespace PV_analysis.Topologys
                 Name = "副边开关管",
                 VoltageVariable = false
             };
-            resonantInductor = new Inductor(1)
+            resonantInductor = new DCInductor(1)
             {
                 Name = "谐振电感",
                 VoltageVariable = false
