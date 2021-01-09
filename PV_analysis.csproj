@@ -109,6 +109,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ACInductor.cs" />
     <Compile Include="Components\GirdInductor.cs" />
     <Compile Include="Components\DualDiodeModule.cs" />
     <Compile Include="Components\SingleIGBT.cs" />

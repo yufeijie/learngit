@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace PV_analysis.Components
 {
+    /// <summary>
+    /// 并网电感器设计（空心电抗器设计）
+    /// </summary>
     internal class GirdInductor : Magnetics
     {
         //限制条件

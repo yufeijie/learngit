@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace PV_analysis.Components
 {
+    /// <summary>
+    /// 直流开气隙电感器设计-参考《变压器与电感器设计手册》
+    /// </summary>
     internal class DCInductor : Magnetics
     {
         //限制条件
@@ -186,18 +189,6 @@ namespace PV_analysis.Components
                 return;
             }
 
-            if (Properties.Settings.Default.给定谐振电感) //未验证
-            {
-                SetCoreType(Properties.Settings.Default.电感磁芯型号);
-                numberCore = Properties.Settings.Default.电感磁芯数;
-                lg = Properties.Settings.Default.电感气隙长度;
-                wire = GetWireId(Properties.Settings.Default.电感绕线型号);
-                N = Properties.Settings.Default.电感绕线匝数;
-                Evaluate();
-                designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
-                return;
-            }
-
             //参数初始化
             double ratioWindowUtilization = 0.4; //窗口利用系数
             double magneticFluxDensityMax = Properties.Settings.Default.最大工作磁密; //最大工作磁密(T) 
@@ -205,7 +196,7 @@ namespace PV_analysis.Components
             double S3 = 0.75; //有效窗口系数
             double S2 = 0.6; //填充系数
             double energyMax = 0.5 * inductance * Math.Pow(currentPeakMax, 2);
-            double APmin = 2 * energyMax / (ratioWindowUtilization * magneticFluxDensityMax * currentDensity) * 1e4; //所需磁芯面积积最小值(cm^4)
+            double APmin = 2 * energyMax * 1e4 / (ratioWindowUtilization * magneticFluxDensityMax * currentDensity); //所需磁芯面积积最小值(cm^4)
             double Axbmin = currentPeakMax / currentDensity; //满足电流密度所需裸线面积(cm^2)
 
             //选取磁芯
@@ -259,40 +250,38 @@ namespace PV_analysis.Components
                             //System.out.println(AP+" "+areaProduct+" "+this.Wn+" "+Nmax);
                             if (Nmax <= 0) //可能有一匝都绕不下的情况，即并绕股数过多
                             {
-                                break; //退出并绕股数设计
+                                continue; //选取下一个绕线
+                            }
+
+                            //this.showLgChange(G, Aecc, Nmax, magneticFluxDensityMax); //查看当前条件下，变量随气隙长度变化的曲线（！！！谨慎使用）
+                            //设计气隙长度
+                            double lgMax = FindLgMax(Nmax, length, Aecc); //通过二分查找满绕下对应的最大气隙长度，取其与变量lgMax中的最小值作为气隙长度最大值，提高运算速度
+
+                            //优化
+                            if (lgMax < math_lgD)
+                            {
+                                break; //若满绕匝数对应的气隙长度小于精度，则退出并绕股数设计
                             }
                             else
                             {
-                                //this.showLgChange(G, Aecc, Nmax, magneticFluxDensityMax); //查看当前条件下，变量随气隙长度变化的曲线（！！！谨慎使用）
-                                //设计气隙长度
-                                double lgMax = FindLgMax(Nmax, length, Aecc); //通过二分查找满绕下对应的最大气隙长度，取其与变量lgMax中的最小值作为气隙长度最大值，提高运算速度
+                                double magneticFluxDensityPeak = CalcMagneticFluxDensityPeak(lgMax, length, Aecc); //磁通密度峰值(T)
+                                if (magneticFluxDensityPeak > magneticFluxDensityMax)
+                                {
+                                    //System.out.println("core="+(i+1)+", Wn="+Wn+", lg="+String.format("%.2f", lgMax)+", N="+this.calcN(lgMax, length, Aecc)+", Nmax="+Nmax+", Bp="+String.format("%.6f", magneticFluxDensityPeak)+", Bm="+magneticFluxDensityMax);
+                                    break; //若满绕匝数对应的磁通密度峰值超过最大工作磁密，则退出并绕股数设计
+                                }
+                            }
+                            //得到设计结果
+                            lg = FindLgBest(lgMax, length, Aecc, magneticFluxDensityMax);
+                            N = CalcN(lg, length, Aecc);
 
-                                //优化
-                                if (lgMax < math_lgD)
-                                {
-                                    break; //若满绕匝数对应的气隙长度小于精度，则退出并绕股数设计
-                                }
-                                else
-                                {
-                                    double magneticFluxDensityPeak = CalcMagneticFluxDensityPeak(lgMax, length, Aecc); //磁通密度峰值(T)
-                                    if (magneticFluxDensityPeak > magneticFluxDensityMax)
-                                    {
-                                        //System.out.println("core="+(i+1)+", Wn="+Wn+", lg="+String.format("%.2f", lgMax)+", N="+this.calcN(lgMax, length, Aecc)+", Nmax="+Nmax+", Bp="+String.format("%.6f", magneticFluxDensityPeak)+", Bm="+magneticFluxDensityMax);
-                                        break; //若满绕匝数对应的磁通密度峰值超过最大工作磁密，则退出并绕股数设计
-                                    }
-                                }
-                                //得到设计结果
-                                lg = FindLgBest(lgMax, length, Aecc, magneticFluxDensityMax);
-                                N = CalcN(lg, length, Aecc);
-
-                                //评估
-                                Evaluate();
-                                designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
-                                //不优化绕线，则只选取设计成功的并绕股数最少的绕线
-                                if (!Configuration.CAN_OPTIMIZE_WIRE)
-                                {
-                                    break;
-                                }
+                            //评估
+                            Evaluate();
+                            designList.Add(Math_Peval, Volume, Cost, GetConfigs()); //记录设计
+                            //不优化绕线，则只选取设计成功的并绕股数最少的绕线
+                            if (!Configuration.CAN_OPTIMIZE_WIRE)
+                            {
+                                break;
                             }
                         }
                     }
@@ -448,7 +437,6 @@ namespace PV_analysis.Components
             cost = costCore + costWire;
         }
 
-        //TODO U型磁芯
         /// <summary>
         /// 计算体积
         /// </summary>

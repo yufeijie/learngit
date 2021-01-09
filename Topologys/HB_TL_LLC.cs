@@ -54,7 +54,7 @@ namespace PV_analysis.Topologys
         private DualModule primaryDualModule;
         private DualDiodeModule clampingDualDiodeModule;
         private DualDiodeModule secondaryDualDiodeModule;
-        private DCInductor resonantInductor;
+        private ACInductor resonantInductor;
         private Transformer transformer;
         private Capacitor flyingCapacitor;
         private Capacitor resonantCapacitor;
@@ -93,7 +93,7 @@ namespace PV_analysis.Topologys
                 Name = "副边二极管",
                 VoltageVariable = false
             };
-            resonantInductor = new DCInductor(1)
+            resonantInductor = new ACInductor(1)
             {
                 Name = "谐振电感",
                 VoltageVariable = false

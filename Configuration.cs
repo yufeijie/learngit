@@ -56,7 +56,7 @@ namespace PV_analysis
 		public const double VOLTAGE_EXCESS_RATIO = 1; //电压允许过剩比例
 		public const double CURRENT_EXCESS_RATIO = 3; //电流允许过剩比例
 		public const double AREA_PRODUCT_EXCESS_RATIO = 4; //面积积允许过剩比例
-		public static readonly bool CAN_OPTIMIZE_WIRE = false; //是否优化绕线
+		public static readonly bool CAN_OPTIMIZE_WIRE = true; //是否优化绕线
 		public static readonly bool CAN_OPTIMIZE_RESONANT_CAPACITOR = false; //是否优化谐振电容
 
 		//评估结果限制
