@@ -218,6 +218,7 @@ namespace PV_analysis
             public string Type { get; } //型号
             public string Category { get; } //类型（利兹线，漆包线）
             public double Price { get; } //单位价格(RMB/unit)
+            public double Weight { get; } //单位长度重量(kg/m)
 
             //参数
             public double Math_Ab { get; } //裸线面积(cm^2/10^3)
@@ -231,11 +232,12 @@ namespace PV_analysis
                 Type = row.GetCell(1).StringCellValue;
                 Category = row.GetCell(2).StringCellValue;
                 Price = row.GetCell(6).NumericCellValue;
+                Weight = (row.GetCell(5) != null) ? row.GetCell(5).NumericCellValue : 0;
                 Math_Ab = row.GetCell(3).NumericCellValue;
                 Math_A = row.GetCell(4).NumericCellValue;
                 Math_Db = row.GetCell(7).NumericCellValue;
                 Math_D = row.GetCell(8).NumericCellValue;
-                Math_Wn = (int)row.GetCell(10).NumericCellValue;
+                Math_Wn = (row.GetCell(10) != null) ? (int)row.GetCell(10).NumericCellValue : 1;
             }
         }
 

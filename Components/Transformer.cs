@@ -264,6 +264,11 @@ namespace PV_analysis.Components
                         double delta = Math.Sqrt(math_ρCu / (Math.PI * math_μ0 * math_μCu * math_fs_max)) * 1e2; //集肤深度(cm)
                         for (int wp = 0; wp < Data.WireList.Count; wp++)
                         {
+                            //只考虑励磁线
+                            if (Data.WireList[wp].Category != "Litz")
+                            {
+                                continue;
+                            }
                             //集肤深度验证
                             if (Data.WireList[wp].Math_Db / 2 * 0.1 > delta)
                             {
@@ -279,6 +284,11 @@ namespace PV_analysis.Components
                             //选取副边绕线
                             for (int ws = 0; ws < Data.WireList.Count; ws++)
                             {
+                                //只考虑励磁线
+                                if (Data.WireList[ws].Category != "Litz")
+                                {
+                                    continue;
+                                }
                                 //集肤深度验证
                                 if (Data.WireList[ws].Math_Db / 2 * 0.1 > delta)
                                 {

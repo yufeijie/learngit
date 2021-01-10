@@ -255,6 +255,11 @@ namespace PV_analysis.Components
                         double delta = Math.Sqrt(math_ρCu / (Math.PI * math_μ0 * math_μCu * math_fs_max)) * 1e2; //集肤深度(cm)
                         for (int w = 0; w < Data.WireList.Count; w++)
                         {
+                            //只考虑励磁线
+                            if (Data.WireList[w].Category != "Litz")
+                            {
+                                continue;
+                            }
                             //集肤深度验证
                             double r = Data.WireList[w].Math_Db / 2 * 0.1; //裸线半径(cm)
                             if (r > delta)
