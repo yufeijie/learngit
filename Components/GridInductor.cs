@@ -170,6 +170,7 @@ namespace PV_analysis.Components
                 double Axbmin = math_Imax / Nc / J; //满足电流密度所需裸线面积(cm^2)
                 double delta = Math.Sqrt(math_ρCu / (Math.PI * math_μ0 * math_μCu * math_fg)) * 1e2; //集肤深度(cm)
 
+                Wn = 1;
                 //选取绕线
                 for (int w = 0; w < Data.WireList.Count; w++)
                 {
@@ -184,9 +185,13 @@ namespace PV_analysis.Components
                     {
                         continue;
                     }
-                    wire = w;
+                    //电流密度验证
                     double Axb = Data.WireList[w].Math_Ab * 1e-3; //绕线裸线面积(cm^2)
-                    Wn = (int)Math.Ceiling(Axbmin / Axb);
+                    if (Axb * Wn < Axbmin)
+                    {
+                        continue;
+                    }
+                    wire = w;
                     
                     double d = Data.WireList[w].Math_D; //绕线外径(mm)
 
@@ -198,7 +203,7 @@ namespace PV_analysis.Components
                         double c = -3.5 * D * 0.1 * Nc * math_L * 1e6;
 
                         N = (int)Math.Round((-b + Math.Sqrt(b * b - 4 * a * c)) / (2 * a));
-                        H = N * d;
+                        H = K * N * d;
 
                         //评估
                         Evaluate();
