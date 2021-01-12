@@ -15,12 +15,12 @@ namespace PV_analysis.Components
         public int MultiNumber { get; set; } //模块数（评估时，将损耗、成本、体积分散到每个模块中去，以满足现有的计算方法）
 
         //器件参数
-        private int Nc = 20; //层数
+        private int Nc; //层数
         private int wire; //绕线编号
         private int Wn; //并绕股数
         private int N; //匝数（考虑各层线圈完全相同）
         private double H; //线圈高度(mm)
-        private double D = 3000; //线圈直径(mm)
+        private double D; //线圈直径(mm)
 
         //设计条件
         private double math_L; //感值(H)
@@ -67,8 +67,7 @@ namespace PV_analysis.Components
         {
             List<Info> list = new List<Info>()
             {
-                new Info(Name + "(铜损)", Math.Round(number * powerLossCu, 2)),
-                new Info(Name + "(涡流损耗)", Math.Round(number * powerLossFe, 2)) //涡流损耗
+                new Info(Name, Math.Round(number * powerLoss, 2))
             };
             return list;
         }
@@ -199,8 +198,8 @@ namespace PV_analysis.Components
                     {
                         D = DD;
                         double a = 0.08 * D * D * 1e-2;
-                        double b = -8 * K * d * 0.1 * Nc * math_L * 1e6;
-                        double c = -3.5 * D * 0.1 * Nc * math_L * 1e6;
+                        double b = -8 * K * d * 0.1 * math_L * 1e6;
+                        double c = -3.5 * D * 0.1 * math_L * 1e6;
 
                         N = (int)Math.Round((-b + Math.Sqrt(b * b - 4 * a * c)) / (2 * a));
                         H = K * N * d;
@@ -221,6 +220,8 @@ namespace PV_analysis.Components
             costCore = 0;
             costWire = Math.PI * D * 1e-3 * N * Wn * Nc * Data.WireList[wire].Weight * Data.WireList[wire].Price / MultiNumber; //折算到每个模块中
             cost = costCore + costWire;
+            costWire = 0;
+            cost = 0; //不考虑成本
         }
 
         /// <summary>
@@ -229,6 +230,7 @@ namespace PV_analysis.Components
         protected override void CalcVolume()
         {
             volume = 2 * Math.PI * D * D / 4 * H / 1e6 / MultiNumber;  //折算到每个模块中
+            volume = 0; //不考虑体积
         }
 
         /// <summary>

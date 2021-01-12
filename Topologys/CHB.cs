@@ -320,7 +320,7 @@ namespace PV_analysis.Topologys
             double voltageStressSwitch = math_Vin;
             double currentOutputPeak = Math.Sqrt(2) * math_Iorms; //TODO 纹波？
             semiconductor.SetConditions(voltageStressSwitch, currentOutputPeak, math_fs);
-            inductor.SetConditions(math_L, currentOutputPeak, math_fs);
+            inductor.SetConditions(math_L, currentOutputPeak, math_fg);
         }
 
         /// <summary>
