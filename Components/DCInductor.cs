@@ -491,7 +491,7 @@ namespace PV_analysis.Components
         {
             //TODO 交流磁损
             //TODO U型磁芯
-            double length = Data.CoreList[core].Math_F * 2 * 0.1; //磁芯参数F(cm)
+            double length = Data.CoreList[core].Math_F * 0.1; //磁芯参数F(cm)
             double Aecc = numberCore * Data.CoreList[core].Math_Ae * 1e-2; //等效磁芯面积(cm^2)
             double FF = 1 + lg / Math.Sqrt(Aecc) * Math.Log(2 * length / lg); //边缘磁通系数
             double magneticFluxDensityAC = 0.4 * Math.PI * N * FF * currentRipple * 0.5 / lg * 1e-4; //交流磁通密度(T)
