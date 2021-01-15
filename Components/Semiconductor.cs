@@ -151,10 +151,10 @@ namespace PV_analysis.Components
             if (Configuration.CAN_CHECK_SEMICONDUCTOR_EXCESS)
             {
                 //电压容量过剩检查
-                if (Data.SemiconductorList[device].Math_Vmax * (1 - kV) > math_Vmax * (1 + Configuration.VOLTAGE_EXCESS_RATIO)) return false;
+                if (Data.SemiconductorList[device].Math_Vmax * (1 - kV) > math_Vmax * (1 + Configuration.SEMICONDUCTOR_VOLTAGE_EXCESS_RATIO)) return false;
 
                 //电流容量过剩检查
-                if (paralleledNum * Data.SemiconductorList[device].Math_Imax * (1 - kI) > math_Imax * (1 + Configuration.CURRENT_EXCESS_RATIO)) return false;
+                if (paralleledNum * Data.SemiconductorList[device].Math_Imax * (1 - kI) > math_Imax * (1 + Configuration.SEMICONDUCTOR_CURRENT_EXCESS_RATIO)) return false;
             }
             return true;
         }

@@ -227,7 +227,7 @@ namespace PV_analysis.Components
                     core = i;
                     double AP = j * Data.CoreList[i].Math_AP * 1e-4; //计算当前磁芯的面积积(cm^4)
                     //磁芯过剩容量检查
-                    if (Configuration.CAN_CHECK_CORE_EXCESS && AP > APmin * (1 + Configuration.AREA_PRODUCT_EXCESS_RATIO))
+                    if (Configuration.CAN_CHECK_CORE_EXCESS && AP > APmin * (1 + Configuration.INDUCTOR_AREA_PRODUCT_EXCESS_RATIO))
                     {
                         continue;
                     }

@@ -50,13 +50,19 @@ namespace PV_analysis
 		//DSP成本
 		public const double DSP_PRICE = 157.296; //型号：TMS320F28335PGFA TI 100 Mouser FIXM
 		//限制条件
+		//开关器件限制条件
 		public static readonly bool CAN_CHECK_SEMICONDUCTOR_EXCESS = true; //是否检查开关器件过剩容量
+		public const double SEMICONDUCTOR_VOLTAGE_EXCESS_RATIO = 1; //电压允许过剩比例
+		public const double SEMICONDUCTOR_CURRENT_EXCESS_RATIO = 3; //电流允许过剩比例
+		//磁性元件限制条件
 		public static readonly bool CAN_CHECK_CORE_EXCESS = true; //是否检查磁芯面积积过剩容量
-		public static readonly bool CAN_CHECK_CAPACITOR_EXCESS = false; //是否检查电容过剩容量
-		public const double VOLTAGE_EXCESS_RATIO = 1; //电压允许过剩比例
-		public const double CURRENT_EXCESS_RATIO = 3; //电流允许过剩比例
-		public const double AREA_PRODUCT_EXCESS_RATIO = 4; //面积积允许过剩比例
+		public const double INDUCTOR_AREA_PRODUCT_EXCESS_RATIO = 4; //电感面积积允许过剩比例
+		public const double TRANSFORMER_AREA_PRODUCT_EXCESS_RATIO = 9; //变压器面积积允许过剩比例
 		public static readonly bool CAN_OPTIMIZE_WIRE = true; //是否优化绕线
+		//电容限制条件
+		public static readonly bool CAN_CHECK_CAPACITOR_EXCESS = false; //是否检查电容过剩容量
+		public const double CAPACITOR_VOLTAGE_EXCESS_RATIO = 1; //电压允许过剩比例
+		public const double CAPACITOR_CURRENT_EXCESS_RATIO = 3; //电流允许过剩比例
 		public static readonly bool CAN_OPTIMIZE_RESONANT_CAPACITOR = false; //是否优化谐振电容
 
 		//评估结果限制

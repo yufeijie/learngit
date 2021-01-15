@@ -225,8 +225,6 @@ namespace PV_analysis.Components
             double magneticFluxDensityMax = Properties.Settings.Default.最大工作磁密; //最大工作磁密(T)
             double currentDensity = Properties.Settings.Default.电流密度; //电流密度(A/cm^2)
             double efficiency = 0.98; //效率预设值
-            double S3 = 0.75; //有效窗口系数
-            double S2 = 0.6; //填充系数
             double APmin = math_P * (1 + 1 / efficiency) * 1e4 / (ratioWaveform * ratioWindowUtilization * magneticFluxDensityMax * currentDensity * math_fs_max); //所需磁芯面积积最小值(cm^4)
             double Axbmin_p = math_Ip_max / currentDensity; //原边满足电流密度所需裸线面积(cm^2)
             double Axbmin_s = math_Is_max / currentDensity; //副边满足电流密度所需裸线面积(cm^2)
@@ -250,7 +248,7 @@ namespace PV_analysis.Components
                     core = i;
                     double AP = j * Data.CoreList[i].Math_AP * 1e-4;//计算当前磁芯的面积积(cm^4)
                     //磁芯过剩容量检查
-                    if (Configuration.CAN_CHECK_CORE_EXCESS && AP > APmin * (1 + Configuration.AREA_PRODUCT_EXCESS_RATIO))
+                    if (Configuration.CAN_CHECK_CORE_EXCESS && AP > APmin * (1 + Configuration.TRANSFORMER_AREA_PRODUCT_EXCESS_RATIO))
                     {
                         continue;
                     }
@@ -316,7 +314,7 @@ namespace PV_analysis.Components
                                     double Awp = Np * Ax_p; //原边所占窗口面积(cm^2)
                                     double Aws = Ns * Ax_s * math_No; //副边所占窗口面积(cm^2)
                                     double Ku = (Awp + Aws) / Aw;
-                                    if (Ku > S2 * S3)
+                                    if (Ku > ratioWindowUtilization)
                                     {
                                         break;
                                     }

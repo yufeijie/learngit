@@ -255,8 +255,8 @@ namespace PV_analysis.Components
             //容量过剩检查
             if (Configuration.CAN_CHECK_CAPACITOR_EXCESS)
             {
-                if (Un * (1 - kv) * seriesConnectedNumber > voltageMax * (1 + Configuration.VOLTAGE_EXCESS_RATIO)
-                    || Irms * (1 - ki) * parallelConnectedNumber > currentRMSMax * (1 + Configuration.CURRENT_EXCESS_RATIO)
+                if (Un * (1 - kv) * seriesConnectedNumber > voltageMax * (1 + Configuration.CAPACITOR_VOLTAGE_EXCESS_RATIO)
+                    || Irms * (1 - ki) * parallelConnectedNumber > currentRMSMax * (1 + Configuration.CAPACITOR_CURRENT_EXCESS_RATIO)
                     )
                 {
                     return false;
