@@ -581,7 +581,7 @@
             this.Home_Label.Name = "Home_Label";
             this.Home_Label.Size = new System.Drawing.Size(1430, 260);
             this.Home_Label.TabIndex = 2;
-            this.Home_Label.Text = "欢迎使用光伏中压电力电子装置效率分析与计算软件！";
+            this.Home_Label.Text = "欢迎使用光伏中压并网系统优化评估软件！";
             this.Home_Label.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Tab_Home_Button
@@ -4796,6 +4796,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.Home_Panel);
             this.Controls.Add(this.Setting_Panel);
             this.Controls.Add(this.Estimate_Step3_Panel);
             this.Controls.Add(this.Estimate_Step3B_Panel);
@@ -4810,14 +4811,13 @@
             this.Controls.Add(this.Estimate_Result_Panel);
             this.Controls.Add(this.Estimate_Step4_Panel);
             this.Controls.Add(this.Display_Contrast_Panel);
-            this.Controls.Add(this.Home_Panel);
             this.Controls.Add(this.Display_Ready_Panel);
             this.Controls.Add(this.Tab_Panel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "光伏中压电力电子装置效率分析与计算软件";
+            this.Text = "光伏中压并网系统优化评估软件";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Home_Panel.ResumeLayout(false);
             this.Home_Main_Panel.ResumeLayout(false);
