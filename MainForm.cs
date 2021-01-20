@@ -203,18 +203,23 @@ namespace PV_analysis
                 controlList.Add(panel);
                 foldButton.Add(panel);
             }
-            
-            void EvaluationModeChange(object sender, EventArgs e)
+
+            void EvaluationModeChange(object sender, EventArgs e) //TODO 临时使用，在点击“满载评估”复选框时触发事件
             {
                 //评估参数设置
-                if (((CheckBox)sender).Checked)
+                SetEvaluationMode(((CheckBox)sender).Checked);
+            }
+
+            void SetEvaluationMode(bool mode) //TODO 临时使用，设置评估方式：满载评估或中国效率评估
+            {
+                if (mode) //满载评估
                 {
                     Configuration.effciencyText = "效率";
                     Configuration.voltageRatio = new double[] { 1 };
                     Configuration.powerRatio = new double[] { 1 };
                     Configuration.powerWeight = new double[] { 1 };
                 }
-                else
+                else //中国效率评估
                 {
                     Configuration.effciencyText = "中国效率";
                     Configuration.voltageRatio = Configuration.CGC_VOLTAGE_RATIO;
@@ -223,6 +228,7 @@ namespace PV_analysis
                 }
             }
 
+            SetEvaluationMode(Properties.Settings.Default.满载评估);
             foldButton = Create_FoldButton("整体");
             controlList.Add(foldButton);
             AddPanel("满载评估", 1);
