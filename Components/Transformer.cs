@@ -235,11 +235,6 @@ namespace PV_analysis.Components
                 numberCore = j;
                 for (int i = 0; i < Data.CoreList.Count; i++)//搜寻库中所有磁芯型号
                 {
-                    //只考虑EE型磁芯
-                    if (!Data.CoreList[i].Shape.Equals("EE"))
-                    {
-                        continue;
-                    }
                     //验证器件是否可用
                     if (!Data.CoreList[i].Available)
                     {
