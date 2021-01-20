@@ -90,15 +90,15 @@ namespace PV_analysis.Components
                     Irms += Data.CapacitorList[id].Math_Irms;
                     C += Data.CapacitorList[id].Math_C;
                 }
-                //容值过大时，不使用当前型号
-                if (!ok || (C / 1e6 > capacitor && Math.Abs(C / 1e6 - capacitor) / capacitor > 0.05))
+                //只允许同类同电压等级的器件组合使用
+                if (!ok)
                 {
                     continue;
                 }
                 deviceGroup.Add(i); //添加当前型号
 
                 //继续组合
-                if (C / 1e6 < capacitor && deviceGroup.Count < Properties.Settings.Default.电容不同型号数量上限)
+                if (deviceGroup.Count < Properties.Settings.Default.电容不同型号数量上限)
                 {
                     GroupDesign(i + 1);
                 }

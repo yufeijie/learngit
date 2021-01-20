@@ -325,7 +325,7 @@ namespace PV_analysis.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
         public int 电容个数上限 {
             get {
                 return ((int)(this["电容个数上限"]));
