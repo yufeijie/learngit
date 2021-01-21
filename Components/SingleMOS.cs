@@ -265,15 +265,15 @@ namespace PV_analysis.Components
                 }
                 else if (Function.EQ(t1, t2)) //t1=t2时，可能有开关损耗，没有通态损耗
                 {
-                    if (Function.LE(i1, 0) && Function.BigEnough(i1) && Function.GT(i2, 0)) //i1<=0、i2>0时，计算主管开通损耗
+                    if (Function.LE(i1, 0) && Function.GT(i2, 0)) //i1<=0、i2>0时，计算主管开通损耗
                     {
                         Pon += CalcPon_MOSFET(i2);
                     }
-                    if (Function.GT(i1, 0) && Function.BigEnough(i1) && Function.LE(i2, 0)) //i1>0、i2<=0时，计算主管关断损耗
+                    if (Function.GT(i1, 0) && Function.LE(i2, 0)) //i1>0、i2<=0时，计算主管关断损耗
                     {
                         Poff += CalcPoff_MOSFET(i1);
                     }
-                    if (Function.LT(i1, 0) && Function.BigEnough(i1) && Function.GE(i2, 0)) //i1<0、i2>=0时，计算反并二极管反向恢复损耗
+                    if (Function.LT(i1, 0) && Function.GE(i2, 0)) //i1<0、i2>=0时，计算反并二极管反向恢复损耗
                     {
                         Prr += CalcPrr_MOSFET(i1);
                     }
@@ -327,11 +327,12 @@ namespace PV_analysis.Components
         /// <returns>计算结果</returns>
         private double CalcPon_MOSFET(double Ion)
         {
-            //TODO MOSFET Pon
-            if (Function.EQ(Ion, 0))
+            //忽略电流极小的情况
+            if (!Function.BigEnough(Ion))
             {
                 return 0;
             }
+            //TODO MOSFET Pon
             Console.WriteLine("MOSFET Pon error!");
             System.Environment.Exit(-1);
             return 0;
@@ -344,11 +345,12 @@ namespace PV_analysis.Components
         /// <returns>计算结果</returns>
         private double CalcPoff_MOSFET(double Ioff)
         {
-            //根据关断电流查表得到对应损耗
-            if (Function.EQ(Ioff, 0))
+            //忽略电流极小的情况
+            if (!Function.BigEnough(Ioff))
             {
                 return 0;
             }
+            //根据关断电流查表得到对应损耗
             Ioff /= paralleledNum; //TODO 注意这里，多管并联时，电流和寄生电容的计算
 
             double Vth = Data.SemiconductorList[device].Math_Vth;
@@ -393,11 +395,12 @@ namespace PV_analysis.Components
         /// <returns>计算结果</returns>
         private double CalcPrr_MOSFET(double Ioff)
         {
-            //TODO MOSFET Prr
-            if (Function.EQ(Ioff, 0))
+            //忽略电流极小的情况
+            if (!Function.BigEnough(Ioff))
             {
                 return 0;
             }
+            //TODO MOSFET Prr
             Console.WriteLine("MOSFET Prr error!");
             System.Environment.Exit(-1);
             return 0;

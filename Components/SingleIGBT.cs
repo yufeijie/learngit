@@ -248,15 +248,15 @@ namespace PV_analysis.Components
                 }
                 else if (Function.EQ(t1, t2)) //t1=t2时，可能有开关损耗，没有通态损耗
                 {
-                    if (Function.LE(i1, 0) && Function.BigEnough(i1) && Function.GT(i2, 0)) //i1<=0、i2>0时，计算主管开通损耗
+                    if (Function.LE(i1, 0) && Function.GT(i2, 0)) //i1<=0、i2>0时，计算主管开通损耗
                     {
                         Pon += CalcPon_IGBT(i2);
                     }
-                    if (Function.GT(i1, 0) && Function.BigEnough(i1) && Function.LE(i2, 0)) //i1>0、i2<=0时，计算主管关断损耗
+                    if (Function.GT(i1, 0) && Function.LE(i2, 0)) //i1>0、i2<=0时，计算主管关断损耗
                     {
                         Poff += CalcPoff_IGBT(i1);
                     }
-                    if (Function.LT(i1, 0) && Function.BigEnough(i1) && Function.GE(i2, 0)) //i1<0、i2>=0时，计算反并二极管反向恢复损耗
+                    if (Function.LT(i1, 0) && Function.GE(i2, 0)) //i1<0、i2>=0时，计算反并二极管反向恢复损耗
                     {
                         Prr += CalcPrr_IGBT(i1);
                     }
@@ -313,11 +313,12 @@ namespace PV_analysis.Components
         /// <returns>计算结果</returns>
         private double CalcPon_IGBT(double Ion)
         {
-            //根据开通电流查表得到对应损耗
-            if (Function.EQ(Ion, 0))
+            //忽略电流极小的情况
+            if (!Function.BigEnough(Ion))
             {
                 return 0;
             }
+            //根据开通电流查表得到对应损耗
             int id = Data.SemiconductorList[device].Id_Eon;
             return math_fs * math_Vsw / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Ion) * 1e-3;
         }
@@ -329,11 +330,12 @@ namespace PV_analysis.Components
         /// <returns>计算结果</returns>
         private double CalcPoff_IGBT(double Ioff)
         {
-            //根据关断电流查表得到对应损耗
-            if (Function.EQ(Ioff, 0))
+            //忽略电流极小的情况
+            if (!Function.BigEnough(Ioff))
             {
                 return 0;
             }
+            //根据关断电流查表得到对应损耗
             int id = Data.SemiconductorList[device].Id_Eoff;
             return math_fs * math_Vsw / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Ioff) * 1e-3;
         }
@@ -365,11 +367,12 @@ namespace PV_analysis.Components
         /// <returns>计算结果</returns>
         private double CalcPrr_IGBT(double Ioff)
         {
-            //TODO single IGBT Prr
-            if (Function.EQ(Ioff, 0))
+            //忽略电流极小的情况
+            if (!Function.BigEnough(Ioff))
             {
                 return 0;
             }
+            //TODO single IGBT Prr
             Console.WriteLine("IGBT单管不支持反向恢复损耗计算!");
             System.Environment.Exit(-1);
             return 0;

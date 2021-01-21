@@ -283,7 +283,7 @@ namespace PV_analysis.Components
                 }
                 else if (Function.EQ(t1, t2)) //t1=t2时，可能有开关损耗，没有通态损耗
                 {
-                    if (Function.GT(i1, 0) && Function.BigEnough(i1) && Function.LE(i2, 0)) //i1>0, i2<=0时，计算反并二极管反向恢复损耗
+                    if (Function.GT(i1, 0) && Function.LE(i2, 0)) //i1>0, i2<=0时，计算反并二极管反向恢复损耗
                     {
                         Prr += CalcPrr_Module(i1);
                     }
@@ -343,12 +343,12 @@ namespace PV_analysis.Components
                 Console.WriteLine("Diode-Module (No Err)类器件无法计算反向恢复损耗！");
                 Environment.Exit(-1);
             }
-
-            //根据关断电流查表得到对应损耗
-            if (Function.EQ(Ioff, 0))
+            //忽略电流极小的情况
+            if (!Function.BigEnough(Ioff))
             {
                 return 0;
             }
+            //根据关断电流查表得到对应损耗
             int id = Data.SemiconductorList[device].Id_Err;
             return math_fs * math_Vsw / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Ioff) * 1e-3;
         }

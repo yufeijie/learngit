@@ -2279,7 +2279,7 @@ namespace PV_analysis
                             Estimate_Step3_IsolatedDCDCk_TextBox.Text = "5";
                             Estimate_Step3_DCACMamin_TextBox.Text = "0.7";
                             Estimate_Step3_DCACMamax_TextBox.Text = "0.9";
-                            Estimate_Step3_DCACFrequency_TextBox.Text = "10";
+                            Estimate_Step3_DCACFrequency_TextBox.Text = "1";
                             break;
                         case "两级架构":
                             Estimate_Step3_Vbus_Panel.Visible = false;
@@ -2294,7 +2294,7 @@ namespace PV_analysis
                             Estimate_Step3_IsolatedDCDCk_TextBox.Text = "0";
                             Estimate_Step3_DCACMamin_TextBox.Text = "0.7";
                             Estimate_Step3_DCACMamax_TextBox.Text = "0.9";
-                            Estimate_Step3_DCACFrequency_TextBox.Text = "10";
+                            Estimate_Step3_DCACFrequency_TextBox.Text = "1";
                             break;
                     }
                     DCDC_topologyRange = DCDC_topologyList.ToArray();
@@ -2334,6 +2334,7 @@ namespace PV_analysis
                             Estimate_Step3B_k_Panel.Visible = true;//倒序设置，顺序显示
                             Estimate_Step3B_Q_Panel.Visible = true;
 
+                            //默认值
                             //Estimate_Step3B_Vin_TextBox.Text = "1300";
                             //Estimate_Step3B_Vo_Label.Text = "输出电压";
                             //Estimate_Step3B_Vo_TextBox.Text = "1300";
@@ -2345,27 +2346,27 @@ namespace PV_analysis
                             //Estimate_Step3B_Frequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 100));
 
                             //修正设计
-                            Estimate_Step3B_Vin_TextBox.Text = "1300";
-                            Estimate_Step3B_Vo_Label.Text = "输出电压";
-                            Estimate_Step3B_Vo_TextBox.Text = "700";
-                            Estimate_Step3B_Vo_Unit_Label.Text = "V";
-                            Estimate_Step3B_Secondary_TextBox.Text = "1";
-                            Estimate_Step3B_Q_TextBox.Text = "0.5";
-                            Estimate_Step3B_k_TextBox.Text = "5";
-                            Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(20, 20, 1);
-                            Estimate_Step3B_Frequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(50, 50));
-
-                            //优化SRC装置
-                            //Estimate_Step3B_Psys_TextBox.Text = "0.015";
-                            //Estimate_Step3B_Vin_TextBox.Text = "750";
+                            //Estimate_Step3B_Vin_TextBox.Text = "1300";
                             //Estimate_Step3B_Vo_Label.Text = "输出电压";
-                            //Estimate_Step3B_Vo_TextBox.Text = "750";
+                            //Estimate_Step3B_Vo_TextBox.Text = "700";
                             //Estimate_Step3B_Vo_Unit_Label.Text = "V";
                             //Estimate_Step3B_Secondary_TextBox.Text = "1";
-                            //Estimate_Step3B_Q_TextBox.Text = "0.3";
-                            //Estimate_Step3B_k_TextBox.Text = "0";
-                            //Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 1, 1);
-                            //Estimate_Step3B_Frequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 10));
+                            //Estimate_Step3B_Q_TextBox.Text = "0.5";
+                            //Estimate_Step3B_k_TextBox.Text = "5";
+                            //Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(20, 20, 1);
+                            //Estimate_Step3B_Frequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(50, 50));
+
+                            //优化SRC装置
+                            Estimate_Step3B_Psys_TextBox.Text = "0.015";
+                            Estimate_Step3B_Vin_TextBox.Text = "750";
+                            Estimate_Step3B_Vo_Label.Text = "输出电压";
+                            Estimate_Step3B_Vo_TextBox.Text = "750";
+                            Estimate_Step3B_Vo_Unit_Label.Text = "V";
+                            Estimate_Step3B_Secondary_TextBox.Text = "1";
+                            Estimate_Step3B_Q_TextBox.Text = "0.3";
+                            Estimate_Step3B_k_TextBox.Text = "0";
+                            Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 1, 1);
+                            Estimate_Step3B_Frequency_TextBox.Text = Function.DoubleArrayToString(Function.GenerateFrequencyRange(10, 10));
 
                             isolatedDCDC_topologyRange = isolatedDCDC_topologyList.ToArray();
                             break;
@@ -2405,7 +2406,7 @@ namespace PV_analysis
                             Estimate_Step3B_Mamin_TextBox.Text = "0.7";
                             Estimate_Step3B_Mamax_TextBox.Text = "0.9";
                             Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 40, 1);
-                            Estimate_Step3B_Frequency_TextBox.Text = "10";
+                            Estimate_Step3B_Frequency_TextBox.Text = "1";
 
                             DCAC_topologyRange = DCAC_topologyList.ToArray();
                             break;
@@ -3408,6 +3409,7 @@ namespace PV_analysis
                     //记录负载-效率曲线数据
                     systemData[i - 1, 0] = 100 * i / div; //负载点(%)
                     systemData[i - 1, 1] = structure.Efficiency * 100; //整体架构效率(%)
+                    Console.WriteLine(systemData[i - 1, 1]); //输出负载-效率曲线数据
                     switch (structure.Name)
                     {
                         case "三级架构":
@@ -3470,7 +3472,7 @@ namespace PV_analysis
                     //记录负载-效率曲线数据
                     data[i - 1, 0] = 100 * i / div; //负载点(%)
                     data[i - 1, 1] = converter.Efficiency * 100; //整体架构效率(%)
-                    //Console.WriteLine(data[i - 1, 1]);
+                    //Console.WriteLine(data[i - 1, 1]); //输出负载-效率曲线数据
                 }
 
                 //更新显示                
