@@ -25,6 +25,16 @@ namespace PV_analysis.Components
         protected double math_Imax; //电流应力
         protected double math_fs_max; //最大开关频率
 
+        //电路参数
+        protected double math_Von; //开通电压
+        protected double math_Voff; //关断电压
+        protected double math_fs; //开关频率
+        protected Curve curve_i; //电流波形
+        protected double[,] math_Von_eval = new double[5, 7]; //开通电压（用于评估）
+        protected double[,] math_Voff_eval = new double[5, 7]; //关断电压（用于评估）
+        protected Curve[,] curve_i_eval = new Curve[5, 7]; //电流波形（用于评估）
+        protected double[,] math_fs_eval = new double[5, 7]; //开关频率（用于评估）
+
         //成本参数（同类器件中其中一个的损耗）
         protected double semiconductorCost; //开关器件成本
         protected double driverCost; //驱动成本

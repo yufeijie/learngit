@@ -11,14 +11,10 @@ namespace PV_analysis.Components
         private bool isPowerLossBalance; //损耗是否均衡，若均衡则只需计算上管的损耗，默认为均衡
 
         //电路参数
-        private double math_Vsw; //开通/关断电压
         private Curve curve_iUp; //上管电流波形
         private Curve curve_iDown; //下管电流波形
-        private double math_fs; //开关频率        
-        private double[,] math_Vsw_eval = new double[5, 7]; //开通/关断电压（用于评估）
         private Curve[,] curve_iUp_eval = new Curve[5, 7]; //上管电流波形（用于评估）
         private Curve[,] curve_iDown_eval = new Curve[5, 7]; //下管电流波形（用于评估）
-        private double[,] math_fs_eval = new double[5, 7]; //开关频率（用于评估）
 
         //损耗参数（同类器件中其中一个的损耗）
         private double[] math_PDcon; //二极管通态损耗
@@ -128,12 +124,14 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        /// <param name="Vsw">开关电压</param>
+        /// <param name="Von">开通电压</param>
+        /// <param name="Voff">关断电压</param>
         /// <param name="iUp">上管电流波形</param>
         /// <param name="iDown">下管电流波形</param>
-        public void AddEvalParameters(int m, int n, double Vsw, Curve iUp, Curve iDown)
+        public void AddEvalParameters(int m, int n, double Von, double Voff, Curve iUp, Curve iDown)
         {
-            math_Vsw_eval[m, n] = Vsw;
+            math_Von_eval[m, n] = Von;
+            math_Voff_eval[m, n] = Voff;
             curve_iUp_eval[m, n] = iUp;
             curve_iDown_eval[m, n] = iDown;
         }
@@ -143,13 +141,15 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        /// <param name="Vsw">开关电压</param>
+        /// <param name="Von">开通电压</param>
+        /// <param name="Voff">关断电压</param>
         /// <param name="iUp">上管电流波形</param>
         /// <param name="iDown">下管电流波形</param>
         /// <param name="fs">开关频率</param>
-        public void AddEvalParameters(int m, int n, double Vsw, Curve iUp, Curve iDown, double fs)
+        public void AddEvalParameters(int m, int n, double Von, double Voff, Curve iUp, Curve iDown, double fs)
         {
-            math_Vsw_eval[m, n] = Vsw;
+            math_Von_eval[m, n] = Von;
+            math_Voff_eval[m, n] = Voff;
             curve_iUp_eval[m, n] = iUp;
             curve_iDown_eval[m, n] = iDown;
             frequencyVariable = true;
@@ -163,7 +163,8 @@ namespace PV_analysis.Components
         /// <param name="n">负载点对应编号</param>
         protected override void SelectParameters(int m, int n)
         {
-            math_Vsw = math_Vsw_eval[m, n];
+            math_Von = math_Von_eval[m, n];
+            math_Voff = math_Voff_eval[m, n];
             curve_iUp = curve_iUp_eval[m, n];
             curve_iDown = curve_iDown_eval[m, n];
             if (frequencyVariable)
@@ -179,13 +180,15 @@ namespace PV_analysis.Components
         /// <summary>
         /// 设置电路参数（损耗不均衡）
         /// </summary>
-        /// <param name="Vsw">开关电压</param>
+        /// <param name="Von">开通电压</param>
+        /// <param name="Voff">关断电压</param>
         /// <param name="iUp">上管电流波形</param>
         /// <param name="iDown">下管电流波形</param>
         /// <param name="fs">开关频率</param>
-        public void SetParameters(double Vsw, Curve iUp, Curve iDown, double fs)
+        public void SetParameters(double Von, double Voff, Curve iUp, Curve iDown, double fs)
         {
-            math_Vsw = Vsw;
+            math_Von = Von;
+            math_Voff = Voff;
             curve_iUp = iUp;
             curve_iDown = iDown;
             math_fs = fs;
@@ -350,7 +353,7 @@ namespace PV_analysis.Components
             }
             //根据关断电流查表得到对应损耗
             int id = Data.SemiconductorList[device].Id_Err;
-            return math_fs * math_Vsw / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Ioff) * 1e-3;
+            return math_fs * math_Voff / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Ioff) * 1e-3;
         }
 
         /// <summary>

@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+#pragma warning disable 169
 
 namespace PV_analysis.Topologys
 {
     internal class MultiInputSoftSwitchBoost : Topology
     {
+
 		//基本电路参数
 		private double m_Vin; //输入电压
 		private double m_D; //占空比

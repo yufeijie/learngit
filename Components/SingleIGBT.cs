@@ -10,14 +10,6 @@ namespace PV_analysis.Components
     /// </summary>
     internal class SingleIGBT : Semiconductor
     {
-        //电路参数
-        private double math_Vsw; //开通/关断电压
-        private Curve curve_i; //电流波形
-        private double math_fs; //开关频率        
-        private double[,] math_Vsw_eval = new double[5, 7]; //开通/关断电压（用于评估）
-        private Curve[,] curve_i_eval = new Curve[5, 7]; //电流波形（用于评估）
-        private double[,] math_fs_eval = new double[5, 7]; //开关频率（用于评估）
-
         //损耗参数（同类器件中其中一个的损耗）
         private double math_PTcon; //主管通态损耗
         private double math_Pon; //主管开通损耗
@@ -112,11 +104,13 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        /// <param name="Vsw">开关电压</param>
+        /// <param name="Von">开通电压</param>
+        /// <param name="Voff">关断电压</param>
         /// <param name="i">电流波形</param>
-        public void AddEvalParameters(int m, int n, double Vsw, Curve i)
+        public void AddEvalParameters(int m, int n, double Von, double Voff, Curve i)
         {
-            math_Vsw_eval[m, n] = Vsw;
+            math_Von_eval[m, n] = Von;
+            math_Voff_eval[m, n] = Voff;
             curve_i_eval[m, n] = i;
         }
 
@@ -125,12 +119,14 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        /// <param name="Vsw">开关电压</param>
+        /// <param name="Von">开通电压</param>
+        /// <param name="Voff">关断电压</param>
         /// <param name="i">电流波形</param>
         /// <param name="fs">开关频率</param>
-        public void AddEvalParameters(int m, int n, double Vsw, Curve i, double fs)
+        public void AddEvalParameters(int m, int n, double Von, double Voff, Curve i, double fs)
         {
-            math_Vsw_eval[m, n] = Vsw;
+            math_Von_eval[m, n] = Von;
+            math_Voff_eval[m, n] = Voff;
             curve_i_eval[m, n] = i;
             frequencyVariable = true;
             math_fs_eval[m, n] = fs;
@@ -143,7 +139,8 @@ namespace PV_analysis.Components
         /// <param name="n">负载点对应编号</param>
         protected override void SelectParameters(int m, int n)
         {
-            math_Vsw = math_Vsw_eval[m, n];
+            math_Von = math_Von_eval[m, n];
+            math_Voff = math_Voff_eval[m, n];
             curve_i = curve_i_eval[m, n];
             if (frequencyVariable)
             {
@@ -158,12 +155,14 @@ namespace PV_analysis.Components
         /// <summary>
         /// 设置电路参数
         /// </summary>
-        /// <param name="Vsw">开关电压</param>
+        /// <param name="Von">开通电压</param>
+        /// <param name="Voff">关断电压</param>
         /// <param name="i">电流波形</param>
         /// <param name="fs">开关频率</param>
-        public void SetParameters(double Vsw, Curve i, double fs)
+        public void SetParameters(double Von, double Voff, Curve i, double fs)
         {
-            math_Vsw = Vsw;
+            math_Von = Von;
+            math_Voff = Voff;
             curve_i = i;
             math_fs = fs;
         }
@@ -320,7 +319,7 @@ namespace PV_analysis.Components
             }
             //根据开通电流查表得到对应损耗
             int id = Data.SemiconductorList[device].Id_Eon;
-            return math_fs * math_Vsw / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Ion) * 1e-3;
+            return math_fs * math_Von / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Ion) * 1e-3;
         }
 
         /// <summary>
@@ -337,7 +336,7 @@ namespace PV_analysis.Components
             }
             //根据关断电流查表得到对应损耗
             int id = Data.SemiconductorList[device].Id_Eoff;
-            return math_fs * math_Vsw / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Ioff) * 1e-3;
+            return math_fs * math_Voff / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Ioff) * 1e-3;
         }
 
         /// <summary>

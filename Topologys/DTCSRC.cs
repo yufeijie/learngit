@@ -256,21 +256,19 @@ namespace PV_analysis.Topologys
             double ICfrms_max = 0;
             double fsmax = 0;
             double ψmax = 0;
-
+                        
             //得到用于效率评估的不同输入电压与不同功率点的电路参数
             for (int i = 0; i < m; i++)
             {
+                //Graph graph1 = new Graph();
+                //Graph graph2 = new Graph();
                 math_Vin = math_Vinmin + (math_Vinmax - math_Vinmin) * Configuration.voltageRatio[i];
                 for (int j = 0; j < n; j++)
                 {
                     math_P = math_Pfull * Configuration.powerRatio[j]; //改变负载
                     Simulate();
-                    //Graph graph = new Graph();
-                    //graph.Add(curve_iL, "iL");
-                    //graph.Add(curve_iSp, "iP");
-                    //graph.Add(curve_iSs, "iS");
-                    //graph.Add(curve_iDs, "iD");
-                    //graph.Draw();
+                    //graph1.Add(curve_iL, "iL");
+                    //graph2.Add(curve_vCr, "vCr");
                     //记录最大值
                     ILmax = Math.Max(ILmax, math_ILp);
                     ILrms_max = Math.Max(ILrms_max, math_ILrms);
@@ -280,14 +278,16 @@ namespace PV_analysis.Topologys
                     ψmax = Math.Max(ψmax, math_ψ);
 
                     //设置元器件的电路参数（用于评估）
-                    primaryDualModule.AddEvalParameters(i, j, math_vSp, curve_iSp, curve_iSp, math_fs);
-                    single.AddEvalParameters(i, j, math_vSs, curve_iSs, math_fs);
-                    secondaryDualDiodeModule.AddEvalParameters(i, j, math_vDs, curve_iDs, curve_iDs, math_fs);
+                    primaryDualModule.AddEvalParameters(i, j, math_vSp, math_vSp, curve_iSp, curve_iSp, math_fs);
+                    single.AddEvalParameters(i, j, math_vSs, math_vSs, curve_iSs, math_fs);
+                    secondaryDualDiodeModule.AddEvalParameters(i, j, math_vDs, math_vDs, curve_iDs, curve_iDs, math_fs);
                     resonantInductor.AddEvalParameters(i, j, math_ILrms, math_ILp * 2, math_fs);
                     transformer.AddEvalParameters(i, j, math_ILrms, math_ILrms * math_n, math_fs, math_ψ);
                     resonantCapacitor.AddEvalParameters(i, j, math_ILrms);
                     filteringCapacitor.AddEvalParameters(i, j, math_ICfrms);
                 }
+                //graph1.Draw();
+                //graph2.Draw();
             }
 
             //若认为谐振电感集成在变压器中，则不考虑额外谐振电感
@@ -315,9 +315,9 @@ namespace PV_analysis.Topologys
             math_Vin = converter.Math_Vin;
             Simulate();
             //设置元器件的电路参数
-            primaryDualModule.SetParameters(math_vSp, curve_iSp, curve_iSp, math_fs);
-            single.SetParameters(math_vSs, curve_iSs, math_fs);
-            secondaryDualDiodeModule.SetParameters(math_vDs, curve_iDs, curve_iDs, math_fs);
+            primaryDualModule.SetParameters(math_vSp, math_vSp, curve_iSp, curve_iSp, math_fs);
+            single.SetParameters(math_vSs, math_vSs, curve_iSs, math_fs);
+            secondaryDualDiodeModule.SetParameters(math_vDs, math_vDs, curve_iDs, curve_iDs, math_fs);
             resonantInductor.SetParameters(math_ILrms, math_ILp * 2, math_fs);
             transformer.SetParameters(math_ILrms, math_ILrms * math_n, math_fs, math_ψ);
             resonantCapacitor.SetParameters(math_ILrms);

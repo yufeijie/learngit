@@ -8,14 +8,13 @@ namespace PV_analysis.Components
     internal class CHBModule : Semiconductor
     {
         //电路参数
-        private double cycleTime; //开关周期
-        private double frequencyGrid; //工频
-        private double voltage; //开通/关断电压
-        private int cycleNumber; //一个工频周期内的开关周期总数
-        private double[,][] timeTurnOnIgbt; //IGBT开通时间
-        private double[,][] timeTurnOnDiode; //二极管开通时间
-        private double[] currentOutput; //输出电流波形
-        private double[,][] currentOutputForEvaluation = new double[5, 7][]; //输出电流波形（用于评估）
+        private double math_Ts; //开关周期
+        private double math_fg; //工频
+        private int math_NTs; //一个工频周期内的开关周期总数
+        private double[,][] math_Tcon_Igbt; //IGBT导通时间
+        private double[,][] math_Tcon_Diode; //二极管导通时间
+        private double[] math_i; //电流波形
+        private double[,][] math_i_eval = new double[5, 7][]; //电流波形（用于评估）
 
         //损耗参数（同类器件中其中一个的损耗）
         private double[,] math_PTcon; //主管通态损耗
@@ -129,24 +128,26 @@ namespace PV_analysis.Components
             math_Vmax = Vmax;
             math_Imax = Imax;
             math_fs_max = fs_max;
-            cycleTime = 1 / math_fs_max;
+            math_Ts = 1 / math_fs_max;
         }
 
         /// <summary>
         /// 设置不变的电路参数
         /// </summary>
-        /// <param name="frequencyGrid">工频</param>
-        /// <param name="voltage">开关电压</param>
-        /// <param name="cycleNumber">一个工频周期内的开关周期总数</param>
-        /// <param name="timeTurnOnIgbt">IGBT开通时间</param>
-        /// <param name="timeTurnOnDiode">二极管开通时间</param>
-        public void SetConstants(double frequencyGrid, double voltage, int cycleNumber, double[,][] timeTurnOnIgbt, double[,][] timeTurnOnDiode)
+        /// <param name="fg">工频</param>
+        /// <param name="Von">开通电压</param>
+        /// <param name="Voff">关断电压</param>
+        /// <param name="NTs">一个工频周期内的开关周期总数</param>
+        /// <param name="Tcon_Igbt">IGBT开通时间</param>
+        /// <param name="Tcon_Diode">二极管开通时间</param>
+        public void SetConstants(double fg, double Von, double Voff, int NTs, double[,][] Tcon_Igbt, double[,][] Tcon_Diode)
         {
-            this.frequencyGrid = frequencyGrid;
-            this.voltage = voltage;
-            this.cycleNumber = cycleNumber;
-            this.timeTurnOnIgbt = timeTurnOnIgbt;
-            this.timeTurnOnDiode = timeTurnOnDiode;
+            math_fg = fg;
+            math_Von = Von;
+            math_Voff = Voff;
+            math_NTs = NTs;
+            math_Tcon_Igbt = Tcon_Igbt;
+            math_Tcon_Diode = Tcon_Diode;
         }
 
         /// <summary>
@@ -154,10 +155,10 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        /// <param name="current">电流</param>
-        public void AddEvalParameters(int m, int n, double[] current)
+        /// <param name="i">电流</param>
+        public void AddEvalParameters(int m, int n, double[] i)
         {
-            currentOutputForEvaluation[m, n] = current;
+            math_i_eval[m, n] = i;
         }
 
         /// <summary>
@@ -167,16 +168,16 @@ namespace PV_analysis.Components
         /// <param name="n">负载点对应编号</param>
         protected override void SelectParameters(int m, int n)
         {
-            currentOutput = currentOutputForEvaluation[m, n];
+            math_i = math_i_eval[m, n];
         }
 
         /// <summary>
         /// 添加电路参数（损耗不均衡）（用于评估）
         /// </summary>
-        /// <param name="current">电流</param>
-        public void SetParameters(double[] current)
+        /// <param name="i">电流</param>
+        public void SetParameters(double[] i)
         {
-            currentOutput = current;
+            math_i = i;
         }
 
         /// <summary>
@@ -285,58 +286,58 @@ namespace PV_analysis.Components
                         id = Data.SemiconductorList[device].Id_Vce;
                     }
                     double ETcon = 0;
-                    for (int k = 0; k < cycleNumber; k++)
+                    for (int k = 0; k < math_NTs; k++)
                     {
-                        ETcon += Math.Abs(currentOutput[k]) * Data.CurveList[id].GetValue(Math.Abs(currentOutput[k])) * timeTurnOnIgbt[i, j][k];
+                        ETcon += Math.Abs(math_i[k]) * Data.CurveList[id].GetValue(Math.Abs(math_i[k])) * math_Tcon_Igbt[i, j][k];
                     }
-                    math_PTcon[i, j] = ETcon * frequencyGrid;
+                    math_PTcon[i, j] = ETcon * math_fg;
 
                     id = Data.SemiconductorList[device].Id_Eon;
                     double Eon = 0;
-                    for (int k = 0; k < cycleNumber; k++)
+                    for (int k = 0; k < math_NTs; k++)
                     {
-                        int l = (k + cycleNumber - 1) % cycleNumber;
-                        if ((timeTurnOnIgbt[i, j][k] > 0 && timeTurnOnIgbt[i, j][k] < cycleTime && timeTurnOnIgbt[i, j][l] < cycleTime) ||
-                           (timeTurnOnIgbt[i, j][k] == 0 && timeTurnOnIgbt[i, j][l] == cycleTime))
+                        int l = (k + math_NTs - 1) % math_NTs;
+                        if ((math_Tcon_Igbt[i, j][k] > 0 && math_Tcon_Igbt[i, j][k] < math_Ts && math_Tcon_Igbt[i, j][l] < math_Ts) ||
+                           (math_Tcon_Igbt[i, j][k] == 0 && math_Tcon_Igbt[i, j][l] == math_Ts))
                         {
-                            Eon += voltage / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Math.Abs(currentOutput[k])) * 1e-3;
+                            Eon += math_Von / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Math.Abs(math_i[k])) * 1e-3;
                         }
                     }
-                    math_Pon[i, j] = Eon * frequencyGrid;
+                    math_Pon[i, j] = Eon * math_fg;
 
                     id = Data.SemiconductorList[device].Id_Eoff;
                     double Eoff = 0;
-                    for (int k = 0; k < cycleNumber; k++)
+                    for (int k = 0; k < math_NTs; k++)
                     {
-                        int r = (k + 1) % cycleNumber;
-                        if ((timeTurnOnIgbt[i, j][k] > 0 && timeTurnOnIgbt[i, j][k] < cycleTime && timeTurnOnIgbt[i, j][r] < cycleTime) ||
-                           (timeTurnOnIgbt[i, j][k] == cycleTime && timeTurnOnIgbt[i, j][r] == 0))
+                        int r = (k + 1) % math_NTs;
+                        if ((math_Tcon_Igbt[i, j][k] > 0 && math_Tcon_Igbt[i, j][k] < math_Ts && math_Tcon_Igbt[i, j][r] < math_Ts) ||
+                           (math_Tcon_Igbt[i, j][k] == math_Ts && math_Tcon_Igbt[i, j][r] == 0))
                         {
-                            Eoff += voltage / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Math.Abs(currentOutput[k])) * 1e-3;
+                            Eoff += math_Voff / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Math.Abs(math_i[k])) * 1e-3;
                         }
                     }
-                    math_Poff[i, j] = Eoff * frequencyGrid;
+                    math_Poff[i, j] = Eoff * math_fg;
 
                     id = Data.SemiconductorList[device].Id_Vf;
                     double EDcon = 0;
-                    for (int k = 0; k < cycleNumber; k++)
+                    for (int k = 0; k < math_NTs; k++)
                     {
-                        EDcon += Math.Abs(currentOutput[k]) * Data.CurveList[id].GetValue(Math.Abs(currentOutput[k])) * timeTurnOnDiode[i, j][k];
+                        EDcon += Math.Abs(math_i[k]) * Data.CurveList[id].GetValue(Math.Abs(math_i[k])) * math_Tcon_Diode[i, j][k];
                     }
-                    math_PDcon[i, j] = EDcon * frequencyGrid;
+                    math_PDcon[i, j] = EDcon * math_fg;
 
                     id = Data.SemiconductorList[device].Id_Err;
                     double Err = 0;
-                    for (int k = 0; k < cycleNumber; k++)
+                    for (int k = 0; k < math_NTs; k++)
                     {
-                        int r = (k + 1) % cycleNumber;
-                        if ((timeTurnOnDiode[i, j][k] > 0 && timeTurnOnDiode[i, j][k] < cycleTime && timeTurnOnDiode[i, j][r] < cycleTime) ||
-                           (timeTurnOnDiode[i, j][k] == cycleTime && timeTurnOnDiode[i, j][r] == 0))
+                        int r = (k + 1) % math_NTs;
+                        if ((math_Tcon_Diode[i, j][k] > 0 && math_Tcon_Diode[i, j][k] < math_Ts && math_Tcon_Diode[i, j][r] < math_Ts) ||
+                           (math_Tcon_Diode[i, j][k] == math_Ts && math_Tcon_Diode[i, j][r] == 0))
                         {
-                            Err += voltage / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Math.Abs(currentOutput[k])) * 1e-3;
+                            Err += math_Voff / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Math.Abs(math_i[k])) * 1e-3;
                         }
                     }
-                    math_Prr[i, j] = Err * frequencyGrid;
+                    math_Prr[i, j] = Err * math_fg;
                     powerLoss += math_PTcon[i, j] + math_Pon[i, j] + math_Poff[i, j] + math_PDcon[i, j] + math_Prr[i, j];
                 }
             }
