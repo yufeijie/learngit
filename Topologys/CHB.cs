@@ -298,7 +298,7 @@ namespace PV_analysis.Topologys
         {
             //计算电路参数
             DesignCircuitParam();
-            semiconductor.SetConstants(math_fg, math_VSmax, math_VSmax, math_Mf, math_Ton_igbt, math_Ton_diode);
+            semiconductor.SetConstants(math_fg, math_VSmax, math_Mf, math_Ton_igbt, math_Ton_diode);
 
             int n = Configuration.powerRatio.Length;
 

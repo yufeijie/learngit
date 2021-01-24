@@ -17,12 +17,20 @@ namespace PV_analysis.Components
         //器件参数
         private int paralleledNum; //并联数量
 
+        //电路参数
+        private double math_Vsw; //开通/关断电压
+        private Curve curve_i; //电流波形
+        private double math_fs; //开关频率        
+        private double[,] math_Vsw_eval = new double[5, 7]; //开通/关断电压（用于评估）
+        private Curve[,] curve_i_eval = new Curve[5, 7]; //电流波形（用于评估）
+        private double[,] math_fs_eval = new double[5, 7]; //开关频率（用于评估）
+
         //损耗参数（同类器件中其中一个的损耗）
-        protected double math_PTcon; //主管通态损耗
-        protected double math_Pon; //主管开通损耗
-        protected double math_Poff; //主管关断损耗
-        protected double math_PDcon; //反并二极管通态损耗
-        protected double math_Prr; //反并二极管反向恢复损耗
+        private double math_PTcon; //主管通态损耗
+        private double math_Pon; //主管开通损耗
+        private double math_Poff; //主管关断损耗
+        private double math_PDcon; //反并二极管通态损耗
+        private double math_Prr; //反并二极管反向恢复损耗
 
         /// <summary>
         /// 初始化
@@ -113,13 +121,11 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        /// <param name="Von">开通电压</param>
-        /// <param name="Voff">关断电压</param>
+        /// <param name="Vsw">开关电压</param>
         /// <param name="i">电流波形</param>
-        public void AddEvalParameters(int m, int n, double Von, double Voff, Curve i)
+        public void AddEvalParameters(int m, int n, double Vsw, Curve i)
         {
-            math_Von_eval[m, n] = Von;
-            math_Voff_eval[m, n] = Voff;
+            math_Vsw_eval[m, n] = Vsw;
             curve_i_eval[m, n] = i;
         }
 
@@ -128,14 +134,12 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        /// <param name="Von">开通电压</param>
-        /// <param name="Voff">关断电压</param>
+        /// <param name="Vsw">开关电压</param>
         /// <param name="i">电流波形</param>
         /// <param name="fs">开关频率</param>
-        public void AddEvalParameters(int m, int n, double Von, double Voff, Curve i, double fs)
+        public void AddEvalParameters(int m, int n, double Vsw, Curve i, double fs)
         {
-            math_Von_eval[m, n] = Von;
-            math_Voff_eval[m, n] = Voff;
+            math_Vsw_eval[m, n] = Vsw;
             curve_i_eval[m, n] = i;
             frequencyVariable = true;
             math_fs_eval[m, n] = fs;
@@ -148,8 +152,7 @@ namespace PV_analysis.Components
         /// <param name="n">负载点对应编号</param>
         protected override void SelectParameters(int m, int n)
         {
-            math_Von = math_Von_eval[m, n];
-            math_Voff = math_Voff_eval[m, n];
+            math_Vsw = math_Vsw_eval[m, n];
             curve_i = curve_i_eval[m, n];
             if (frequencyVariable)
             {
@@ -164,14 +167,12 @@ namespace PV_analysis.Components
         /// <summary>
         /// 设置电路参数
         /// </summary>
-        /// <param name="Von">开通电压</param>
-        /// <param name="Voff">关断电压</param>
+        /// <param name="Vsw">开关电压</param>
         /// <param name="i">电流波形</param>
         /// <param name="fs">开关频率</param>
-        public void SetParameters(double Von, double Voff, Curve i, double fs)
+        public void SetParameters(double Vsw, Curve i, double fs)
         {
-            math_Von = Von;
-            math_Voff = Voff;
+            math_Vsw = Vsw;
             curve_i = i;
             math_fs = fs;
         }
@@ -361,9 +362,9 @@ namespace PV_analysis.Components
             double Cgd = Crss;
             double Cds = (Coss - Crss) * paralleledNum;
             double tf = Rg * Ciss * Math.Log((Ioff / gm + Vth) / Vth);
-            double t2 = ((1 + gm * Rg) * Cgd + Cds) / (gm * Vth + Ioff) * math_Voff;
-            double e1 = tf * math_Voff * 0.5 * Ioff;
-            double e2 = t2 * math_Voff * 0.5 * Ioff;
+            double t2 = ((1 + gm * Rg) * Cgd + Cds) / (gm * Vth + Ioff) * math_Vsw;
+            double e1 = tf * math_Vsw * 0.5 * Ioff;
+            double e2 = t2 * math_Vsw * 0.5 * Ioff;
             return paralleledNum * math_fs * (e1 + e2);
         }
 

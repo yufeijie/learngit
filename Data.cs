@@ -116,9 +116,6 @@ namespace PV_analysis
                         IGBT_RthJC = row.GetCell(12).NumericCellValue;
                         Diode_RthJC = row.GetCell(14).NumericCellValue;
                         Module_RthCH = row.GetCell(16).NumericCellValue;
-                        Math_Ciss = row.GetCell(26).NumericCellValue;
-                        Math_Coss = row.GetCell(27).NumericCellValue;
-                        Math_Crss = row.GetCell(28).NumericCellValue;
                         break;
                     case "IGBT-Module":
                         Id_Vce = (int)row.GetCell(7).NumericCellValue;
@@ -131,9 +128,6 @@ namespace PV_analysis
                         Diode_RthJC = row.GetCell(14).NumericCellValue;
                         Diode_RthCH = row.GetCell(15).NumericCellValue;
                         Module_RthCH = row.GetCell(16).NumericCellValue;
-                        Math_Ciss = row.GetCell(26).NumericCellValue;
-                        Math_Coss = row.GetCell(27).NumericCellValue;
-                        Math_Crss = row.GetCell(28).NumericCellValue;
                         break;
                     case "SiC-Module":
                         Id_Vds = (int)row.GetCell(7).NumericCellValue;
@@ -144,9 +138,6 @@ namespace PV_analysis
                         MOSFET_RthJC = row.GetCell(12).NumericCellValue;
                         Diode_RthJC = row.GetCell(14).NumericCellValue;
                         Module_RthCH = row.GetCell(16).NumericCellValue;
-                        Math_Ciss = row.GetCell(26).NumericCellValue;
-                        Math_Coss = row.GetCell(27).NumericCellValue;
-                        Math_Crss = row.GetCell(28).NumericCellValue;
                         break;
                     case "SiC-MOSFET":
                         Math_Rdson = (int)row.GetCell(7).NumericCellValue;

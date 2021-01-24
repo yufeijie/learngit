@@ -3409,7 +3409,7 @@ namespace PV_analysis
                     //记录负载-效率曲线数据
                     systemData[i - 1, 0] = 100 * i / div; //负载点(%)
                     systemData[i - 1, 1] = structure.Efficiency * 100; //整体架构效率(%)
-                    //Console.WriteLine(systemData[i - 1, 1]); //输出负载-效率曲线数据
+                    Console.WriteLine(systemData[i - 1, 1]); //输出负载-效率曲线数据
                     switch (structure.Name)
                     {
                         case "三级架构":

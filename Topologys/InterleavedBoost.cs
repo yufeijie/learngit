@@ -266,7 +266,7 @@ namespace PV_analysis.Topologys
                     math_ICrms_max = Math.Max(math_ICrms_max, math_ICrms);
 
                     //设置元器件的电路参数（用于评估）
-                    dualModule.AddEvalParameters(i, j, math_VSmax, math_VSmax, curve_iD.Copy(-1), curve_iS); //采用半桥模块时，第二个开关管波形为-iD
+                    dualModule.AddEvalParameters(i, j, math_VSmax, curve_iD.Copy(-1), curve_iS); //采用半桥模块时，第二个开关管波形为-iD
                     inductor.AddEvalParameters(i, j, math_IL, math_ILrip);
                     capacitor.AddEvalParameters(i, j, math_ICrms);
                 }
@@ -287,7 +287,7 @@ namespace PV_analysis.Topologys
             math_Vin = converter.Math_Vin;
             Simulate();
             //设置元器件的电路参数
-            dualModule.SetParameters(math_VSmax, math_VSmax, curve_iD.Copy(-1), curve_iS, math_fs); //采用半桥模块时，第二个开关管波形为-iD
+            dualModule.SetParameters(math_VSmax, curve_iD.Copy(-1), curve_iS, math_fs); //采用半桥模块时，第二个开关管波形为-iD
             inductor.SetParameters(math_IL, math_ILrip, math_fs);
             capacitor.SetParameters(math_ICrms);
         }
