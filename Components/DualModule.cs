@@ -12,10 +12,12 @@ namespace PV_analysis.Components
 
         //电路参数
         private double math_Vsw; //开通/关断电压
+        private double math_qZVS; //ZVS开通电荷量（在死区时间内给开关管的结电容充放电），用于判断是否实现ZVS on
         private Curve curve_iUp; //上管电流波形
         private Curve curve_iDown; //下管电流波形
         private double math_fs; //开关频率        
         private double[,] math_Vsw_eval = new double[5, 7]; //开通/关断电压（用于评估）
+        private double[,] math_qZVS_eval = new double[5, 7]; //ZVS开通电荷量（用于评估）
         private Curve[,] curve_iUp_eval = new Curve[5, 7]; //上管电流波形（用于评估）
         private Curve[,] curve_iDown_eval = new Curve[5, 7]; //下管电流波形（用于评估）
         private double[,] math_fs_eval = new double[5, 7]; //开关频率（用于评估）
@@ -140,7 +142,7 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        /// <param name="Vsw">开关电压</param>
+        /// <param name="Vsw">开通/关断电压</param>
         /// <param name="iUp">上管电流波形</param>
         /// <param name="iDown">下管电流波形</param>
         public void AddEvalParameters(int m, int n, double Vsw, Curve iUp, Curve iDown)
@@ -155,13 +157,52 @@ namespace PV_analysis.Components
         /// </summary>
         /// <param name="m">输入电压对应编号</param>
         /// <param name="n">负载点对应编号</param>
-        /// <param name="Vsw">开关电压</param>
+        /// <param name="Vsw">开通/关断电压</param>
+        /// <param name="qZVS">ZVS开通电荷量</param>
+        /// <param name="iUp">上管电流波形</param>
+        /// <param name="iDown">下管电流波形</param>
+        public void AddEvalParameters(int m, int n, double Vsw, double qZVS, Curve iUp, Curve iDown)
+        {
+            math_Vsw_eval[m, n] = Vsw;
+            checkZVSOn = true;
+            math_qZVS_eval[m, n] = qZVS;
+            curve_iUp_eval[m, n] = iUp;
+            curve_iDown_eval[m, n] = iDown;
+        }
+
+        /// <summary>
+        /// 添加电路参数（用于评估）
+        /// </summary>
+        /// <param name="m">输入电压对应编号</param>
+        /// <param name="n">负载点对应编号</param>
+        /// <param name="Vsw">开通/关断电压</param>
         /// <param name="iUp">上管电流波形</param>
         /// <param name="iDown">下管电流波形</param>
         /// <param name="fs">开关频率</param>
         public void AddEvalParameters(int m, int n, double Vsw, Curve iUp, Curve iDown, double fs)
         {
             math_Vsw_eval[m, n] = Vsw;
+            curve_iUp_eval[m, n] = iUp;
+            curve_iDown_eval[m, n] = iDown;
+            frequencyVariable = true;
+            math_fs_eval[m, n] = fs;
+        }
+
+        /// <summary>
+        /// 添加电路参数（用于评估）
+        /// </summary>
+        /// <param name="m">输入电压对应编号</param>
+        /// <param name="n">负载点对应编号</param>
+        /// <param name="Vsw">开通/关断电压</param>
+        /// <param name="qZVS">ZVS开通电荷量</param>
+        /// <param name="iUp">上管电流波形</param>
+        /// <param name="iDown">下管电流波形</param>
+        /// <param name="fs">开关频率</param>
+        public void AddEvalParameters(int m, int n, double Vsw, double qZVS, Curve iUp, Curve iDown, double fs)
+        {
+            math_Vsw_eval[m, n] = Vsw;
+            checkZVSOn = true;
+            math_qZVS_eval[m, n] = qZVS;
             curve_iUp_eval[m, n] = iUp;
             curve_iDown_eval[m, n] = iDown;
             frequencyVariable = true;
@@ -178,26 +219,37 @@ namespace PV_analysis.Components
             math_Vsw = math_Vsw_eval[m, n];
             curve_iUp = curve_iUp_eval[m, n];
             curve_iDown = curve_iDown_eval[m, n];
-            if (frequencyVariable)
-            {
-                math_fs = math_fs_eval[m, n];
-            }
-            else
-            {
-                math_fs = math_fs_max;
-            }
+            math_fs = frequencyVariable ? math_fs_eval[m, n] : math_fs_max;
+            math_qZVS = checkZVSOn ? math_qZVS_eval[m, n] : 0;
         }
 
         /// <summary>
         /// 设置电路参数（损耗不均衡）
         /// </summary>
-        /// <param name="Vsw">开关电压</param>
+        /// <param name="Vsw">开通/关断电压</param>
         /// <param name="iUp">上管电流波形</param>
         /// <param name="iDown">下管电流波形</param>
         /// <param name="fs">开关频率</param>
         public void SetParameters(double Vsw, Curve iUp, Curve iDown, double fs)
         {
             math_Vsw = Vsw;
+            curve_iUp = iUp;
+            curve_iDown = iDown;
+            math_fs = fs;
+        }
+
+        /// <summary>
+        /// 设置电路参数（损耗不均衡）
+        /// </summary>
+        /// <param name="Vsw">开通/关断电压</param>
+        /// <param name="qZVS">ZVS开通电荷量</param>
+        /// <param name="iUp">上管电流波形</param>
+        /// <param name="iDown">下管电流波形</param>
+        /// <param name="fs">开关频率</param>
+        public void SetParameters(double Vsw, double qZVS, Curve iUp, Curve iDown, double fs)
+        {
+            math_Vsw = Vsw;
+            math_qZVS = qZVS;
             curve_iUp = iUp;
             curve_iDown = iDown;
             math_fs = fs;
@@ -323,26 +375,41 @@ namespace PV_analysis.Components
                 }
                 else //t1≠t2时，只有通态损耗
                 {
-                    if (Function.GE(i1, 0) && Function.GE(i2, 0)) //电流都不为负时，为主管通态损耗
+                    if (Function.GT(i1, 0) && Function.GT(i2, 0)) //电流都为正时，为主管通态损耗
                     {
                         PTcon += CalcPTcon_Module(t1, i1, t2, i2); //计算主管通态损耗
                     }
-                    else if (Function.LE(i1, 0) && Function.LE(i2, 0)) //电流都不为正时，为反并二极管通态损耗
+                    else if (Function.LT(i1, 0) && Function.LT(i2, 0)) //电流都为负时，为反并二极管通态损耗
                     {
                         PDcon += CalcPDcon_Module(t1, i1, t2, i2); //计算反并二极管通态损耗
                     }
-                    else //电流一正一负时，既包含主管通态损耗，又包含反并二极管通态损耗
+                    else //电流不是同号时，有开关过程
                     {
                         double z = (i1 * t2 - i2 * t1) / (i1 - i2); //计算过零点
-                        if (i1 > 0) //i1>0时，主管先为导通状态
+                        if (Function.GT(i1, 0)) //i1>0时，主管先为导通状态
                         {
-                            PTcon += CalcPTcon_Module(t1, i1, z, 0);
-                            PDcon += CalcPDcon_Module(z, 0, t2, i2);
+                            if (!Function.EQ(t1, z))
+                            {
+                                PTcon += CalcPTcon_Module(t1, i1, z, 0);
+                                Poff += CalcPoff_Module(0);
+                            }
+                            if (!Function.EQ(z, t2))
+                            {
+                                PDcon += CalcPDcon_Module(z, 0, t2, i2);
+                            }
                         }
                         else //否则i2>0，反并二极管先为导通状态
                         {
-                            PDcon += CalcPDcon_Module(t1, i1, z, 0);
-                            PTcon += CalcPTcon_Module(z, 0, t2, i2);
+                            if (!Function.EQ(t1, z))
+                            {
+                                PDcon += CalcPDcon_Module(t1, i1, z, 0);
+                                Prr += CalcPrr_Module(0);
+                            }
+                            if (!Function.EQ(z, t2))
+                            {
+                                Pon += CalcPon_Module(0);
+                                PTcon += CalcPTcon_Module(z, 0, t2, i2);
+                            }
                         }
                     }
                 }
@@ -382,14 +449,23 @@ namespace PV_analysis.Components
         /// <returns>计算结果</returns>
         private double CalcPon_Module(double Ion)
         {
-            //忽略电流极小的情况
             if (!Function.BigEnough(Ion))
             {
-                return 0;
+                //忽略电流极小且不考虑ZVS的情况
+                if (!checkZVSOn)
+                {
+                    return 0;
+                }
+                double Cs = (Data.SemiconductorList[device].Math_Coss - Data.SemiconductorList[device].Math_Crss) * 1e-12;
+                double V = Math.Max(math_Vsw - math_qZVS / Cs, 0);
+                return math_fs * 0.5 * Cs * V * V;
             }
-            //根据开通电流查表得到对应损耗
-            int id = Data.SemiconductorList[device].Id_Eon;
-            return math_fs * math_Vsw / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Ion) * 1e-3;
+            else
+            {
+                //根据开通电流查表得到对应损耗
+                int id = Data.SemiconductorList[device].Id_Eon;
+                return math_fs * math_Vsw / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Ion) * 1e-3;
+            }
         }
 
         /// <summary>

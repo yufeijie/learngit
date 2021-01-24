@@ -338,15 +338,15 @@ namespace PV_analysis.Components
         /// <returns>计算结果</returns>
         private double CalcPrr_Module(double Ioff)
         {
-            if (Data.SemiconductorList[device].Category.Equals("Diode-Module (No Err)"))
-            {
-                Console.WriteLine("Diode-Module (No Err)类器件无法计算反向恢复损耗！");
-                Environment.Exit(-1);
-            }
             //忽略电流极小的情况
             if (!Function.BigEnough(Ioff))
             {
                 return 0;
+            }
+            if (Data.SemiconductorList[device].Category.Equals("Diode-Module (No Err)"))
+            {
+                Console.WriteLine("Diode-Module (No Err)类器件无法计算反向恢复损耗！");
+                Environment.Exit(-1);
             }
             //根据关断电流查表得到对应损耗
             int id = Data.SemiconductorList[device].Id_Err;

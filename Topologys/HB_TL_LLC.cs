@@ -16,11 +16,11 @@ namespace PV_analysis.Topologys
         private double math_Vo; //输出电压预设值
         private int math_No; //副边个数
         private double math_fs; //开关频率
-        private double math_Td; //死区时间
         private double math_Q; //品质因数
         private double math_k; //电感比Lm/Lr
         private double math_b = 2; //桥臂系数，半桥为2，全桥为1
         private double math_p = 2; //电平系数，三电平为2，两电平为1
+        private double math_Tdead; //死区时间
 
         //主电路元件参数
         private double math_VSpmax; //原边开关器件电压应力
@@ -49,6 +49,7 @@ namespace PV_analysis.Topologys
         private Curve curve_iCf; //滤波电容电流波形
         private Curve curve_iLm; //励磁电感波形
         private Curve curve_iTs; //变压器副边电流波形
+        private double math_qZVS; //ZVS开通电荷量（在死区时间内给开关管的结电容充放电），用于判断是否实现ZVS on
 
         //元器件
         private DualModule primaryDualModule;
@@ -73,9 +74,9 @@ namespace PV_analysis.Topologys
             math_Vo = converter.Math_Vo;
             math_No = converter.Math_No;
             math_fs = converter.Math_fs;
-            math_Td = math_fs < Configuration.SIC_SELECTION_FREQUENCY ? Configuration.IGBT_DEAD_TIME : Configuration.MOSFET_DEAD_TIME;
             math_Q = converter.Math_Q;
             math_k = converter.Math_k;
+            math_Tdead = math_fs < Configuration.SIC_SELECTION_FREQUENCY ? Configuration.IGBT_DEAD_TIME : Configuration.MOSFET_DEAD_TIME;
 
             //初始化元器件
             primaryDualModule = new DualModule(2)
@@ -151,7 +152,7 @@ namespace PV_analysis.Topologys
             double Vo = math_Vo;
             double No = math_No;
             double fs = math_fs;
-            double Td = math_Td;
+            double Td = math_Tdead;
             double Q = math_Q;
             double k = math_k;
             double b = math_b;
@@ -190,7 +191,7 @@ namespace PV_analysis.Topologys
             double Vo = math_Vo;
             double No = math_No;
             double fs = math_fs;
-            double Td = math_Td;
+            double Td = math_Tdead;
             double n = math_n;
             double fr = math_fr;
             double Lr = math_Lr;
@@ -219,6 +220,7 @@ namespace PV_analysis.Topologys
             double VCrmax = ILrmax * Zr - Vab + Vtp; //谐振电容电压最大值
 
             math_ITsmax = 0;
+            math_qZVS = 0;
             double startTime = 0;
             double endTime = Ts;
             double dt = (endTime - startTime) / Configuration.DEGREE;
@@ -250,6 +252,10 @@ namespace PV_analysis.Topologys
                 }
                 iLr = iLr > iLm ? iLr : iLm; //修正轻载
                 iTs = n / No * (iLr - iLm);
+                if (t <= Td)
+                {
+                    math_qZVS += -iLr * dt * p / b;
+                }
                 iLm *= q;
                 iLr *= q;
                 vCr *= q;
@@ -360,7 +366,7 @@ namespace PV_analysis.Topologys
                 ITsmax = Math.Max(ITsmax, math_ITsmax);
 
                 //设置元器件的电路参数（用于评估）
-                primaryDualModule.AddEvalParameters(0, j, math_vSp, curve_iSp, curve_iSp);
+                primaryDualModule.AddEvalParameters(0, j, math_vSp, math_qZVS, curve_iSp, curve_iSp);
                 secondaryDualDiodeModule.AddEvalParameters(0, j, math_vSs, curve_iSs, curve_iSs);
                 resonantInductor.AddEvalParameters(0, j, math_ILrrms, math_ILrmax * 2);
                 transformer.AddEvalParameters(0, j, math_ILrrms, math_ITsrms);
@@ -396,7 +402,7 @@ namespace PV_analysis.Topologys
             math_P = converter.Math_P;
             Simulate();
             //设置元器件的电路参数
-            primaryDualModule.SetParameters(math_vSp, curve_iSp, curve_iSp, math_fs);
+            primaryDualModule.SetParameters(math_vSp, math_qZVS, curve_iSp, curve_iSp, math_fs);
             secondaryDualDiodeModule.SetParameters(math_vSs, curve_iSs, curve_iSs, math_fs);
             resonantInductor.SetParameters(math_ILrrms, math_ILrmax * 2, math_fs);
             transformer.SetParameters(math_ILrrms, math_ITsrms, math_fs, math_ψ);

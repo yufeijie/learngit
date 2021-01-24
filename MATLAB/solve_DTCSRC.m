@@ -1,16 +1,17 @@
-function x = solve_DTCSRC(Q_, M_)
-global Q M
+function x = solve_DTCSRC(Q_, M_, Tdead_)
+global Q M Tdead
 Q = Q_;
 M = M_;
+Tdead = Tdead_;
 opt = optimset('Display', 'off');
 x = fsolve(@functionSRC, [0.1 1], opt);
 end
 
 function F = functionSRC(x)
-global Q M
+global Q M Tdead
 Td = x(1); fs = x(2);
 F = [M-Mgain(Td, fs, Q);
-     Td+B(Td, fs, Q, M)*fs/(2*pi)-0.5];
+     Td+Tdead*fs+B(Td, fs, Q, M)*fs/(2*pi)-0.5];
 end
 
 function re = B(Td, fs, Q, M)

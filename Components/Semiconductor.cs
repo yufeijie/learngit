@@ -16,6 +16,9 @@ namespace PV_analysis.Components
         protected static readonly double math_Tj_max = Configuration.MAX_JUNCTION_TEMPERATURE;//最高结温
         protected static readonly double math_Th_max = Configuration.MAX_HEATSINK_TEMPERATURE; //散热器允许最高温度
 
+        //特殊参数
+        protected bool checkZVSOn = false; //是否检查ZVS开通（默认不检查）
+
         //器件参数
         protected int device; //开关器件编号
 

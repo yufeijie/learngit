@@ -10,9 +10,6 @@ namespace PV_analysis.Topologys
     {
         private IsolatedDCDCConverter converter; //所属变换器
 
-        //特殊参数
-        private bool isLeakageInductanceIntegrated = true; //是否认为谐振电感集成在变压器中
-
         //给定参数
         private double math_Vinmin; //输入电压最小值
         private double math_Vinmax; //输入电压最大值
@@ -20,7 +17,8 @@ namespace PV_analysis.Topologys
         private double math_Vo; //输出电压
         private double math_Q; //品质因数
         private double math_fr; //谐振频率
-        
+        private double math_Tdead; //死区时间
+
         //主电路元件参数
         private double math_fs; //开关频率
         private double math_ψ; //磁链
@@ -42,6 +40,7 @@ namespace PV_analysis.Topologys
         private Curve curve_iL; //谐振电感电流波形
         private Curve curve_vCr; //谐振电容电压波形
         private Curve curve_iCf; //滤波电容电流波形
+        private double math_qZVS; //ZVS开通电荷量（在死区时间内给开关管的结电容充放电），用于判断是否实现ZVS on
 
         //元器件
         private DualModule primaryDualModule;
@@ -66,6 +65,7 @@ namespace PV_analysis.Topologys
             math_Vo = converter.Math_Vo;
             math_Q = converter.Math_Q;
             math_fr = converter.Math_fs; //以开关频率作为谐振频率
+            math_Tdead = math_fs < Configuration.SIC_SELECTION_FREQUENCY ? Configuration.IGBT_DEAD_TIME : Configuration.MOSFET_DEAD_TIME;
 
             //初始化元器件
             primaryDualModule = new DualModule(2)
@@ -96,9 +96,9 @@ namespace PV_analysis.Topologys
             {
                 Name = "滤波电容"
             };
+
             componentGroups = new Component[1][];
-            
-            if (isLeakageInductanceIntegrated)
+            if (Configuration.IS_RESONANT_INDUCTANCE_INTEGRATED)
             {
                 componentGroups[0] = new Component[] { primaryDualModule, single, secondaryDualDiodeModule, transformer, resonantCapacitor, filteringCapacitor };
                 components = new Component[] { primaryDualModule, single, secondaryDualDiodeModule, transformer, resonantCapacitor, filteringCapacitor };
@@ -164,7 +164,7 @@ namespace PV_analysis.Topologys
             double fbase = fr;
 
             //求解Td和fs
-            MWArray output = Formula.solve.solve_DTCSRC(Q, M);
+            MWArray output = Formula.solve.solve_DTCSRC(Q, M, math_Tdead * fbase);
             MWNumericArray result = (MWNumericArray)output;
             double Td_base = result[1].ToScalarDouble();
             double fs_base = result[2].ToScalarDouble();
@@ -196,6 +196,9 @@ namespace PV_analysis.Topologys
             
             int mode = Formula.DTC_SRC_CCMflag(Td_base, fs_base, Q, M); //电流导通模式 0->DCM 1->CCM            
 
+            math_qZVS = 0;
+            double Td = Tbase * Td_base;
+            double Te2 = Tbase * Formula.DTC_SRC_Te2(Td_base, fs_base, Q, M, mode);
             double ILp = 0;
             double VCrp = 0;
             curve_iL = new Curve();
@@ -210,13 +213,15 @@ namespace PV_analysis.Topologys
                 double vCr = Formula.DTC_SRC_vcr(t, Td_base, fs_base, Q, M, mode);
                 curve_iL.Add(Tbase * t, Ibase * iLr);
                 curve_vCr.Add(Tbase * t, Vbase * vCr);
+                if (Function.LE(Te2 / Tbase, t) && Function.LE(t, 0.5))
+                {
+                    math_qZVS += iLr * dt * Tbase;
+                }
                 //记录峰值
                 ILp = Math.Max(ILp, Math.Abs(Ibase * iLr));
                 VCrp = Math.Max(VCrp, Math.Abs(Vbase * vCr));
             }
             //补充特殊点（保证现有的开关器件损耗计算中，判断开通/关断/导通状态的部分正确） FIXME 更好的方法？
-            double Td = Tbase * Td_base;
-            double Te2 = Tbase * Formula.DTC_SRC_Te2(Td_base, fs_base, Q, M, mode);
             curve_iL.Order(0, 0);
             curve_iL.Order(Ts / 2, 0);
             //生成主电路元件波形
@@ -260,17 +265,21 @@ namespace PV_analysis.Topologys
             //得到用于效率评估的不同输入电压与不同功率点的电路参数
             for (int i = 0; i < m; i++)
             {
+                //Graph graph1 = new Graph();
+                //Graph graph2 = new Graph();
+                //Graph graph3 = new Graph();
+                //Graph graph4 = new Graph();
+                //Graph graph5 = new Graph();
                 math_Vin = math_Vinmin + (math_Vinmax - math_Vinmin) * Configuration.voltageRatio[i];
                 for (int j = 0; j < n; j++)
                 {
                     math_P = math_Pfull * Configuration.powerRatio[j]; //改变负载
                     Simulate();
-                    //Graph graph = new Graph();
-                    //graph.Add(curve_iL, "iL");
-                    //graph.Add(curve_iSp, "iP");
-                    //graph.Add(curve_iSs, "iS");
-                    //graph.Add(curve_iDs, "iD");
-                    //graph.Draw();
+                    //graph1.Add(curve_iL, "iLr");
+                    //graph2.Add(curve_iSp, "iSp");
+                    //graph3.Add(curve_iSs, "iSs");
+                    //graph4.Add(curve_iDs, "iDs");
+                    //graph5.Add(curve_vCr, "vCr");
                     //记录最大值
                     ILmax = Math.Max(ILmax, math_ILp);
                     ILrms_max = Math.Max(ILrms_max, math_ILrms);
@@ -280,7 +289,7 @@ namespace PV_analysis.Topologys
                     ψmax = Math.Max(ψmax, math_ψ);
 
                     //设置元器件的电路参数（用于评估）
-                    primaryDualModule.AddEvalParameters(i, j, math_vSp, curve_iSp, curve_iSp, math_fs);
+                    primaryDualModule.AddEvalParameters(i, j, math_vSp, math_qZVS, curve_iSp, curve_iSp, math_fs);
                     single.AddEvalParameters(i, j, math_vSs, curve_iSs, math_fs);
                     secondaryDualDiodeModule.AddEvalParameters(i, j, math_vDs, curve_iDs, curve_iDs, math_fs);
                     resonantInductor.AddEvalParameters(i, j, math_ILrms, math_ILp * 2, math_fs);
@@ -288,6 +297,11 @@ namespace PV_analysis.Topologys
                     resonantCapacitor.AddEvalParameters(i, j, math_ILrms);
                     filteringCapacitor.AddEvalParameters(i, j, math_ICfrms);
                 }
+                //graph1.Draw();
+                //graph2.Draw();
+                //graph3.Draw();
+                //graph4.Draw();
+                //graph5.Draw();
             }
 
             //若认为谐振电感集成在变压器中，则不考虑额外谐振电感
@@ -315,7 +329,7 @@ namespace PV_analysis.Topologys
             math_Vin = converter.Math_Vin;
             Simulate();
             //设置元器件的电路参数
-            primaryDualModule.SetParameters(math_vSp, curve_iSp, curve_iSp, math_fs);
+            primaryDualModule.SetParameters(math_vSp, math_qZVS, curve_iSp, curve_iSp, math_fs);
             single.SetParameters(math_vSs, curve_iSs, math_fs);
             secondaryDualDiodeModule.SetParameters(math_vDs, curve_iDs, curve_iDs, math_fs);
             resonantInductor.SetParameters(math_ILrms, math_ILp * 2, math_fs);
