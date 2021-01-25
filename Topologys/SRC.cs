@@ -281,7 +281,7 @@ namespace PV_analysis.Topologys
                     iLr = A2 * Math.Sin(wr * t + φ2);
                     vCr = -A2 * Zr * Math.Cos(wr * t + φ2) + Vin - n * Vo_act;
                 }
-                if (t <= Td)
+                if (Function.LE(startTime + dt * i, Td))
                 {
                     math_qZVS += -iLr * dt;
                 }
@@ -394,7 +394,7 @@ namespace PV_analysis.Topologys
                 //设置元器件的电路参数（用于评估）
                 primaryDualModule.AddEvalParameters(0, j, math_vSp, math_qZVS, curve_iSp, curve_iSp);
                 secondaryDualDiodeModule.AddEvalParameters(0, j, math_vSs, curve_iSs, curve_iSs);
-                primarySingleIGBT.AddEvalParameters(0, j, math_vSp, curve_iSp);
+                primarySingleIGBT.AddEvalParameters(0, j, math_vSp, math_qZVS, curve_iSp);
                 secondarySingleIGBT.AddEvalParameters(0, j, math_vSs, curve_iSs.Copy(-1));
                 resonantInductor.AddEvalParameters(0, j, math_ILrrms, math_ILrmax * 2);
                 transformer.AddEvalParameters(0, j, math_ILrrms, math_ILrrms * math_n / math_No);
@@ -432,7 +432,7 @@ namespace PV_analysis.Topologys
             //设置元器件的电路参数
             primaryDualModule.SetParameters(math_vSp, math_qZVS, curve_iSp, curve_iSp, math_fs);
             secondaryDualDiodeModule.SetParameters(math_vSs, curve_iSs, curve_iSs, math_fs);
-            primarySingleIGBT.SetParameters(math_vSp, curve_iSp, math_fs);
+            primarySingleIGBT.SetParameters(math_vSp, math_qZVS, curve_iSp, math_fs);
             secondarySingleIGBT.SetParameters(math_vSs, curve_iSs.Copy(-1), math_fs);
             resonantInductor.SetParameters(math_ILrrms, math_ILrmax * 2, math_fs);
             transformer.SetParameters(math_ILrrms, math_ILrrms * math_n / math_No, math_fs, math_ψ);

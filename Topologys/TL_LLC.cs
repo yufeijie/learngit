@@ -252,7 +252,7 @@ namespace PV_analysis.Topologys
                 }
                 iLr = iLr > iLm ? iLr : iLm; //修正轻载
                 iTs = n / No * (iLr - iLm);
-                if (t <= Td)
+                if (Function.LE(startTime + dt * i, Td))
                 {
                     math_qZVS += -iLr * dt * p / b;
                 }
