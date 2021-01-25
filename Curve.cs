@@ -122,18 +122,18 @@ namespace PV_analysis
                 {
                     value = 0;
                 }
-                double x = this.MySolve(a, b, l, r);
+                double x = MySolve(a, b, l, r);
                 if (double.IsNaN(x) || Function.EQ(x, l) || Function.EQ(x, r))
                 {
-                    this.Add(l, value);
-                    this.Add(r, value);
+                    Add(l, value);
+                    Add(r, value);
                 }
                 else
                 {
-                    this.Add(l, value);
-                    this.Add(x, value);
-                    this.Add(x, 1 - value);
-                    this.Add(r, 1 - value);
+                    Add(l, value);
+                    Add(x, value);
+                    Add(x, 1 - value);
+                    Add(r, 1 - value);
                 }
 
                 l = r;
@@ -173,7 +173,7 @@ namespace PV_analysis
             {
                 if (Function.EQ(p.X, q.X))
                 {
-                    this.Add(p.X, (p.Y - q.Y) * Vin);
+                    Add(p.X, (p.Y - q.Y) * Vin);
                     p = p.Next;
                     q = q.Next;
                 }
@@ -181,12 +181,12 @@ namespace PV_analysis
                 {
                     if (p.X < q.X)
                     {
-                        this.Add(p.X, (p.Y - q.Y) * Vin);
+                        Add(p.X, (p.Y - q.Y) * Vin);
                         p = p.Next;
                     }
                     else
                     {
-                        this.Add(q.X, (p.Y - q.Y) * Vin);
+                        Add(q.X, (p.Y - q.Y) * Vin);
                         q = q.Next;
                     }
                 }
@@ -254,10 +254,10 @@ namespace PV_analysis
                 Point r = l.Next;
                 if (!Function.EQ(l.Y, r.Y))
                 {
-                    return Double.NaN;
+                    return double.NaN;
                 }
                 double x = MySolve(g2, l.X, r.X, l.Y);
-                if (Double.IsNaN(x) || Function.EQ(x, l.X) || Function.EQ(x, r.X))
+                if (double.IsNaN(x) || Function.EQ(x, l.X) || Function.EQ(x, r.X))
                 {
                     inductance = Math.Max(inductance, Math.Abs(l.Y - g2.GetValue((l.X + r.X) / 2)) * (r.X - l.X) / currentRippleMax);
                 }
@@ -272,25 +272,25 @@ namespace PV_analysis
             l = g1.Head;
 
             double c = 0;
-            this.Add(l.X, c);
+            Add(l.X, c + GetValue(l.X));
             while (l != null)
             {
                 Point r = l.Next;
                 double x = MySolve(g2, l.X, r.X, l.Y);
-                if (Double.IsNaN(x) || Function.EQ(x, l.X) || Function.EQ(x, r.X))
+                if (double.IsNaN(x) || Function.EQ(x, l.X) || Function.EQ(x, r.X))
                 {
                     double dc = (l.Y - g2.GetValue((l.X + r.X) / 2)) * (r.X - l.X) / inductance;
                     c += dc;
-                    this.Add(r.X, c);
+                    Add(r.X, c + GetValue(r.X));
                 }
                 else
                 {
                     double dc = (l.Y - g2.GetValue((l.X + x) / 2)) * (x - l.X) / inductance;
                     c += dc;
-                    this.Add(x, c);
+                    Add(x, c + GetValue(x));
                     dc = (r.Y - g2.GetValue((x + r.X) / 2)) * (r.X - x) / inductance;
                     c += dc;
-                    this.Add(r.X, c);
+                    Add(r.X, c + GetValue(r.X));
                 }
                 l = r.Next;
             }
@@ -428,6 +428,21 @@ namespace PV_analysis
             {
                 return r;
             }
+        }
+
+        /// <summary>
+        /// 获取曲线中纵坐标绝对值的最大值
+        /// </summary>
+        public double Max()
+        {
+            double value = 0;
+            Point point = Head;
+            while(point != null)
+            {
+                value = Math.Max(value, Math.Abs(point.Y));
+                point = point.Next;
+            }
+            return value;
         }
 
         /// <summary>

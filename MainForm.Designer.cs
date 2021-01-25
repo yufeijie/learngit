@@ -117,6 +117,10 @@
             this.Estimate_Step3_DCACFrequency_Label = new System.Windows.Forms.Label();
             this.Estimate_Step3_DCACFrequency_TextBox = new System.Windows.Forms.TextBox();
             this.Estimate_Step3_DCACFrequency_Unit_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3_DCACModulation_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step3_DCACModulation_LSPWM_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step3_DCACModulation_PSPWM_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step3_DCACModulation_Label = new System.Windows.Forms.Label();
             this.Estimate_Step3_DCACMa_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step3_DCACMa_Symbol_Label = new System.Windows.Forms.Label();
             this.Estimate_Step3_DCACMamax_TextBox = new System.Windows.Forms.TextBox();
@@ -346,6 +350,10 @@
             this.Estimate_Step3B_Secondary_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step3B_Secondary_TextBox = new System.Windows.Forms.TextBox();
             this.Estimate_Step3B_Secondary_Label = new System.Windows.Forms.Label();
+            this.Estimate_Step3B_Modulation_Panel = new System.Windows.Forms.Panel();
+            this.Estimate_Step3B_Modulation_LSPWM_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step3B_Modulation_PSPWM_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Estimate_Step3B_Modulation_Label = new System.Windows.Forms.Label();
             this.Estimate_Step3B_Ma_Panel = new System.Windows.Forms.Panel();
             this.Estimate_Step3B_Ma_Symbol_Label = new System.Windows.Forms.Label();
             this.Estimate_Step3B_Mamax_TextBox = new System.Windows.Forms.TextBox();
@@ -443,6 +451,7 @@
             this.Estimate_Step3_Panel.SuspendLayout();
             this.Estimate_Step3_Main_Panel.SuspendLayout();
             this.Estimate_Step3_DCACFrequency_Panel.SuspendLayout();
+            this.Estimate_Step3_DCACModulation_Panel.SuspendLayout();
             this.Estimate_Step3_DCACMa_Panel.SuspendLayout();
             this.Estimate_Step3_DCAC_Panel.SuspendLayout();
             this.Estimate_Step3_IsolatedDCDCk_Panel.SuspendLayout();
@@ -522,6 +531,7 @@
             this.Estimate_Step3B_Frequency_Panel.SuspendLayout();
             this.Estimate_Step3B_Number_Panel.SuspendLayout();
             this.Estimate_Step3B_Secondary_Panel.SuspendLayout();
+            this.Estimate_Step3B_Modulation_Panel.SuspendLayout();
             this.Estimate_Step3B_Ma_Panel.SuspendLayout();
             this.Estimate_Step3B_Vo_Panel.SuspendLayout();
             this.Estimate_Step3B_Vin_Panel.SuspendLayout();
@@ -1557,6 +1567,7 @@
             this.Estimate_Step3_Main_Panel.AutoScroll = true;
             this.Estimate_Step3_Main_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Estimate_Step3_Main_Panel.Controls.Add(this.Estimate_Step3_DCACFrequency_Panel);
+            this.Estimate_Step3_Main_Panel.Controls.Add(this.Estimate_Step3_DCACModulation_Panel);
             this.Estimate_Step3_Main_Panel.Controls.Add(this.Estimate_Step3_DCACMa_Panel);
             this.Estimate_Step3_Main_Panel.Controls.Add(this.Estimate_Step3_DCAC_Panel);
             this.Estimate_Step3_Main_Panel.Controls.Add(this.Estimate_Step3_IsolatedDCDCk_Panel);
@@ -1588,7 +1599,7 @@
             this.Estimate_Step3_DCACFrequency_Panel.Controls.Add(this.Estimate_Step3_DCACFrequency_TextBox);
             this.Estimate_Step3_DCACFrequency_Panel.Controls.Add(this.Estimate_Step3_DCACFrequency_Unit_Label);
             this.Estimate_Step3_DCACFrequency_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3_DCACFrequency_Panel.Location = new System.Drawing.Point(0, 830);
+            this.Estimate_Step3_DCACFrequency_Panel.Location = new System.Drawing.Point(0, 875);
             this.Estimate_Step3_DCACFrequency_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3_DCACFrequency_Panel.Name = "Estimate_Step3_DCACFrequency_Panel";
             this.Estimate_Step3_DCACFrequency_Panel.Size = new System.Drawing.Size(1413, 45);
@@ -1626,6 +1637,55 @@
             this.Estimate_Step3_DCACFrequency_Unit_Label.TabIndex = 43;
             this.Estimate_Step3_DCACFrequency_Unit_Label.Text = "kHz";
             this.Estimate_Step3_DCACFrequency_Unit_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3_DCACModulation_Panel
+            // 
+            this.Estimate_Step3_DCACModulation_Panel.Controls.Add(this.Estimate_Step3_DCACModulation_LSPWM_CheckBox);
+            this.Estimate_Step3_DCACModulation_Panel.Controls.Add(this.Estimate_Step3_DCACModulation_PSPWM_CheckBox);
+            this.Estimate_Step3_DCACModulation_Panel.Controls.Add(this.Estimate_Step3_DCACModulation_Label);
+            this.Estimate_Step3_DCACModulation_Panel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Estimate_Step3_DCACModulation_Panel.Location = new System.Drawing.Point(0, 830);
+            this.Estimate_Step3_DCACModulation_Panel.Margin = new System.Windows.Forms.Padding(0);
+            this.Estimate_Step3_DCACModulation_Panel.Name = "Estimate_Step3_DCACModulation_Panel";
+            this.Estimate_Step3_DCACModulation_Panel.Size = new System.Drawing.Size(1413, 45);
+            this.Estimate_Step3_DCACModulation_Panel.TabIndex = 80;
+            // 
+            // Estimate_Step3_DCACModulation_LSPWM_CheckBox
+            // 
+            this.Estimate_Step3_DCACModulation_LSPWM_CheckBox.AutoSize = true;
+            this.Estimate_Step3_DCACModulation_LSPWM_CheckBox.Checked = true;
+            this.Estimate_Step3_DCACModulation_LSPWM_CheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Estimate_Step3_DCACModulation_LSPWM_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F);
+            this.Estimate_Step3_DCACModulation_LSPWM_CheckBox.Location = new System.Drawing.Point(517, 8);
+            this.Estimate_Step3_DCACModulation_LSPWM_CheckBox.Name = "Estimate_Step3_DCACModulation_LSPWM_CheckBox";
+            this.Estimate_Step3_DCACModulation_LSPWM_CheckBox.Size = new System.Drawing.Size(102, 29);
+            this.Estimate_Step3_DCACModulation_LSPWM_CheckBox.TabIndex = 41;
+            this.Estimate_Step3_DCACModulation_LSPWM_CheckBox.Text = "LSPWM";
+            this.Estimate_Step3_DCACModulation_LSPWM_CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Estimate_Step3_DCACModulation_PSPWM_CheckBox
+            // 
+            this.Estimate_Step3_DCACModulation_PSPWM_CheckBox.AutoSize = true;
+            this.Estimate_Step3_DCACModulation_PSPWM_CheckBox.Checked = true;
+            this.Estimate_Step3_DCACModulation_PSPWM_CheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Estimate_Step3_DCACModulation_PSPWM_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F);
+            this.Estimate_Step3_DCACModulation_PSPWM_CheckBox.Location = new System.Drawing.Point(380, 8);
+            this.Estimate_Step3_DCACModulation_PSPWM_CheckBox.Name = "Estimate_Step3_DCACModulation_PSPWM_CheckBox";
+            this.Estimate_Step3_DCACModulation_PSPWM_CheckBox.Size = new System.Drawing.Size(104, 29);
+            this.Estimate_Step3_DCACModulation_PSPWM_CheckBox.TabIndex = 40;
+            this.Estimate_Step3_DCACModulation_PSPWM_CheckBox.Text = "PSPWM";
+            this.Estimate_Step3_DCACModulation_PSPWM_CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Estimate_Step3_DCACModulation_Label
+            // 
+            this.Estimate_Step3_DCACModulation_Label.AutoSize = true;
+            this.Estimate_Step3_DCACModulation_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step3_DCACModulation_Label.Location = new System.Drawing.Point(166, 10);
+            this.Estimate_Step3_DCACModulation_Label.Name = "Estimate_Step3_DCACModulation_Label";
+            this.Estimate_Step3_DCACModulation_Label.Size = new System.Drawing.Size(107, 25);
+            this.Estimate_Step3_DCACModulation_Label.TabIndex = 39;
+            this.Estimate_Step3_DCACModulation_Label.Text = "调制方式：";
+            this.Estimate_Step3_DCACModulation_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Estimate_Step3_DCACMa_Panel
             // 
@@ -4010,6 +4070,7 @@
             this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Frequency_Panel);
             this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Number_Panel);
             this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Secondary_Panel);
+            this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Modulation_Panel);
             this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Ma_Panel);
             this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Vo_Panel);
             this.Estimate_Step3B_Main_Panel.Controls.Add(this.Estimate_Step3B_Vin_Panel);
@@ -4027,7 +4088,7 @@
             this.Estimate_Step3B_k_Panel.Controls.Add(this.Estimate_Step3B_k_TextBox);
             this.Estimate_Step3B_k_Panel.Controls.Add(this.Estimate_Step3B_k_Label);
             this.Estimate_Step3B_k_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3B_k_Panel.Location = new System.Drawing.Point(0, 455);
+            this.Estimate_Step3B_k_Panel.Location = new System.Drawing.Point(0, 500);
             this.Estimate_Step3B_k_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3B_k_Panel.Name = "Estimate_Step3B_k_Panel";
             this.Estimate_Step3B_k_Panel.Size = new System.Drawing.Size(1430, 45);
@@ -4060,7 +4121,7 @@
             this.Estimate_Step3B_Q_Panel.Controls.Add(this.Estimate_Step3B_Q_TextBox);
             this.Estimate_Step3B_Q_Panel.Controls.Add(this.Estimate_Step3B_Q_Label);
             this.Estimate_Step3B_Q_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3B_Q_Panel.Location = new System.Drawing.Point(0, 410);
+            this.Estimate_Step3B_Q_Panel.Location = new System.Drawing.Point(0, 455);
             this.Estimate_Step3B_Q_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3B_Q_Panel.Name = "Estimate_Step3B_Q_Panel";
             this.Estimate_Step3B_Q_Panel.Size = new System.Drawing.Size(1430, 45);
@@ -4094,7 +4155,7 @@
             this.Estimate_Step3B_Frequency_Panel.Controls.Add(this.Estimate_Step3B_Frequency_Label);
             this.Estimate_Step3B_Frequency_Panel.Controls.Add(this.Estimate_Step3B_Frequency_Unit_Label);
             this.Estimate_Step3B_Frequency_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3B_Frequency_Panel.Location = new System.Drawing.Point(0, 365);
+            this.Estimate_Step3B_Frequency_Panel.Location = new System.Drawing.Point(0, 410);
             this.Estimate_Step3B_Frequency_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3B_Frequency_Panel.Name = "Estimate_Step3B_Frequency_Panel";
             this.Estimate_Step3B_Frequency_Panel.Size = new System.Drawing.Size(1430, 45);
@@ -4138,7 +4199,7 @@
             this.Estimate_Step3B_Number_Panel.Controls.Add(this.Estimate_Step3B_Number_Label);
             this.Estimate_Step3B_Number_Panel.Controls.Add(this.Estimate_Step3B_Number_TextBox);
             this.Estimate_Step3B_Number_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3B_Number_Panel.Location = new System.Drawing.Point(0, 320);
+            this.Estimate_Step3B_Number_Panel.Location = new System.Drawing.Point(0, 365);
             this.Estimate_Step3B_Number_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3B_Number_Panel.Name = "Estimate_Step3B_Number_Panel";
             this.Estimate_Step3B_Number_Panel.Size = new System.Drawing.Size(1430, 45);
@@ -4171,7 +4232,7 @@
             this.Estimate_Step3B_Secondary_Panel.Controls.Add(this.Estimate_Step3B_Secondary_TextBox);
             this.Estimate_Step3B_Secondary_Panel.Controls.Add(this.Estimate_Step3B_Secondary_Label);
             this.Estimate_Step3B_Secondary_Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Estimate_Step3B_Secondary_Panel.Location = new System.Drawing.Point(0, 275);
+            this.Estimate_Step3B_Secondary_Panel.Location = new System.Drawing.Point(0, 320);
             this.Estimate_Step3B_Secondary_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Estimate_Step3B_Secondary_Panel.Name = "Estimate_Step3B_Secondary_Panel";
             this.Estimate_Step3B_Secondary_Panel.Size = new System.Drawing.Size(1430, 45);
@@ -4198,6 +4259,55 @@
             this.Estimate_Step3B_Secondary_Label.TabIndex = 54;
             this.Estimate_Step3B_Secondary_Label.Text = "副边个数：";
             this.Estimate_Step3B_Secondary_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Estimate_Step3B_Modulation_Panel
+            // 
+            this.Estimate_Step3B_Modulation_Panel.Controls.Add(this.Estimate_Step3B_Modulation_LSPWM_CheckBox);
+            this.Estimate_Step3B_Modulation_Panel.Controls.Add(this.Estimate_Step3B_Modulation_PSPWM_CheckBox);
+            this.Estimate_Step3B_Modulation_Panel.Controls.Add(this.Estimate_Step3B_Modulation_Label);
+            this.Estimate_Step3B_Modulation_Panel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Estimate_Step3B_Modulation_Panel.Location = new System.Drawing.Point(0, 275);
+            this.Estimate_Step3B_Modulation_Panel.Margin = new System.Windows.Forms.Padding(0);
+            this.Estimate_Step3B_Modulation_Panel.Name = "Estimate_Step3B_Modulation_Panel";
+            this.Estimate_Step3B_Modulation_Panel.Size = new System.Drawing.Size(1430, 45);
+            this.Estimate_Step3B_Modulation_Panel.TabIndex = 81;
+            // 
+            // Estimate_Step3B_Modulation_LSPWM_CheckBox
+            // 
+            this.Estimate_Step3B_Modulation_LSPWM_CheckBox.AutoSize = true;
+            this.Estimate_Step3B_Modulation_LSPWM_CheckBox.Checked = true;
+            this.Estimate_Step3B_Modulation_LSPWM_CheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Estimate_Step3B_Modulation_LSPWM_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F);
+            this.Estimate_Step3B_Modulation_LSPWM_CheckBox.Location = new System.Drawing.Point(517, 8);
+            this.Estimate_Step3B_Modulation_LSPWM_CheckBox.Name = "Estimate_Step3B_Modulation_LSPWM_CheckBox";
+            this.Estimate_Step3B_Modulation_LSPWM_CheckBox.Size = new System.Drawing.Size(102, 29);
+            this.Estimate_Step3B_Modulation_LSPWM_CheckBox.TabIndex = 41;
+            this.Estimate_Step3B_Modulation_LSPWM_CheckBox.Text = "LSPWM";
+            this.Estimate_Step3B_Modulation_LSPWM_CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Estimate_Step3B_Modulation_PSPWM_CheckBox
+            // 
+            this.Estimate_Step3B_Modulation_PSPWM_CheckBox.AutoSize = true;
+            this.Estimate_Step3B_Modulation_PSPWM_CheckBox.Checked = true;
+            this.Estimate_Step3B_Modulation_PSPWM_CheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Estimate_Step3B_Modulation_PSPWM_CheckBox.Font = new System.Drawing.Font("微软雅黑", 14.25F);
+            this.Estimate_Step3B_Modulation_PSPWM_CheckBox.Location = new System.Drawing.Point(380, 8);
+            this.Estimate_Step3B_Modulation_PSPWM_CheckBox.Name = "Estimate_Step3B_Modulation_PSPWM_CheckBox";
+            this.Estimate_Step3B_Modulation_PSPWM_CheckBox.Size = new System.Drawing.Size(104, 29);
+            this.Estimate_Step3B_Modulation_PSPWM_CheckBox.TabIndex = 40;
+            this.Estimate_Step3B_Modulation_PSPWM_CheckBox.Text = "PSPWM";
+            this.Estimate_Step3B_Modulation_PSPWM_CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Estimate_Step3B_Modulation_Label
+            // 
+            this.Estimate_Step3B_Modulation_Label.AutoSize = true;
+            this.Estimate_Step3B_Modulation_Label.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Estimate_Step3B_Modulation_Label.Location = new System.Drawing.Point(166, 10);
+            this.Estimate_Step3B_Modulation_Label.Name = "Estimate_Step3B_Modulation_Label";
+            this.Estimate_Step3B_Modulation_Label.Size = new System.Drawing.Size(107, 25);
+            this.Estimate_Step3B_Modulation_Label.TabIndex = 39;
+            this.Estimate_Step3B_Modulation_Label.Text = "调制方式：";
+            this.Estimate_Step3B_Modulation_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Estimate_Step3B_Ma_Panel
             // 
@@ -4796,11 +4906,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.Estimate_Step3B_Panel);
+            this.Controls.Add(this.Estimate_Step3_Panel);
+            this.Controls.Add(this.Estimate_Step2_Panel);
             this.Controls.Add(this.Home_Panel);
             this.Controls.Add(this.Setting_Panel);
-            this.Controls.Add(this.Estimate_Step3_Panel);
-            this.Controls.Add(this.Estimate_Step3B_Panel);
-            this.Controls.Add(this.Estimate_Step2_Panel);
             this.Controls.Add(this.Estimate_Ready_Panel);
             this.Controls.Add(this.Estimate_Step1B_Panel);
             this.Controls.Add(this.Estimate_Step1_Panel);
@@ -4881,6 +4991,8 @@
             this.Estimate_Step3_Main_Panel.ResumeLayout(false);
             this.Estimate_Step3_DCACFrequency_Panel.ResumeLayout(false);
             this.Estimate_Step3_DCACFrequency_Panel.PerformLayout();
+            this.Estimate_Step3_DCACModulation_Panel.ResumeLayout(false);
+            this.Estimate_Step3_DCACModulation_Panel.PerformLayout();
             this.Estimate_Step3_DCACMa_Panel.ResumeLayout(false);
             this.Estimate_Step3_DCACMa_Panel.PerformLayout();
             this.Estimate_Step3_DCAC_Panel.ResumeLayout(false);
@@ -4998,6 +5110,8 @@
             this.Estimate_Step3B_Number_Panel.PerformLayout();
             this.Estimate_Step3B_Secondary_Panel.ResumeLayout(false);
             this.Estimate_Step3B_Secondary_Panel.PerformLayout();
+            this.Estimate_Step3B_Modulation_Panel.ResumeLayout(false);
+            this.Estimate_Step3B_Modulation_Panel.PerformLayout();
             this.Estimate_Step3B_Ma_Panel.ResumeLayout(false);
             this.Estimate_Step3B_Ma_Panel.PerformLayout();
             this.Estimate_Step3B_Vo_Panel.ResumeLayout(false);
@@ -5397,6 +5511,14 @@
         private System.Windows.Forms.CheckBox Estimate_Step2_Group2_Item5_CheckBox;
         private System.Windows.Forms.PictureBox Estimate_Step2_Group2_Item5_PictureBox;
         private System.Windows.Forms.CheckBox Estimate_Step2_Group2_Item5_Left_CheckBox;
+        private System.Windows.Forms.Panel Estimate_Step3_DCACModulation_Panel;
+        private System.Windows.Forms.Label Estimate_Step3_DCACModulation_Label;
+        private System.Windows.Forms.CheckBox Estimate_Step3_DCACModulation_LSPWM_CheckBox;
+        private System.Windows.Forms.CheckBox Estimate_Step3_DCACModulation_PSPWM_CheckBox;
+        private System.Windows.Forms.Panel Estimate_Step3B_Modulation_Panel;
+        private System.Windows.Forms.CheckBox Estimate_Step3B_Modulation_LSPWM_CheckBox;
+        private System.Windows.Forms.CheckBox Estimate_Step3B_Modulation_PSPWM_CheckBox;
+        private System.Windows.Forms.Label Estimate_Step3B_Modulation_Label;
     }
 }
 

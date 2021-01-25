@@ -672,7 +672,15 @@ namespace PV_analysis
                 double DCAC_Ma_min = double.Parse(Estimate_Step3_DCACMamin_TextBox.Text); //最小电压调制比
                 double DCAC_Ma_max = double.Parse(Estimate_Step3_DCACMamax_TextBox.Text); //最大电压调制比
                 double DCAC_φ = Configuration.POWER_FACTOR_ANGLE; //功率因数角(rad)
-                string[] DCAC_modulationRange = { "PSPWM", "LSPWM" }; //DC/AC可用调制方式序列
+                List<string> modulationList = new List<string>();
+                foreach (Control control in Estimate_Step3_DCACModulation_Panel.Controls)
+                {
+                    if (control.GetType() == typeof(CheckBox) && ((CheckBox)control).Checked)
+                    {
+                        modulationList.Add(control.Text);
+                    }
+                }
+                string[] DCAC_modulationRange = modulationList.ToArray(); //DC/AC可用调制方式序列
                 double[] DCAC_frequencyRange = Function.StringToDoubleArray(Estimate_Step3_DCACFrequency_TextBox.Text, 1e3); //DC/AC可用开关频率序列
 
                 Formula.Init();
@@ -824,7 +832,15 @@ namespace PV_analysis
                         double Ma_min = double.Parse(Estimate_Step3B_Mamin_TextBox.Text);
                         double Ma_max = double.Parse(Estimate_Step3B_Mamax_TextBox.Text);
                         double φ = Configuration.POWER_FACTOR_ANGLE; //功率因数角(rad)
-                        string[] modulationRange = { "PSPWM", "LSPWM" };
+                        List<string> modulationList = new List<string>();
+                        foreach (Control control in Estimate_Step3B_Modulation_Panel.Controls)
+                        {
+                            if (control.GetType() == typeof(CheckBox) && ((CheckBox)control).Checked)
+                            {
+                                modulationList.Add(control.Text);
+                            }
+                        }
+                        string[] modulationRange = modulationList.ToArray(); //可用调制方式序列
                         evaluationEquipment = new DCACConverter()
                         {
                             Name = evaluationEquipmentName,
@@ -2312,6 +2328,7 @@ namespace PV_analysis
                             Estimate_Step3B_VinRange_Panel.Visible = true;
                             Estimate_Step3B_Vin_Panel.Visible = false;
                             Estimate_Step3B_Ma_Panel.Visible = false;
+                            Estimate_Step3B_Modulation_Panel.Visible = false;
                             Estimate_Step3B_Secondary_Panel.Visible = false;
                             Estimate_Step3B_Q_Panel.Visible = false;
                             Estimate_Step3B_k_Panel.Visible = false;
@@ -2330,6 +2347,7 @@ namespace PV_analysis
                             Estimate_Step3B_VinRange_Panel.Visible = false;
                             Estimate_Step3B_Vin_Panel.Visible = true;
                             Estimate_Step3B_Ma_Panel.Visible = false;
+                            Estimate_Step3B_Modulation_Panel.Visible = false;
                             Estimate_Step3B_Secondary_Panel.Visible = true;
                             Estimate_Step3B_k_Panel.Visible = true;//倒序设置，顺序显示
                             Estimate_Step3B_Q_Panel.Visible = true;
@@ -2374,6 +2392,7 @@ namespace PV_analysis
                             Estimate_Step3B_VinRange_Panel.Visible = true;
                             Estimate_Step3B_Vin_Panel.Visible = false;
                             Estimate_Step3B_Ma_Panel.Visible = false;
+                            Estimate_Step3B_Modulation_Panel.Visible = false;
                             Estimate_Step3B_Secondary_Panel.Visible = true;
                             Estimate_Step3B_k_Panel.Visible = true; //倒序设置，顺序显示
                             Estimate_Step3B_Q_Panel.Visible = true;
@@ -2394,19 +2413,34 @@ namespace PV_analysis
                         case "逆变单元":
                             Estimate_Step3B_VinRange_Panel.Visible = false;
                             Estimate_Step3B_Vin_Panel.Visible = true;
+                            Estimate_Step3B_Modulation_Panel.Visible = true;
                             Estimate_Step3B_Ma_Panel.Visible = true;
                             Estimate_Step3B_Secondary_Panel.Visible = false;
                             Estimate_Step3B_Q_Panel.Visible = false;
                             Estimate_Step3B_k_Panel.Visible = false;
 
-                            Estimate_Step3B_Vin_TextBox.Text = "1000";
+                            //默认值
+                            //Estimate_Step3B_Vin_TextBox.Text = "1000";
+                            //Estimate_Step3B_Vo_Label.Text = "并网电压";
+                            //Estimate_Step3B_Vo_TextBox.Text = "35";
+                            //Estimate_Step3B_Vo_Unit_Label.Text = "kV";
+                            //Estimate_Step3B_Mamin_TextBox.Text = "0.7";
+                            //Estimate_Step3B_Mamax_TextBox.Text = "0.9";
+                            //Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 40, 1);
+                            //Estimate_Step3B_Frequency_TextBox.Text = "1";
+
+                            //优化CHB
+                            Estimate_Step3B_Psys_TextBox.Text = "0.015";
+                            Estimate_Step3B_Vin_TextBox.Text = "750";
                             Estimate_Step3B_Vo_Label.Text = "并网电压";
-                            Estimate_Step3B_Vo_TextBox.Text = "35";
+                            Estimate_Step3B_Vo_TextBox.Text = (0.4 * Math.Sqrt(3)).ToString();
                             Estimate_Step3B_Vo_Unit_Label.Text = "kV";
                             Estimate_Step3B_Mamin_TextBox.Text = "0.7";
                             Estimate_Step3B_Mamax_TextBox.Text = "0.9";
-                            Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 40, 1);
-                            Estimate_Step3B_Frequency_TextBox.Text = "1";
+                            Estimate_Step3B_Modulation_PSPWM_CheckBox.Checked = true;
+                            Estimate_Step3B_Modulation_LSPWM_CheckBox.Checked = false;
+                            Estimate_Step3B_Number_TextBox.Text = Function.GenerateRangeToString(1, 1, 1);
+                            Estimate_Step3B_Frequency_TextBox.Text = "10";
 
                             DCAC_topologyRange = DCAC_topologyList.ToArray();
                             break;

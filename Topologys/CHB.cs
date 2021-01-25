@@ -13,7 +13,7 @@ namespace PV_analysis.Topologys
         private DCACConverter converter; //所属变换器
 
         //可选参数
-        //private double ratioCurrentRipple = 0.2; //电流纹波系数
+        private double ratioCurrentRipple = 0.5; //电流纹波系数
 
         //给定参数
         private int number; //模块数
@@ -35,10 +35,11 @@ namespace PV_analysis.Topologys
         private double[] curve_iS; //开关器件电流波形
         private double[,][] math_Ton_igbt; //Igbt开通时间
         private double[,][] math_Ton_diode; //Diode开通时间
-        
+
         //波形
-        //private Curve curve_Vg; //理想并网相电压波形
-        //private Curve curve_Votot; //总输出电压波形
+        private Curve iL; //电感电流波形
+        private Curve curve_Vg; //理想并网相电压波形
+        private Curve curve_Votot; //总输出电压波形
 
         //元器件
         private CHBModule semiconductor;
@@ -78,9 +79,18 @@ namespace PV_analysis.Topologys
                 VoltageVariable = false,
                 MultiNumber = number
             };
-            components = new Component[] { semiconductor, inductor };
+            
             componentGroups = new Component[1][];
-            componentGroups[0] = new Component[] { semiconductor, inductor };
+            if (Configuration.IS_GRID_CONNECTED_INDUCTOR_DESIGNED)
+            {
+                components = new Component[] { semiconductor, inductor };
+                componentGroups[0] = new Component[] { semiconductor, inductor };
+            }
+            else
+            {
+                components = new Component[] { semiconductor };
+                componentGroups[0] = new Component[] { semiconductor };
+            }
         }
 
         /// <summary>
@@ -102,58 +112,58 @@ namespace PV_analysis.Topologys
             math_VSmax = math_Vin;
 
             //生成输出电压波形
-            //int A = 1;
-            //curve_Vg = new Curve
-            //{
-            //    Category = "Sine",
-            //    Amplitude = Math.Sqrt(2) * math_Votot,
-            //    Frequency = math_fg,
-            //    InitialAngle = 0
-            //};
-            //curve_Votot = new Curve();
-            //Curve us = new Curve
-            //{
-            //    Name = "Us",
-            //    Category = "Sine",
-            //    Amplitude = A * math_Ma,
-            //    Frequency = math_fg,
-            //    InitialAngle = 0
-            //};
-            //Curve[,] uc = new Curve[number, 7];
+            int A = 1;
+            curve_Vg = new Curve
+            {
+                Category = "Sine",
+                Amplitude = Math.Sqrt(2) * math_Votot,
+                Frequency = math_fg,
+                InitialAngle = 0
+            };
+            curve_Votot = new Curve();
+            Curve us = new Curve
+            {
+                Name = "Us",
+                Category = "Sine",
+                Amplitude = A * math_Ma,
+                Frequency = math_fg,
+                InitialAngle = 0
+            };
+            Curve[,] uc = new Curve[number, 7];
 
             ////TODO 这里模拟的只是PSPWM的波形
-            //double phi = Math.PI;
-            //for (int i = 0; i < number; i++)
-            //{
-            //    uc[i, 1] = new Curve
-            //    {
-            //        Name = "Uc" + (i + 1),
-            //        Category = "Triangle",
-            //        Amplitude = A,
-            //        Frequency = math_fs,
-            //        InitialAngle = phi
-            //    };
-            //    uc[i, 2] = new Curve
-            //    {
-            //        Name = "Uc" + (i + 1) + "'",
-            //        Category = "Triangle",
-            //        Amplitude = A,
-            //        Frequency = math_fs,
-            //        InitialAngle = Math.PI + phi
-            //    };
-            //    uc[i, 3] = new Curve { Name = "g" + (i + 1) + "1" };
-            //    uc[i, 3].Compare(us, uc[i, 1], 0, 1 / math_fg);
-            //    uc[i, 5] = new Curve { Name = "g" + (i + 1) + "3" };
-            //    uc[i, 5].Compare(us, uc[i, 2], 0, 1 / math_fg);
-            //    uc[i, 4] = new Curve { Name = "g" + (i + 1) + "2" };
-            //    uc[i, 4].Not(uc[i, 5]);
-            //    uc[i, 6] = new Curve { Name = "g" + (i + 1) + "4" };
-            //    uc[i, 6].Not(uc[i, 3]);
-            //    uc[i, 0] = new Curve { Name = "Uo" + (i + 1) };
-            //    uc[i, 0].Drive(uc[i, 3], uc[i, 4], math_Vin);
-            //    curve_Votot.Plus(uc[i, 0]);
-            //    phi -= Math.PI / number;
-            //}
+            double phi = Math.PI;
+            for (int i = 0; i < number; i++)
+            {
+                uc[i, 1] = new Curve
+                {
+                    Name = "Uc" + (i + 1),
+                    Category = "Triangle",
+                    Amplitude = A,
+                    Frequency = math_fs,
+                    InitialAngle = phi
+                };
+                uc[i, 2] = new Curve
+                {
+                    Name = "Uc" + (i + 1) + "'",
+                    Category = "Triangle",
+                    Amplitude = A,
+                    Frequency = math_fs,
+                    InitialAngle = Math.PI + phi
+                };
+                uc[i, 3] = new Curve { Name = "g" + (i + 1) + "1" };
+                uc[i, 3].Compare(us, uc[i, 1], 0, 1 / math_fg);
+                uc[i, 5] = new Curve { Name = "g" + (i + 1) + "3" };
+                uc[i, 5].Compare(us, uc[i, 2], 0, 1 / math_fg);
+                uc[i, 4] = new Curve { Name = "g" + (i + 1) + "2" };
+                uc[i, 4].Not(uc[i, 5]);
+                uc[i, 6] = new Curve { Name = "g" + (i + 1) + "4" };
+                uc[i, 6].Not(uc[i, 3]);
+                uc[i, 0] = new Curve { Name = "Uo" + (i + 1) };
+                uc[i, 0].Drive(uc[i, 3], uc[i, 4], math_Vin);
+                curve_Votot.Plus(uc[i, 0]);
+                phi -= Math.PI / number;
+            }
 
             //Point[] data = curve_Votot.GetData();
             //Console.WriteLine("-----------" + curve_Votot.Name + "_x------------");
@@ -175,10 +185,20 @@ namespace PV_analysis.Topologys
             //graph.Draw();
 
             //得到输出电压波形与滤波电感感值
-            //Curve ioR = new Curve { Name = "Io_Ripple" };
-            //math_L = ioR.CreateCurrentRipple(curve_Votot, curve_Vg, Math.Sqrt(2) * math_Iorms * ratioCurrentRipple); //FIXME 电感对功率因素角的影响？
+            double Iorms = math_Pfull / (math_Vo * Math.Cos(math_φ));
+            iL = new Curve
+            {
+                Category = "Sine",
+                Amplitude = Math.Sqrt(2) * Iorms,
+                Frequency = math_fg,
+                InitialAngle = 0
+            };
+            math_L = iL.CreateCurrentRipple(curve_Votot, curve_Vg, Math.Sqrt(2) * math_Iorms * ratioCurrentRipple); //FIXME 电感对功率因素角的影响？
             //math_Iorip_rms = ioR.CalcRMS();
-            
+            Graph graph = new Graph();
+            graph.Add(iL, "iL");
+            graph.Draw();
+
             //		Curve ioR2 = new Curve("Io_Ripple'", "t(ms)", "I(A)");
             //		ioR2.turn(ioR);
             //		GraphXY graphWaveform2 = new GraphXY("Waveform2");
@@ -318,7 +338,7 @@ namespace PV_analysis.Topologys
 
             //设置元器件的设计条件
             double voltageStressSwitch = math_Vin;
-            double currentOutputPeak = Math.Sqrt(2) * math_Iorms; //TODO 纹波？
+            double currentOutputPeak = iL.Max();
             semiconductor.SetConditions(voltageStressSwitch, currentOutputPeak, math_fs);
             inductor.SetConditions(math_L, currentOutputPeak, math_fg);
         }

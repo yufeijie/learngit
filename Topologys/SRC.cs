@@ -113,7 +113,7 @@ namespace PV_analysis.Topologys
             };
 
             componentGroups = new Component[2][];
-            if (Configuration.IS_RESONANT_INDUCTANCE_INTEGRATED)
+            if (Configuration.IS_RESONANT_INDUCTOR_INTEGRATED)
             {
                 components = new Component[] { primaryDualModule, secondaryDualDiodeModule, primarySingleIGBT, secondarySingleIGBT, transformer, resonantCapacitor, filteringCapacitor };
                 componentGroups[0] = new Component[] { primaryDualModule, secondaryDualDiodeModule, transformer, resonantCapacitor, filteringCapacitor };
