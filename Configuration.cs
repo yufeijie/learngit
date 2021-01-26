@@ -25,10 +25,10 @@ namespace PV_analysis
 		public const double IGNORE = 1e-3; //小于该值则不计算开关损耗
 		public const double ERROR = 1e-12; //最小计算误差，小于该值则认为为0
 		public const double ERROR_BIG = 1e-8; //最小计算误差（数字较大），小于该值则认为为0
-		//LLC谐振电感设计
 		//可选参数
         public static readonly bool IS_RESONANT_INDUCTOR_INTEGRATED = false; //是否认为谐振电感集成在变压器中
 		public static readonly bool IS_GRID_CONNECTED_INDUCTOR_DESIGNED = false; //是否设计并网电抗器
+		public static readonly bool IS_COMPONENT_PARETO = false; //元器件设计时是否Pareto优化
 		//开关器件设计
 		public static readonly bool CAN_SELECT_SIC = true; //是否选用SiC器件
 		public const int MAX_SEMICONDUCTOR_NUM = 10; //开关器件并联数上限

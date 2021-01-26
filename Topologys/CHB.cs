@@ -195,9 +195,9 @@ namespace PV_analysis.Topologys
             };
             math_L = iL.CreateCurrentRipple(curve_Votot, curve_Vg, Math.Sqrt(2) * math_Iorms * ratioCurrentRipple); //FIXME 电感对功率因素角的影响？
             //math_Iorip_rms = ioR.CalcRMS();
-            Graph graph = new Graph();
-            graph.Add(iL, "iL");
-            graph.Draw();
+            //Graph graph = new Graph();
+            //graph.Add(iL, "iL");
+            //graph.Draw();
 
             //		Curve ioR2 = new Curve("Io_Ripple'", "t(ms)", "I(A)");
             //		ioR2.turn(ioR);

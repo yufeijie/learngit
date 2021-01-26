@@ -11,6 +11,12 @@ namespace PV_analysis
         private int size = 0; //方案数
         private ComponentDesignData head = null; //头指针
 
+        /// <summary>
+        /// 是否记录全部设计，若为false则在执行Add方法时同时进行Pareto改进
+        /// 默认为false
+        /// </summary>
+        public bool IsAll { get; set; } = false;
+
         public int Size { get { return size; } }
 
         /// <summary>
@@ -51,23 +57,26 @@ namespace PV_analysis
         /// <param name="configs">配置信息</param>
         public void Add(double powerLoss, double volume, double cost, string[] configs)
         {
-            //Pareto改进
-            ComponentDesignData now = head;
-            while (now != null)
+            if (!IsAll) //若不记录全部设计，则进行Pareto改进
             {
-                //若当前Pareto集合中存在一个点，可以支配新添加的点，则新添加的点不为Pareto最优解
-                if (now.PowerLoss <= powerLoss && now.Volume <= volume && now.Cost <= cost)
+                //Pareto改进
+                ComponentDesignData now = head;
+                while (now != null)
                 {
-                    return;
-                }
+                    //若当前Pareto集合中存在一个点，可以支配新添加的点，则新添加的点不为Pareto最优解
+                    if (now.PowerLoss <= powerLoss && now.Volume <= volume && now.Cost <= cost)
+                    {
+                        return;
+                    }
 
-                //若新添加的点支配集合中存在的点，则将被支配的点剔除
-                if (now.PowerLoss >= powerLoss && now.Volume >= volume && now.Cost >= cost)
-                {
-                    Delete(now);
-                }
+                    //若新添加的点支配集合中存在的点，则将被支配的点剔除
+                    if (now.PowerLoss >= powerLoss && now.Volume >= volume && now.Cost >= cost)
+                    {
+                        Delete(now);
+                    }
 
-                now = now.Next;
+                    now = now.Next;
+                }
             }
 
             //若新添加的点未被支配，则将该点添加进集合中

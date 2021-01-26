@@ -210,10 +210,16 @@ namespace PV_analysis.Components
             if (!Data.SemiconductorList[device].Available) return false;
 
             //验证器件类型是否符合
-            if (!Data.SemiconductorList[device].Category.Equals("IGBT-Module") && !Data.SemiconductorList[device].Category.Equals("SiC-Module")) return false;
+            if (!Data.SemiconductorList[device].Category.Equals("IGBT-Module") &&
+                !Data.SemiconductorList[device].Category.Equals("SiC-Module") &&
+                !Data.SemiconductorList[device].Category.Equals("IGBT"))
+                return false;
 
             //验证器件结构是否符合
-            if (!Data.SemiconductorList[device].Configuration.Equals("Dual") && !Data.SemiconductorList[device].Configuration.Equals("Fourpack")) return false;
+            if (!Data.SemiconductorList[device].Configuration.Equals("Dual") &&
+                !Data.SemiconductorList[device].Configuration.Equals("Fourpack") &&
+                !Data.SemiconductorList[device].Configuration.Equals("Single"))
+                return false;
 
             //验证SiC器件的选用是否符合限制条件
             if ((Data.SemiconductorList[device].Category.Equals("SiC-Module")) && (!isSelectSiC || math_fs_max < Configuration.SIC_SELECTION_FREQUENCY)) return false;
@@ -231,6 +237,9 @@ namespace PV_analysis.Components
         {
             switch (Data.SemiconductorList[device].Configuration)
             {
+                case "Single":
+                    semiconductorCost = 4 * Data.SemiconductorList[device].Price;
+                    break;
                 case "Dual":
                     semiconductorCost = 2 * Data.SemiconductorList[device].Price;
                     break;
@@ -250,6 +259,9 @@ namespace PV_analysis.Components
         {
             switch (Data.SemiconductorList[device].Configuration)
             {
+                case "Single":
+                    volume = 4 * Data.SemiconductorList[device].Price;
+                    break;
                 case "Dual":
                     volume = 2 * Data.SemiconductorList[device].Volume;
                     break;
@@ -327,13 +339,16 @@ namespace PV_analysis.Components
 
                     id = Data.SemiconductorList[device].Id_Err;
                     double Err = 0;
-                    for (int k = 0; k < math_NTs; k++)
+                    if(Data.SemiconductorList[device].Category != "IGBT")
                     {
-                        int r = (k + 1) % math_NTs;
-                        if ((math_Tcon_Diode[i, j][k] > 0 && math_Tcon_Diode[i, j][k] < math_Ts && math_Tcon_Diode[i, j][r] < math_Ts) ||
-                           (math_Tcon_Diode[i, j][k] == math_Ts && math_Tcon_Diode[i, j][r] == 0))
+                        for (int k = 0; k < math_NTs; k++)
                         {
-                            Err += math_Vsw / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Math.Abs(math_i[k])) * 1e-3;
+                            int r = (k + 1) % math_NTs;
+                            if ((math_Tcon_Diode[i, j][k] > 0 && math_Tcon_Diode[i, j][k] < math_Ts && math_Tcon_Diode[i, j][r] < math_Ts) ||
+                               (math_Tcon_Diode[i, j][k] == math_Ts && math_Tcon_Diode[i, j][r] == 0))
+                            {
+                                Err += math_Vsw / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Math.Abs(math_i[k])) * 1e-3;
+                            }
                         }
                     }
                     math_Prr[i, j] = Err * math_fg;

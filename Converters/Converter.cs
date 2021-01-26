@@ -260,7 +260,7 @@ namespace PV_analysis.Converters
                     }
                 }
                 //TODO 控制芯片、散热器设计
-                ConverterDesignList newDesignList = new ConverterDesignList();
+                ConverterDesignList newDesignList = new ConverterDesignList() { IsAll = !Configuration.IS_COMPONENT_PARETO};
                 newDesignList.Transfer(designCombinationList, Math_Psys, Number, PhaseNum, i, GetConfigs()); //转化为变换器设计
                 ParetoDesignList.Merge(newDesignList); //记录Pareto最优设计
                 AllDesignList.Merge(newDesignList); //记录所有设计

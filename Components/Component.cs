@@ -25,7 +25,7 @@ namespace PV_analysis.Components
         protected double volume; //单个器件体积(dm^3)
 
         //设计结果
-        protected ComponentDesignList designList = new ComponentDesignList(); //TODO 封装
+        protected ComponentDesignList designList = new ComponentDesignList() { IsAll = !Configuration.IS_COMPONENT_PARETO }; //TODO 封装
 
         /// <summary>
         /// 名称
