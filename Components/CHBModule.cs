@@ -339,7 +339,7 @@ namespace PV_analysis.Components
 
                     id = Data.SemiconductorList[device].Id_Err;
                     double Err = 0;
-                    if(Data.SemiconductorList[device].Category != "IGBT")
+                    if (Data.SemiconductorList[device].Category != "IGBT")
                     {
                         for (int k = 0; k < math_NTs; k++)
                         {
@@ -348,6 +348,20 @@ namespace PV_analysis.Components
                                (math_Tcon_Diode[i, j][k] == math_Ts && math_Tcon_Diode[i, j][r] == 0))
                             {
                                 Err += math_Vsw / Data.CurveList[id].Math_Vsw * Data.CurveList[id].GetValue(Math.Abs(math_i[k])) * 1e-3;
+                            }
+                        }
+                    }
+                    else //仅测试用
+                    {
+                        for (int k = 0; k < math_NTs; k++)
+                        {
+                            int r = (k + 1) % math_NTs;
+                            if ((math_Tcon_Diode[i, j][k] > 0 && math_Tcon_Diode[i, j][k] < math_Ts && math_Tcon_Diode[i, j][r] < math_Ts) ||
+                               (math_Tcon_Diode[i, j][k] == math_Ts && math_Tcon_Diode[i, j][r] == 0))
+                            {
+                                double Irrm = 27 * Math.Abs(math_i[k]) / 40;
+                                double dirr = 70 * 1e6 * Math.Abs(math_i[k]) / 40;
+                                Err += 0.5 * Irrm * (Irrm / dirr) * math_Vsw;
                             }
                         }
                     }
