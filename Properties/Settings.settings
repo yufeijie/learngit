@@ -9,7 +9,7 @@
       <Value Profile="(Default)">0.2</Value>
     </Setting>
     <Setting Name="变压器窗口利用系数" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.4</Value>
+      <Value Profile="(Default)">0.1</Value>
     </Setting>
     <Setting Name="电感最大气隙长度" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -106,6 +106,9 @@
     </Setting>
     <Setting Name="滤波电容并联数" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="谐振电容型号4" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

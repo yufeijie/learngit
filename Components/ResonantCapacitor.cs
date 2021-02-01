@@ -38,6 +38,10 @@ namespace PV_analysis.Components
                 {
                     deviceGroup.Add(GetDeviceId(Properties.Settings.Default.谐振电容型号3));
                 }
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.谐振电容型号4))
+                {
+                    deviceGroup.Add(GetDeviceId(Properties.Settings.Default.谐振电容型号4));
+                }
                 device = deviceGroup.ToArray();
                 seriesConnectedNumber = Properties.Settings.Default.谐振电容串联数;
                 parallelConnectedNumber = Properties.Settings.Default.谐振电容并联数;

@@ -353,17 +353,17 @@ namespace PV_analysis.Components
                     }
                     else //仅测试用
                     {
-                        for (int k = 0; k < math_NTs; k++)
-                        {
-                            int r = (k + 1) % math_NTs;
-                            if ((math_Tcon_Diode[i, j][k] > 0 && math_Tcon_Diode[i, j][k] < math_Ts && math_Tcon_Diode[i, j][r] < math_Ts) ||
-                               (math_Tcon_Diode[i, j][k] == math_Ts && math_Tcon_Diode[i, j][r] == 0))
-                            {
-                                double Irrm = 27 * Math.Abs(math_i[k]) / 40;
-                                double dirr = 70 * 1e6 * Math.Abs(math_i[k]) / 40;
-                                Err += 0.5 * Irrm * (Irrm / dirr) * math_Vsw;
-                            }
-                        }
+                        //for (int k = 0; k < math_NTs; k++)
+                        //{
+                        //    int r = (k + 1) % math_NTs;
+                        //    if ((math_Tcon_Diode[i, j][k] > 0 && math_Tcon_Diode[i, j][k] < math_Ts && math_Tcon_Diode[i, j][r] < math_Ts) ||
+                        //       (math_Tcon_Diode[i, j][k] == math_Ts && math_Tcon_Diode[i, j][r] == 0))
+                        //    {
+                        //        double Irrm = 27 * Math.Abs(math_i[k]) / 40;
+                        //        double dirr = 70 * 1e6 * Math.Abs(math_i[k]) / 40;
+                        //        Err += 0.5 * Irrm * (Irrm / dirr) * math_Vsw;
+                        //    }
+                        //}
                     }
                     math_Prr[i, j] = Err * math_fg;
                     powerLoss += math_PTcon[i, j] + math_Pon[i, j] + math_Poff[i, j] + math_PDcon[i, j] + math_Prr[i, j];

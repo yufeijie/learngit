@@ -272,6 +272,7 @@ namespace PV_analysis
             AddPanel("谐振电容型号1", 5);
             AddPanel("谐振电容型号2", 5);
             AddPanel("谐振电容型号3", 5);
+            AddPanel("谐振电容型号4", 5);
             AddPanel("谐振电容串联数");
             AddPanel("谐振电容并联数");
             foldButton = Create_FoldButton("滤波电容");
@@ -2433,7 +2434,7 @@ namespace PV_analysis
                             Estimate_Step3B_Psys_TextBox.Text = "0.015";
                             Estimate_Step3B_Vin_TextBox.Text = "750";
                             Estimate_Step3B_Vo_Label.Text = "并网电压";
-                            Estimate_Step3B_Vo_TextBox.Text = (0.4 * Math.Sqrt(3)).ToString();
+                            Estimate_Step3B_Vo_TextBox.Text = (0.45 * Math.Sqrt(3)).ToString();
                             Estimate_Step3B_Vo_Unit_Label.Text = "kV";
                             Estimate_Step3B_Mamin_TextBox.Text = "0.7";
                             Estimate_Step3B_Mamax_TextBox.Text = "0.9";

@@ -13,7 +13,7 @@ namespace PV_analysis.Topologys
         private DCACConverter converter; //所属变换器
 
         //可选参数
-        private double ratioCurrentRipple = 0.5; //电流纹波系数
+        private double ratioCurrentRipple = 0.4; //电流纹波系数 并网时是多少？
 
         //给定参数
         private int number; //模块数
@@ -44,6 +44,7 @@ namespace PV_analysis.Topologys
         //元器件
         private CHBModule semiconductor;
         private GridInductor inductor;
+        private ACInductor ACInductor;
 
         /// <summary>
         /// 初始化
@@ -79,7 +80,12 @@ namespace PV_analysis.Topologys
                 VoltageVariable = false,
                 MultiNumber = number
             };
-            
+            ACInductor = new ACInductor(1)
+            {
+                Name = "滤波电感",
+                VoltageVariable = false
+            };
+
             componentGroups = new Component[1][];
             if (Configuration.IS_GRID_CONNECTED_INDUCTOR_DESIGNED)
             {
@@ -88,8 +94,8 @@ namespace PV_analysis.Topologys
             }
             else
             {
-                components = new Component[] { semiconductor };
-                componentGroups[0] = new Component[] { semiconductor };
+                components = new Component[] { semiconductor, ACInductor };
+                componentGroups[0] = new Component[] { semiconductor, ACInductor };
             }
         }
 
@@ -164,27 +170,12 @@ namespace PV_analysis.Topologys
                 curve_Votot.Plus(uc[i, 0]);
                 phi -= Math.PI / number;
             }
-
-            //Point[] data = curve_Votot.GetData();
-            //Console.WriteLine("-----------" + curve_Votot.Name + "_x------------");
-            //for (int i = 0; i < data.Length; i++)
-            //{
-            //    Console.WriteLine(data[i].X);
-            //}
-
-            //Console.WriteLine("-----------" + curve_Votot.Name + "_y------------");
-            //for (int i = 0; i < data.Length; i++)
-            //{
-            //    Console.WriteLine(data[i].Y);
-            //}
-
             //Graph graph = new Graph();
             //graph.Add(curve_Votot, "Vo_tot");
             //curve_Vg.Produce(0, 1 / math_fg);
             //graph.Add(curve_Vg, "Vo");
             //graph.Draw();
 
-            //得到输出电压波形与滤波电感感值
             double Iorms = math_Pfull / (math_Vo * Math.Cos(math_φ));
             iL = new Curve
             {
@@ -192,30 +183,8 @@ namespace PV_analysis.Topologys
                 Amplitude = Math.Sqrt(2) * Iorms,
                 Frequency = math_fg,
                 InitialAngle = 0
-            };
-            math_L = iL.CreateCurrentRipple(curve_Votot, curve_Vg, Math.Sqrt(2) * math_Iorms * ratioCurrentRipple); //FIXME 电感对功率因素角的影响？
-            //math_Iorip_rms = ioR.CalcRMS();
-            //Graph graph = new Graph();
-            //graph.Add(iL, "iL");
-            //graph.Draw();
-
-            //		Curve ioR2 = new Curve("Io_Ripple'", "t(ms)", "I(A)");
-            //		ioR2.turn(ioR);
-            //		GraphXY graphWaveform2 = new GraphXY("Waveform2");
-            //		graphWaveform2.addData(ioR);
-            //		graphWaveform2.addData(ioR2);
-            //		graphWaveform2.drawX(ioR.getXLabel(), ioR.getYLabel(), "n="+this.number);
-            //		
-            //		Curve io1 = new Curve("Io_1", "t(ms)", "I(A)");
-            //		io1.createSine(Math.sqrt(2)*this.currentOutputRMS, this.frequencyGrid, -this.anglePowerFactor);
-            //		io1.produce(0, 1/this.frequencyGrid);
-            //		Curve io = new Curve("Io", "t(ms)", "I(A)");
-            //		io.accumulate(io1, ioR2);
-            //		
-            //		GraphXY graphWaveform3 = new GraphXY("Waveform3");
-            //		graphWaveform3.addData(io1);
-            //		graphWaveform3.addData(io);
-            //		graphWaveform3.drawX(io1.getXLabel(), io1.getYLabel(), "n="+this.number);
+            }; //TODO 修正函数调用
+            math_L = iL.CalcGridInductance(curve_Votot, curve_Vg, Math.Sqrt(2) * Iorms * ratioCurrentRipple);
 
             //生成每个开关器件的波形
             //计算开通时间
@@ -304,6 +273,38 @@ namespace PV_analysis.Topologys
         {
             //还原输出电流波形
             math_Iorms = math_P / (math_Vo * Math.Cos(math_φ));
+
+            iL = new Curve
+            {
+                Category = "Sine",
+                Amplitude = Math.Sqrt(2) * math_Iorms,
+                Frequency = math_fg,
+                InitialAngle = 0
+            };
+            iL.CreateCurrentRipple(curve_Votot, curve_Vg, math_L); //FIXME 电感对功率因素角的影响？
+            //math_Iorip_rms = ioR.CalcRMS();
+            Graph graph = new Graph();
+            graph.Add(iL, "iL");
+            graph.Draw();
+
+            //		Curve ioR2 = new Curve("Io_Ripple'", "t(ms)", "I(A)");
+            //		ioR2.turn(ioR);
+            //		GraphXY graphWaveform2 = new GraphXY("Waveform2");
+            //		graphWaveform2.addData(ioR);
+            //		graphWaveform2.addData(ioR2);
+            //		graphWaveform2.drawX(ioR.getXLabel(), ioR.getYLabel(), "n="+this.number);
+            //		
+            //		Curve io1 = new Curve("Io_1", "t(ms)", "I(A)");
+            //		io1.createSine(Math.sqrt(2)*this.currentOutputRMS, this.frequencyGrid, -this.anglePowerFactor);
+            //		io1.produce(0, 1/this.frequencyGrid);
+            //		Curve io = new Curve("Io", "t(ms)", "I(A)");
+            //		io.accumulate(io1, ioR2);
+            //		
+            //		GraphXY graphWaveform3 = new GraphXY("Waveform3");
+            //		graphWaveform3.addData(io1);
+            //		graphWaveform3.addData(io);
+            //		graphWaveform3.drawX(io1.getXLabel(), io1.getYLabel(), "n="+this.number);
+
             curve_iS = new double[math_Mf];
             for (int k = 0; k < math_Mf; k++)
             {
@@ -318,6 +319,7 @@ namespace PV_analysis.Topologys
         {
             //计算电路参数
             DesignCircuitParam();
+            double ILmmax = 0;
             semiconductor.SetConstants(math_fg, math_VSmax, math_Mf, math_Ton_igbt, math_Ton_diode);
 
             int n = Configuration.powerRatio.Length;
@@ -332,15 +334,18 @@ namespace PV_analysis.Topologys
                 //graph.Draw();
 
                 //设置元器件的电路参数（用于评估）
+                double ILm = iL.Max();
+                ILmmax = Math.Max(ILmmax, ILm);
                 semiconductor.AddEvalParameters(0, j, curve_iS);
-                inductor.AddEvalParameters(0, j ,math_Iorms);
+                inductor.AddEvalParameters(0, j, math_Iorms);
+                ACInductor.AddEvalParameters(0, j, math_Iorms, ILm * 2);
             }
 
             //设置元器件的设计条件
             double voltageStressSwitch = math_Vin;
-            double currentOutputPeak = iL.Max();
-            semiconductor.SetConditions(voltageStressSwitch, currentOutputPeak, math_fs);
-            inductor.SetConditions(math_L, currentOutputPeak, math_fg);
+            semiconductor.SetConditions(voltageStressSwitch, ILmmax, math_fs);
+            inductor.SetConditions(math_L, ILmmax, math_fg);
+            ACInductor.SetConditions(math_L, ILmmax, math_fs);
         }
 
         /// <summary>
@@ -351,8 +356,10 @@ namespace PV_analysis.Topologys
             math_P = converter.Math_P;
             Simulate();
             //设置元器件的电路参数
+            double ILm = iL.Max();
             semiconductor.SetParameters(curve_iS);
             inductor.SetParameters(math_Iorms);
+            ACInductor.SetParameters(math_Iorms, ILm * 2, math_fs);
         }
 
         /// <summary>

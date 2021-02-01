@@ -217,7 +217,7 @@ namespace PV_analysis.Converters
                 }
 
                 //组合并记录
-                ComponentDesignList designCombinationList = new ComponentDesignList();
+                ComponentDesignList designCombinationList = new ComponentDesignList() { IsAll = !Configuration.IS_COMPONENT_PARETO };
                 foreach (Component component in components) //组合各个器件的设计方案
                 {
                     if (component.GetType().BaseType.Name.Equals("Semiconductor"))

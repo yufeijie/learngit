@@ -239,16 +239,16 @@ namespace PV_analysis
         }
 
         /// <summary>
-        /// 根据实际输出电压波形和理想输出电压波形得到电感电流与滤波电感感值
+        /// 根据并网实际输出电压波形、理想输出电压波形、电流纹波最大值得到并网滤波电感感值
         /// </summary>
         /// <param name="g1">实际输出电压波形</param>
         /// <param name="g2">理想输出电压波形</param>
-        /// <param name="currentRippleMax">电流纹波上限</param>
+        /// <param name="currentRippleMax">电流纹波最大值</param>
         /// <returns>感值</returns>
-        public double CreateCurrentRipple(Curve g1, Curve g2, double currentRippleMax)
+        public double CalcGridInductance(Curve g1, Curve g2, double currentRippleMax)
         {
             Point l = g1.Head;
-            double inductance = 0;
+            double math_L = 0;
             while (l != null)
             {
                 Point r = l.Next;
@@ -259,44 +259,57 @@ namespace PV_analysis
                 double x = MySolve(g2, l.X, r.X, l.Y);
                 if (double.IsNaN(x) || Function.EQ(x, l.X) || Function.EQ(x, r.X))
                 {
-                    inductance = Math.Max(inductance, Math.Abs(l.Y - g2.GetValue((l.X + r.X) / 2)) * (r.X - l.X) / currentRippleMax);
+                    math_L = Math.Max(math_L, Math.Abs(l.Y - g2.GetValue((l.X + r.X) / 2)) * (r.X - l.X) / currentRippleMax);
                 }
                 else
                 {
-                    inductance = Math.Max(inductance, Math.Abs(l.Y - g2.GetValue((l.X + x) / 2)) * (x - l.X) / currentRippleMax);
-                    inductance = Math.Max(inductance, Math.Abs(r.Y - g2.GetValue((x + r.X) / 2)) * (r.X - x) / currentRippleMax);
+                    math_L = Math.Max(math_L, Math.Abs(l.Y - g2.GetValue((l.X + x) / 2)) * (x - l.X) / currentRippleMax);
+                    math_L = Math.Max(math_L, Math.Abs(r.Y - g2.GetValue((x + r.X) / 2)) * (r.X - x) / currentRippleMax);
                 }
                 l = r.Next;
             }
+            return math_L;
+        }
 
-            l = g1.Head;
 
+        /// <summary>
+        /// 根据实际输出电压波形和理想输出电压波形得到电感电流与滤波电感感值
+        /// </summary>
+        /// <param name="g1">实际输出电压波形</param>
+        /// <param name="g2">理想输出电压波形</param>
+        /// <param name="currentRippleMax">电流纹波上限</param>
+        /// <returns>感值</returns>
+        public void CreateCurrentRipple(Curve g1, Curve g2, double math_L)
+        {
+            //g1为实际输出波形，阶梯波
+            //g2为理想输出波形，正弦波
+            //this为理想输出电流，正弦波
+            //通过g1和g2的差值以及电感值计算纹波，叠加在正弦波上
+            Point l = g1.Head;
             double c = 0;
             Add(l.X, c + GetValue(l.X));
             while (l != null)
             {
-                Point r = l.Next;
-                double x = MySolve(g2, l.X, r.X, l.Y);
+                Point r = l.Next; //l和r分别为一个阶梯的左端点和右端点
+                double x = MySolve(g2, l.X, r.X, l.Y); //计算阶梯波和正弦波交点的横坐标
                 if (double.IsNaN(x) || Function.EQ(x, l.X) || Function.EQ(x, r.X))
-                {
-                    double dc = (l.Y - g2.GetValue((l.X + r.X) / 2)) * (r.X - l.X) / inductance;
+                {//若无交点或交点正好在端点上，则只有上升或下降的纹波
+                    double dc = (l.Y - g2.GetValue((l.X + r.X) / 2)) * (r.X - l.X) / math_L;
                     c += dc;
-                    Add(r.X, c + GetValue(r.X));
+                    Add(r.X, c + GetValue(r.X)); //TODO纹波过大，电流不能过0
                 }
                 else
-                {
-                    double dc = (l.Y - g2.GetValue((l.X + x) / 2)) * (x - l.X) / inductance;
+                {//否则，同时有上升和下降纹波
+                    double dc = (l.Y - g2.GetValue((l.X + x) / 2)) * (x - l.X) / math_L;
                     c += dc;
                     Add(x, c + GetValue(x));
-                    dc = (r.Y - g2.GetValue((x + r.X) / 2)) * (r.X - x) / inductance;
+                    dc = (r.Y - g2.GetValue((x + r.X) / 2)) * (r.X - x) / math_L;
                     c += dc;
                     Add(r.X, c + GetValue(r.X));
                 }
                 l = r.Next;
             }
-
-            return inductance;
-        }           
+        }
 
         /// <summary>
         /// 获取特殊曲线数值

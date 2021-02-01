@@ -1,6 +1,4 @@
-﻿using PV_analysis.Converters;
-
-namespace PV_analysis
+﻿namespace PV_analysis
 {
     /// <summary>
     /// 器件设计方案集合
@@ -102,7 +100,7 @@ namespace PV_analysis
             }
             else
             {
-                ComponentDesignList newList = new ComponentDesignList();
+                ComponentDesignList newList = new ComponentDesignList() { IsAll = IsAll };
                 ComponentDesignData p = head;
                 while (p != null)
                 {
