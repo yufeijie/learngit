@@ -271,7 +271,6 @@ namespace PV_analysis
             return math_L;
         }
 
-
         /// <summary>
         /// 根据实际输出电压波形和理想输出电压波形得到电感电流与滤波电感感值
         /// </summary>

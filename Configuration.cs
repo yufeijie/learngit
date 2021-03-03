@@ -12,11 +12,11 @@ namespace PV_analysis
 		public static string effciencyText = "效率"; //效率提示文字，在中国效率评估下为“中国效率”
 
 		//评估过程
-		//评估参数
+		//评估参数（满载）
 		public static double[] voltageRatio = { 1 }; //输入电压变化系数
 		public static double[] powerRatio = { 1 }; //功率点
 		public static double[] powerWeight = { 1 }; //权重
-		//中国效率
+		//评估参数（中国效率）
 		public static readonly double[] CGC_VOLTAGE_RATIO = { 0, 0.3, 0.5, 0.7, 1.0 }; //输入电压变化系数
 		public static readonly double[] CGC_POWER_RATIO = { 0.05, 0.10, 0.20, 0.30, 0.50, 0.75, 1.00 }; //功率点
 		public static readonly double[] CGC_POWER_WEIGHT = { 0.02, 0.03, 0.06, 0.12, 0.25, 0.37, 0.15 }; //权重
@@ -26,11 +26,11 @@ namespace PV_analysis
 		public const double ERROR = 1e-12; //最小计算误差，小于该值则认为为0
 		public const double ERROR_BIG = 1e-8; //最小计算误差（数字较大），小于该值则认为为0
 		//可选参数
-        public static readonly bool IS_RESONANT_INDUCTOR_INTEGRATED = false; //是否认为谐振电感集成在变压器中
-		public static readonly bool IS_GRID_CONNECTED_INDUCTOR_DESIGNED = false; //是否设计并网电抗器
-		public static readonly bool IS_COMPONENT_PARETO = false; //元器件设计时是否Pareto优化
+        public static readonly bool IS_RESONANT_INDUCTOR_INTEGRATED = false; //是否认为谐振电感集成在变压器中（默认：true）
+		public static readonly bool IS_GRID_CONNECTED_INDUCTOR_DESIGNED = true; //是否设计并网电抗器（默认：true）
+		public static readonly bool IS_COMPONENT_PARETO = true; //元器件设计时是否Pareto优化（默认：true）
 		//开关器件设计
-		public static readonly bool CAN_SELECT_SIC = true; //是否选用SiC器件
+		public static readonly bool CAN_SELECT_SIC = true; //是否选用SiC器件（默认：true）
 		public const int MAX_SEMICONDUCTOR_NUM = 10; //开关器件并联数上限
 		public const double IGBT_DEAD_TIME = 1e-6; //IGBT死区时间1us
 		public const double MOSFET_DEAD_TIME = 200e-9; //MOS死区时间200ns
@@ -52,19 +52,19 @@ namespace PV_analysis
 		public const double DSP_PRICE = 157.296; //型号：TMS320F28335PGFA TI 100 Mouser FIXM
 		//限制条件
 		//开关器件限制条件
-		public static readonly bool CAN_CHECK_SEMICONDUCTOR_EXCESS = true; //是否检查开关器件过剩容量
+		public static readonly bool CAN_CHECK_SEMICONDUCTOR_EXCESS = true; //是否检查开关器件过剩容量（默认：true）
 		public const double SEMICONDUCTOR_VOLTAGE_EXCESS_RATIO = 1; //电压允许过剩比例
 		public const double SEMICONDUCTOR_CURRENT_EXCESS_RATIO = 3; //电流允许过剩比例
 		//磁性元件限制条件
-		public static readonly bool CAN_CHECK_CORE_EXCESS = true; //是否检查磁芯面积积过剩容量
+		public static readonly bool CAN_CHECK_CORE_EXCESS = true; //是否检查磁芯面积积过剩容量（默认：true）
 		public const double INDUCTOR_AREA_PRODUCT_EXCESS_RATIO = 4; //电感面积积允许过剩比例
 		public const double TRANSFORMER_AREA_PRODUCT_EXCESS_RATIO = 9; //变压器面积积允许过剩比例
-		public static readonly bool CAN_OPTIMIZE_WIRE = true; //是否优化绕线
+		public static readonly bool CAN_OPTIMIZE_WIRE = true; //是否优化绕线（默认：true）
 		//电容限制条件
-		public static readonly bool CAN_CHECK_CAPACITOR_EXCESS = false; //是否检查电容过剩容量
+		public static readonly bool CAN_CHECK_CAPACITOR_EXCESS = false; //是否检查电容过剩容量（默认：false）
 		public const double CAPACITOR_VOLTAGE_EXCESS_RATIO = 1; //电压允许过剩比例
 		public const double CAPACITOR_CURRENT_EXCESS_RATIO = 3; //电流允许过剩比例
-		public static readonly bool CAN_OPTIMIZE_RESONANT_CAPACITOR = false; //是否优化谐振电容
+		public static readonly bool CAN_OPTIMIZE_RESONANT_CAPACITOR = false; //是否优化谐振电容（默认：false）
 
 		//评估结果限制
 		public const double MIN_EFFICIENCY = 0; //最低效率
@@ -72,7 +72,7 @@ namespace PV_analysis
 		public const double MAX_VOLUME = 1e9; //最大体积(dm^3)
 
 		//界面显示
-		public static readonly bool CAN_PRINT_DEBUG = true; //是否打印Debug信息
+		public static readonly bool CAN_PRINT_DEBUG = true; //是否打印Debug信息（默认：true）
 		public const short PRINT_LEVEL = 4; //允许打印的详细信息等级
 		public static readonly System.Drawing.Color COLOR_ACTIVE = System.Drawing.SystemColors.ControlDarkDark; //左侧边栏按钮，当前选中颜色
 		public static readonly System.Drawing.Color COLOR_INACTIVE = System.Drawing.SystemColors.ButtonFace; //左侧边栏按钮，未选中颜色
