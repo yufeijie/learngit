@@ -29,7 +29,8 @@ namespace PV_analysis.Topologys
         private double math_Ma; //幅度调制比
         private int math_Mf; //频率调制比
         private double math_VSmax; //开关器件电压
-        private double math_L = 40 * 1e-3; //感值
+        private double math_L_grid = 40 * 1e-3; //感值（中压并网）
+        private double math_L; //感值
         private double math_Iorms; //输出电流基波有效值
         //private double math_Iorip_rms; //输出电流纹波有效值
         private double[] curve_iS; //开关器件电流波形
@@ -43,7 +44,7 @@ namespace PV_analysis.Topologys
 
         //元器件
         private CHBModule semiconductor;
-        private GridInductor inductor;
+        private GridInductor GridInductor;
         private ACInductor ACInductor;
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace PV_analysis.Topologys
                 VoltageVariable = false,
                 MultiNumber = number
             };
-            inductor = new GridInductor(1)
+            GridInductor = new GridInductor(1)
             {
                 Name = "并网滤波电感",
                 VoltageVariable = false,
@@ -89,8 +90,8 @@ namespace PV_analysis.Topologys
             componentGroups = new Component[1][];
             if (Configuration.IS_GRID_CONNECTED_INDUCTOR_DESIGNED)
             {
-                components = new Component[] { semiconductor, inductor };
-                componentGroups[0] = new Component[] { semiconductor, inductor };
+                components = new Component[] { semiconductor, GridInductor };
+                componentGroups[0] = new Component[] { semiconductor, GridInductor };
             }
             else
             {
@@ -335,16 +336,16 @@ namespace PV_analysis.Topologys
 
                 //设置元器件的电路参数（用于评估）
                 double ILm = iL.Max();
-                ILmmax = Math.Max(ILmmax, ILm);
+                ILmmax = Math.Max(ILmmax, ILm); //TODO 对中压并网情况下的修正
                 semiconductor.AddEvalParameters(0, j, curve_iS);
-                inductor.AddEvalParameters(0, j, math_Iorms);
+                GridInductor.AddEvalParameters(0, j, math_Iorms);
                 ACInductor.AddEvalParameters(0, j, math_Iorms, ILm * 2);
             }
 
             //设置元器件的设计条件
             double voltageStressSwitch = math_Vin;
             semiconductor.SetConditions(voltageStressSwitch, ILmmax, math_fs);
-            inductor.SetConditions(math_L, ILmmax, math_fg);
+            GridInductor.SetConditions(math_L_grid, ILmmax, math_fg);
             ACInductor.SetConditions(math_L, ILmmax, math_fs);
         }
 
@@ -358,7 +359,7 @@ namespace PV_analysis.Topologys
             //设置元器件的电路参数
             double ILm = iL.Max();
             semiconductor.SetParameters(curve_iS);
-            inductor.SetParameters(math_Iorms);
+            GridInductor.SetParameters(math_Iorms);
             ACInductor.SetParameters(math_Iorms, ILm * 2, math_fs);
         }
 

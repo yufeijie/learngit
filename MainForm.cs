@@ -863,11 +863,24 @@ namespace PV_analysis
                         break;
                 }
             }
-            PrintMsg("开始评估！");
 
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+
+            PrintMsg("开始评估！");
             evaluationEquipment.Optimize(this, 0, 100);
             Estimate_Result_ProgressBar_Set(100);
             PrintMsg("完成评估！");
+
+            stopwatch.Stop();
+            TimeSpan runTimeSpan = stopwatch.Elapsed;
+            string runTimeString = "运行时间：";
+            runTimeString += runTimeSpan.Days > 0 ? runTimeSpan.Days.ToString() + "天" : "";
+            runTimeString += runTimeSpan.Hours > 0 ? runTimeSpan.Hours.ToString() + "小时" : "";
+            runTimeString += runTimeSpan.Minutes > 0 ? runTimeSpan.Minutes.ToString() + "分钟" : "";
+            runTimeString += runTimeSpan.Seconds > 0 ? runTimeSpan.Seconds.ToString() + "秒" : "";
+            runTimeString += runTimeSpan.Milliseconds > 0 ? runTimeSpan.Milliseconds.ToString() + "毫秒" : "";
+            PrintMsg(runTimeString);
 
             BeginInvoke(new EventHandler(delegate
             {

@@ -26,7 +26,7 @@ namespace PV_analysis
 		public const double ERROR = 1e-12; //最小计算误差，小于该值则认为为0
 		public const double ERROR_BIG = 1e-8; //最小计算误差（数字较大），小于该值则认为为0
 		//可选参数
-        public static readonly bool IS_RESONANT_INDUCTOR_INTEGRATED = false; //是否认为谐振电感集成在变压器中（默认：true）
+        public static readonly bool IS_RESONANT_INDUCTOR_INTEGRATED = true; //是否认为谐振电感集成在变压器中（默认：true）
 		public static readonly bool IS_GRID_CONNECTED_INDUCTOR_DESIGNED = true; //是否设计并网电抗器（默认：true）
 		public static readonly bool IS_COMPONENT_PARETO = true; //元器件设计时是否Pareto优化（默认：true）
 		//开关器件设计
