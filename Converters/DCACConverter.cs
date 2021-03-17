@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 namespace PV_analysis.Converters
 {
+    /// <summary>
+    /// 逆变器
+    /// </summary>
     internal class DCACConverter : Converter
     {
         /// <summary>

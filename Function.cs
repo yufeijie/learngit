@@ -4,6 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace PV_analysis
 {
+    /// <summary>
+    /// 通用方法库
+    /// </summary>
     internal static class Function
     {
         /// <summary>

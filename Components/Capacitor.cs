@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace PV_analysis.Components
 {
+    /// <summary>
+    /// 电容抽象类
+    /// </summary>
     internal abstract class Capacitor : Component
     {
         //器件参数

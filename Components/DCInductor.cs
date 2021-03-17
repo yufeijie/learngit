@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace PV_analysis.Components
 {
     /// <summary>
-    /// 直流开气隙电感器设计-参考《变压器与电感器设计手册》
+    /// 直流开气隙电感器，参考《变压器与电感器设计手册》
     /// </summary>
     internal class DCInductor : Magnetics
     {

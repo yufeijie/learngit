@@ -5,7 +5,7 @@ using System;
 namespace PV_analysis.Topologys
 {
     /// <summary>
-    /// 三电平Boost拓扑
+    /// 交错并联Boost拓扑
     /// </summary>
     internal class InterleavedBoost : Topology
     {

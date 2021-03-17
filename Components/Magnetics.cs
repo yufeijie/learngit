@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace PV_analysis.Components
 {
+    /// <summary>
+    /// 磁性元件抽象类
+    /// </summary>
     internal abstract class Magnetics : Component
     {
         //常量

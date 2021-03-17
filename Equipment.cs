@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace PV_analysis
 {
     /// <summary>
-    /// 装置类，用于抽象架构和变换单元共有的方法和属性
+    /// 装置抽象类，用于抽象架构和变换单元共有的方法和属性
     /// </summary>
     internal abstract class Equipment
     {

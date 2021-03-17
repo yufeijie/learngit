@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace PV_analysis.Structures
 {
+    /// <summary>
+    /// 架构抽象类，描述架构共有的方法和属性
+    /// </summary>
     internal abstract class Structure : Equipment
     {
         /// <summary>

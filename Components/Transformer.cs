@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace PV_analysis.Components
 {
+    /// <summary>
+    /// 变压器
+    /// </summary>
     internal class Transformer : Magnetics
     {
         //器件参数

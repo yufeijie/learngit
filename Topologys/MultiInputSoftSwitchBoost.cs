@@ -3,6 +3,9 @@
 
 namespace PV_analysis.Topologys
 {
+	/// <summary>
+	/// 多输入软开关Boost拓扑
+	/// </summary>
     internal class MultiInputSoftSwitchBoost : Topology
     {
 		//基本电路参数

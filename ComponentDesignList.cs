@@ -1,7 +1,7 @@
 ﻿namespace PV_analysis
 {
     /// <summary>
-    /// 器件设计方案集合
+    /// 数据类型-器件设计方案集合
     /// </summary>
     internal class ComponentDesignList
     {

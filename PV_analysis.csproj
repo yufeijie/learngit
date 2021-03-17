@@ -76,7 +76,8 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MWArray, Version=2.20.0.0, Culture=neutral, PublicKeyToken=e1d84a0da19db86f" />
-    <Reference Include="myMATLAB">
+    <Reference Include="myMATLAB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>MATLAB\myMATLAB.dll</HintPath>
     </Reference>
     <Reference Include="NPOI, Version=2.5.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace PV_analysis.Components
 {
     /// <summary>
-    /// 交流开气隙电感器设计（无直流分量）-参考李静航SRC设计以及赵修科的《开关电源中磁性元器件》
+    /// 交流开气隙电感器，设计（无直流分量）-参考李静航SRC设计以及赵修科的《开关电源中磁性元器件》
     /// </summary>
     internal class ACInductor : Magnetics
     {

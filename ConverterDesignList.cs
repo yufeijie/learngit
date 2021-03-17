@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace PV_analysis
 {
     /// <summary>
-    /// 变换器设计方案集合
+    /// 数据类型-变换器设计方案集合
     /// </summary>
     internal class ConverterDesignList
     {

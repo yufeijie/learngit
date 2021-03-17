@@ -22,14 +22,17 @@ namespace PV_analysis
     /// </summary>
     internal partial class MainForm : Form
     {
+        /// <summary>
+        /// 标识控件的数据对象
+        /// </summary>
         public enum ControlType
         {
-            Title,
-            Text,
-            Semiconductor,
-            Core,
-            Wire,
-            Capacitor
+            Title, //标题
+            Text, //纯数据
+            Semiconductor, //开关器件型号
+            Core, //磁芯型号
+            Wire, //绕线型号
+            Capacitor //电容型号
         }
 
         //页面切换、侧边栏
@@ -58,9 +61,12 @@ namespace PV_analysis
         private Equipment selectedEquipment; //展示图像中选中的装置
         private List<Equipment> contrastEquipmentList; //当前对比的装置
 
+        /// <summary>
+        /// 初始化窗体
+        /// </summary>
         public MainForm()
         {
-            InitializeComponent();
+            InitializeComponent(); //调用VS自动生成的控件初始化代码
 
             //初始化侧边栏
             panelNow[0] = Home_Panel;
@@ -74,8 +80,9 @@ namespace PV_analysis
             //初始化设置页面
             List<Control> controlList = new List<Control>();
             FoldButton foldButton;
-            void AddPanel(string name, short category = 0, string unit = null)
+            void AddPanel(string name, short category = 0, string unit = null) //以一定格式生成每一条设置项
             {
+                //每条设置项放在单独的Panel
                 Panel panel = new Panel
                 {
                     Dock = DockStyle.Top,
@@ -83,6 +90,7 @@ namespace PV_analysis
                     Size = new System.Drawing.Size(1430, 45)
                 };
 
+                //生成设置项的标题
                 Label label = new Label
                 {
                     AutoSize = true,
@@ -94,9 +102,10 @@ namespace PV_analysis
                 };
                 panel.Controls.Add(label);
 
+                //根据设置项的类型生成输入部分
                 switch (category)
                 {
-                    case 0:
+                    case 0: //纯数据
                         TextBox textBox = new TextBox
                         {
                             Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
@@ -107,7 +116,7 @@ namespace PV_analysis
                         textBox.DataBindings.Add(new Binding("Text", Properties.Settings.Default, name));
                         panel.Controls.Add(textBox);
                         break;
-                    case 1:
+                    case 1: //切换中国效率评估/满载评估
                         CheckBox checkBox = new CheckBox
                         {
                             Location = new System.Drawing.Point(380, 12),
@@ -119,7 +128,7 @@ namespace PV_analysis
                         }
                         panel.Controls.Add(checkBox);
                         break;
-                    case 2:
+                    case 2: //开关器件型号
                         ComboBox comboBox = new ComboBox
                         {
                             DropDownStyle = ComboBoxStyle.DropDownList,
@@ -135,7 +144,7 @@ namespace PV_analysis
                         comboBox.DataBindings.Add(new Binding("SelectedItem", Properties.Settings.Default, name));
                         panel.Controls.Add(comboBox);
                         break;
-                    case 3:
+                    case 3: //磁芯型号
                         comboBox = new ComboBox
                         {
                             DropDownStyle = ComboBoxStyle.DropDownList,
@@ -151,7 +160,7 @@ namespace PV_analysis
                         comboBox.DataBindings.Add(new Binding("SelectedItem", Properties.Settings.Default, name));
                         panel.Controls.Add(comboBox);
                         break;
-                    case 4:
+                    case 4: //绕线型号
                         comboBox = new ComboBox
                         {
                             DropDownStyle = ComboBoxStyle.DropDownList,
@@ -167,7 +176,7 @@ namespace PV_analysis
                         comboBox.DataBindings.Add(new Binding("SelectedItem", Properties.Settings.Default, name));
                         panel.Controls.Add(comboBox);
                         break;
-                    case 5:
+                    case 5: //电容型号
                         comboBox = new ComboBox
                         {
                             DropDownStyle = ComboBoxStyle.DropDownList,
@@ -187,6 +196,7 @@ namespace PV_analysis
                         break;
                 }
 
+                //生成单位（如果有）
                 if (!string.IsNullOrEmpty(unit))
                 {
                     Label unitLabel = new Label
@@ -228,6 +238,7 @@ namespace PV_analysis
                 }
             }
 
+            //生成设置页面的控件
             SetEvaluationMode(Properties.Settings.Default.满载评估);
             foldButton = Create_FoldButton("整体");
             controlList.Add(foldButton);
@@ -282,6 +293,7 @@ namespace PV_analysis
             AddPanel("滤波电容串联数");
             AddPanel("滤波电容并联数");
 
+            //逆序添加，正序显示
             for (int i = controlList.Count - 1; i >= 0; i--)
             {
                 Setting_Main_Panel.Controls.Add(controlList[i]);
@@ -1026,7 +1038,7 @@ namespace PV_analysis
         }
 
         /// <summary>
-        /// 展示页面_向图像添加数据
+        /// 展示页面_向图像添加数据（绘制点和Pareto前沿）
         /// </summary>
         private void Display_Show_Add(IConverterDesignData[] data)
         {
@@ -1887,13 +1899,13 @@ namespace PV_analysis
 
         private void Estimate_Ready_System_button_Click(object sender, EventArgs e)
         {
-            isStructureEvaluation = true;
+            isStructureEvaluation = true; //记录评估对象
             ChangePanel(2, Estimate_Step1_Panel);
         }
 
         private void Estimate_Ready_Converter_button_Click(object sender, EventArgs e)
         {
-            isStructureEvaluation = false;
+            isStructureEvaluation = false; //记录评估对象
             ChangePanel(2, Estimate_Step1B_Panel);
         }
 
@@ -1903,7 +1915,7 @@ namespace PV_analysis
         }
 
         private void Estimate_Step1_Next_Button_Click(object sender, EventArgs e)
-        {
+        {            
             if (Estimate_Step1_CheckedListBox.CheckedItems.Count <= 0)
             {
                 MessageBox.Show("请选择一项");
@@ -1914,7 +1926,9 @@ namespace PV_analysis
             }
             else
             {
+                //记录选取的架构
                 evaluationEquipmentName = Estimate_Step1_CheckedListBox.GetItemText(Estimate_Step1_CheckedListBox.CheckedItems[0]);
+                //改变拓扑的可选状态
                 switch (evaluationEquipmentName)
                 {
                     case "三级架构":
@@ -2017,7 +2031,9 @@ namespace PV_analysis
             }
             else
             {
+                //记录选取的变换器
                 evaluationEquipmentName = Estimate_Step1B_CheckedListBox.GetItemText(Estimate_Step1B_CheckedListBox.CheckedItems[0]);
+                //改变拓扑的可选状态
                 switch (evaluationEquipmentName)
                 {
                     case "前级DC/DC变换单元_三级":
@@ -2198,6 +2214,7 @@ namespace PV_analysis
 
         private void Estimate_Step2_Next_Button_Click(object sender, EventArgs e)
         {
+            //记录选取的拓扑
             List<string> DCDC_topologyList = new List<string>();
             if (Estimate_Step2_Group1_Item1_Left_CheckBox.Checked)
             {
@@ -2287,6 +2304,7 @@ namespace PV_analysis
                 }
             }
 
+            //改变设计条件及默认值
             if (!Estimate_Ready_Manual_CheckBox.Checked)
             {
                 if (isStructureEvaluation)
@@ -2655,6 +2673,7 @@ namespace PV_analysis
             Estimate_Step4_Wire_FlowLayoutPanel.Controls.Clear();
             Estimate_Step4_Capacitor_FlowLayoutPanel.Controls.Clear();
 
+            //读取数据库，生成备选器件
             //开关器件
             //检查所有厂家
             List<string> manufacturerList = new List<string>();
@@ -2887,6 +2906,16 @@ namespace PV_analysis
             Display_Show_Clear_Button.Enabled = false;
         }
 
+        private void Display_Ready_Load_Button_Click(object sender, EventArgs e)
+        {
+            seriesNameList = new List<string>();
+            displayEquipmentList = new List<Equipment>();
+            contrastEquipmentList = new List<Equipment>();
+            Display_Show_Load();
+            Display_Show_Contrast_Button.Enabled = false;
+            Display_Show_Clear_Button.Enabled = false;
+        }
+
         private void Display_Show_Restart_Button_Click(object sender, EventArgs e)
         {
             ChangePanel(3, Display_Ready_Panel);
@@ -2900,16 +2929,6 @@ namespace PV_analysis
         private void Display_Show_GraphCategory_ToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Display_Show_Draw();
-        }
-
-        private void Display_Ready_Load_Button_Click(object sender, EventArgs e)
-        {
-            seriesNameList = new List<string>();
-            displayEquipmentList = new List<Equipment>();
-            contrastEquipmentList = new List<Equipment>();
-            Display_Show_Load();
-            Display_Show_Contrast_Button.Enabled = false;
-            Display_Show_Clear_Button.Enabled = false;
         }
 
         private void Display_Show_Refresh_ToolStripButton_Click(object sender, EventArgs e)

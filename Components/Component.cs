@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace PV_analysis.Components
 {
     /// <summary>
-    /// 元器件，设计统一
+    /// 元器件抽象类，评估方法统一
     /// </summary>
     internal abstract class Component
     {

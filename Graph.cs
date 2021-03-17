@@ -9,7 +9,7 @@ using static PV_analysis.Curve;
 namespace PV_analysis
 {
     /// <summary>
-    /// 绘图
+    /// 绘图（仅用于测试计算结果波形）
     /// </summary>
     internal class Graph
     {
@@ -25,11 +25,20 @@ namespace PV_analysis
             Anchor = AnchorStyles.None
         };
 
+        /// <summary>
+        /// 添加曲线（已定义曲线名）
+        /// </summary>
+        /// <param name="curve">曲线</param>
         public void Add(Curve curve)
         {
             Add(curve, curve.Name);
         }
 
+        /// <summary>
+        /// 添加曲线
+        /// </summary>
+        /// <param name="curve">曲线</param>
+        /// <param name="name">曲线名</param>
         public void Add(Curve curve, string name)
         {
             ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();

@@ -2,6 +2,9 @@
 
 namespace PV_analysis.Components
 {
+    /// <summary>
+    /// 滤波电容
+    /// </summary>
     internal class FilteringCapacitor : Capacitor
     {
         /// <summary>

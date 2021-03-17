@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace PV_analysis.Components
 {
+    /// <summary>
+    /// 开关器件抽象类
+    /// </summary>
     internal abstract class Semiconductor : Component
     {
         //限制条件

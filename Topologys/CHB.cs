@@ -6,7 +6,7 @@ using static PV_analysis.Curve;
 namespace PV_analysis.Topologys
 {
     /// <summary>
-    /// CHB拓扑 PSPWM调制方式
+    /// CHB拓扑
     /// </summary>
     internal class CHB : Topology
     {

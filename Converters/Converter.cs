@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace PV_analysis.Converters
 {
     /// <summary>
-    /// 变换器抽象类，用于描述变换器的共有特征
+    /// 变换器抽象类，描述变换器共有的方法和属性
     /// </summary>
     internal abstract class Converter : Equipment
     {

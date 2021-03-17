@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace PV_analysis.Converters
 {
+    /// <summary>
+    /// 隔离DC/DC变换器
+    /// </summary>
     internal class IsolatedDCDCConverter : Converter
     {
         /// <summary>

@@ -6,6 +6,9 @@ using SingleMOS = PV_analysis.Components.SingleMOS;
 
 namespace PV_analysis.Topologys
 {
+    /// <summary>
+    /// DTC-SRC拓扑
+    /// </summary>
     internal class DTCSRC : Topology
     {
         private IsolatedDCDCConverter converter; //所属变换器

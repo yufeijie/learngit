@@ -1,7 +1,7 @@
 ﻿namespace PV_analysis.Informations
 {
     /// <summary>
-    /// 信息-数据结构
+    /// 数据结构-信息（二维元组，string标题，object内容）
     /// </summary>
     internal class Info
     {

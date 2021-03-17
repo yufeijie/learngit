@@ -4,6 +4,9 @@ using static PV_analysis.ComponentDesignList;
 
 namespace PV_analysis.Components
 {
+    /// <summary>
+    /// 谐振电容
+    /// </summary>
     internal class ResonantCapacitor : Capacitor
     {
         List<int> deviceGroup;

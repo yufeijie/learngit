@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace PV_analysis.Structures
 {
+    /// <summary>
+    /// 两级架构
+    /// </summary>
     internal class TwoLevelStructure : Structure
     {
         /// <summary>

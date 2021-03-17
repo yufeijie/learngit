@@ -5,6 +5,9 @@ using static PV_analysis.Curve;
 
 namespace PV_analysis.Components
 {
+    /// <summary>
+    /// 半桥模块
+    /// </summary>
     internal class DualModule : Semiconductor
     {
         //器件参数
